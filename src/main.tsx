@@ -1,10 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider, useParams } from "react-router-dom";
+import { HomePage } from "./pages/HomePage";
 import PathwayOverviewPage from "./pages/PathwayOverviewPage";
 import TcaOverviewPage from "./pages/TcaOverviewPage";
 import GluconeogenesisOverviewPage from "./pages/GluconeogenesisOverviewPage";
 import PppOverviewPage from "./pages/PppOverviewPage";
+import FaoOverviewPage from "./pages/FaoOverviewPage";
 import StepViewPage from "./pages/StepViewPage";
 import StructureFramesPage from "./pages/StructureFramesPage";
 import "./styles.css";
@@ -18,13 +20,15 @@ function PathwayRoute() {
     <GluconeogenesisOverviewPage />
   ) : pathwayId === "ppp" ? (
     <PppOverviewPage />
+  ) : pathwayId === "fatty-acid-oxidation" ? (
+    <FaoOverviewPage />
   ) : (
     <PathwayOverviewPage />
   );
 }
 
 const router = createBrowserRouter([
-  { path: "/", element: <PathwayOverviewPage /> },
+  { path: "/", element: <HomePage /> },
   { path: "/pathway/:pathwayId", element: <PathwayRoute /> },
   { path: "/step/:stepId", element: <StepViewPage /> },
   { path: "/structures/:pathwayId", element: <StructureFramesPage /> },

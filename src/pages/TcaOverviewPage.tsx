@@ -274,6 +274,8 @@ export default function TcaOverviewPage() {
     <div className="poster">
       {/* ===== 面包屑 ===== */}
       <nav className="crumb" style={{ margin: "14px 28px 0" }}>
+        <Link to="/">首页</Link>
+        {" ／ "}
         <Link to="/pathway/glycolysis">糖酵解</Link>
         {" ／ "}
         <b>三羧酸循环</b>
@@ -281,6 +283,8 @@ export default function TcaOverviewPage() {
         <Link to="/pathway/gluconeogenesis">糖异生</Link>
         {" ／ "}
         <Link to="/pathway/ppp">磷酸戊糖途径</Link>
+        {" ／ "}
+        <Link to="/pathway/fatty-acid-oxidation">β-氧化</Link>
         {selectedStep && (
           <>
             {" ／ 第 "}
@@ -496,7 +500,7 @@ export default function TcaOverviewPage() {
                 <g opacity={0.7}>
                   <text x={46} y={440} fontSize={9.5} opacity={0.8}>← 丙酮酸来自糖酵解（挂图 01）· 经 MPC 入基质</text>
                   <text x={1734} y={724} fontSize={9.5} textAnchor="end">琥珀酰-CoA → 血红素合成（支路）</text>
-                  <text x={1734} y={742} fontSize={9.5} textAnchor="end">NADH / FADH₂ → 呼吸链（挂图 04）</text>
+                  <text x={1734} y={742} fontSize={9.5} textAnchor="end">NADH / FADH₂ → 呼吸链（本版未含）</text>
                 </g>
 
                 {/* ===== 能量账本带（每轮口径） ===== */}

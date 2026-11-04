@@ -241,8 +241,11 @@ for (const spec of [PPP, GN]) {
       return [Math.round(r.x), Math.round(r.y), Math.round(r.width), Math.round(r.height)];
     })
   );
-  check("切换前后底物/产物格子 x/y/w/h 完全不变", rects3d.length === rects2d.length &&
-    rects3d.every((r, i) => r.every((v, k) => v === rects2d[i][k])));
+  const rectDiff = rects3d
+    .map((r, i) => (r.every((v, k) => v === rects2d[i]?.[k]) ? null : `${i}:${r.join(",")}→${rects2d[i]?.join(",") ?? "missing"}`))
+    .filter(Boolean);
+  check("切换前后底物/产物格子 x/y/w/h 完全不变", rects3d.length === rects2d.length && rectDiff.length === 0,
+    rectDiff.slice(0, 6).join(" | "));
   check("每块/每侧都有分子卡片（无空块）", await page.evaluate((ids) =>
     ids.every((id) => {
       const block = document.getElementById(id);
@@ -255,11 +258,14 @@ for (const spec of [PPP, GN]) {
   check("返回行存在", (await page.locator('[data-testid="film-back"]').count()) === 1);
   if (spec === PPP) {
     // 断言随功能变更（2026-11-04）：PPP 挂图页 /pathway/ppp 已接入，返回行进挂图、页脚缺口说明相应改写。
+    // 另：新增全站首页后返回行多一条「首页」文字链接，故按 .film-home 排除后取返回挂图目标。
     check("PPP 返回挂图且页脚写明「挂图页已接入」",
-      (await page.locator('[data-testid="film-back"] a').getAttribute("href")) === "/pathway/ppp" &&
+      (await page.locator('[data-testid="film-back"] a:not(.film-home)').getAttribute("href")) === "/pathway/ppp" &&
         (await page.locator(".poster-foot").innerText()).includes("挂图页已接入"));
+    check("PPP 结构对照页另有首页入口（/）",
+      (await page.locator('[data-testid="film-back"] a.film-home[href="/"]').count()) === 1);
   } else {
-    check("糖异生返回挂图", (await page.locator('[data-testid="film-back"] a').getAttribute("href")) === "/pathway/gluconeogenesis");
+    check("糖异生返回挂图", (await page.locator('[data-testid="film-back"] a:not(.film-home)').getAttribute("href")) === "/pathway/gluconeogenesis");
   }
 }
 

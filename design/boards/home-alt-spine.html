@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>首页总图 · 第二种构图样张：上下两域代谢脊柱</title>
+<style>
+  :root{
+    --paper:#F6F3EC; --ink:#22282A; --amber:#B4761F; --teal:#2E6E6B; --brick:#9C4A3C;
+    --hair:rgba(34,40,42,.55); --hair-soft:rgba(34,40,42,.22); --hair-faint:rgba(34,40,42,.10);
+    --serif:"Noto Serif SC","Source Han Serif SC","Source Han Serif CN","Songti SC",SimSun,serif;
+    --sans:"Noto Sans SC","Source Han Sans SC","Source Han Sans CN","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:13px;line-height:1.7}
+  .wrap{width:1180px;margin:0 auto;padding:26px 28px 40px}
+  .kicker{font-size:11px;letter-spacing:.32em;border-bottom:1.5px solid var(--ink);padding-bottom:8px;
+    display:flex;justify-content:space-between}
+  h1{font-family:var(--serif);font-size:36px;font-weight:600;letter-spacing:.05em;margin:18px 0 6px}
+  .sub{max-width:820px;font-size:12.5px;line-height:1.9;opacity:.85}
+  .board{margin:18px 0 0;border:1px solid var(--hair-soft);background:var(--paper)}
+  .caption{font-size:11px;line-height:1.8;opacity:.65;margin-top:10px}
+  .caption b{font-weight:600;opacity:1}
+  svg{display:block}
+  svg text{font-family:var(--sans);fill:var(--ink)}
+  .serif{font-family:var(--serif)}
+  .halo{paint-order:stroke;stroke:var(--paper);stroke-width:3}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="kicker"><span>全站首页 · 构图样张 C</span><span>STATIC BOARD · 2026.11</span></div>
+  <h1>上下两域 · 代谢脊柱</h1>
+  <p class="sub">与生产版并置的第二种构图：不是横向区室长卷，而是把胞质/ER 放在上域、线粒体基质放在下域，用一条竖直主链穿过膜带；PPP 向左分叉，β-氧化向右出环，糖异生沿主链反向。本页只做构图对照，不接数据、不可点。</p>
+
+  <div class="board">
+    <svg width="1124" height="1460" viewBox="0 0 1124 1460" role="img" aria-label="上下两域代谢脊柱构图样张">
+      <!-- 上域：胞质 -->
+      <rect x="40" y="60" width="1044" height="660" fill="rgba(34,40,42,0.02)"/>
+      <text x="56" y="82" font-size="10.5" letter-spacing=".2em" opacity=".6">细胞质 · CYTOSOL</text>
+      <!-- ER 内嵌 -->
+      <rect x="56" y="592" width="168" height="104" fill="rgba(34,40,42,0.045)"/>
+      <text x="66" y="610" font-size="9.5" letter-spacing=".16em" opacity=".6">ER 腔</text>
+      <text x="66" y="644" font-size="9.5" opacity=".75">G6PC1</text>
+      <text x="66" y="664" font-size="9.5" opacity=".75">葡萄糖 → 出腔</text>
+
+      <!-- 膜带 -->
+      <rect x="40" y="720" width="1044" height="46" fill="rgba(34,40,42,0.07)"/>
+      <line x1="40" y1="720" x2="1084" y2="720" stroke="var(--hair)" stroke-width="1.2"/>
+      <line x1="40" y1="742" x2="1084" y2="742" stroke="var(--hair-soft)" stroke-width="1"/>
+      <line x1="40" y1="766" x2="1084" y2="766" stroke="var(--hair)" stroke-width="1.2"/>
+      <text x="56" y="748" font-size="9.5" letter-spacing=".16em" opacity=".6">膜间腔 / 外膜</text>
+
+      <!-- 下域：基质 -->
+      <rect x="40" y="766" width="1044" height="640" fill="rgba(34,40,42,0.02)"/>
+      <text x="56" y="792" font-size="10.5" letter-spacing=".2em" opacity=".6">线粒体基质 · MITOCHONDRIAL MATRIX</text>
+
+      <!-- 通路标题 -->
+      <text x="232" y="104" font-size="12" letter-spacing=".08em" class="serif">糖酵解 · GLYCOLYSIS</text>
+      <text x="190" y="166" font-size="11" letter-spacing=".06em" fill="var(--teal)">磷酸戊糖途径 · PPP</text>
+      <text x="232" y="126" font-size="9" opacity=".6">↓ 10 步</text>
+      <text x="478" y="738" font-size="9.5" fill="var(--brick)" letter-spacing=".08em">PDH</text>
+      <text x="246" y="838" font-size="11" letter-spacing=".06em" fill="var(--amber)">三羧酸循环 · TCA</text>
+      <text x="770" y="812" font-size="11" letter-spacing=".06em" fill="var(--amber)">β-氧化 · FAO</text>
+
+      <!-- 主链边（糖酵解向下） -->
+      <g stroke="var(--ink)" stroke-width="1.6">
+        <line x1="470" y1="118" x2="470" y2="172"/>
+        <line x1="470" y1="188" x2="470" y2="242"/>
+        <line x1="470" y1="258" x2="470" y2="312"/>
+        <line x1="470" y1="328" x2="470" y2="382"/>
+        <line x1="470" y1="398" x2="470" y2="452"/>
+        <line x1="470" y1="468" x2="470" y2="516"/>
+        <line x1="470" y1="532" x2="470" y2="572"/>
+        <line x1="470" y1="588" x2="470" y2="632"/>
+        <line x1="470" y1="648" x2="470" y2="692"/>
+      </g>
+      <g stroke="var(--ink)" stroke-width="1.4">
+        <path d="M470,708 L470,700 L470,812" fill="none"/>
+      </g>
+      <!-- 主链箭头 -->
+      <g fill="var(--ink)">
+        <path d="M470,177 l-4,-7 l8,0 z"/>
+        <path d="M470,247 l-4,-7 l8,0 z"/>
+        <path d="M470,317 l-4,-7 l8,0 z"/>
+        <path d="M470,387 l-4,-7 l8,0 z"/>
+        <path d="M470,457 l-4,-7 l8,0 z"/>
+        <path d="M470,521 l-4,-7 l8,0 z"/>
+        <path d="M470,577 l-4,-7 l8,0 z"/>
+        <path d="M470,637 l-4,-7 l8,0 z"/>
+        <path d="M470,697 l-4,-7 l8,0 z"/>
+        <path d="M470,817 l-4,-7 l8,0 z"/>
+      </g>
+
+      <!-- 酶名 -->
+      <g font-size="9.5" font-style="italic" opacity=".85">
+        <text x="484" y="150" class="halo">HK</text>
+        <text x="484" y="220" class="halo">PGI</text>
+        <text x="484" y="290" class="halo">PFK-1</text>
+        <text x="484" y="360" class="halo">Aldolase</text>
+        <text x="484" y="430" class="halo">GAPDH</text>
+        <text x="484" y="496" class="halo">PGK</text>
+        <text x="484" y="560" class="halo">PGAM</text>
+        <text x="484" y="615" class="halo">ENO</text>
+        <text x="484" y="675" class="halo">PK</text>
+      </g>
+      <text x="470" y="736" font-size="9.5" fill="var(--brick)" class="halo">PDH</text>
+
+      <!-- 糖异生反向 -->
+      <line x1="446" y1="700" x2="446" y2="120" stroke="var(--ink)" stroke-width="1.1" stroke-dasharray="5 3" opacity=".7"/>
+      <g fill="var(--ink)" opacity=".7">
+        <path d="M446,126 l-4,7 l8,0 z"/>
+      </g>
+      <text x="432" y="300" font-size="9" opacity=".65" transform="rotate(-90 432 300)" text-anchor="middle">糖异生 11 步（逆向）</text>
+
+      <!-- 节点 -->
+      <g>
+        <g><circle cx="470" cy="112" r="11" fill="none" stroke="var(--brick)"/><circle cx="470" cy="112" r="4" fill="var(--ink)"/><text x="486" y="120" font-size="9" fill="var(--brick)">×2</text></g>
+        <g><circle cx="470" cy="180" r="11" fill="none" stroke="var(--brick)"/><circle cx="470" cy="180" r="4" fill="var(--ink)"/><text x="486" y="188" font-size="9" fill="var(--brick)">×3</text></g>
+        <g><circle cx="470" cy="250" r="11" fill="none" stroke="var(--brick)"/><circle cx="470" cy="250" r="4" fill="var(--ink)"/><text x="486" y="258" font-size="9" fill="var(--brick)">×3</text></g>
+        <g><circle cx="470" cy="320" r="11" fill="none" stroke="var(--brick)"/><circle cx="470" cy="320" r="4" fill="var(--ink)"/><text x="486" y="328" font-size="9" fill="var(--brick)">×2</text></g>
+        <g><circle cx="470" cy="390" r="11" fill="none" stroke="var(--brick)"/><circle cx="470" cy="390" r="4" fill="var(--ink)"/><text x="486" y="398" font-size="9" fill="var(--brick)">×3</text></g>
+        <g><circle cx="470" cy="460" r="11" fill="none" stroke="var(--brick)"/><circle cx="470" cy="460" r="4" fill="var(--ink)"/><text x="486" y="468" font-size="9" fill="var(--brick)">×2</text></g>
+        <g><circle cx="470" cy="524" r="11" fill="none" stroke="var(--brick)"/><circle cx="470" cy="524" r="4" fill="var(--ink)"/><text x="486" y="532" font-size="9" fill="var(--brick)">×2</text></g>
+        <g><circle cx="470" cy="580" r="11" fill="none" stroke="var(--brick)"/><circle cx="470" cy="580" r="4" fill="var(--ink)"/><text x="486" y="588" font-size="9" fill="var(--brick)">×2</text></g>
+        <g><circle cx="470" cy="640" r="11" fill="none" stroke="var(--brick)"/><circle cx="470" cy="640" r="4" fill="var(--ink)"/><text x="486" y="648" font-size="9" fill="var(--brick)">×2</text></g>
+        <g><circle cx="470" cy="700" r="11" fill="none" stroke="var(--brick)"/><circle cx="470" cy="700" r="4" fill="var(--ink)"/><text x="486" y="708" font-size="9" fill="var(--brick)">×3</text></g>
+      </g>
+      <g font-size="12" text-anchor="middle">
+        <text x="470" y="96">葡萄糖</text>
+        <text x="470" y="164">G6P</text>
+        <text x="470" y="234">F6P</text>
+        <text x="470" y="304">FBP</text>
+        <text x="470" y="374">G3P</text>
+        <text x="470" y="444">1,3-BPG</text>
+        <text x="470" y="508">3PG</text>
+        <text x="470" y="564">2PG</text>
+        <text x="470" y="624">PEP</text>
+        <text x="470" y="684">丙酮酸</text>
+      </g>
+
+      <!-- PPP 左分支 -->
+      <g stroke="var(--teal)" stroke-width="1.4">
+        <line x1="458" y1="186" x2="404" y2="206"/>
+        <line x1="392" y1="216" x2="344" y2="262"/>
+        <line x1="332" y1="276" x2="286" y2="322"/>
+        <line x1="274" y1="340" x2="250" y2="390"/>
+        <line x1="282" y1="342" x2="322" y2="390"/>
+        <line x1="256" y1="412" x2="276" y2="458"/>
+        <line x1="330" y1="412" x2="344" y2="458"/>
+        <line x1="288" y1="482" x2="330" y2="514"/>
+        <line x1="354" y1="526" x2="432" y2="400"/>
+        <line x1="354" y1="526" x2="432" y2="252"/>
+      </g>
+      <g fill="var(--teal)">
+        <path d="M399,208 l-8,-4 l2,9 z"/>
+        <path d="M339,264 l-8,-3 l2,9 z"/>
+        <path d="M281,324 l-8,-3 l2,9 z"/>
+        <path d="M248,392 l-4,-8 l9,2 z"/>
+        <path d="M324,392 l-4,-8 l9,2 z"/>
+        <path d="M274,460 l-3,-8 l9,2 z"/>
+        <path d="M346,460 l-3,-8 l9,2 z"/>
+        <path d="M332,516 l-6,-7 l9,3 z"/>
+      </g>
+      <g font-size="9.5" fill="var(--teal)" class="halo">
+        <text x="410" y="186">G6PD</text>
+        <text x="348" y="240">内酯酶</text>
+        <text x="292" y="300">6PGD</text>
+        <text x="300" y="372">异构/差向</text>
+        <text x="300" y="490">TK / TA</text>
+      </g>
+      <g font-size="10" text-anchor="middle">
+        <text x="400" y="210">6PGL</text>
+        <text x="338" y="276">6PG</text>
+        <text x="278" y="336">Ru5P</text>
+        <text x="248" y="404">R5P</text>
+        <text x="332" y="404">Xu5P</text>
+        <text x="280" y="474">S7P</text>
+        <text x="352" y="528">E4P</text>
+      </g>
+      <g fill="var(--teal)">
+        <circle cx="404" cy="210" r="3"/><circle cx="342" cy="276" r="3"/><circle cx="282" cy="336" r="3"/>
+        <circle cx="250" cy="404" r="3"/><circle cx="330" cy="404" r="3"/><circle cx="280" cy="474" r="3"/><circle cx="350" cy="528" r="3"/>
+      </g>
+      <text x="360" y="560" font-size="9" fill="var(--teal)" opacity=".8">回流 F6P / G3P</text>
+
+      <!-- 糖异生跨膜回路 -->
+      <g stroke="var(--ink)" stroke-width="1" stroke-dasharray="4 3" opacity=".6">
+        <line x1="470" y1="712" x2="452" y2="1302"/>
+        <line x1="452" y1="1302" x2="458" y2="650"/>
+      </g>
+      <text x="530" y="674" font-size="9" fill="var(--brick)" opacity=".9">MPC / PC</text>
+      <text x="360" y="760" font-size="9" fill="var(--brick)" opacity=".9" text-anchor="end">PEPCK（OAA 出膜）</text>
+
+      <!-- 下域 TCA 环 -->
+      <g stroke="var(--amber)" stroke-width="1.5">
+        <line x1="470" y1="826" x2="470" y2="868"/>
+        <line x1="482" y1="884" x2="548" y2="928"/>
+        <line x1="560" y1="948" x2="560" y2="988"/>
+        <line x1="548" y1="1004" x2="506" y2="1048"/>
+        <line x1="470" y1="1066" x2="486" y2="1110"/>
+        <line x1="482" y1="1126" x2="486" y2="1172"/>
+        <line x1="482" y1="1188" x2="482" y2="1232"/>
+        <line x1="482" y1="1248" x2="482" y2="1288"/>
+        <path d="M482,1308 C440,1310 430,1250 430,1160 C430,1010 450,920 470,880" fill="none"/>
+      </g>
+      <g fill="var(--amber)">
+        <path d="M470,871 l-4,-7 l8,0 z"/>
+        <path d="M548,931 l-7,-5 l4,8 z"/>
+        <path d="M560,991 l-4,-7 l8,0 z"/>
+        <path d="M507,1049 l-8,-4 l1,10 z"/>
+        <path d="M486,1113 l-4,-7 l8,0 z"/>
+        <path d="M486,1175 l-4,-7 l8,0 z"/>
+        <path d="M482,1235 l-4,-7 l8,0 z"/>
+        <path d="M482,1291 l-4,-7 l8,0 z"/>
+      </g>
+      <g font-size="9.5" font-style="italic" fill="var(--amber)" class="halo">
+        <text x="476" y="856">CS</text>
+        <text x="512" y="916">ACO</text>
+        <text x="572" y="976">IDH</text>
+        <text x="564" y="1036">α-KGDH</text>
+        <text x="450" y="1096">SCS</text>
+        <text x="496" y="1154">SDH</text>
+        <text x="452" y="1216">FUM</text>
+        <text x="494" y="1268">MDH</text>
+      </g>
+      <g font-size="12" text-anchor="middle">
+        <text x="470" y="836">乙酰-CoA</text>
+        <text x="470" y="876">柠檬酸</text>
+        <text x="560" y="936">异柠檬酸</text>
+        <text x="560" y="1000">α-KG</text>
+        <text x="506" y="1056">琥珀酰-CoA</text>
+        <text x="486" y="1118">琥珀酸</text>
+        <text x="486" y="1180">延胡索酸</text>
+        <text x="482" y="1240">苹果酸</text>
+        <text x="482" y="1302">草酰乙酸</text>
+      </g>
+      <g fill="var(--ink)">
+        <circle cx="470" cy="826" r="4"/><circle cx="470" cy="880" r="4"/><circle cx="560" cy="940" r="4"/>
+        <circle cx="560" cy="1000" r="4"/><circle cx="506" cy="1062" r="4"/><circle cx="486" cy="1124" r="4"/>
+        <circle cx="486" cy="1186" r="4"/><circle cx="482" cy="1246" r="4"/>
+      </g>
+      <g>
+        <circle cx="482" cy="1308" r="11" fill="none" stroke="var(--brick)"/><circle cx="482" cy="1308" r="4" fill="var(--ink)"/>
+        <text x="512" y="1324" font-size="9" fill="var(--brick)">×2</text>
+      </g>
+      <text x="470" y="816" font-size="9" fill="var(--brick)" opacity=".9">×2</text>
+
+      <!-- β-氧化右分支 -->
+      <g stroke="var(--amber)" stroke-width="1.4">
+        <line x1="482" y1="826" x2="636" y2="874"/>
+        <line x1="652" y1="884" x2="700" y2="938"/>
+        <line x1="712" y1="952" x2="744" y2="1006"/>
+        <line x1="742" y1="1024" x2="708" y2="1080"/>
+        <path d="M700,1096 C660,1080 640,1000 632,900" fill="none" stroke-dasharray="4 3"/>
+        <line x1="884" y1="710" x2="684" y2="868" stroke="var(--amber)" stroke-width="1.2" stroke-dasharray="5 3"/>
+      </g>
+      <g fill="var(--amber)">
+        <path d="M639,877 l-8,-4 l2,9 z"/>
+        <path d="M703,940 l-8,-4 l2,9 z"/>
+        <path d="M746,1008 l-4,-8 l9,2 z"/>
+        <path d="M709,1084 l-8,-3 l1,9 z"/>
+        <path d="M686,866 l-3,9 l-6,-7 z"/>
+      </g>
+      <g font-size="9.5" font-style="italic" fill="var(--amber)" class="halo">
+        <text x="846" y="736" fill="var(--brick)" font-style="normal">ACSL / CPT1 / CACT</text>
+        <text x="660" y="916">ACAD</text>
+        <text x="720" y="980">ECR / DECR</text>
+        <text x="724" y="1056">KAT</text>
+        <text x="650" y="1102">−2C · 下一轮</text>
+      </g>
+      <g font-size="12" text-anchor="middle">
+        <text x="648" y="884">脂酰-CoA</text>
+        <text x="712" y="948">烯酰-CoA</text>
+        <text x="756" y="1016">3-羟脂酰-CoA</text>
+        <text x="716" y="1092">3-酮脂酰-CoA</text>
+        <text x="892" y="704">脂肪酸 C16</text>
+      </g>
+      <g fill="var(--ink)">
+        <circle cx="648" cy="884" r="4"/><circle cx="712" cy="948" r="4"/><circle cx="752" cy="1016" r="4"/><circle cx="712" cy="1092" r="4"/><circle cx="888" cy="710" r="4"/>
+      </g>
+
+      <!-- 图例与致敬 -->
+      <g font-size="9.5" opacity=".8">
+        <line x1="56" y1="1384" x2="88" y2="1384" stroke="var(--ink)" stroke-width="1.5"/>
+        <text x="96" y="1388">主链 · 可逆</text>
+        <line x1="200" y1="1384" x2="232" y2="1384" stroke="var(--ink)" stroke-width="1" stroke-dasharray="4 3"/>
+        <text x="240" y="1388">糖异生 / 穿梭</text>
+        <line x1="356" y1="1384" x2="388" y2="1384" stroke="var(--teal)" stroke-width="1.4"/>
+        <text x="396" y="1388" fill="var(--teal)">PPP</text>
+        <line x1="452" y1="1384" x2="484" y2="1384" stroke="var(--amber)" stroke-width="1.5"/>
+        <text x="492" y="1388" fill="var(--amber)">TCA / β-氧化</text>
+        <circle cx="616" cy="1384" r="5" fill="none" stroke="var(--brick)"/>
+        <text x="630" y="1388" fill="var(--brick)">共用节点（×2 / ×3）</text>
+      </g>
+      <text x="56" y="1424" font-size="9" opacity=".55">构图样张，非生产实现；节点与边为示意，未接 src/data。生产版见横向区室长卷 2480 × 1120。</text>
+    </svg>
+  </div>
+
+  <p class="caption"><b>为什么出这一版：</b>生产版把五个通路摊在横向区室带里，靠共用节点横向串联；这一版改成"上胞质、下基质"的两域分块 + 一条竖直脊柱。<b>取舍：</b>竖直脊柱让糖酵解→丙酮酸→乙酰-CoA→TCA 的"一路向下"更直白，膜带也只需一条；但 PPP 与 β-氧化被挤到左右两侧，横向漫游变成纵向长页，且 TCA 环必须画在脊柱旁，容易与主链抢视线。</p>
+</div>
+</body>
+</html>

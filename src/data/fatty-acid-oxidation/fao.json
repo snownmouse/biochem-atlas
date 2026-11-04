@@ -390,7 +390,7 @@
       },
       "cofactors": ["CoA-SH"],
       "irreversible": false,
-      "significance": "Claisen 断键收尾：硫酯化学把平衡猛拉向断裂，C3–C4 之间断开、释出乙酰-CoA 入 TCA，剩余链 −2C 即下一轮第 1 步底物——循环因此得名 β-氧化。平台内首次出现 CoA 硫酯 + 亲核催化的 Claisen 断键（与糖酵解『高能键转移』对照）。",
+      "significance": "Claisen 断键收尾：硫酯化学把平衡猛拉向断裂，C2–C3 之间断开、释出乙酰-CoA（带走 C1–C2）入 TCA，剩余链 −2C 即下一轮第 1 步底物——循环因此得名 β-氧化。平台内首次出现 CoA 硫酯 + 亲核催化的 Claisen 断键（与糖酵解『高能键转移』对照）。",
       "equation": "3-酮脂酰-CoA + CoA-SH → 乙酰-CoA + 脂酰-CoA（Cₙ₋₂）",
       "organDiffs": [
         { "organ": "liver", "text": "肝：末轮（C4 底物）硫解一次放出 2 个乙酰-CoA；肝乙酰-CoA 过载即走酮体生成。" }
@@ -406,7 +406,7 @@
         "note": "具体 ΔG°′ 数值 Lehninger 未单列，不编数。"
       },
       "stereochemistry": [
-        "Cys 硫酯中间体 + CoA-SH 亲核进攻 C3 羰基，C3–C4 断键（Claisen 型裂解）"
+        "Cys 硫酯中间体 + CoA-SH 亲核进攻 C3 羰基，C2–C3 断键（Claisen 型裂解，乙酰-CoA 带走 C1–C2）"
       ],
       "misconceptions": [
         "「硫解放能所以这步产 ATP」——放能用于把平衡猛推向断键，没有底物级磷酸化；别和糖酵解 PGK/PK 那类『放能带产 ATP』的步骤类比错。",

@@ -410,6 +410,8 @@ export default function PppOverviewPage() {
     <div className="poster poster-ppp">
       {/* ===== 面包屑（兼作通路切换） ===== */}
       <nav className="crumb" style={{ margin: "14px 28px 0" }}>
+        <Link to="/">首页</Link>
+        {" ／ "}
         <Link to="/pathway/glycolysis">糖酵解</Link>
         {" ／ "}
         <Link to="/pathway/tca">三羧酸循环</Link>
@@ -417,6 +419,8 @@ export default function PppOverviewPage() {
         <Link to="/pathway/gluconeogenesis">糖异生</Link>
         {" ／ "}
         <b>磷酸戊糖途径</b>
+        {" ／ "}
+        <Link to="/pathway/fatty-acid-oxidation">β-氧化</Link>
         {selectedStep && (
           <>
             {" ／ 第 "}

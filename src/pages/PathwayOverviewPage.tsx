@@ -367,6 +367,8 @@ export default function PathwayOverviewPage() {
     <div className="poster">
       {/* ===== 面包屑（兼作通路切换：克制的下划线文字） ===== */}
       <nav className="crumb" style={{ margin: "14px 28px 0" }}>
+        <Link to="/">首页</Link>
+        {" ／ "}
         <b>糖酵解</b>
         {" ／ "}
         <Link to="/pathway/tca">三羧酸循环</Link>
@@ -374,6 +376,8 @@ export default function PathwayOverviewPage() {
         <Link to="/pathway/gluconeogenesis">糖异生</Link>
         {" ／ "}
         <Link to="/pathway/ppp">磷酸戊糖途径</Link>
+        {" ／ "}
+        <Link to="/pathway/fatty-acid-oxidation">β-氧化</Link>
       </nav>
 
       {/* ===== 报头 ===== */}
@@ -539,7 +543,7 @@ export default function PathwayOverviewPage() {
                   <text x={14} y={246} fontSize={9.5} opacity={0.65}>← 来自糖原磷酸解 / 摄入糖</text>
                   <line x1={1672} y1={210} x2={1746} y2={210} stroke={INK} strokeWidth={1.2} markerEnd="url(#ah-ink-heavy)" />
                   <text x={1746} y={244} fontSize={9.5} textAnchor="end" opacity={0.65}>丙酮酸 → 线粒体（挂图 02）</text>
-                  <text x={1746} y={258} fontSize={9.5} textAnchor="end" opacity={0.65}>NADH → 呼吸链（挂图 04）</text>
+                  <text x={1746} y={258} fontSize={9.5} textAnchor="end" opacity={0.65}>NADH → 呼吸链（本版未含）</text>
                 </g>
 
                 {/* 主链步骤组（gk-5 为垂直双头细线，手绘于 DHAP 支路上方） */}
@@ -669,7 +673,7 @@ export default function PathwayOverviewPage() {
 
                 {/* 底部被裁切的下一张挂图延伸 */}
                 <g opacity={0.55}>
-                  <text x={1730} y={706} fontSize={9.5} textAnchor="end">挂图 02 · 丙酮酸氧化脱羧 → TCA 循环（待续，本版未含）</text>
+                  <text x={1730} y={706} fontSize={9.5} textAnchor="end">挂图 02 · 丙酮酸氧化脱羧 → TCA 循环</text>
                   <line x1={1400} y1={724} x2={1730} y2={724} stroke={INK} strokeDasharray="4 3" />
                 </g>
               </svg>

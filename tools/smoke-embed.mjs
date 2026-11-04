@@ -382,9 +382,14 @@ await page.waitForSelector("svg .stepg", { timeout: 15000 });
     "入口跳转结构对照页，旧 frame 参数重定向到步骤锚点（#gk-1）",
     page.url().includes("/structures/glycolysis") && page.url().endsWith("#gk-1")
   );
-  const back = page.locator(".film-back a");
+  // 断言改写（因新增全站首页）：.film-back 现在有两条文字链接——「← 返回挂图」与「首页」。
+  // 原断言按“唯一 .film-back a”取 href；改为按去向分别断言，强度不降反升。
+  const backLinks = page.locator(".film-back a");
+  check("帧页返回行有两条去向（挂图 + 首页）", (await backLinks.count()) === 2);
+  const back = page.locator('.film-back a:not(.film-home)');
   check("帧页有返回行（返回挂图）", (await back.count()) === 1);
   check("帧页返回 href 回到挂图对应步（?step=gk-1）", (await back.getAttribute("href")) === "/pathway/glycolysis?step=gk-1");
+  check("帧页另有首页入口（/）", (await page.locator('.film-back a.film-home[href="/"]').count()) === 1);
   await back.click();
   await page.waitForURL("**/pathway/glycolysis**", { timeout: 10000 });
   check("返回后挂图还原到 gk-1 选中态", (await page.locator('svg .stepg.sel[data-step-id="gk-1"]').count()) === 1);

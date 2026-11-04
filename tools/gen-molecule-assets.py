@@ -341,6 +341,77 @@ GN_MOLS = [
 PPP_TWO_D_IDS = {"6pgl", "6pg", "6pg-l", "ru5p", "ru5p-i", "r5p", "xu5p", "s7p", "e4p", "co2"}
 GN_TWO_D_IDS = {"lac", "ala", "glu", "hco3"}
 
+# ---------- β-氧化分子表（本轮新增） ----------
+# 口径：①本步酶口袋（可跨种）→②人源非本酶→③其它；取不到才用 RDKit。
+# 脂酰-CoA 系列全部"分块"：只画酰基链 + 硫酯 S，CoA 长链省略并标「CoA 略」。
+# 链长必须留在块里（C16 画 16 个酰基碳、C14 画 14 个），不能只剩一个 S 原子。
+FAO_MOLS = [
+    dict(id="fa", name="棕榈酸（软脂酸，C16:0）", formula="C16H32O2",
+         smiles="[CH3:16]CCCCCCCCCCCCCCC(=O)O", src=None, sdf=None,
+         form="棕榈酸（C16:0 饱和直链脂肪酸）",
+         caveat="无同分子实验配体：棕榈酸在结构库里多以 PLM 出现在疏水口袋，但均非 β-氧化本步酶口袋；本轮按 RDKit ETKDGv3（30 起点）+ MMFF94 生成自由态构象，标注为计算构象，不等于白蛋白结合态或膜内构象。"),
+    dict(id="acylcoa-c16", name="棕榈酰-CoA（分块：棕榈酰基 C1–C16 + 硫酯 S）", formula="C17H34OS",
+         smiles="[CH3:16]" + "[CH2]" * 13 + "[CH2:2][C:1](=O)[S][CH3:17]",
+         src="public/assets/steps/fao-lig/5DV5-PKZ-A.sdf", sdf="acylcoa_5dv5.sdf",
+         pdb="5DV5", species="Vibrio alginolyticus", method="X-RAY DIFFRACTION", res=2.4,
+         chain="A", resname="PKZ", protein="溶藻弧菌脂肪酸响应转录因子 FadR · 完整棕榈酰-CoA（非 β-氧化酶口袋）",
+         form="棕榈酰-CoA 反应端（分块）：棕榈酰基 C1–C16 + 硫酯 S + CoA 折线起点",
+         caveat="分块呈现，不是完整分子：只画反应端（棕榈酰基 C1–C16 + 硫酯 S）。实验坐标取自 5DV5 的完整棕榈酰-CoA（配体 PKZ，链 A，2.40 Å X-ray，溶藻弧菌 FadR，65 重原子）：只保留棕榈酰基 + 硫酯 S 的实测几何，CoA 长链省略；S 右侧的碳仅作 CoA 链的折线起点并标「CoA 略」。FadR 不是 β-氧化酶，本步酶（ACAD 家族）口袋内 C16 饱和酰基-CoA 的高分辨结构本轮未获。完整棕榈酰-CoA 为 C37H66N7O17P3S。",
+         fragment=dict(kind="block", shown="棕榈酰基 C1–C16 + 硫酯 S",
+                       omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
+                       note="分块资产：只画反应端，不是完整棕榈酰-CoA（C37H66N7O17P3S）；链长 C16 保留在酰基链上，S 右侧碳为 CoA 折线起点并标「CoA 略」。"),
+         coa_label_atom=17, label_atoms={17: "CoA 略"}),
+    dict(id="enoyl-c16", name="反式-Δ²-棕榈烯酰-CoA（分块：C16 烯酰基 + 硫酯 S）", formula="C17H32OS",
+         smiles="[CH3:16]" + "[CH2]" * 11 + "[CH2:4]/[CH:3]=[CH:2]/[C:1](=O)[S][CH3:17]",
+         src="public/assets/steps/fao-lig/2UXW-TH3-A.sdf", sdf="enoyl_2uxw.sdf",
+         pdb="2UXW", species="Homo sapiens", method="X-RAY DIFFRACTION", res=1.45,
+         chain="A", resname="TH3", protein="人极长链酰基-CoA 脱氢酶 VLCAD（ACADVL，β-氧化第 1 步同酶）· 反式-Δ²-棕榈烯酰-CoA",
+         form="反式-Δ²-棕榈烯酰-CoA 反应端（分块）：C1–C16 烯酰基（C2=C3 trans）+ 硫酯 S + CoA 折线起点",
+         caveat="分块呈现，不是完整分子：只画反应端（C1–C16 烯酰基 + 硫酯 S）。实验坐标取自 2UXW 的配体 TH3（链 A，1.45 Å X-ray，人 VLCAD）：PDB 中 TH3 只建模了 24 个重原子，是截短的酰基-N-乙酰半胱胺硫酯（CoA 尾未建模），不是完整 CoA；本资产只用其反应端的实测几何，C2=C3 为实测 trans 双键，S 右侧碳仅作 CoA 折线起点并标「CoA 略」。完整反式-Δ²-棕榈烯酰-CoA 为 C37H64N7O17P3S。",
+         fragment=dict(kind="block", shown="C1–C16 烯酰基（C2=C3 trans）+ 硫酯 S",
+                       omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
+                       note="分块资产：只画反应端，不是完整反式-Δ²-棕榈烯酰-CoA（C37H64N7O17P3S）；TH3 在晶体中是截短的酰基-N-乙酰半胱胺硫酯，CoA 尾未建模；链长 C16 与 C2=C3 双键保留在酰基链上。"),
+         coa_label_atom=17, label_atoms={17: "CoA 略"}),
+    dict(id="hydroxy-c16", name="L-3-羟基棕榈酰-CoA（分块：C16 羟酰基 + 硫酯 S）", formula="C17H34O2S",
+         smiles="[CH3:16]" + "[CH2]" * 12 + "[C@H:3](O)[CH2:2][C:1](=O)[S][CH3:17]",
+         src=None, sdf=None,
+         form="L-3-羟基棕榈酰-CoA 反应端（分块）：C1–C16 羟酰基（C3 带 OH，S 构型）+ 硫酯 S + CoA 折线起点",
+         caveat="分块呈现，不是完整分子；且为计算构象：本步酶（人 HADH）口袋内 C16 3-羟基脂酰-CoA 的实验络合物本轮未获。人 HADH 的 C4 3-羟基丁酰-CoA 络合物 1F12（2.4 Å）存在，但链长 C4 与 C16 不一致，混用会让 ΔV 把链长差当成化学变化，故不采用。构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。C3 按 L-3-羟基酰-CoA 的 (S) 构型建模（CIP 校验见报告）。完整 L-3-羟基棕榈酰-CoA 为 C37H66N7O18P3S。",
+         fragment=dict(kind="block", shown="C1–C16 羟酰基（C3-OH，S）+ 硫酯 S",
+                       omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
+                       note="分块资产：只画反应端，不是完整 L-3-羟基棕榈酰-CoA（C37H66N7O18P3S）；链长 C16 与 C3-OH 保留在酰基链上；3D 为计算构象。"),
+         coa_label_atom=17, label_atoms={17: "CoA 略"}, expect_cip="C3:S"),
+    dict(id="keto-c16", name="3-酮棕榈酰-CoA（分块：C16 酮酰基 + 硫酯 S）", formula="C17H32O2S",
+         smiles="[CH3:16]" + "[CH2]" * 12 + "[C:3](=O)[CH2:2][C:1](=O)[S][CH3:17]",
+         src=None, sdf=None,
+         form="3-酮棕榈酰-CoA 反应端（分块）：C1–C16 酮酰基（C3 酮基）+ 硫酯 S + CoA 折线起点",
+         caveat="分块呈现，不是完整分子；且为计算构象：本步酶（人 SCHAD/HADH）口袋内 C16 3-酮脂酰-CoA 的实验络合物本轮未获。人 SCHAD 的 C4 乙酰乙酰-CoA 络合物 1F0Y（1.8 Å，含 NAD）存在，但链长 C4 与 C16 不一致，混用会让 ΔV 把链长差当成化学变化，故不采用。构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。完整 3-酮棕榈酰-CoA 为 C37H64N7O18P3S。",
+         fragment=dict(kind="block", shown="C1–C16 酮酰基（C3=O）+ 硫酯 S",
+                       omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
+                       note="分块资产：只画反应端，不是完整 3-酮棕榈酰-CoA（C37H64N7O18P3S）；链长 C16 与 C3 酮基保留在酰基链上；3D 为计算构象。"),
+         coa_label_atom=17, label_atoms={17: "CoA 略"}),
+    dict(id="acylcoa-c14", name="肉豆蔻酰-CoA（分块：C14 酰基 + 硫酯 S）", formula="C15H30OS",
+         smiles="[CH3:14]" + "[CH2]" * 11 + "[CH2:2][C:1](=O)[S][CH3:15]",
+         src=None, sdf=None,
+         form="肉豆蔻酰-CoA 反应端（分块）：C14 酰基 + 硫酯 S + CoA 折线起点",
+         caveat="分块呈现，不是完整分子；且为计算构象：C14 肉豆蔻酰-CoA 的完整实验配体本轮未获。该块只用于表达第 4 步「链缩短 2C」的产物，构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。完整肉豆蔻酰-CoA 为 C35H62N7O17P3S。",
+         fragment=dict(kind="block", shown="C1–C14 酰基 + 硫酯 S",
+                       omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
+                       note="分块资产：只画反应端，不是完整肉豆蔻酰-CoA（C35H62N7O17P3S）；链长 C14 保留在酰基链上，比 C16 少两个碳。3D 为计算构象。"),
+         coa_label_atom=15, label_atoms={15: "CoA 略"}),
+    dict(id="acylcarn", name="棕榈酰肉碱（C16 脂酰肉碱）", formula="C23H45NO4",
+         smiles="[CH3:16]CCCCCCCCCCCCCCC(=O)O[C@H:3](CC(=O)[O-])C[N+](C)(C)C", src=None, sdf=None,
+         form="棕榈酰肉碱（C16 脂酰基酯化在肉碱 C3-OH；C3 为 R 构型）",
+         caveat="无同分子实验配体：2RCU 的 BUJ 是棕榈酰肉碱类似物（鼠 CPT2），不是同一分子；本轮不用类似物冒充底物。按 RDKit ETKDGv3（30 起点）+ MMFF94 生成自由态构象，标注为计算构象；C3 按天然 (R)-肉碱构型建模（CIP 校验见报告）。",
+         expect_cip="C3:R"),
+    dict(id="carn", name="L-肉碱（(R)-3-羟基-4-三甲铵丁酸）", formula="C7H15NO3",
+         smiles="C[N+](C)(C)C[C@H:3](O)CC(=O)[O-]", src=None, sdf=None,
+         form="L-肉碱（两性离子；C3 为 R 构型）",
+         caveat="作为酰基载体入画，游离态构象不代表 CPT1/CPT2 结合态；按 RDKit ETKDGv3（30 起点）+ MMFF94 生成计算构象（自由态），C3 按天然 (R) 构型建模（CIP 校验见报告）。",
+         expect_cip="C3:R"),
+]
+FAO_TWO_D_IDS = {m["id"] for m in FAO_MOLS}
+
 
 def copytemp(src_rel, sdf_name):
     src = os.path.join(ROOT, src_rel)
@@ -847,8 +918,8 @@ def generate(mols, two_d_ids, report_path, generated_at):
 
 def main():
     ap = argparse.ArgumentParser(description="离线生成分子 2D/3D 资产")
-    ap.add_argument("--pathway", choices=["glycolysis", "tca", "ppp", "gluconeogenesis"], default="glycolysis",
-                    help="默认 glycolysis（保持原报告路径与行为）；tca/ppp/gluconeogenesis 写独立报告")
+    ap.add_argument("--pathway", choices=["glycolysis", "tca", "ppp", "gluconeogenesis", "fao"], default="glycolysis",
+                    help="默认 glycolysis（保持原报告路径与行为）；tca/ppp/gluconeogenesis/fao 写独立报告")
     args = ap.parse_args()
     if args.pathway == "tca":
         generate(TCA_MOLS, TCA_TWO_D_IDS,
@@ -862,6 +933,10 @@ def main():
         generate(GN_MOLS, GN_TWO_D_IDS,
                  os.path.join(ROOT, "preview", "gluconeogenesis-molecule-assets-report.json"),
                  "2026-11-04 · 糖异生")
+    elif args.pathway == "fao":
+        generate(FAO_MOLS, FAO_TWO_D_IDS,
+                 os.path.join(ROOT, "preview", "fao-molecule-assets-report.json"),
+                 "2026-11-05 · β-氧化")
     else:
         generate(MOLS, TWO_D_IDS, REPORT, "2026-11-03")
 

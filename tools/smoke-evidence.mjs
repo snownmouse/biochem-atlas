@@ -164,11 +164,13 @@ const filterState = () =>
     }))
   );
 
-// 数据面：源文件 40 块全部写了 evidence
+// 数据面：源文件全部块都写了 evidence
+// 2026-11 改动：β-氧化接入后配置从 40 块增至 46 块（glycolysis 10 + tca 9 + ppp 8 +
+// gluconeogenesis 13 + fatty-acid-oxidation 6），断言随之调整；语义不变——仍是「每块都有结构化 evidence」。
 const cfgSrc = readFileSync(join(ROOT, "src", "data", "comparisonConfig.ts"), "utf8");
 const stepCount = [...cfgSrc.matchAll(/^    stepId: "/gm)].length;
 const evidenceCount = [...cfgSrc.matchAll(/^    evidence: {/gm)].length;
-check(`配置源共 ${stepCount} 块，${evidenceCount} 块有结构化 evidence 字段`, stepCount === 40 && evidenceCount === 40);
+check(`配置源共 ${stepCount} 块，${evidenceCount} 块有结构化 evidence 字段`, stepCount === 46 && evidenceCount === 46);
 check(
   "配置里没有手写 A/B/C/D 等级字段（等级只由 evidenceGrade.ts 推导）",
   !/^    grade: "[ABCD]",/m.test(cfgSrc)

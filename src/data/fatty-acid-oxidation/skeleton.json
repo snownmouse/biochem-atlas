@@ -50,7 +50,7 @@
     { "from": "acylcoa",     "to": "enoyl",         "stepId": "fao-1",       "type": "main" },
     { "from": "enoyl",       "to": "hydroxy",       "stepId": "fao-2",       "type": "main" },
     { "from": "hydroxy",     "to": "keto",          "stepId": "fao-3",       "type": "main" },
-    { "from": "keto",        "to": "acylcoa-short", "stepId": "fao-4",       "type": "main",         "label": "硫解：C3–C4 断键，释出乙酰-CoA + 短 2C 脂酰-CoA" },
+    { "from": "keto",        "to": "acylcoa-short", "stepId": "fao-4",       "type": "main",         "label": "硫解：C2–C3 断键，释出乙酰-CoA + 短 2C 脂酰-CoA" },
     { "from": "acylcoa-short", "to": "acylcoa",     "type": "cycle-return",  "label": "第 5 轮回到第 1 步（链已 −2C；这是下一轮，不是第 5 步）" },
     { "from": "keto",        "to": "accoa",         "type": "cycle-exit",    "label": "乙酰-CoA 离环 → TCA（×10 ATP）" }
   ],

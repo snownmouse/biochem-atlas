@@ -52,6 +52,17 @@
   color: var(--teal, #2e6e6b);
   text-decoration-color: var(--teal, #2e6e6b);
 }
+.film-poster .film-back .film-home {
+  margin-left: 14px;
+  opacity: 0.72;
+}
+.film-poster .film-back .film-home::before {
+  content: "／";
+  margin-right: 10px;
+  opacity: 0.35;
+  text-decoration: none;
+  display: inline-block;
+}
 .film-poster .film-back .film-back-step {
   color: var(--ink, #22282a);
   opacity: 0.55;

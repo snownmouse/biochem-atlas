@@ -1708,6 +1708,308 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
   },
 ];
 
+/* ============================================================
+   β-氧化（FAO）—— 6 块：活化 / 肉碱穿梭 / 四步循环
+   分子资产：8 个新建 + 乙酰-CoA（TCA 页共享）；脂酰-CoA 系列全部分块。
+   ============================================================ */
+const FA_MOL = {
+  id: "fa",
+  name: "棕榈酸（软脂酸，C16:0）",
+  formula: "C₁₆H₃₂O₂",
+  asset2d: D2("fa"),
+  sourceNote:
+    "计算构象 · 自由态（RDKit ETKDGv3 30 起点 + MMFF94）；无同分子实验配体。游离棕榈酸在血浆中主要与白蛋白结合：本资产是自由态，不等于白蛋白结合态，也不代表膜内构象。",
+};
+const ACYL_C16 = {
+  id: "acylcoa-c16",
+  name: "棕榈酰-CoA（分块 · C16 酰基 + 硫酯 S）",
+  formula: "C₁₇H₃₄OS（反应端）",
+  asset2d: D2("acylcoa-c16"),
+  caveat:
+    "分块呈现，不是完整分子：只画反应端（棕榈酰基 C1–C16 + 硫酯 S），CoA 长链省略，S 右侧碳仅作折线起点并标「CoA 略」。完整棕榈酰-CoA 为 C₃₇H₆₆N₇O₁₇P₃S。链长 C16 保留在酰基链上，不是完整 CoA。",
+  sourceNote:
+    "取自 PDB 5DV5（2.40 Å · X-ray · Vibrio alginolyticus · 链 A · 配体 PKZ · 65 重原子）——完整棕榈酰-CoA，但来源蛋白是细菌脂肪酸响应转录因子 FadR，不是 β-氧化酶口袋。本步酶（ACAD 家族）口袋内 C16 饱和脂酰-CoA 的高分辨结构本轮未获；只取反应端实测几何。",
+};
+const ENOYL_C16 = {
+  id: "enoyl-c16",
+  name: "反式-Δ²-棕榈烯酰-CoA（分块 · C16 烯酰基）",
+  formula: "C₁₇H₃₂OS（反应端）",
+  asset2d: D2("enoyl-c16"),
+  caveat:
+    "分块呈现，不是完整分子：只画反应端（C1–C16 烯酰基 + 硫酯 S），CoA 长链省略，S 右侧碳标「CoA 略」。完整反式-Δ²-棕榈烯酰-CoA 为 C₃₇H₆₄N₇O₁₇P₃S。2UXW 的 TH3 在晶体中只建模 24 个重原子，是截短的酰基-N-乙酰半胱胺硫酯（CoA 尾未建模），不是完整 CoA；本块只用其反应端实测几何。",
+  sourceNote:
+    "取自 PDB 2UXW（1.45 Å · X-ray · Homo sapiens · 链 A · 配体 TH3）——人极长链酰基-CoA 脱氢酶 VLCAD（ACADVL），正是本步同酶家族；TH3 为截短配体（CoA 尾未建模），C2=C3 为实测 trans 几何。",
+};
+const HYDROXY_C16 = {
+  id: "hydroxy-c16",
+  name: "L-3-羟基棕榈酰-CoA（分块 · C16 羟酰基）",
+  formula: "C₁₇H₃₄O₂S（反应端）",
+  asset2d: D2("hydroxy-c16"),
+  caveat:
+    "分块呈现，不是完整分子；且为计算构象。只画反应端（C1–C16 羟酰基 + 硫酯 S），C3 为 L-3-羟基（S 构型），CoA 长链省略。完整 L-3-羟基棕榈酰-CoA 为 C₃₇H₆₆N₇O₁₈P₃S。",
+  sourceNote:
+    "计算构象 · 自由态（RDKit ETKDGv3 30 起点 + MMFF94）；本步酶（人 HADH）口袋内 C16 3-羟基脂酰-CoA 的实验络合物本轮未获。人 HADH 的 C4 3-羟基丁酰-CoA 络合物 1F12 存在，但链长 C4 与 C16 不一致，混用会让 ΔV 把链长差当成化学变化，故不采用。自由态，不等于 HADH 口袋的结合态。",
+};
+const KETO_C16 = {
+  id: "keto-c16",
+  name: "3-酮棕榈酰-CoA（分块 · C16 酮酰基）",
+  formula: "C₁₇H₃₂O₂S（反应端）",
+  asset2d: D2("keto-c16"),
+  caveat:
+    "分块呈现，不是完整分子；且为计算构象。只画反应端（C1–C16 酮酰基 + 硫酯 S），C3 为酮基，CoA 长链省略。完整 3-酮棕榈酰-CoA 为 C₃₇H₆₄N₇O₁₈P₃S。",
+  sourceNote:
+    "计算构象 · 自由态（RDKit ETKDGv3 30 起点 + MMFF94）；本步酶（人 SCHAD/HADH）口袋内 C16 3-酮脂酰-CoA 的实验络合物本轮未获。人 SCHAD 的 C4 乙酰乙酰-CoA 络合物 1F0Y 存在，但链长 C4 与 C16 不一致，混用会把链长差当成化学变化，故不采用。自由态，不等于 SCHAD/HADH 口袋的结合态。",
+};
+const ACYL_C14 = {
+  id: "acylcoa-c14",
+  name: "肉豆蔻酰-CoA（分块 · C14 酰基 + 硫酯 S）",
+  formula: "C₁₅H₃₀OS（反应端）",
+  asset2d: D2("acylcoa-c14"),
+  caveat:
+    "分块呈现，不是完整分子；且为计算构象。只画反应端（C14 酰基 + 硫酯 S），CoA 长链省略。完整肉豆蔻酰-CoA 为 C₃₅H₆₂N₇O₁₇P₃S。该块用于让读者看见第 4 步链缩短 2C：C16 酮酰基 → C14 酰基。",
+  sourceNote:
+    "计算构象 · 自由态（RDKit ETKDGv3 30 起点 + MMFF94）；C14 肉豆蔻酰-CoA 的完整实验配体本轮未获。链长 C14 由酰基链上的 14 个碳明确表达，比 C16 少两个碳。自由态，不等于酶口袋的结合态。",
+};
+const ACYLCARN = {
+  id: "acylcarn",
+  name: "棕榈酰肉碱（C16 脂酰肉碱）",
+  formula: "C₂₃H₄₅NO₄",
+  asset2d: D2("acylcarn"),
+  sourceNote:
+    "计算构象 · 自由态（RDKit ETKDGv3 30 起点 + MMFF94）；2RCU 的 BUJ 是棕榈酰肉碱类似物（鼠 CPT2），不是同一分子，本轮不用类似物冒充底物。C3 按天然 (R)-肉碱构型建模；自由态，不等于 CPT1/CPT2 结合态。",
+};
+const CARN = {
+  id: "carn",
+  name: "L-肉碱（(R)-3-羟基-4-三甲铵丁酸）",
+  formula: "C₇H₁₅NO₃",
+  asset2d: D2("carn"),
+  sourceNote:
+    "计算构象 · 自由态（RDKit ETKDGv3 30 起点 + MMFF94）；肉碱作为酰基载体入画，自由态构象不等于 CPT1/CPT2 结合态。C3 按天然 (R)-构型建模。",
+};
+
+const FAO_COMPARISON: StepComparison[] = [
+  {
+    stepId: "fao-act",
+    index: 0,
+    stageLabel: "前置 · 活化",
+    enzyme: "脂酰-CoA 合成酶（ACSL / ACSVL）",
+    equation: "棕榈酸 + CoA-SH + ATP → 棕榈酰-CoA + AMP + PPi（PPi → 2 Pi）",
+    substrate: {
+      name: "棕榈酸（C16:0）",
+      formula: "C₁₆H₃₂O₂",
+      parts: [{ ...FA_MOL }],
+      cofactorNote: "ATP、CoA-SH、Mg²⁺ 按本页口径不入画；左侧只显示棕榈酸碳骨架。",
+    },
+    product: {
+      name: "棕榈酰-CoA（分块 · 反应端）",
+      formula: "C₁₇H₃₄OS（片段）",
+      parts: [
+        { ...ACYL_C16, marks: [
+          { name: "S", kind: "newbond", note: "新硫酯键" },
+          { name: "C17", kind: "added", note: "CoA 折线起点" },
+        ] },
+      ],
+      cofactorNote: "ATP 拆成 AMP + PPi，PPi 再水解为 2 Pi；这两步共消耗 2 个高能磷酸键，CoA 长链省略。",
+    },
+    evidence: {
+      substrate: [evComputed("fa")],
+      product: [evOtherNonhuman("acylcoa-c16")],
+    },
+    arrowLabel: "ATP 驱动：羧基 → 硫酯（AMP + PPi，消耗 2 个高能键）",
+    change:
+      "把游离脂肪酸的羧基转成酰基-CoA 硫酯：这是整条通路唯一的「入场费」。重原子 18→19（新增硫酯 S 与 CoA 折线起点），体积 290.9→318.6 Å³（ΔV +9.52%），键级与官能团改变；按规则默认 3D。",
+    physiology:
+      "长链脂肪酸不能自由过膜，必须先变成「酰基硫酯通货」才能进入 β-氧化或酯化。ATP→AMP+PPi 直接拆 1 个高能键，PPi 水解再补 1 个，合计 2 个高能磷酸键——这就是软脂酸能量账要从毛收入扣 2 的原因。",
+    defaultMode: "3d",
+    defaultModeRule:
+      "默认 3D 判据：重原子 18→19（不等）；体积 290.9→318.6 Å³（ΔV +9.52%，>2.5%）；拓扑改变（羧基 → 硫酯）。",
+  },
+  {
+    stepId: "fao-shuttle",
+    index: 0,
+    stageLabel: "前置 · 跨膜",
+    enzyme: "CPT1（外膜限速）→ CACT（内膜转位）→ CPT2（基质侧）",
+    equation: "脂酰-CoA（胞质）+ 肉碱 → 脂酰肉碱 → 脂酰-CoA（基质）+ 肉碱",
+    substrate: {
+      name: "棕榈酰-CoA（胞质侧）+ 肉碱",
+      formula: "C₁₇H₃₄OS（片段）+ C₇H₁₅NO₃",
+      parts: [{ ...ACYL_C16 }, { ...CARN }],
+      cofactorNote: "肉碱为载体；CoA-SH 在 CPT2 侧换回。图中只画脂酰基与肉碱本体，CoA 长链省略。",
+    },
+    product: {
+      name: "棕榈酰肉碱（膜间腔 / 转位中间态）",
+      formula: "C₂₃H₄₅NO₄",
+      parts: [{ ...ACYLCARN }],
+      cofactorNote: "CACT 是电中性交换：脂酰肉碱进、肉碱出，不耗 ATP；本块产物是转位中间态，最终在基质侧换回脂酰-CoA。",
+    },
+    evidence: {
+      substrate: [evOtherNonhuman("acylcoa-c16"), evComputed("carn")],
+      product: [evComputed("acylcarn")],
+    },
+    arrowLabel: "只换载体：脂酰基整体转移，无碳骨架改变（不耗 ATP）",
+    change:
+      "脂酰基从 CoA 转到肉碱，过内膜后再从肉碱转回 CoA：两次都是硫酯 ↔ 酯的载体交换，脂酰基的碳骨架与氧化态完全不变。图中把肉碱本体一起入画：底物侧（C16 酰基-CoA 片段 19 原子 + 肉碱 11 原子，共 30）→ 产物棕榈酰肉碱 28 原子（CoA 的 S 与折线起点随 CoA-SH 离开，CoA 长链省略）。体积 478.2→431.2 Å³（ΔV −9.83%）；这是载体差异，不是化学氧化，按规则默认 3D，ΔV 不应读成「氧化程度」。",
+    physiology:
+      "长链脂肪酸唯一的入场券：CPT1 是限速闸，被丙二酰-CoA 抑制（「合成开启时焊死分解的门」），避免脂肪酸合成与氧化同时空转。CACT 电中性交换过内膜，基质侧 CPT2 换回 CoA-SH，肉碱回程复用。",
+    defaultMode: "3d",
+    defaultModeRule:
+      "默认 3D 判据：重原子 30→28（不等；底物侧含肉碱 11 原子）；体积 478.2→431.2 Å³（ΔV −9.83%，>2.5%）；拓扑改变为载体交换，但酰基碳骨架未变（ΔV 只反映载体体积，不应当作氧化程度）。",
+  },
+  {
+    stepId: "fao-1",
+    index: 1,
+    enzyme: "酰基-CoA 脱氢酶（ACAD 家族；长链 VLCAD/LCAD）",
+    equation: "棕榈酰-CoA + FAD → 反式-Δ²-棕榈烯酰-CoA + FADH₂",
+    substrate: {
+      name: "棕榈酰-CoA（分块 · C16）",
+      formula: "C₁₇H₃₄OS（片段）",
+      parts: [{ ...ACYL_C16 }],
+      cofactorNote: "FAD 为辅基，按本页口径不入画；底物侧的 C2–C3 是饱和单键。",
+    },
+    product: {
+      name: "反式-Δ²-棕榈烯酰-CoA（分块 · C16）",
+      formula: "C₁₇H₃₂OS（片段）",
+      parts: [{ ...ENOYL_C16, marks: [
+        { name: "C2", kind: "newbond", note: "C2=C3 反式双键" },
+        { name: "C3", kind: "newbond" },
+      ] }],
+      cofactorNote: "FAD→FADH₂ 不入画；产物侧的 C2=C3 是实测 trans 双键。",
+    },
+    evidence: {
+      substrate: [evOtherNonhuman("acylcoa-c16")],
+      product: [evOwnHuman("enoyl-c16")],
+    },
+    arrowLabel: "C2–C3 脱氢：生成反式 C2=C3，FAD → FADH₂",
+    change:
+      "从 C2–C3 取两个氢，造一个反式-Δ² 双键。重原子 19→19（只改键级），体积 318.6→310.4 Å³（ΔV −2.57%）；拓扑改变（C2=C3 双键）。ΔV 恰好超过 2.5% 阈值，按规则默认 3D，不因「只改键级」而误判为 2D。",
+    physiology:
+      "每轮的第一刀：把氧化当量记在 FAD 名下。双键氧化的低能级只够还原 FAD（1.5 ATP 当量），电子经 ETF→ETF-QO 入呼吸链——这是 β-氧化「氧化剂分级」的第一个锚点。",
+    defaultMode: "3d",
+    defaultModeRule:
+      "默认 3D 判据：重原子 19→19；体积 318.6→310.4 Å³（ΔV −2.57%，>2.5%）；拓扑改变（C2=C3 双键）。差 0.07 个百分点未命中 2D 阈值，如实按 3D。",
+  },
+  {
+    stepId: "fao-2",
+    index: 2,
+    enzyme: "烯酰-CoA 水合酶（ECHS1 / crotonase）",
+    equation: "反式-Δ²-棕榈烯酰-CoA + H₂O → L-3-羟基棕榈酰-CoA",
+    substrate: {
+      name: "反式-Δ²-棕榈烯酰-CoA（分块 · C16）",
+      formula: "C₁₇H₃₂OS（片段）",
+      parts: [{ ...ENOYL_C16 }],
+      cofactorNote: "H₂O 按本页口径不入画；底物侧 C2=C3 为反式双键。",
+    },
+    product: {
+      name: "L-3-羟基棕榈酰-CoA（分块 · C16）",
+      formula: "C₁₇H₃₄O₂S（片段）",
+      parts: [{ ...HYDROXY_C16, marks: [
+        { name: "C3", kind: "newbond", note: "C3 接 OH（L 构型）" },
+      ] }],
+      cofactorNote: "H₂O 的 O 加到 C3、H 加到 C2；产物侧只画 C3-OH，水分子本身不入画。",
+    },
+    evidence: {
+      substrate: [evOwnHuman("enoyl-c16")],
+      product: [evComputed("hydroxy-c16")],
+    },
+    arrowLabel: "加水：C2=C3 → C3-OH（L 构型）",
+    change:
+      "反式双键加水：C3 接羟基、C2 接氢，生成 L-3-羟基脂酰-CoA。重原子 19→20（新增 1 个 O），体积 310.4→326.7 Å³（ΔV +5.25%）；官能团与键级同时改变，按规则默认 3D。",
+    physiology:
+      "把双键变成可氧化的羟基：一步水化打通「烯 → 醇」并锁定 L-构型，为第 3 步的标准醇氧化备好底物——没有这步，NAD⁺ 的 2.5 当量就无从谈起。",
+    defaultMode: "3d",
+    defaultModeRule:
+      "默认 3D 判据：重原子 19→20（不等）；体积 310.4→326.7 Å³（ΔV +5.25%，>2.5%）；拓扑改变（C3-OH 新基团）。",
+  },
+  {
+    stepId: "fao-3",
+    index: 3,
+    enzyme: "L-3-羟脂酰-CoA 脱氢酶（HADH / SCHAD）",
+    equation: "L-3-羟基棕榈酰-CoA + NAD⁺ → 3-酮棕榈酰-CoA + NADH + H⁺",
+    substrate: {
+      name: "L-3-羟基棕榈酰-CoA（分块 · C16）",
+      formula: "C₁₇H₃₄O₂S（片段）",
+      parts: [{ ...HYDROXY_C16 }],
+      cofactorNote: "NAD⁺ 按本页口径不入画；底物侧 C3 为 L-3-羟基。",
+    },
+    product: {
+      name: "3-酮棕榈酰-CoA（分块 · C16）",
+      formula: "C₁₇H₃₂O₂S（片段）",
+      parts: [{ ...KETO_C16, marks: [
+        { name: "C3", kind: "newbond", note: "C3-OH → C3=O" },
+      ] }],
+      cofactorNote: "NAD⁺→NADH + H⁺ 不入画；产物侧 C3 为酮基，O 仍在位但键级改变。",
+    },
+    evidence: {
+      substrate: [evComputed("hydroxy-c16")],
+      product: [evComputed("keto-c16")],
+    },
+    arrowLabel: "再脱氢：C3-OH → C3=O，NAD⁺ → NADH",
+    change:
+      "标准醇氧化：C3 的羟基被 NAD⁺ 氧化成酮基，重原子 20→20（只改键级，O 未增减），体积 326.7→320.8 Å³（ΔV −1.81%）；拓扑改变（C3-OH → C3=O）。命中「重原子不变 + 拓扑改变 + |ΔV| ≤ 2.5%」，按规则默认 2D。",
+    physiology:
+      "第二刀换 NAD⁺：标准醇氧化够格还原 NAD⁺（2.5 ATP 当量），与第 1 步的 FAD（1.5 当量）构成「氧化剂分级」——本通路第二个教学锚点，也是能量账里 7 NADH 的来源。",
+    defaultMode: "2d",
+    defaultModeRule:
+      "默认 2D 判据：重原子 20→20；体积 326.7→320.8 Å³（ΔV −1.81%，≤2.5%）；拓扑改变（C3-OH → C3=O），且 O 原子未增减，故判 2D。?mode= 仍可显式覆盖。",
+  },
+  {
+    stepId: "fao-4",
+    index: 4,
+    enzyme: "β-酮脂酰-CoA 硫解酶（线粒体 ACAA2）",
+    equation: "3-酮棕榈酰-CoA + CoA-SH → 乙酰-CoA + 肉豆蔻酰-CoA（C14）",
+    substrate: {
+      name: "3-酮棕榈酰-CoA（分块 · C16）",
+      formula: "C₁₇H₃₂O₂S（片段）",
+      parts: [{ ...KETO_C16, marks: [
+        { name: "C3", kind: "leaving", note: "C2–C3 硫解断键" },
+      ] }],
+      cofactorNote: "CoA-SH 按本页口径不入画；断键发生在 C2–C3 之间（C3 为酮基）。",
+    },
+    product: {
+      name: "乙酰-CoA + 肉豆蔻酰-CoA（C14）",
+      formula: "C₃H₆OS + C₁₅H₃₀OS（两个反应端片段）",
+      parts: [
+        { ...ACCOA, sourceNote: "取自人柠檬酸合酶（CS，TCA 第 1 步）的三元反应中间态 PDB 8ZW1（2.10 Å · X-ray · Homo sapiens · 链 B · 配体 ACO · 完整 CoA 51 重原子）——TCA 页共享资产，不是本步硫解酶口袋；本页只画反应端。", marks: [
+          { name: "S", kind: "newbond", note: "新生乙酰基硫酯" },
+        ] },
+        { ...ACYL_C14, marks: [
+          { name: "C14", kind: "newbond", note: "链缩短 2C 后的末端" },
+        ] },
+      ],
+      cofactorNote: "CoA-SH 不入画；乙酰-CoA 出环进 TCA，C14 脂酰-CoA 回到第 1 步即下一轮。",
+    },
+    evidence: {
+      substrate: [evComputed("keto-c16")],
+      product: [evOtherHuman("accoa"), evComputed("acylcoa-c14")],
+    },
+    arrowLabel: "硫解：C2–C3 断裂，乙酰-CoA 出环，链 −2C",
+    change:
+      "Claisen 硫解：C2–C3 键断裂，C1–C2 以乙酰-CoA 离环，剩余 C3–C16 变成 C14 脂酰-CoA（C14 是原链的 C3–C16，编号重排后为新链 C1–C14）。重原子 20→24（乙酰-CoA 5 + C14 片段 17，CoA 长链省略），体积 320.8→（83.3 + 284.9）Å³（ΔV +14.8%）；这是断键，不是简单构象变化，按规则默认 3D。",
+    physiology:
+      "每轮在此收尾：乙酰-CoA 进 TCA（每分子按 10 ATP 计），剩余链 −2C 回到第 1 步。软脂酸 C16 经 7 轮得到 8 乙酰-CoA + 7 FADH₂ + 7 NADH；能量账必须从「每轮产出」汇总，不能只看最后一步。",
+    defaultMode: "3d",
+    defaultModeRule:
+      "默认 3D 判据：重原子 20→24（不等）；体积 320.8→368.2 Å³（ΔV +14.8%，>2.5%）；拓扑改变为 Claisen 断键，产物为两个分子。",
+  },
+];
+
+const FAO_CONFIG: ComparisonConfig = {
+  pathwayId: "fatty-acid-oxidation",
+  title: "β-氧化 · 结构对照",
+  summary:
+    "六块逐步对照：活化 + 肉碱穿梭 + 四步循环。只对分子本身作形状对照——左侧酶位如实声明「未建立」，不伪造酶结构。9 个入画的分子中 3 个用 RCSB 实验配体坐标（棕榈酰-CoA 5DV5、反式-Δ²-棕榈烯酰-CoA 2UXW、乙酰-CoA 8ZW1），6 个用 RDKit 计算构象并标「自由态，不等于结合态」；脂酰-CoA 系列全部分块，只画酰基链 + 硫酯 S，CoA 长链省略。",
+  plateNo: "PLATE SF-05 · 结构对照 · β-氧化 · 2026",
+  back: { to: "/pathway/fatty-acid-oxidation", label: "← 返回挂图" },
+  backCaption: "β-氧化 · 结构对照（挂图页 /pathway/fatty-acid-oxidation）",
+  enzymePanel: false,
+  enzymePanelOffNote: "本通路酶 3D 结构资产未建立 · 本轮只做分子对照",
+  footerNote:
+    "β-氧化数据层登记 17 个代谢物实体；本页入画 8 个（棕榈酸、棕榈酰-CoA、反式-Δ²-棕榈烯酰-CoA、L-3-羟基棕榈酰-CoA、3-酮棕榈酰-CoA、棕榈酰肉碱、L-肉碱、乙酰-CoA），另为第 4 步链缩短单建 C14 脂酰-CoA 变体，共 9 个分子块。实验坐标 3 个：棕榈酰-CoA 5DV5（2.40 Å，Vibrio alginolyticus FadR，非 β-氧化酶）、反式-Δ²-棕榈烯酰-CoA 2UXW（1.45 Å，人 VLCAD，TH3 为截短配体）、乙酰-CoA 8ZW1（2.10 Å，人 CS，TCA 页共享）。计算构象 6 个：棕榈酸、L-3-羟基棕榈酰-CoA、3-酮棕榈酰-CoA、C14 脂酰-CoA、棕榈酰肉碱、L-肉碱。未入画 9 个：ATP / AMP / PPi / CoA-SH / FAD / FADH₂ / NAD⁺ / NADH / H₂O——沿用糖酵解与 TCA 的「辅因子与溶剂不入主链画」口径，在块内 cofactorNote 逐条说明。已知缺口：人 HADH 的 C4 羟基/酮基络合物 1F12、1F0Y 存在，但链长 C4 与 C16 不一致，本轮不混用；2RCU 的 BUJ 是棕榈酰肉碱类似物，不冒充底物；CPT1 人源无结构，穿梭段只做分子对照、不建膜蛋白视图。",
+  defaultModePolicy:
+    "默认模式按数据判据逐块决定：重原子数不变 + 拓扑改变（原子命名下的连接/键级/环大小变化）+ |ΔV| ≤ 2.5% → 该块默认 2D，其余默认 3D。?mode=2d|3d 为显式覆盖，优先级高于默认值。",
+  steps: FAO_COMPARISON,
+};
+
 const PPP_CONFIG: ComparisonConfig = {
   pathwayId: "ppp",
   title: "磷酸戊糖途径 · 结构对照",
@@ -1747,6 +2049,7 @@ export const COMPARISON_CONFIGS: Record<string, ComparisonConfig> = {
   tca: TCA_CONFIG,
   ppp: PPP_CONFIG,
   gluconeogenesis: GLUCONEOGENESIS_CONFIG,
+  "fatty-acid-oxidation": FAO_CONFIG,
 };
 
 export const comparisonConfigFor = (pathwayId?: string): ComparisonConfig | null =>

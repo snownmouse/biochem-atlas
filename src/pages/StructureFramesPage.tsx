@@ -944,7 +944,7 @@ export default function StructureFramesPage() {
     return (
       <div className="poster film-poster cmp-poster" data-page="comparison-missing">
         <nav className="film-back">
-          <Link to="/">← 返回概览</Link>
+          <Link to="/">← 返回首页</Link>
         </nav>
         <div className="film-missing" data-testid="comparison-not-wired">
           <strong>该通路结构对照尚未接入</strong>
@@ -959,6 +959,7 @@ export default function StructureFramesPage() {
     <div className="poster film-poster cmp-poster" data-page="comparison" data-mode={modeChoice}>
       <nav className="film-back" data-testid="film-back">
         <Link to={config.back.to}>{config.back.label}</Link>
+        <Link to="/" className="film-home">首页</Link>
         <span className="film-back-step">{config.backCaption}</span>
       </nav>
 
