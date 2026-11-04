@@ -15,6 +15,7 @@ import type {
   TransportStep,
 } from "../data/gluconeogenesis/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
+import PathwaySwitcher from "../components/PathwaySwitcher";
 import "../styles/frames-entry.css";
 
 const data = gnJson as unknown as GluconeogenesisData;
@@ -437,28 +438,17 @@ export default function GluconeogenesisOverviewPage() {
 
   return (
     <div className="poster">
-      {/* ===== 面包屑（兼作通路切换：克制的下划线文字） ===== */}
-      <nav className="crumb" style={{ margin: "14px 28px 0" }}>
-        <Link to="/">首页</Link>
-        {" ／ "}
-        <Link to="/pathway/glycolysis">糖酵解</Link>
-        {" ／ "}
-        <Link to="/pathway/tca">三羧酸循环</Link>
-        {" ／ "}
-        <b>糖异生</b>
-        {" ／ "}
-        <Link to="/pathway/cori">Cori 循环</Link>
-        {" ／ "}
-        <Link to="/pathway/ppp">磷酸戊糖途径</Link>
-        {" ／ "}
-        <Link to="/pathway/fatty-acid-oxidation">β-氧化</Link>
-        {selectedGn && (
-          <>
-            {" ／ 第 "}
-            {roman(selectedGn.index)} 步 · {selectedGn.name}
-          </>
-        )}
-      </nav>
+      {/* ===== 通路切换器（全站统一，替代原手写面包屑） ===== */}
+      <PathwaySwitcher
+        current="gluconeogenesis"
+        context={
+          selectedGn ? (
+            <>
+              第 {roman(selectedGn.index)} 步 · {selectedGn.name}
+            </>
+          ) : undefined
+        }
+      />
 
       {/* ===== 报头 ===== */}
       <header className="masthead">

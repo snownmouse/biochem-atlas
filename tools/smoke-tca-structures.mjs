@@ -303,8 +303,10 @@ await page.goto(`${ROUTE}?mode=2d`, { waitUntil: "domcontentloaded" });
 await settle("2d");
 check("?mode=2d 刷新后仍为 2D", (await page.locator('[data-testid="mol-2d"]').count()) === MOL_COUNT);
 check("?mode=2d 刷新后页头标记 data-mode=2d", (await page.locator('[data-page="comparison"]').getAttribute("data-mode")) === "2d");
+// 2026-11-04 统一导航改造后，film-back 与页头之间多了 8 条通路切换链接，
+// 原「8 次 Tab」上限不够；放宽到 24 次，断言本身（mode-2d 可键盘聚焦）不变。
 let tabbed = false;
-for (let i = 0; i < 8; i += 1) {
+for (let i = 0; i < 24; i += 1) {
   await page.keyboard.press("Tab");
   tabbed = await page.evaluate(() => document.activeElement?.getAttribute("data-testid") === "mode-2d");
   if (tabbed) break;

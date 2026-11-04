@@ -9,6 +9,7 @@ import { loadStepManifest, resolveStepAsset, stepAssets } from "../data/stepAsse
 import { FRAME_SEQUENCES, framesForStep } from "../data/structureFrames";
 import type { OrganId, Step } from "../data/types";
 import EmbeddedStepViewer from "../components/EmbeddedStepViewer";
+import PathwaySwitcher from "../components/PathwaySwitcher";
 import "../styles/frames-entry.css";
 
 /* ---------- 挂图配色（封顶四色 + 砖红） ---------- */
@@ -365,22 +366,8 @@ export default function PathwayOverviewPage() {
 
   return (
     <div className="poster">
-      {/* ===== 面包屑（兼作通路切换：克制的下划线文字） ===== */}
-      <nav className="crumb" style={{ margin: "14px 28px 0" }}>
-        <Link to="/">首页</Link>
-        {" ／ "}
-        <b>糖酵解</b>
-        {" ／ "}
-        <Link to="/pathway/tca">三羧酸循环</Link>
-        {" ／ "}
-        <Link to="/pathway/gluconeogenesis">糖异生</Link>
-        {" ／ "}
-        <Link to="/pathway/cori">Cori 循环</Link>
-        {" ／ "}
-        <Link to="/pathway/ppp">磷酸戊糖途径</Link>
-        {" ／ "}
-        <Link to="/pathway/fatty-acid-oxidation">β-氧化</Link>
-      </nav>
+      {/* ===== 通路切换器（全站统一，替代原手写面包屑） ===== */}
+      <PathwaySwitcher current="glycolysis" />
 
       {/* ===== 报头 ===== */}
       <header className="masthead">

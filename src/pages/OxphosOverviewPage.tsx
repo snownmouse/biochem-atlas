@@ -18,6 +18,7 @@ import skeletonJson from "../data/oxphos/skeleton.json";
 import type { OxphosData, OxphosModule, OxphosSkeleton } from "../data/oxphos/types";
 import { GRADE_LABEL, gradeOfPart } from "../data/evidenceGrade";
 import SolubleDomain3D from "../components/SolubleDomain3D";
+import PathwaySwitcher from "../components/PathwaySwitcher";
 
 const DATA = dataJson as unknown as OxphosData;
 const SKEL = skeletonJson as unknown as OxphosSkeleton;
@@ -173,27 +174,17 @@ export default function OxphosOverviewPage() {
 
   return (
     <div className="poster poster-oxphos">
-      <nav className="crumb" style={{ margin: "14px 28px 0" }}>
-        <Link to="/">首页</Link>
-        {" ／ "}
-        <Link to="/pathway/glycolysis">糖酵解</Link>
-        {" ／ "}
-        <Link to="/pathway/tca">三羧酸循环</Link>
-        {" ／ "}
-        <Link to="/pathway/gluconeogenesis">糖异生</Link>
-        {" ／ "}
-        <Link to="/pathway/ppp">磷酸戊糖途径</Link>
-        {" ／ "}
-        <Link to="/pathway/fatty-acid-oxidation">β-氧化</Link>
-        {" ／ "}
-        <b>氧化磷酸化</b>
-        {selected && (
-          <>
-            {" ／ "}
-            模块 {selected.order} · {MODULE_SHORT[selected.id] ?? selected.name}
-          </>
-        )}
-      </nav>
+      {/* ===== 通路切换器（全站统一，替代原手写面包屑） ===== */}
+      <PathwaySwitcher
+        current="oxphos"
+        context={
+          selected ? (
+            <>
+              模块 {selected.order} · {MODULE_SHORT[selected.id] ?? selected.name}
+            </>
+          ) : undefined
+        }
+      />
 
       <header className="masthead">
         <div className="mast-top">

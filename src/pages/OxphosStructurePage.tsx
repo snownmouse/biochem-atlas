@@ -12,6 +12,7 @@ import { GRADE_LABEL, gradeOfPart } from "../data/evidenceGrade";
 import dataJson from "../data/oxphos/oxphos.json";
 import type { OxphosData, OxphosModule } from "../data/oxphos/types";
 import SolubleDomain3D from "../components/SolubleDomain3D";
+import PathwaySwitcher from "../components/PathwaySwitcher";
 
 const DATA = dataJson as unknown as OxphosData;
 const BRICK = "#9C4A3C";
@@ -78,14 +79,7 @@ function ModuleRow({ module }: { module: OxphosModule }) {
 export default function OxphosStructurePage() {
   return (
     <div className="poster poster-oxphos" data-testid="oxphos-structure-page" data-plate-no={DATA.structurePlateNo}>
-      <nav className="crumb" style={{ margin: "14px 28px 0" }}>
-        <Link to="/">首页</Link>
-        {" ／ "}
-        <Link to="/pathway/oxphos">氧化磷酸化</Link>
-        {" ／ "}
-        <b>结构对照 {DATA.structurePlateNo}</b>
-      </nav>
-
+      <PathwaySwitcher current="oxphos" variant="structure" context={`结构对照 ${DATA.structurePlateNo}`} />
       <header className="masthead">
         <div className="mast-top">
           <span className="kicker">结构对照 · STRUCTURE PLATE · {DATA.structurePlateNo}</span>

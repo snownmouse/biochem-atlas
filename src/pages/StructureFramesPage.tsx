@@ -41,6 +41,8 @@ import {
   type SideGrade,
 } from "../data/evidenceGrade";
 import { loadStepManifest, resolveStepAsset, stepAssets, type StepAssetCfg } from "../data/stepAssets";
+import PathwaySwitcher from "../components/PathwaySwitcher";
+import type { NavItemId } from "../data/pathways";
 import "../styles/frames-entry.css";
 
 type Mode = "2d" | "3d";
@@ -975,6 +977,7 @@ export default function StructureFramesPage() {
         <Link to="/" className="film-home">首页</Link>
         <span className="film-back-step">{config.backCaption}</span>
       </nav>
+      <PathwaySwitcher current={pathwayId as NavItemId} variant="structure" />
 
       <header className="masthead">
         <div className="mast-top">

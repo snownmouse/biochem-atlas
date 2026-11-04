@@ -7,6 +7,7 @@ import type { MouseEvent as ReactMouseEvent } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
 import { entitiesTca, organNoteTca, pathwayTca, TODO_NOTES_TCA } from "../data/tca";
 import type { OrganId, Step } from "../data/types";
+import PathwaySwitcher from "../components/PathwaySwitcher";
 import "../styles/frames-entry.css";
 
 /* ---------- 挂图配色（与糖酵解挂图同款封顶） ---------- */
@@ -272,26 +273,17 @@ export default function TcaOverviewPage() {
 
   return (
     <div className="poster">
-      {/* ===== 面包屑 ===== */}
-      <nav className="crumb" style={{ margin: "14px 28px 0" }}>
-        <Link to="/">首页</Link>
-        {" ／ "}
-        <Link to="/pathway/glycolysis">糖酵解</Link>
-        {" ／ "}
-        <b>三羧酸循环</b>
-        {" ／ "}
-        <Link to="/pathway/gluconeogenesis">糖异生</Link>
-        {" ／ "}
-        <Link to="/pathway/ppp">磷酸戊糖途径</Link>
-        {" ／ "}
-        <Link to="/pathway/fatty-acid-oxidation">β-氧化</Link>
-        {selectedStep && (
-          <>
-            {" ／ 第 "}
-            {roman(selectedStep.index)} 步 · {selectedStep.name}
-          </>
-        )}
-      </nav>
+      {/* ===== 通路切换器（全站统一，替代原手写面包屑） ===== */}
+      <PathwaySwitcher
+        current="tca"
+        context={
+          selectedStep ? (
+            <>
+              第 {roman(selectedStep.index)} 步 · {selectedStep.name}
+            </>
+          ) : undefined
+        }
+      />
 
       {/* ===== 报头 ===== */}
       <header className="masthead">

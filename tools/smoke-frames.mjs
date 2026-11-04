@@ -318,11 +318,13 @@ check("?mode=2d 刷新后仍为 2D（21 个结构式、0 个 3D 画布）",
     (await page.locator('[data-testid="mol-3d"]').count()) === 0);
 check("?mode=2d 刷新后页头标记 data-mode=2d", (await page.locator('[data-page="comparison"]').getAttribute("data-mode")) === "2d");
 
-// 键盘可达 + 焦点可见（此时是刚加载的干净页：Tab 依次经过返回链接 → 按规则 → 3D → 2D）
+// 键盘可达 + 焦点可见（此时是刚加载的干净页：Tab 依次经过返回链接 → 通路切换器 8 条 → 按规则 → 3D → 2D）
 // 为什么不用 page.evaluate(() => b.focus())：Chromium 的 :focus-visible 启发式只在
 // 键盘触发的聚焦上命中，程序化 focus() 不画焦点环；这里用真实 Tab 键走到开关上。
+// 2026-11-04 统一导航改造后，film-back 与页头之间多了 8 条通路切换链接，
+// 原「8 次 Tab」上限已不够；这里放宽到 24 次，断言本身（能聚焦 + 有焦点环）不变。
 let tabbed = false;
-for (let i = 0; i < 8; i += 1) {
+for (let i = 0; i < 24; i += 1) {
   await page.keyboard.press("Tab");
   tabbed = await page.evaluate(() => document.activeElement?.getAttribute("data-testid") === "mode-2d");
   if (tabbed) break;

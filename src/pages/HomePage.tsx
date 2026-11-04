@@ -23,6 +23,7 @@ import {
   HOME_POS,
   HOME_SHARED_TAGS,
 } from "../data/homeLayout";
+import PathwaySwitcher from "../components/PathwaySwitcher";
 
 const C = {
   paper: "#f6f3ec",
@@ -355,11 +356,7 @@ export function HomePage() {
 
   return (
     <div className="poster home-poster" data-page="home">
-      <nav className="crumb home-crumb">
-        <b>首页</b>
-        <span className="sep">／</span>
-        <span>代谢总图 · MASTER MAP</span>
-      </nav>
+      <PathwaySwitcher current="home" variant="home" context="代谢总图 · MASTER MAP" />
 
       <header className="masthead">
         <div className="mast-top">

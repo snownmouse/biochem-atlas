@@ -10,6 +10,7 @@ import skelJson from "../data/ppp/skeleton.json";
 import type { PppData, PppSkeleton, PppStep } from "../data/ppp/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
+import PathwaySwitcher from "../components/PathwaySwitcher";
 import "../styles/frames-entry.css";
 
 const data = pppJson as unknown as PppData;
@@ -408,26 +409,17 @@ export default function PppOverviewPage() {
 
   return (
     <div className="poster poster-ppp">
-      {/* ===== 面包屑（兼作通路切换） ===== */}
-      <nav className="crumb" style={{ margin: "14px 28px 0" }}>
-        <Link to="/">首页</Link>
-        {" ／ "}
-        <Link to="/pathway/glycolysis">糖酵解</Link>
-        {" ／ "}
-        <Link to="/pathway/tca">三羧酸循环</Link>
-        {" ／ "}
-        <Link to="/pathway/gluconeogenesis">糖异生</Link>
-        {" ／ "}
-        <b>磷酸戊糖途径</b>
-        {" ／ "}
-        <Link to="/pathway/fatty-acid-oxidation">β-氧化</Link>
-        {selectedStep && (
-          <>
-            {" ／ 第 "}
-            {roman(selectedStep.index)} 步 · {selectedStep.name}
-          </>
-        )}
-      </nav>
+      {/* ===== 通路切换器（全站统一，替代原手写面包屑） ===== */}
+      <PathwaySwitcher
+        current="ppp"
+        context={
+          selectedStep ? (
+            <>
+              第 {roman(selectedStep.index)} 步 · {selectedStep.name}
+            </>
+          ) : undefined
+        }
+      />
 
       {/* ===== 报头 ===== */}
       <header className="masthead">

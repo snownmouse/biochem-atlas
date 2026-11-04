@@ -9,6 +9,7 @@ import skeletonJson from "../data/fatty-acid-oxidation/skeleton.json";
 import type { FaoData, FaoSkeleton } from "../data/fatty-acid-oxidation/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
+import PathwaySwitcher from "../components/PathwaySwitcher";
 
 const data = faoJson as unknown as FaoData;
 const skel = skeletonJson as unknown as FaoSkeleton;
@@ -280,25 +281,19 @@ export default function FaoOverviewPage() {
 
   return (
     <div className="poster poster-fao">
-      <nav className="crumb" style={{ margin: "14px 28px 0" }}>
-        <Link to="/">首页</Link>
-        {" ／ "}
-        <Link to="/pathway/glycolysis">糖酵解</Link>
-        {" ／ "}
-        <Link to="/pathway/tca">三羧酸循环</Link>
-        {" ／ "}
-        <Link to="/pathway/gluconeogenesis">糖异生</Link>
-        {" ／ "}
-        <Link to="/pathway/ppp">磷酸戊糖途径</Link>
-        {" ／ "}
-        <b>β-氧化</b>
-        {selected && (
-          <>
-            {" ／ "}
-            {selected.kind === "cycle" ? `第 ${roman(selected.index)} 步 · ${STEP_SHORT[selected.id]}` : STEP_SHORT[selected.id]}
-          </>
-        )}
-      </nav>
+      {/* ===== 通路切换器（全站统一，替代原手写面包屑） ===== */}
+      <PathwaySwitcher
+        current="fatty-acid-oxidation"
+        context={
+          selected ? (
+            selected.kind === "cycle" ? (
+              <>第 {roman(selected.index)} 步 · {STEP_SHORT[selected.id]}</>
+            ) : (
+              STEP_SHORT[selected.id]
+            )
+          ) : undefined
+        }
+      />
 
       <header className="masthead">
         <div className="mast-top">

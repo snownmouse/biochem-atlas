@@ -1,0 +1,89 @@
+/* ============================================================
+   统一通路切换器（PathwaySwitcher）
+   口径：单行文字导航，纸白底、墨色字；当前项实线下压，其余点线下划线。
+   无卡片 / 胶囊 / 圆角 / 投影 / 渐变 / 下拉；1440 下不换行，
+   条目继续增长时整行横向滚动（不遮住下方内容）。
+   ============================================================ */
+
+.pathway-switcher {
+  display: flex;
+  flex-wrap: nowrap;
+  align-items: baseline;
+  gap: 0;
+  white-space: nowrap;
+  overflow-x: auto;
+  overflow-y: hidden;
+  margin: 14px 28px 0;
+  padding-bottom: 2px;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+  scrollbar-width: thin;
+}
+
+/* 结构对照页：紧贴返回行下方，不再重复页边距 */
+.pathway-switcher--structure {
+  margin: 8px 28px 0;
+}
+
+.pathway-switcher .ps-item {
+  display: inline-flex;
+  align-items: baseline;
+  flex: 0 0 auto;
+}
+
+.pathway-switcher .ps-sep {
+  margin: 0 7px;
+  color: var(--dim, rgba(34, 40, 42, 0.4));
+  opacity: 0.6;
+}
+
+.pathway-switcher .ps-no {
+  margin-right: 5px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  opacity: 0.45;
+}
+
+.pathway-switcher .ps-link {
+  flex: 0 0 auto;
+  color: var(--line, rgba(34, 40, 42, 0.55));
+  text-decoration: none;
+  border-bottom: 1px dotted var(--dim, rgba(34, 40, 42, 0.4));
+  padding-bottom: 1px;
+}
+
+.pathway-switcher .ps-link:hover {
+  color: var(--ink, #22282a);
+  border-bottom-color: var(--ink, #22282a);
+}
+
+/* 当前项：实线下压 + 加粗，不换成按钮或色块 */
+.pathway-switcher .ps-cur {
+  color: var(--ink, #22282a);
+  font-weight: 700;
+  border-bottom: 2px solid var(--ink, #22282a);
+}
+
+.pathway-switcher .ps-cur .ps-no {
+  opacity: 0.7;
+}
+
+.pathway-switcher .ps-context {
+  flex: 0 0 auto;
+  color: var(--line, rgba(34, 40, 42, 0.55));
+}
+
+.pathway-switcher .ps-context::before {
+  content: "／";
+  margin: 0 7px 0 10px;
+  opacity: 0.4;
+}
+
+.pathway-switcher:focus-within {
+  outline: none;
+}
+
+.pathway-switcher .ps-link:focus-visible {
+  outline: 1px solid var(--brick, #9c4a3c);
+  outline-offset: 2px;
+}

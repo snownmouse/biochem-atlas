@@ -8,6 +8,7 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import coriJson from "../data/cori/cori.json";
 import skelJson from "../data/cori/skeleton.json";
 import type { ArmStep, CoriData, CoriSkeleton } from "../data/cori/types";
+import PathwaySwitcher from "../components/PathwaySwitcher";
 import glyJson from "../data/glycolysis.json";
 import gluJson from "../data/gluconeogenesis/gluconeogenesis.json";
 import gluSkelJson from "../data/gluconeogenesis/skeleton.json";
@@ -203,28 +204,8 @@ export default function CoriOverviewPage() {
 
   return (
     <div className="poster cori-poster">
-      {/* ===== 面包屑 ===== */}
-      <nav className="crumb" style={{ margin: "14px 28px 0" }}>
-        <Link to="/">首页</Link>
-        {" ／ "}
-        <Link to="/pathway/glycolysis">糖酵解</Link>
-        {" ／ "}
-        <Link to="/pathway/tca">三羧酸循环</Link>
-        {" ／ "}
-        <Link to="/pathway/gluconeogenesis">糖异生</Link>
-        {" ／ "}
-        <Link to="/pathway/ppp">磷酸戊糖途径</Link>
-        {" ／ "}
-        <Link to="/pathway/fatty-acid-oxidation">β-氧化</Link>
-        {" ／ "}
-        <b>Cori 循环</b>
-        {selected && (
-          <>
-            {" ／ "}
-            {selected.step.label}
-          </>
-        )}
-      </nav>
+      {/* ===== 通路切换器（全站统一，替代原手写面包屑） ===== */}
+      <PathwaySwitcher current="cori" context={selected ? selected.step.label : undefined} />
 
       {/* ===== 报头 ===== */}
       <header className="masthead">
