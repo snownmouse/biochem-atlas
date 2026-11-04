@@ -1779,3 +1779,49 @@ svg .branch { transition: opacity 0.2s ease; }
   margin-bottom: 8px;
 }
 .film-stage .stage-2d .stage-svg { display: block; width: 100%; height: auto; max-height: 560px; }
+
+/* ============================================================
+   PPP 挂图（/pathway/ppp · PLATE 04）
+   仅补本页独有结构：画布尺寸、右栏证据等级、基团转移块；其余全部复用 .poster 体例
+   ============================================================ */
+.poster-ppp .plate-canvas { width: 1980px; height: 680px; }
+.poster-ppp .d-evidence {
+  margin: 12px 0 10px;
+  padding-top: 9px;
+  border-top: 1px solid var(--hair-soft);
+}
+.poster-ppp .d-evidence .lbl {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  margin-right: 8px;
+}
+.poster-ppp .d-evidence .g-label {
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  border-left: 2px solid currentColor;
+  padding-left: 7px;
+}
+.poster-ppp .d-evidence .g-label.a { color: var(--teal); }
+.poster-ppp .d-evidence .g-label.b { color: var(--ink); }
+.poster-ppp .d-evidence .g-label.c,
+.poster-ppp .d-evidence .g-label.d { color: var(--brick); }
+.poster-ppp .d-evidence .g-label.none { color: var(--hair); font-size: 12.5px; font-weight: 400; }
+.poster-ppp .d-evidence .g-note {
+  margin-top: 5px;
+  font-size: 10px;
+  line-height: 1.7;
+  opacity: 0.62;
+}
+.poster-ppp .d-transfer {
+  margin: 6px 0 10px;
+  padding-left: 9px;
+  border-left: 2px solid var(--teal);
+  font-size: 11px;
+  line-height: 1.8;
+}
+.poster-ppp .d-transfer b { font-size: 10px; letter-spacing: 0.2em; }
+/* PPP 结算行数值较长：标签与数值上下排，避免「每 3 G6P 净得」被挤成竖排 */
+.poster-ppp .settle-net { flex-direction: column; align-items: flex-start; gap: 2px; }

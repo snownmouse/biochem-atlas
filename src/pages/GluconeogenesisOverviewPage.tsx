@@ -444,6 +444,8 @@ export default function GluconeogenesisOverviewPage() {
         <Link to="/pathway/tca">三羧酸循环</Link>
         {" ／ "}
         <b>糖异生</b>
+        {" ／ "}
+        <Link to="/pathway/ppp">磷酸戊糖途径</Link>
         {selectedGn && (
           <>
             {" ／ 第 "}

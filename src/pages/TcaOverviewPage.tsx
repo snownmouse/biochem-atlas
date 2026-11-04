@@ -279,6 +279,8 @@ export default function TcaOverviewPage() {
         <b>三羧酸循环</b>
         {" ／ "}
         <Link to="/pathway/gluconeogenesis">糖异生</Link>
+        {" ／ "}
+        <Link to="/pathway/ppp">磷酸戊糖途径</Link>
         {selectedStep && (
           <>
             {" ／ 第 "}

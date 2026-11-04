@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider, useParams } from "react-router-dom
 import PathwayOverviewPage from "./pages/PathwayOverviewPage";
 import TcaOverviewPage from "./pages/TcaOverviewPage";
 import GluconeogenesisOverviewPage from "./pages/GluconeogenesisOverviewPage";
+import PppOverviewPage from "./pages/PppOverviewPage";
 import StepViewPage from "./pages/StepViewPage";
 import StructureFramesPage from "./pages/StructureFramesPage";
 import "./styles.css";
@@ -15,6 +16,8 @@ function PathwayRoute() {
     <TcaOverviewPage />
   ) : pathwayId === "gluconeogenesis" ? (
     <GluconeogenesisOverviewPage />
+  ) : pathwayId === "ppp" ? (
+    <PppOverviewPage />
   ) : (
     <PathwayOverviewPage />
   );

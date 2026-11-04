@@ -254,10 +254,10 @@ for (const spec of [PPP, GN]) {
   // ===== 6) 直达 URL + 返回行 =====
   check("返回行存在", (await page.locator('[data-testid="film-back"]').count()) === 1);
   if (spec === PPP) {
-    check("PPP 返回首页且页脚写明「暂无挂图入口 · 只能直达 URL」",
-      (await page.locator('[data-testid="film-back"] a').getAttribute("href")) === "/" &&
-        (await page.locator(".poster-foot").innerText()).includes("暂无挂图入口") &&
-        (await page.locator(".poster-foot").innerText()).includes("直达 URL"));
+    // 断言随功能变更（2026-11-04）：PPP 挂图页 /pathway/ppp 已接入，返回行进挂图、页脚缺口说明相应改写。
+    check("PPP 返回挂图且页脚写明「挂图页已接入」",
+      (await page.locator('[data-testid="film-back"] a').getAttribute("href")) === "/pathway/ppp" &&
+        (await page.locator(".poster-foot").innerText()).includes("挂图页已接入"));
   } else {
     check("糖异生返回挂图", (await page.locator('[data-testid="film-back"] a').getAttribute("href")) === "/pathway/gluconeogenesis");
   }

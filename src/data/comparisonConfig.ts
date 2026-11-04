@@ -1714,12 +1714,12 @@ const PPP_CONFIG: ComparisonConfig = {
   summary:
     "八块逐步对照：氧化支路 3 步 + 非氧化支路 5 步，只对分子本身作形状对照——左侧酶位如实声明「未建立」，不伪造酶结构。页头开关整页切换 3D 球棍 / 2D 结构式；箭头下方始终给出范德华体积与主轴长度变化。11 个分子中 7 个用 RCSB 实验配体坐标，3 个（6PGL / Xu5P / GAP）无本体络合物、用 RDKit 计算构象并标「自由态，不等于结合态」；CO₂ 只做 2D、3D 不建。每块分子对照下方有一句首屏可见的「配体来源」。",
   plateNo: "PLATE SF-03 · 结构对照 · PPP · 2026",
-  back: { to: "/", label: "← 返回首页" },
-  backCaption: "磷酸戊糖途径 · 结构对照（暂无挂图页，直达 URL）",
+  back: { to: "/pathway/ppp", label: "← 返回挂图" },
+  backCaption: "磷酸戊糖途径 · 结构对照（挂图页 /pathway/ppp）",
   enzymePanel: false,
   enzymePanelOffNote: "本通路酶 3D 结构资产未建立 · 本轮只做分子对照",
   footerNote:
-    "PPP 11 个分子中 7 个取自 RCSB 实验配体络合物（G6P 7SNI 人 G6PD；6PG 3E7F / 2W90 非人源；Ru5P 3OVQ 人 RPE 与 2VVP 结核 RpiB；R5P 2VVP；S7P 4R75 AfuA；E4P 5XPS 酵母 TK；F6P 2CXS 小鼠 GPI），3 个为 RDKit 计算构象（6PGL、Xu5P、GAP：PDB 无本体络合物；4KXV 的 DX5 是木糖醇-5-磷酸类似物，不作底物），CO₂ 仅 3 原子只做 2D。非人源来源逐条写在各块：6PG（布氏锥虫 / 嗜热地芽孢杆菌）、Ru5P/R5P（结核分枝杆菌）、S7P（胸膜肺炎放线杆菌 AfuA，非本通路酶）、E4P（树干毕赤酵母）。分级口径：2VVP 的 RpiB 与人类 RPIA（RpiA 家族）不是同一酶，Ru5P / R5P 按「跨种非本酶」计，不按「本步跨种」计。已知缺口：PPP 暂无挂图入口，/structures/ppp 只能直达 URL；本通路酶 3D 结构资产未建立，左侧只给灰字声明。",
+    "PPP 11 个分子中 7 个取自 RCSB 实验配体络合物（G6P 7SNI 人 G6PD；6PG 3E7F / 2W90 非人源；Ru5P 3OVQ 人 RPE 与 2VVP 结核 RpiB；R5P 2VVP；S7P 4R75 AfuA；E4P 5XPS 酵母 TK；F6P 2CXS 小鼠 GPI），3 个为 RDKit 计算构象（6PGL、Xu5P、GAP：PDB 无本体络合物；4KXV 的 DX5 是木糖醇-5-磷酸类似物，不作底物），CO₂ 仅 3 原子只做 2D。非人源来源逐条写在各块：6PG（布氏锥虫 / 嗜热地芽孢杆菌）、Ru5P/R5P（结核分枝杆菌）、S7P（胸膜肺炎放线杆菌 AfuA，非本通路酶）、E4P（树干毕赤酵母）。分级口径：2VVP 的 RpiB 与人类 RPIA（RpiA 家族）不是同一酶，Ru5P / R5P 按「跨种非本酶」计，不按「本步跨种」计。已知缺口：本通路酶 3D 结构资产未建立，左侧只给灰字声明；挂图页已接入（/pathway/ppp），本页从挂图右栏入口进入。",
   defaultModePolicy:
     "默认模式按数据判据逐块决定：重原子数不变 + 拓扑改变（原子命名下的连接/键级/环大小变化）+ |ΔV| ≤ 2.5% → 该块默认 2D，其余默认 3D。?mode=2d|3d 为显式覆盖，优先级高于默认值。",
   steps: PPP_COMPARISON,
