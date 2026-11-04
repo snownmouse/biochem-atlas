@@ -375,6 +375,8 @@ export default function PathwayOverviewPage() {
         {" ／ "}
         <Link to="/pathway/gluconeogenesis">糖异生</Link>
         {" ／ "}
+        <Link to="/pathway/cori">Cori 循环</Link>
+        {" ／ "}
         <Link to="/pathway/ppp">磷酸戊糖途径</Link>
         {" ／ "}
         <Link to="/pathway/fatty-acid-oxidation">β-氧化</Link>

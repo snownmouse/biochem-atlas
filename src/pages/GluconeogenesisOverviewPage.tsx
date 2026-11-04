@@ -447,6 +447,8 @@ export default function GluconeogenesisOverviewPage() {
         {" ／ "}
         <b>糖异生</b>
         {" ／ "}
+        <Link to="/pathway/cori">Cori 循环</Link>
+        {" ／ "}
         <Link to="/pathway/ppp">磷酸戊糖途径</Link>
         {" ／ "}
         <Link to="/pathway/fatty-acid-oxidation">β-氧化</Link>

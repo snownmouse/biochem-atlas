@@ -8,6 +8,23 @@ import type { HomePathwayId } from "./homeMap";
  */
 export const HOME_CANVAS = { width: 1020, height: 552 };
 
+/**
+ * Cori 循环在首页的表达：不新增第七个标题块，也不新增第七个通路节点。
+ * 它在两条既有链路外侧加一条“细胞外血液带”：乳酸从右端 Lac 出肌、经血带向左回肝；
+ * 肝在左端把葡萄糖释放回血带、向右送肌。回路是叠加层，点击进入 PLATE 07。
+ * 血液带画在 y=-48..0 的负坐标区（在细胞外），因此不挤压六条既有通路的标题。
+ */
+export const HOME_CORI_LOOP = {
+  band: { minY: -48, height: 48, tint: 0.05 },
+  /** 葡萄糖：肝端 GLC 左缘 → 左竖管 → 血带上行 → 向右送肌 */
+  glucosePath: "M 41 150 L 18 150 L 18 -30 L 1002 -30",
+  /** 乳酸：肌端 Lac 右缘 → 右竖管 → 血带上行 → 向左回肝 */
+  lactatePath: "M 893 196 L 1008 196 L 1008 -10 L 18 -10",
+  glucoseLabel: { x: 510, y: -34, text: "葡萄糖 · 肝 → 肌", anchor: "middle" as const },
+  lactateLabel: { x: 510, y: -13, text: "乳酸 · 肌 → 肝", anchor: "middle" as const },
+  bandTitle: { x: 24, y: -38, text: "血液 · 细胞外 · CORI 循环 PLATE 07", anchor: "start" as const },
+};
+
 export interface HomeBand {
   id: string;
   label: string;

@@ -8,6 +8,7 @@ import GluconeogenesisOverviewPage from "./pages/GluconeogenesisOverviewPage";
 import PppOverviewPage from "./pages/PppOverviewPage";
 import FaoOverviewPage from "./pages/FaoOverviewPage";
 import OxphosOverviewPage from "./pages/OxphosOverviewPage";
+import CoriOverviewPage from "./pages/CoriOverviewPage";
 import OxphosStructurePage from "./pages/OxphosStructurePage";
 import StepViewPage from "./pages/StepViewPage";
 import StructureFramesPage from "./pages/StructureFramesPage";
@@ -26,6 +27,8 @@ function PathwayRoute() {
     <FaoOverviewPage />
   ) : pathwayId === "oxphos" ? (
     <OxphosOverviewPage />
+  ) : pathwayId === "cori" ? (
+    <CoriOverviewPage />
   ) : (
     <PathwayOverviewPage />
   );

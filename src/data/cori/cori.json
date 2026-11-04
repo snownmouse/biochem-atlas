@@ -1,0 +1,331 @@
+{
+  "id": "cori",
+  "name": "Cori 循环",
+  "en": "CORI CYCLE",
+  "plateNo": "PLATE 07 / 12",
+  "summary": "肌肉把糖酵解跑到底，用 LDH 把丙酮酸还原成乳酸并再生 NAD⁺；肝把乳酸收回去，绕开糖酵解三个不可逆步，用 6 个高能磷酸键把它重建为葡萄糖。本页不重画任何一步：肌肉臂引用糖酵解 gk-1 / gk-3 / gk-6 / gk-10 与糖异生入口 gn-cori（逆向），肝臂引用糖异生 gn-cori / gn-1 / gn-2 / gn-9 / gn-11 及 MPC 转运。页面主体是器官间的物流与能量账。",
+  "thesis": {
+    "statement": "Cori 循环没有自己的酶：两个臂都是对既有通路的引用，页面只做搬运、定向与记账。任何一个被引用的步骤都不在本页重绘反应式。",
+    "referenceCount": 13,
+    "equationCount": 0
+  },
+  "organs": [
+    {
+      "id": "muscle",
+      "name": "骨骼肌",
+      "role": "产出端",
+      "note": "收缩态快肌纤维以糖酵解为主，终点是乳酸而不是乙酰-CoA：LDH 把丙酮酸还原为乳酸，同时把 gk-6 产生的 NADH 消耗掉、再生 NAD⁺。"
+    },
+    {
+      "id": "liver",
+      "name": "肝",
+      "role": "回收端",
+      "note": "肝用 MCT1 收乳酸，LDH 把它氧化回丙酮酸，再走糖异生重建葡萄糖；重建过程绕开 gk-1 / gk-3 / gk-10 三个不可逆点，这是整轮净耗能的来源。"
+    },
+    {
+      "id": "rbc",
+      "name": "红细胞",
+      "role": "第三来源（单列）",
+      "note": "红细胞没有线粒体，糖酵解终点恒为乳酸，是静息态血乳酸的稳定来源；本页把它作为血乳酸的一条单独来源，不画成第三条完整臂。"
+    }
+  ],
+  "arms": [
+    {
+      "organId": "muscle",
+      "title": "骨骼肌 · 产出端",
+      "en": "MUSCLE · LACTATE PRODUCER",
+      "flow": "葡萄糖 → 2 丙酮酸 → 2 乳酸（每 1 葡萄糖）",
+      "steps": [
+        {
+          "id": "cori-m-gk1",
+          "kind": "enzyme-ref",
+          "source": { "pathway": "glycolysis", "stepId": "gk-1", "direction": "forward" },
+          "role": "investment",
+          "label": "投入 1 ATP",
+          "energy": { "item": "ATP", "sign": -1, "count": 1 },
+          "note": "肌肉侧的第一道不可逆门。Cori 循环不为它提供旁路：肌肉并不回收葡萄糖，只把碳以乳酸形式送走。"
+        },
+        {
+          "id": "cori-m-gk3",
+          "kind": "enzyme-ref",
+          "source": { "pathway": "glycolysis", "stepId": "gk-3", "direction": "forward" },
+          "role": "commit",
+          "label": "限速 −1 ATP",
+          "energy": { "item": "ATP", "sign": -1, "count": 1 },
+          "note": "糖酵解的流量闸门。肌肉侧它决定有多少碳最终变成乳酸；肝侧对应的 FBPase-1（gn-9）是重建方向的闸门。"
+        },
+        {
+          "id": "cori-m-gk6",
+          "kind": "enzyme-ref",
+          "source": { "pathway": "glycolysis", "stepId": "gk-6", "direction": "forward" },
+          "role": "redox",
+          "label": "产 NADH",
+          "energy": { "item": "NADH", "sign": 1, "count": 2 },
+          "note": "GAPDH 把 NAD⁺ 还原为 NADH。NAD⁺ 池很小，若没有下一步把它氧化回去，糖酵解会在三碳阶段停摆。"
+        },
+        {
+          "id": "cori-m-gk10",
+          "kind": "enzyme-ref",
+          "source": { "pathway": "glycolysis", "stepId": "gk-10", "direction": "forward" },
+          "role": "payback",
+          "label": "产 Pyr",
+          "energy": { "item": "ATP", "sign": 1, "count": 2 },
+          "note": "PK 把 PEP 的磷酸键交给 ADP。到这里每葡萄糖净得 2 ATP（gk-7 与 gk-10 各回收 2，扣除 gk-1 / gk-3 的 2）。"
+        },
+        {
+          "id": "cori-m-ldh",
+          "kind": "enzyme-ref-reverse",
+          "source": { "pathway": "gluconeogenesis", "stepId": "gn-cori", "direction": "reverse" },
+          "role": "redox",
+          "label": "还原再生 NAD⁺",
+          "energy": { "item": "NADH", "sign": -1, "count": 2 },
+          "note": "肌肉侧是 gn-cori 的逆向（丙酮酸 → 乳酸）。它把 gk-6 产出的 2 NADH 正好消耗掉，NAD⁺ 回到 GAPDH，乳酸作为终产物出胞。"
+        },
+        {
+          "id": "cori-m-mct",
+          "kind": "transport",
+          "source": null,
+          "role": "transport",
+          "label": "出胞入血",
+          "note": "乳酸经 MCT4 出肌细胞进入血液。这一步不是酶促反应，也不是糖酵解或糖异生中的任何一步，是本循环的连接件。"
+        }
+      ]
+    },
+    {
+      "organId": "liver",
+      "title": "肝 · 回收端",
+      "en": "LIVER · CORI END",
+      "flow": "2 乳酸 → 2 丙酮酸 → 1 葡萄糖（每轮）",
+      "steps": [
+        {
+          "id": "cori-l-mct",
+          "kind": "transport",
+          "source": null,
+          "role": "transport",
+          "label": "收乳酸",
+          "note": "肝细胞经 MCT1 把血乳酸收进来。与肌肉侧的 MCT4 一样，属于循环连接件，不冒充酶促步骤。"
+        },
+        {
+          "id": "cori-l-ldh",
+          "kind": "enzyme-ref",
+          "source": { "pathway": "gluconeogenesis", "stepId": "gn-cori", "direction": "forward" },
+          "role": "redox",
+          "label": "氧化，产 NADH",
+          "energy": { "item": "NADH", "sign": 1, "count": 2 },
+          "note": "肝侧把 2 乳酸氧化回 2 丙酮酸，产生 2 NADH。这与肌肉侧的方向相反：同一个酶，两个器官各取所需。"
+        },
+        {
+          "id": "cori-l-mpc",
+          "kind": "transport-ref",
+          "source": { "pathway": "gluconeogenesis", "stepId": "gn-shuttle-mpc", "direction": "forward" },
+          "role": "transport",
+          "label": "入线粒体",
+          "note": "丙酮酸必须过线粒体内膜才能被羧化。区室错位在这里第一次出现：胞质里的丙酮酸不能直接在胞质变成 OAA。"
+        },
+        {
+          "id": "cori-l-pc",
+          "kind": "enzyme-ref",
+          "source": { "pathway": "gluconeogenesis", "stepId": "gn-1", "direction": "forward" },
+          "role": "bypass",
+          "label": "羧化绕开 gk-10",
+          "energy": { "item": "ATP", "sign": -1, "count": 2 },
+          "note": "丙酮酸羧化酶在线粒体基质，用生物素把 CO₂ 加到丙酮酸上。它是糖异生四个绕道之一，专门替代糖酵解不可逆的 gk-10。"
+        },
+        {
+          "id": "cori-l-pepck",
+          "kind": "enzyme-ref",
+          "source": { "pathway": "gluconeogenesis", "stepId": "gn-2", "direction": "forward" },
+          "role": "bypass",
+          "label": "GTP 买回 PEP",
+          "energy": { "item": "GTP", "sign": -1, "count": 2 },
+          "note": "PEPCK 把 OAA 变成 PEP，用 GTP 把 PK 正向砸掉的磷酸烯醇键买回来。这是整轮 6 个高能键中唯一的 GTP 项。"
+        },
+        {
+          "id": "cori-l-fbpase",
+          "kind": "enzyme-ref",
+          "source": { "pathway": "gluconeogenesis", "stepId": "gn-9", "direction": "forward" },
+          "role": "commit",
+          "label": "限速绕开 gk-3",
+          "note": "重建方向的限速闸门：水解 FBP 的 1-磷酸，不放能、不产 ATP，正好对应糖酵解 PFK-1 的不可逆投入。"
+        },
+        {
+          "id": "cori-l-g6pase",
+          "kind": "enzyme-ref",
+          "source": { "pathway": "gluconeogenesis", "stepId": "gn-11", "direction": "forward" },
+          "role": "release",
+          "label": "释放葡萄糖",
+          "note": "G6PC1 是内质网膜蛋白、活性位点朝腔：G6P 经 SLC37A4 入腔水解，葡萄糖出肝入血。区室错位在这里第二次出现。"
+        }
+      ]
+    }
+  ],
+  "connectors": [
+    {
+      "id": "cori-mct",
+      "name": "MCT4 / MCT1 乳酸转运",
+      "note": "肌肉出胞与肝入胞的膜转运，不属糖酵解也不属糖异生；本页把它画在血流带的两端，不进入引用序列的酶编号。"
+    },
+    {
+      "id": "cori-ldh",
+      "name": "LDH（EC 1.1.1.27）双向",
+      "note": "同一个酶在两个器官里方向相反：肌肉侧丙酮酸 → 乳酸（再生 NAD⁺），肝侧乳酸 → 丙酮酸（产 NADH）。数据层引用糖异生的入口支路 gn-cori。"
+    }
+  ],
+  "blood": {
+    "title": "血液 · 细胞外（跨器官物流）",
+    "lactate": {
+      "from": "muscle",
+      "to": "liver",
+      "direction": "rtl",
+      "carrier": "MCT4 出肌 → 血 → MCT1 入肝",
+      "note": "乳酸右 → 左：肌肉产出，肝回收。血流带只表达方向与归属，不画浓度曲线。"
+    },
+    "glucose": {
+      "from": "liver",
+      "to": "muscle",
+      "direction": "ltr",
+      "carrier": "GLUT2 出肝 → 血 → GLUT 入肌",
+      "note": "葡萄糖左 → 右：肝释放，肌肉再摄取。它与乳酸方向相反，构成闭合回路。"
+    },
+    "rbc": {
+      "name": "红细胞（无线粒体）",
+      "note": "糖酵解终点恒为乳酸，直接排入血。作为静息态乳酸的第三来源单列，不画成完整臂。",
+      "caveat": "红细胞对静息血乳酸的贡献比例（约 15–20%）未核实到唯一一手数字，本页不写死百分比。"
+    }
+  },
+  "energyLedger": {
+    "title": "能量账本 · 每 1 分子葡萄糖循环一轮",
+    "basis": "肌肉侧 1 葡萄糖 → 2 乳酸；肝侧 2 乳酸 → 1 葡萄糖。所有条目按“每葡萄糖一轮”折算，两个三碳步骤记 2。",
+    "entries": [
+      {
+        "id": "led-m-gk1",
+        "arm": "muscle",
+        "source": { "pathway": "glycolysis", "stepId": "gk-1" },
+        "item": "ATP",
+        "sign": -1,
+        "count": 1,
+        "basis": "每 1 葡萄糖 1 次",
+        "note": "己糖激酶投入。"
+      },
+      {
+        "id": "led-m-gk3",
+        "arm": "muscle",
+        "source": { "pathway": "glycolysis", "stepId": "gk-3" },
+        "item": "ATP",
+        "sign": -1,
+        "count": 1,
+        "basis": "每 1 葡萄糖 1 次",
+        "note": "PFK-1 投入。"
+      },
+      {
+        "id": "led-m-gk7",
+        "arm": "muscle",
+        "source": { "pathway": "glycolysis", "stepId": "gk-7" },
+        "item": "ATP",
+        "sign": 1,
+        "count": 2,
+        "basis": "两个 1,3-BPG，每分子 1 ATP",
+        "note": "PGK 回收；本页不单列引用步，账本直接指向糖酵解第 7 步。"
+      },
+      {
+        "id": "led-m-gk10",
+        "arm": "muscle",
+        "source": { "pathway": "glycolysis", "stepId": "gk-10" },
+        "item": "ATP",
+        "sign": 1,
+        "count": 2,
+        "basis": "两个 PEP，每分子 1 ATP",
+        "note": "PK 回收。"
+      },
+      {
+        "id": "led-l-gn1",
+        "arm": "liver",
+        "source": { "pathway": "gluconeogenesis", "stepId": "gn-1" },
+        "item": "ATP",
+        "sign": -1,
+        "count": 2,
+        "basis": "两个丙酮酸，每分子 1 ATP",
+        "note": "丙酮酸羧化酶。"
+      },
+      {
+        "id": "led-l-gn2",
+        "arm": "liver",
+        "source": { "pathway": "gluconeogenesis", "stepId": "gn-2" },
+        "item": "GTP",
+        "sign": -1,
+        "count": 2,
+        "basis": "两个 OAA，每分子 1 GTP",
+        "note": "PEPCK。"
+      },
+      {
+        "id": "led-l-gn5",
+        "arm": "liver",
+        "source": { "pathway": "gluconeogenesis", "stepId": "gn-5" },
+        "item": "ATP",
+        "sign": -1,
+        "count": 2,
+        "basis": "两个 3PG，每分子 1 ATP",
+        "note": "PGK 逆向；本页不单列引用步，账本直接指向糖异生第 5 步。"
+      }
+    ],
+    "totals": [
+      { "arm": "muscle", "item": "ATP", "net": 2 },
+      { "arm": "liver", "item": "highEnergyPhosphate", "net": -6 },
+      { "arm": "whole", "item": "highEnergyPhosphate", "net": -4 }
+    ],
+    "derivation": [
+      "肌肉：−1（gk-1）−1（gk-3）+2（gk-7）+2（gk-10）= +2 ATP",
+      "肝：−2（gn-1）−2（gn-2，GTP）−2（gn-5）= −6 个高能磷酸键（4 ATP + 2 GTP）",
+      "全身：+2 − 6 = −4 个高能磷酸键（每轮净耗 4）"
+    ],
+    "noLoop": "如果不循环，肌肉的 gk-6 每葡萄糖产 2 NADH，而 NAD⁺ 池无法再生：GAPDH 会在三碳阶段停摆，糖酵解不是“产 ATP 变慢”，而是直接卡死。LDH 用丙酮酸作电子受体把 NADH 氧化回去，代价是把碳以乳酸形式丢掉；Cori 循环再把这份碳捡回肝、花 6 个高能键重建葡萄糖，相当于肝替肌肉还 ATP 债。"
+  },
+  "redoxLedger": {
+    "title": "氧化还原账 · NADH 的归属",
+    "entries": [
+      {
+        "arm": "muscle",
+        "item": "NADH",
+        "produced": { "source": { "pathway": "glycolysis", "stepId": "gk-6" }, "count": 2 },
+        "consumed": { "source": { "pathway": "cori", "stepId": "cori-m-ldh" }, "count": 2 },
+        "net": 0,
+        "note": "肌肉：GAPDH 产 2 NADH，LDH 还原丙酮酸时消耗 2 NADH，净 0。这不是“赚到还原力”，而是把 NADH 就地清掉换 NAD⁺。"
+      },
+      {
+        "arm": "liver",
+        "item": "NADH",
+        "produced": { "source": { "pathway": "cori", "stepId": "cori-l-ldh" }, "count": 2 },
+        "consumed": { "source": { "pathway": "gluconeogenesis", "stepId": "gn-6" }, "count": 2 },
+        "net": 0,
+        "note": "肝：LDH 氧化乳酸产 2 NADH，GAPDH 逆向（gn-6）还原 1,3-BPG 时消耗 2 NADH，净 0。LDH 的 NADH 可直接供胞质 gn-6；苹果酸穿梭是另一条补充路径，两处口径不冲突。"
+      }
+    ],
+    "statement": "整轮 Cori 循环的 NADH 净变化为 0：肌肉产出的还原力在肌肉侧被 LDH 用掉，肝侧 LDH 产出的还原力在肝侧被糖异生用掉。循环搬运的是碳与高能键，不搬运还原当量。"
+  },
+  "misreads": [
+    {
+      "title": "“乳酸是疲劳毒素”",
+      "text": "运动性酸中毒的 H⁺ 主要来自 ATP 水解与糖酵解；乳酸根是共轭碱（pKa 约 3.9，生理 pH 下几乎全解离）。“乳酸堆积导致酸痛”是因果颠倒的旧结论。",
+      "grade": "确定"
+    },
+    {
+      "title": "“Cori 循环 = 糖酵解倒放”",
+      "text": "肝侧不是简单倒放：gk-1 / gk-3 / gk-10 三个不可逆点必须由 G6Pase / FBPase-1 / PC+PEPCK 绕开，绕道的代价就是 6 个高能磷酸键。",
+      "grade": "确定"
+    },
+    {
+      "title": "“红细胞也走完整 Cori 臂”",
+      "text": "红细胞没有线粒体，不能做糖异生，也不能把丙酮酸送进 TCA；它只把糖酵解停在乳酸，是血乳酸的来源之一。",
+      "grade": "确定"
+    },
+    {
+      "title": "“红细胞贡献约 15–20%”",
+      "text": "这个比例常见于综述，但本次未核实到唯一一手数字；页面只写“稳定来源”，不写死百分比。",
+      "grade": "未核实"
+    }
+  ],
+  "threeD": {
+    "status": "pending",
+    "note": "整循环是器官级物流与能量转移，没有“结合姿态”可展示：本页不做 3D，也不给任何资产路径。可做 3D 的只有单酶快照（LDH 四聚体、MCT1–basigin、FBPase、丙酮酸羧化酶），但它们不能代表循环本身；按 outline 判断，整循环留在 2D 挂图层。"
+  }
+}

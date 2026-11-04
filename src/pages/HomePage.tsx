@@ -14,6 +14,7 @@ import {
 import {
   HOME_BANDS,
   HOME_CANVAS,
+  HOME_CORI_LOOP,
   HOME_DOMAIN_LABELS,
   HOME_EDGE_OFFSETS,
   HOME_ER_NOTE,
@@ -453,13 +454,90 @@ export function HomePage() {
           <div className="plate-scroll" data-testid="home-plate-scroll">
             <div className="plate-canvas home-canvas">
               <svg
-                viewBox={`0 0 ${HOME_CANVAS.width} ${HOME_CANVAS.height}`}
+                viewBox={`0 ${HOME_CORI_LOOP.band.minY} ${HOME_CANVAS.width} ${HOME_CANVAS.height + HOME_CORI_LOOP.band.height}`}
                 preserveAspectRatio="xMidYMid meet"
                 data-home-map="1"
                 role="img"
-                aria-label="上下两域六通路代谢总图"
+                aria-label="上下两域六通路代谢总图 + Cori 循环跨器官血液回路"
                 style={{ display: "block", width: "100%", height: "auto" }}
               >
+                <defs>
+                  <marker id="home-cori-arrow-ink" markerWidth="9" markerHeight="8" refX="8" refY="4" orient="auto">
+                    <path d="M0,0.5 L8.5,4 L0,7.5 Z" fill={C.ink} />
+                  </marker>
+                  <marker id="home-cori-arrow-brick" markerWidth="10" markerHeight="9" refX="9" refY="4.5" orient="auto">
+                    <path d="M0,0.5 L9.5,4.5 L0,8.5 Z" fill={C.brick} />
+                  </marker>
+                </defs>
+                {/* Cori 回路：不新增标题块，只加一条细胞外血液带（负 y 区） */}
+                <a href="/pathway/cori" data-cori-loop="1">
+                  <title>Cori 循环 · PLATE 07：乳酸肌→肝、葡萄糖肝→肌</title>
+                  <rect
+                    x={0}
+                    y={HOME_CORI_LOOP.band.minY}
+                    width={HOME_CANVAS.width}
+                    height={HOME_CORI_LOOP.band.height}
+                    fill={`rgba(34,40,42,${HOME_CORI_LOOP.band.tint})`}
+                  />
+                  <line x1={0} y1={HOME_CORI_LOOP.band.minY} x2={HOME_CANVAS.width} y2={HOME_CORI_LOOP.band.minY} stroke={C.hairSoft} strokeWidth={1} />
+                  <line x1={0} y1={0} x2={HOME_CANVAS.width} y2={0} stroke={C.hairSoft} strokeWidth={1} />
+                  <path
+                    d={HOME_CORI_LOOP.glucosePath}
+                    fill="none"
+                    stroke={C.ink}
+                    strokeWidth={1.3}
+                    markerEnd="url(#home-cori-arrow-ink)"
+                    data-cori-flow="glucose"
+                  />
+                  <path
+                    d={HOME_CORI_LOOP.lactatePath}
+                    fill="none"
+                    stroke={C.brick}
+                    strokeWidth={1.5}
+                    markerEnd="url(#home-cori-arrow-brick)"
+                    data-cori-flow="lactate"
+                  />
+                  <text
+                    x={HOME_CORI_LOOP.bandTitle.x}
+                    y={HOME_CORI_LOOP.bandTitle.y}
+                    fontSize={8.5}
+                    letterSpacing="0.12em"
+                    fill={C.ink}
+                    opacity={0.55}
+                    stroke={C.paper}
+                    strokeWidth={3}
+                    paintOrder="stroke"
+                  >
+                    {HOME_CORI_LOOP.bandTitle.text}
+                  </text>
+                  <text
+                    x={HOME_CORI_LOOP.glucoseLabel.x}
+                    y={HOME_CORI_LOOP.glucoseLabel.y}
+                    fontSize={9.5}
+                    fontWeight={700}
+                    textAnchor={HOME_CORI_LOOP.glucoseLabel.anchor}
+                    fill={C.ink}
+                    stroke={C.paper}
+                    strokeWidth={3}
+                    paintOrder="stroke"
+                  >
+                    {HOME_CORI_LOOP.glucoseLabel.text}
+                  </text>
+                  <text
+                    x={HOME_CORI_LOOP.lactateLabel.x}
+                    y={HOME_CORI_LOOP.lactateLabel.y}
+                    fontSize={9.5}
+                    fontWeight={700}
+                    textAnchor={HOME_CORI_LOOP.lactateLabel.anchor}
+                    fill={C.brick}
+                    stroke={C.paper}
+                    strokeWidth={3}
+                    paintOrder="stroke"
+                  >
+                    {HOME_CORI_LOOP.lactateLabel.text}
+                  </text>
+                </a>
+
                 {/* 域块 */}
                 {HOME_BANDS.map((band) => {
                   const focused = domainFocus === band.id;
@@ -814,6 +892,19 @@ export function HomePage() {
                 })}
               </div>
             )}
+          </div>
+
+          <div className="panel-block" data-cori-home-panel="1">
+            <div className="pb-title">
+              跨器官回路 <span className="en">CORI LOOP · PLATE 07</span>
+            </div>
+            <p className="j-hint">
+              Cori 循环不新增第七个标题块：它横跨糖酵解与糖异生两条既有链路，
+              在细胞外多出一条“乳酸肌→肝、葡萄糖肝→肌”的血液回路。图上方的浅带可点。
+            </p>
+            <Link to="/pathway/cori" className="cori-home-link" data-cori-aside-link="1">
+              打开 PLATE 07 · Cori 循环 →
+            </Link>
           </div>
 
           <div className="panel-block">

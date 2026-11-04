@@ -1,0 +1,126 @@
+{
+  "pathwayId": "cori",
+  "canvas": { "width": 1000, "height": 780 },
+  "spatialNote": "器官为列（肝左 / 肌右），区室为带（细胞质 / 线粒体基质 / ER 腔）；中间竖带是血液（细胞外）。血流带上乳酸右→左、葡萄糖左→右，两者方向相反，闭环即成立。画布收进 1000 px，1440 视口下两器官与血流带同屏，不需要横向漫游。",
+  "compartments": [
+    {
+      "id": "blood",
+      "name": "血液 · 细胞外（BLOOD）",
+      "band": { "x0": 288, "x1": 674, "y0": 150, "y1": 700 },
+      "tint": 0.045,
+      "note": "跨器官物流带。它不属于任何一个细胞，所以不画细胞膜。"
+    },
+    {
+      "id": "liver-cytosol",
+      "name": "肝 · 细胞质",
+      "band": { "x0": 20, "x1": 282, "y0": 150, "y1": 470 },
+      "tint": 0.012
+    },
+    {
+      "id": "liver-matrix",
+      "name": "肝 · 线粒体基质",
+      "band": { "x0": 20, "x1": 282, "y0": 490, "y1": 600 },
+      "tint": 0.03,
+      "note": "PC 与 MPC 在这里；OAA 必须由此出线粒体才能到达胞质 PEPCK。"
+    },
+    {
+      "id": "liver-er",
+      "name": "肝 · 内质网腔",
+      "band": { "x0": 20, "x1": 282, "y0": 620, "y1": 700 },
+      "tint": 0.025,
+      "note": "G6PC1 活性位点朝 ER 腔，葡萄糖在此水解后出肝。"
+    },
+    {
+      "id": "muscle-cytosol",
+      "name": "肌 · 细胞质",
+      "band": { "x0": 684, "x1": 982, "y0": 150, "y1": 470 },
+      "tint": 0.012
+    },
+    {
+      "id": "muscle-matrix",
+      "name": "肌 · 线粒体（不经过）",
+      "band": { "x0": 684, "x1": 982, "y0": 490, "y1": 600 },
+      "tint": 0.018,
+      "muted": true,
+      "note": "有氧时丙酮酸经 PDH 入 TCA；Cori 循环只在乳酸终产物路径上成立，所以这条带留空并降灰。"
+    }
+  ],
+  "organColumns": [
+    {
+      "id": "liver",
+      "name": "肝",
+      "en": "LIVER · CORI END",
+      "role": "回收端",
+      "x": 20,
+      "width": 262
+    },
+    {
+      "id": "muscle",
+      "name": "骨骼肌",
+      "en": "MUSCLE · LACTATE PRODUCER",
+      "role": "产出端",
+      "x": 684,
+      "width": 298
+    }
+  ],
+  "nodes": [
+    { "id": "lac-in", "x": 300, "y": 220, "abbr": "Lac", "label": "乳酸（入肝）", "side": "left", "stepId": "cori-l-ldh" },
+    { "id": "pyr-l", "x": 246, "y": 244, "abbr": "Pyr", "label": "丙酮酸", "side": "left", "stepId": "cori-l-mpc" },
+    { "id": "oaa", "x": 246, "y": 560, "abbr": "OAA", "label": "草酰乙酸", "side": "left", "stepId": "cori-l-pc" },
+    { "id": "pep", "x": 176, "y": 330, "abbr": "PEP", "label": "磷酸烯醇式丙酮酸", "side": "below", "stepId": "cori-l-pepck" },
+    { "id": "g6p", "x": 104, "y": 300, "abbr": "G6P", "label": "葡萄糖-6-磷酸", "side": "below", "stepId": "cori-l-g6pase" },
+    { "id": "glc-l", "x": 104, "y": 660, "abbr": "Glc", "label": "葡萄糖（出肝）", "side": "left", "stepId": "cori-l-g6pase" },
+    { "id": "glc-m", "x": 694, "y": 178, "abbr": "Glc", "label": "葡萄糖（入肌）", "side": "right", "stepId": "cori-m-gk1" },
+    { "id": "pyr-m", "x": 694, "y": 430, "abbr": "Pyr", "label": "丙酮酸", "side": "above", "stepId": "cori-m-gk10" },
+    { "id": "lac-out", "x": 694, "y": 500, "abbr": "Lac", "label": "乳酸（出肌）", "side": "above", "stepId": "cori-m-ldh" }
+  ],
+  "arms": [
+    {
+      "organId": "liver",
+      "spine": "M 300 220 L 246 244 L 246 560 L 176 330 L 104 300 L 104 640",
+      "chips": [
+        { "stepId": "cori-l-mct", "x": 276, "y": 160, "anchor": "end" },
+        { "stepId": "cori-l-ldh", "x": 236, "y": 270, "anchor": "end" },
+        { "stepId": "cori-l-mpc", "x": 236, "y": 524, "anchor": "end" },
+        { "stepId": "cori-l-pc", "x": 200, "y": 592, "anchor": "end" },
+        { "stepId": "cori-l-pepck", "x": 176, "y": 384, "anchor": "end" },
+        { "stepId": "cori-l-fbpase", "x": 104, "y": 246, "anchor": "end" },
+        { "stepId": "cori-l-g6pase", "x": 140, "y": 700, "anchor": "start" }
+      ]
+    },
+    {
+      "organId": "muscle",
+      "spine": "M 694 178 L 710 188 L 710 511 L 694 500",
+      "chips": [
+        { "stepId": "cori-m-gk1", "x": 726, "y": 196, "anchor": "start" },
+        { "stepId": "cori-m-gk3", "x": 726, "y": 258, "anchor": "start" },
+        { "stepId": "cori-m-gk6", "x": 726, "y": 320, "anchor": "start" },
+        { "stepId": "cori-m-gk10", "x": 726, "y": 382, "anchor": "start" },
+        { "stepId": "cori-m-ldh", "x": 726, "y": 464, "anchor": "start" },
+        { "stepId": "cori-m-mct", "x": 726, "y": 536, "anchor": "start" }
+      ]
+    }
+  ],
+  "blood": {
+    "bandId": "blood",
+    "lactate": {
+      "path": "M 694 500 L 670 500 L 670 220 L 306 220",
+      "labelX": 540,
+      "labelY": 248,
+      "labelAnchor": "middle"
+    },
+    "glucose": {
+      "path": "M 116 660 L 294 660 L 294 160 L 694 160",
+      "labelX": 470,
+      "labelY": 136,
+      "labelAnchor": "middle"
+    },
+    "rbc": {
+      "x": 306,
+      "y": 520,
+      "width": 300,
+      "height": 110,
+      "arrow": "M 350 520 L 350 232"
+    }
+  }
+}

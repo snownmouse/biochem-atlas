@@ -1978,6 +1978,164 @@ svg .branch { transition: opacity 0.2s ease; }
 }
 .home-aside .j-dest a:hover { color: var(--teal); }
 
+/* ===== Cori 循环挂图（PLATE 07）：器官列 + 血流带 + 账本 ===== */
+.cori-poster .plate-canvas { width: 1000px; height: 780px; }
+.cori-poster .cori-chip { transition: opacity 0.15s ease; }
+.cori-poster .cori-chip.faded { opacity: 0.32; }
+.cori-poster .cori-chip.sel .st-name { text-decoration: underline; text-underline-offset: 3px; text-decoration-style: solid; }
+.cori-poster .cori-node { transition: opacity 0.15s ease; }
+.cori-poster .cori-node.faded { opacity: 0.38; }
+.cori-poster .cori-node.hl circle { stroke: var(--brick); stroke-width: 1.8; }
+.cori-poster .cori-ref-src { font-variant-numeric: tabular-nums; }
+
+.cori-ledger {
+  margin: 6px 0 26px;
+  padding: 18px 22px 20px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--hair-soft);
+  background: rgba(34, 40, 42, 0.018);
+}
+.cori-ledger-sum {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  margin: 12px 0 8px;
+}
+.cori-ledger .ls-cell {
+  flex: 1;
+  padding: 10px 14px 9px;
+  border: 1px solid var(--hair-soft);
+  background: var(--paper);
+}
+.cori-ledger .ls-cell.net { border-color: var(--brick); }
+.cori-ledger .ls-lbl {
+  display: block;
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  opacity: 0.6;
+  margin-bottom: 2px;
+}
+.cori-ledger .ls-val {
+  font-family: var(--serif);
+  font-size: 40px;
+  line-height: 1.05;
+  letter-spacing: -0.01em;
+}
+.cori-ledger .ls-cell.net .ls-val { color: var(--brick); }
+.cori-ledger .ls-unit { font-size: 10px; margin-left: 4px; letter-spacing: 0.1em; }
+.cori-ledger .ls-sub { display: block; font-size: 9.5px; opacity: 0.58; margin-top: 2px; }
+.cori-ledger .ls-op {
+  align-self: center;
+  font-family: var(--serif);
+  font-size: 28px;
+  opacity: 0.55;
+  padding: 0 2px;
+}
+.cori-ledger-eq {
+  font-family: var(--serif);
+  font-size: 25px;
+  letter-spacing: 0.06em;
+  margin: 6px 0 10px;
+}
+.cori-ledger-derivation {
+  font-size: 11px;
+  line-height: 1.9;
+  opacity: 0.7;
+  padding-left: 12px;
+  border-left: 2px solid var(--amber);
+}
+.cori-subhead { margin: 16px 0 6px; }
+.cori-subhead .t { font-size: 11px; letter-spacing: 0.3em; font-weight: 700; }
+.cori-ledger-table td { vertical-align: top; }
+.cori-inline-link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+}
+.cori-inline-link:hover { color: var(--teal); }
+.cori-noloop {
+  margin-top: 18px;
+  padding: 10px 0 2px 12px;
+  border-left: 2px solid var(--brick);
+  font-size: 11px;
+  line-height: 1.9;
+}
+.cori-noloop .lbl {
+  display: block;
+  font-size: 9.5px;
+  letter-spacing: 0.24em;
+  color: var(--brick);
+  font-weight: 700;
+  margin-bottom: 3px;
+}
+.cori-noloop p { margin: 0; opacity: 0.82; }
+.cori-footnote-note {
+  font-size: 10.5px;
+  line-height: 1.8;
+  opacity: 0.62;
+  margin-top: 6px;
+}
+
+.cori-three-mis { margin-top: 12px; border-top: 1px dashed var(--hair-soft); padding-top: 8px; }
+.cori-three-mis > div {
+  font-size: 10.5px;
+  line-height: 1.8;
+  padding: 4px 0 5px 8px;
+  border-left: 2px solid var(--hair-soft);
+  margin-bottom: 5px;
+}
+.cori-three-mis > div:last-child { border-left-color: var(--teal); }
+.cori-three-mis .lbl {
+  display: block;
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--teal);
+  font-weight: 700;
+  margin-bottom: 1px;
+}
+.cori-three-mis > div:first-child .lbl,
+.cori-three-mis > div:nth-child(2) .lbl { color: var(--brick); }
+
+.cori-arm-card { padding: 6px 0 10px; border-bottom: 1px solid var(--hair-faint); }
+.cori-arm-card:last-of-type { border-bottom: none; }
+.cori-arm-title {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+}
+.cori-arm-count { font-size: 9px; opacity: 0.55; font-weight: 400; letter-spacing: 0.12em; }
+.cori-arm-flow { font-size: 9.5px; opacity: 0.6; margin: 2px 0 5px; letter-spacing: 0.04em; }
+.cori-arm-steps { display: flex; flex-wrap: wrap; gap: 2px 10px; }
+.cori-arm-step {
+  background: none;
+  border: none;
+  padding: 1px 0 2px;
+  font: inherit;
+  font-size: 10px;
+  color: var(--ink);
+  opacity: 0.7;
+  border-bottom: 1px dotted var(--hair-soft);
+  cursor: pointer;
+}
+.cori-arm-step:hover { opacity: 1; color: var(--brick); }
+.cori-count-note { font-size: 10px; line-height: 1.8; opacity: 0.62; margin-top: 10px; }
+.cori-settle { grid-template-columns: 1fr 1fr 1fr; }
+.cori-home-link {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 4px;
+}
+.cori-home-link:hover { color: var(--brick); }
+
 .home-tribute {
   margin: 0 28px;
   padding: 14px 0 30px;
