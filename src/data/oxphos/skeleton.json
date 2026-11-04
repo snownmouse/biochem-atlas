@@ -1,0 +1,55 @@
+{
+  "pathwayId": "oxphos",
+  "canvas": { "width": 1980, "height": 880 },
+  "spatialNote": "横向内膜带：上方膜间腔（H⁺ 积累），带内嵌复合体 I / II / III / IV 与 ATP 合酶 F₀，下方基质（NADH / FADH₂ 进入、ATP 产出）。Q 池与 cyt c 在带内或带旁游走。电子流是实线主链，质子流是青色虚线回路；两套线型在图例里锁死。",
+  "compartments": [
+    {
+      "id": "intermembrane",
+      "name": "膜间腔",
+      "en": "INTERMEMBRANE SPACE",
+      "band": { "y0": 60, "y1": 240 },
+      "note": "质子积累侧（+）；cyt c 在此扩散。"
+    },
+    {
+      "id": "inner-membrane",
+      "name": "线粒体内膜",
+      "en": "INNER MITOCHONDRIAL MEMBRANE",
+      "band": { "y0": 240, "y1": 430 },
+      "note": "复合体 I/II/III/IV 与 F₀ 嵌入；Q 池在带内扩散。"
+    },
+    {
+      "id": "matrix",
+      "name": "线粒体基质",
+      "en": "MITOCHONDRIAL MATRIX",
+      "band": { "y0": 430, "y1": 840 },
+      "note": "NADH / FADH₂ / O₂ 进入，ADP + Pi 进入，ATP 产出；质子稀薄侧（−）。"
+    }
+  ],
+  "nodes": [
+    { "id": "nadh", "order": 1, "x": 130, "y": 700, "compartment": "matrix", "kind": "metabolite", "label": "NADH", "entityId": "nadh", "note": "来自 TCA / PDH / β-氧化" },
+    { "id": "fadh2", "order": 2, "x": 560, "y": 790, "compartment": "matrix", "kind": "metabolite", "label": "FADH₂", "entityId": "fadh2", "note": "来自 TCA 琥珀酸脱氢酶 / β-氧化" },
+    { "id": "complex-i", "order": 1, "x": 250, "y": 340, "compartment": "inner-membrane", "kind": "enzyme", "label": "复合体 I", "entityId": "complex-i", "note": "L 形：基质臂 + 膜臂" },
+    { "id": "complex-ii", "order": 2, "x": 600, "y": 340, "compartment": "inner-membrane", "kind": "enzyme", "label": "复合体 II", "entityId": "sdh", "note": "= TCA 琥珀酸脱氢酶" },
+    { "id": "q", "order": 3, "x": 930, "y": 360, "compartment": "inner-membrane", "kind": "metabolite", "label": "Q", "entityId": "q", "note": "泛醌池" },
+    { "id": "qh2", "order": 3, "x": 1040, "y": 360, "compartment": "inner-membrane", "kind": "metabolite", "label": "QH₂", "entityId": "qh2", "note": "泛醇池" },
+    { "id": "complex-iii", "order": 4, "x": 1120, "y": 340, "compartment": "inner-membrane", "kind": "enzyme", "label": "复合体 III", "entityId": "complex-iii", "note": "Q 循环，双 Q 位点" },
+    { "id": "cytc", "order": 5, "x": 1350, "y": 190, "compartment": "intermembrane", "kind": "metabolite", "label": "cyt c", "entityId": "cytc", "note": "Fe²⁺ ⇄ Fe³⁺，一次 1 e⁻" },
+    { "id": "complex-iv", "order": 6, "x": 1500, "y": 340, "compartment": "inner-membrane", "kind": "enzyme", "label": "复合体 IV", "entityId": "complex-iv", "note": "4 e⁻ 一次还原 O₂" },
+    { "id": "atp-synthase", "order": 7, "x": 1790, "y": 340, "compartment": "inner-membrane", "kind": "enzyme", "label": "ATP 合酶", "entityId": "atp-synthase", "note": "F₀ 在带内，F₁ 在基质" },
+    { "id": "o2", "order": 6, "x": 1650, "y": 760, "compartment": "matrix", "kind": "metabolite", "label": "O₂", "entityId": "o2", "note": "末端电子受体" },
+    { "id": "h2o", "order": 6, "x": 1850, "y": 790, "compartment": "matrix", "kind": "metabolite", "label": "H₂O", "entityId": "h2o", "note": "每 O₂ 产 2 分子" },
+    { "id": "adp", "order": 7, "x": 1700, "y": 700, "compartment": "matrix", "kind": "metabolite", "label": "ADP", "entityId": "adp", "note": "与 Pi 一起进入 F₁" },
+    { "id": "pi", "order": 7, "x": 1780, "y": 730, "compartment": "matrix", "kind": "metabolite", "label": "Pi", "entityId": "pi", "note": "磷酸载体输入" },
+    { "id": "atp", "order": 7, "x": 1900, "y": 620, "compartment": "matrix", "kind": "metabolite", "label": "ATP", "entityId": "atp", "note": "ANT 运出" }
+  ],
+  "links": [
+    { "from": "nadh", "to": "q", "stepId": "oxphos-e", "type": "input", "label": "NADH → Q（复合体 I）" },
+    { "from": "fadh2", "to": "q", "stepId": "oxphos-f", "type": "input", "label": "FADH₂ → Q（复合体 II）" },
+    { "from": "q", "to": "qh2", "type": "main", "label": "Q 接受 2 e⁻ + 2 H⁺" },
+    { "from": "qh2", "to": "cytc", "type": "main", "label": "QH₂ → cyt c（复合体 III）" },
+    { "from": "cytc", "to": "h2o", "type": "main", "label": "cyt c → H₂O（复合体 IV）" },
+    { "from": "o2", "to": "h2o", "type": "main", "label": "O₂ + 4 e⁻ + 4 H⁺" },
+    { "from": "adp", "to": "atp", "type": "main", "label": "ADP + Pi → ATP" },
+    { "from": "pi", "to": "atp", "type": "main", "label": "Pi 进入 F₁" }
+  ]
+}

@@ -1988,3 +1988,16 @@ svg .branch { transition: opacity 0.2s ease; }
   opacity: 0.62;
   letter-spacing: 0.02em;
 }
+
+/* 氧化磷酸化：画布与骨架一致 1980×880，否则右侧 ATP 合酶会被 1760 的容器裁掉 */
+.poster-oxphos .plate-canvas { width: 1980px; height: 880px; }
+
+/* 氧化磷酸化：可溶结构域 3D 两栏（只读展示，不覆盖既有 poster 规则） */
+.poster-oxphos .ox-soluble { margin-top: 26px; }
+.poster-oxphos .ox-3d-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 24px;
+}
+.poster-oxphos .ox-3d-grid .e3d { margin-top: 8px; }
+.poster-oxphos .ox-3d-grid .fn-head { margin-bottom: 2px; }

@@ -40,6 +40,7 @@ const PATH_COLOR: Record<HomePathwayId, string> = {
   gluconeogenesis: C.ink,
   ppp: C.teal,
   "fatty-acid-oxidation": C.amber,
+  oxphos: C.teal,
 };
 
 const JUNCTION_IDS = new Set(HOME_NODES.filter((node) => node.junction).map((node) => node.id));
@@ -367,10 +368,10 @@ export function HomePage() {
         <div className="mast-main">
           <h1>
             代谢总图
-            <small>METABOLIC ATLAS · FIVE PATHWAYS</small>
+            <small>METABOLIC ATLAS · SIX PATHWAYS</small>
           </h1>
           <p className="mast-summary">
-            上下两域：上为胞质（糖酵解向右主链、糖异生同链逆向、PPP 自 G6P 分叉回流），中为三层膜带，下为线粒体基质（TCA 与 β-氧化在乙酰-CoA 会合）；<b>同名代谢物只画一次</b>。点通路名或连线进入挂图，点共用节点看它接通了哪几条路。
+            上下两域：上为胞质（糖酵解向右主链、糖异生同链逆向、PPP 自 G6P 分叉回流），中为三层膜带（氧化磷酸化的呼吸链就画在膜内），下为线粒体基质（TCA 与 β-氧化在乙酰-CoA 会合）；<b>同名代谢物只画一次</b>。点通路名或连线进入挂图，点共用节点看它接通了哪几条路。
           </p>
         </div>
       </header>
@@ -410,9 +411,9 @@ export function HomePage() {
           </svg>
           跨膜转运（红色刻线）
         </span>
-        <span className="lg" style={{ color: C.teal }}>青 · 磷酸戊糖</span>
+        <span className="lg" style={{ color: C.teal }}>青 · 磷酸戊糖 / 氧化磷酸化</span>
         <span className="lg" style={{ color: C.amber }}>琥珀 · 线粒体两条</span>
-        <span className="legend-hint">上下两域 · 首屏全览五条通路</span>
+        <span className="legend-hint">上下两域 · 首屏全览六条通路</span>
       </div>
 
       <div className="body-grid">
@@ -456,7 +457,7 @@ export function HomePage() {
                 preserveAspectRatio="xMidYMid meet"
                 data-home-map="1"
                 role="img"
-                aria-label="上下两域五通路代谢总图"
+                aria-label="上下两域六通路代谢总图"
                 style={{ display: "block", width: "100%", height: "auto" }}
               >
                 {/* 域块 */}
@@ -606,8 +607,14 @@ export function HomePage() {
                   if (!geom) return null;
                   const color = PATH_COLOR[edge.pathwayId];
                   const isGluconeogenesis = edge.pathwayId === "gluconeogenesis";
-                  const dash = edge.kind === "shuttle" || edge.kind === "cycle-exit" || isGluconeogenesis ? "4 3" : undefined;
-                  const width = edge.pathwayId === "glycolysis" ? 2 : 1.35;
+                  const isCofactor = edge.kind === "cofactor";
+                  const dash =
+                    edge.kind === "shuttle" || edge.kind === "cycle-exit" || isGluconeogenesis
+                      ? "4 3"
+                      : isCofactor
+                        ? "2 3"
+                        : undefined;
+                  const width = edge.pathwayId === "glycolysis" ? 2 : isCofactor ? 1.15 : 1.35;
                   const cross = edge.crossLabel ? crossLayout.get(edge.id) : undefined;
                   return (
                     <g
@@ -617,6 +624,7 @@ export function HomePage() {
                       data-edge-sources={edge.sources.map((s) => `${s.pathwayId}:${s.stepId ?? s.linkType}`).join(" ")}
                       data-step-id={edge.primaryStepId ?? ""}
                       data-pathway-id={edge.pathwayId}
+                      data-edge-kind={edge.kind}
                       onClick={() => handleEdge(edge)}
                     >
                       <line
@@ -627,7 +635,7 @@ export function HomePage() {
                         stroke={color}
                         strokeWidth={width}
                         strokeDasharray={dash}
-                        opacity={isGluconeogenesis ? 0.78 : 1}
+                        opacity={isCofactor ? 0.7 : isGluconeogenesis ? 0.78 : 1}
                       />
                       {arrowHead(geom.x1, geom.y1, geom.x2, geom.y2, color, edge.irreversible)}
                       {edge.enzyme !== "—" && !edge.crossLabel && enzymeLabelEdges.has(edge.id) && (
@@ -810,7 +818,7 @@ export function HomePage() {
 
           <div className="panel-block">
             <div className="pb-title">
-              全部去向 <span className="en">TEN DESTINATIONS</span>
+              全部去向 <span className="en">TWELVE DESTINATIONS</span>
             </div>
             <div className="j-dest">
               {HOME_PATHWAYS.map((pathway) => (

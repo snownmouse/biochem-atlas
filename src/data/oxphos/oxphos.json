@@ -1,0 +1,574 @@
+{
+  "id": "oxphos",
+  "name": "氧化磷酸化",
+  "summary": "TCA 与 β-氧化产出的 NADH / FADH₂ 在呼吸链上把电子交给 O₂，释放的自由能不以 ATP 直接结算，而是先存成内膜两侧的质子梯度，再由 ATP 合酶把 10 / 6 个质子兑现成 2.5 / 1.5 ATP。",
+  "plateNo": "PLATE 06 / 12",
+  "structurePlateNo": "SF-06",
+  "entities": [
+    { "id": "nadh", "name": "还原型烟酰胺腺嘌呤二核苷酸", "abbr": "NADH", "kind": "metabolite" },
+    { "id": "nad", "name": "氧化型烟酰胺腺嘌呤二核苷酸", "abbr": "NAD⁺", "kind": "metabolite" },
+    { "id": "fadh2", "name": "还原型黄素腺嘌呤二核苷酸", "abbr": "FADH₂", "kind": "metabolite" },
+    { "id": "fad", "name": "氧化型黄素腺嘌呤二核苷酸", "abbr": "FAD", "kind": "metabolite" },
+    { "id": "q", "name": "泛醌", "abbr": "Q", "kind": "metabolite" },
+    { "id": "qh2", "name": "泛醇", "abbr": "QH₂", "kind": "metabolite" },
+    { "id": "cytc", "name": "细胞色素 c", "abbr": "cyt c", "kind": "enzyme" },
+    { "id": "o2", "name": "氧", "abbr": "O₂", "kind": "metabolite" },
+    { "id": "h2o", "name": "水", "abbr": "H₂O", "kind": "metabolite" },
+    { "id": "adp", "name": "腺苷二磷酸", "abbr": "ADP", "kind": "metabolite" },
+    { "id": "atp", "name": "腺苷三磷酸", "abbr": "ATP", "kind": "metabolite" },
+    { "id": "pi", "name": "无机磷酸", "abbr": "Pi", "kind": "metabolite" },
+    { "id": "suc", "name": "琥珀酸", "abbr": "琥珀酸", "kind": "metabolite" },
+    { "id": "fum", "name": "延胡索酸", "abbr": "延胡索酸", "kind": "metabolite" },
+    { "id": "complex-i", "name": "复合体 I · NADH 脱氢酶", "abbr": "复合体 I", "kind": "enzyme" },
+    { "id": "sdh", "name": "琥珀酸脱氢酶（复合体 II）", "abbr": "SDH", "kind": "enzyme" },
+    { "id": "complex-iii", "name": "复合体 III · 细胞色素 bc₁", "abbr": "复合体 III", "kind": "enzyme" },
+    { "id": "complex-iv", "name": "复合体 IV · 细胞色素 c 氧化酶", "abbr": "复合体 IV", "kind": "enzyme" },
+    { "id": "atp-synthase", "name": "ATP 合酶（复合体 V）", "abbr": "ATP 合酶", "kind": "enzyme" }
+  ],
+  "modules": [
+    {
+      "id": "complex-i",
+      "order": 1,
+      "name": "复合体 I · NADH 脱氢酶",
+      "en": "COMPLEX I · NADH:UBIQUINONE OXIDOREDUCTASE",
+      "kind": "complex",
+      "location": "span",
+      "subunits": 45,
+      "massKda": 1000,
+      "equation": "NADH + Q + 5 H⁺(基质) → NAD⁺ + QH₂ + 4 H⁺(膜间腔)",
+      "substrates": ["nadh", "q"],
+      "products": ["nad", "qh2"],
+      "cofactors": ["FMN", "8–9 个 Fe-S 簇", "Q 位点"],
+      "electronIn": "NADH",
+      "electronOut": "Q",
+      "electrons": 2,
+      "protonsPumpedPer2e": 4,
+      "protonsConsumedPer2e": 1,
+      "protonChemistry": "4 个质子泵出到膜间腔；1 个基质质子进入 QH₂，所以净从基质取 5 H⁺。",
+      "poContribution": "每个 NADH 的 10 个泵出质子中占 4 个；FADH₂ 分支不经过这里。",
+      "significance": "呼吸链的第一入口，也是膜蛋白体量的极端：约 45 个亚基、约 1 MDa。电子的自由能被换成膜臂构象变化与质子梯度，不直接生成 ATP。",
+      "detail": "L 形：亲水臂伸入基质，膜臂埋在内膜。FMN 接受 NADH 的 2 e⁻，经 8–9 个 Fe-S 簇接力传到膜臂末端的 Q 位点；电子传递驱动膜臂的构象循环，把质子经通道与中继网络泵到膜间腔。NADH 是 TCA、PDH 与 β-氧化在基质侧的主要还原当量。",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "强放能：电子从 NADH/NAD⁺ 对流向 Q/QH₂ 对，属自发方向；具体 ΔG 数值未核实。",
+        "source": "Lehninger 8e Ch.19（定性）",
+        "note": "不把氧化还原电位差换算成未核实的数字。"
+      },
+      "threeD": {
+        "status": "not-built",
+        "reason": "1 MDa 级膜复合体，条目原子数已接近或超过单页 5 万原子上限；质子泵机理也没有可展示的单一结合姿态。",
+        "atomScale": "约 45 个亚基、约 1 MDa；5LDW 约 5.1 万原子，7QSK 约 7.0 万原子。",
+        "note": "本页只做 2D 模块示意；不把计算构象或片段冒充完整复合体。"
+      },
+      "pdbCandidates": [
+        {
+          "pdbId": "5LDW",
+          "organism": "Bos taurus",
+          "method": "cryo-EM",
+          "resolution": 4.27,
+          "atomCount": 51181,
+          "ligands": [],
+          "note": "牛源完整复合体 I；原子数已超出单页上限。"
+        },
+        {
+          "pdbId": "7QSK",
+          "organism": "Bos taurus",
+          "method": "cryo-EM",
+          "resolution": 2.84,
+          "atomCount": 69986,
+          "ligands": [],
+          "note": "更近的高分辨条目，但原子数更大，同样不适合整页 3D。"
+        }
+      ],
+      "evidence": {
+        "coordSource": "none",
+        "basis": "膜蛋白，本页仅 2D 示意；候选 5LDW / 7QSK 已核验，原子数超出预算，不建资产。"
+      },
+      "misconceptions": [
+        "误解：复合体 I 直接把 NADH 的能量做成 ATP。纠正：它只把能量换成质子梯度，ATP 由 ATP 合酶合成。",
+        "误解：NADH 的 4 H⁺ 全部来自 NADH 本身。纠正：NADH 只供 2 e⁻，泵出的 4 H⁺ 来自基质。"
+      ],
+      "clinical": [
+        "复合体 I 缺陷是线粒体病最常见的病因之一；临床表型高度异质，具体基因型与本页无关。"
+      ]
+    },
+    {
+      "id": "complex-ii",
+      "order": 2,
+      "name": "复合体 II · 琥珀酸脱氢酶",
+      "en": "COMPLEX II · SUCCINATE DEHYDROGENASE",
+      "kind": "complex",
+      "location": "span",
+      "subunits": 4,
+      "massKda": 124,
+      "equation": "琥珀酸 + Q → 延胡索酸 + QH₂（FAD 为辅基，不泵质子）",
+      "substrates": ["suc", "q"],
+      "products": ["fum", "qh2"],
+      "cofactors": ["FAD（共价）", "Fe-S 簇", "血红素 b"],
+      "electronIn": "琥珀酸",
+      "electronOut": "Q",
+      "electrons": 2,
+      "protonsPumpedPer2e": 0,
+      "protonsConsumedPer2e": 0,
+      "protonChemistry": "0 H⁺ 泵出。琥珀酸/延胡索酸对的氧化还原电位不足以驱动质子泵；它是 TCA 与呼吸链的共享入口。",
+      "poContribution": "FADH₂ 分支少 4 个泵出质子：6 H⁺ 对 10 H⁺，这是 P/O 1.5 对 2.5 的根源。",
+      "significance": "同一条酶同时属于 TCA 与呼吸链：在 TCA 里它是第 6 步，在呼吸链里它是复合体 II。它把电子送进 Q 池，但不贡献质子梯度。",
+      "detail": "四个亚基：两个亲水亚基（SDHA 含共价 FAD、SDHB 含 Fe-S）伸入基质，两个疏水亚基（SDHC/SDHD）锚在内膜并含血红素 b。FAD 接受琥珀酸脱氢产生的 2 e⁻，经 Fe-S 簇传给 Q。",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能但幅度小：不足以泵 4 H⁺；具体 ΔG 数值未核实。",
+        "source": "Lehninger 8e Ch.19（定性）",
+        "note": "「不泵质子」是化学计量事实，不依赖 ΔG 数值。"
+      },
+      "threeD": {
+        "status": "not-built",
+        "reason": "按本轮规则膜复合体一律 2D；虽然 1ZOY 体量较小，仍不单独破例。",
+        "atomScale": "约 4 个亚基、约 124 kDa；1ZOY 约 9,024 原子。",
+        "note": "本页只做 2D 模块示意；结构候选 1ZOY 已核验。"
+      },
+      "pdbCandidates": [
+        {
+          "pdbId": "1ZOY",
+          "organism": "Sus scrofa",
+          "method": "X-ray",
+          "resolution": 2.4,
+          "atomCount": 9024,
+          "ligands": ["FAD", "Fe-S", "血红素 b"],
+          "note": "猪心琥珀酸脱氢酶；体量在预算内，但本页仍统一按膜复合体 2D 处理。"
+        }
+      ],
+      "sharedWith": {
+        "pathwayId": "tca",
+        "stepId": "tca-6",
+        "entityId": "sdh",
+        "note": "复合体 II 就是 TCA 第 6 步的琥珀酸脱氢酶：同一酶、同一 EC 1.3.5.1。两页按实体 id sdh 引用同一个酶，不画成两套。"
+      },
+      "evidence": {
+        "coordSource": "none",
+        "basis": "膜蛋白，本页仅 2D；候选 1ZOY（猪，2.4 Å，9,024 原子）已核验，未建资产；与 TCA 共享实体 sdh。"
+      },
+      "misconceptions": [
+        "误解：复合体 II 是 TCA 之外的另一个酶。纠正：它就是 TCA 的琥珀酸脱氢酶，一酶两职。",
+        "误解：FADH₂ 和 NADH 一样泵 4 H⁺。纠正：复合体 II 不泵质子，FADH₂ 只经 III、IV 共泵 6 H⁺。"
+      ],
+      "clinical": [
+        "SDH 亚基突变与遗传性副神经节瘤、嗜铬细胞瘤相关；TCA 页已登记同一实体的临床条目。"
+      ]
+    },
+    {
+      "id": "q-pool",
+      "order": 3,
+      "name": "Q 池 · Q / QH₂ 循环",
+      "en": "UBIQUINONE POOL · Q / QH₂",
+      "kind": "pool",
+      "location": "inner-membrane",
+      "subunits": null,
+      "massKda": null,
+      "equation": "Q + 2 e⁻ + 2 H⁺ ⇌ QH₂",
+      "substrates": ["q"],
+      "products": ["qh2"],
+      "cofactors": ["2 e⁻", "2 H⁺"],
+      "electronIn": "复合体 I / 复合体 II",
+      "electronOut": "复合体 III",
+      "electrons": 2,
+      "protonsPumpedPer2e": null,
+      "protonsConsumedPer2e": null,
+      "protonChemistry": "Q/QH₂ 同时携带电子和质子，在膜内扩散；它本身不泵质子。真正的两次质子 translocation 发生在复合体 III 的 Qo/Qi 双位点（Q 循环）。",
+      "poContribution": "无独立 ATP 贡献；它是两条电子入口汇合后的公共载体。",
+      "significance": "把复合体 I 与复合体 II 的两条入口合并成一条 QH₂ 流；Q 池的大小与氧化还原状态影响呼吸链的流量分配。",
+      "detail": "泛醌是疏水小分子，可在内膜内自由扩散。复合体 I 与 II 都在膜内把 Q 还原为 QH₂；QH₂ 再到复合体 III 的 Qo 位点被分两轮氧化。Q 循环用一个 QH₂ 的 2 e⁻ 分给两条路径（cyt b 与 Rieske/cyt c₁），从而实现每 2 e⁻ 泵 4 H⁺。",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "Q/QH₂ 的氧化还原对处在电子链中段；具体 ΔG 数值未核实。",
+        "source": "Lehninger 8e Ch.19（定性）",
+        "note": "池本身不参与质子泵化学计量。"
+      },
+      "threeD": {
+        "status": "not-built",
+        "reason": "小分子池没有「可溶结构域」；Q 循环是两轮动态过程，没有单一全结构可摆。",
+        "atomScale": "泛醌小分子（约 30 个重原子），无蛋白结构。",
+        "note": "本页用 2D 池示意；不伪造 Q 循环的静态构象。"
+      },
+      "pdbCandidates": [],
+      "evidence": {
+        "coordSource": "none",
+        "basis": "泛醌/泛醇为小分子，无蛋白结构；Q 循环无单一全结构，本页仅 2D。"
+      },
+      "misconceptions": [
+        "误解：Q 池是一个膜蛋白复合体。纠正：Q 是可在膜内扩散的小分子池，没有固定亚基结构。",
+        "误解：Q 循环发生在复合体 I。纠正：双 Q 位点的 Q 循环属于复合体 III。"
+      ],
+      "clinical": [
+        "泛醌（辅酶 Q10）补充剂与他汀相关肌病的因果关系仍存争议，本页不给出疗效结论。"
+      ]
+    },
+    {
+      "id": "complex-iii",
+      "order": 4,
+      "name": "复合体 III · 细胞色素 bc₁",
+      "en": "COMPLEX III · CYTOCHROME bc₁",
+      "kind": "complex",
+      "location": "span",
+      "subunits": 11,
+      "massKda": 240,
+      "equation": "QH₂ + 2 cyt c(Fe³⁺) + 2 H⁺(基质) → Q + 2 cyt c(Fe²⁺) + 4 H⁺(膜间腔)",
+      "substrates": ["qh2", "cytc"],
+      "products": ["q", "cytc"],
+      "cofactors": ["Rieske [2Fe-2S]", "cyt b（bL / bH）", "cyt c₁"],
+      "electronIn": "QH₂",
+      "electronOut": "cyt c",
+      "electrons": 2,
+      "protonsPumpedPer2e": 4,
+      "protonsConsumedPer2e": 2,
+      "protonChemistry": "每 2 e⁻ 泵 4 H⁺：Q 循环把两个 QH₂ 的氧化分两轮，经 Qo（释 2 H⁺）与 Qi（取 2 H⁺）完成净 4 H⁺ 的输出。",
+      "poContribution": "NADH 与 FADH₂ 两个分支都经过这里，各得 4 H⁺（共 10 / 6 中的共同 4）。",
+      "significance": "Q 循环把「2 e⁻ 只搬 2 H⁺」的直观看法纠正为 4 H⁺：一个 QH₂ 的电子分叉给 cyt b 与 Rieske，另一个 QH₂ 在 Qi 被重新还原。",
+      "detail": "二聚体，每个单体含 cyt b（bL/bH 两个血红素）、Rieske [2Fe-2S] 与 cyt c₁。Qo 位点氧化 QH₂，Rieske 头部摆动把电子交给 cyt c₁；另一支电子经 bL→bH 到 Qi，把 Q 还原。两轮之后净反应如上式。",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能：QH₂ 的电子分给 cyt c（高位）与 cyt b（低位），整体自发；数值未核实。",
+        "source": "Lehninger 8e Ch.19（定性）",
+        "note": "不把 Q 循环的两轮中间态强行写成一个 ΔG。"
+      },
+      "threeD": {
+        "status": "not-built",
+        "reason": "膜蛋白，本页不做 3D。1BE3 虽可载入，但静态结构无法表达两轮 Q 循环。",
+        "atomScale": "约 11 个亚基、约 240 kDa（二聚体）；1BE3 约 1.6 万原子。",
+        "note": "本页只做 2D 模块示意；候选 1BE3 已核验，未建资产。"
+      },
+      "pdbCandidates": [
+        {
+          "pdbId": "1BE3",
+          "organism": "Bos taurus",
+          "method": "X-ray",
+          "resolution": 3.0,
+          "atomCount": 16222,
+          "ligands": ["血红素 b", "血红素 c₁", "Rieske [2Fe-2S]"],
+          "note": "牛心 bc₁ 二聚体经典条目；本页不建 3D。"
+        }
+      ],
+      "evidence": {
+        "coordSource": "none",
+        "basis": "膜蛋白，本页仅 2D；候选 1BE3（牛，3.0 Å，16,222 原子）已核验，未建资产。"
+      },
+      "misconceptions": [
+        "误解：QH₂ 的 2 e⁻ 只能泵 2 H⁺。纠正：Q 循环分两轮，净泵 4 H⁺。",
+        "误解：cyt c 在复合体 III 内部完成整个传递。纠正：cyt c 是可溶载体，在 III 与 IV 之间往返。"
+      ],
+      "clinical": [
+        "复合体 III 的 cyt b 突变与运动不耐受、线粒体肌病相关；具体变异未核实到本页。"
+      ]
+    },
+    {
+      "id": "cytochrome-c",
+      "order": 5,
+      "name": "细胞色素 c · 可溶电子载体",
+      "en": "CYTOCHROME c · SOLUBLE CARRIER",
+      "kind": "carrier",
+      "location": "soluble",
+      "subunits": 1,
+      "massKda": 12.4,
+      "equation": "cyt c(Fe²⁺) ⇌ cyt c(Fe³⁺) + e⁻",
+      "substrates": ["cytc"],
+      "products": ["cytc"],
+      "cofactors": ["血红素 c（HEC，共价连接）"],
+      "electronIn": "复合体 III",
+      "electronOut": "复合体 IV",
+      "electrons": 1,
+      "protonsPumpedPer2e": 0,
+      "protonsConsumedPer2e": 0,
+      "protonChemistry": "不泵质子：它是膜间腔里的可溶载体，一次只搬 1 e⁻。",
+      "poContribution": "无独立质子贡献；它把 III 的电子逐个送到 IV。",
+      "significance": "呼吸链里唯一真正可溶、可单独做 3D 的蛋白：约 12.4 kDa、104 个残基，血红素通过两处硫醚键共价固定。",
+      "detail": "细胞色素 c 位于线粒体膜间腔。还原型（Fe²⁺）接受复合体 III 的 1 e⁻，扩散到复合体 IV 后变成氧化型（Fe³⁺）。血红素 c 与蛋白共价连接，因此不能像非共价配体那样自由解离；这也是它适合教学 3D 的原因：结构小、配体明确、来源清楚。",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "小幅放能：cyt c 的电位介于 III 与 IV 之间；具体数值未核实。",
+        "source": "Lehninger 8e Ch.19（定性）",
+        "note": "单电子载体的 ΔG 不代表整条链。"
+      },
+      "threeD": {
+        "status": "soluble-panel",
+        "asset": "cytc",
+        "panelTitle": "人细胞色素 c · 3ZCF",
+        "note": "人源 1.65 Å X-ray；原始条目为四聚体，面板只取 A 链，血红素 c 保留为棒状模型。"
+      },
+      "pdbCandidates": [
+        {
+          "pdbId": "3ZCF",
+          "organism": "Homo sapiens",
+          "method": "X-ray",
+          "resolution": 1.65,
+          "atomCount": 3849,
+          "ligands": ["HEC（血红素 c）"],
+          "note": "重组人细胞色素 c；A–D 四条链，面板取 A 链。"
+        }
+      ],
+      "evidence": {
+        "coordSource": "experimental",
+        "pocketRole": "own",
+        "species": "human",
+        "basis": "3ZCF 人源 1.65 Å X-ray；面板取 A 链，血红素 c 共价连接。"
+      },
+      "misconceptions": [
+        "误解：cyt c 是膜蛋白。纠正：它可溶，位于膜间腔，靠扩散在 III / IV 之间穿梭。",
+        "误解：cyt c 一次搬 2 e⁻。纠正：每个 cyt c 一次只搬 1 e⁻。"
+      ],
+      "clinical": [
+        "cyt c 释放到胞质是凋亡途径的环节之一；与呼吸链电子传递是两套语境，勿混读。"
+      ]
+    },
+    {
+      "id": "complex-iv",
+      "order": 6,
+      "name": "复合体 IV · 细胞色素 c 氧化酶",
+      "en": "COMPLEX IV · CYTOCHROME c OXIDASE",
+      "kind": "complex",
+      "location": "span",
+      "subunits": 13,
+      "massKda": 200,
+      "equation": "4 cyt c(Fe²⁺) + O₂ + 8 H⁺(基质) → 4 cyt c(Fe³⁺) + 2 H₂O + 4 H⁺(膜间腔)",
+      "substrates": ["cytc", "o2"],
+      "products": ["cytc", "h2o"],
+      "cofactors": ["CuA", "血红素 a", "血红素 a₃–CuB 双核中心"],
+      "electronIn": "cyt c",
+      "electronOut": "O₂",
+      "electrons": 4,
+      "protonsPumpedPer2e": 2,
+      "protonsConsumedPer2e": 2,
+      "protonChemistry": "每 O₂ 从基质取 8 H⁺：4 个用于成水，4 个泵到膜间腔。折算到每 2 e⁻：消耗 2、泵出 2。",
+      "poContribution": "NADH 与 FADH₂ 分支各得 2 H⁺（10 / 6 中的共同 2）。",
+      "significance": "O₂ 的 4 e⁻ 还原在这里一次完成，避免部分还原产物（超氧、过氧化氢）外泄；化学计量是本条通路最容易被读错的一段。",
+      "detail": "cyt c 把 1 e⁻ 交给 CuA，经血红素 a 传到血红素 a₃–CuB 双核中心；4 个电子与 O₂ 结合，消耗基质侧 4 H⁺ 生成 2 H₂O，同时另泵 4 H⁺ 到膜间腔。膜间腔的 cyt c 结合位点与质子通道把电子、质子两条路径分开。",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "强放能：O₂/H₂O 对是呼吸链末端的高电位受体；数值未核实。",
+        "source": "Lehninger 8e Ch.19（定性）",
+        "note": "不把 4 e⁻ 的整段反应压缩成单个未核实数值。"
+      },
+      "threeD": {
+        "status": "not-built",
+        "reason": "膜蛋白，本页不做 3D；静态结构能摆 CuA/血红素，但不能展示 4 e⁻ 一次性还原 O₂ 的过程。",
+        "atomScale": "约 13 个亚基、约 200 kDa；5Z62 约 1.5 万原子。",
+        "note": "本页只做 2D 模块示意；候选 5Z62 已核验，未建资产。"
+      },
+      "pdbCandidates": [
+        {
+          "pdbId": "5Z62",
+          "organism": "Homo sapiens",
+          "method": "cryo-EM",
+          "resolution": 3.6,
+          "atomCount": 15037,
+          "ligands": ["CuA", "血红素 a", "血红素 a₃", "CuB"],
+          "note": "人源细胞色素 c 氧化酶；本页不建 3D。"
+        }
+      ],
+      "evidence": {
+        "coordSource": "none",
+        "basis": "膜蛋白，本页仅 2D；候选 5Z62（人，3.6 Å，15,037 原子）已核验，未建资产。"
+      },
+      "misconceptions": [
+        "误解：每 2 e⁻ 还原 1 个 O₂、产 1 个 H₂O。纠正：2 e⁻ 还原的是半个 O₂（½ O₂），产 1 个 H₂O；整个 O₂ 需要 4 e⁻、产 2 个 H₂O。",
+        "误解：成水的 4 H⁺ 和泵出的 4 H⁺ 是同一批。纠正：每 O₂ 共从基质取 8 H⁺，4 个进水上式、4 个被泵出。"
+      ],
+      "clinical": [
+        "COX 亚基突变与 Leigh 综合征等相关；具体基因型未核实到本页。"
+      ]
+    },
+    {
+      "id": "atp-synthase",
+      "order": 7,
+      "name": "ATP 合酶 · F₀F₁",
+      "en": "ATP SYNTHASE · F₀F₁",
+      "kind": "synthase",
+      "location": "span",
+      "subunits": 16,
+      "massKda": 600,
+      "equation": "ADP + Pi + 8 H⁺(膜间腔) → ATP + H₂O + 8 H⁺(基质)（每转一圈 3 ATP）",
+      "substrates": ["adp", "pi"],
+      "products": ["atp"],
+      "cofactors": ["c8 环", "γ 轴", "OSCP", "ATP-ADP 转位酶（ANT）", "磷酸载体"],
+      "electronIn": "—",
+      "electronOut": "—",
+      "electrons": 0,
+      "protonsPumpedPer2e": null,
+      "protonsConsumedPer2e": null,
+      "protonChemistry": "哺乳动物 c8 环：8 H⁺ / 圈 → 3 ATP ≈ 2.67 H⁺/ATP；再加 ANT 与磷酸载体约 1 H⁺/ATP，工程口径取 3.67 H⁺/ATP。",
+      "poContribution": "把 10 / 6 H⁺ 的预算兑现为 2.5 / 1.5 ATP；这是 P/O 比的最后一步，也是「能量必须过质子」的落点。",
+      "significance": "唯一把质子梯度转成化学能的模块。电子传递本身不产 ATP；没有质子回流，整条链只剩产热。",
+      "detail": "F₀ 的 c 环在内膜内旋转，每转一圈搬运 8 H⁺；γ 轴带动 F₁ 的三个 β 亚基按 Binding Change 机制循环「开放（O）–松弛（L）–紧绷（T）」，每 120° 释放 1 个 ATP。OSCP 连接 F₁ 与膜部；ANT 把 ATP 运出、ADP 运入；磷酸载体负责 Pi 的输入。解偶联剂（2,4-DNP、UCP1）把梯度打漏，电子链照跑但 ATP 归零。",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "需能：ATP 合成由质子梯度的电化学势驱动，方向依赖 Δp；具体数值未核实。",
+        "source": "Lehninger 8e Ch.19（定性）",
+        "note": "Δp 随膜电位与 ΔpH 变化，不用单一数字替代。"
+      },
+      "threeD": {
+        "status": "soluble-panel",
+        "asset": "f1",
+        "panelTitle": "牛心 F₁ 催化头部 · 1BMF",
+        "note": "牛源 2.85 Å X-ray；F₁ 头部（A–G 链）可溶，F₀/c 环不在资产内。核苷酸与 Mg²⁺ 以棒状模型显示。"
+      },
+      "pdbCandidates": [
+        {
+          "pdbId": "1BMF",
+          "organism": "Bos taurus",
+          "method": "X-ray",
+          "resolution": 2.85,
+          "atomCount": 23481,
+          "ligands": ["ADP ×1", "ANP ×4", "MG ×5"],
+          "note": "牛心线粒体 F₁-ATPase 经典结构；ANP = AMP-PNP，不可当作 ATP。"
+        }
+      ],
+      "evidence": {
+        "coordSource": "experimental",
+        "pocketRole": "own",
+        "species": "nonhuman",
+        "basis": "1BMF 牛源 2.85 Å X-ray，F₁ 催化头部 A–G 链；F₀/c 环未包含；ANP=AMP-PNP 不可当 ATP。"
+      },
+      "misconceptions": [
+        "误解：ATP 合酶是可逆的 ATP 水解酶，所以呼吸链产 ATP 靠水解。纠正：生理方向是合成，质子梯度驱动；水解只是体外逆反应。",
+        "误解：8 H⁺ 直接生成 3 ATP，没有别的代价。纠正：c8 环 8 H⁺/3 ATP ≈ 2.67，加上 ANT/磷酸载体后约 3.67 H⁺/ATP。"
+      ],
+      "clinical": [
+        "ATP 合酶亚基突变与线粒体病、神经退行性表型相关；寡霉素抑制 F₀，是经典实验工具。"
+      ]
+    }
+  ],
+  "steps": [
+    {
+      "id": "oxphos-e",
+      "index": 1,
+      "name": "NADH 经复合体 I 进入 Q 池",
+      "substrates": ["nadh"],
+      "products": ["q"],
+      "enzyme": { "entityId": "complex-i", "name": "复合体 I · NADH 脱氢酶" },
+      "cofactors": ["FMN", "Fe-S 簇", "Q"],
+      "irreversible": true
+    },
+    {
+      "id": "oxphos-f",
+      "index": 2,
+      "name": "FADH₂ 经复合体 II 进入 Q 池",
+      "substrates": ["fadh2"],
+      "products": ["q"],
+      "enzyme": { "entityId": "sdh", "name": "复合体 II · 琥珀酸脱氢酶" },
+      "cofactors": ["FAD", "Fe-S 簇"],
+      "irreversible": true
+    }
+  ],
+  "protonFlux": [
+    {
+      "id": "pump-i",
+      "branch": "nadh",
+      "from": "matrix",
+      "to": "intermembrane",
+      "label": "复合体 I：4 H⁺",
+      "kind": "pump",
+      "perNadh": 4,
+      "perFadh2": 0,
+      "note": "只对 NADH 分支；FADH₂ 不经过复合体 I。"
+    },
+    {
+      "id": "pump-iii",
+      "branch": "common",
+      "from": "matrix",
+      "to": "intermembrane",
+      "label": "复合体 III：4 H⁺",
+      "kind": "pump",
+      "perNadh": 4,
+      "perFadh2": 4,
+      "note": "Q 循环的净输出，两个分支各 4 H⁺。"
+    },
+    {
+      "id": "pump-iv",
+      "branch": "common",
+      "from": "matrix",
+      "to": "intermembrane",
+      "label": "复合体 IV：2 H⁺",
+      "kind": "pump",
+      "perNadh": 2,
+      "perFadh2": 2,
+      "note": "每 2 e⁻ 泵 2 H⁺（每 O₂ 泵 4 H⁺）。"
+    },
+    {
+      "id": "water-iv",
+      "branch": "common",
+      "from": "matrix",
+      "to": "matrix",
+      "label": "复合体 IV：2 H⁺ 成水",
+      "kind": "consumed",
+      "perNadh": 2,
+      "perFadh2": 2,
+      "note": "每 O₂ 消耗 4 H⁺ 生成 2 H₂O；不泵出，只从基质移除。"
+    },
+    {
+      "id": "return-v",
+      "branch": "common",
+      "from": "intermembrane",
+      "to": "matrix",
+      "label": "ATP 合酶回流：3.67 H⁺ / ATP",
+      "kind": "return",
+      "perNadh": null,
+      "perFadh2": null,
+      "perAtp": 3.67,
+      "note": "c8 环 8 H⁺/3 ATP ≈ 2.67，加 ANT 与磷酸载体约 3.67。"
+    },
+    {
+      "id": "leak",
+      "branch": "common",
+      "from": "intermembrane",
+      "to": "matrix",
+      "label": "解偶联 / 回漏",
+      "kind": "return",
+      "perNadh": null,
+      "perFadh2": null,
+      "note": "UCP1、2,4-DNP 打漏梯度：电子链照跑，ATP 下降、热增加。不是正常产 ATP 路径。"
+    }
+  ],
+  "poBasis": {
+    "nadh": 2.5,
+    "fadh2": 1.5,
+    "protonsPerAtp": 3.67,
+    "protonsPerNadh": 10,
+    "protonsPerFadh2": 6,
+    "nadhRaw": 2.72,
+    "fadh2Raw": 1.63,
+    "source": "Lehninger 8e Ch.19 现代 P/O 口径；与 TCA、β-氧化页同版本",
+    "note": "10 / 3.67 ≈ 2.72、6 / 3.67 ≈ 1.63，工程上取 2.5 / 1.5；取整是为了与 TCA 与 β-氧化账本自洽，不声称精确整除。",
+    "legacy": {
+      "nadh": 3,
+      "fadh2": 2,
+      "note": "1960 年代实测整除值，仅作对照并列，不参与本页任何加和。"
+    }
+  },
+  "chemiosmosis": {
+    "title": "化学渗透 · CHEMIOSMOSIS",
+    "deltaPsi": "Δψ 约 150–180 mV（数值未核实，随组织与状态变化）",
+    "deltaPh": "ΔpH 约 0.5 个单位（数值未核实）",
+    "text": "内膜对 H⁺ / OH⁻ 不透，电子传递的自由能先存成质子动力势 Δp = Δψ + ΔpH。ATP 合酶只认质子回流，不认电子。解偶联剂打漏梯度时，电子链仍可运行，但 ATP 产出归零——这是「能量必须过质子」的证伪实验。",
+    "uncouplers": [
+      { "name": "2,4-DNP", "note": "经典化学解偶联剂，把质子运回基质，梯度短路。" },
+      { "name": "UCP1", "note": "棕色脂肪的生理性质子通道，把梯度转成热而不是 ATP。" }
+    ]
+  },
+  "threeD": {
+    "status": "soluble-only",
+    "note": "只对可溶结构域做 3D：细胞色素 c（3ZCF 人源 A 链）与 F₁ 头部（1BMF 牛源）。复合体 I/II/III/IV 与 F₀ 均为膜蛋白，本页不做 3D，只给已核验的 PDB 候选与原子数量级。",
+    "solubleAssets": ["cytc", "f1"]
+  }
+}

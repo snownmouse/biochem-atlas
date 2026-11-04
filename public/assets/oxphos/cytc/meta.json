@@ -1,0 +1,14 @@
+{
+  "assetId": "oxphos-cytc",
+  "pdbId": "3ZCF",
+  "title": "Recombinant human cytochrome c",
+  "species": "Homo sapiens",
+  "speciesZh": "人",
+  "method": "X-ray",
+  "resolution": 1.65,
+  "chains": "A（原始条目为 A–D 四聚体，本面板只取 A 链）",
+  "ligands": ["HEC（血红素 c，共价连接）"],
+  "atoms": "464（主链 N/CA/C/O 421 + 血红素 43）",
+  "note": "可溶电子载体，约 12.4 kDa；血红素 c 通过两处硫醚键共价连接蛋白，不是非共价配体。坐标取自实验结构，未做计算构象。",
+  "source": "RCSB PDB 3ZCF；分辨率 1.65 Å；X-ray"
+}

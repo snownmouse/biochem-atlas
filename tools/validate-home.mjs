@@ -61,6 +61,7 @@ const rawPathways = {
   gluconeogenesis: JSON.parse(fs.readFileSync("src/data/gluconeogenesis/gluconeogenesis.json", "utf8")),
   ppp: JSON.parse(fs.readFileSync("src/data/ppp/ppp.json", "utf8")),
   "fatty-acid-oxidation": JSON.parse(fs.readFileSync("src/data/fatty-acid-oxidation/fao.json", "utf8")),
+  oxphos: JSON.parse(fs.readFileSync("src/data/oxphos/oxphos.json", "utf8")),
 };
 
 const skeletonPathways = {
@@ -69,6 +70,7 @@ const skeletonPathways = {
   gluconeogenesis: JSON.parse(fs.readFileSync("src/data/gluconeogenesis/skeleton.json", "utf8")),
   ppp: JSON.parse(fs.readFileSync("src/data/ppp/skeleton.json", "utf8")),
   "fatty-acid-oxidation": JSON.parse(fs.readFileSync("src/data/fatty-acid-oxidation/skeleton.json", "utf8")),
+  oxphos: JSON.parse(fs.readFileSync("src/data/oxphos/skeleton.json", "utf8")),
 };
 
 const entityIds = new Set();
@@ -92,6 +94,14 @@ const nodeIds = home.HOME_NODES.map((node) => node.id);
 check("节点 id 唯一（同一实体不画两次）", new Set(nodeIds).size === nodeIds.length);
 const strayNodes = home.HOME_NODES.filter((node) => node.pathwayIds.length < 1);
 check("每个节点至少被一条通路引用", strayNodes.length === 0, strayNodes.map((node) => node.id).join(","));
+
+// 1b) 挂图编号：01–06 连续、无重复（总图是 PLATE 00）
+const plateNos = home.HOME_PATHWAYS.map((pathway) => pathway.plateNo);
+check(
+  "六条挂图编号 PLATE 01–06 连续且无重复",
+  plateNos.join(",") === "PLATE 01,PLATE 02,PLATE 03,PLATE 04,PLATE 05,PLATE 06",
+  plateNos.join(","),
+);
 
 // 2) junction
 const junctions = home.HOME_JUNCTIONS;
@@ -144,7 +154,7 @@ for (const [pathwayId, data] of Object.entries(rawPathways)) {
     if (!sourcedSteps.has(`${pathwayId}:${step.id}`)) missingSteps.push(`${pathwayId}:${step.id}`);
   }
 }
-check("五条通路的每个主步骤都有对应连线", missingSteps.length === 0, missingSteps.join(","));
+check("六条通路的每个主步骤都有对应连线", missingSteps.length === 0, missingSteps.join(","));
 
 // 5) 资产别名
 const aliases = home.ASSET_ID_ALIASES;
@@ -241,8 +251,8 @@ check(
 );
 const pathwayLabels = layout.HOME_PATHWAY_LABELS ?? [];
 check(
-  "五个通路标签都在画布内",
-  pathwayLabels.length === 5 &&
+  "六个通路标签都在画布内",
+  pathwayLabels.length === 6 &&
     pathwayLabels.every((label) => label.x > 0 && label.y > 0 && label.x < canvas.width && label.y < canvas.height),
   JSON.stringify(pathwayLabels.map((label) => [label.pathwayId, label.x, label.y])),
 );

@@ -99,6 +99,11 @@ export const HOME_POS: Record<string, HomePos> = {
   fa: { x: 992, y: 210, side: "left" },
   acylcarn: { x: 950, y: 270, side: "right" },
 
+  // —— 膜带：氧化磷酸化的两条电子入口与 Q 池 ——
+  nadh: { x: 176, y: 264, side: "left" },
+  fadh2: { x: 300, y: 286, side: "left" },
+  q: { x: 444, y: 266, side: "above" },
+
   // —— 下域：TCA 环（左侧）与 β-氧化环（右侧），乙酰-CoA 会合 ——
   acylcoa: { x: 950, y: 332, side: "right" },
   enoyl: { x: 850, y: 392, side: "left" },
@@ -140,4 +145,6 @@ export const HOME_PATHWAY_LABELS: HomePathwayLabel[] = [
   { pathwayId: "ppp", x: 180, y: 24, anchor: "start", note: "分流 · 回流" },
   { pathwayId: "tca", x: 28, y: 332, anchor: "start", note: "8 步闭环 · 乙酰-CoA 入口" },
   { pathwayId: "fatty-acid-oxidation", x: 700, y: 336, anchor: "start", note: "4 步 ×7 轮 · 在乙酰-CoA 会合" },
+  // 氧化磷酸化的语义就是膜本身：标题直接放进膜带，不再另挤一个域标题。
+  { pathwayId: "oxphos", x: 600, y: 266, anchor: "start", note: "膜内 · NADH / FADH₂ → Q" },
 ];

@@ -2,9 +2,14 @@
 //
 // 【因功能取消的旧断言】旧版是 2480 px 横向长卷 + 三段刻度滚动导航 + 顶部十条索引栏，
 // 因此此前断言「横向漫游可滚到 TCA / β-氧化」「三段导航可点/键盘换段」「home-index 十条去向」。
-// 本版改为上下两域构图：五条通路在 1440 首屏一次全览，不再横向漫游，三段刻度换成了
-// 「胞质 / 基质」域标签 + 全图指示，顶部索引栏被移除（十条去向仍在右栏保留）。
+// 本版改为上下两域构图：六条通路在 1440 首屏一次全览，不再横向漫游，三段刻度换成了
+// 「胞质 / 基质」域标签 + 全图指示，顶部索引栏被移除（十二条去向仍在右栏保留）。
 // 这些断言是随功能取消而删除，并非弱化；新构图对应的断言在下面第 2、10 节补足。
+//
+// 【第六条通路上线后的计数更新】新增氧化磷酸化：节点 35→38（NADH / FADH₂ / Q），
+// 共用节点 14→16（NADH 与 FADH₂ 各连 TCA / β-氧化 / 氧化磷酸化三条），
+// 边 56→62（新增四条 TCA / β-氧化到 NADH / FADH₂ 的辅因子虚线，以及 NADH / FADH₂ → Q 两条入口线）；
+// 通路区块与标题 5→6，右栏去向 10→12。这些是计数同步，不是放宽断言。
 //
 // 需先 `npm run build`，并让 preview 服务跑在 BASE_URL（默认 http://localhost:4173）。
 import { mkdirSync } from "node:fs";
@@ -44,6 +49,7 @@ const PATHWAYS = [
   ["gluconeogenesis", "糖异生"],
   ["ppp", "磷酸戊糖途径"],
   ["fatty-acid-oxidation", "β-氧化"],
+  ["oxphos", "氧化磷酸化"],
 ];
 
 const firstScreenTitles = async () =>
@@ -69,43 +75,43 @@ check("报头 PLATE 00", (await page.locator(".plate-no").innerText()).includes(
 check("首屏无 3D canvas", (await page.locator("canvas").count()) === 0);
 check("无控制台报错", errors.length === 0, errors.join(" | "));
 
-// ===== 2) 五条通路区块：存在、可点、1440×900 首屏标题全部可见 =====
+// ===== 2) 六条通路区块：存在、可点、1440×900 首屏标题全部可见 =====
 const blockAttrs = await page.locator("[data-pathway-block]").evaluateAll((els) =>
   els.map((el) => [el.getAttribute("data-pathway-block"), el.getAttribute("href")])
 );
-check("五个通路区块存在", blockAttrs.length === 5);
+check("六个通路区块存在", blockAttrs.length === 6, String(blockAttrs.length));
 check(
-  "通路区块 href 指向五条挂图",
+  "通路区块 href 指向六条挂图",
   blockAttrs.every(([id, href]) => href === `/pathway/${id}`),
   JSON.stringify(blockAttrs)
 );
 
 const titles = await firstScreenTitles();
-check("五个通路标题存在", titles.length === 5, String(titles.length));
+check("六个通路标题存在", titles.length === 6, String(titles.length));
 for (const [id, name] of PATHWAYS) {
   const title = titles.find((item) => item.id === id);
   check(`图上出现「${name}」标题`, Boolean(title) && title.text.includes(name), title?.text ?? "missing");
 }
 const offscreen = titles.filter((t) => t.y < 0 || t.bottom > 900 || t.x < 0 || t.right > 1440);
 check(
-  "1440×900 首屏内五条通路标题全部可见（无需横向漫游）",
-  titles.length === 5 && offscreen.length === 0,
+  "1440×900 首屏内六条通路标题全部可见（无需横向漫游）",
+  titles.length === 6 && offscreen.length === 0,
   JSON.stringify(titles.map((t) => [t.id, t.x, t.y, t.right, t.bottom]))
 );
 const mapBox = await page.locator('svg[data-home-map="1"]').boundingBox();
 check(
-  "五条通路标题都在同一屏高内（最低标题底边 ≤ 900）",
+  "六条通路标题都在同一屏高内（最低标题底边 ≤ 900）",
   Boolean(mapBox) && Math.max(...titles.map((t) => t.bottom)) <= 900,
   JSON.stringify({ mapTop: mapBox?.y, mapHeight: mapBox?.height, lowestTitle: Math.max(...titles.map((t) => t.bottom)) })
 );
 
-// ===== 3) 右栏十条去向 =====
+// ===== 3) 右栏十二条去向 =====
 const destLinks = await page.locator("[data-home-link]").evaluateAll((els) =>
   els.map((el) => el.getAttribute("href"))
 );
-check("右栏十条去向链接", destLinks.length === 10, String(destLinks.length));
+check("右栏十二条去向链接", destLinks.length === 12, String(destLinks.length));
 check(
-  "十条去向覆盖五挂图 + 五结构对照",
+  "十二条去向覆盖六挂图 + 六结构对照",
   PATHWAYS.every(
     ([id]) => destLinks.includes(`/pathway/${id}`) && destLinks.includes(`/structures/${id}`),
   )
@@ -120,10 +126,10 @@ const nodeInfo = await page.locator("svg [data-entity-id]").evaluateAll((els) =>
   }))
 );
 const nodeIds = nodeInfo.map((node) => node.id);
-check("图上节点总数 35", nodeIds.length === 35, String(nodeIds.length));
+check("图上节点总数 38", nodeIds.length === 38, String(nodeIds.length));
 check("同一实体 id 不重复出现", new Set(nodeIds).size === nodeIds.length, `${nodeIds.length} → ${new Set(nodeIds).size}`);
 const junctions = nodeInfo.filter((node) => node.junction === "1");
-check("共用节点 14 个", junctions.length === 14, String(junctions.length));
+check("共用节点 16 个", junctions.length === 16, String(junctions.length));
 check(
   "每个共用节点至少连接两条通路",
   junctions.every((node) => node.pathways.length >= 2),
@@ -137,6 +143,18 @@ const accoa = nodeInfo.filter((node) => node.id === "accoa");
 check("乙酰-CoA 只画一次（TCA + β-氧化）", accoa.length === 1 && accoa[0].pathways.length === 2, JSON.stringify(accoa));
 const oaa = nodeInfo.filter((node) => node.id === "oaa");
 check("草酰乙酸只画一次（TCA + 糖异生）", oaa.length === 1 && oaa[0].pathways.length === 2, JSON.stringify(oaa));
+const nadh = nodeInfo.filter((node) => node.id === "nadh");
+check(
+  "NADH 只画一次且连接 TCA / β-氧化 / 氧化磷酸化三条",
+  nadh.length === 1 && nadh[0].pathways.length === 3,
+  JSON.stringify(nadh),
+);
+const fadh2 = nodeInfo.filter((node) => node.id === "fadh2");
+check(
+  "FADH₂ 只画一次且连接 TCA / β-氧化 / 氧化磷酸化三条",
+  fadh2.length === 1 && fadh2[0].pathways.length === 3,
+  JSON.stringify(fadh2),
+);
 
 // ===== 5) 三条跨域共用标注存在 =====
 for (const [id, keyword] of [
@@ -156,7 +174,7 @@ const edgeInfo = await page.locator("svg [data-edge-id]").evaluateAll((els) =>
     pathway: el.getAttribute("data-pathway-id"),
   }))
 );
-check("图上连线数量 56", edgeInfo.length === 56, String(edgeInfo.length));
+check("图上连线数量 62", edgeInfo.length === 62, String(edgeInfo.length));
 check(
   "每条连线都带非空数据来源",
   edgeInfo.every((edge) => edge.sources.trim().length > 0),
@@ -170,6 +188,20 @@ check(
 );
 const edgeSourcesText = edgeInfo.map((edge) => edge.sources).join(" ");
 for (const [id] of PATHWAYS) check(`连线来源含 ${id} 步骤`, edgeSourcesText.includes(`${id}:`));
+check(
+  "NADH / FADH₂ 各有两条来自 TCA 与 β-氧化的接口线",
+  edgeInfo.filter((edge) => edge.id.endsWith("->nadh")).length === 2 &&
+    edgeInfo.filter((edge) => edge.id.endsWith("->fadh2")).length === 2,
+  JSON.stringify({
+    nadh: edgeInfo.filter((edge) => edge.id.endsWith("->nadh")).map((edge) => edge.id),
+    fadh2: edgeInfo.filter((edge) => edge.id.endsWith("->fadh2")).map((edge) => edge.id),
+  }),
+);
+check(
+  "氧化磷酸化的两条入口线（NADH / FADH₂ → Q）存在",
+  edgeInfo.some((edge) => edge.id === "oxphos:nadh->q") &&
+    edgeInfo.some((edge) => edge.id === "oxphos:fadh2->q"),
+);
 
 // ===== 7) 点共用节点：右栏列出连接通路，不跳转 =====
 await page.locator('svg [data-node-id="g6p"] circle').first().click({ force: true });
@@ -274,7 +306,7 @@ check("致敬写 Nicholson 与 1960", tribute.includes("Nicholson") && tribute.i
 check("致敬写 KEGG 与 1995 / Kanehisa", tribute.includes("KEGG") && tribute.includes("1995") && tribute.includes("Kanehisa"));
 check("明确是体例致敬而非内容引用", tribute.includes("体例致敬") && tribute.includes("不取自"));
 
-// ===== 13) 十条去向页都有首页入口 =====
+// ===== 13) 十二条去向页都有首页入口 =====
 for (const [id] of PATHWAYS) {
   for (const route of [`/pathway/${id}`, `/structures/${id}`]) {
     await page.goto(`${BASE}${route}`, { waitUntil: "domcontentloaded" });
@@ -289,7 +321,7 @@ await page.setViewportSize({ width: 1440, height: 900 });
 await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
 await page.waitForTimeout(500);
 await page.screenshot({ path: join(ROOT, "preview", "home-overview.png") });
-console.log("✓ 截图 preview/home-overview.png（1440×900 首屏 · 五条通路一次全览）");
+console.log("✓ 截图 preview/home-overview.png（1440×900 首屏 · 六条通路一次全览）");
 await page.screenshot({ path: join(ROOT, "preview", "home-full.png"), fullPage: true });
 console.log("✓ 截图 preview/home-full.png（1440 宽整页）");
 
@@ -309,8 +341,8 @@ const fit1280 = await page.evaluate(() => ({
   scroll: document.documentElement.scrollWidth,
 }));
 check(
-  "1280 下五条通路标题仍全部可见",
-  titles1280.length === 5 && titles1280.every((t) => t.y >= 0 && t.bottom <= 900 && t.x >= 0 && t.right <= 1280),
+  "1280 下六条通路标题仍全部可见",
+  titles1280.length === 6 && titles1280.every((t) => t.y >= 0 && t.bottom <= 900 && t.x >= 0 && t.right <= 1280),
   JSON.stringify(titles1280.map((t) => [t.id, t.x, t.y, t.right, t.bottom]))
 );
 check("1280 下无横向滚动", fit1280.scroll <= fit1280.client + 2, JSON.stringify(fit1280));

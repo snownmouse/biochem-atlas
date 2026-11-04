@@ -3,18 +3,21 @@ import tcaJson from "./tca.json";
 import pppJson from "./ppp/ppp.json";
 import gluconeogenesisJson from "./gluconeogenesis/gluconeogenesis.json";
 import faoJson from "./fatty-acid-oxidation/fao.json";
+import oxphosJson from "./oxphos/oxphos.json";
 import glycolysisSkeleton from "./skeleton.json";
 import tcaSkeleton from "./skeleton-tca.json";
 import pppSkeleton from "./ppp/skeleton.json";
 import gluconeogenesisSkeleton from "./gluconeogenesis/skeleton.json";
 import faoSkeleton from "./fatty-acid-oxidation/skeleton.json";
+import oxphosSkeleton from "./oxphos/skeleton.json";
 
 export type HomePathwayId =
   | "glycolysis"
   | "tca"
   | "gluconeogenesis"
   | "ppp"
-  | "fatty-acid-oxidation";
+  | "fatty-acid-oxidation"
+  | "oxphos";
 
 export interface HomePathwayMeta {
   id: HomePathwayId;
@@ -83,6 +86,17 @@ export const HOME_PATHWAYS: HomePathwayMeta[] = [
     plateNo: "PLATE 05",
     stepCount: 6,
     accent: "amber",
+  },
+  {
+    id: "oxphos",
+    sourceId: "oxphos",
+    name: "氧化磷酸化",
+    en: "OXPHOS",
+    route: "/pathway/oxphos",
+    structureRoute: "/structures/oxphos",
+    plateNo: "PLATE 06",
+    stepCount: 7,
+    accent: "teal",
   },
 ];
 
@@ -192,6 +206,11 @@ const SOURCES: SourcePathway[] = [
     pathway: faoJson as unknown as RawPathway,
     skeleton: faoSkeleton as unknown as RawSkeleton,
   },
+  {
+    meta: HOME_PATHWAYS[5],
+    pathway: oxphosJson as unknown as RawPathway,
+    skeleton: oxphosSkeleton as unknown as RawSkeleton,
+  },
 ];
 
 /** 不在总图上建节点：辅因子、离去小分子与旁支产物，以文字注记代替。 */
@@ -205,13 +224,17 @@ const SKIP_ENTITIES = new Set([
   "amp",
   "ppi",
   "fad",
-  "fadh2",
   "nad",
-  "nadh",
   "nadp",
   "nadph",
   "glu",
   "23bpg",
+  // 呼吸链的中间载体不在总图上重复画节点：Q 池是唯一显式的公共入口，
+  // QH₂ / cyt c / O₂ 以氧化磷酸化挂图内的模块与箭头呈现。
+  "qh2",
+  "cytc",
+  "o2",
+  "pi",
 ]);
 
 const SHORT_LABELS: Record<string, string> = {
@@ -250,6 +273,9 @@ const SHORT_LABELS: Record<string, string> = {
   enoyl: "烯酰-CoA",
   hydroxyacyl: "3-羟脂酰-CoA",
   ketoacyl: "3-酮脂酰-CoA",
+  nadh: "NADH",
+  fadh2: "FADH₂",
+  q: "Q",
 };
 
 export interface HomeNode {
@@ -472,6 +498,55 @@ for (const source of SOURCES) {
   }
 }
 
+/**
+ * 辅因子级接口：TCA / β-氧化的 NADH、FADH₂ 只写在 cofactors，
+ * 不在 substrate / product 数组里，因此不会自动产生连线；
+ * 但它们是氧化磷酸化的真实入口。这里只登记已核验的步骤 id，
+ * 不按字符串模糊匹配，也不为它们另造分子。
+ */
+const COFACTOR_INTERFACES: {
+  entityId: string;
+  refs: { pathwayId: HomePathwayId; stepId: string; fromNodeId?: string }[];
+}[] = [
+  {
+    entityId: "nadh",
+    refs: [
+      // 各条通路只取一个代表性产 NADH 的步骤连线，避免同一节点被画成多条长线；
+      // 其余产 NADH 的步骤仍写进 occurrence，右栏能看到完整清单。
+      { pathwayId: "tca", stepId: "tca-3", fromNodeId: "icit" },
+      { pathwayId: "tca", stepId: "tca-4" },
+      { pathwayId: "tca", stepId: "tca-8" },
+      { pathwayId: "fatty-acid-oxidation", stepId: "fao-3", fromNodeId: "hydroxy" },
+    ],
+  },
+  {
+    entityId: "fadh2",
+    refs: [
+      { pathwayId: "tca", stepId: "tca-6", fromNodeId: "suc" },
+      { pathwayId: "fatty-acid-oxidation", stepId: "fao-1", fromNodeId: "acylcoa" },
+    ],
+  },
+];
+
+for (const item of COFACTOR_INTERFACES) {
+  for (const ref of item.refs) {
+    if (!ref.fromNodeId) continue;
+    const source = SOURCES.find((entry) => entry.meta.id === ref.pathwayId);
+    if (!source) continue;
+    const step = stepById(source.pathway, ref.stepId);
+    if (!step) continue;
+    if (!entityOf(ref.pathwayId, ref.fromNodeId)) continue;
+    pushDraft(
+      ref.pathwayId,
+      ref.fromNodeId,
+      item.entityId,
+      { pathwayId: ref.pathwayId, stepId: step.id, linkType: "cofactor" },
+      step,
+      "cofactor",
+    );
+  }
+}
+
 const merged = new Map<string, HomeEdge>();
 
 for (const draft of drafts) {
@@ -519,6 +594,8 @@ const CROSS_LABELS: Record<string, string> = {
   "fatty-acid-oxidation:fao-act:fa->acylcoa": "ACSL 活化（外膜胞质面）",
   "fatty-acid-oxidation:fao-shuttle:acylcoa->acylcarn": "CPT1（外膜）",
   "fatty-acid-oxidation:fao-shuttle:acylcarn->acylcoa": "CACT / CPT2（内膜→基质）",
+  "oxphos:oxphos-e:nadh->q": "复合体 I",
+  "oxphos:oxphos-f:fadh2->q": "SDH（= TCA）",
 };
 
 export const HOME_EDGES: HomeEdge[] = [...merged.values()]
@@ -597,6 +674,25 @@ for (const source of SOURCES) {
       const entityId = entityOf(meta.id, nodeId);
       if (entityId && drawnEntityIds.has(entityId)) noteUsage(entityId, meta.id);
     }
+  }
+}
+
+/** 辅因子接口的右栏清单：包括没有单独画线、但仍真实产 NADH / FADH₂ 的步骤。 */
+for (const item of COFACTOR_INTERFACES) {
+  if (!drawnEntityIds.has(item.entityId)) continue;
+  for (const ref of item.refs) {
+    const source = SOURCES.find((entry) => entry.meta.id === ref.pathwayId);
+    if (!source) continue;
+    const step = stepById(source.pathway, ref.stepId);
+    if (!step) continue;
+    noteUsage(item.entityId, ref.pathwayId);
+    noteOccurrence(item.entityId, {
+      pathwayId: ref.pathwayId,
+      stepId: step.id,
+      stepName: step.name,
+      enzyme: enzymeShort(ref.pathwayId, step),
+      via: "main",
+    });
   }
 }
 

@@ -7,6 +7,8 @@ import TcaOverviewPage from "./pages/TcaOverviewPage";
 import GluconeogenesisOverviewPage from "./pages/GluconeogenesisOverviewPage";
 import PppOverviewPage from "./pages/PppOverviewPage";
 import FaoOverviewPage from "./pages/FaoOverviewPage";
+import OxphosOverviewPage from "./pages/OxphosOverviewPage";
+import OxphosStructurePage from "./pages/OxphosStructurePage";
 import StepViewPage from "./pages/StepViewPage";
 import StructureFramesPage from "./pages/StructureFramesPage";
 import "./styles.css";
@@ -22,16 +24,24 @@ function PathwayRoute() {
     <PppOverviewPage />
   ) : pathwayId === "fatty-acid-oxidation" ? (
     <FaoOverviewPage />
+  ) : pathwayId === "oxphos" ? (
+    <OxphosOverviewPage />
   ) : (
     <PathwayOverviewPage />
   );
+}
+
+/** 结构路由分发：氧化磷酸化是模块页，不套用逐步分子对照器 */
+function StructureRoute() {
+  const { pathwayId } = useParams();
+  return pathwayId === "oxphos" ? <OxphosStructurePage /> : <StructureFramesPage />;
 }
 
 const router = createBrowserRouter([
   { path: "/", element: <HomePage /> },
   { path: "/pathway/:pathwayId", element: <PathwayRoute /> },
   { path: "/step/:stepId", element: <StepViewPage /> },
-  { path: "/structures/:pathwayId", element: <StructureFramesPage /> },
+  { path: "/structures/:pathwayId", element: <StructureRoute /> },
 ]);
 
 createRoot(document.getElementById("root")!).render(

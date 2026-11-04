@@ -1,0 +1,14 @@
+{
+  "assetId": "oxphos-f1",
+  "pdbId": "1BMF",
+  "title": "Bovine mitochondrial F1-ATPase",
+  "species": "Bos taurus",
+  "speciesZh": "牛",
+  "method": "X-ray",
+  "resolution": 2.85,
+  "chains": "A–G（α3β3γδε 的 F1 催化头部；不含 F0/c 环）",
+  "ligands": ["ADP ×1", "ANP ×4（AMP-PNP，不可水解 ATP 类似物）", "MG ×5"],
+  "atoms": "12104（主链 11948 + 核苷酸/镁 156）",
+  "note": "牛心线粒体 F1 催化头部经典结构；ANP = AMP-PNP，不可当作 ATP。跨物种（牛）与 2.85 Å 分辨率均如实标注。F0 质子通道与 c 环不在本资产内。",
+  "source": "RCSB PDB 1BMF；分辨率 2.85 Å；X-ray"
+}
