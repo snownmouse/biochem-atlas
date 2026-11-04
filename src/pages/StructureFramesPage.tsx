@@ -19,6 +19,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Enzyme3DPanel from "../components/Enzyme3DPanel";
 import Molecule3D, { MARK_COLOR, MARK_LABEL, mol3dSourceText, type Mol3DAsset, type MolMark } from "../components/Molecule3D";
+import { atomColor } from "../data/atomColors";
 import {
   comparisonConfigFor,
   hasBothSides,
@@ -240,7 +241,17 @@ function Molecule2D({ asset, marks, height }: { asset: Frame2DAsset; marks?: Mol
               {HET.has(a.el) ? (
                 <>
                   <circle cx={A.x} cy={A.y} r={7.6} fill="var(--paper)" />
-                  <text x={A.x} y={A.y + 3.1} textAnchor="middle" fontSize={11.5} fontWeight={700} fill="var(--ink)">
+                  {/* 2D 杂原子色与 3D 原子色同一张表；碳不上色，只留黑键与顶点 */}
+                  <text
+                    x={A.x}
+                    y={A.y + 3.1}
+                    textAnchor="middle"
+                    fontSize={11.5}
+                    fontWeight={700}
+                    style={{ fill: atomColor(a.el) }}
+                    data-atom-el={a.el}
+                    data-atom-color={atomColor(a.el)}
+                  >
                     {a.el}
                   </text>
                 </>
@@ -265,6 +276,8 @@ function Molecule2D({ asset, marks, height }: { asset: Frame2DAsset; marks?: Mol
           [...markedIds].map((id) => {
             const a = byId.get(id);
             if (!a) return null;
+            // 氢不高亮：标注即使命中 H，也不套语义色（高亮只作用于重原子与键）
+            if (a.el.toUpperCase() === "H") return null;
             const A = px(a);
             return (
               <circle
@@ -580,15 +593,15 @@ function ReactionStrip({ item, mode }: { item: StepComparison; mode: Mode }) {
 
       <p className="cmp3d-legend" aria-label="变化原子图例">
         <span>
-          <i style={{ background: "#9c4a3c" }} />
+          <i style={{ background: MARK_COLOR.added }} />
           新增基团
         </span>
         <span>
-          <i style={{ background: "#2e6e6b" }} />
+          <i style={{ background: MARK_COLOR.newbond }} />
           新键 / 换位
         </span>
         <span>
-          <i style={{ background: "#b4761f" }} />
+          <i style={{ background: MARK_COLOR.leaving }} />
           离去基
         </span>
         <span className="cmp3d-legend-note">

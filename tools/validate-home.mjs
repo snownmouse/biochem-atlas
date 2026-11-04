@@ -7,7 +7,10 @@
  *  3. 任意一条边都能解析到某条通路的 step / transport / skeleton link；
  *  4. 五条通路的每一个主步骤都至少产生一条可见边；
  *  5. 资产别名全部指向真实存在的数据实体；
- *  6. 版面坐标覆盖全部节点且落在画布内；自环只允许出现在 cycle-return。
+ *  6. 版面坐标覆盖全部节点且落在画布内；自环只允许出现在 cycle-return；
+ *  7. 上下两域构图：三条域带连续覆盖画布、三条膜线都在膜带内、跨域共用节点
+ *     （丙酮酸 / 乙酰-CoA / 草酰乙酸）贴着膜带（±40 px）、节点之间不重叠、
+ *     五个通路标签都在画布内；共用分子仍只出现一次（第 1 节）。
  *
  * 若 homeMap.ts 改动，本脚本用 esbuild 重新打包后读取，避免维护第二份推导逻辑。
  */
@@ -178,6 +181,76 @@ if (adjacency.has("glc")) {
 }
 const unreachable = nodeIds.filter((id) => !reachable.has(id));
 check("整张图从葡萄糖出发可达（无孤立区块）", unreachable.length === 0, unreachable.join(","));
+
+// 7) 上下两域构图
+const bands = layout.HOME_BANDS ?? [];
+const cytosolBand = bands.find((band) => band.id === "cytosol");
+const membraneBand = bands.find((band) => band.id === "membrane");
+const matrixBand = bands.find((band) => band.id === "matrix");
+check(
+  "三条域带存在：胞质 / 膜带 / 线粒体基质",
+  Boolean(cytosolBand && membraneBand && matrixBand),
+);
+check(
+  "三条域带自上而下连续、无缝隙地覆盖画布",
+  Boolean(
+    cytosolBand &&
+      membraneBand &&
+      matrixBand &&
+      cytosolBand.top >= 0 &&
+      cytosolBand.bottom === membraneBand.top &&
+      membraneBand.bottom === matrixBand.top &&
+      matrixBand.bottom <= canvas.height
+  ),
+  JSON.stringify(bands.map((band) => [band.id, band.top, band.bottom])),
+);
+const membraneLines = layout.HOME_MEMBRANE_LINES ?? [];
+check(
+  "膜带三条线（外膜 / 膜间腔 / 内膜）都在膜带内",
+  membraneLines.length === 3 &&
+    Boolean(membraneBand) &&
+    membraneLines.every((line) => line.y >= membraneBand.top && line.y <= membraneBand.bottom),
+  JSON.stringify(membraneLines),
+);
+const bandDistance = (y) => {
+  if (!membraneBand) return Infinity;
+  if (y < membraneBand.top) return membraneBand.top - y;
+  if (y > membraneBand.bottom) return y - membraneBand.bottom;
+  return 0;
+};
+const sharedBoundary = ["pyr", "accoa", "oaa"];
+const boundaryDists = sharedBoundary.map((id) => [id, Math.round(bandDistance(positions[id].y))]);
+check(
+  "跨域共用节点（丙酮酸 / 乙酰-CoA / 草酰乙酸）都贴着膜带（≤40 px）",
+  boundaryDists.every(([, distance]) => distance <= 40),
+  JSON.stringify(boundaryDists),
+);
+let closest = { pair: "", distance: Infinity };
+for (let i = 0; i < nodeIds.length; i += 1) {
+  for (let j = i + 1; j < nodeIds.length; j += 1) {
+    const a = positions[nodeIds[i]];
+    const b = positions[nodeIds[j]];
+    const distance = Math.hypot(a.x - b.x, a.y - b.y);
+    if (distance < closest.distance) closest = { pair: `${nodeIds[i]}/${nodeIds[j]}`, distance };
+  }
+}
+check(
+  "节点之间互不重叠（最小间距 ≥ 40 px）",
+  closest.distance >= 40,
+  `${closest.pair} = ${closest.distance.toFixed(1)} px`,
+);
+const pathwayLabels = layout.HOME_PATHWAY_LABELS ?? [];
+check(
+  "五个通路标签都在画布内",
+  pathwayLabels.length === 5 &&
+    pathwayLabels.every((label) => label.x > 0 && label.y > 0 && label.x < canvas.width && label.y < canvas.height),
+  JSON.stringify(pathwayLabels.map((label) => [label.pathwayId, label.x, label.y])),
+);
+check(
+  "版面坐标表没有多余键（不会出现第二份同名节点）",
+  Object.keys(positions).length === nodeIds.length,
+  `${Object.keys(positions).length} vs ${nodeIds.length}`,
+);
 
 for (const item of checks) {
   console.log(`${item.ok ? "✓" : "✗"} ${item.label}${item.detail ? ` — ${item.detail}` : ""}`);

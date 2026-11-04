@@ -1833,107 +1833,51 @@ svg .branch { transition: opacity 0.2s ease; }
 .poster-fao .plate-canvas { width: 1980px; height: 880px; }
 
 /* ============================================================
-   首页总图（PLATE 00）—— 单画布五通路 + 共用节点合并
+   首页总图（PLATE 00）—— 上下两域 · 代谢脊柱（第二版构图）
+   上域胞质 / 中膜带 / 下域基质；SVG 按图版栏宽度自适应，不做横向漫游。
    ============================================================ */
 .home-poster .crumb.home-crumb { margin: 14px 28px 0; }
-.home-poster .plate-canvas { width: 2480px; height: 1120px; }
+.home-poster .plate-wrap { min-width: 0; }
+.home-poster .plate-scroll { overflow: visible; }
+.home-poster .plate-canvas { width: 100%; height: auto; }
 .home-poster .home-canvas { background:
-  repeating-linear-gradient(to right, var(--hair-faint) 0 1px, transparent 1px 86px),
-  repeating-linear-gradient(to bottom, var(--hair-faint) 0 1px, transparent 1px 76px); }
+  repeating-linear-gradient(to right, var(--hair-faint) 0 1px, transparent 1px 51px),
+  repeating-linear-gradient(to bottom, var(--hair-faint) 0 1px, transparent 1px 46px); }
 
-.home-index {
+/* 域标签：只做「当前在哪一域」的轻量指示，不承担滚动导航 */
+.home-domainnav {
   display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 6px 14px;
-  padding: 8px 28px 10px;
-  border-bottom: 1px solid var(--hair-soft);
-  font-size: 10.5px;
-  letter-spacing: 0.06em;
-}
-.home-index .idx-k { opacity: 0.5; letter-spacing: 0.25em; font-size: 10px; }
-.home-index .idx-sep { opacity: 0.3; margin: 0 2px; }
-.home-index a {
-  color: var(--ink);
-  text-decoration: underline;
-  text-decoration-style: dotted;
-  text-underline-offset: 3px;
-  text-decoration-thickness: 1px;
-}
-.home-index a:hover { color: var(--teal); text-decoration-color: var(--teal); }
-
-/* 首屏总览：一条区间刻度 + 三个可点段名；不做卡片、不做滚动条、不挡图 */
-.home-mapnav {
-  display: flex;
-  align-items: flex-start;
+  align-items: center;
   gap: 14px;
-  padding: 7px 18px 2px;
+  padding: 5px 18px 3px;
   border-bottom: 1px solid var(--hair-faint);
   font-size: 10.5px;
   letter-spacing: 0.05em;
 }
-.home-mapnav .mn-k {
+.home-domainnav .dn-k {
   flex: none;
-  padding-top: 7px;
   font-size: 9.5px;
   letter-spacing: 0.25em;
   opacity: 0.45;
 }
-.mn-track {
-  position: relative;
-  flex: 1 1 auto;
-  height: 30px;
-  border-top: 1px solid var(--hair-soft);
-}
-.mn-track::after {
-  content: "";
-  position: absolute;
-  right: 0;
-  top: -1px;
-  width: 1px;
-  height: 7px;
-  background: var(--hair);
-}
-.mn-seg {
-  position: absolute;
-  top: 0;
-  height: 30px;
-  padding: 6px 10px 0 0;
+.home-domainnav .dn-group { display: flex; align-items: stretch; }
+.home-domainnav .dn-seg {
+  padding: 5px 12px 4px;
   border: 0;
-  border-top: 2px solid transparent;
-  margin-top: -1px;
+  border-bottom: 2px solid transparent;
   background: none;
   font: inherit;
   letter-spacing: inherit;
   color: var(--ink);
   opacity: 0.55;
-  text-align: left;
   cursor: pointer;
 }
-.mn-seg:hover { opacity: 0.85; }
-.mn-seg.on { opacity: 1; color: var(--brick); border-top-color: var(--brick); }
-.mn-seg:focus { outline: none; }
-.mn-seg:focus-visible { outline: 1px solid var(--brick); outline-offset: -2px; }
-.mn-seg .mn-tick {
-  position: absolute;
-  left: 0;
-  top: -1px;
-  width: 1px;
-  height: 7px;
-  background: var(--hair);
-}
-.mn-seg.on .mn-tick { background: var(--brick); }
-.mn-seg:first-child .mn-tick { display: none; }
-.mn-label {
-  display: block;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  font-size: 10.5px;
-}
-.mn-count {
-  flex: none;
-  padding-top: 7px;
+.home-domainnav .dn-seg:hover { opacity: 0.85; }
+.home-domainnav .dn-seg.on { opacity: 1; color: var(--brick); border-bottom-color: var(--brick); }
+.home-domainnav .dn-seg:focus { outline: none; }
+.home-domainnav .dn-seg:focus-visible { outline: 1px solid var(--brick); outline-offset: -2px; }
+.home-domainnav .dn-count {
+  margin-left: auto;
   opacity: 0.72;
   letter-spacing: 0.14em;
   white-space: nowrap;

@@ -85,31 +85,31 @@ const FBP_LINEAR = {
   asset2d: D2("fbp-linear"),
   caveat: "4ALD 晶体里结合的是线形构象（2FP），此处按结合态呈现，不是自由态呋喃环。",
 };
-const DHAP = { id: "dhap", name: "磷酸二羟丙酮（DHAP）", formula: "C₃H₇O₆P", asset2d: D2("dhap") };
+const DHAP = { id: "dhap", name: "磷酸二羟丙酮（DHAP）", formula: "C₃H₅O₆P", asset2d: D2("dhap") };
 const GAP = {
   id: "gap",
   name: "甘油醛-3-磷酸（GAP）",
-  formula: "C₃H₇O₆P",
+  formula: "C₃H₅O₆P",
   asset2d: D2("gap"),
   caveat: "GAP 无实验配体坐标（1U8F 只结合 NAD），此形状为计算构象（自由态）。",
 };
 const BPG13 = {
   id: "bpg13",
   name: "1,3-二磷酸甘油酸（1,3-BPG）",
-  formula: "C₃H₈O₁₀P₂",
+  formula: "C₃H₄O₁₀P₂",
   asset2d: D2("bpg13"),
   caveat:
     "展示形式：C1 羧基与磷酸成 mixed anhydride（酰基磷酸），按普通 C–O–P 单键绘制——高能键是热力学性质，不是另一种键型，画成特殊键型反而错。3D 为计算构象（无实验配体坐标），自由态下多磷酸链可能折叠，不冒充口袋里的伸展结合态。",
 };
-const PG3 = { id: "3pg", name: "3-磷酸甘油酸（3PG）", formula: "C₃H₇O₇P", asset2d: D2("3pg") };
-const PG2 = { id: "2pg", name: "2-磷酸甘油酸（2PG）", formula: "C₃H₇O₇P", asset2d: D2("2pg") };
-const PEP = { id: "pep", name: "磷酸烯醇式丙酮酸（PEP）", formula: "C₃H₅O₆P", asset2d: D2("pep") };
+const PG3 = { id: "3pg", name: "3-磷酸甘油酸（3PG）", formula: "C₃H₄O₇P", asset2d: D2("3pg") };
+const PG2 = { id: "2pg", name: "2-磷酸甘油酸（2PG）", formula: "C₃H₄O₇P", asset2d: D2("2pg") };
+const PEP = { id: "pep", name: "磷酸烯醇式丙酮酸（PEP）", formula: "C₃H₂O₆P", asset2d: D2("pep") };
 // 丙酮酸的 2D 沿用既有手绘资产 pyruvate.json（id 与 3D 的 pyr 不同：老资产被结构帧页 gk-10-f3 直接引用，
 // 改名会打断单步页；此处只做显式映射，不复制一份同内容文件）。
 const PYR = {
   id: "pyr",
   name: "丙酮酸",
-  formula: "C₃H₄O₃",
+  formula: "C₃H₃O₃",
   asset2d: "/assets/structures/2d/pyruvate.json",
   caveat: "丙酮酸无实验配体坐标（3UCD 只结合 2PG/PEP），此形状为计算构象（自由态），不是观测值。",
 };
@@ -226,7 +226,7 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "甘油醛-3-磷酸（GAP）＋ 磷酸二羟丙酮（DHAP）",
-      formula: "两个 C₃H₇O₆P",
+      formula: "两个 C₃H₅O₆P",
       parts: [
         { ...DHAP, marks: [{ name: "C3", kind: "newbond", note: "新 CH₂OH" }] },
         { ...GAP, marks: [{ name: "C1", kind: "newbond", note: "新醛基" }] },
@@ -238,7 +238,7 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     physiology: "六碳糖裂成两个三碳糖，此后每步都按两分子计（产能也翻倍）。",
     defaultMode: "2d",
     defaultModeRule:
-      "默认 2D 判据：重原子数同为 20；体积 246.4→252.0 Å³（ΔV +2.27%，≤2.5%）；拓扑改变（C3–C4 断裂，1 分子→2 分子）。主轴虽从 12.92→8.00 Å 变短，但两产物并排后 3D 仍像同一堆原子，2D 才读得出六碳裂成两个三碳。",
+      "默认 2D 判据：重原子数同为 20；体积 246.4→243.0 Å³（ΔV −1.38%，≤2.5%）；拓扑改变（C3–C4 断裂，1 分子→2 分子）。主轴虽从 12.92→7.13 Å 变短，但两产物并排后 3D 仍像同一堆原子，2D 才读得出六碳裂成两个三碳。",
   },
   {
     stepId: "gk-5",
@@ -252,12 +252,12 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     equation: "磷酸二羟丙酮 ⇌ 甘油醛-3-磷酸",
     substrate: {
       name: "磷酸二羟丙酮（DHAP）",
-      formula: "C₃H₇O₆P",
+      formula: "C₃H₅O₆P",
       parts: [{ ...DHAP, marks: [{ name: "C1", kind: "newbond", note: "醇" }, { name: "C2", kind: "newbond", note: "酮基" }] }],
     },
     product: {
       name: "甘油醛-3-磷酸（GAP）",
-      formula: "C₃H₇O₆P",
+      formula: "C₃H₅O₆P",
       parts: [{ ...GAP, marks: [{ name: "C1", kind: "newbond", note: "醛基" }, { name: "C2", kind: "newbond", note: "C2 变 R" }] }],
     },
     arrowLabel: "TPI · 1,2-氢迁移",
@@ -265,7 +265,7 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     physiology: "只有 GAP 能继续走糖酵解；TPI 把 DHAP 不断拉成 GAP，使裂解产物全部可用。",
     defaultMode: "2d",
     defaultModeRule:
-      "默认 2D 判据：重原子数同为 10；体积 126.1→125.9 Å³（ΔV −0.16%，≤2.5%）；拓扑改变（C1=O↔C2=O，酮糖↔醛糖）。3D 只看到局部扭转，2D 上羰基换位一目了然。",
+      "默认 2D 判据：重原子数同为 10；体积 121.5→121.5 Å³（ΔV +0.00%，≤2.5%）；拓扑改变（C1=O↔C2=O，酮糖↔醛糖）。3D 只看到局部扭转，2D 上羰基换位一目了然。",
   },
   {
     stepId: "gk-6",
@@ -279,12 +279,12 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     equation: "甘油醛-3-磷酸 + Pi + NAD⁺ ⇌ 1,3-二磷酸甘油酸 + NADH + H⁺",
     substrate: {
       name: "甘油醛-3-磷酸（GAP）",
-      formula: "C₃H₇O₆P",
+      formula: "C₃H₅O₆P",
       parts: [{ ...GAP, marks: [{ name: "C1", kind: "newbond", note: "C1 醛基" }] }],
     },
     product: {
       name: "1,3-二磷酸甘油酸（1,3-BPG）",
-      formula: "C₃H₈O₁₀P₂",
+      formula: "C₃H₄O₁₀P₂",
       parts: [
         {
           ...BPG13,
@@ -312,12 +312,12 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     equation: "1,3-二磷酸甘油酸 + ADP ⇌ 3-磷酸甘油酸 + ATP",
     substrate: {
       name: "1,3-二磷酸甘油酸（1,3-BPG）",
-      formula: "C₃H₈O₁₀P₂",
+      formula: "C₃H₄O₁₀P₂",
       parts: [{ ...BPG13, marks: [{ name: "C1", kind: "leaving", note: "离开的磷酰基" }, { name: "O1", kind: "leaving" }, { name: "P1", kind: "leaving" }] }],
     },
     product: {
       name: "3-磷酸甘油酸（3PG）",
-      formula: "C₃H₇O₇P",
+      formula: "C₃H₄O₇P",
       parts: [{ ...PG3, marks: [{ name: "C1", kind: "newbond", note: "回到羧酸" }] }],
       cofactorNote: "ATP 为辅因子，按 gk-1 同一口径不入画：产物侧只显示碳骨架 3PG 的形状。",
     },
@@ -337,12 +337,12 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     equation: "3-磷酸甘油酸 ⇌ 2-磷酸甘油酸",
     substrate: {
       name: "3-磷酸甘油酸（3PG）",
-      formula: "C₃H₇O₇P",
+      formula: "C₃H₄O₇P",
       parts: [{ ...PG3, marks: [{ name: "C3", kind: "newbond", note: "磷酸离开 C3" }, { name: "P3", kind: "newbond" }] }],
     },
     product: {
       name: "2-磷酸甘油酸（2PG）",
-      formula: "C₃H₇O₇P",
+      formula: "C₃H₄O₇P",
       parts: [{ ...PG2, marks: [{ name: "C2", kind: "newbond", note: "磷酸落到 C2" }, { name: "P2", kind: "newbond" }] }],
     },
     arrowLabel: "PGAM · 磷酸基 C3→C2 迁移",
@@ -350,7 +350,7 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     physiology: "把磷酸基挪到 C2，为下一步烯醇化酶脱水生成高能烯醇磷酸做准备。",
     defaultMode: "2d",
     defaultModeRule:
-      "默认 2D 判据：重原子数同为 11；体积 133.2→132.3 Å³（ΔV −0.68%，≤2.5%）；拓扑改变（磷酸从 C3–O3 换到 C2–O2）。3D 里只是磷酸基贴着碳链平移，2D 上位置清楚。",
+      "默认 2D 判据：重原子数同为 11；体积 126.2→126.0 Å³（ΔV −0.16%，≤2.5%）；拓扑改变（磷酸从 C3–O3 换到 C2–O2）。3D 里只是磷酸基贴着碳链平移，2D 上位置清楚。",
   },
   {
     stepId: "gk-9",
@@ -364,12 +364,12 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     equation: "2-磷酸甘油酸 ⇌ 磷酸烯醇式丙酮酸 + H₂O",
     substrate: {
       name: "2-磷酸甘油酸（2PG）",
-      formula: "C₃H₇O₇P",
+      formula: "C₃H₄O₇P",
       parts: [{ ...PG2, marks: [{ name: "C3", kind: "leaving", note: "OH 与 H 以 H₂O 脱去" }] }],
     },
     product: {
       name: "磷酸烯醇式丙酮酸（PEP）",
-      formula: "C₃H₅O₆P",
+      formula: "C₃H₂O₆P",
       parts: [{ ...PEP, marks: [{ name: "C2", kind: "newbond", note: "C2=C3" }, { name: "C3", kind: "newbond", note: "C2=C3" }] }],
     },
     arrowLabel: "烯醇化 · 脱水（− H₂O）",
@@ -388,12 +388,12 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     equation: "磷酸烯醇式丙酮酸 + ADP + H⁺ → 丙酮酸 + ATP",
     substrate: {
       name: "磷酸烯醇式丙酮酸（PEP）",
-      formula: "C₃H₅O₆P",
+      formula: "C₃H₂O₆P",
       parts: [{ ...PEP, marks: [{ name: "P2", kind: "leaving", note: "磷酰基转移给 ADP" }, { name: "C2", kind: "newbond", note: "C2=C3 消失" }, { name: "C3", kind: "newbond" }] }],
     },
     product: {
       name: "丙酮酸",
-      formula: "C₃H₄O₃",
+      formula: "C₃H₃O₃",
       parts: [{ ...PYR, marks: [{ name: "C1", kind: "newbond", note: "羧酸" }, { name: "C2", kind: "newbond", note: "C2=O" }, { name: "C3", kind: "newbond", note: "甲基" }] }],
       cofactorNote: "ATP 为辅因子，按 gk-1 同一口径不入画：产物侧只显示丙酮酸的形状。",
     },
@@ -420,30 +420,30 @@ const ACCOA = {
   formula: "C₃H₆OS 片段",
   asset2d: D2("accoa"),
   caveat:
-    "分块呈现，不是完整分子：只画反应端（乙酰基 + 硫酯 S）。实验坐标取自 8ZW1 的完整乙酰-CoA（配体 ACO，链 B，2.10 Å，人 CS 与 OAA/柠檬酸共结晶的三元反应中间态，CoA 完整，51 重原子）：只保留反应端实测几何，CoA 长链省略；S 右侧的碳仅作 CoA 折线起点并标「CoA 略」，不代表完整 CoA。完整乙酰-CoA 为 C₂₃H₃₈N₇O₁₇P₃S。",
+    "分块呈现，不是完整分子：只画反应端（乙酰基 + 硫酯 S）。实验坐标取自 8ZW1 的完整乙酰-CoA（配体 ACO，链 B，2.10 Å，人 CS 与 OAA/柠檬酸共结晶的三元反应中间态，CoA 完整，51 重原子）：只保留反应端实测几何，CoA 长链省略；S 右侧的碳仅作 CoA 折线起点并标「CoA 略」，不代表完整 CoA。完整乙酰-CoA 为 C₂₃H₃₆N₇O₁₇P₃S。",
   sourceNote:
     "取自人柠檬酸合酶（CS，TCA 第 1 步）的三元反应中间态 PDB 8ZW1（2.10 Å · X-ray · Homo sapiens · 链 B · 配体 ACO · 完整 CoA 51 重原子）——乙酰-CoA 与 OAA、柠檬酸共结晶，正是本步的底物口袋；本页只画反应端。",
 };
 const OAA = {
-  id: "oaa", name: "草酰乙酸（OAA）", formula: "C₄H₄O₅", asset2d: D2("oaa"),
+  id: "oaa", name: "草酰乙酸（OAA）", formula: "C₄H₂O₅", asset2d: D2("oaa"),
   caveat: "实验坐标来自 8ZVW（人柠檬酸合酶，链 A，配体 OAA，1.82 Å）；按实测酮式呈现，自由态烯醇式不混标。",
   sourceNote:
     "取自人柠檬酸合酶（CS，TCA 第 1 步）PDB 8ZVW（1.82 Å · X-ray · Homo sapiens · 链 A · 配体 OAA）——本步生理底物直接结合在活性位点，与 CoA 共结晶。",
 };
 const CIT = {
-  id: "cit", name: "柠檬酸", formula: "C₆H₈O₇", asset2d: D2("cit"),
+  id: "cit", name: "柠檬酸", formula: "C₆H₅O₇", asset2d: D2("cit"),
   caveat: "实验坐标来自 8ZVV（人柠檬酸合酶 CS，链 A，配体 CIT，1.59 Å）：本轮由非本酶的 ACLY 3MWD 换到本步酶口袋，柠檬酸为产物结合态。",
   sourceNote:
     "取自人柠檬酸合酶（CS，TCA 第 1 步）PDB 8ZVV（1.59 Å · X-ray · Homo sapiens · 链 A · 配体 CIT）——本步产物直接结合在活性位点；本轮由 ACLY（3MWD）换到本酶。",
 };
 const ICIT = {
-  id: "icit", name: "异柠檬酸", formula: "C₆H₈O₇", asset2d: D2("icit"),
+  id: "icit", name: "异柠檬酸", formula: "C₆H₅O₇", asset2d: D2("icit"),
   caveat: "实验坐标来自 5H3E（小鼠线粒体 IDH2 K256Q，链 A，配体 ICT，2.21 Å）：人源线粒体 IDH2/IDH3 的 ICT 络合物 ≤2.5 Å 未获，本轮由胞质 IDH1 6PAY 换到线粒体 IDH2。生理底物为 (2R,3S)-异柠檬酸，模板按该构型建模。",
   sourceNote:
     "取自小鼠线粒体异柠檬酸脱氢酶 IDH2 K256Q（TCA 第 3 步）PDB 5H3E（2.21 Å · X-ray · Mus musculus · 链 A · 配体 ICT）——同酶但非人源、且带 K256Q 突变；人源线粒体 IDH2/IDH3 的 ICT 络合物 ≤2.5 Å 未获，本轮由胞质 IDH1（6PAY）换到线粒体 IDH2。",
 };
 const AKG = {
-  id: "akg", name: "α-酮戊二酸（α-KG）", formula: "C₅H₆O₅", asset2d: D2("akg"),
+  id: "akg", name: "α-酮戊二酸（α-KG）", formula: "C₅H₄O₅", asset2d: D2("akg"),
   caveat: "实验坐标来自 5I95（人 IDH2 R140Q，链 A，配体 AKG，1.54 Å）；按实测酮式呈现，水合形式不入画。",
   sourceNote:
     "取自人线粒体异柠檬酸脱氢酶 IDH2 R140Q（TCA 第 3 步）PDB 5I95（1.54 Å · X-ray · Homo sapiens · 链 A · 配体 AKG）——本步产物结合在活性位点；R140Q 突变体会移动构象平衡，配体几何按实测。",
@@ -451,27 +451,27 @@ const AKG = {
 const SUCOA = {
   id: "succoa",
   name: "琥珀酰-CoA（分块：琥珀酰基 + 硫酯 S）",
-  formula: "C₅H₈O₃S 片段",
+  formula: "C₅H₇O₃S 片段",
   asset2d: D2("succoa"),
   caveat:
-    "分块呈现，不是完整分子：只画反应端（琥珀酰基 + 硫酯 S）。实验坐标取自 8P5V 的完整琥珀酰-CoA（配体 SCA，链 A，2.07 Å，cryo-EM，谷氨酸棒杆菌 OGDH E1/E2）：只保留反应端实测几何，CoA 长链省略；S 右侧的碳仅作 CoA 折线起点并标「CoA 略」。完整琥珀酰-CoA 为 C₂₅H₄₀N₇O₁₉P₃S。",
+    "分块呈现，不是完整分子：只画反应端（琥珀酰基 + 硫酯 S）。实验坐标取自 8P5V 的完整琥珀酰-CoA（配体 SCA，链 A，2.07 Å，cryo-EM，谷氨酸棒杆菌 OGDH E1/E2）：只保留反应端实测几何，CoA 长链省略；S 右侧的碳仅作 CoA 折线起点并标「CoA 略」。完整琥珀酰-CoA 为 C₂₅H₃₈N₇O₁₉P₃S。",
   sourceNote:
     "取自谷氨酸棒杆菌 2-酮戊二酸脱氢酶 E1/E2 复合体（TCA 第 4 步产物释放位点）PDB 8P5V（2.07 Å · cryo-EM · Corynebacterium glutamicum · 链 A · 配体 SCA）——TCA 酶口袋，但不是人源、也不是下游 SUCL；人源 SUCL/OGDH 的琥珀酰-CoA 络合物 ≤2.5 Å 未获，本轮由 GCN5（5TRL）换到 OGDH。完整 CoA 在结构里，本页只画反应端。",
 };
 const SUC = {
-  id: "suc", name: "琥珀酸", formula: "C₄H₆O₄", asset2d: D2("suc"),
+  id: "suc", name: "琥珀酸", formula: "C₄H₄O₄", asset2d: D2("suc"),
   caveat: "实验坐标来自 7MSS（人 SUCL，链 B，配体 SIN，1.75 Å）；平面骨架，实测几何与自由态接近。",
   sourceNote:
     "取自人琥珀酰-CoA 合成酶 SUCL（TCA 第 5 步）PDB 7MSS（1.75 Å · X-ray · Homo sapiens · 链 B · 配体 SIN）——本步酶（SDH）口袋内同分子 ≤2.5 Å 结构未获，坐标取自相邻的 SUCL；琥珀酸为 SUCL 产物结合态。",
 };
 const FUM = {
-  id: "fum", name: "延胡索酸（反式）", formula: "C₄H₄O₄", asset2d: D2("fum"),
+  id: "fum", name: "延胡索酸（反式）", formula: "C₄H₂O₄", asset2d: D2("fum"),
   caveat: "实验坐标来自 9BPW（金黄色葡萄球菌 FumC，链 A，配体 FUM，2.00 Å）：本轮由非本酶的 ME2 变构位点 1PJ3 换到本步酶 FH 活性位点；人源 FH 的 FUM 络合物 ≤2.5 Å 未获，故为微生物同酶。反式双键为平面，构象几乎刚性。",
   sourceNote:
     "取自金黄色葡萄球菌 II 型延胡索酸酶 FumC（TCA 第 7 步）PDB 9BPW（2.00 Å · X-ray · Staphylococcus aureus · 链 A · 配体 FUM）——本步酶活性位点；人源 FH 的 FUM 络合物 ≤2.5 Å 未获，本轮由 ME2 变构位点（1PJ3）换到本酶。",
 };
 const MAL = {
-  id: "mal", name: "L-苹果酸", formula: "C₄H₆O₅", asset2d: D2("mal"),
+  id: "mal", name: "L-苹果酸", formula: "C₄H₄O₅", asset2d: D2("mal"),
   caveat: "实验坐标来自 2DFD（人 MDH2，链 A，配体 LMR，1.90 Å）；LMR 即 (2S)-L-苹果酸（不是 D 型 MLT）。",
   sourceNote:
     "取自人线粒体苹果酸脱氢酶 MDH2（TCA 第 8 步）PDB 2DFD（1.90 Å · X-ray · Homo sapiens · 链 A · 配体 LMR）——本步产物直接结合在活性位点。",
@@ -491,12 +491,12 @@ const TCA_COMPARISON: StepComparison[] = [
     equation: "丙酮酸 + CoA-SH + NAD⁺ → 乙酰-CoA + CO₂ + NADH + H⁺",
     substrate: {
       name: "丙酮酸",
-      formula: "C₃H₄O₃",
+      formula: "C₃H₃O₃",
       parts: [{ ...PYR, marks: [{ name: "C1", kind: "leaving", note: "脱羧为 CO₂" }] }],
     },
     product: {
       name: "乙酰-CoA（分块）",
-      formula: "C₂₃H₃₈N₇O₁₇P₃S（分块显示）",
+      formula: "C₂₃H₃₆N₇O₁₇P₃S（分块显示）",
       parts: [
         {
           ...ACCOA,
@@ -528,7 +528,7 @@ const TCA_COMPARISON: StepComparison[] = [
     equation: "乙酰-CoA + 草酰乙酸 + H₂O → 柠檬酸 + CoA-SH",
     substrate: {
       name: "乙酰-CoA + 草酰乙酸",
-      formula: "C₂₃H₃₈N₇O₁₇P₃S + C₄H₄O₅（分块显示）",
+      formula: "C₂₃H₃₆N₇O₁₇P₃S + C₄H₂O₅（分块显示）",
       parts: [
         {
           ...ACCOA,
@@ -542,7 +542,7 @@ const TCA_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "柠檬酸",
-      formula: "C₆H₈O₇",
+      formula: "C₆H₅O₇",
       parts: [
         {
           ...CIT,
@@ -570,7 +570,7 @@ const TCA_COMPARISON: StepComparison[] = [
     equation: "柠檬酸 ⇌ 顺乌头酸 ⇌ 异柠檬酸",
     substrate: {
       name: "柠檬酸",
-      formula: "C₆H₈O₇",
+      formula: "C₆H₅O₇",
       parts: [
         {
           ...CIT,
@@ -586,7 +586,7 @@ const TCA_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "异柠檬酸",
-      formula: "C₆H₈O₇",
+      formula: "C₆H₅O₇",
       parts: [
         {
           ...ICIT,
@@ -606,7 +606,7 @@ const TCA_COMPARISON: StepComparison[] = [
     physiology: "为下一步氧化脱羧把羟基摆到可氧化的位置；柠檬酸与异柠檬酸只差一个羟基位置。",
     defaultMode: "2d",
     defaultModeRule:
-      "默认 2D 判据：重原子数同为 13；体积 150.0→150.1 Å³（ΔV +0.07%，≤2.5%）；拓扑改变（羟基从中央碳 C3 移到 C2）。3D 球棍几乎同形，2D 上羟基换位才可读。",
+      "默认 2D 判据：重原子数同为 13；体积 143.0→143.4 Å³（ΔV +0.28%，≤2.5%）；拓扑改变（羟基从中央碳 C3 移到 C2）。3D 球棍几乎同形，2D 上羟基换位才可读。",
   },
   {
     stepId: "tca-3",
@@ -620,7 +620,7 @@ const TCA_COMPARISON: StepComparison[] = [
     equation: "异柠檬酸 + NAD(P)⁺ → α-酮戊二酸 + CO₂ + NAD(P)H + H⁺",
     substrate: {
       name: "异柠檬酸",
-      formula: "C₆H₈O₇",
+      formula: "C₆H₅O₇",
       parts: [
         {
           ...ICIT,
@@ -633,7 +633,7 @@ const TCA_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "α-酮戊二酸",
-      formula: "C₅H₆O₅",
+      formula: "C₅H₄O₅",
       parts: [
         {
           ...AKG,
@@ -660,7 +660,7 @@ const TCA_COMPARISON: StepComparison[] = [
     equation: "α-酮戊二酸 + CoA-SH + NAD⁺ → 琥珀酰-CoA + CO₂ + NADH + H⁺",
     substrate: {
       name: "α-酮戊二酸",
-      formula: "C₅H₆O₅",
+      formula: "C₅H₄O₅",
       parts: [
         {
           ...AKG,
@@ -676,7 +676,7 @@ const TCA_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "琥珀酰-CoA（分块）",
-      formula: "C₂₅H₄₀N₇O₁₉P₃S（分块显示）",
+      formula: "C₂₅H₃₈N₇O₁₉P₃S（分块显示）",
       parts: [
         {
           ...SUCOA,
@@ -703,7 +703,7 @@ const TCA_COMPARISON: StepComparison[] = [
     equation: "琥珀酰-CoA + GDP + Pi → 琥珀酸 + GTP + CoA-SH",
     substrate: {
       name: "琥珀酰-CoA（分块）",
-      formula: "C₂₅H₄₀N₇O₁₉P₃S（分块显示）",
+      formula: "C₂₅H₃₈N₇O₁₉P₃S（分块显示）",
       parts: [
         {
           ...SUCOA,
@@ -716,7 +716,7 @@ const TCA_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "琥珀酸",
-      formula: "C₄H₆O₄",
+      formula: "C₄H₄O₄",
       parts: [{ ...SUC, marks: [{ name: "C1", kind: "newbond", note: "新羧基" }] }],
     },
     arrowLabel: "SUCL · 硫酯水解，能量转给 GDP",
@@ -735,7 +735,7 @@ const TCA_COMPARISON: StepComparison[] = [
     equation: "琥珀酸 + FAD → 延胡索酸 + FADH₂",
     substrate: {
       name: "琥珀酸",
-      formula: "C₄H₆O₄",
+      formula: "C₄H₄O₄",
       parts: [
         {
           ...SUC,
@@ -748,7 +748,7 @@ const TCA_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "延胡索酸",
-      formula: "C₄H₄O₄",
+      formula: "C₄H₂O₄",
       parts: [
         {
           ...FUM,
@@ -778,7 +778,7 @@ const TCA_COMPARISON: StepComparison[] = [
     equation: "延胡索酸 + H₂O → L-苹果酸",
     substrate: {
       name: "延胡索酸",
-      formula: "C₄H₄O₄",
+      formula: "C₄H₂O₄",
       parts: [
         {
           ...FUM,
@@ -791,7 +791,7 @@ const TCA_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "L-苹果酸",
-      formula: "C₄H₆O₅",
+      formula: "C₄H₄O₅",
       parts: [
         {
           ...MAL,
@@ -821,12 +821,12 @@ const TCA_COMPARISON: StepComparison[] = [
     equation: "L-苹果酸 + NAD⁺ → 草酰乙酸 + NADH + H⁺",
     substrate: {
       name: "L-苹果酸",
-      formula: "C₄H₆O₅",
+      formula: "C₄H₄O₅",
       parts: [{ ...MAL, marks: [{ name: "C2", kind: "newbond", note: "C2 氧化为酮" }] }],
     },
     product: {
       name: "草酰乙酸",
-      formula: "C₄H₄O₅",
+      formula: "C₄H₂O₅",
       parts: [
         {
           ...OAA,
@@ -898,7 +898,7 @@ const G6P_G6PD = {
 const PGL = {
   id: "6pgl",
   name: "6-磷酸葡糖酸-1,5-内酯（6PGL）",
-  formula: "C₆H₁₁O₉P",
+  formula: "C₆H₉O₉P",
   asset2d: D2("6pgl"),
   caveat: "PDB 无 6-磷酸葡糖酸内酯本体络合物（6PL 为磷脂类，不是内酯）；此形状为 RDKit 计算构象（自由态，不等于结合态），不拿内酯类似物冒充。",
   sourceNote:
@@ -907,7 +907,7 @@ const PGL = {
 const PG6_D = {
   id: "6pg",
   name: "6-磷酸葡糖酸（6PG，6PGD 口袋）",
-  formula: "C₆H₁₃O₁₀P",
+  formula: "C₆H₁₀O₁₀P",
   asset2d: D2("6pg"),
   caveat: "实验坐标来自 2W90（6PGD，链 A，配体 6PG，2.20 Å）：本步酶口袋但非人源；人源 6PGD 的 6PG 络合物 ≤2.5 Å 未获。",
   sourceNote:
@@ -916,7 +916,7 @@ const PG6_D = {
 const PG6_L = {
   id: "6pg-l",
   name: "6-磷酸葡糖酸（6PG，6PGL 口袋）",
-  formula: "C₆H₁₃O₁₀P",
+  formula: "C₆H₁₀O₁₀P",
   asset2d: D2("6pg-l"),
   caveat: "实验坐标来自 3E7F（6PGL，链 A，配体 6PG，2.20 Å）：本步酶口袋但非人源；人源 6PGL 无 ≤2.5 Å 的 6PG 络合物。",
   sourceNote:
@@ -925,7 +925,7 @@ const PG6_L = {
 const RU5P = {
   id: "ru5p",
   name: "D-核酮糖-5-磷酸（Ru5P，RPE 口袋）",
-  formula: "C₅H₁₁O₈P",
+  formula: "C₅H₉O₈P",
   asset2d: D2("ru5p"),
   caveat: "实验坐标来自 3OVQ（人 RPE，链 A，配体 5RP，2.00 Å）：本步本酶且人源。",
   sourceNote:
@@ -934,7 +934,7 @@ const RU5P = {
 const RU5P_I = {
   id: "ru5p-i",
   name: "D-核酮糖-5-磷酸（Ru5P，RpiB 口袋）",
-  formula: "C₅H₁₁O₈P",
+  formula: "C₅H₉O₈P",
   asset2d: D2("ru5p-i"),
   caveat: "实验坐标来自 2VVP（结核分枝杆菌 RpiB，链 A，配体 5RP，1.65 Å）：RpiB 与人类 RPIA（RpiA 家族）不是同一酶，按分级规则算「跨种非本酶」；配体占位 0.50，原子完整。",
   sourceNote:
@@ -943,7 +943,7 @@ const RU5P_I = {
 const R5P = {
   id: "r5p",
   name: "D-核糖-5-磷酸（R5P，RpiB 口袋）",
-  formula: "C₅H₁₁O₈P",
+  formula: "C₅H₉O₈P",
   asset2d: D2("r5p"),
   caveat: "实验坐标来自 2VVP（结核分枝杆菌 RpiB，链 A，配体 R5P，1.65 Å）：RpiB 与人类 RPIA（RpiA 家族）不是同一酶，按分级规则算「跨种非本酶」。",
   sourceNote:
@@ -952,7 +952,7 @@ const R5P = {
 const XU5P = {
   id: "xu5p",
   name: "D-木酮糖-5-磷酸（Xu5P）",
-  formula: "C₅H₁₁O₈P",
+  formula: "C₅H₉O₈P",
   asset2d: D2("xu5p"),
   caveat: "PDB 无 Xu5P 本体络合物：4KXV 的 DX5 是木糖醇-5-磷酸（C₅H₁₃O₈P，还原型类似物），不作底物替换；此形状为 RDKit 计算构象（自由态，不等于结合态）。",
   sourceNote:
@@ -961,7 +961,7 @@ const XU5P = {
 const S7P = {
   id: "s7p",
   name: "景天庚酮糖-7-磷酸（S7P）",
-  formula: "C₇H₁₅O₁₀P",
+  formula: "C₇H₁₃O₁₀P",
   asset2d: D2("s7p"),
   caveat: "实验坐标来自 4R75（AfuA 周质结合蛋白，链 A，配体 S7P，1.278 Å）：同分子但来源蛋白不是本步转醛醇酶；配体为环式，非开链。",
   sourceNote:
@@ -970,7 +970,7 @@ const S7P = {
 const E4P = {
   id: "e4p",
   name: "D-赤藓糖-4-磷酸（E4P）",
-  formula: "C₄H₉O₇P",
+  formula: "C₄H₇O₇P",
   asset2d: D2("e4p"),
   caveat: "实验坐标来自 5XPS（转酮醇酶，链 A，配体 E4P，1.07 Å）：本步酶口袋但非人源；ppp-n4 的转醛醇酶口袋未获同分子结构。",
   sourceNote:
@@ -1007,7 +1007,7 @@ const F6P_GN = {
 const PYR_GN = {
   id: "pyr-gn",
   name: "丙酮酸（PKM2 口袋）",
-  formula: "C₃H₄O₃",
+  formula: "C₃H₃O₃",
   asset2d: "/assets/structures/2d/pyruvate.json",
   caveat: "实验坐标来自 4YJ5（人 PKM2，链 A，配体 PYR，2.41 Å）：人源但非本步丙酮酸羧化酶口袋；人 PC 的 PYR 络合物 3BG3 为 2.8 Å，超过本轮阈值。",
   sourceNote:
@@ -1016,7 +1016,7 @@ const PYR_GN = {
 const LAC_MOL = {
   id: "lac",
   name: "L-乳酸（(S)-构型）",
-  formula: "C₃H₆O₃",
+  formula: "C₃H₅O₃",
   asset2d: D2("lac"),
   caveat: "PDB 唯一乳酸配体 LAC 的 CCD 为 D-乳酸（(R)），与 Cori 循环的 L-乳酸不是同一分子；本轮不拿对映体冒充，改为 RDKit 计算构象（自由态，不等于结合态）。",
   sourceNote:
@@ -1034,7 +1034,7 @@ const ALA_MOL = {
 const GLU_MOL = {
   id: "glu",
   name: "L-谷氨酸",
-  formula: "C₅H₉NO₄",
+  formula: "C₅H₈NO₄",
   asset2d: D2("glu"),
   caveat: "实验坐标来自 3CZD（人 GLS1，链 A，配体 GLU，2.40 Å）：人源但非本步丙氨酸氨基转移酶口袋。",
   sourceNote:
@@ -1068,7 +1068,7 @@ const PPP_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "6-磷酸葡糖酸-1,5-内酯（6PGL）",
-      formula: "C₆H₁₁O₉P",
+      formula: "C₆H₉O₉P",
       parts: [
         {
           ...PGL,
@@ -1084,9 +1084,9 @@ const PPP_COMPARISON: StepComparison[] = [
     change:
       "C1 的醇被氧化为内酯羰基，C5–OH 与 C1 成环：开链的 G6P 变成六元内酯环 6PGL；NADP⁺ 接受氢负变成 NADPH。原子数不变，环化让形状略收紧。",
     physiology: "氧化支路的入口：第一次产生 NADPH，为谷胱甘肽还原与还原性合成提供还原力。",
-    defaultMode: "2d",
+    defaultMode: "3d",
     defaultModeRule:
-      "默认 2D 判据：重原子数同为 16；体积 194.4→190.7 Å³（ΔV −1.90%，≤2.5%）；拓扑改变（C1 醇→内酯羰基、C1–O 成环）。3D 球棍几乎同形，2D 才读得出开链→内酯。",
+      "默认 3D 判据：重原子数同为 16；体积 191.4→185.4 Å³（ΔV −3.13%，>2.5%）；拓扑改变（C1 醇→内酯羰基、C1–O 成环）。ΔV 超过 2.5% 阈值，按规则默认 3D；?mode=2d 仍可显式切换读开链→内酯。",
   },
   {
     stepId: "ppp-o2",
@@ -1100,12 +1100,12 @@ const PPP_COMPARISON: StepComparison[] = [
     equation: "6-磷酸葡糖酸内酯 + H₂O → 6-磷酸葡糖酸",
     substrate: {
       name: "6-磷酸葡糖酸-1,5-内酯（6PGL）",
-      formula: "C₆H₁₁O₉P",
+      formula: "C₆H₉O₉P",
       parts: [{ ...PGL, marks: [{ name: "C1", kind: "leaving", note: "内酯开环位" }] }],
     },
     product: {
       name: "6-磷酸葡糖酸（6PG）",
-      formula: "C₆H₁₃O₁₀P",
+      formula: "C₆H₁₀O₁₀P",
       parts: [
         {
           ...PG6_L,
@@ -1132,12 +1132,12 @@ const PPP_COMPARISON: StepComparison[] = [
     equation: "6-磷酸葡糖酸 + NADP⁺ → 核酮糖-5-磷酸 + CO₂ + NADPH + H⁺",
     substrate: {
       name: "6-磷酸葡糖酸（6PG）",
-      formula: "C₆H₁₃O₁₀P",
+      formula: "C₆H₁₀O₁₀P",
       parts: [{ ...PG6_D, marks: [{ name: "C1", kind: "leaving", note: "脱羧为 CO₂" }] }],
     },
     product: {
       name: "核酮糖-5-磷酸（Ru5P）＋ CO₂",
-      formula: "C₅H₁₁O₈P + CO₂",
+      formula: "C₅H₉O₈P + CO₂",
       parts: [
         {
           ...RU5P,
@@ -1166,12 +1166,12 @@ const PPP_COMPARISON: StepComparison[] = [
     equation: "核酮糖-5-磷酸 ⇌ 核糖-5-磷酸",
     substrate: {
       name: "核酮糖-5-磷酸（Ru5P）",
-      formula: "C₅H₁₁O₈P",
+      formula: "C₅H₉O₈P",
       parts: [{ ...RU5P_I, marks: [{ name: "C2", kind: "newbond", note: "酮基 C2=O" }, { name: "C1", kind: "newbond", note: "C1 醇" }] }],
     },
     product: {
       name: "核糖-5-磷酸（R5P）",
-      formula: "C₅H₁₁O₈P",
+      formula: "C₅H₉O₈P",
       parts: [{ ...R5P, marks: [{ name: "C1", kind: "newbond", note: "醛基" }, { name: "C2", kind: "newbond", note: "C2 醇" }] }],
     },
     arrowLabel: "RPIA · C1–C2 酮糖→醛糖异构",
@@ -1179,7 +1179,7 @@ const PPP_COMPARISON: StepComparison[] = [
     physiology: "把非氧化支路的酮糖拉成醛糖，供核苷酸合成与转酮/转醛反应使用。",
     defaultMode: "2d",
     defaultModeRule:
-      "默认 2D 判据：重原子数同为 14；体积 175.5→175.9 Å³（ΔV +0.23%，≤2.5%）；拓扑改变（C2 酮基↔C1 醛基，酮糖→醛糖）。3D 几乎同形，2D 才看得见羰基换位。",
+      "默认 2D 判据：重原子数同为 14；体积 170.9→170.9 Å³（ΔV +0.00%，≤2.5%）；拓扑改变（C2 酮基↔C1 醛基，酮糖→醛糖）。3D 几乎同形，2D 才看得见羰基换位。",
   },
   {
     stepId: "ppp-n2",
@@ -1193,12 +1193,12 @@ const PPP_COMPARISON: StepComparison[] = [
     equation: "核酮糖-5-磷酸 ⇌ 木酮糖-5-磷酸",
     substrate: {
       name: "核酮糖-5-磷酸（Ru5P）",
-      formula: "C₅H₁₁O₈P",
+      formula: "C₅H₉O₈P",
       parts: [{ ...RU5P, marks: [{ name: "C3", kind: "newbond", note: "C3 构型翻转" }] }],
     },
     product: {
       name: "木酮糖-5-磷酸（Xu5P）",
-      formula: "C₅H₁₁O₈P",
+      formula: "C₅H₉O₈P",
       parts: [{ ...XU5P, marks: [{ name: "C3", kind: "newbond", note: "C3 构型翻转" }] }],
     },
     arrowLabel: "RPE · C3 差向化（立体翻转）",
@@ -1217,7 +1217,7 @@ const PPP_COMPARISON: StepComparison[] = [
     equation: "木酮糖-5-磷酸 + 核糖-5-磷酸 ⇌ 甘油醛-3-磷酸 + 景天庚酮糖-7-磷酸",
     substrate: {
       name: "木酮糖-5-磷酸 + 核糖-5-磷酸",
-      formula: "两个 C₅H₁₁O₈P",
+      formula: "两个 C₅H₉O₈P",
       parts: [
         { ...XU5P, marks: [{ name: "C1", kind: "leaving", note: "二碳单位 C1–C2" }, { name: "C2", kind: "leaving" }] },
         {
@@ -1230,7 +1230,7 @@ const PPP_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "甘油醛-3-磷酸（GAP）＋ 景天庚酮糖-7-磷酸（S7P）",
-      formula: "C₃H₇O₆P + C₇H₁₅O₁₀P",
+      formula: "C₃H₅O₆P + C₇H₁₃O₁₀P",
       parts: [
         {
           ...GAP,
@@ -1252,7 +1252,7 @@ const PPP_COMPARISON: StepComparison[] = [
     physiology: "非氧化支路的核心：把五碳糖拆成三碳 + 七碳，为后续重排与糖酵解接口做准备。",
     defaultMode: "2d",
     defaultModeRule:
-      "默认 2D 判据：重原子数合计同为 28；体积 353.1→345.8 Å³（ΔV −2.07%，≤2.5%）；拓扑改变（二碳单位 C1–C2 从 Xu5P 转到 R5P）。",
+      "默认 2D 判据：重原子数合计同为 28；体积 343.4→337.0 Å³（ΔV −1.86%，≤2.5%）；拓扑改变（二碳单位 C1–C2 从 Xu5P 转到 R5P）。",
   },
   {
     stepId: "ppp-n4",
@@ -1266,7 +1266,7 @@ const PPP_COMPARISON: StepComparison[] = [
     equation: "景天庚酮糖-7-磷酸 + 甘油醛-3-磷酸 ⇌ 赤藓糖-4-磷酸 + 果糖-6-磷酸",
     substrate: {
       name: "景天庚酮糖-7-磷酸 + 甘油醛-3-磷酸",
-      formula: "C₇H₁₅O₁₀P + C₃H₇O₆P",
+      formula: "C₇H₁₃O₁₀P + C₃H₅O₆P",
       parts: [
         {
           ...S7P,
@@ -1286,7 +1286,7 @@ const PPP_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "赤藓糖-4-磷酸（E4P）＋ 果糖-6-磷酸（F6P）",
-      formula: "C₄H₉O₇P + C₆H₁₁O₉P",
+      formula: "C₄H₇O₇P + C₆H₁₁O₉P",
       parts: [
         { ...E4P, marks: [{ name: "C1", kind: "newbond", note: "保留醛基" }] },
         {
@@ -1303,7 +1303,7 @@ const PPP_COMPARISON: StepComparison[] = [
     physiology: "把七碳 + 三碳重排成四碳 + 六碳，六碳可直接回到糖酵解，四碳留给转酮醇酶。",
     defaultMode: "2d",
     defaultModeRule:
-      "默认 2D 判据：重原子数合计同为 28；体积 345.8→342.1 Å³（ΔV −1.07%，≤2.5%）；拓扑改变（三碳单位 C1–C3 从 S7P 转到 GAP）。",
+      "默认 2D 判据：重原子数合计同为 28；体积 337.0→337.5 Å³（ΔV +0.15%，≤2.5%）；拓扑改变（三碳单位 C1–C3 从 S7P 转到 GAP）。",
   },
   {
     stepId: "ppp-n5",
@@ -1317,7 +1317,7 @@ const PPP_COMPARISON: StepComparison[] = [
     equation: "木酮糖-5-磷酸 + 赤藓糖-4-磷酸 ⇌ 果糖-6-磷酸 + 甘油醛-3-磷酸",
     substrate: {
       name: "木酮糖-5-磷酸 + 赤藓糖-4-磷酸",
-      formula: "C₅H₁₁O₈P + C₄H₉O₇P",
+      formula: "C₅H₉O₈P + C₄H₇O₇P",
       parts: [
         { ...XU5P, marks: [{ name: "C1", kind: "leaving", note: "二碳单位 C1–C2" }, { name: "C2", kind: "leaving" }] },
         { ...E4P, marks: [{ name: "C1", kind: "newbond", note: "受体醛基碳" }] },
@@ -1325,7 +1325,7 @@ const PPP_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "果糖-6-磷酸（F6P）＋ 甘油醛-3-磷酸（GAP）",
-      formula: "C₆H₁₁O₉P + C₃H₇O₆P",
+      formula: "C₆H₁₁O₉P + C₃H₅O₆P",
       parts: [
         {
           ...F6P,
@@ -1343,8 +1343,11 @@ const PPP_COMPARISON: StepComparison[] = [
     },
     arrowLabel: "TKT · 二碳单位从 Xu5P 转到 E4P",
     change:
-      "Xu5P 的 C1–C2 二碳单位转移到 E4P 的 C1：Xu5P 剩三碳（GAP），E4P 变六碳（F6P）。重原子总数 26→26；体积差 −2.81%，略超 2.5% 阈值，因此该块仍默认 3D（规则不因“看起来很对称”而放宽）。",
+      "Xu5P 的 C1–C2 二碳单位转移到 E4P 的 C1：Xu5P 剩三碳（GAP），E4P 变六碳（F6P）。重原子总数 26→26；体积差 −1.35%，≤2.5% 阈值，且拓扑改变（二碳单位转移），按规则默认 2D。",
     physiology: "把四碳 + 五碳补成六碳 + 三碳，让非氧化支路产出可直接回糖酵解的 F6P 与 GAP。",
+    defaultMode: "2d",
+    defaultModeRule:
+      "默认 2D 判据：重原子数合计同为 26；体积 317.9→313.6 Å³（ΔV −1.35%，≤2.5%）；拓扑改变（二碳单位 C1–C2 从 Xu5P 转到 E4P）。",
   },
 ];
 
@@ -1361,7 +1364,7 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     equation: "丙酮酸 + HCO₃⁻ + ATP → 草酰乙酸 + ADP + Pi",
     substrate: {
       name: "丙酮酸 + 碳酸氢根",
-      formula: "C₃H₄O₃ + CHO₃⁻",
+      formula: "C₃H₃O₃ + CHO₃⁻",
       parts: [
         { ...PYR_GN, marks: [{ name: "C1", kind: "leaving", note: "羧基碳接 CO₂" }] },
         { ...HCO3 },
@@ -1370,7 +1373,7 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "草酰乙酸（OAA）",
-      formula: "C₄H₄O₅",
+      formula: "C₄H₂O₅",
       parts: [{ ...OAA, sourceNote: "取自人柠檬酸合酶 CS（TCA 第 1 步）PDB 8ZVW（1.82 Å · X-ray · Homo sapiens · 链 A · 配体 OAA）——人源但非本步丙酮酸羧化酶口袋；实验坐标。", marks: [{ name: "C4", kind: "newbond", note: "新羧基" }, { name: "C2", kind: "newbond", note: "C2 酮基" }] }],
     },
     arrowLabel: "PC · 生物素羧化，C1 + CO₂ → 新羧基",
@@ -1390,12 +1393,12 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     equation: "草酰乙酸 + GTP → 磷酸烯醇式丙酮酸 + GDP + CO₂",
     substrate: {
       name: "草酰乙酸（OAA）",
-      formula: "C₄H₄O₅",
+      formula: "C₄H₂O₅",
       parts: [{ ...OAA, sourceNote: "取自人柠檬酸合酶 CS（TCA 第 1 步）PDB 8ZVW（1.82 Å · X-ray · Homo sapiens · 链 A · 配体 OAA）——人源但非本步 PEPCK 口袋；实验坐标。", marks: [{ name: "C1", kind: "leaving", note: "脱羧 C1" }] }],
     },
     product: {
       name: "磷酸烯醇式丙酮酸（PEP）",
-      formula: "C₃H₅O₆P",
+      formula: "C₃H₂O₆P",
       parts: [{ ...PEP, sourceNote: "取自人烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 A · 配体 PEP）——人源但非本步 PEPCK 口袋；实验坐标。", marks: [{ name: "C2", kind: "newbond", note: "C2=C3" }, { name: "C3", kind: "newbond" }] }],
     },
     arrowLabel: "PEPCK · 脱羧 + 磷酸化（GTP 供能）",
@@ -1414,12 +1417,12 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     equation: "磷酸烯醇式丙酮酸 + H₂O ⇌ 2-磷酸甘油酸",
     substrate: {
       name: "磷酸烯醇式丙酮酸（PEP）",
-      formula: "C₃H₅O₆P",
+      formula: "C₃H₂O₆P",
       parts: [{ ...PEP, sourceNote: "取自人烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 A · 配体 PEP）——本步本酶口袋、人源（糖酵解页共享资产）；实验坐标。", marks: [{ name: "C2", kind: "newbond", note: "C2=C3 水合" }, { name: "C3", kind: "newbond" }] }],
     },
     product: {
       name: "2-磷酸甘油酸（2PG）",
-      formula: "C₃H₇O₇P",
+      formula: "C₃H₄O₇P",
       parts: [{ ...PG2, sourceNote: "取自人烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 A · 配体 2PG）——本步本酶口袋、人源（糖酵解页共享资产）；实验坐标。", marks: [{ name: "C2", kind: "newbond", note: "新 OH" }, { name: "C3", kind: "newbond", note: "新 H" }] }],
     },
     arrowLabel: "ENO2 · 反式水合（C2=C3 → C–OH）",
@@ -1438,12 +1441,12 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     equation: "2-磷酸甘油酸 ⇌ 3-磷酸甘油酸",
     substrate: {
       name: "2-磷酸甘油酸（2PG）",
-      formula: "C₃H₇O₇P",
+      formula: "C₃H₄O₇P",
       parts: [{ ...PG2, sourceNote: "取自人烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 A · 配体 2PG）——人源但非本步 PGAM 口袋；实验坐标。", marks: [{ name: "P2", kind: "leaving", note: "磷酸离开 C2" }] }],
     },
     product: {
       name: "3-磷酸甘油酸（3PG）",
-      formula: "C₃H₇O₇P",
+      formula: "C₃H₄O₇P",
       parts: [{ ...PG3, sourceNote: "取自人磷酸甘油酸激酶 PGK1 PDB 9FDN（1.58 Å · X-ray · Homo sapiens · 链 A · 配体 3PG）——人源但非本步 PGAM 口袋；实验坐标。", marks: [{ name: "P3", kind: "added", note: "磷酸落到 C3" }, { name: "C3", kind: "newbond" }] }],
     },
     arrowLabel: "PGAM · 磷酸基 C2→C3 迁移",
@@ -1451,7 +1454,7 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     physiology: "把磷酸从 C2 挪到 C3，为下一步激酶反应准备 1,3-二磷酸甘油酸。",
     defaultMode: "2d",
     defaultModeRule:
-      "默认 2D 判据：重原子数同为 11；体积 132.3→133.2 Å³（ΔV +0.68%，≤2.5%）；拓扑改变（磷酸基 C2→C3 换位）。",
+      "默认 2D 判据：重原子数同为 11；体积 126.0→126.2 Å³（ΔV +0.16%，≤2.5%）；拓扑改变（磷酸基 C2→C3 换位）。",
   },
   {
     stepId: "gn-5",
@@ -1465,12 +1468,12 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     equation: "3-磷酸甘油酸 + ATP ⇌ 1,3-二磷酸甘油酸 + ADP",
     substrate: {
       name: "3-磷酸甘油酸（3PG）",
-      formula: "C₃H₇O₇P",
+      formula: "C₃H₄O₇P",
       parts: [{ ...PG3, sourceNote: "取自人磷酸甘油酸激酶 PGK1 PDB 9FDN（1.58 Å · X-ray · Homo sapiens · 链 A · 配体 3PG）——本步本酶口袋、人源；实验坐标。", marks: [{ name: "C1", kind: "newbond", note: "C1 羧基" }] }],
     },
     product: {
       name: "1,3-二磷酸甘油酸（1,3-BPG）",
-      formula: "C₃H₈O₁₀P₂",
+      formula: "C₃H₄O₁₀P₂",
       parts: [{ ...BPG13, sourceNote: "无实验配体坐标：PDB 未见 1,3-BPG 本体络合物；本分子为 RDKit 计算构象（自由态，不等于结合态），高能酰基磷酸按普通 C–O–P 单键绘制。", marks: [{ name: "C1", kind: "newbond", note: "C1–O–P" }, { name: "P1", kind: "added", note: "新磷酸" }] }],
     },
     arrowLabel: "PGK · C1 羧基磷酰化（ATP 供磷酸）",
@@ -1489,12 +1492,12 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     equation: "1,3-二磷酸甘油酸 + NADH + H⁺ ⇌ 甘油醛-3-磷酸 + NAD⁺ + Pi",
     substrate: {
       name: "1,3-二磷酸甘油酸（1,3-BPG）",
-      formula: "C₃H₈O₁₀P₂",
+      formula: "C₃H₄O₁₀P₂",
       parts: [{ ...BPG13, sourceNote: "无实验配体坐标：PDB 未见 1,3-BPG 本体络合物；本分子为 RDKit 计算构象（自由态，不等于结合态）。", marks: [{ name: "C1", kind: "leaving", note: "C1 还原为醛" }, { name: "P1", kind: "leaving", note: "磷酸离去" }] }],
     },
     product: {
       name: "甘油醛-3-磷酸（GAP）",
-      formula: "C₃H₇O₆P",
+      formula: "C₃H₅O₆P",
       parts: [{ ...GAP, sourceNote: "无实验配体坐标：PDB 未见 GAP 本体络合物；本分子为 RDKit 计算构象（自由态，不等于结合态），与糖酵解/PPP 页共享同一资产。", marks: [{ name: "C1", kind: "newbond", note: "新醛基" }] }],
       cofactorNote: "NADH / NAD⁺ 为辅因子，按本页口径不入画；产物侧只显示三碳糖骨架。",
     },
@@ -1514,12 +1517,12 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     equation: "甘油醛-3-磷酸 ⇌ 磷酸二羟丙酮",
     substrate: {
       name: "甘油醛-3-磷酸（GAP）",
-      formula: "C₃H₇O₆P",
+      formula: "C₃H₅O₆P",
       parts: [{ ...GAP, sourceNote: "无实验配体坐标：PDB 未见 GAP 本体络合物；本分子为 RDKit 计算构象（自由态，不等于结合态）。", marks: [{ name: "C1", kind: "newbond", note: "醛基" }, { name: "C2", kind: "newbond" }] }],
     },
     product: {
       name: "磷酸二羟丙酮（DHAP）",
-      formula: "C₃H₇O₆P",
+      formula: "C₃H₅O₆P",
       parts: [{ ...DHAP, sourceNote: "取自酿酒酵母磷酸丙糖异构酶 TPI PDB 1NEY（1.20 Å · X-ray · Saccharomyces cerevisiae · 链 A · 配体 DHAP）——本步同源酶口袋但非人源；实验坐标。", marks: [{ name: "C1", kind: "newbond", note: "C1 醇" }, { name: "C2", kind: "newbond", note: "C2 酮基" }] }],
     },
     arrowLabel: "TPI · 1,2-氢迁移（醛糖→酮糖）",
@@ -1527,7 +1530,7 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     physiology: "把 GAP 部分转成 DHAP，为下一步醛缩合提供酮糖底物。",
     defaultMode: "2d",
     defaultModeRule:
-      "默认 2D 判据：重原子数同为 10；体积 125.9→126.1 Å³（ΔV +0.16%，≤2.5%）；拓扑改变（C1 醛基↔C2 酮基）。",
+      "默认 2D 判据：重原子数同为 10；体积 121.5→121.5 Å³（ΔV +0.00%，≤2.5%）；拓扑改变（C1 醛基↔C2 酮基）。",
   },
   {
     stepId: "gn-8",
@@ -1541,7 +1544,7 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     equation: "甘油醛-3-磷酸 + 磷酸二羟丙酮 ⇌ 果糖-1,6-二磷酸",
     substrate: {
       name: "甘油醛-3-磷酸 + 磷酸二羟丙酮",
-      formula: "两个 C₃H₇O₆P",
+      formula: "两个 C₃H₅O₆P",
       parts: [
         { ...GAP, sourceNote: "无实验配体坐标：PDB 未见 GAP 本体络合物；本分子为 RDKit 计算构象（自由态，不等于结合态）。", marks: [{ name: "C1", kind: "newbond", note: "新 C–C 键" }] },
         { ...DHAP, sourceNote: "取自酿酒酵母磷酸丙糖异构酶 TPI PDB 1NEY（1.20 Å · X-ray · Saccharomyces cerevisiae · 链 A · 配体 DHAP）——非本步醛缩酶口袋；实验坐标。", marks: [{ name: "C1", kind: "newbond", note: "C1 醛基碳" }] },
@@ -1561,7 +1564,7 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     },
     arrowLabel: "ALDOB · C1–C2 缩合，三碳 + 三碳 → 六碳",
     change:
-      "DHAP 的 C1 与 GAP 的 C1 缩合，生成六碳的二磷酸果糖：重原子 20→20，拓扑改变（新 C–C 键）。但实验 FBP 是口袋内的折叠构象，体积 252.0→231.3 Å³（ΔV −8.21%，超过 2.5%），所以该块仍默认 3D，规则不放宽。",
+      "DHAP 的 C1 与 GAP 的 C1 缩合，生成六碳的二磷酸果糖：重原子 20→20，拓扑改变（新 C–C 键）。但实验 FBP 是口袋内的折叠构象，体积 243.0→231.3 Å³（ΔV −4.81%，超过 2.5%），所以该块仍默认 3D，规则不放宽。",
     physiology: "糖异生的碳骨架拼接：两个三碳糖合成六碳糖，是整条通路“由小变大”的关键一步。",
   },
   {
@@ -1652,17 +1655,17 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     equation: "L-乳酸 + NAD⁺ ⇌ 丙酮酸 + NADH + H⁺",
     substrate: {
       name: "L-乳酸（(S)-构型）",
-      formula: "C₃H₆O₃",
+      formula: "C₃H₅O₃",
       parts: [{ ...LAC_MOL, marks: [{ name: "C1", kind: "leaving", note: "C1 氧化为酮" }, { name: "C2", kind: "newbond" }] }],
     },
     product: {
       name: "丙酮酸",
-      formula: "C₃H₄O₃",
+      formula: "C₃H₃O₃",
       parts: [{ ...PYR_GN, sourceNote: "取自人丙酮酸激酶 M2 PKM2 PDB 4YJ5（2.41 Å · X-ray · Homo sapiens · 链 A · 配体 PYR）——人源但非本步 LDH-A 口袋；实验坐标。", marks: [{ name: "C1", kind: "newbond", note: "新羧基" }, { name: "C2", kind: "newbond", note: "C2 酮基" }] }],
       cofactorNote: "NAD⁺ / NADH 为辅因子，按本页口径不入画。",
     },
     arrowLabel: "LDHA · 乳酸氧化为丙酮酸（Cori 循环入口）",
-    change: "C2 的羟基氧化为酮、C1 仍是羧酸：L-乳酸脱氢变丙酮酸；重原子同为 6，但 C–O/C=O 键级改变。体积差 −8.96%（乳酸计算构象 vs 丙酮酸实验构象），超过阈值，该块默认 3D。",
+    change: "C2 的羟基氧化为酮、C1 仍是羧酸：L-乳酸脱氢变丙酮酸；重原子同为 6，但 C–O/C=O 键级改变。体积差 −8.48%（乳酸计算构象 vs 丙酮酸实验构象），超过阈值，该块默认 3D。",
     physiology: "Cori 循环的肝脏端：把肌肉送来的乳酸氧化回丙酮酸，再进入糖异生。",
   },
   {
@@ -1678,7 +1681,7 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     equation: "L-丙氨酸 + α-酮戊二酸 ⇌ 丙酮酸 + L-谷氨酸",
     substrate: {
       name: "L-丙氨酸 + α-酮戊二酸",
-      formula: "C₃H₇NO₂ + C₅H₆O₅",
+      formula: "C₃H₇NO₂ + C₅H₄O₅",
       parts: [
         { ...ALA_MOL, marks: [{ name: "N", kind: "leaving", note: "氨基转移" }, { name: "C2", kind: "newbond" }] },
         {
@@ -1691,7 +1694,7 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     },
     product: {
       name: "丙酮酸 + L-谷氨酸",
-      formula: "C₃H₄O₃ + C₅H₉NO₄",
+      formula: "C₃H₃O₃ + C₅H₈NO₄",
       parts: [
         { ...PYR_GN, sourceNote: "取自人丙酮酸激酶 M2 PKM2 PDB 4YJ5（2.41 Å · X-ray · Homo sapiens · 链 A · 配体 PYR）——人源但非本步 ALT 口袋；实验坐标。", marks: [{ name: "C2", kind: "newbond", note: "新酮基" }] },
         { ...GLU_MOL, marks: [{ name: "N", kind: "added", note: "新氨基" }, { name: "C2", kind: "newbond" }] },
@@ -1704,7 +1707,7 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     physiology: "丙氨酸支路的肝脏端：把肌肉送来的丙氨酸脱氨基成丙酮酸，进入糖异生；氨基以谷氨酸形式进入尿素循环。",
     defaultMode: "2d",
     defaultModeRule:
-      "默认 2D 判据：重原子数合计同为 16；体积 202.3→203.2 Å³（ΔV +0.44%，≤2.5%）；拓扑改变（氨基从 Ala 转到 α-KG，C2 取代基改变）。",
+      "默认 2D 判据：重原子数合计同为 16；体积 197.7→198.2 Å³（ΔV +0.25%，≤2.5%）；拓扑改变（氨基从 Ala 转到 α-KG，C2 取代基改变）。",
   },
 ];
 
@@ -1715,7 +1718,7 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
 const FA_MOL = {
   id: "fa",
   name: "棕榈酸（软脂酸，C16:0）",
-  formula: "C₁₆H₃₂O₂",
+  formula: "C₁₆H₃₁O₂",
   asset2d: D2("fa"),
   sourceNote:
     "计算构象 · 自由态（RDKit ETKDGv3 30 起点 + MMFF94）；无同分子实验配体。游离棕榈酸在血浆中主要与白蛋白结合：本资产是自由态，不等于白蛋白结合态，也不代表膜内构象。",
@@ -1726,7 +1729,7 @@ const ACYL_C16 = {
   formula: "C₁₇H₃₄OS（反应端）",
   asset2d: D2("acylcoa-c16"),
   caveat:
-    "分块呈现，不是完整分子：只画反应端（棕榈酰基 C1–C16 + 硫酯 S），CoA 长链省略，S 右侧碳仅作折线起点并标「CoA 略」。完整棕榈酰-CoA 为 C₃₇H₆₆N₇O₁₇P₃S。链长 C16 保留在酰基链上，不是完整 CoA。",
+    "分块呈现，不是完整分子：只画反应端（棕榈酰基 C1–C16 + 硫酯 S），CoA 长链省略，S 右侧碳仅作折线起点并标「CoA 略」。完整棕榈酰-CoA 为 C₃₇H₆₄N₇O₁₇P₃S。链长 C16 保留在酰基链上，不是完整 CoA。",
   sourceNote:
     "取自 PDB 5DV5（2.40 Å · X-ray · Vibrio alginolyticus · 链 A · 配体 PKZ · 65 重原子）——完整棕榈酰-CoA，但来源蛋白是细菌脂肪酸响应转录因子 FadR，不是 β-氧化酶口袋。本步酶（ACAD 家族）口袋内 C16 饱和脂酰-CoA 的高分辨结构本轮未获；只取反应端实测几何。",
 };
@@ -1736,7 +1739,7 @@ const ENOYL_C16 = {
   formula: "C₁₇H₃₂OS（反应端）",
   asset2d: D2("enoyl-c16"),
   caveat:
-    "分块呈现，不是完整分子：只画反应端（C1–C16 烯酰基 + 硫酯 S），CoA 长链省略，S 右侧碳标「CoA 略」。完整反式-Δ²-棕榈烯酰-CoA 为 C₃₇H₆₄N₇O₁₇P₃S。2UXW 的 TH3 在晶体中只建模 24 个重原子，是截短的酰基-N-乙酰半胱胺硫酯（CoA 尾未建模），不是完整 CoA；本块只用其反应端实测几何。",
+    "分块呈现，不是完整分子：只画反应端（C1–C16 烯酰基 + 硫酯 S），CoA 长链省略，S 右侧碳标「CoA 略」。完整反式-Δ²-棕榈烯酰-CoA 为 C₃₇H₆₂N₇O₁₇P₃S。2UXW 的 TH3 在晶体中只建模 24 个重原子，是截短的酰基-N-乙酰半胱胺硫酯（CoA 尾未建模），不是完整 CoA；本块只用其反应端实测几何。",
   sourceNote:
     "取自 PDB 2UXW（1.45 Å · X-ray · Homo sapiens · 链 A · 配体 TH3）——人极长链酰基-CoA 脱氢酶 VLCAD（ACADVL），正是本步同酶家族；TH3 为截短配体（CoA 尾未建模），C2=C3 为实测 trans 几何。",
 };
@@ -1746,7 +1749,7 @@ const HYDROXY_C16 = {
   formula: "C₁₇H₃₄O₂S（反应端）",
   asset2d: D2("hydroxy-c16"),
   caveat:
-    "分块呈现，不是完整分子；且为计算构象。只画反应端（C1–C16 羟酰基 + 硫酯 S），C3 为 L-3-羟基（S 构型），CoA 长链省略。完整 L-3-羟基棕榈酰-CoA 为 C₃₇H₆₆N₇O₁₈P₃S。",
+    "分块呈现，不是完整分子；且为计算构象。只画反应端（C1–C16 羟酰基 + 硫酯 S），C3 为 L-3-羟基（S 构型），CoA 长链省略。完整 L-3-羟基棕榈酰-CoA 为 C₃₇H₆₄N₇O₁₈P₃S。",
   sourceNote:
     "计算构象 · 自由态（RDKit ETKDGv3 30 起点 + MMFF94）；本步酶（人 HADH）口袋内 C16 3-羟基脂酰-CoA 的实验络合物本轮未获。人 HADH 的 C4 3-羟基丁酰-CoA 络合物 1F12 存在，但链长 C4 与 C16 不一致，混用会让 ΔV 把链长差当成化学变化，故不采用。自由态，不等于 HADH 口袋的结合态。",
 };
@@ -1756,7 +1759,7 @@ const KETO_C16 = {
   formula: "C₁₇H₃₂O₂S（反应端）",
   asset2d: D2("keto-c16"),
   caveat:
-    "分块呈现，不是完整分子；且为计算构象。只画反应端（C1–C16 酮酰基 + 硫酯 S），C3 为酮基，CoA 长链省略。完整 3-酮棕榈酰-CoA 为 C₃₇H₆₄N₇O₁₈P₃S。",
+    "分块呈现，不是完整分子；且为计算构象。只画反应端（C1–C16 酮酰基 + 硫酯 S），C3 为酮基，CoA 长链省略。完整 3-酮棕榈酰-CoA 为 C₃₇H₆₂N₇O₁₈P₃S。",
   sourceNote:
     "计算构象 · 自由态（RDKit ETKDGv3 30 起点 + MMFF94）；本步酶（人 SCHAD/HADH）口袋内 C16 3-酮脂酰-CoA 的实验络合物本轮未获。人 SCHAD 的 C4 乙酰乙酰-CoA 络合物 1F0Y 存在，但链长 C4 与 C16 不一致，混用会把链长差当成化学变化，故不采用。自由态，不等于 SCHAD/HADH 口袋的结合态。",
 };
@@ -1766,7 +1769,7 @@ const ACYL_C14 = {
   formula: "C₁₅H₃₀OS（反应端）",
   asset2d: D2("acylcoa-c14"),
   caveat:
-    "分块呈现，不是完整分子；且为计算构象。只画反应端（C14 酰基 + 硫酯 S），CoA 长链省略。完整肉豆蔻酰-CoA 为 C₃₅H₆₂N₇O₁₇P₃S。该块用于让读者看见第 4 步链缩短 2C：C16 酮酰基 → C14 酰基。",
+    "分块呈现，不是完整分子；且为计算构象。只画反应端（C14 酰基 + 硫酯 S），CoA 长链省略。完整肉豆蔻酰-CoA 为 C₃₅H₆₀N₇O₁₇P₃S。该块用于让读者看见第 4 步链缩短 2C：C16 酮酰基 → C14 酰基。",
   sourceNote:
     "计算构象 · 自由态（RDKit ETKDGv3 30 起点 + MMFF94）；C14 肉豆蔻酰-CoA 的完整实验配体本轮未获。链长 C14 由酰基链上的 14 个碳明确表达，比 C16 少两个碳。自由态，不等于酶口袋的结合态。",
 };
@@ -1796,7 +1799,7 @@ const FAO_COMPARISON: StepComparison[] = [
     equation: "棕榈酸 + CoA-SH + ATP → 棕榈酰-CoA + AMP + PPi（PPi → 2 Pi）",
     substrate: {
       name: "棕榈酸（C16:0）",
-      formula: "C₁₆H₃₂O₂",
+      formula: "C₁₆H₃₁O₂",
       parts: [{ ...FA_MOL }],
       cofactorNote: "ATP、CoA-SH、Mg²⁺ 按本页口径不入画；左侧只显示棕榈酸碳骨架。",
     },
@@ -1817,12 +1820,12 @@ const FAO_COMPARISON: StepComparison[] = [
     },
     arrowLabel: "ATP 驱动：羧基 → 硫酯（AMP + PPi，消耗 2 个高能键）",
     change:
-      "把游离脂肪酸的羧基转成酰基-CoA 硫酯：这是整条通路唯一的「入场费」。重原子 18→19（新增硫酯 S 与 CoA 折线起点），体积 290.9→318.6 Å³（ΔV +9.52%），键级与官能团改变；按规则默认 3D。",
+      "把游离脂肪酸的羧基转成酰基-CoA 硫酯：这是整条通路唯一的「入场费」。重原子 18→19（新增硫酯 S 与 CoA 折线起点），体积 288.6→318.6 Å³（ΔV +10.40%），键级与官能团改变；按规则默认 3D。",
     physiology:
       "长链脂肪酸不能自由过膜，必须先变成「酰基硫酯通货」才能进入 β-氧化或酯化。ATP→AMP+PPi 直接拆 1 个高能键，PPi 水解再补 1 个，合计 2 个高能磷酸键——这就是软脂酸能量账要从毛收入扣 2 的原因。",
     defaultMode: "3d",
     defaultModeRule:
-      "默认 3D 判据：重原子 18→19（不等）；体积 290.9→318.6 Å³（ΔV +9.52%，>2.5%）；拓扑改变（羧基 → 硫酯）。",
+      "默认 3D 判据：重原子 18→19（不等）；体积 288.6→318.6 Å³（ΔV +10.40%，>2.5%）；拓扑改变（羧基 → 硫酯）。",
   },
   {
     stepId: "fao-shuttle",

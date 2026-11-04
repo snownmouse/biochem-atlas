@@ -23,6 +23,7 @@ import {
   type NormMeta,
   type Pocket,
 } from "../data/step3d";
+import { ATOM_PALETTE_JSON, atomColorFunc } from "../data/atomColors";
 
 type Phase = "idle" | "loading" | "gated" | "ready" | "degraded";
 
@@ -101,7 +102,7 @@ export default function Enzyme3DPanel({ stepId, assetDir }: { stepId: string; as
       if (next !== null) {
         model.setStyle(
           { resi: next },
-          { cartoon: { color: "#7a2e0e" }, stick: { radius: 0.24, colorscheme: "defaultCarbon" } }
+          { cartoon: { color: "#7a2e0e" }, stick: { radius: 0.24, colorfunc: atomColorFunc } }
         );
       }
       // 氢键虚线：只画选中残基的，按离线算好的距离（静态，不随时间变化）
@@ -207,7 +208,8 @@ export default function Enzyme3DPanel({ stepId, assetDir }: { stepId: string; as
             const text = await fetchText(`${base}/${lg.sdf}`);
             if (!alive) return;
             const lig = viewer.addModel(text, "sdf");
-            lig.setStyle({}, { stick: { radius: 0.2, colorscheme: "defaultCarbon" } });
+            // 与结构对照页同一张原子配色表：同一分子在两页颜色一致
+            lig.setStyle({}, { stick: { radius: 0.2, colorfunc: atomColorFunc } });
             ligandModelsRef.current.push(lig);
           } catch {
             /* 单个配体 SDF 缺失时跳过，不影响其余 */
@@ -265,7 +267,12 @@ export default function Enzyme3DPanel({ stepId, assetDir }: { stepId: string; as
             <button className="e3d-btn" onClick={() => setPhase("loading")}>重试 3D</button>
           </div>
         )}
-        <div ref={hostRef} className={`e3d-host${phase === "ready" ? "" : " hidden"}`} data-testid="enzyme-3d-host" />
+        <div
+          ref={hostRef}
+          className={`e3d-host${phase === "ready" ? "" : " hidden"}`}
+          data-testid="enzyme-3d-host"
+          data-atom-colors={ATOM_PALETTE_JSON}
+        />
         {phase === "ready" && <span className="e3d-hint">拖动旋转 · 滚轮缩放 · 点残基高亮</span>}
       </div>
 

@@ -3,8 +3,12 @@
 //
 // 覆盖：
 //   · 两页块数 8 / 13，步骤顺序与配置一致；两页都没有酶 3D 面板，每块只有配置给出的灰字声明；
-//   · 默认模式按数据判据：ppp-o1 / ppp-n1 / ppp-n3 / ppp-n4 与 gn-4 / gn-7 / gn-10 / gn-ala
+//   · 默认模式按数据判据：ppp-n1 / ppp-n3 / ppp-n4 / ppp-n5 与 gn-4 / gn-7 / gn-10 / gn-ala
 //     共 8 块默认 2D，其余默认 3D；?mode=2d|3d 显式覆盖优先级更高；
+//     【因电离态统一改写】磷酸单酯按二价阴离子补氢后体积变化，触发两处默认模式翻转：
+//       ppp-o1 2D→3D（−1.90%→−3.13%，越过 2.5% 阈值，配置显式 defaultMode:"3d"）；
+//       ppp-n5 3D→2D（−2.81%→−1.35%，回到阈值内，配置显式 defaultMode:"2d"）。
+//     因此 PPP 的 data-mode-source=data 计数为「默认 2D 块数 + 1」（ppp-o1 也显式写在配置里）。
 //   · 每块首屏都有「配体来源」说明（不折叠、实际可见）：PPP 23 条 / 糖异生 30 条；
 //   · CO₂ / HCO₃⁻ 只做 2D：3D 模式显示「3D 未建」原因，不塞假球、不请求 3D 画布；
 //   · 2D 切换后两页全部卡片都有结构式、字号可读、版式不重排；显式 3D 后卡片数与资产一致；
@@ -38,12 +42,14 @@ const PPP = {
   ids: PPP_IDS,
   blocks: 8,
   cards: 23, // 2+2+3+2+2+4+4+4（CO₂ 也是卡片）
-  default2d: ["ppp-o1", "ppp-n1", "ppp-n3", "ppp-n4"],
-  rules: { "ppp-o1": "-1.90%", "ppp-n1": "+0.23%", "ppp-n3": "-2.07%", "ppp-n4": "-1.07%" },
+  default2d: ["ppp-n1", "ppp-n3", "ppp-n4", "ppp-n5"],
+  rules: { "ppp-n1": "+0.00%", "ppp-n3": "-1.86%", "ppp-n4": "+0.15%", "ppp-n5": "-1.35%" },
+  // ppp-o1 显式 defaultMode:"3d"（翻转记录），故 data 来源块 = 4 个默认 2D + 1
+  dataCount: 5,
   sources: 23,
-  auto3d: 10,
+  auto3d: 8,
   autoNone: 1,
-  auto2d: 12,
+  auto2d: 14,
   forced3d: 22,
   noneId: "co2",
   noneText: "3 个原子",
@@ -54,7 +60,9 @@ const GN = {
   blocks: 13,
   cards: 30, // 3+2+2+2+2+2+2+3+2+2+2+2+4
   default2d: ["gn-4", "gn-7", "gn-10", "gn-ala"],
-  rules: { "gn-4": "+0.68%", "gn-7": "+0.16%", "gn-10": "-0.99%", "gn-ala": "+0.44%" },
+  // 【因电离态统一改写】补氢后体积：gn-4 +0.16%、gn-7 +0.00%、gn-ala +0.25%（均仍 ≤2.5%）
+  rules: { "gn-4": "+0.16%", "gn-7": "+0.00%", "gn-10": "-0.99%", "gn-ala": "+0.25%" },
+  dataCount: 4,
   sources: 30,
   auto3d: 19,
   autoNone: 1,
@@ -159,10 +167,9 @@ for (const spec of [PPP, GN]) {
     els.map((e) => [e.getAttribute("data-step-id"), e.getAttribute("data-mode-source")])
   );
   check(
-    "默认 2D 块 data-mode-source=data，其余 fallback",
-    srcModes.filter(([, s]) => s === "data").length === spec.default2d.length &&
-      srcModes.filter(([id, s]) => s === "fallback" && !spec.default2d.includes(id)).length ===
-        spec.blocks - spec.default2d.length
+    `data-mode-source：${spec.dataCount} 块 data、${spec.blocks - spec.dataCount} 块 fallback`,
+    srcModes.filter(([, s]) => s === "data").length === spec.dataCount &&
+      srcModes.filter(([, s]) => s === "fallback").length === spec.blocks - spec.dataCount
   );
 
   // ===== 3) 首屏配体来源 =====

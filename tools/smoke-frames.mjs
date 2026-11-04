@@ -219,9 +219,11 @@ check(
   "gk-2 判据数字：ΔV +1.00% 且六元环→五元环",
   /\+1\.00%/.test(gk2Rule) && /六元环→五元环/.test(gk2Rule)
 );
+// 【因电离态统一改写】gk-4 产物 DHAP/GAP 补氢后体积由 126.1/125.9→121.5/121.5 Å³，
+// 产物侧合计 252.0→243.0 Å³，ΔV 从 +2.27% 变为 −1.38%（仍 ≤2.5%，默认 2D 不变）。
 check(
-  "gk-4 判据数字：ΔV +2.27% 且 C3–C4 断裂、1 分子→2 分子",
-  /\+2\.27%/.test(gk4Rule) && /C3–C4/.test(gk4Rule) && /1 分子→2 分子/.test(gk4Rule)
+  "gk-4 判据数字：ΔV −1.38% 且 C3–C4 断裂、1 分子→2 分子",
+  /−1\.38%/.test(gk4Rule) && /C3–C4/.test(gk4Rule) && /1 分子→2 分子/.test(gk4Rule)
 );
 check(
   "默认模式来源标记：4 块 data-mode-source=data，其余 fallback",
@@ -507,7 +509,7 @@ const shot = async (id, file, mode = "3d") => {
 // 同一块 gk-2、同一滚动位置，分别截 3D 与 2D（两版并排即"切换对照"）
 await shot("gk-2", "cmp-mode-3d-gk-2.png", "3d");
 await shot("gk-2", "cmp-mode-2d-gk-2.png", "2d");
-// 按规则默认（不带 ?mode=）：gk-4 被数据判据改成 2D（体积 +2.27%，C3–C4 断裂）
+// 按规则默认（不带 ?mode=）：gk-4 被数据判据改成 2D（体积 −1.38%，C3–C4 断裂）
 await shot("gk-4", "cmp-default-2d-gk-4.png", "auto");
 // 变化原子高亮在 3D 下的样子（与 2D 圈注同一批原子）
 await shot("gk-1", "cmp-mode-3d-gk-1-highlight.png", "3d");

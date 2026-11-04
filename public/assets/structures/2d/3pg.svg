@@ -13,26 +13,29 @@
 <line x1="149.2" y1="178.9" x2="194.4" y2="89.7" stroke="#22282a" stroke-width="1.6"/>
 <line x1="149.2" y1="178.9" x2="60.0" y2="133.8" stroke="#22282a" stroke-width="1.6"/>
 <circle cx="584.3" cy="205.0" r="8.5" fill="#f6f3ec"/>
-<text x="584.3" y="208.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="584.3" y="208.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="593.3" y="213.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
 <circle cx="495.1" cy="159.8" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="504.1" y="154.8" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C1</text>
 <circle cx="489.6" cy="60.0" r="8.5" fill="#f6f3ec"/>
-<text x="489.6" y="63.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="489.6" y="63.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <circle cx="411.4" cy="214.5" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="420.4" y="209.5" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C2</text>
 <circle cx="416.9" cy="314.4" r="8.5" fill="#f6f3ec"/>
-<text x="416.9" y="317.6" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="416.9" y="317.6" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <circle cx="322.2" cy="169.4" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="331.2" y="164.4" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C3</text>
 <circle cx="238.4" cy="224.1" r="8.5" fill="#f6f3ec"/>
-<text x="238.4" y="227.3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="238.4" y="227.3" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <circle cx="149.2" cy="178.9" r="8.5" fill="#f6f3ec"/>
-<text x="149.2" y="182.1" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">P</text>
+<text x="149.2" y="182.1" text-anchor="middle" data-element="P" data-element-color="#d18a2e" style="fill:#d18a2e" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#d18a2e">P</text>
 <text x="158.2" y="173.9" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">P3</text>
 <circle cx="104.1" cy="268.1" r="8.5" fill="#f6f3ec"/>
-<text x="104.1" y="271.3" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="104.1" y="271.3" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <circle cx="194.4" cy="89.7" r="8.5" fill="#f6f3ec"/>
-<text x="194.4" y="92.9" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="194.4" y="92.9" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="203.4" y="97.7" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
 <circle cx="60.0" cy="133.8" r="8.5" fill="#f6f3ec"/>
-<text x="60.0" y="137.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="60.0" y="137.0" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="69.0" y="141.8" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
 </svg>

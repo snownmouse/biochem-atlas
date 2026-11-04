@@ -9,6 +9,7 @@
 //     避免十步 × 两侧二十多个上下文把浏览器配额打爆。
 // ============================================================
 import { useEffect, useRef, useState } from "react";
+import { ATOM_PALETTE_JSON, atomColor, atomColorFunc } from "../data/atomColors";
 
 export interface Mol3DAtom { id: number; el: string; name?: string; x: number; y: number; z: number; charge?: number }
 export interface Mol3DProvenance {
@@ -176,8 +177,9 @@ export default function Molecule3D({ asset, marks }: { asset: Mol3DAsset | null;
         model.setStyle(
           {},
           {
-            stick: { radius: 0.11, colorscheme: "Jmol" },
-            sphere: { scale: 0.2, colorscheme: "Jmol" },
+            // 统一原子配色：逐原子取色，不使用 3dmol 内置 Jmol / defaultCarbon
+            stick: { radius: 0.11, colorfunc: atomColorFunc },
+            sphere: { scale: 0.2, colorfunc: atomColorFunc },
           }
         );
         // 分块资产：在省略点旁边叠一个短标签（如「CoA 略」），不添加任何虚构原子
@@ -204,7 +206,8 @@ export default function Molecule3D({ asset, marks }: { asset: Mol3DAsset | null;
           // 而不是名字写错时静默跳过。
           if (model.selectedAtoms({ index: at.id - 1 }).length !== 1) continue;
           appliedN += 1;
-          const color = MARK_COLOR[m.kind] ?? "#9c4a3c";
+          // 氢永远用氢色：即使标注命中 H，也不让高亮色接管（高亮只作用于重原子与键）
+          const color = at.el?.toUpperCase() === "H" ? atomColor(at.el) : MARK_COLOR[m.kind] ?? "#9c4a3c";
           model.setStyle(
             { index: at.id - 1 },
             {
@@ -236,12 +239,18 @@ export default function Molecule3D({ asset, marks }: { asset: Mol3DAsset | null;
 
   const prov = asset?.provenance;
   const nameSet = new Set((asset?.atoms ?? []).map((a) => a.name).filter(Boolean) as string[]);
+  const atomByName = new Map((asset?.atoms ?? []).filter((a) => a.name).map((a) => [a.name as string, a]));
+  const markColorFor = (m: MolMark) => {
+    const el = atomByName.get(m.name)?.el;
+    return el?.toUpperCase() === "H" ? atomColor(el) : MARK_COLOR[m.kind] ?? "#9c4a3c";
+  };
   return (
     <div
       className="mol3d"
       ref={wrapRef}
       data-testid="mol-3d"
       data-mol-id={asset?.id ?? "loading"}
+      data-atom-palette={ATOM_PALETTE_JSON}
       data-marks-total={marks?.length ?? 0}
       data-marks-applied={marks && marks.length ? applied : undefined}
     >
@@ -268,9 +277,10 @@ export default function Molecule3D({ asset, marks }: { asset: Mol3DAsset | null;
               key={`${m.name}-${i}`}
               data-mark-kind={m.kind}
               data-mark-name={m.name}
+              data-mark-color={markColorFor(m)}
               data-mark-found={nameSet.has(m.name) ? "1" : "0"}
             >
-              <i style={{ background: MARK_COLOR[m.kind] }} />
+              <i style={{ background: markColorFor(m) }} />
               <span className="num">{m.name}</span>
               <span>{MARK_LABEL[m.kind]}</span>
               {m.note && <em>{m.note}</em>}

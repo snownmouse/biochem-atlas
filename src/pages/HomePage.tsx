@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   HOME_EDGES,
@@ -11,7 +11,17 @@ import {
   type HomeNode,
   type HomePathwayId,
 } from "../data/homeMap";
-import { HOME_BANDS, HOME_CANVAS, HOME_PATHWAY_LABELS, HOME_POS } from "../data/homeLayout";
+import {
+  HOME_BANDS,
+  HOME_CANVAS,
+  HOME_DOMAIN_LABELS,
+  HOME_EDGE_OFFSETS,
+  HOME_ER_NOTE,
+  HOME_MEMBRANE_LINES,
+  HOME_PATHWAY_LABELS,
+  HOME_POS,
+  HOME_SHARED_TAGS,
+} from "../data/homeLayout";
 
 const C = {
   paper: "#f6f3ec",
@@ -34,15 +44,25 @@ const PATH_COLOR: Record<HomePathwayId, string> = {
 
 const JUNCTION_IDS = new Set(HOME_NODES.filter((node) => node.junction).map((node) => node.id));
 
-/** 首屏总览的区段刻度：只切横轴，不改构图。 */
-const HOME_SEGMENTS = [
-  { id: "cytosol", label: "胞质主链 · 糖酵解 / 糖异生 / PPP", start: 0, end: 1080 },
-  { id: "matrix", label: "线粒体基质 · TCA", start: 1080, end: 2000 },
-  { id: "membrane", label: "膜 · β-氧化", start: 2000, end: HOME_CANVAS.width },
-];
+/** 双向走廊实体：同一条线正反两向都画时，用上下两条固定车道（糖异生在下）。 */
+const CHAIN_IDS = new Set([
+  "glc",
+  "g6p",
+  "f6p",
+  "fbp",
+  "g3p",
+  "dhap",
+  "13bpg",
+  "3pg",
+  "2pg",
+  "pep",
+  "pyr",
+]);
+
+type DomainFocus = "all" | "cytosol" | "matrix";
 
 function nodeRadius(nodeId: string): number {
-  return JUNCTION_IDS.has(nodeId) ? 10 : 5.5;
+  return JUNCTION_IDS.has(nodeId) ? 9.5 : 5.5;
 }
 
 interface EdgeGeometry {
@@ -57,6 +77,10 @@ interface EdgeGeometry {
   labelY: number;
 }
 
+function pairKey(edge: HomeEdge): string {
+  return [edge.from, edge.to].sort().join("|");
+}
+
 function edgeGeometry(edge: HomeEdge, siblings: HomeEdge[]): EdgeGeometry | null {
   const a = HOME_POS[edge.from];
   const b = HOME_POS[edge.to];
@@ -65,30 +89,57 @@ function edgeGeometry(edge: HomeEdge, siblings: HomeEdge[]): EdgeGeometry | null
   const dy = b.y - a.y;
   const len = Math.hypot(dx, dy);
   if (len === 0) return null;
-  const nx = -dy / len;
-  const ny = dx / len;
-  const index = siblings.findIndex((item) => item.id === edge.id);
-  const offset = siblings.length > 1 ? (index - (siblings.length - 1) / 2) * 20 : 0;
-  const startR = nodeRadius(edge.from) + 3;
-  const endR = nodeRadius(edge.to) + 4;
   const ux = dx / len;
   const uy = dy / len;
-  const sx = a.x + ux * startR + nx * offset;
-  const sy = a.y + uy * startR + ny * offset;
-  const ex = b.x - ux * endR + nx * offset;
-  const ey = b.y - uy * endR + ny * offset;
+  const index = siblings.findIndex((item) => item.id === edge.id);
+  const isChainPair = CHAIN_IDS.has(edge.from) && CHAIN_IDS.has(edge.to);
+  // 其余连线用「字典序起点 → 终点」的规范法线做偏移，反向边因此不会互相压线。
+  const [fromId, toId] = [edge.from, edge.to].sort();
+  const fromPos = HOME_POS[fromId];
+  const toPos = HOME_POS[toId];
+  const cdx = toPos.x - fromPos.x;
+  const cdy = toPos.y - fromPos.y;
+  const clen = Math.hypot(cdx, cdy) || 1;
+  const canonX = -cdy / clen;
+  const canonY = cdx / clen;
+  let offset: number;
+  let cnx = canonX;
+  let cny = canonY;
+  if (HOME_EDGE_OFFSETS[edge.id] !== undefined) {
+    // 显式车道优先：例如 PPP 回流要抬高，或差向异构那条要压低。
+    offset = HOME_EDGE_OFFSETS[edge.id];
+  } else if (isChainPair) {
+    // 主链双向走廊：糖酵解固定在链上方，糖异生固定在链下方（世界坐标 y 方向），
+    // 不随行进方向翻转法线，否则正反两条线会落在同一侧、标签叠死。
+    offset = edge.pathwayId === "gluconeogenesis" ? 8 : -8;
+    cnx = 0;
+    cny = 1;
+  } else if (siblings.length > 1) {
+    offset = (index - (siblings.length - 1) / 2) * 14;
+  } else {
+    offset = 0;
+  }
+  const startR = nodeRadius(edge.from) + 3;
+  const endR = nodeRadius(edge.to) + 4;
+  const sx = a.x + ux * startR + cnx * offset;
+  const sy = a.y + uy * startR + cny * offset;
+  const ex = b.x - ux * endR + cnx * offset;
+  const ey = b.y - uy * endR + cny * offset;
   const midX = (sx + ex) / 2;
   const midY = (sy + ey) / 2;
+  const push = offset === 0 ? -12 : Math.sign(offset) * 12;
+  const labelX = midX + cnx * push;
+  const labelY = midY + cny * push;
   return {
     edge,
     x1: sx,
     y1: sy,
     x2: ex,
     y2: ey,
-    nx,
-    ny,
-    labelX: midX - nx * 10,
-    labelY: midY - ny * 10,
+    nx: cnx,
+    ny: cny,
+    labelX,
+    labelY,
   };
 }
 
@@ -128,27 +179,45 @@ function crossLabelShift(x: number, y: number): number {
   for (const node of HOME_NODES) {
     const pos = HOME_POS[node.id];
     if (!pos) continue;
-    if (Math.abs(pos.x - x) < 34 && Math.abs(pos.y - y) < 22) return pos.y <= y ? 26 : -26;
+    if (Math.abs(pos.x - x) < 34 && Math.abs(pos.y - y) < 22) return pos.y <= y ? 12 : -12;
   }
   return 0;
 }
 
-/** 跨膜标注的锚点：先取膜带中线；穿梭类线段若不穿过中线，退到内膜/外膜线，最后退到线段中点。 */
+/** 跨膜标注锚点：依次取三条膜线；穿梭线段若不相交，退到线段中点。 */
 function crossAnchor(x1: number, y1: number, x2: number, y2: number): { x: number; y: number; onBand: boolean } {
-  for (const targetY of [470, 440, 520]) {
-    const hit = crossingPoint(x1, y1, x2, y2, targetY);
-    if (hit) return { ...hit, onBand: targetY === 470 };
+  for (const line of [HOME_MEMBRANE_LINES[1], HOME_MEMBRANE_LINES[0], HOME_MEMBRANE_LINES[2]]) {
+    const hit = crossingPoint(x1, y1, x2, y2, line.y);
+    if (hit) return { ...hit, onBand: true };
   }
   return { x: (x1 + x2) / 2, y: (y1 + y2) / 2, onBand: false };
+}
+
+function textWidth(text: string, size: number): number {
+  let width = 0;
+  for (const ch of text) {
+    width += ch.charCodeAt(0) > 127 ? size : size * 0.54;
+  }
+  return width;
+}
+
+interface CrossLabelLayout {
+  x: number;
+  y: number;
+  ax: number;
+  ay: number;
+  onBand: boolean;
+  anchor: "start" | "end";
+  dx: number;
 }
 
 function nodeLabelPosition(node: HomeNode): { x: number; y: number; anchor: "start" | "middle" | "end" } {
   const pos = HOME_POS[node.id];
   if (!pos) return { x: 0, y: 0, anchor: "middle" };
-  if (pos.side === "left") return { x: pos.x - 16, y: pos.y + 4, anchor: "end" };
-  if (pos.side === "right") return { x: pos.x + 16, y: pos.y + 4, anchor: "start" };
-  if (pos.side === "above") return { x: pos.x, y: pos.y - 17, anchor: "middle" };
-  return { x: pos.x, y: pos.y + 29, anchor: "middle" };
+  if (pos.side === "left") return { x: pos.x - 14, y: pos.y + 4, anchor: "end" };
+  if (pos.side === "right") return { x: pos.x + 14, y: pos.y + 4, anchor: "start" };
+  if (pos.side === "above") return { x: pos.x, y: pos.y - 16, anchor: "middle" };
+  return { x: pos.x, y: pos.y + 24, anchor: "middle" };
 }
 
 function svgText(
@@ -157,7 +226,13 @@ function svgText(
   y: number,
   size: number,
   anchor: "start" | "middle" | "end" = "middle",
-  extra: { fill?: string; opacity?: number; letterSpacing?: string; fontWeight?: number | string } = {},
+  extra: {
+    fill?: string;
+    opacity?: number;
+    letterSpacing?: string;
+    fontWeight?: number | string;
+    halo?: boolean;
+  } = {},
 ) {
   return (
     <text
@@ -169,6 +244,9 @@ function svgText(
       opacity={extra.opacity}
       letterSpacing={extra.letterSpacing}
       fontWeight={extra.fontWeight}
+      stroke={extra.halo ? C.paper : undefined}
+      strokeWidth={extra.halo ? 3 : undefined}
+      paintOrder={extra.halo ? "stroke" : undefined}
     >
       {text}
     </text>
@@ -178,51 +256,77 @@ function svgText(
 export function HomePage() {
   const navigate = useNavigate();
   const [selectedJunction, setSelectedJunction] = useState<string | null>(null);
-  const scrollRef = useRef<HTMLDivElement | null>(null);
-  const navRefs = useRef<(HTMLButtonElement | null)[]>([]);
-  const [activeSegment, setActiveSegment] = useState(0);
-
-  function handleMapScroll() {
-    const el = scrollRef.current;
-    if (!el) return;
-    // 视口足够宽时不再有“当前段”，改报“全图”。
-    if (el.scrollWidth - el.clientWidth <= 4) {
-      setActiveSegment(-1);
-      return;
-    }
-    const probe = el.scrollLeft + el.clientWidth * 0.65;
-    const index = HOME_SEGMENTS.findIndex((seg) => probe >= seg.start && probe < seg.end);
-    if (index >= 0) setActiveSegment(index);
-  }
-
-  function goSegment(index: number) {
-    setActiveSegment(index);
-    const el = scrollRef.current;
-    if (!el) return;
-    const max = Math.max(0, el.scrollWidth - el.clientWidth);
-    const left = Math.min(max, (HOME_SEGMENTS[index].start / HOME_CANVAS.width) * el.scrollWidth);
-    el.scrollTo({ left, behavior: "auto" });
-  }
-
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    handleMapScroll();
-    const observer = new ResizeObserver(() => handleMapScroll());
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
+  const [domainFocus, setDomainFocus] = useState<DomainFocus>("all");
 
   const pairGroups = useMemo(() => {
     const groups = new Map<string, HomeEdge[]>();
     for (const edge of HOME_EDGES) {
-      const key = [edge.from, edge.to].sort().join("|");
+      const key = pairKey(edge);
       const list = groups.get(key) ?? [];
       list.push(edge);
       groups.set(key, list);
     }
     return groups;
   }, []);
+
+  const geometries = useMemo(
+    () =>
+      HOME_EDGES.map((edge) => ({
+        edge,
+        geom: edgeGeometry(edge, pairGroups.get(pairKey(edge)) ?? [edge]),
+      })),
+    [pairGroups],
+  );
+
+  /** 同一步骤若有多条边（FBP 裂解为 DHAP + G3P、糖异生反向缩合），酶名只画一次。 */
+  const enzymeLabelEdges = useMemo(() => {
+    const seen = new Set<string>();
+    const keep = new Set<string>();
+    for (const edge of HOME_EDGES) {
+      const key = `${edge.pathwayId}:${edge.primaryStepId ?? edge.id}`;
+      if (seen.has(key)) continue;
+      seen.add(key);
+      keep.add(edge.id);
+    }
+    return keep;
+  }, []);
+
+  /** 跨膜注记避让：同一膜带上的多条注记按横向重叠程度上下错层，不压节点。 */
+  const crossLayout = useMemo(() => {
+    const used: { x0: number; x1: number; y: number }[] = [];
+    const map = new Map<string, CrossLabelLayout>();
+    for (const { edge, geom } of geometries) {
+      if (!edge.crossLabel || !geom) continue;
+      const anchor = crossAnchor(geom.x1, geom.y1, geom.x2, geom.y2);
+      const toRight = anchor.x > HOME_CANVAS.width * 0.72;
+      const dx = toRight ? -8 : 8;
+      const width = textWidth(edge.crossLabel, 8.5);
+      const x0 = toRight ? anchor.x + dx - width : anchor.x + dx;
+      const x1 = x0 + width;
+      const baseY = anchor.onBand ? anchor.y + 3 + crossLabelShift(anchor.x, anchor.y) : anchor.y - 16;
+      let y = baseY;
+      const offsets = [0, 12, -12, 24, -24, 36];
+      for (const offset of offsets) {
+        const candidate = baseY + offset;
+        const clash = used.some((item) => Math.abs(item.y - candidate) < 11 && x0 < item.x1 && x1 > item.x0);
+        if (!clash) {
+          y = candidate;
+          break;
+        }
+      }
+      used.push({ x0, x1, y });
+      map.set(edge.id, {
+        x: anchor.x,
+        y,
+        ax: anchor.x,
+        ay: anchor.y,
+        onBand: anchor.onBand,
+        anchor: toRight ? "end" : "start",
+        dx,
+      });
+    }
+    return map;
+  }, [geometries]);
 
   const selected = selectedJunction ? junctionById(selectedJunction) : undefined;
 
@@ -240,6 +344,12 @@ export function HomePage() {
     if (edge.primaryStepId) navigate(`${route}?step=${edge.primaryStepId}`);
     else navigate(route);
   }
+
+  function toggleDomain(domain: Exclude<DomainFocus, "all">) {
+    setDomainFocus((current) => (current === domain ? "all" : domain));
+  }
+
+  const focusedLabel = domainFocus === "all" ? "全图 · 02 域" : domainFocus === "cytosol" ? "当前域 · 胞质" : "当前域 · 基质";
 
   return (
     <div className="poster home-poster" data-page="home">
@@ -260,7 +370,7 @@ export function HomePage() {
             <small>METABOLIC ATLAS · FIVE PATHWAYS</small>
           </h1>
           <p className="mast-summary">
-            五条通路同框；<b>同名代谢物只画一次</b>，跨区室处按转运步骤连接。点通路名或主链节点进入挂图，点共用节点看它接通了哪几条路。
+            上下两域：上为胞质（糖酵解向右主链、糖异生同链逆向、PPP 自 G6P 分叉回流），中为三层膜带，下为线粒体基质（TCA 与 β-氧化在乙酰-CoA 会合）；<b>同名代谢物只画一次</b>。点通路名或连线进入挂图，点共用节点看它接通了哪几条路。
           </p>
         </div>
       </header>
@@ -281,6 +391,13 @@ export function HomePage() {
           可逆
         </span>
         <span className="lg">
+          <svg width="34" height="12" aria-hidden="true">
+            <line x1="2" y1="6" x2="24" y2="6" stroke={C.ink} strokeWidth="1" strokeDasharray="5 3" />
+            <path d="M24 6 l-7 -3.5 v7 z" fill={C.paper} stroke={C.ink} strokeWidth="1.2" />
+          </svg>
+          糖异生 / 穿梭（逆向）
+        </span>
+        <span className="lg">
           <svg width="24" height="16" aria-hidden="true">
             <circle cx="12" cy="8" r="7" fill="none" stroke={C.brick} strokeWidth="1.4" />
             <circle cx="12" cy="8" r="3.5" fill={C.paper} stroke={C.ink} strokeWidth="1.2" />
@@ -295,100 +412,127 @@ export function HomePage() {
         </span>
         <span className="lg" style={{ color: C.teal }}>青 · 磷酸戊糖</span>
         <span className="lg" style={{ color: C.amber }}>琥珀 · 线粒体两条</span>
-        <span className="legend-hint">点段名跳转 · 横向漫游 2480 px</span>
-      </div>
-
-      <div className="home-index" data-testid="home-index">
-        <span className="idx-k">挂图</span>
-        {HOME_PATHWAYS.map((pathway) => (
-          <Link key={pathway.id} to={pathway.route} data-home-link={pathway.id}>
-            {pathway.name}
-          </Link>
-        ))}
-        <span className="idx-sep">｜</span>
-        <span className="idx-k">结构对照</span>
-        {HOME_PATHWAYS.map((pathway) => (
-          <Link key={`${pathway.id}-structure`} to={pathway.structureRoute} data-home-link={`${pathway.id}-structure`}>
-            {pathway.name}
-          </Link>
-        ))}
+        <span className="legend-hint">上下两域 · 首屏全览五条通路</span>
       </div>
 
       <div className="body-grid">
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">总图 · MASTER MAP</span>
-            <span className="organ-switch">区室：基质 → 内膜 → 膜间腔 → 胞质 → ER 腔</span>
+            <span className="organ-switch">上域：胞质 → 膜带：外膜 / 膜间腔 / 内膜 → 下域：线粒体基质</span>
           </div>
 
-          <div className="home-mapnav" data-testid="home-mapnav">
-            <span className="mn-k">总览</span>
-            <div className="mn-track" role="group" aria-label="总图区段导航">
-              {HOME_SEGMENTS.map((seg, index) => (
-                <button
-                  key={seg.id}
-                  type="button"
-                  ref={(el) => {
-                    navRefs.current[index] = el;
-                  }}
-                  className={`mn-seg${activeSegment === index ? " on" : ""}`}
-                  style={{
-                    left: `${(seg.start / HOME_CANVAS.width) * 100}%`,
-                    width: `${((seg.end - seg.start) / HOME_CANVAS.width) * 100}%`,
-                  }}
-                  data-nav-segment={seg.id}
-                  aria-current={activeSegment === index ? "true" : undefined}
-                  onClick={() => goSegment(index)}
-                  onKeyDown={(event) => {
-                    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-                    event.preventDefault();
-                    const step = event.key === "ArrowRight" ? 1 : HOME_SEGMENTS.length - 1;
-                    navRefs.current[(index + step) % HOME_SEGMENTS.length]?.focus();
-                  }}
-                >
-                  <span className="mn-tick" aria-hidden="true" />
-                  <span className="mn-label">{seg.label}</span>
-                </button>
-              ))}
+          <div className="home-domainnav" data-testid="home-domainnav">
+            <span className="dn-k">域</span>
+            <div className="dn-group" role="group" aria-label="总图域标签">
+              <button
+                type="button"
+                className={`dn-seg${domainFocus === "cytosol" ? " on" : ""}`}
+                data-domain-nav="cytosol"
+                aria-pressed={domainFocus === "cytosol"}
+                onClick={() => toggleDomain("cytosol")}
+              >
+                胞质 · CYTOSOL
+              </button>
+              <button
+                type="button"
+                className={`dn-seg${domainFocus === "matrix" ? " on" : ""}`}
+                data-domain-nav="matrix"
+                aria-pressed={domainFocus === "matrix"}
+                onClick={() => toggleDomain("matrix")}
+              >
+                线粒体基质 · MATRIX
+              </button>
             </div>
-            <span className="mn-count" data-testid="home-nav-count">
-              {activeSegment < 0 ? "全图 · 03 段" : `03 段 · 当前 ${String(activeSegment + 1).padStart(2, "0")}`}
+            <span className="dn-count" data-testid="home-domain-count">
+              {focusedLabel}
             </span>
           </div>
 
-          <div className="plate-scroll" ref={scrollRef} onScroll={handleMapScroll} data-testid="home-plate-scroll">
+          <div className="plate-scroll" data-testid="home-plate-scroll">
             <div className="plate-canvas home-canvas">
               <svg
-                width={HOME_CANVAS.width}
-                height={HOME_CANVAS.height}
                 viewBox={`0 0 ${HOME_CANVAS.width} ${HOME_CANVAS.height}`}
+                preserveAspectRatio="xMidYMid meet"
                 data-home-map="1"
                 role="img"
-                aria-label="五条代谢通路共用节点总图"
+                aria-label="上下两域五通路代谢总图"
+                style={{ display: "block", width: "100%", height: "auto" }}
               >
-                {/* 区室带 */}
-                {HOME_BANDS.map((band) => (
-                  <rect
-                    key={band.id}
-                    x={0}
-                    y={band.top}
-                    width={band.id === "er-lumen" ? 520 : HOME_CANVAS.width}
-                    height={band.bottom - band.top}
-                    fill={`rgba(34,40,42,${band.tint})`}
+                {/* 域块 */}
+                {HOME_BANDS.map((band) => {
+                  const focused = domainFocus === band.id;
+                  return (
+                    <rect
+                      key={band.id}
+                      x={0}
+                      y={band.top}
+                      width={HOME_CANVAS.width}
+                      height={band.bottom - band.top}
+                      fill={`rgba(34,40,42,${band.tint})`}
+                      stroke={focused ? C.brick : "none"}
+                      strokeWidth={focused ? 1 : 0}
+                      data-domain-band={band.id}
+                      data-domain-on={focused ? "1" : "0"}
+                    />
+                  );
+                })}
+                {/* 膜带三条线：外膜 / 膜间腔 / 内膜 */}
+                {HOME_MEMBRANE_LINES.map((line) => (
+                  <line
+                    key={line.y}
+                    x1="0"
+                    y1={line.y}
+                    x2={HOME_CANVAS.width}
+                    y2={line.y}
+                    stroke={line.weight > 1 ? C.hair : C.hairSoft}
+                    strokeWidth={line.weight}
                   />
                 ))}
-                <line x1="0" y1="60" x2={HOME_CANVAS.width} y2="60" stroke={C.hairSoft} strokeWidth="1" />
-                <line x1="0" y1="400" x2={HOME_CANVAS.width} y2="400" stroke={C.hair} strokeWidth="1.2" />
-                <line x1="0" y1="440" x2={HOME_CANVAS.width} y2="440" stroke={C.hairSoft} strokeWidth="1" />
-                <line x1="0" y1="520" x2={HOME_CANVAS.width} y2="520" stroke={C.hair} strokeWidth="1.2" />
-                <line x1="0" y1="990" x2="520" y2="990" stroke={C.hair} strokeWidth="1.2" />
+                <line x1="0" y1="16" x2={HOME_CANVAS.width} y2="16" stroke={C.hairSoft} strokeWidth="1" />
+                <line x1="0" y1="548" x2={HOME_CANVAS.width} y2="548" stroke={C.hairSoft} strokeWidth="1" />
 
-                {HOME_BANDS.map((band) => (
-                  <g key={`${band.id}-label`} opacity={0.55}>
-                    {svgText(band.label, 22, band.top + 19, 10.5, "start", { letterSpacing: "0.18em" })}
-                    {svgText(band.en, 22 + band.label.length * 11 + 14, band.top + 19, 8, "start", { letterSpacing: "0.12em" })}
-                  </g>
-                ))}
+                {/* 域标签（点击可高亮该域） */}
+                {HOME_DOMAIN_LABELS.map((label) => {
+                  const focused = domainFocus === label.band;
+                  return (
+                    <g
+                      key={label.band}
+                      opacity={domainFocus === "all" || focused ? 1 : 0.45}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => {
+                        if (label.band === "cytosol" || label.band === "matrix") toggleDomain(label.band);
+                      }}
+                    >
+                      {svgText(label.label, label.x, label.y, 10, "start", {
+                        opacity: focused ? 0.95 : 0.55,
+                        letterSpacing: "0.18em",
+                        fill: focused ? C.brick : C.ink,
+                        halo: true,
+                      })}
+                    </g>
+                  );
+                })}
+
+                {/* ER 腔注记：糖异生末步的膜面接口 */}
+                <g data-er-note="1">
+                  <rect
+                    x={HOME_ER_NOTE.x}
+                    y={HOME_ER_NOTE.y}
+                    width={HOME_ER_NOTE.width}
+                    height={HOME_ER_NOTE.height}
+                    fill="rgba(34,40,42,0.05)"
+                  />
+                  {svgText(HOME_ER_NOTE.title, HOME_ER_NOTE.x + 10, HOME_ER_NOTE.y + 17, 9, "start", {
+                    letterSpacing: "0.16em",
+                    opacity: 0.6,
+                  })}
+                  {HOME_ER_NOTE.lines.map((line, index) =>
+                    svgText(line, HOME_ER_NOTE.x + 10, HOME_ER_NOTE.y + 33 + index * 15, 9, "start", {
+                      opacity: 0.75,
+                    }),
+                  )}
+                </g>
 
                 {/* 通路标签（点即进入挂图） */}
                 {HOME_PATHWAY_LABELS.map((label) => {
@@ -396,35 +540,35 @@ export function HomePage() {
                   return (
                     <g key={meta.id} className="home-block">
                       <a href={meta.route} data-pathway-block={meta.id}>
-                        {svgText(`${meta.name} · ${meta.en}`, label.x, label.y, 12, label.anchor, {
-                          letterSpacing: "0.12em",
-                          fontWeight: 700,
-                          fill: PATH_COLOR[meta.id],
-                        })}
-                        {svgText(label.note, label.x, label.y + 15, 9.5, label.anchor, { opacity: 0.62 })}
-                      </a>
-                      <a href={meta.structureRoute} data-structure-block={meta.id}>
                         <text
                           x={label.x}
-                          y={label.y + 29}
-                          fontSize={9}
+                          y={label.y}
+                          fontSize={12}
                           textAnchor={label.anchor}
-                          fill={C.teal}
-                          textDecoration="underline"
+                          letterSpacing="0.1em"
+                          fontWeight={700}
+                          fill={PATH_COLOR[meta.id]}
+                          className="serif"
+                          data-pathway-title={meta.id}
+                          stroke={C.paper}
+                          strokeWidth={3}
+                          paintOrder="stroke"
                         >
-                          结构对照 →
+                          {meta.name} · {meta.en}
                         </text>
                       </a>
+                      {svgText(label.note, label.x, label.y + 15, 9.2, label.anchor, {
+                        opacity: 0.62,
+                        halo: true,
+                      })}
                     </g>
                   );
                 })}
 
                 {/* 连线 */}
-                {HOME_EDGES.map((edge) => {
-                  const siblings = pairGroups.get([edge.from, edge.to].sort().join("|")) ?? [edge];
+                {geometries.map(({ edge, geom }) => {
                   if (edge.from === edge.to) {
                     const pos = HOME_POS[edge.from];
-                    if (!pos) return null;
                     const color = PATH_COLOR[edge.pathwayId];
                     return (
                       <g
@@ -436,34 +580,35 @@ export function HomePage() {
                         onClick={() => handleEdge(edge)}
                       >
                         <path
-                          d={`M${pos.x + 12},${pos.y - 14} a12,12 0 1,1 10,16`}
+                          d={`M${pos.x + 11},${pos.y - 13} a11,11 0 1,1 9,15`}
                           fill="none"
                           stroke={color}
-                          strokeWidth={1.4}
+                          strokeWidth={1.3}
                           strokeDasharray="3 2"
                         />
-                        {arrowHead(pos.x + 12, pos.y - 14, pos.x + 22, pos.y + 2, color, false)}
-                        <text x={pos.x + 26} y={pos.y - 8} fontSize={8.5} fill={color} opacity={0.8}>
+                        {arrowHead(pos.x + 11, pos.y - 13, pos.x + 20, pos.y + 2, color, false)}
+                        <text
+                          x={pos.x + 15}
+                          y={pos.y + 38}
+                          fontSize={8.5}
+                          fill={color}
+                          opacity={0.8}
+                          stroke={C.paper}
+                          strokeWidth={3}
+                          paintOrder="stroke"
+                        >
                           下一轮
                         </text>
                         <title>{`${edge.enzyme} · ${edge.stepIds.join(" / ")}`}</title>
                       </g>
                     );
                   }
-                  const geometry = edgeGeometry(edge, siblings);
-                  if (!geometry) return null;
+                  if (!geom) return null;
                   const color = PATH_COLOR[edge.pathwayId];
                   const isGluconeogenesis = edge.pathwayId === "gluconeogenesis";
-                  const dash = edge.kind === "shuttle" ? "4 3" : undefined;
-                  const width = edge.pathwayId === "glycolysis" ? 2.1 : 1.35;
-                  const cross = edge.crossLabel
-                    ? crossAnchor(geometry.x1, geometry.y1, geometry.x2, geometry.y2)
-                    : null;
-                  const crossShift = cross ? crossLabelShift(cross.x, cross.y) : 0;
-                  // 穿梭的双向线不穿过膜带中线时，锚点会重合；按行进方向上下错开一行，避免两条注压字。
-                  const crossTilt = cross && !cross.onBand
-                    ? HOME_POS[edge.from].y < HOME_POS[edge.to].y ? -12 : 12
-                    : 0;
+                  const dash = edge.kind === "shuttle" || edge.kind === "cycle-exit" || isGluconeogenesis ? "4 3" : undefined;
+                  const width = edge.pathwayId === "glycolysis" ? 2 : 1.35;
+                  const cross = edge.crossLabel ? crossLayout.get(edge.id) : undefined;
                   return (
                     <g
                       key={edge.id}
@@ -475,20 +620,21 @@ export function HomePage() {
                       onClick={() => handleEdge(edge)}
                     >
                       <line
-                        x1={geometry.x1}
-                        y1={geometry.y1}
-                        x2={geometry.x2}
-                        y2={geometry.y2}
+                        x1={geom.x1}
+                        y1={geom.y1}
+                        x2={geom.x2}
+                        y2={geom.y2}
                         stroke={color}
                         strokeWidth={width}
                         strokeDasharray={dash}
+                        opacity={isGluconeogenesis ? 0.78 : 1}
                       />
-                      {arrowHead(geometry.x1, geometry.y1, geometry.x2, geometry.y2, color, edge.irreversible)}
-                      {edge.enzyme !== "—" && !edge.crossLabel && (
+                      {arrowHead(geom.x1, geom.y1, geom.x2, geom.y2, color, edge.irreversible)}
+                      {edge.enzyme !== "—" && !edge.crossLabel && enzymeLabelEdges.has(edge.id) && (
                         <text
-                          x={geometry.labelX}
-                          y={geometry.labelY}
-                          fontSize={9.5}
+                          x={geom.labelX}
+                          y={geom.labelY}
+                          fontSize={9}
                           fontStyle="italic"
                           textAnchor="middle"
                           fill={color}
@@ -500,30 +646,23 @@ export function HomePage() {
                           {edge.enzyme}
                         </text>
                       )}
-                      {edge.chem && (
-                        <text
-                          x={geometry.labelX}
-                          y={geometry.labelY + 11}
-                          fontSize={8.5}
-                          textAnchor="middle"
-                          fill={C.amber}
-                          opacity={0.85}
-                          stroke={C.paper}
-                          strokeWidth={3}
-                          paintOrder="stroke"
-                        >
-                          {edge.chem}
-                        </text>
-                      )}
-                      {cross && (
+                      {edge.crossLabel && cross && cross.onBand && (
                         <g>
-                          <line x1={cross.x} y1={cross.y - 7} x2={cross.x} y2={cross.y + 7} stroke={C.brick} strokeWidth="1" />
+                          <line
+                            x1={cross.ax - geom.nx * 7}
+                            y1={cross.ay - geom.ny * 7}
+                            x2={cross.ax + geom.nx * 7}
+                            y2={cross.ay + geom.ny * 7}
+                            stroke={C.brick}
+                            strokeWidth="1"
+                            opacity={0.7}
+                          />
                           <text
-                            x={cross.x + 7}
-                            y={cross.y + 3 + crossShift + crossTilt}
+                            x={cross.x + cross.dx}
+                            y={cross.y}
                             fontSize={8.5}
                             fill={C.brick}
-                            textAnchor="start"
+                            textAnchor={cross.anchor}
                             stroke={C.paper}
                             strokeWidth={3}
                             paintOrder="stroke"
@@ -536,6 +675,26 @@ export function HomePage() {
                     </g>
                   );
                 })}
+
+                {/* 跨域共用标注 */}
+                {HOME_SHARED_TAGS.map((tag) => (
+                  <text
+                    key={`tag-${tag.nodeId}`}
+                    x={tag.x}
+                    y={tag.y}
+                    fontSize={8.2}
+                    textAnchor={tag.anchor}
+                    fill={C.brick}
+                    opacity={0.9}
+                    letterSpacing="0.02em"
+                    stroke={C.paper}
+                    strokeWidth={3}
+                    paintOrder="stroke"
+                    data-shared-tag={tag.nodeId}
+                  >
+                    {tag.text}
+                  </text>
+                ))}
 
                 {/* 节点（主链点击进入；共用节点打开右栏） */}
                 {HOME_NODES.map((node) => {
@@ -557,21 +716,31 @@ export function HomePage() {
                         if (event.key === "Enter" || event.key === " ") handleNode(node);
                       }}
                     >
-                      <circle cx={pos.x} cy={pos.y} r={node.junction ? 16 : 11} fill="transparent" />
-                      {node.junction && <circle cx={pos.x} cy={pos.y} r={11} fill="none" stroke={C.brick} strokeWidth={1.4} />}
+                      <circle cx={pos.x} cy={pos.y} r={node.junction ? 14 : 10} fill="transparent" />
+                      {node.junction && <circle cx={pos.x} cy={pos.y} r={9.5} fill="none" stroke={C.brick} strokeWidth={1.3} />}
                       <circle
                         cx={pos.x}
                         cy={pos.y}
-                        r={node.junction ? 5.2 : 4.6}
+                        r={node.junction ? 4.6 : 4.4}
                         fill={C.paper}
                         stroke={node.junction ? C.brick : C.ink}
-                        strokeWidth={node.junction ? 1.6 : 1.1}
+                        strokeWidth={node.junction ? 1.5 : 1.1}
                       />
-                      {svgText(node.label, label.x, label.y, node.junction ? 11.5 : 11, label.anchor, {
+                      {svgText(node.label, label.x, label.y, node.junction ? 10.5 : 10, label.anchor, {
                         fontWeight: node.junction ? 700 : 500,
+                        halo: true,
                       })}
                       {node.junction && node.pathwayIds.length >= 3 && (
-                        <text x={pos.x + 14} y={pos.y - 12} fontSize={8} fill={C.brick} opacity={0.85}>
+                        <text
+                          x={pos.x + 13}
+                          y={pos.y - 10}
+                          fontSize={7.5}
+                          fill={C.brick}
+                          opacity={0.85}
+                          stroke={C.paper}
+                          strokeWidth={4}
+                          paintOrder="stroke"
+                        >
                           ×{node.pathwayIds.length}
                         </text>
                       )}

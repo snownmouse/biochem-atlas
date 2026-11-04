@@ -5,8 +5,8 @@
 <line x1="160.0" y1="60.0" x2="60.0" y2="60.0" stroke="#22282a" stroke-width="1.6"/>
 <line x1="145.0" y1="57.4" x2="75.0" y2="57.4" stroke="#22282a" stroke-width="1.6"/>
 <circle cx="260.0" cy="60.0" r="8.5" fill="#f6f3ec"/>
-<text x="260.0" y="63.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="260.0" y="63.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <circle cx="160.0" cy="60.0" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <circle cx="60.0" cy="60.0" r="8.5" fill="#f6f3ec"/>
-<text x="60.0" y="63.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="60.0" y="63.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 </svg>

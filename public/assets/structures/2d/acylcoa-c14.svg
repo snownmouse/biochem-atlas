@@ -35,9 +35,9 @@
 <circle cx="1186.8" cy="115.0" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="1195.8" y="110.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C1</text>
 <circle cx="1270.4" cy="60.0" r="8.5" fill="#f6f3ec"/>
-<text x="1270.4" y="63.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="1270.4" y="63.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <circle cx="1192.7" cy="214.8" r="8.5" fill="#f6f3ec"/>
-<text x="1192.7" y="218.0" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">S</text>
+<text x="1192.7" y="218.0" text-anchor="middle" data-element="S" data-element-color="#9a8f1f" style="fill:#9a8f1f" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#9a8f1f">S</text>
 <circle cx="1282.0" cy="259.7" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="1291.0" y="254.7" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">CoA 略</text>
 </svg>

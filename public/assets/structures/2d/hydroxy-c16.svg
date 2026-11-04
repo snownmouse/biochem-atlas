@@ -37,15 +37,15 @@
 <circle cx="1186.9" cy="124.4" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="1195.9" y="119.4" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C3</text>
 <circle cx="1192.4" cy="224.2" r="8.5" fill="#f6f3ec"/>
-<text x="1192.4" y="227.4" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="1192.4" y="227.4" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <circle cx="1270.6" cy="69.6" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="1279.6" y="64.6" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C2</text>
 <circle cx="1359.8" cy="114.7" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="1368.8" y="109.7" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C1</text>
 <circle cx="1443.5" cy="60.0" r="8.5" fill="#f6f3ec"/>
-<text x="1443.5" y="63.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="1443.5" y="63.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <circle cx="1365.4" cy="214.6" r="8.5" fill="#f6f3ec"/>
-<text x="1365.4" y="217.8" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">S</text>
+<text x="1365.4" y="217.8" text-anchor="middle" data-element="S" data-element-color="#9a8f1f" style="fill:#9a8f1f" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#9a8f1f">S</text>
 <circle cx="1454.6" cy="259.7" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="1463.6" y="254.7" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">CoA 略</text>
 </svg>

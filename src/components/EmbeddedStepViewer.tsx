@@ -24,6 +24,7 @@ import {
   type Pocket,
   type StepFlag,
 } from "../data/step3d";
+import { ATOM_PALETTE_JSON, atomColor, atomColorFunc } from "../data/atomColors";
 
 type Phase = "loading" | "gated" | "ready" | "degraded";
 
@@ -72,12 +73,12 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
     const pocketResis = p.residues.map((r) => r.resi);
     model.setStyle(
       { resi: pocketResis },
-      { cartoon: { color: "#c17a4a" }, stick: { radius: 0.14, colorscheme: "defaultCarbon" } }
+      { cartoon: { color: "#c17a4a" }, stick: { radius: 0.14, colorfunc: atomColorFunc } }
     );
     if (!deselect) {
       model.setStyle(
         { resi },
-        { cartoon: { color: "#7a2e0e" }, stick: { radius: 0.24, colorscheme: "defaultCarbon" } }
+        { cartoon: { color: "#7a2e0e" }, stick: { radius: 0.24, colorfunc: atomColorFunc } }
       );
     }
     viewer.render();
@@ -169,18 +170,20 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
       const pocketResis = pocket.residues.map((r) => r.resi);
       model.setStyle(
         { resi: pocketResis },
-        { cartoon: { color: "#c17a4a" }, stick: { radius: 0.14, colorscheme: "defaultCarbon" } }
+        { cartoon: { color: "#c17a4a" }, stick: { radius: 0.14, colorfunc: atomColorFunc } }
       );
       const waters = pocket.waters ?? [];
       if (waters.length) {
-        model.setStyle({ resn: "HOH", resi: waters }, { sphere: { radius: 0.28, color: "#8fb8d8" } });
+        // 水分子也是氧原子：取统一 O 色；靠小球半径与位置区分，不再另立蓝色
+        model.setStyle({ resn: "HOH", resi: waters }, { sphere: { radius: 0.28, color: atomColor("O") } });
       }
       // 配体：v2 多配体（各带 sdf）；v1 单 ligand.sdf。只绘制 pocketRelevant 的配体实例，
       // 第二位点的非口袋拷贝（2CXS、3UCD 等）与远处配体（如 1CZA 的 ADP）不画，避免误导。
       for (const lg of meta.ligands) {
         if (!lg.sdf || !lg.pocketRelevant) continue;
         const lig = viewer.addModel(await fetchText(`${base}/${lg.sdf}`), "sdf");
-        lig.setStyle({}, { stick: { radius: 0.25, colorscheme: "defaultCarbon" } });
+        // 与结构对照页 / 单步页同一张原子配色表
+        lig.setStyle({}, { stick: { radius: 0.25, colorfunc: atomColorFunc } });
       }
       // 氢键虚线不在此处画：由 syncHbonds 按"点残基才显"的规则统一管理
       viewer.setClickable({ resi: pocketResis }, true, (atom: any) => {
@@ -300,6 +303,7 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
         <div
           ref={hostRef}
           className={`embed-host${phase === "ready" ? "" : " hidden"}`}
+          data-atom-colors={ATOM_PALETTE_JSON}
           title="拖动旋转 · 滚轮缩放 · 点击残基查看对应氢键"
         />
         {phase === "ready" && selResidue && (

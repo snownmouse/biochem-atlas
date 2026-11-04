@@ -23,6 +23,8 @@
 //     并逐个核对 PDB / 分辨率 / 方法 / 物种 / 链 / resname。
 //   · 「tca-2 判据 ΔV −0.60%」【因换源替换】：柠檬酸从 ACLY 3MWD 换到 CS 8ZVV 后体积
 //     150.0→150.1 Å³，判据数字变为 +0.07%；规则（|ΔV|≤2.5% + 拓扑改变）不变。
+//   · 「tca-2 判据 +0.07%」【因电离态统一改写】：柠檬酸/异柠檬酸按羧酸根补氢后体积
+//     150.0→143.0 / 150.1→143.4 Å³，ΔV 变为 +0.28%（仍 ≤2.5%，默认 2D 不变）。
 //   · 「页脚含 5TRL/非 TCA 酶/分辨率偏高」【因换源替换】：改为断言页脚列出 K256Q、非人源、
 //     OGDH 而非 SUCL、相邻的 SUCL、ME2 变构位点等新的不理想点；旧词已不成立，不保留。
 //   · 键盘 Tab 从「返回 → 3D → 2D」变为「返回 → 按规则 → 3D → 2D」（新增按规则按钮）。
@@ -121,8 +123,8 @@ check(
     (await page.locator('#tca-2[data-mode="2d"]').count()) === 1
 );
 check(
-  "tca-2 默认 2D 写明数据判据（ΔV +0.07%、羟基 C3→C2）",
-  (await page.locator("#tca-2 [data-testid='default-mode-rule']").innerText()).includes("0.07%") &&
+  "tca-2 默认 2D 写明数据判据（ΔV +0.28%、羟基 C3→C2）",
+  (await page.locator("#tca-2 [data-testid='default-mode-rule']").innerText()).includes("0.28%") &&
     (await page.locator("#tca-2 [data-testid='default-mode-rule']").innerText()).includes("C3") &&
     (await page.locator("[data-testid='default-mode-tag']").count()) === 1
 );

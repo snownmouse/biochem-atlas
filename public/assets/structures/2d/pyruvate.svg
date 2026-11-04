@@ -8,18 +8,18 @@
 <line x1="337.4" y1="374.2" x2="337.4" y2="440.8" stroke="#22282a" stroke-width="1.6"/>
 <line x1="340.0" y1="360.0" x2="440.0" y2="300.0" stroke="#22282a" stroke-width="1.6"/>
 <circle cx="240.0" cy="210.0" r="8.5" fill="#f6f3ec"/>
-<text x="240.0" y="213.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="240.0" y="213.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <text x="249.0" y="205.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">O</text>
 <circle cx="240.0" cy="300.0" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="249.0" y="295.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C1</text>
 <circle cx="140.0" cy="360.0" r="8.5" fill="#f6f3ec"/>
-<text x="140.0" y="363.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="140.0" y="363.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <text x="149.0" y="355.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">O</text>
 <text x="149.0" y="368.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
 <circle cx="340.0" cy="360.0" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="349.0" y="355.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C2</text>
 <circle cx="340.0" cy="455.0" r="8.5" fill="#f6f3ec"/>
-<text x="340.0" y="458.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="340.0" y="458.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <text x="349.0" y="450.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">O</text>
 <circle cx="440.0" cy="300.0" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="449.0" y="295.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C3</text>

@@ -124,10 +124,13 @@ const caveats = await page.locator(".cmp-caveat").evaluateAll((els) => els.map((
 check(".cmp-caveat 至少 6 条（酰基-CoA 系每块都写）", caveats.length >= 6);
 check("每条 caveat 都写「分块呈现，不是完整分子」", caveats.filter((c) => c.includes("分块呈现")).length >= 6);
 const c16 = caveats.find((c) => c.includes("棕榈酰-CoA")) ?? "";
-check("棕榈酰-CoA 块写明 CoA 长链省略 + 完整分子式 C₃₇H₆₆N₇O₁₇P₃S", c16.includes("CoA 长链省略") && c16.includes("C₃₇H₆₆N₇O₁₇P₃S"));
+// 【因电离态统一改写】CoA 的 3′-磷酸按磷酸单酯规则取二价阴离子（−2 H），
+// 完整棕榈酰-CoA 由 C₃₇H₆₆… 改为 C₃₇H₆₄…；硫酯键不电离，酰基链氢数不变。
+check("棕榈酰-CoA 块写明 CoA 长链省略 + 完整分子式 C₃₇H₆₄N₇O₁₇P₃S", c16.includes("CoA 长链省略") && c16.includes("C₃₇H₆₄N₇O₁₇P₃S"));
 check("棕榈酰-CoA 块标「CoA 略」而非留白", c16.includes("CoA 略"));
 const c14 = caveats.find((c) => c.includes("肉豆蔻酰")) ?? "";
-check("C14 块同样分块 + 完整分子式 C₃₅H₆₂N₇O₁₇P₃S", c14.includes("C₃₅H₆₂N₇O₁₇P₃S"));
+// 同上：C14 完整肉豆蔻酰-CoA 的 CoA 3′-磷酸二价阴离子，C₃₅H₆₂… → C₃₅H₆₀…。
+check("C14 块同样分块 + 完整分子式 C₃₅H₆₀N₇O₁₇P₃S", c14.includes("C₃₅H₆₀N₇O₁₇P₃S"));
 const c2uxw = caveats.find((c) => c.includes("TH3")) ?? "";
 check("烯酰-CoA 块注明 TH3 是截短的酰基-N-乙酰半胱胺硫酯（不是完整 CoA）", c2uxw.includes("截短") && c2uxw.includes("酰基-N-乙酰半胱胺硫酯"));
 

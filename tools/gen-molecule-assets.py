@@ -31,6 +31,14 @@ OUT2D = os.path.join(ROOT, "public", "assets", "structures", "2d")
 OUT3D = os.path.join(ROOT, "public", "assets", "ligands3d")
 REPORT = os.path.join(ROOT, "preview", "molecule-assets-report.json")
 WORK = os.path.join(tempfile.gettempdir(), "molassets")
+
+# 全站唯一原子配色表：与 src/data/atomColors.ts 共用同一份 JSON。
+# 2D 杂原子标签必须与 3D 原子色一致；碳不上色，键与顶点仍用墨色。
+PALETTE_PATH = os.path.join(ROOT, "src", "data", "atom-colors.json")
+with open(PALETTE_PATH, encoding="utf-8") as _fh:
+    ATOM_PALETTE = json.load(_fh)
+ATOM_COLORS = ATOM_PALETTE["elements"]
+ATOM_FALLBACK = ATOM_PALETTE["fallback"]
 os.makedirs(WORK, exist_ok=True)
 os.makedirs(OUT2D, exist_ok=True)
 os.makedirs(OUT3D, exist_ok=True)
@@ -77,44 +85,44 @@ MOLS = [
          form="线形果糖-1,6-二磷酸（醛缩酶结合态，PDB 配体代码 2FP）",
          caveat="4ALD 结合的是线形构象（2FP），不是自由态呋喃环；与 fbp（8W2G 呋喃型）是两个实验构象，不混标。"
                 "注：该配体 SDF 的键表漏了 C4–O5，且 C2–O 实测 1.68 Å 明显偏长；连接关系按坐标重建，键级沿用模板（C2=O），如实保留实验几何。"),
-    dict(id="dhap", name="磷酸二羟丙酮（DHAP）", formula="C3H7O6P",
-         smiles="O[CH2:1][C:2](=O)[CH2:3]O[P](=O)(O)O",
+    dict(id="dhap", name="磷酸二羟丙酮（DHAP）", formula="C3H5O6P",
+         smiles="O[CH2:1][C:2](=O)[CH2:3]O[P](=O)([O-])[O-]",
          src="public/assets/steps/gly-05/ligand.sdf", sdf="dhap.sdf",
          pdb="1NEY", species="Saccharomyces cerevisiae", method="X-RAY DIFFRACTION", res=1.2,
          form="磷酸二羟丙酮（酮糖三碳，1NEY 配体 13P）",
          caveat="实验坐标来自酿酒酵母 TPI（1NEY，1.2 Å）；C3 为 CH₂OH，无手性中心。"),
-    dict(id="gap", name="甘油醛-3-磷酸（GAP）", formula="C3H7O6P",
-         smiles="O=[CH:1][C@@H:2](O)[CH2:3]O[P](=O)(O)O",
+    dict(id="gap", name="甘油醛-3-磷酸（GAP）", formula="C3H5O6P",
+         smiles="O=[CH:1][C@@H:2](O)[CH2:3]O[P](=O)([O-])[O-]",
          src=None, sdf=None,
          pdb=None, species=None, method=None, res=None,
          form="D-甘油醛-3-磷酸（C2 为 R 构型）",
          caveat="十步中唯一没有任何实验配体坐标的三碳醛（GAPDH 结构 1U8F 仅结合 NAD），只能用计算构象；自由态构象与结合态未必一致。"),
-    dict(id="bpg13", name="1,3-二磷酸甘油酸（1,3-BPG）", formula="C3H8O10P2",
-         smiles="O=[C:1](O[P](=O)(O)O)[C@@H:2](O)[CH2:3]O[P](=O)(O)O",
+    dict(id="bpg13", name="1,3-二磷酸甘油酸（1,3-BPG）", formula="C3H4O10P2",
+         smiles="O=[C:1](O[P](=O)([O-])[O-])[C@@H:2](O)[CH2:3]O[P](=O)([O-])[O-]",
          src=None, sdf=None,
          pdb=None, species=None, method=None, res=None,
          form="1,3-二磷酸甘油酸（C1 为酰基磷酸，C3 为磷酸酯）",
          caveat="无实验配体坐标（1,3-BPG 极不稳定，PDB 无结合态），只能用计算构象；高能酰基磷酸的展示形式按 C1–O–P 单键 + P=O 绘制。"),
-    dict(id="3pg", name="3-磷酸甘油酸（3PG）", formula="C3H7O7P",
-         smiles="O[C:1](=O)[C@@H:2](O)[CH2:3]O[P](=O)(O)O",
+    dict(id="3pg", name="3-磷酸甘油酸（3PG）", formula="C3H4O7P",
+         smiles="[O-][C:1](=O)[C@@H:2](O)[CH2:3]O[P](=O)([O-])[O-]",
          src="public/assets/steps/gly-07/ligand-3PG.sdf", sdf="3pg.sdf",
          pdb="9FDN", species="Homo sapiens", method="X-RAY DIFFRACTION", res=1.58,
          form="D-3-磷酸甘油酸（C3 磷酸酯）",
          caveat="实验坐标为 9FDN 人 PGK 结合态；磷酸在 C3，羧基端为 C1。"),
-    dict(id="2pg", name="2-磷酸甘油酸（2PG）", formula="C3H7O7P",
-         smiles="O[C:1](=O)[C@H:2](O[P](=O)(O)O)[CH2:3]O",
+    dict(id="2pg", name="2-磷酸甘油酸（2PG）", formula="C3H4O7P",
+         smiles="[O-][C:1](=O)[C@H:2](O[P](=O)([O-])[O-])[CH2:3]O",
          src="public/assets/steps/gly-09/ligand-2PG.sdf", sdf="2pg.sdf",
          pdb="3UCD", species="Homo sapiens", method="X-RAY DIFFRACTION", res=1.41,
          form="D-2-磷酸甘油酸（C2 磷酸酯）",
          caveat="实验坐标来自 3UCD 人 ENO2（1.41 Å）结合态。"),
-    dict(id="pep", name="磷酸烯醇式丙酮酸（PEP）", formula="C3H5O6P",
-         smiles="O[C:1](=O)[C:2](O[P](=O)(O)O)=[CH2:3]",
+    dict(id="pep", name="磷酸烯醇式丙酮酸（PEP）", formula="C3H2O6P",
+         smiles="[O-][C:1](=O)[C:2](O[P](=O)([O-])[O-])=[CH2:3]",
          src="public/assets/steps/gly-09/ligand-PEP.sdf", sdf="pep.sdf",
          pdb="3UCD", species="Homo sapiens", method="X-RAY DIFFRACTION", res=1.41,
          form="磷酸烯醇式丙酮酸（C2=C3 烯醇磷酸）",
          caveat="实验坐标来自 3UCD（1.41 Å）；与 2PG 同晶体，烯醇双键为平面构型。"),
-    dict(id="pyr", name="丙酮酸", formula="C3H4O3",
-         smiles="O[C:1](=O)[C:2](=O)[CH3:3]",
+    dict(id="pyr", name="丙酮酸", formula="C3H3O3",
+         smiles="[O-][C:1](=O)[C:2](=O)[CH3:3]",
          src=None, sdf=None,
          pdb=None, species=None, method=None, res=None,
          form="丙酮酸（C1 羧酸根、C2 酮羰基、C3 甲基）",
@@ -136,70 +144,70 @@ TCA_MOLS = [
          pdb="8ZW1", species="Homo sapiens", method="X-RAY DIFFRACTION", res=2.1,
          chain="B", resname="ACO", protein="人柠檬酸合酶（CS，TCA 第 1 步）· OAA + 完整乙酰-CoA 三元反应中间态",
          form="乙酰-CoA 反应端（分块）：乙酰基 C1/C2 + 硫酯 S + CoA 折线起点",
-         caveat="分块呈现，不是完整分子：只画反应端（乙酰基 + 硫酯 S）。实验坐标取自 8ZW1 的完整乙酰-CoA（配体 ACO，链 B，2.10 Å，人 CS 与 OAA/柠檬酸共结晶的三元反应中间态，CoA 完整，51 重原子）：只保留乙酰基 + 硫酯 S 的实测几何，CoA 长链省略；S 右侧的碳仅作 CoA 链的折线起点并标「CoA 略」，不代表完整 CoA。完整乙酰-CoA 为 C23H38N7O17P3S（泛酸/腺苷部分不入画）。",
+         caveat="分块呈现，不是完整分子：只画反应端（乙酰基 + 硫酯 S）。实验坐标取自 8ZW1 的完整乙酰-CoA（配体 ACO，链 B，2.10 Å，人 CS 与 OAA/柠檬酸共结晶的三元反应中间态，CoA 完整，51 重原子）：只保留乙酰基 + 硫酯 S 的实测几何，CoA 长链省略；S 右侧的碳仅作 CoA 链的折线起点并标「CoA 略」，不代表完整 CoA。完整乙酰-CoA 为 C23H36N7O17P3S（泛酸/腺苷部分不入画）。",
          fragment=dict(kind="block", shown="乙酰基 C1/C2 + 硫酯 S", omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
-                       note="分块资产：只画反应端，不是完整乙酰-CoA（C23H38N7O17P3S）；S 右侧碳为 CoA 折线起点，标「CoA 略」；反应端坐标为 8ZW1 实测。"),
+                       note="分块资产：只画反应端，不是完整乙酰-CoA（C23H36N7O17P3S）；S 右侧碳为 CoA 折线起点，标「CoA 略」；反应端坐标为 8ZW1 实测。"),
          coa_label_atom=5, label_atoms={5: "CoA 略"}),
-    dict(id="oaa", name="草酰乙酸（OAA）", formula="C4H4O5",
-         smiles="O[C:1](=O)[CH2:2][C:3](=O)[C:4](=O)O",
+    dict(id="oaa", name="草酰乙酸（OAA）", formula="C4H2O5",
+         smiles="[O-][C:1](=O)[CH2:2][C:3](=O)[C:4](=O)[O-]",
          src="public/assets/steps/tca-lig/8ZVW-OAA-A.sdf", sdf="oaa_8zvw.sdf",
          pdb="8ZVW", species="Homo sapiens", method="X-RAY DIFFRACTION", res=1.82,
          chain="A", resname="OAA", protein="人柠檬酸合酶（CS）· 草酰乙酸 + CoA",
          form="草酰乙酸（C1/C4 羧基、C2 亚甲基、C3 酮基）",
          caveat="实验坐标来自 8ZVW（人柠檬酸合酶，链 A，配体 OAA，1.82 Å）；OAA 在溶液中以烯醇式平衡存在，资产按实测的酮式呈现。",
          ),
-    dict(id="cit", name="柠檬酸", formula="C6H8O7",
-         smiles="O[C:1](=O)[CH2:2][C:3](O)([C:6](=O)O)[CH2:4][C:5](=O)O",
+    dict(id="cit", name="柠檬酸", formula="C6H5O7",
+         smiles="[O-][C:1](=O)[CH2:2][C:3](O)([C:6](=O)[O-])[CH2:4][C:5](=O)[O-]",
          src="public/assets/steps/tca-lig/8ZVV-CIT-A.sdf", sdf="cit_8zvv.sdf",
          pdb="8ZVV", species="Homo sapiens", method="X-RAY DIFFRACTION", res=1.59,
          chain="A", resname="CIT", protein="人柠檬酸合酶（CS，TCA 第 1 步）· 柠檬酸产物结合态",
          form="柠檬酸（C3 中央碳带 OH 与 C6 羧基，C1/C5 为两臂羧基）",
          caveat="实验坐标来自 8ZVV（人柠檬酸合酶 CS，链 A，配体 CIT，1.59 Å）：本轮从非本酶的 ACLY 3MWD 换到本步酶口袋，柠檬酸为产物结合态。",
          ),
-    dict(id="icit", name="异柠檬酸", formula="C6H8O7",
-         smiles="O[C:1](=O)[C@H:2](O)[C@@H:3]([C:6](=O)O)[CH2:4][C:5](=O)O",
+    dict(id="icit", name="异柠檬酸", formula="C6H5O7",
+         smiles="[O-][C:1](=O)[C@H:2](O)[C@@H:3]([C:6](=O)[O-])[CH2:4][C:5](=O)[O-]",
          src="public/assets/steps/tca-lig/5H3E-ICT-A.sdf", sdf="icit_5h3e.sdf",
          pdb="5H3E", species="Mus musculus", method="X-RAY DIFFRACTION", res=2.21,
          chain="A", resname="ICT", protein="小鼠线粒体异柠檬酸脱氢酶 IDH2 K256Q（TCA 第 3 步）· 异柠檬酸",
          form="异柠檬酸（C2 带 OH、C3 带 C6 羧基；C2/C3 为手性中心）",
          caveat="实验坐标来自 5H3E（小鼠线粒体 IDH2 K256Q，链 A，配体 ICT，2.21 Å）：本轮从非本酶的胞质 IDH1 6PAY 换到线粒体 IDH2；人源线粒体 IDH2/IDH3 的 ICT 络合物 ≤2.5 Å 未获。生理底物为 (2R,3S)-异柠檬酸，模板按该构型建模（CIP 校验见报告）。",
          expect_cip="C2:R,C3:S"),
-    dict(id="akg", name="α-酮戊二酸（α-KG）", formula="C5H6O5",
-         smiles="O[C:1](=O)[CH2:2][CH2:3][C:4](=O)[C:5](=O)O",
+    dict(id="akg", name="α-酮戊二酸（α-KG）", formula="C5H4O5",
+         smiles="[O-][C:1](=O)[CH2:2][CH2:3][C:4](=O)[C:5](=O)[O-]",
          src="public/assets/steps/tca-lig/5I95-AKG-A.sdf", sdf="akg_5i95.sdf",
          pdb="5I95", species="Homo sapiens", method="X-RAY DIFFRACTION", res=1.54,
          chain="A", resname="AKG", protein="人线粒体异柠檬酸脱氢酶 IDH2 R140Q（TCA 第 3 步）· NADPH + α-酮戊二酸",
          form="α-酮戊二酸（C4 酮基、C1/C5 羧基）",
          caveat="实验坐标来自 5I95（人 IDH2 R140Q，链 A，配体 AKG，1.54 Å）；α-酮酸在溶液中部分水合，资产按实测酮式呈现。",
          ),
-    dict(id="succoa", name="琥珀酰-CoA（分块：琥珀酰基 + 硫酯 S）", formula="C5H8O3S",
-         smiles="O=[C:1]([CH2:2][CH2:3][C:4](=O)O)[S][CH3:5]",
+    dict(id="succoa", name="琥珀酰-CoA（分块：琥珀酰基 + 硫酯 S）", formula="C5H7O3S",
+         smiles="O=[C:1]([CH2:2][CH2:3][C:4](=O)[O-])[S][CH3:5]",
          src="public/assets/steps/tca-lig/8P5V-SCA-A.sdf", sdf="succoa_8p5v.sdf",
          pdb="8P5V", species="Corynebacterium glutamicum", method="ELECTRON MICROSCOPY", res=2.07,
          chain="A", resname="SCA", protein="谷氨酸棒杆菌 2-酮戊二酸脱氢酶 E1/E2 复合体（TCA 第 4 步）· 琥珀酰-CoA 产物结合态",
          form="琥珀酰-CoA 反应端（分块）：琥珀酰基 C1–C4 + 硫酯 S + CoA 折线起点",
-         caveat="分块呈现，不是完整分子：只画反应端（琥珀酰基 + 硫酯 S）。实验坐标取自 8P5V 的完整琥珀酰-CoA（配体 SCA，链 A，2.07 Å，cryo-EM，谷氨酸棒杆菌 OGDH E1/E2 产物结合态）：只保留琥珀酰基 + 硫酯 S 的实测几何，CoA 长链省略；S 右侧的碳仅作 CoA 链的折线起点并标「CoA 略」。人源 SUCL/OGDH 的 SCA 络合物 ≤2.5 Å 未获；本轮从非 TCA 的 GCN5 5TRL 换到 TCA 的 OGDH 8P5V。完整琥珀酰-CoA 为 C25H40N7O19P3S。",
+         caveat="分块呈现，不是完整分子：只画反应端（琥珀酰基 + 硫酯 S）。实验坐标取自 8P5V 的完整琥珀酰-CoA（配体 SCA，链 A，2.07 Å，cryo-EM，谷氨酸棒杆菌 OGDH E1/E2 产物结合态）：只保留琥珀酰基 + 硫酯 S 的实测几何，CoA 长链省略；S 右侧的碳仅作 CoA 链的折线起点并标「CoA 略」。人源 SUCL/OGDH 的 SCA 络合物 ≤2.5 Å 未获；本轮从非 TCA 的 GCN5 5TRL 换到 TCA 的 OGDH 8P5V。完整琥珀酰-CoA 为 C25H38N7O19P3S。",
          fragment=dict(kind="block", shown="琥珀酰基 C1–C4 + 硫酯 S", omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
-                       note="分块资产：只画反应端，不是完整琥珀酰-CoA（C25H40N7O19P3S）；S 右侧碳为 CoA 折线起点，标「CoA 略」；反应端坐标为 8P5V 实测（谷氨酸棒杆菌 OGDH，TCA 第 4 步）。"),
+                       note="分块资产：只画反应端，不是完整琥珀酰-CoA（C25H38N7O19P3S）；S 右侧碳为 CoA 折线起点，标「CoA 略」；反应端坐标为 8P5V 实测（谷氨酸棒杆菌 OGDH，TCA 第 4 步）。"),
          coa_label_atom=5, label_atoms={5: "CoA 略"}),
-    dict(id="suc", name="琥珀酸", formula="C4H6O4",
-         smiles="O[C:1](=O)[CH2:2][CH2:3][C:4](=O)O",
+    dict(id="suc", name="琥珀酸", formula="C4H4O4",
+         smiles="[O-][C:1](=O)[CH2:2][CH2:3][C:4](=O)[O-]",
          src="public/assets/steps/tca-lig/7MSS-SIN-B.sdf", sdf="suc_7mss.sdf",
          pdb="7MSS", species="Homo sapiens", method="X-RAY DIFFRACTION", res=1.75,
          chain="B", resname="SIN", protein="人琥珀酰-CoA 合成酶（SUCLA2/SUCLG2）· 琥珀酸 + CoA + Mg",
          form="琥珀酸（C1/C4 羧基、C2/C3 亚甲基）",
          caveat="实验坐标来自 7MSS（人 SUCL，链 B，配体 SIN，1.75 Å）；平面骨架，构象自由度低，实测几何与自由态接近。",
          ),
-    dict(id="fum", name="延胡索酸（反式）", formula="C4H4O4",
-         smiles="O[C:1](=O)/[CH:2]=[CH:3]/[C:4](=O)O",
+    dict(id="fum", name="延胡索酸（反式）", formula="C4H2O4",
+         smiles="[O-][C:1](=O)/[CH:2]=[CH:3]/[C:4](=O)[O-]",
          src="public/assets/steps/tca-lig/9BPW-FUM-A.sdf", sdf="fum_9bpw.sdf",
          pdb="9BPW", species="Staphylococcus aureus", method="X-RAY DIFFRACTION", res=2.0,
          chain="A", resname="FUM", protein="金黄色葡萄球菌 II 型延胡索酸酶 FumC（TCA 第 7 步）· 延胡索酸",
          form="延胡索酸（反式丁烯二酸，C2=C3）",
          caveat="实验坐标来自 9BPW（金黄色葡萄球菌 FumC，链 A，配体 FUM，2.00 Å）：本轮从非本酶的变构位点 ME2 1PJ3 换到本步酶 FH 活性位点；人源 FH 的 FUM 络合物 ≤2.5 Å 未获，故为微生物同酶。反式双键为平面，构象几乎刚性。",
          ),
-    dict(id="mal", name="L-苹果酸", formula="C4H6O5",
-         smiles="O[C:1](=O)[C@@H:2](O)[CH2:3][C:4](=O)O",
+    dict(id="mal", name="L-苹果酸", formula="C4H4O5",
+         smiles="[O-][C:1](=O)[C@@H:2](O)[CH2:3][C:4](=O)[O-]",
          src="public/assets/steps/tca-lig/2DFD-LMR-A.sdf", sdf="mal_2dfd.sdf",
          pdb="2DFD", species="Homo sapiens", method="X-RAY DIFFRACTION", res=1.9,
          chain="A", resname="LMR", protein="人线粒体苹果酸脱氢酶 MDH2 · L-苹果酸",
@@ -220,67 +228,67 @@ LEGACY_2D = {"gap": "gap.json", "bpg13": "bpg13.json", "pyr": "pyruvate.json"}
 # 球棍无形状信息量，只做 2D，3D 不建并在数据里写明原因（no3d）。
 PPP_MOLS = [
     # 本步酶 = 人 G6PD；人源 + 本酶口袋，比糖酵解沿用的 1CZA（人己糖激酶）更贴合 PPP 第 1 步。
-    dict(id="g6p-g6pd", name="6-磷酸葡萄糖（G6P，G6PD 结合态）", formula="C6H13O9P",
-         smiles="O=[P](O)(O)O[CH2:6][C@H:5]1O[C@@H:1](O)[C@H:2](O)[C@@H:3](O)[C@@H:4]1O",
+    dict(id="g6p-g6pd", name="6-磷酸葡萄糖（G6P，G6PD 结合态）", formula="C6H11O9P",
+         smiles="O=[P]([O-])([O-])O[CH2:6][C@H:5]1O[C@@H:1](O)[C@H:2](O)[C@@H:3](O)[C@@H:4]1O",
          src="public/assets/steps/ppp-gn-lig/7SNI-BG6-A.sdf", sdf="g6p_7sni.sdf",
          pdb="7SNI", species="Homo sapiens", method="ELECTRON MICROSCOPY", res=2.5,
          chain="A", resname="BG6", protein="人葡糖-6-磷酸脱氢酶 G6PD（PPP 氧化支路第 1 步）· 底物结合态",
          form="β-D-葡萄糖-6-磷酸（BG6，环式）",
          caveat="实验坐标来自 7SNI（人 G6PD，链 A，配体 BG6，2.50 Å cryo-EM）：本步本酶且人源，本轮未沿用糖酵解的 1CZA（人己糖激酶，非 G6PD 口袋）。"),
-    dict(id="6pgl", name="6-磷酸葡糖酸-1,5-内酯（6PGL）", formula="C6H11O9P",
-         smiles="O=[C:1]1O[C@H:5](CO[P](=O)(O)O)[C@@H:4](O)[C@H:3](O)[C@@H:2]1O",
+    dict(id="6pgl", name="6-磷酸葡糖酸-1,5-内酯（6PGL）", formula="C6H9O9P",
+         smiles="O=[C:1]1O[C@H:5](CO[P](=O)([O-])[O-])[C@@H:4](O)[C@H:3](O)[C@@H:2]1O",
          src=None, sdf=None,
          form="6-磷酸-D-葡萄糖酸-1,5-内酯（六元内酯环）",
          caveat="PDB 无 6-磷酸葡糖酸内酯本体络合物（6PL 为磷脂类而非内酯）；本轮为 RDKit 计算构象（自由态，不等于结合态），不拿内酯类似物冒充。"),
-    dict(id="6pg", name="6-磷酸葡糖酸（6PG，6PGD 口袋）", formula="C6H13O10P",
-         smiles="O=[C:1](O)[C@H:2](O)[C@@H:3](O)[C@H:4](O)[C@H:5](O)[CH2:6]O[P](=O)(O)O",
+    dict(id="6pg", name="6-磷酸葡糖酸（6PG，6PGD 口袋）", formula="C6H10O10P",
+         smiles="O=[C:1]([O-])[C@H:2](O)[C@@H:3](O)[C@H:4](O)[C@H:5](O)[CH2:6]O[P](=O)([O-])[O-]",
          src="public/assets/steps/ppp-gn-lig/2W90-6PG-A.sdf", sdf="6pg_2w90.sdf",
          pdb="2W90", species="Geobacillus stearothermophilus", method="X-RAY DIFFRACTION", res=2.2,
          chain="A", resname="6PG", protein="嗜热脂肪地芽孢杆菌 6-磷酸葡糖酸脱氢酶 6PGD（PPP 第 3 步）· 底物结合态",
-         form="6-磷酸-D-葡萄糖酸（开链酸式）",
+         form="6-磷酸-D-葡萄糖酸（开链羧酸根，pH 7.4 简式）",
          caveat="实验坐标来自 2W90（6PGD，链 A，配体 6PG，2.20 Å）：本步酶口袋但非人源；人源 6PGD 的 6PG 络合物 ≤2.5 Å 未获。"),
-    dict(id="6pg-l", name="6-磷酸葡糖酸（6PG，6PGL 口袋）", formula="C6H13O10P",
-         smiles="O=[C:1](O)[C@H:2](O)[C@@H:3](O)[C@H:4](O)[C@H:5](O)[CH2:6]O[P](=O)(O)O",
+    dict(id="6pg-l", name="6-磷酸葡糖酸（6PG，6PGL 口袋）", formula="C6H10O10P",
+         smiles="O=[C:1]([O-])[C@H:2](O)[C@@H:3](O)[C@H:4](O)[C@H:5](O)[CH2:6]O[P](=O)([O-])[O-]",
          src="public/assets/steps/ppp-gn-lig/3E7F-6PG-A.sdf", sdf="6pg_3e7f.sdf",
          pdb="3E7F", species="Trypanosoma brucei", method="X-RAY DIFFRACTION", res=2.2,
          chain="A", resname="6PG", protein="布氏锥虫 6-磷酸葡糖酸内酯酶 6PGL（PPP 第 2 步）· 产物结合态",
-         form="6-磷酸-D-葡萄糖酸（开链酸式）",
+         form="6-磷酸-D-葡萄糖酸（开链羧酸根，pH 7.4 简式）",
          caveat="实验坐标来自 3E7F（6PGL，链 A，配体 6PG，2.20 Å）：本步酶口袋但非人源；人源 6PGL 无 ≤2.5 Å 的 6PG 络合物。"),
-    dict(id="ru5p", name="D-核酮糖-5-磷酸（Ru5P，RPE 口袋）", formula="C5H11O8P",
-         smiles="O=[C:2]([CH2:1]O)[C@H:3](O)[C@H:4](O)[CH2:5]O[P](=O)(O)O",
+    dict(id="ru5p", name="D-核酮糖-5-磷酸（Ru5P，RPE 口袋）", formula="C5H9O8P",
+         smiles="O=[C:2]([CH2:1]O)[C@H:3](O)[C@H:4](O)[CH2:5]O[P](=O)([O-])[O-]",
          src="public/assets/steps/ppp-gn-lig/3OVQ-5RP-A.sdf", sdf="ru5p_3ovq.sdf",
          pdb="3OVQ", species="Homo sapiens", method="X-RAY DIFFRACTION", res=2.0,
          chain="A", resname="5RP", protein="人核酮糖-5-磷酸 3-差向异构酶 RPE（PPP 第 5 步）· 底物结合态",
          form="D-核酮糖-5-磷酸（开链酮糖）",
          caveat="实验坐标来自 3OVQ（人 RPE，链 A，配体 5RP，2.00 Å）：本步酶且人源；用于 ppp-n2。"),
-    dict(id="ru5p-i", name="D-核酮糖-5-磷酸（Ru5P，RpiB 口袋）", formula="C5H11O8P",
-         smiles="O=[C:2]([CH2:1]O)[C@H:3](O)[C@H:4](O)[CH2:5]O[P](=O)(O)O",
+    dict(id="ru5p-i", name="D-核酮糖-5-磷酸（Ru5P，RpiB 口袋）", formula="C5H9O8P",
+         smiles="O=[C:2]([CH2:1]O)[C@H:3](O)[C@H:4](O)[CH2:5]O[P](=O)([O-])[O-]",
          src="public/assets/steps/ppp-gn-lig/2VVP-5RP-A.sdf", sdf="ru5p_2vpp.sdf",
          pdb="2VVP", species="Mycobacterium tuberculosis", method="X-RAY DIFFRACTION", res=1.65,
          chain="A", resname="5RP", protein="结核分枝杆菌核糖-5-磷酸异构酶 B（RpiB，PPP 第 4 步）· 底物结合态",
          form="D-核酮糖-5-磷酸（开链酮糖）",
          caveat="实验坐标来自 2VVP（结核分枝杆菌 RpiB，链 A，配体 5RP，1.65 Å）：本步异构酶口袋但非人源；人源 RPIA（RpiA 家族）未检索到结构。配体占位 0.50，原子完整。"),
-    dict(id="r5p", name="D-核糖-5-磷酸（R5P，RpiB 口袋）", formula="C5H11O8P",
-         smiles="O=[CH:1][C@H:2](O)[C@H:3](O)[C@H:4](O)[CH2:5]O[P](=O)(O)O",
+    dict(id="r5p", name="D-核糖-5-磷酸（R5P，RpiB 口袋）", formula="C5H9O8P",
+         smiles="O=[CH:1][C@H:2](O)[C@H:3](O)[C@H:4](O)[CH2:5]O[P](=O)([O-])[O-]",
          src="public/assets/steps/ppp-gn-lig/2VVP-R5P-A.sdf", sdf="r5p_2vpp.sdf",
          pdb="2VVP", species="Mycobacterium tuberculosis", method="X-RAY DIFFRACTION", res=1.65,
          chain="A", resname="R5P", protein="结核分枝杆菌核糖-5-磷酸异构酶 B（RpiB，PPP 第 4 步）· 产物结合态",
          form="D-核糖-5-磷酸（开链醛糖）",
          caveat="实验坐标来自 2VVP（结核分枝杆菌 RpiB，链 A，配体 R5P，1.65 Å）：本步异构酶口袋但非人源。"),
-    dict(id="xu5p", name="D-木酮糖-5-磷酸（Xu5P）", formula="C5H11O8P",
-         smiles="O=[C:2]([CH2:1]O)[C@@H:3](O)[C@H:4](O)[CH2:5]O[P](=O)(O)O",
+    dict(id="xu5p", name="D-木酮糖-5-磷酸（Xu5P）", formula="C5H9O8P",
+         smiles="O=[C:2]([CH2:1]O)[C@@H:3](O)[C@H:4](O)[CH2:5]O[P](=O)([O-])[O-]",
          src=None, sdf=None,
          form="D-木酮糖-5-磷酸（开链酮糖，C3 与 Ru5P 相反）",
          caveat="PDB 无 Xu5P 本体络合物：4KXV 的 DX5 是木糖醇-5-磷酸（C5H13O8P，还原型类似物），不作底物替换；本轮为 RDKit 计算构象（自由态，不等于结合态）。"),
-    dict(id="s7p", name="景天庚酮糖-7-磷酸（S7P）", formula="C7H15O10P",
-         smiles="O=[P](O)(O)O[CH2:7][C@@H:6](O)[C@H:5]1O[C@:2](O)([CH2:1]O)[C@@H:3](O)[C@@H:4]1O",
+    dict(id="s7p", name="景天庚酮糖-7-磷酸（S7P）", formula="C7H13O10P",
+         smiles="O=[P]([O-])([O-])O[CH2:7][C@@H:6](O)[C@H:5]1O[C@:2](O)([CH2:1]O)[C@@H:3](O)[C@@H:4]1O",
          src="public/assets/steps/ppp-gn-lig/4R75-S7P-A.sdf", sdf="s7p_4r75.sdf",
          pdb="4R75", species="Actinobacillus pleuropneumoniae", method="X-RAY DIFFRACTION", res=1.278,
          chain="A", resname="S7P", protein="胸膜肺炎放线杆菌 AfuA 周质结合蛋白（ABC 转运体底物结合蛋白，非 PPP 酶）",
          form="景天庚酮糖-7-磷酸（4R75 中的环式 altrofuranose）",
          caveat="实验坐标来自 4R75（AfuA 周质结合蛋白，链 A，配体 S7P，1.278 Å）：同分子但来源蛋白不是本步转醛醇酶；人源转醛醇酶的 S7P 络合物未获。配体为环式，非开链。"),
-    dict(id="e4p", name="D-赤藓糖-4-磷酸（E4P）", formula="C4H9O7P",
-         smiles="O=[CH:1][C@H:2](O)[C@H:3](O)[CH2:4]O[P](=O)(O)O",
+    dict(id="e4p", name="D-赤藓糖-4-磷酸（E4P）", formula="C4H7O7P",
+         smiles="O=[CH:1][C@H:2](O)[C@H:3](O)[CH2:4]O[P](=O)([O-])[O-]",
          src="public/assets/steps/ppp-gn-lig/5XPS-E4P-A.sdf", sdf="e4p_5xps.sdf",
          pdb="5XPS", species="Scheffersomyces stipitis", method="X-RAY DIFFRACTION", res=1.07,
          chain="A", resname="E4P", protein="树干毕赤酵母转酮醇酶 TK（PPP 第 6/8 步）· 受体底物结合态",
@@ -293,8 +301,8 @@ PPP_MOLS = [
 ]
 
 GN_MOLS = [
-    dict(id="pyr-gn", name="丙酮酸（PKM2 口袋）", formula="C3H4O3",
-         smiles="O=[C:1](O)[C:2](=O)[CH3:3]",
+    dict(id="pyr-gn", name="丙酮酸（PKM2 口袋）", formula="C3H3O3",
+         smiles="O=[C:1]([O-])[C:2](=O)[CH3:3]",
          src="public/assets/steps/ppp-gn-lig/4YJ5-PYR-A.sdf", sdf="pyr_4yj5.sdf",
          pdb="4YJ5", species="Homo sapiens", method="X-RAY DIFFRACTION", res=2.41,
          chain="A", resname="PYR", protein="人丙酮酸激酶 M2（PKM2；糖酵解末步，非糖异生丙酮酸羧化酶口袋）",
@@ -318,8 +326,8 @@ GN_MOLS = [
          chain="A", resname="F6P", protein="猪肝果糖-1,6-二磷酸酶 1（FBPase1，糖异生第 9 步）· 产物结合态",
          form="β-D-呋喃果糖-6-磷酸（五元环）",
          caveat="实验坐标来自 1EYI（猪肝 FBPase1，链 A，配体 F6P，2.32 Å）：本步酶但为哺乳动物非人源；糖酵解/PPP 页仍沿用 2CXS（小鼠 GPI）。"),
-    dict(id="lac", name="L-乳酸（(S)-构型）", formula="C3H6O3",
-         smiles="C[C@H:2](O)[C:1](=O)O", src=None, sdf=None,
+    dict(id="lac", name="L-乳酸（(S)-构型）", formula="C3H5O3",
+         smiles="C[C@H:2](O)[C:1](=O)[O-]", src=None, sdf=None,
          form="L-乳酸（(S)-构型；计算构象）",
          caveat="PDB 唯一乳酸配体 LAC 的 CCD 为 D-乳酸（(R)），与 Cori 循环的 L-乳酸不是同一分子；本轮不拿对映体冒充，改为 RDKit 计算构象（自由态，不等于结合态）。"),
     dict(id="ala", name="L-丙氨酸", formula="C3H7NO2",
@@ -329,8 +337,8 @@ GN_MOLS = [
          chain="A", resname="ALA", protein="人 L-精氨酸:甘氨酸脒基转移酶 AGAT（非糖异生 ALT 口袋）",
          form="L-丙氨酸（(S)-构型）",
          caveat="实验坐标来自 8JDW（人 AGAT，链 A，配体 ALA，2.30 Å）：人源但非本步丙氨酸氨基转移酶口袋；人 ALT2（3IHJ）未见 ALA 配体。"),
-    dict(id="glu", name="L-谷氨酸", formula="C5H9NO4",
-         smiles="N[C@@H:2]([CH2:3][CH2:4][C:5](=O)O)[C:1](=O)O",
+    dict(id="glu", name="L-谷氨酸", formula="C5H8NO4",
+         smiles="[NH3+][C@@H:2]([CH2:3][CH2:4][C:5](=O)[O-])[C:1](=O)[O-]",
          src="public/assets/steps/ppp-gn-lig/3CZD-GLU-A.sdf", sdf="glu_3czd.sdf",
          pdb="3CZD", species="Homo sapiens", method="X-RAY DIFFRACTION", res=2.4,
          chain="A", resname="GLU", protein="人肾型谷氨酰胺酶 GLS1（非糖异生 ALT 口袋）",
@@ -346,8 +354,8 @@ GN_TWO_D_IDS = {"lac", "ala", "glu", "hco3"}
 # 脂酰-CoA 系列全部"分块"：只画酰基链 + 硫酯 S，CoA 长链省略并标「CoA 略」。
 # 链长必须留在块里（C16 画 16 个酰基碳、C14 画 14 个），不能只剩一个 S 原子。
 FAO_MOLS = [
-    dict(id="fa", name="棕榈酸（软脂酸，C16:0）", formula="C16H32O2",
-         smiles="[CH3:16]CCCCCCCCCCCCCCC(=O)O", src=None, sdf=None,
+    dict(id="fa", name="棕榈酸（软脂酸，C16:0）", formula="C16H31O2",
+         smiles="[CH3:16]CCCCCCCCCCCCCCC(=O)[O-]", src=None, sdf=None,
          form="棕榈酸（C16:0 饱和直链脂肪酸）",
          caveat="无同分子实验配体：棕榈酸在结构库里多以 PLM 出现在疏水口袋，但均非 β-氧化本步酶口袋；本轮按 RDKit ETKDGv3（30 起点）+ MMFF94 生成自由态构象，标注为计算构象，不等于白蛋白结合态或膜内构象。"),
     dict(id="acylcoa-c16", name="棕榈酰-CoA（分块：棕榈酰基 C1–C16 + 硫酯 S）", formula="C17H34OS",
@@ -356,10 +364,10 @@ FAO_MOLS = [
          pdb="5DV5", species="Vibrio alginolyticus", method="X-RAY DIFFRACTION", res=2.4,
          chain="A", resname="PKZ", protein="溶藻弧菌脂肪酸响应转录因子 FadR · 完整棕榈酰-CoA（非 β-氧化酶口袋）",
          form="棕榈酰-CoA 反应端（分块）：棕榈酰基 C1–C16 + 硫酯 S + CoA 折线起点",
-         caveat="分块呈现，不是完整分子：只画反应端（棕榈酰基 C1–C16 + 硫酯 S）。实验坐标取自 5DV5 的完整棕榈酰-CoA（配体 PKZ，链 A，2.40 Å X-ray，溶藻弧菌 FadR，65 重原子）：只保留棕榈酰基 + 硫酯 S 的实测几何，CoA 长链省略；S 右侧的碳仅作 CoA 链的折线起点并标「CoA 略」。FadR 不是 β-氧化酶，本步酶（ACAD 家族）口袋内 C16 饱和酰基-CoA 的高分辨结构本轮未获。完整棕榈酰-CoA 为 C37H66N7O17P3S。",
+         caveat="分块呈现，不是完整分子：只画反应端（棕榈酰基 C1–C16 + 硫酯 S）。实验坐标取自 5DV5 的完整棕榈酰-CoA（配体 PKZ，链 A，2.40 Å X-ray，溶藻弧菌 FadR，65 重原子）：只保留棕榈酰基 + 硫酯 S 的实测几何，CoA 长链省略；S 右侧的碳仅作 CoA 链的折线起点并标「CoA 略」。FadR 不是 β-氧化酶，本步酶（ACAD 家族）口袋内 C16 饱和酰基-CoA 的高分辨结构本轮未获。完整棕榈酰-CoA 为 C37H64N7O17P3S。",
          fragment=dict(kind="block", shown="棕榈酰基 C1–C16 + 硫酯 S",
                        omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
-                       note="分块资产：只画反应端，不是完整棕榈酰-CoA（C37H66N7O17P3S）；链长 C16 保留在酰基链上，S 右侧碳为 CoA 折线起点并标「CoA 略」。"),
+                       note="分块资产：只画反应端，不是完整棕榈酰-CoA（C37H64N7O17P3S）；链长 C16 保留在酰基链上，S 右侧碳为 CoA 折线起点并标「CoA 略」。"),
          coa_label_atom=17, label_atoms={17: "CoA 略"}),
     dict(id="enoyl-c16", name="反式-Δ²-棕榈烯酰-CoA（分块：C16 烯酰基 + 硫酯 S）", formula="C17H32OS",
          smiles="[CH3:16]" + "[CH2]" * 11 + "[CH2:4]/[CH:3]=[CH:2]/[C:1](=O)[S][CH3:17]",
@@ -367,37 +375,37 @@ FAO_MOLS = [
          pdb="2UXW", species="Homo sapiens", method="X-RAY DIFFRACTION", res=1.45,
          chain="A", resname="TH3", protein="人极长链酰基-CoA 脱氢酶 VLCAD（ACADVL，β-氧化第 1 步同酶）· 反式-Δ²-棕榈烯酰-CoA",
          form="反式-Δ²-棕榈烯酰-CoA 反应端（分块）：C1–C16 烯酰基（C2=C3 trans）+ 硫酯 S + CoA 折线起点",
-         caveat="分块呈现，不是完整分子：只画反应端（C1–C16 烯酰基 + 硫酯 S）。实验坐标取自 2UXW 的配体 TH3（链 A，1.45 Å X-ray，人 VLCAD）：PDB 中 TH3 只建模了 24 个重原子，是截短的酰基-N-乙酰半胱胺硫酯（CoA 尾未建模），不是完整 CoA；本资产只用其反应端的实测几何，C2=C3 为实测 trans 双键，S 右侧碳仅作 CoA 折线起点并标「CoA 略」。完整反式-Δ²-棕榈烯酰-CoA 为 C37H64N7O17P3S。",
+         caveat="分块呈现，不是完整分子：只画反应端（C1–C16 烯酰基 + 硫酯 S）。实验坐标取自 2UXW 的配体 TH3（链 A，1.45 Å X-ray，人 VLCAD）：PDB 中 TH3 只建模了 24 个重原子，是截短的酰基-N-乙酰半胱胺硫酯（CoA 尾未建模），不是完整 CoA；本资产只用其反应端的实测几何，C2=C3 为实测 trans 双键，S 右侧碳仅作 CoA 折线起点并标「CoA 略」。完整反式-Δ²-棕榈烯酰-CoA 为 C37H62N7O17P3S。",
          fragment=dict(kind="block", shown="C1–C16 烯酰基（C2=C3 trans）+ 硫酯 S",
                        omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
-                       note="分块资产：只画反应端，不是完整反式-Δ²-棕榈烯酰-CoA（C37H64N7O17P3S）；TH3 在晶体中是截短的酰基-N-乙酰半胱胺硫酯，CoA 尾未建模；链长 C16 与 C2=C3 双键保留在酰基链上。"),
+                       note="分块资产：只画反应端，不是完整反式-Δ²-棕榈烯酰-CoA（C37H62N7O17P3S）；TH3 在晶体中是截短的酰基-N-乙酰半胱胺硫酯，CoA 尾未建模；链长 C16 与 C2=C3 双键保留在酰基链上。"),
          coa_label_atom=17, label_atoms={17: "CoA 略"}),
     dict(id="hydroxy-c16", name="L-3-羟基棕榈酰-CoA（分块：C16 羟酰基 + 硫酯 S）", formula="C17H34O2S",
          smiles="[CH3:16]" + "[CH2]" * 12 + "[C@H:3](O)[CH2:2][C:1](=O)[S][CH3:17]",
          src=None, sdf=None,
          form="L-3-羟基棕榈酰-CoA 反应端（分块）：C1–C16 羟酰基（C3 带 OH，S 构型）+ 硫酯 S + CoA 折线起点",
-         caveat="分块呈现，不是完整分子；且为计算构象：本步酶（人 HADH）口袋内 C16 3-羟基脂酰-CoA 的实验络合物本轮未获。人 HADH 的 C4 3-羟基丁酰-CoA 络合物 1F12（2.4 Å）存在，但链长 C4 与 C16 不一致，混用会让 ΔV 把链长差当成化学变化，故不采用。构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。C3 按 L-3-羟基酰-CoA 的 (S) 构型建模（CIP 校验见报告）。完整 L-3-羟基棕榈酰-CoA 为 C37H66N7O18P3S。",
+         caveat="分块呈现，不是完整分子；且为计算构象：本步酶（人 HADH）口袋内 C16 3-羟基脂酰-CoA 的实验络合物本轮未获。人 HADH 的 C4 3-羟基丁酰-CoA 络合物 1F12（2.4 Å）存在，但链长 C4 与 C16 不一致，混用会让 ΔV 把链长差当成化学变化，故不采用。构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。C3 按 L-3-羟基酰-CoA 的 (S) 构型建模（CIP 校验见报告）。完整 L-3-羟基棕榈酰-CoA 为 C37H64N7O18P3S。",
          fragment=dict(kind="block", shown="C1–C16 羟酰基（C3-OH，S）+ 硫酯 S",
                        omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
-                       note="分块资产：只画反应端，不是完整 L-3-羟基棕榈酰-CoA（C37H66N7O18P3S）；链长 C16 与 C3-OH 保留在酰基链上；3D 为计算构象。"),
+                       note="分块资产：只画反应端，不是完整 L-3-羟基棕榈酰-CoA（C37H64N7O18P3S）；链长 C16 与 C3-OH 保留在酰基链上；3D 为计算构象。"),
          coa_label_atom=17, label_atoms={17: "CoA 略"}, expect_cip="C3:S"),
     dict(id="keto-c16", name="3-酮棕榈酰-CoA（分块：C16 酮酰基 + 硫酯 S）", formula="C17H32O2S",
          smiles="[CH3:16]" + "[CH2]" * 12 + "[C:3](=O)[CH2:2][C:1](=O)[S][CH3:17]",
          src=None, sdf=None,
          form="3-酮棕榈酰-CoA 反应端（分块）：C1–C16 酮酰基（C3 酮基）+ 硫酯 S + CoA 折线起点",
-         caveat="分块呈现，不是完整分子；且为计算构象：本步酶（人 SCHAD/HADH）口袋内 C16 3-酮脂酰-CoA 的实验络合物本轮未获。人 SCHAD 的 C4 乙酰乙酰-CoA 络合物 1F0Y（1.8 Å，含 NAD）存在，但链长 C4 与 C16 不一致，混用会让 ΔV 把链长差当成化学变化，故不采用。构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。完整 3-酮棕榈酰-CoA 为 C37H64N7O18P3S。",
+         caveat="分块呈现，不是完整分子；且为计算构象：本步酶（人 SCHAD/HADH）口袋内 C16 3-酮脂酰-CoA 的实验络合物本轮未获。人 SCHAD 的 C4 乙酰乙酰-CoA 络合物 1F0Y（1.8 Å，含 NAD）存在，但链长 C4 与 C16 不一致，混用会让 ΔV 把链长差当成化学变化，故不采用。构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。完整 3-酮棕榈酰-CoA 为 C37H62N7O18P3S。",
          fragment=dict(kind="block", shown="C1–C16 酮酰基（C3=O）+ 硫酯 S",
                        omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
-                       note="分块资产：只画反应端，不是完整 3-酮棕榈酰-CoA（C37H64N7O18P3S）；链长 C16 与 C3 酮基保留在酰基链上；3D 为计算构象。"),
+                       note="分块资产：只画反应端，不是完整 3-酮棕榈酰-CoA（C37H62N7O18P3S）；链长 C16 与 C3 酮基保留在酰基链上；3D 为计算构象。"),
          coa_label_atom=17, label_atoms={17: "CoA 略"}),
     dict(id="acylcoa-c14", name="肉豆蔻酰-CoA（分块：C14 酰基 + 硫酯 S）", formula="C15H30OS",
          smiles="[CH3:14]" + "[CH2]" * 11 + "[CH2:2][C:1](=O)[S][CH3:15]",
          src=None, sdf=None,
          form="肉豆蔻酰-CoA 反应端（分块）：C14 酰基 + 硫酯 S + CoA 折线起点",
-         caveat="分块呈现，不是完整分子；且为计算构象：C14 肉豆蔻酰-CoA 的完整实验配体本轮未获。该块只用于表达第 4 步「链缩短 2C」的产物，构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。完整肉豆蔻酰-CoA 为 C35H62N7O17P3S。",
+         caveat="分块呈现，不是完整分子；且为计算构象：C14 肉豆蔻酰-CoA 的完整实验配体本轮未获。该块只用于表达第 4 步「链缩短 2C」的产物，构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。完整肉豆蔻酰-CoA 为 C35H60N7O17P3S。",
          fragment=dict(kind="block", shown="C1–C14 酰基 + 硫酯 S",
                        omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
-                       note="分块资产：只画反应端，不是完整肉豆蔻酰-CoA（C35H62N7O17P3S）；链长 C14 保留在酰基链上，比 C16 少两个碳。3D 为计算构象。"),
+                       note="分块资产：只画反应端，不是完整肉豆蔻酰-CoA（C35H60N7O17P3S）；链长 C14 保留在酰基链上，比 C16 少两个碳。3D 为计算构象。"),
          coa_label_atom=15, label_atoms={15: "CoA 略"}),
     dict(id="acylcarn", name="棕榈酰肉碱（C16 脂酰肉碱）", formula="C23H45NO4",
          smiles="[CH3:16]CCCCCCCCCCCCCCC(=O)O[C@H:3](CC(=O)[O-])C[N+](C)(C)C", src=None, sdf=None,
@@ -642,8 +650,11 @@ def svg_2d(asset):
     for a in asset["atoms"]:
         if a["el"] in ("O", "N", "S", "P"):
             out.append(f'<circle cx="{a["x"]:.1f}" cy="{a["y"]:.1f}" r="8.5" fill="{paper}"/>')
+            el_fill = ATOM_COLORS.get(a["el"], ATOM_FALLBACK)
             out.append(f'<text x="{a["x"]:.1f}" y="{a["y"] + 3.2:.1f}" text-anchor="middle" '
-                       f'font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="{ink}">{a["el"]}</text>')
+                       f'data-element="{a["el"]}" data-element-color="{el_fill}" '
+                       f'style="fill:{el_fill}" '
+                       f'font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="{el_fill}">{a["el"]}</text>')
         else:
             out.append(f'<circle cx="{a["x"]:.1f}" cy="{a["y"]:.1f}" r="1.8" fill="{hair}"/>')
         if a.get("label"):
@@ -916,11 +927,41 @@ def generate(mols, two_d_ids, report_path, generated_at):
     print(f"\n全部通过：{len(report)} 个分子；报告 {report_path}")
 
 
+def svg_only():
+    """只按现有 2D JSON 重绘 SVG（配色改动专用）：不改 JSON、不改 3D、不重算坐标。"""
+    names = sorted(fn for fn in os.listdir(OUT2D) if fn.endswith(".json") and fn != "demo-gap.json")
+    errors = []
+    for fn in names:
+        path = os.path.join(OUT2D, fn)
+        with open(path, encoding="utf-8") as fh:
+            asset = json.load(fh)
+        svg, lines, bonds = svg_2d(asset)
+        if bonds != len(asset["bonds"]) or lines < len(asset["bonds"]):
+            errors.append(f"{fn} SVG 键线数与 JSON 键数不符")
+            continue
+        if not svg_viewbox_ok(svg):
+            errors.append(f"{fn} SVG viewBox 缺失/非法")
+            continue
+        with open(os.path.splitext(path)[0] + ".svg", "w", encoding="utf-8") as fh:
+            fh.write(svg)
+    if errors:
+        print("\n✗ 校验失败：")
+        for e in errors:
+            print("  -", e)
+        sys.exit(1)
+    print(f"仅重绘 SVG：{len(names)} 个文件（JSON / 3D 未改动）")
+
+
 def main():
     ap = argparse.ArgumentParser(description="离线生成分子 2D/3D 资产")
     ap.add_argument("--pathway", choices=["glycolysis", "tca", "ppp", "gluconeogenesis", "fao"], default="glycolysis",
                     help="默认 glycolysis（保持原报告路径与行为）；tca/ppp/gluconeogenesis/fao 写独立报告")
+    ap.add_argument("--svg-only", action="store_true",
+                    help="只按现有 2D JSON 重绘 SVG（配色专用，幂等）")
     args = ap.parse_args()
+    if args.svg_only:
+        svg_only()
+        return
     if args.pathway == "tca":
         generate(TCA_MOLS, TCA_TWO_D_IDS,
                  os.path.join(ROOT, "preview", "tca-molecule-assets-report.json"),

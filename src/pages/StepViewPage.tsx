@@ -26,6 +26,7 @@ import {
   type Pocket,
   type StepFlag,
 } from "../data/step3d";
+import { ATOM_PALETTE_JSON, atomColor, atomColorFunc } from "../data/atomColors";
 
 type ViewState = "apo" | "holo";
 type Phase = "loading" | "ready" | "degraded" | "static";
@@ -277,18 +278,20 @@ function StepView({
         const pocketResis = pocket.residues.map((r) => r.resi);
         model.setStyle(
           { resi: pocketResis },
-          { cartoon: { color: "#c17a4a" }, stick: { radius: 0.14, colorscheme: "defaultCarbon" } }
+          { cartoon: { color: "#c17a4a" }, stick: { radius: 0.14, colorfunc: atomColorFunc } }
         );
         const waters = pocket.waters ?? [];
         if (waters.length) {
-          model.setStyle({ resn: "HOH", resi: waters }, { sphere: { radius: 0.28, color: "#8fb8d8" } });
+          // 水分子也是氧原子：取统一 O 色，靠小球半径与位置区分
+          model.setStyle({ resn: "HOH", resi: waters }, { sphere: { radius: 0.28, color: atomColor("O") } });
         }
         if (state === "holo") {
           // 只绘制 pocketRelevant 的配体实例（第二位点拷贝与远处配体不画，避免误导）
           for (const lg of meta.ligands) {
             if (!lg.sdf || !lg.pocketRelevant) continue;
             const lig = viewer.addModel(await fetchText(`${base}/${lg.sdf}`), "sdf");
-            lig.setStyle({}, { stick: { radius: 0.25, colorscheme: "defaultCarbon" } });
+            // 与结构对照页同一张原子配色表
+            lig.setStyle({}, { stick: { radius: 0.25, colorfunc: atomColorFunc } });
           }
           // 氢键虚线不在此处画：由 syncHbonds 按"点残基才显"的规则统一管理
           viewer.setClickable({ resi: pocketResis }, true, (atom: any) => {
@@ -348,12 +351,12 @@ function StepView({
       const pocketResis = pocket.residues.map((r) => r.resi);
       model.setStyle(
         { resi: pocketResis },
-        { cartoon: { color: "#c17a4a" }, stick: { radius: 0.14, colorscheme: "defaultCarbon" } }
+        { cartoon: { color: "#c17a4a" }, stick: { radius: 0.14, colorfunc: atomColorFunc } }
       );
       if (!deselect) {
         model.setStyle(
           { resi },
-          { cartoon: { color: "#7a2e0e" }, stick: { radius: 0.24, colorscheme: "defaultCarbon" } }
+          { cartoon: { color: "#7a2e0e" }, stick: { radius: 0.24, colorfunc: atomColorFunc } }
         );
       }
       viewer.render();
@@ -509,6 +512,7 @@ function StepView({
             <div
               ref={viewerHostRef}
               className={`s-viewer${phase === "ready" ? "" : " hidden"}`}
+              data-atom-colors={ATOM_PALETTE_JSON}
               onPointerDown={dismissHint}
               onWheel={dismissHint}
             />
