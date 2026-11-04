@@ -1,0 +1,170 @@
+{
+  "stepId": "gk-10",
+  "stepName": "PEP → 丙酮酸（丙酮酸激酶 PKL）",
+  "assetVersion": "2.0.0",
+  "generatedAt": "2026-11-03",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12
+  },
+  "pdbId": "6NN4",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2.15,
+  "resolutionPerState": {
+    "holo": 2.15,
+    "apo": 2.2
+  },
+  "atomCount": 3237,
+  "chainSelection": {
+    "chains": [
+      "C"
+    ],
+    "rule": {
+      "C": "R2 主链：承载保留配体重原子最多"
+    }
+  },
+  "ligands": [
+    {
+      "id": "FBP",
+      "name": "1,6-二磷酸果糖（变构激活剂）",
+      "role": "cofactor",
+      "rationale": "真实代谢物，占据变构激活位点（远端，不参与口袋判定）",
+      "instances": 1,
+      "instanceChains": [
+        "C/601"
+      ],
+      "pocketRelevant": false,
+      "minDistToPrimaryA": 36.6,
+      "atomCount": 20,
+      "sdfFile": "ligand-FBP.sdf"
+    },
+    {
+      "id": "PEP",
+      "name": "磷酸烯醇式丙酮酸",
+      "role": "substrate",
+      "rationale": "真实底物，活性位点",
+      "instances": 1,
+      "instanceChains": [
+        "C/603"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 10,
+      "sdfFile": "ligand-PEP.sdf"
+    }
+  ],
+  "caveats": [
+    "6NN4 为 D499N 突变体（催化残基 Asp499→Asn），属补偿性证据。",
+    "同工酶差异：holo 6NN4 为 PKL（肝型），apo 1ZJH 为 PKM2（肌肉型）。",
+    "6NN4 无金属离子坐标（PK 反应本需 Mg²⁺/K⁺），口袋不含金属。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 294544,
+      "gzipBytes": 74730
+    },
+    "apo.pdb": {
+      "bytes": 309697,
+      "gzipBytes": 77017
+    },
+    "ligand-FBP.sdf": {
+      "bytes": 1932,
+      "gzipBytes": 488
+    },
+    "ligand-PEP.sdf": {
+      "bytes": 1023,
+      "gzipBytes": 328
+    },
+    "pocket.json": {
+      "bytes": 4340,
+      "gzipBytes": 607
+    }
+  },
+  "holo": {
+    "pdbId": "6NN4",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.15,
+    "title": "THE STRUCTURE OF HUMAN LIVER PYRUVATE KINASE, HLPYK-D499N, IN COMPLEX",
+    "chainSelection": {
+      "chains": [
+        "C"
+      ],
+      "rule": {
+        "C": "R2 主链：承载保留配体重原子最多"
+      }
+    },
+    "atomCount": 3237,
+    "proteinAtomCount": 3207,
+    "ligands": [
+      {
+        "id": "FBP",
+        "name": "1,6-二磷酸果糖（变构激活剂）",
+        "role": "cofactor",
+        "rationale": "真实代谢物，占据变构激活位点（远端，不参与口袋判定）",
+        "instances": 1,
+        "instanceChains": [
+          "C/601"
+        ],
+        "pocketRelevant": false,
+        "minDistToPrimaryA": 36.6,
+        "atomCount": 20,
+        "sdfFile": "ligand-FBP.sdf"
+      },
+      {
+        "id": "PEP",
+        "name": "磷酸烯醇式丙酮酸",
+        "role": "substrate",
+        "rationale": "真实底物，活性位点",
+        "instances": 1,
+        "instanceChains": [
+          "C/603"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 10,
+        "sdfFile": "ligand-PEP.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "EDO",
+        "role": "artifact",
+        "rationale": "乙二醇，结晶防冻添加剂",
+        "instances": 28,
+        "minDistToPrimaryLigand": 32.56
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "FBP",
+      "EDO",
+      "PEP"
+    ]
+  },
+  "apo": {
+    "pdbId": "1ZJH",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.2,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序选取"
+      }
+    },
+    "atomCount": 3882,
+    "proteinAtomCount": 3882,
+    "ligands": [],
+    "presentLigands": [],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

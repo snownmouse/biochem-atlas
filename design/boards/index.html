@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>糖酵解通路概览 · 视觉样张对比（二选一）</title>
+<style>
+  :root{
+    --paper:#F6F3EC; --ink:#22282A; --amber:#B4761F; --teal:#2E6E6B; --brick:#9C4A3C;
+    --hair-soft:rgba(34,40,42,.22); --hair-faint:rgba(34,40,42,.10);
+    --serif:"Noto Serif SC","Source Han Serif SC","Source Han Serif CN","Songti SC",SimSun,serif;
+    --sans:"Noto Sans SC","Source Han Sans SC","Source Han Sans CN","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:13px;line-height:1.7}
+  header{max-width:1400px;margin:0 auto;padding:34px 28px 0}
+  .kicker{font-size:11px;letter-spacing:.35em;border-bottom:1.5px solid var(--ink);padding-bottom:8px;
+    display:flex;justify-content:space-between}
+  h1{font-family:var(--serif);font-size:40px;font-weight:600;letter-spacing:.04em;margin:20px 0 8px}
+  .sub{max-width:760px;font-size:13.5px;margin-bottom:22px}
+  .verdict{border:1px solid var(--ink);padding:14px 18px;margin-bottom:30px;display:flex;gap:28px;align-items:baseline}
+  .verdict .v-lbl{font-family:var(--serif);font-size:15px;font-weight:700;letter-spacing:.1em;white-space:nowrap}
+  .verdict .v-lbl b{color:var(--amber)}
+  .verdict p{font-size:12.5px}
+
+  .cols{max-width:1400px;margin:0 auto;padding:0 28px 50px;display:grid;grid-template-columns:1fr 1fr;gap:26px}
+  .col{border:1px solid var(--hair-soft);display:flex;flex-direction:column}
+  .col-head{padding:14px 18px 12px;border-bottom:1px solid var(--hair-soft)}
+  .col-head .bn{font-size:10px;letter-spacing:.3em;opacity:.6}
+  .col-head h2{font-family:var(--serif);font-size:21px;font-weight:600;margin:4px 0 2px}
+  .col-head .meta{font-size:11px;opacity:.7}
+  .thumb{position:relative;height:560px;overflow:hidden;border-bottom:1px solid var(--hair-faint);background:#fff}
+  .thumb iframe{width:1440px;height:1600px;border:0;transform:scale(0.374);transform-origin:0 0;pointer-events:none}
+  .col-b .thumb iframe{transform:scale(0.374)}
+  .scores{padding:12px 18px;border-bottom:1px solid var(--hair-faint);font-size:12px;display:flex;gap:0}
+  .scores .sc{flex:1}
+  .scores .sc b{display:block;font-size:10px;letter-spacing:.2em;opacity:.6;font-weight:400}
+  .scores .sc .v{font-family:var(--serif);font-size:22px;font-weight:600}
+  .scores .sc .v span{font-size:12px;opacity:.5}
+  .tradeoff{padding:12px 18px 16px;font-size:12px;line-height:1.8}
+  .tradeoff b{font-size:10px;letter-spacing:.2em;opacity:.6;display:block;margin-bottom:4px;font-weight:400}
+  .tradeoff .good{color:var(--teal)} .tradeoff .bad{color:var(--brick)}
+  .open{margin-top:auto;display:block;text-align:center;padding:11px;border-top:1px solid var(--ink);
+    color:var(--ink);text-decoration:none;font-size:12px;letter-spacing:.3em;font-weight:700}
+  .open:hover{background:rgba(34,40,42,.05)}
+  .note{max-width:1400px;margin:0 auto;padding:0 28px 46px;font-size:11px;opacity:.65;line-height:1.8}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="kicker"><span>生化反应可视化平台 · 视觉样张</span><span class="num">2026.11 · 二选一</span></div>
+  <h1>糖酵解通路概览：两种气质</h1>
+  <p class="sub">同一份糖酵解数据（10 步、肝/肌/红细胞差异、能量账），两张样张内容对等，只换视觉语言。点击底部链接查看全图与可点击的步骤详情栏。</p>
+  <div class="verdict">
+    <span class="v-lbl">执行方建议：<b>选 B</b></span>
+    <p>B 的挂图密度承载的不只是审美——辅因子转移、支路、能量结算在同一画面互为注脚，后续 TCA / 氧化磷酸化可以直接以"挂图 02、03"续编成体系；A 的纵向流虽直觉，但空间换来的教学增益有限，且更接近通用数据可视化，不容易长出"这套平台自己的脸"。</p>
+  </div>
+</header>
+
+<div class="cols">
+  <div class="col col-a">
+    <div class="col-head">
+      <span class="bn">样张 A · 对照</span>
+      <h2>细胞切片 · 纵向代谢流</h2>
+      <span class="meta">a-cell-section.html — 上投资、下回收的纵向叙事</span>
+    </div>
+    <div class="thumb"><iframe src="a-cell-section.html" title="样张 A 预览" loading="eager"></iframe></div>
+    <div class="scores">
+      <div class="sc"><b>信息密度</b><span class="v num">6<span> /10</span></span></div>
+      <div class="sc"><b>专业感</b><span class="v num">7<span> /10</span></span></div>
+      <div class="sc"><b>亲和力</b><span class="v num">8<span> /10</span></span></div>
+    </div>
+    <div class="tradeoff">
+      <b>取舍说明</b>
+      <span class="good">得到：</span>"先投资后回收"的空间顺序最直白，逐行阅读零门槛，适合入门者第一次走完十步。<br>
+      <span class="bad">牺牲：</span>密度与全局感——辅因子收支被拆进右栏账本，主链本身看不出能量在哪一步流动；版面接近通用列表，平台辨识度弱。
+    </div>
+    <a class="open" href="a-cell-section.html">查看全图 →</a>
+  </div>
+
+  <div class="col col-b">
+    <div class="col-head">
+      <span class="bn">样张 B · 主推</span>
+      <h2>代谢图谱海报 · 挂图 01</h2>
+      <span class="meta">b-poster.html — Roche 式细密箭头 · 瑞士网格 · 可漫游画布</span>
+    </div>
+    <div class="thumb"><iframe src="b-poster.html" title="样张 B 预览" loading="eager"></iframe></div>
+    <div class="scores">
+      <div class="sc"><b>信息密度</b><span class="v num">9<span> /10</span></span></div>
+      <div class="sc"><b>专业感</b><span class="v num">9<span> /10</span></span></div>
+      <div class="sc"><b>亲和力</b><span class="v num">6<span> /10</span></span></div>
+    </div>
+    <div class="tradeoff">
+      <b>取舍说明</b>
+      <span class="good">得到：</span>一屏之内同时读出主链、ATP/NADH 进出、DHAP 与 2,3-BPG 支路、能量结算与组织差异——挂图式密度本身就是专业信号，且天然可续编为系列。
+      <span class="bad">牺牲：</span>亲和力与首次阅读顺滑度：横向画布需要漫游，符号系统（罗马数字、方块账目、虚线支路）需要一次图例学习。
+    </div>
+    <a class="open" href="b-poster.html">查看全图 →</a>
+  </div>
+</div>
+
+<div class="note">
+  说明：缩略图为页面顶部 1:1 实时渲染（未缩放画质损耗除外）；三处样张数据均取自 src/data/glycolysis.json 与 skeleton.json，未另编。字体按 Noto Serif SC / 思源黑体声明，系统缺失时回退为宋体 / 雅黑类。原第三方向"手绘教学笔记"已按决策放弃，不再出样。
+</div>
+
+</body>
+</html>

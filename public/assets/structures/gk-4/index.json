@@ -1,0 +1,31 @@
+{
+  "stepId": "gk-4",
+  "stepIndex": 4,
+  "frames": [
+    {
+      "frameId": "gk-4-f0",
+      "asset": "frame-f0.json",
+      "source": "4ALD / Homo sapiens / 2.8 Å（2FP=线形 F1,6BP；天然人骨骼肌 ALDOA）"
+    },
+    {
+      "frameId": "gk-4-f1",
+      "asset": "frame-f1.json",
+      "source": "5KY6 / Homo sapiens / 1.94 Å（野生型 apo，重组表达 E. coli；与 holo=4ALD 同物种跨结构）"
+    },
+    {
+      "frameId": "gk-4-f2",
+      "asset": "frame-f2.json",
+      "source": "4ALD / Homo sapiens / 2.8 Å（线形非生产性构象）"
+    },
+    {
+      "frameId": "gk-4-f3",
+      "asset": "frame-f3.json",
+      "source": "1ADO / Oryctolagus cuniculus / 1.9 Å（13P=DHAP，兔源；跨物种配体级叠合示意）"
+    }
+  ],
+  "alignment": {
+    "T4a": "4ALD·2FP 骨架 → F6P 链末端，RMSD 0.85 Å（6 原子，含线形 vs 呋喃差异）",
+    "T4b": "1ADO·13P → 2FP C1–C3 端，RMSD 0.57 Å（4 原子）",
+    "T4c": "5KY6 链A Cα → 4ALD 链A，RMSD 5.72 Å（273 对；同物种同酶跨结构）"
+  }
+}

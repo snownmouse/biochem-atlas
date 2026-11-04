@@ -1,0 +1,67 @@
+{
+  "pathwayId": "fatty-acid-oxidation",
+  "canvas": { "width": 1980, "height": 880 },
+  "spatialNote": "β-氧化用泳道表达的空间差异比糖异生更硬：活化在胞质侧/外膜完成，而四步循环全部在线粒体基质——中间隔着外膜、膜间腔与内膜，长链脂酰-CoA 必须由肉碱穿梭（CPT1→CACT→CPT2）跨过，故骨架分四条泳道：胞质 / 外膜 / 内膜 / 基质；跨膜环节一律画成泳道切换，不画平线。外膜带与内膜带之间的视觉空隙即膜间腔，脂酰肉碱在此由 CPT1 交接给 CACT。基质内四步循环画成闭合环：四段主弧（fao-1…fao-4）+ 低权重回流弧，回流弧明确标注『第 5 轮回到第 1 步』，避免误读为第 5 步；乙酰-CoA 经低权重出口弧离环入 TCA。节点坐标器官无关。",
+  "compartments": [
+    {
+      "id": "cytosol",
+      "name": "细胞质",
+      "band": { "y0": 60, "y1": 220 },
+      "note": "脂肪酸经血液/清蛋白入胞后在此活化（酶锚在外膜胞质面），产物脂酰-CoA 进不了内膜。"
+    },
+    {
+      "id": "mito-outer-membrane",
+      "name": "线粒体外膜（含膜间腔侧）",
+      "band": { "y0": 220, "y1": 300 },
+      "note": "ACSL 与 CPT1 所在：活化完成的现场，限速闸 CPT1 把脂酰基交给肉碱。"
+    },
+    {
+      "id": "mito-inner-membrane",
+      "name": "线粒体内膜（转运带）",
+      "band": { "y0": 300, "y1": 380 },
+      "note": "CACT 转位酶（电中性交换）与基质侧 CPT2 所在；本带只放跨膜机器，不放代谢反应。"
+    },
+    {
+      "id": "mito-matrix",
+      "name": "线粒体基质",
+      "band": { "y0": 380, "y1": 840 },
+      "note": "四步循环主场：闭合环在此，每轮 −2C，回流弧表『第 5 轮』语义。"
+    }
+  ],
+  "nodes": [
+    { "id": "fa",            "order": null, "x": 80,   "y": 140, "compartment": "cytosol",             "kind": "metabolite", "label": "脂肪酸（C16）",    "entityId": "fa",       "note": "经血液/清蛋白入胞" },
+    { "id": "acylcoa-cyt",   "order": null, "x": 330,  "y": 140, "compartment": "cytosol",             "kind": "metabolite", "label": "脂酰-CoA（C16）",  "entityId": "acylcoa",  "note": "活化产物；ATP→AMP+PPi＝2 个高能磷酸键" },
+    { "id": "acs",           "order": null, "x": 200,  "y": 260, "compartment": "mito-outer-membrane", "kind": "enzyme",     "label": "脂酰-CoA 合成酶",  "entityId": "acsl",     "note": "ACSL 锚在外膜/ER 胞质面；结构证据 3EQ6 属中链 ACSM2A" },
+    { "id": "cpt1",          "order": null, "x": 450,  "y": 260, "compartment": "mito-outer-membrane", "kind": "enzyme",     "label": "CPT1",             "entityId": "cpt1",     "note": "限速闸：丙二酰-CoA 抑制（合成开启时焊死分解的门）" },
+    { "id": "acylcarn",      "order": null, "x": 600,  "y": 260, "compartment": "mito-outer-membrane", "kind": "metabolite", "label": "脂酰肉碱",         "entityId": "acylcarn", "note": "CPT1 产物；经膜间腔交给 CACT" },
+    { "id": "cact",          "order": null, "x": 720,  "y": 340, "compartment": "mito-inner-membrane", "kind": "enzyme",     "label": "CACT",             "entityId": "cact",     "note": "内膜转位酶：脂酰肉碱进 / 肉碱出，电中性交换" },
+    { "id": "cpt2",          "order": null, "x": 860,  "y": 340, "compartment": "mito-inner-membrane", "kind": "enzyme",     "label": "CPT2",             "entityId": "cpt2",     "note": "内膜基质侧：换回 CoA-SH，释出肉碱回程" },
+    { "id": "acylcoa",       "order": 1,    "x": 1140, "y": 610, "compartment": "mito-matrix",         "kind": "metabolite", "label": "脂酰-CoA（Cₙ）",   "entityId": "acylcoa",  "note": "环的入口底物；Cₙ 表示每轮 −2C" },
+    { "id": "enoyl",         "order": 2,    "x": 1450, "y": 490, "compartment": "mito-matrix",         "kind": "metabolite", "label": "反式-Δ²-烯酰-CoA", "entityId": "enoyl" },
+    { "id": "hydroxy",       "order": 3,    "x": 1760, "y": 610, "compartment": "mito-matrix",         "kind": "metabolite", "label": "L-3-羟脂酰-CoA",   "entityId": "hydroxyacyl" },
+    { "id": "keto",          "order": 4,    "x": 1450, "y": 730, "compartment": "mito-matrix",         "kind": "metabolite", "label": "3-酮脂酰-CoA",     "entityId": "ketoacyl" },
+    { "id": "acylcoa-short", "order": null, "x": 1080, "y": 790, "compartment": "mito-matrix",         "kind": "metabolite", "label": "脂酰-CoA（Cₙ₋₂）", "entityId": "acylcoa",  "note": "第 4 步硫解剩余链：即下一轮第 1 步底物" },
+    { "id": "accoa",         "order": null, "x": 840,  "y": 790, "compartment": "mito-matrix",         "kind": "metabolite", "label": "乙酰-CoA",         "entityId": "accoa",    "note": "每轮 1 个（第 7 轮 2 个）→ TCA" }
+  ],
+  "links": [
+    { "from": "fa",          "to": "acylcoa-cyt",   "stepId": "fao-act",     "type": "main",         "label": "活化：ATP→AMP+PPi（2 个高能磷酸键）" },
+    { "from": "acylcoa-cyt", "to": "acylcarn",      "stepId": "fao-shuttle", "type": "shuttle",      "label": "CPT1：脂酰基 → 肉碱（限速）" },
+    { "from": "acylcarn",    "to": "acylcoa",       "stepId": "fao-shuttle", "type": "shuttle",      "label": "CACT 过内膜 · CPT2 换回 CoA-SH" },
+    { "from": "acylcoa",     "to": "enoyl",         "stepId": "fao-1",       "type": "main" },
+    { "from": "enoyl",       "to": "hydroxy",       "stepId": "fao-2",       "type": "main" },
+    { "from": "hydroxy",     "to": "keto",          "stepId": "fao-3",       "type": "main" },
+    { "from": "keto",        "to": "acylcoa-short", "stepId": "fao-4",       "type": "main",         "label": "硫解：C3–C4 断键，释出乙酰-CoA + 短 2C 脂酰-CoA" },
+    { "from": "acylcoa-short", "to": "acylcoa",     "type": "cycle-return",  "label": "第 5 轮回到第 1 步（链已 −2C；这是下一轮，不是第 5 步）" },
+    { "from": "keto",        "to": "accoa",         "type": "cycle-exit",    "label": "乙酰-CoA 离环 → TCA（×10 ATP）" }
+  ],
+  "transportSteps": [
+    {
+      "id": "fao-shuttle",
+      "name": "肉碱穿梭：CPT1（外膜）→ CACT（内膜转位）→ CPT2（基质侧）",
+      "from": "acylcoa-cyt",
+      "via": "acylcarn",
+      "to": "acylcoa",
+      "note": "长链脂肪酸唯一的入场券：胞质脂酰-CoA 的脂酰基在 CPT1 转给肉碱（限速闸，丙二酰-CoA 抑制），脂酰肉碱经 CACT 电中性交换过内膜，基质侧 CPT2 换回 CoA-SH 释出脂酰-CoA 与肉碱（肉碱回程复用）。"
+    }
+  ]
+}

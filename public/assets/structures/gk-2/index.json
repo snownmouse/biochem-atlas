@@ -1,0 +1,51 @@
+{
+  "pathwayId": "glycolysis",
+  "stepId": "gk-2",
+  "stepIndex": 2,
+  "frames": [
+    {
+      "frameId": "gk-2-f0",
+      "role": "substrate",
+      "asset": "frame-f0.json",
+      "computed": false,
+      "ligandCodes": [
+        "G6P"
+      ],
+      "source": "1U0F / Mus musculus / 1.6 Å"
+    },
+    {
+      "frameId": "gk-2-f1",
+      "role": "apo",
+      "asset": null,
+      "computed": false,
+      "ligandCodes": [],
+      "source": "1JIQ / Homo sapiens / 1.9 Å",
+      "note": "跨物种降级：文字声明帧，无坐标资产"
+    },
+    {
+      "frameId": "gk-2-f2",
+      "role": "bound",
+      "asset": "frame-f2.json",
+      "computed": true,
+      "ligandCodes": [
+        "G6P"
+      ],
+      "source": "1U0F / Mus musculus / 1.6 Å"
+    },
+    {
+      "frameId": "gk-2-f3",
+      "role": "product",
+      "asset": "frame-f3.json",
+      "computed": true,
+      "ligandCodes": [
+        "F6P"
+      ],
+      "source": "2CXS / Mus musculus / 1.5 Å"
+    }
+  ],
+  "alignment": {
+    "crossStepCamera": "第 1 步相机重建后与 gk-1 已发布资产逐点校验（<0.2 px），再以 T1/T2 两级 Kabsch 接入",
+    "T1": "1U0F·G6P → 1CZA·G6P，RMSD 0.88 Å（8 核心原子：C1–C6/O6/P）",
+    "T2": "2CXS·F6P → 1U0F·G6P，RMSD 0.58 Å（含呋喃↔吡喃环型差异）"
+  }
+}

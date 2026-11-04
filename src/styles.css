@@ -1,0 +1,1781 @@
+/* 代谢通路概览 —— 克制的“专业教科书感”：碳基配色、留白、衬线标题 */
+:root {
+  --ink: #2b2a26;
+  --line: #8a8578;
+  --paper: #faf8f3;
+  --card: #ffffff;
+  --accent: #9a5b2e;
+  --dim: #c9c4b8;
+  --edge: #e4dfd4;
+  --serif: "Source Han Serif SC", "Noto Serif SC", "Songti SC", SimSun, serif;
+  --sans: "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body, #root { margin: 0; padding: 0; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+.page {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 20px 64px;
+}
+
+h1 {
+  font-family: var(--serif);
+  font-size: 26px;
+  font-weight: 600;
+  margin: 0 0 4px;
+  letter-spacing: 0.02em;
+}
+.subtitle { color: var(--line); font-size: 14px; margin-bottom: 20px; }
+
+/* 器官胶囊栏 */
+.organ-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 14px; }
+.capsule {
+  border: 1.4px solid var(--edge);
+  background: var(--card);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 7px 20px;
+  font-size: 14px;
+  font-family: var(--serif);
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+.capsule:hover { border-color: var(--line); }
+.capsule.active {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* 差异摘要条 */
+.diff-bar {
+  border-left: 3px solid var(--accent);
+  background: var(--card);
+  padding: 10px 14px;
+  font-size: 13.5px;
+  color: var(--ink);
+  margin-bottom: 16px;
+  border-radius: 0 8px 8px 0;
+  line-height: 1.6;
+}
+.diff-bar .muted { color: var(--line); }
+
+/* 图区 */
+.figure-wrap {
+  background: var(--card);
+  border: 1px solid var(--edge);
+  border-radius: 12px;
+  padding: 12px;
+  overflow-x: auto;
+}
+.figure-wrap svg { width: 100%; min-width: 900px; height: auto; display: block; }
+.fade { transition: opacity 0.28s ease; opacity: 1; }
+.fade.swapping { opacity: 0; }
+
+/* SVG 内交互态 */
+svg .rx, svg .enzyme, svg .node { cursor: pointer; }
+svg .rx.hl, svg .enzyme.hl rect { stroke: var(--accent); stroke-width: 2.4; }
+svg .node.hl circle { stroke: var(--accent); stroke-width: 2.6; }
+svg .rx, svg .enzyme, svg .node, svg .cofactors { transition: opacity 0.2s ease; }
+svg .faded { opacity: 0.28; }
+svg .hidden-branch { display: none; }
+svg .branch { transition: opacity 0.2s ease; }
+
+/* 支路开关 */
+.branch-toggles { display: flex; gap: 8px; margin: 10px 4px 0; flex-wrap: wrap; }
+.chip {
+  border: 1px solid var(--edge);
+  background: var(--card);
+  border-radius: 999px;
+  font-size: 12.5px;
+  padding: 4px 12px;
+  color: var(--line);
+  cursor: pointer;
+}
+.chip.on { color: var(--ink); border-color: var(--line); }
+
+/* 步骤详情 */
+.detail {
+  margin-top: 18px;
+  background: var(--card);
+  border: 1px solid var(--edge);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+.detail h2 {
+  font-family: var(--serif);
+  font-size: 17px;
+  margin: 0 0 10px;
+  font-weight: 600;
+}
+.detail .eq {
+  font-family: var(--serif);
+  font-size: 15px;
+  background: var(--paper);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 8px 0 12px;
+}
+.detail dl { display: grid; grid-template-columns: 72px 1fr; gap: 6px 12px; font-size: 13.5px; margin: 0; }
+.detail dt { color: var(--line); }
+.detail dd { margin: 0; line-height: 1.65; }
+.detail .placeholder { color: var(--line); font-size: 13.5px; }
+
+.footnote {
+  margin-top: 22px;
+  font-size: 12.5px;
+  color: var(--line);
+  line-height: 1.7;
+}
+
+/* ---------- 单步 3D 结合视图页 ---------- */
+.crumb {
+  font-size: 13px;
+  color: var(--line);
+  margin-bottom: 12px;
+}
+.crumb a { color: var(--line); text-decoration: none; border-bottom: 1px dotted var(--dim); }
+.crumb a:hover { color: var(--ink); }
+
+.view-wrap { position: relative; }
+.viewer-host { width: 100%; height: 520px; }
+.viewer-host.hidden { display: none; }
+
+/* 进度条 + 骨架屏 */
+.progress-track {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--edge);
+  z-index: 3;
+}
+.progress-fill {
+  height: 100%;
+  background: var(--accent);
+  transition: width 0.25s ease;
+}
+.skeleton { padding: 24px; }
+.sk-block {
+  height: 320px;
+  border-radius: 10px;
+  background: linear-gradient(100deg, #f0ece3 40%, #f7f4ee 50%, #f0ece3 60%);
+  background-size: 200% 100%;
+  animation: sk 1.2s infinite linear;
+}
+.sk-line {
+  height: 14px;
+  margin-top: 12px;
+  border-radius: 6px;
+  background: linear-gradient(100deg, #f0ece3 40%, #f7f4ee 50%, #f0ece3 60%);
+  background-size: 200% 100%;
+  animation: sk 1.2s infinite linear;
+}
+.sk-line.short { width: 40%; }
+@keyframes sk { to { background-position: -200% 0; } }
+
+/* 降级 / 静态面板 */
+.degraded-panel { padding: 16px; }
+.degraded-panel .thumb {
+  display: block;
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border: 1px solid var(--edge);
+  border-radius: 8px;
+  background: #fff;
+  margin: 12px 0;
+}
+
+/* 首次操作提示 */
+.op-hint {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(43, 42, 38, 0.82);
+  color: var(--paper);
+  font-size: 12.5px;
+  padding: 6px 16px;
+  border-radius: 999px;
+  pointer-events: none;
+  z-index: 2;
+}
+.view-tools {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-top: 8px;
+  font-size: 12.5px;
+}
+
+/* 界面残基列表 */
+.residue-list {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 6px;
+}
+.residue-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  padding: 7px 10px;
+  border: 1px solid var(--edge);
+  border-radius: 8px;
+  background: var(--paper);
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+.residue-item:hover { border-color: var(--line); }
+.residue-item.selected {
+  border-color: var(--accent);
+  background: #fff;
+  box-shadow: 0 0 0 1px var(--accent);
+}
+.residue-item .dot {
+  width: 9px; height: 9px;
+  border-radius: 50%;
+  flex: none;
+}
+
+/* 证据来源条 */
+.evidence-bar {
+  margin-top: 16px;
+  background: var(--card);
+  border: 1px solid var(--edge);
+  border-radius: 12px;
+  padding: 12px 16px;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.evidence-bar .warn { color: #8a3d1f; font-weight: 600; }
+.evidence-bar .muted { color: var(--line); }
+.tag {
+  display: inline-block;
+  font-size: 11px;
+  padding: 1px 8px;
+  border-radius: 999px;
+  margin-right: 8px;
+  vertical-align: 1px;
+}
+.tag-computed {
+  background: #eef0e4;
+  color: #5d6b3c;
+  border: 1px solid #c9cfab;
+}
+
+/* 上一步 / 下一步 */
+.step-nav {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 18px;
+}
+
+/* ============================================================
+   代谢图谱挂图（B 方案 · poster）—— 整页一张编号挂图
+   配色封顶：纸白 #F6F3EC · 墨 #22282A · 琥珀 #B4761F · 青 #2E6E6B（砖红 #9C4A3C 仅差异/证据）
+   ============================================================ */
+.poster {
+  --paper: #f6f3ec;
+  --ink: #22282a;
+  --amber: #b4761f;
+  --teal: #2e6e6b;
+  --brick: #9c4a3c;
+  --hair: rgba(34, 40, 42, 0.55);
+  --hair-soft: rgba(34, 40, 42, 0.22);
+  --hair-faint: rgba(34, 40, 42, 0.1);
+  /* 兼容别名：让旧组件类（.crumb、.progress-fill、.op-hint 等）在 poster 作用域内正确取色 */
+  --edge: rgba(34, 40, 42, 0.22);
+  --line: rgba(34, 40, 42, 0.55);
+  --dim: rgba(34, 40, 42, 0.4);
+  --accent: #9c4a3c;
+  --serif: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", "Songti SC", SimSun, serif;
+  --sans: "Noto Sans SC", "Source Han Sans SC", "Source Han Sans CN", "PingFang SC", "Microsoft YaHei", sans-serif;
+  min-width: 1240px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.poster .num { font-variant-numeric: tabular-nums; }
+.poster svg text { font-family: var(--sans); fill: var(--ink); }
+.poster svg .serif { font-family: var(--serif); }
+
+/* ---------- 报头 ---------- */
+.poster .masthead { padding: 26px 28px 0; }
+.poster .mast-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 8px;
+}
+.poster .mast-top .kicker { font-size: 11px; letter-spacing: 0.35em; }
+.poster .mast-top .plate-no { font-size: 11px; letter-spacing: 0.25em; }
+.poster .mast-main {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 40px;
+  padding: 18px 0 14px;
+  border-bottom: 1px solid var(--hair-soft);
+}
+.poster .mast-main h1 {
+  font-family: var(--serif);
+  font-size: 54px;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  margin: 0;
+}
+.poster .mast-main h1 small {
+  display: block;
+  font-family: var(--sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 0.55em;
+  opacity: 0.75;
+  margin-top: 10px;
+}
+.poster .mast-summary {
+  max-width: 560px;
+  font-size: 13.5px;
+  line-height: 1.9;
+  text-align: justify;
+  padding-bottom: 6px;
+  margin: 0;
+}
+.poster .mast-summary b { font-family: var(--serif); }
+
+/* ---------- 图例 ---------- */
+.poster .legend {
+  padding: 10px 28px;
+  border-bottom: 1px solid var(--hair-soft);
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.poster .legend .lg {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.poster .legend svg { display: block; }
+.poster .legend-hint { margin-left: auto; opacity: 0.6; font-size: 10.5px; }
+
+/* ---------- 版式主体 ---------- */
+.poster .body-grid {
+  padding: 0 28px 40px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 352px;
+  border-left: 1px solid var(--hair-soft);
+  border-right: 1px solid var(--hair-soft);
+  margin: 0;
+}
+.poster .plate-wrap { border-right: 1px solid var(--hair-soft); min-width: 0; }
+
+.poster .plate-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 12px 18px;
+  border-bottom: 1px solid var(--hair-faint);
+}
+.poster .plate-head .t { font-size: 11px; letter-spacing: 0.3em; }
+.poster .organ-switch { font-size: 10.5px; letter-spacing: 0.2em; opacity: 0.9; }
+.poster .organ-tab {
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  color: var(--ink);
+  opacity: 0.55;
+  padding: 2px 2px 3px;
+  margin-left: 14px;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+}
+.poster .organ-tab:hover { opacity: 0.85; }
+.poster .organ-tab.active {
+  opacity: 1;
+  color: var(--brick);
+  font-weight: 700;
+  border-bottom-color: var(--brick);
+}
+
+/* 挂图画布：比视口宽，横向漫游 */
+.poster .plate-scroll { overflow-x: auto; overflow-y: hidden; }
+.poster .plate-canvas {
+  position: relative;
+  width: 1760px;
+  height: 750px;
+  background:
+    repeating-linear-gradient(to right, var(--hair-faint) 0 1px, transparent 1px 86px),
+    repeating-linear-gradient(to bottom, var(--hair-faint) 0 1px, transparent 1px 76px);
+}
+.poster .plate-scroll::-webkit-scrollbar { height: 8px; }
+.poster .plate-scroll::-webkit-scrollbar-thumb { background: var(--hair-soft); }
+.poster .plate-scroll::-webkit-scrollbar-track { background: transparent; }
+
+/* SVG 交互态 */
+.poster svg .stepg, .poster svg .node { cursor: pointer; }
+.poster svg .stepg .arrow { transition: stroke-width 0.1s; }
+.poster svg .stepg.sel .arrow { stroke-width: 2.4; }
+.poster svg .stepg.sel .st-name, .poster svg .stepg.sel .st-no { font-weight: 700; }
+.poster svg .stepg.faded, .poster svg .node.faded { opacity: 0.3; }
+.poster svg .node.hl circle { stroke-width: 2.6; }
+
+/* ---------- 右栏 ---------- */
+.poster aside { padding-left: 22px; }
+.poster .panel-block { border-bottom: 1px solid var(--hair-soft); padding: 16px 0 18px; }
+.poster .pb-title {
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.poster .pb-title .en { font-size: 9.5px; opacity: 0.55; letter-spacing: 0.2em; }
+
+/* 详情栏 */
+.poster .d-step {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+.poster .d-step .no { font-size: 22px; margin-right: 8px; }
+.poster .d-tag {
+  font-size: 10px;
+  color: var(--brick);
+  letter-spacing: 0.15em;
+  margin-left: 8px;
+}
+.poster .d-tag.amber { color: var(--amber); }
+.poster .d-enzyme { font-size: 13.5px; font-weight: 700; margin: 8px 0 2px; }
+.poster .d-iso { font-size: 11px; font-weight: 400; opacity: 0.7; }
+.poster .d-eq {
+  font-family: var(--serif);
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 10px 0;
+  padding: 10px 12px;
+  border-left: 2px solid var(--ink);
+  background: rgba(34, 40, 42, 0.035);
+}
+.poster .d-cof { font-size: 11px; letter-spacing: 0.05em; margin-bottom: 8px; }
+.poster .d-cof b { font-weight: 700; letter-spacing: 0.2em; font-size: 10px; }
+.poster .d-sig { font-size: 12.5px; line-height: 1.85; text-align: justify; }
+.poster .d-organ {
+  margin-top: 10px;
+  padding: 9px 11px;
+  border-left: 2px solid var(--brick);
+  font-size: 11.5px;
+  line-height: 1.75;
+  background: rgba(156, 74, 60, 0.05);
+}
+.poster .d-organ .lbl {
+  font-weight: 700;
+  color: var(--brick);
+  letter-spacing: 0.2em;
+  font-size: 10px;
+  display: block;
+  margin-bottom: 2px;
+}
+.poster .d-none {
+  margin-top: 10px;
+  font-size: 11px;
+  opacity: 0.6;
+  border-top: 1px dashed var(--hair-soft);
+  padding-top: 8px;
+}
+.poster .d-placeholder { font-size: 12px; opacity: 0.6; line-height: 1.8; }
+.poster .d-3dlink {
+  display: inline-block;
+  margin-top: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 1px;
+}
+.poster .d-3dlink:hover { color: var(--amber); border-bottom-color: var(--amber); }
+
+/* 镜像对照块（糖异生右栏）——沿用 d-organ 体例，青色 = 与糖酵解的镜像关系 */
+.poster .d-mirror {
+  margin-top: 10px;
+  padding: 9px 11px;
+  border-left: 2px solid var(--teal);
+  font-size: 11.5px;
+  line-height: 1.75;
+  background: rgba(46, 110, 107, 0.05);
+}
+.poster .d-mirror .lbl {
+  font-weight: 700;
+  color: var(--teal);
+  letter-spacing: 0.2em;
+  font-size: 10px;
+  display: block;
+  margin-bottom: 2px;
+}
+.poster .d-mirror .m-row { margin-top: 3px; }
+.poster .d-mirror .m-row b { letter-spacing: 0.1em; font-size: 10px; }
+.poster .d-gklink {
+  display: inline-block;
+  margin-top: 6px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1.5px solid var(--ink);
+  padding-bottom: 1px;
+}
+.poster .d-gklink:hover { color: var(--amber); border-bottom-color: var(--amber); }
+
+/* 能量结算（右栏常驻大数字） */
+.poster .settle { display: grid; grid-template-columns: 1fr 1fr; }
+.poster .settle > div { padding: 6px 0; }
+.poster .settle .s-lbl { font-size: 10px; letter-spacing: 0.25em; opacity: 0.65; }
+.poster .settle .s-val {
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+.poster .settle .a { color: var(--amber); }
+.poster .settle .t { color: var(--teal); }
+.poster .settle .s-sub { font-size: 10.5px; opacity: 0.7; }
+.poster .settle-rule { grid-column: 1 / -1; border-top: 1px solid var(--hair-faint); margin: 4px 0; }
+.poster .settle-net {
+  grid-column: 1 / -1;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-top: 1.5px solid var(--ink);
+  margin-top: 6px;
+  padding-top: 8px;
+}
+.poster .settle-net .n-lbl { font-size: 12px; font-weight: 700; letter-spacing: 0.3em; }
+.poster .settle-net .n-val { font-family: var(--serif); font-size: 17px; font-weight: 600; white-space: nowrap; }
+.poster .sq-row { display: flex; gap: 3px; align-items: center; margin-top: 4px; }
+.poster .sq { width: 11px; height: 11px; display: inline-block; }
+.poster .sq.fa { background: var(--amber); }
+.poster .sq.ha { border: 1.4px solid var(--amber); }
+.poster .sq.ft { background: var(--teal); }
+
+/* ============================================================
+   右栏内嵌 3D（.embed3d）—— 窄栏压缩体例：
+   砖红旗标一行一条 → 3D 舞台 240px → 残基抽屉 → 证据角标 → 详情页链接
+   ============================================================ */
+.poster .embed3d { margin-top: 12px; }
+
+.poster .d-flags { list-style: none; margin: 0 0 10px; padding: 0; }
+.poster .d-flag {
+  border-left: 2px solid var(--brick);
+  background: rgba(156, 74, 60, 0.05);
+  padding: 6px 9px;
+  font-size: 11px;
+  line-height: 1.65;
+  margin-bottom: 6px;
+}
+.poster .d-flag .fm {
+  display: block;
+  color: var(--brick);
+  font-weight: 700;
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  margin-bottom: 1px;
+}
+
+/* 器官变体档案切换（右栏，下划线文字 tab） */
+.poster .d-variant { display: flex; gap: 14px; margin: 2px 0 8px; align-items: baseline; }
+.poster .d-variant-tab {
+  background: none;
+  border: none;
+  border-bottom: 1.5px solid transparent;
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  opacity: 0.55;
+  padding: 0 2px 3px;
+  cursor: pointer;
+}
+.poster .d-variant-tab:hover { opacity: 0.85; }
+.poster .d-variant-tab.active { opacity: 1; font-weight: 700; border-bottom-color: var(--ink); }
+
+/* 证据强度角标：clean = 青色（如 gk-7 零注意事项对照样例），warn = 砖红 */
+.poster .evi-clean { color: var(--teal); font-weight: 700; }
+.poster .evi-warn { color: var(--brick); font-weight: 700; }
+
+.poster .embed-stage { position: relative; border: 1px solid var(--hair-soft); background: #fff; }
+.poster .embed-host { width: 100%; height: 240px; }
+.poster .embed-host.hidden { display: none; }
+.poster .embed-loading,
+.poster .embed-gate {
+  height: 240px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+  font-size: 11.5px;
+  opacity: 0.7;
+}
+.poster .embed-gate p { margin: 0; }
+.poster .embed-btn {
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  padding: 5px 14px;
+  cursor: pointer;
+}
+.poster .embed-btn:hover { background: var(--ink); color: var(--paper); }
+.poster .embed-degraded { padding: 10px 12px; font-size: 11px; }
+.poster .embed-degraded .ed-msg { margin: 0 0 8px; color: var(--brick); }
+.poster .embed-degraded .ed-thumb {
+  display: block;
+  width: 100%;
+  max-height: 110px;
+  object-fit: contain;
+  border: 1px solid var(--hair-soft);
+  background: #fff;
+  margin-bottom: 8px;
+}
+.poster .embed-degraded .ed-actions { display: flex; gap: 12px; align-items: center; }
+.poster .embed-degraded .ed-link {
+  color: var(--ink);
+  font-size: 11px;
+  font-weight: 700;
+  text-decoration: none;
+  border-bottom: 1px solid var(--ink);
+}
+.poster .embed-selnote {
+  border-top: 1px solid var(--hair-faint);
+  padding: 5px 10px;
+  font-size: 10.5px;
+}
+.poster .embed-selnote .prov { opacity: 0.55; letter-spacing: 0.1em; }
+
+/* 残基抽屉 */
+.poster .d-drawer { border: 1px solid var(--hair-soft); border-top: none; }
+.poster .d-drawer-head {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: var(--ink);
+  padding: 7px 10px;
+  cursor: pointer;
+}
+.poster .d-drawer-head:hover { background: rgba(34, 40, 42, 0.03); }
+.poster .d-drawer-head .arr { opacity: 0.5; }
+.poster .d-drawer-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 180px;
+  overflow-y: auto;
+  border-top: 1px solid var(--hair-faint);
+}
+.poster .d-drawer-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 10.5px;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.poster .d-drawer-list li:hover { background: rgba(34, 40, 42, 0.03); }
+.poster .d-drawer-list li.selected { background: rgba(156, 74, 60, 0.07); }
+.poster .d-drawer-list li:focus-visible { outline: 1px solid var(--brick); }
+.poster .d-drawer-list .dot { width: 7px; height: 7px; border-radius: 50%; flex: none; }
+.poster .d-drawer-list .dist { margin-left: auto; opacity: 0.7; }
+.poster .d-drawer-list .tp { opacity: 0.55; width: 34px; text-align: right; }
+
+/* 证据角标（一行，点击展开） */
+.poster .d-evi { margin-top: 8px; border-top: 1px solid var(--hair-faint); }
+.poster .d-evi-line {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  background: none;
+  border: none;
+  font-family: inherit;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  opacity: 0.75;
+  color: var(--ink);
+  padding: 6px 0 0;
+  cursor: pointer;
+  text-align: left;
+}
+.poster .d-evi-line:hover { opacity: 1; color: var(--brick); }
+.poster .d-evi-line .arr { opacity: 0.5; flex: none; }
+.poster .d-evi-full {
+  font-size: 10.5px;
+  line-height: 1.75;
+  padding: 8px 0 2px;
+}
+.poster .d-evi-full p { margin: 0 0 6px; }
+.poster .d-evi-full b { letter-spacing: 0.15em; font-size: 9.5px; }
+.poster .d-evi-full .warn { color: var(--brick); }
+.poster .d-evi-full .muted { opacity: 0.6; }
+
+/* ============================================================
+   单步结构视图页（.step-poster）—— 与挂图同一套纸墨语言，无卡片堆叠
+   ============================================================ */
+.poster.step-poster { min-width: 1240px; padding: 0 28px 28px; }
+
+.poster.step-poster .crumb { margin: 0; padding: 10px 0 0; font-size: 11.5px; letter-spacing: 0.08em; }
+.poster.step-poster .crumb .sep { margin: 0 7px; opacity: 0.4; }
+.poster.step-poster .crumb .cur { color: var(--brick); font-weight: 700; }
+
+.poster.step-poster .s-mast { border-bottom: 1.5px solid var(--ink); padding-bottom: 16px; }
+.poster.step-poster .s-mast .mast-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--hair-soft);
+  padding: 10px 0 8px;
+  margin-bottom: 12px;
+}
+.poster.step-poster .s-mast .kicker { font-size: 11px; letter-spacing: 0.35em; }
+.poster.step-poster .s-mast .plate-no { font-size: 11px; letter-spacing: 0.25em; }
+.poster.step-poster .s-title {
+  font-family: var(--serif);
+  font-size: 34px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  margin: 10px 0 0;
+  line-height: 1.2;
+}
+.poster.step-poster .s-title .no { font-size: 40px; margin-right: 14px; color: var(--amber); }
+.poster.step-poster .s-title small {
+  display: block;
+  font-family: var(--sans);
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.3em;
+  opacity: 0.7;
+  margin-top: 6px;
+}
+.poster.step-poster .s-eq {
+  font-size: 14.5px;
+  margin-top: 12px;
+  padding-left: 12px;
+  border-left: 2px solid var(--ink);
+  background: rgba(34, 40, 42, 0.035);
+  padding-top: 6px;
+  padding-bottom: 6px;
+}
+
+/* 砖红旗标 */
+.poster.step-poster .s-flags { list-style: none; margin: 14px 0 0; padding: 0; }
+.poster.step-poster .s-flags li {
+  border-left: 2px solid var(--brick);
+  background: rgba(156, 74, 60, 0.05);
+  padding: 7px 11px;
+  font-size: 11.5px;
+  line-height: 1.7;
+  margin-bottom: 6px;
+}
+.poster.step-poster .s-flags .fm {
+  color: var(--brick);
+  font-weight: 700;
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  margin-right: 10px;
+}
+
+/* 主体两栏 */
+.poster.step-poster .s-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  gap: 0 26px;
+  padding-top: 16px;
+}
+.poster.step-poster .s-side { border-left: 1px solid var(--hair-soft); padding-left: 22px; }
+.poster.step-poster .s-block { border-bottom: 1px solid var(--hair-soft); padding-bottom: 14px; margin-bottom: 14px; }
+.poster.step-poster .s-block:last-child { border-bottom: none; }
+.poster.step-poster .s-h2 {
+  font-family: var(--serif);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.15em;
+  margin: 0 0 10px;
+}
+.poster.step-poster .s-h2 .s-h2-en {
+  display: block;
+  font-family: var(--sans);
+  font-size: 9.5px;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  opacity: 0.55;
+  margin-top: 2px;
+}
+.poster.step-poster .s-kv { font-size: 11.5px; margin: 0 0 6px; }
+.poster.step-poster .s-kv b {
+  display: inline-block;
+  width: 52px;
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  font-weight: 700;
+}
+.poster.step-poster .s-sig { font-size: 12px; line-height: 1.85; text-align: justify; margin: 8px 0 0; }
+.poster.step-poster .s-diffs { list-style: none; margin: 0; padding: 0; font-size: 11.5px; line-height: 1.75; }
+.poster.step-poster .s-diffs li { border-left: 2px solid var(--brick); padding: 5px 10px; margin-bottom: 6px; background: rgba(156, 74, 60, 0.045); }
+.poster.step-poster .s-diffs b { letter-spacing: 0.2em; font-size: 10px; margin-right: 8px; color: var(--brick); }
+
+/* ① 状态切换器 + 工具行 */
+.poster.step-poster .s-viewhead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid var(--hair-faint);
+  margin-bottom: 10px;
+}
+.poster.step-poster .s-tabs { display: flex; align-items: baseline; gap: 4px; }
+.poster.step-poster .s-tabs-lbl { font-size: 9.5px; letter-spacing: 0.3em; opacity: 0.55; margin-right: 10px; }
+.poster.step-poster .s-tab {
+  background: none;
+  border: none;
+  border-bottom: 1.5px solid transparent;
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  opacity: 0.55;
+  padding: 2px 4px 4px;
+  cursor: pointer;
+}
+.poster.step-poster .s-tab + .s-tab { margin-left: 18px; }
+.poster.step-poster .s-tab:hover { opacity: 0.85; }
+.poster.step-poster .s-tab.active {
+  opacity: 1;
+  font-weight: 700;
+  border-bottom-color: var(--ink);
+}
+.poster.step-poster .s-tools { display: flex; gap: 10px; }
+.poster.step-poster .s-tool {
+  border: 1px solid var(--ink);
+  background: transparent;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+.poster.step-poster .s-tool:hover { background: var(--ink); color: var(--paper); }
+
+/* ② 3D 主位 */
+.poster.step-poster .s-figure {
+  position: relative;
+  border: 1px solid var(--hair-soft);
+  background: #fff;
+}
+.poster.step-poster .s-viewer { width: 100%; height: 560px; }
+.poster.step-poster .s-viewer.hidden { display: none; }
+.poster.step-poster .s-loading {
+  height: 560px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  opacity: 0.6;
+}
+.poster.step-poster .s-degraded { padding: 18px; font-size: 12px; }
+.poster.step-poster .s-degraded p { color: var(--brick); margin: 0 0 10px; }
+.poster.step-poster .s-thumb {
+  display: block;
+  width: 100%;
+  max-height: 300px;
+  object-fit: contain;
+  border: 1px solid var(--hair-soft);
+  background: #fff;
+  margin-bottom: 12px;
+}
+.poster.step-poster .op-hint {
+  position: absolute;
+  top: 12px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(34, 40, 42, 0.82);
+  color: var(--paper);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  padding: 5px 16px;
+  pointer-events: none;
+  z-index: 2;
+}
+.poster.step-poster .s-apo-note {
+  border-top: 1px solid var(--hair-faint);
+  padding: 6px 12px;
+  font-size: 10.5px;
+  opacity: 0.65;
+}
+
+/* ③ 残基表（等宽数字） */
+.poster.step-poster .s-residues { margin-top: 18px; }
+.poster.step-poster table.res-table { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.poster.step-poster table.res-table th {
+  text-align: left;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  border-top: 1.5px solid var(--ink);
+  border-bottom: 1px solid var(--hair-soft);
+  padding: 6px 10px;
+  background: rgba(34, 40, 42, 0.03);
+}
+.poster.step-poster table.res-table td {
+  border-bottom: 1px solid var(--hair-faint);
+  padding: 5px 10px;
+}
+.poster.step-poster table.res-table .num-col { text-align: right; }
+.poster.step-poster table.res-table tbody tr { cursor: pointer; }
+.poster.step-poster table.res-table tbody tr:hover td { background: rgba(34, 40, 42, 0.035); }
+.poster.step-poster table.res-table tbody tr.selected td { background: rgba(156, 74, 60, 0.07); }
+.poster.step-poster table.res-table tbody tr:focus-visible { outline: 1.5px solid var(--brick); outline-offset: -1.5px; }
+.poster.step-poster table.res-table .dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  margin-right: 7px;
+  vertical-align: 0;
+}
+.poster.step-poster .s-selnote {
+  margin-top: 10px;
+  border-left: 2px solid var(--brick);
+  background: rgba(156, 74, 60, 0.05);
+  padding: 7px 11px;
+  font-size: 11.5px;
+  line-height: 1.7;
+}
+.poster.step-poster .s-selnote .muted { opacity: 0.6; font-size: 10.5px; }
+
+/* ④ 证据报脚（colophon） */
+.poster.step-poster .s-colophon {
+  margin-top: 22px;
+  border-top: 1.5px solid var(--ink);
+  padding-top: 10px;
+  font-size: 10.5px;
+  line-height: 1.8;
+}
+.poster.step-poster .s-colophon p { margin: 0; }
+.poster.step-poster .s-colophon b { letter-spacing: 0.2em; font-size: 9.5px; margin-right: 8px; }
+.poster.step-poster .sc-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 4px;
+  font-size: 10px;
+  letter-spacing: 0.3em;
+  font-weight: 700;
+}
+.poster.step-poster .sc-prov {
+  font-size: 9.5px;
+  letter-spacing: 0.1em;
+  opacity: 0.65;
+  font-weight: 400;
+}
+.poster.step-poster .sc-warn { color: var(--brick); }
+.poster.step-poster .s-colophon .muted { opacity: 0.55; }
+
+/* 底部上一步 / 下一步 */
+.poster.step-poster .s-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-top: 1px solid var(--hair-soft);
+  margin-top: 16px;
+  padding-top: 12px;
+}
+.poster.step-poster .s-nav-link {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--ink);
+  font-family: inherit;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  color: var(--ink);
+  padding: 0 1px 2px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.poster.step-poster .s-nav-link:hover { color: var(--amber); border-bottom-color: var(--amber); }
+.poster.step-poster .s-nav-none { font-size: 11px; opacity: 0.4; }
+
+.poster.step-poster .s-placeholder {
+  margin: 20px 0;
+  padding: 14px 16px;
+  border-left: 2px solid var(--hair);
+  font-size: 12.5px;
+  line-height: 1.8;
+  opacity: 0.8;
+}
+.poster.step-poster .s-placeholder a { color: var(--ink); font-weight: 700; }
+
+/* 进度条（poster 作用域配色） */
+.poster .progress-track {
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: var(--hair-faint);
+  z-index: 3;
+}
+.poster .progress-fill { height: 100%; background: var(--amber); transition: width 0.25s ease; }
+
+/* ---------- 挂图脚注：组织差异表 ---------- */
+.poster .footnote { border-top: 1.5px solid var(--ink); padding: 14px 18px 20px; }
+.poster .fn-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 10px;
+}
+.poster .fn-head .t { font-size: 11px; letter-spacing: 0.3em; font-weight: 700; }
+.poster .fn-head .view { font-size: 10.5px; letter-spacing: 0.15em; color: var(--brick); font-weight: 700; }
+.poster table.organs { width: 100%; border-collapse: collapse; font-size: 11.5px; }
+.poster table.organs th,
+.poster table.organs td {
+  border: 1px solid var(--hair-soft);
+  padding: 7px 10px;
+  vertical-align: top;
+  text-align: left;
+  line-height: 1.65;
+}
+.poster table.organs th {
+  font-size: 10.5px;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+  background: rgba(34, 40, 42, 0.04);
+}
+.poster table.organs th.cur,
+.poster table.organs td.cur { background: rgba(156, 74, 60, 0.055); }
+.poster table.organs td.stepcell {
+  width: 120px;
+  font-family: var(--serif);
+  font-weight: 600;
+  font-size: 12.5px;
+  white-space: nowrap;
+}
+.poster table.organs td.stepcell .dm { color: var(--brick); font-weight: 700; margin-right: 6px; }
+.poster table.organs tbody tr:hover td { background: rgba(34, 40, 42, 0.03); }
+
+/* 页脚待确认 */
+.poster .poster-foot {
+  padding: 0 28px 28px;
+  font-size: 10px;
+  opacity: 0.45;
+  line-height: 1.7;
+}
+
+/* ============================================================
+   新增档案字段展示（EC / ΔG / 立体化学 / 误解 / 临床）——沿用既有标注层级，不新开卡片
+   ============================================================ */
+.poster .d-dgnote,
+.poster.step-poster .s-dgnote {
+  font-size: 10px;
+  line-height: 1.7;
+  opacity: 0.62;
+  margin: 2px 0 6px;
+}
+.poster.step-poster .s-dgnote { margin-left: 52px; }
+.poster .d-stereo,
+.poster.step-poster .s-stereo { line-height: 1.7; }
+.poster .d-mis { margin: 8px 0 2px; border-top: 1px dashed var(--hair-soft); padding-top: 6px; }
+.poster .d-mis .lbl {
+  display: block;
+  font-size: 9.5px;
+  letter-spacing: 0.25em;
+  font-weight: 700;
+  color: var(--brick);
+  margin-bottom: 3px;
+}
+.poster .d-mis ul { list-style: none; margin: 0; padding: 0; font-size: 10.5px; line-height: 1.7; }
+.poster .d-mis li { margin-bottom: 3px; opacity: 0.78; }
+.poster.step-poster .s-mis,
+.poster.step-poster .s-clin { list-style: none; margin: 6px 0 0; padding: 0; font-size: 11.5px; line-height: 1.75; }
+.poster.step-poster .s-mis li,
+.poster.step-poster .s-clin li {
+  border-left: 2px solid var(--hair-soft);
+  padding: 4px 10px;
+  margin-bottom: 5px;
+}
+.poster.step-poster .s-clin li { border-left-color: var(--brick); background: rgba(156, 74, 60, 0.04); }
+.poster.step-poster .hb-note { display: block; margin-top: 2px; }
+
+/* 氢键按需显示控件（右栏抽屉内一行） */
+.poster .d-hb-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 5px 10px 0;
+  border-top: 1px solid var(--hair-faint);
+}
+.poster .d-hb-hint { font-size: 10px; opacity: 0.6; }
+.poster .d-hb-toggle {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--ink);
+  font-family: inherit;
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  color: var(--ink);
+  padding: 0 1px 2px;
+  cursor: pointer;
+}
+.poster .d-hb-toggle:hover { color: var(--brick); border-bottom-color: var(--brick); }
+.poster .d-hb-toggle[aria-pressed="true"] { color: var(--brick); border-bottom-color: var(--brick); font-weight: 700; }
+.poster.step-poster .s-tool[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+
+/* ============================================================
+   自测模式：隐藏酶名与代谢物名，悬停/点击揭晓；不改视觉语言
+   ============================================================ */
+.poster .organ-tab.quiz-toggle.active {
+  color: var(--ink);
+  border-bottom-color: var(--ink);
+  font-weight: 700;
+  opacity: 1;
+}
+.poster .legend .lg.quiz-hint { color: var(--brick); font-weight: 700; }
+.poster svg .q-hide { transition: opacity 0.15s ease; }
+.poster svg.quiz-on .q-hide { opacity: 0.08; }
+.poster svg.quiz-on .q-hide:hover,
+.poster svg.quiz-on .q-hide.revealed { opacity: 1; }
+
+/* ============================================================
+   结构帧带（Structure Filmstrip /structures/:pathwayId）
+   沿用 B 海报四色封顶与标注层级；不新造卡片语言，只用细线与留白
+   ============================================================ */
+.film-poster { max-width: 1180px; margin: 0 auto; }
+.film-missing { padding: 80px 28px; font-size: 13px; opacity: 0.6; }
+
+.film-poster .mast-main h1 { font-size: 26px; }
+.film-poster .mast-summary { max-width: 720px; font-size: 11.5px; line-height: 1.8; opacity: 0.7; }
+
+/* 主舞台 */
+.film-stage {
+  margin: 6px 28px 0;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+.film-stage .stage-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  margin-bottom: 8px;
+}
+.film-stage .stage-step { font-size: 15px; font-weight: 700; }
+.film-stage .stage-pdb { font-size: 10.5px; letter-spacing: 0.12em; opacity: 0.62; }
+.film-stage .stage-corner {
+  margin-left: auto;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  color: var(--brick);
+}
+/* 旗舰步角标（gk-9 四帧）：青色 = "人 / 同酶 / 同编号 · 全实验零拼贴"可被认出 */
+.film-stage .stage-corner.corner-teal {
+  color: var(--teal);
+}
+.film-stage .stage-canvas {
+  border: 1px solid var(--hair-soft);
+  background: var(--paper);
+}
+.film-stage .film-svg { display: block; width: 100%; height: auto; max-height: 560px; }
+.film-stage .stage-loading { padding: 120px 0; text-align: center; font-size: 11px; opacity: 0.5; }
+
+/* F1 缺口声明（砖红，仅差异与证据） */
+.film-gap {
+  border-left: 2px solid var(--brick);
+  background: rgba(156, 74, 60, 0.045);
+  padding: 8px 12px;
+  font-size: 11.5px;
+  line-height: 1.75;
+  color: var(--brick);
+  margin-bottom: 10px;
+}
+
+/* 差异注记 / caption / 立体化学 / 衔接 / 报脚证据 */
+.film-diffnote {
+  margin: 10px 0 0;
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--brick);
+}
+.film-caption { margin: 10px 0 4px; font-size: 13px; line-height: 1.8; }
+.film-stereo, .film-transition { margin: 2px 0; font-size: 10.5px; line-height: 1.7; opacity: 0.72; }
+.film-stereo .lbl, .film-transition .lbl {
+  display: inline-block;
+  font-size: 9.5px;
+  letter-spacing: 0.25em;
+  font-weight: 700;
+  color: var(--hair);
+  margin-right: 8px;
+}
+.film-transition { color: var(--amber); opacity: 0.95; }
+.film-transition .lbl { color: var(--amber); }
+.film-prov {
+  list-style: none;
+  margin: 8px 0 0;
+  padding: 6px 0 0;
+  border-top: 1px dashed var(--hair-faint);
+  font-size: 10px;
+  line-height: 1.7;
+  opacity: 0.5;
+}
+.film-prov li { margin-bottom: 2px; }
+
+/* 控制排 */
+.film-controls {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin: 14px 0 18px;
+}
+.film-controls .fc-btn {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--ink);
+  font-family: inherit;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  padding: 0 2px 3px;
+  cursor: pointer;
+}
+.film-controls .fc-btn:disabled { opacity: 0.3; cursor: default; }
+.film-controls .fc-btn:not(:disabled):hover { color: var(--brick); border-bottom-color: var(--brick); }
+.film-controls .fc-play[aria-pressed="true"] { color: var(--brick); border-bottom-color: var(--brick); font-weight: 700; }
+.film-controls .fc-num { font-size: 10.5px; opacity: 0.55; }
+
+/* ============================================================
+   结构对照页（/structures/:pathwayId）
+   每步一块：左=酶 3D 静置卡通；右=底物→产物。
+   页头一个开关整页切换 3D 球棍 / 2D 结构式；两模式共用同一套盒子，切换不重排。
+   无运动：没有时间轴、播放键、scrub、速度控制、过渡画面。
+   ============================================================ */
+.cmp-poster .mast-summary { max-width: 780px; }
+
+/* 页头 2D/3D 开关：沿用 .organ-tab 的下划线 tab 体例，只补分组与键盘焦点 */
+.cmp-mode { display: flex; align-items: baseline; flex-wrap: wrap; }
+.cmp-mode-lbl { font-size: 10px; letter-spacing: 0.2em; opacity: 0.45; margin-right: 2px; }
+.cmp-mode .organ-tab { margin-left: 10px; }
+.cmp-mode-wrap { display: flex; flex-direction: column; align-items: flex-end; gap: 4px; }
+.cmp-mode-note { font-size: 10px; opacity: 0.55; }
+.poster .organ-tab:focus-visible { outline: 2px solid var(--brick); outline-offset: 2px; }
+
+/* 默认 2D 的逐块标记与判据（判据文字来自数据字段，不写死在组件里） */
+.cmp-default-tag {
+  font-size: 10px;
+  color: var(--teal);
+  border: 1px solid var(--teal);
+  padding: 1px 6px;
+  letter-spacing: 0.06em;
+}
+.cmp-default-rule {
+  font-size: 11px;
+  line-height: 1.6;
+  color: var(--ink);
+  opacity: 0.72;
+  margin: -6px 0 14px;
+  padding-left: 8px;
+  border-left: 2px solid var(--teal);
+}
+
+/* --- 证据等级：纯文字标记 + 勾选筛选；不加彩色胶囊、圆角卡片、图标 --- */
+.cmp-evidence { padding: 10px 0 12px; border-bottom: 1px solid var(--hair-faint); }
+.cmp-grade-filter { display: flex; align-items: baseline; flex-wrap: wrap; gap: 4px 14px; }
+.cmp-grade-filter .cmp-mode-lbl { margin-right: 2px; }
+.cmp-grade-check {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 10.5px;
+  color: var(--ink);
+  cursor: pointer;
+}
+.cmp-grade-check input { width: 11px; height: 11px; margin: 0; accent-color: var(--brick); cursor: pointer; }
+.cmp-grade-check input:checked + span { text-decoration: underline; text-underline-offset: 3px; }
+
+.cmp-grade {
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  color: var(--ink);
+  border-left: 2px solid currentColor;
+  padding-left: 7px;
+}
+.cmp-grade-A { color: var(--teal); }
+.cmp-grade-B { color: var(--ink); }
+.cmp-grade-C { color: var(--hair); }
+.cmp-grade-D { color: var(--brick); font-weight: 700; }
+.cmp-grade-none { color: var(--hair); }
+.cmp-grade-tag,
+.cmp-grade-cover { font-size: 9.5px; letter-spacing: 0.08em; color: var(--hair); }
+
+.cmp-grade-sides {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+  margin: -8px 0 14px;
+  font-size: 10.5px;
+  line-height: 1.6;
+}
+.cmp-grade-sides > span { opacity: 0.82; }
+.cmp-grade-mismatch,
+.cmp-grade-ungraded { color: var(--brick); opacity: 1; }
+
+.cmp-grade-stats { margin: 6px 0 0; font-size: 10.5px; color: var(--ink); opacity: 0.78; }
+.cmp-grade-stats b { font-weight: 700; opacity: 1; }
+.cmp-grade-policy { margin: 3px 0 0; font-size: 10px; line-height: 1.6; color: var(--ink); opacity: 0.5; }
+.cmp-grade-filtered { margin: 4px 0 0; font-size: 10.5px; color: var(--brick); }
+
+/* 未接入的 pathwayId：明确说明，不 404、不空白 */
+.cmp-poster .film-missing { display: flex; flex-direction: column; gap: 8px; }
+.cmp-poster .film-missing strong { font-family: var(--serif); font-size: 16px; color: var(--ink); opacity: 1; }
+.cmp-poster .film-missing .num { font-size: 11px; }
+.cmp-list { margin: 0 28px; }
+.cmp-block {
+  border-top: 1px solid var(--line);
+  padding: 26px 2px 30px;
+  scroll-margin-top: 18px;
+}
+.cmp-head {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.cmp-no { font-size: 10.5px; letter-spacing: 0.16em; color: var(--brick); }
+.cmp-enzyme { margin: 0; font-size: 19px; font-family: var(--serif, serif); font-weight: 700; }
+.cmp-enzyme small { font-size: 11px; font-weight: 400; opacity: 0.6; }
+.cmp-eq { font-size: 11.5px; opacity: 0.62; }
+.cmp-body {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+  gap: 26px;
+  align-items: start;
+}
+.cmp-label {
+  margin: 0 0 8px;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  opacity: 0.5;
+}
+.cmp-change, .cmp-phys { margin: 12px 0 0; font-size: 12.5px; line-height: 1.8; }
+.cmp-change .lbl, .cmp-phys .lbl {
+  display: inline-block;
+  margin-right: 8px;
+  padding: 1px 6px;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--hair);
+  color: var(--hair);
+  vertical-align: 1px;
+}
+.cmp-change .lbl { border-color: var(--brick); color: var(--brick); }
+.cmp-phys { opacity: 0.72; }
+
+/* --- 3D 静置面板 --- */
+.e3d { display: flex; flex-direction: column; gap: 8px; }
+.e3d-stage {
+  position: relative;
+  height: 320px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  overflow: hidden;
+}
+.e3d-host { position: absolute; inset: 0; }
+.e3d-host.hidden { visibility: hidden; }
+.e3d-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 0 18px;
+  font-size: 11px;
+  text-align: center;
+  opacity: 0.72;
+}
+.e3d-btn, .e3d-toggle {
+  font: inherit;
+  font-size: 10.5px;
+  padding: 3px 9px;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--hair);
+  cursor: pointer;
+}
+.e3d-btn:hover, .e3d-toggle:hover { border-color: var(--brick); color: var(--brick); }
+.e3d-toggle:disabled { opacity: 0.35; cursor: default; }
+.e3d-toggle[aria-pressed="true"] { border-color: var(--teal); color: var(--teal); }
+.e3d-hint {
+  position: absolute;
+  left: 8px;
+  bottom: 6px;
+  font-size: 9px;
+  letter-spacing: 0.06em;
+  opacity: 0.45;
+  pointer-events: none;
+}
+.e3d-bar { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+.e3d-src { font-size: 9.5px; letter-spacing: 0.08em; opacity: 0.55; }
+.e3d-ligcount { font-size: 9px; letter-spacing: 0.06em; opacity: 0.45; }
+.e3d-say { margin: 0; font-size: 10px; line-height: 1.6; opacity: 0.55; }
+.e3d-strip { display: flex; flex-wrap: wrap; gap: 4px 6px; }
+.e3d-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: inherit;
+  font-size: 9.5px;
+  padding: 2px 5px;
+  color: var(--ink);
+  background: transparent;
+  border: 1px solid var(--hair-faint);
+  cursor: pointer;
+}
+.e3d-chip:hover { border-color: var(--ink); }
+.e3d-chip.sel { border-color: var(--brick); color: var(--brick); font-weight: 700; }
+.e3d-chip .dot { width: 5px; height: 5px; border-radius: 50%; }
+.e3d-chip .dist { opacity: 0.5; font-size: 9px; }
+.e3d-selnote { margin: 0; font-size: 9.5px; line-height: 1.6; color: var(--brick); }
+
+/* --- 2D 结构式（与 3D 同一格子；内容在 SVG 内按像素重排） --- */
+.cmp-load { font-size: 10px; opacity: 0.5; }
+.mol2d-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.mol2d-state {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  padding: 0 12px;
+  font-size: 10px;
+  line-height: 1.6;
+  text-align: center;
+  opacity: 0.72;
+}
+/* 底物 → 产物：3D 球棍或 2D 结构式左右并置，中间横向箭头 */
+.cmp3d-wrap { display: flex; flex-direction: column; gap: 4px; }
+.cmp3d-strip {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 118px minmax(0, 1fr);
+  gap: 10px;
+  align-items: stretch;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  padding: 12px 0;
+}
+.cmp3d-side { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.cmp3d-sidehead { display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+.cmp3d-side-name { font-size: 12.5px; font-weight: 700; line-height: 1.35; }
+.cmp3d-side-formula { font-size: 10px; opacity: 0.55; }
+.cmp3d-mols { display: flex; flex-direction: column; gap: 10px; }
+.cmp3d-mol { min-width: 0; }
+.cmp-mol-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 2px; flex-wrap: wrap; }
+.cmp-mol-name { font-size: 11px; font-weight: 700; line-height: 1.35; }
+.cmp-mol-formula { font-size: 9.5px; opacity: 0.5; }
+
+.mol3d { display: flex; flex-direction: column; gap: 4px; }
+.mol3d-stage {
+  position: relative;
+  height: 250px;
+  border: 1px solid var(--line);
+  background: var(--paper);
+  overflow: hidden;
+}
+.cmp3d-mols.duo .mol3d-stage { height: 168px; }
+.mol3d-host { position: absolute; inset: 0; }
+.mol3d-state {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  opacity: 0.42;
+}
+.mol3d-hint {
+  position: absolute;
+  right: 6px;
+  bottom: 4px;
+  font-size: 8.5px;
+  letter-spacing: 0.08em;
+  opacity: 0.34;
+  pointer-events: none;
+}
+.mol3d-foot { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 10px; }
+.mol3d-prov {
+  font-size: 10.5px;
+  line-height: 1.5;
+  padding-left: 6px;
+  border-left: 2px solid var(--hair);
+  /* 固定三行高度：3D 的实验/计算来源要写 PDB/分辨率/方法/物种/链/配体名，长短不一；
+     2D 也显示同一来源行。不锁高度的话切换模式会把 side 格子撑高，破坏“版式不重排”。 */
+  min-height: 4.6em;
+}
+.mol3d-prov.experimental { color: var(--teal); border-left-color: var(--teal); }
+.mol3d-prov.computed { color: var(--amber); border-left-color: var(--amber); }
+.mol3d-prov.plain { color: var(--ink); opacity: 0.62; border-left-color: var(--line); }
+.mol3d-shape { font-size: 9.5px; opacity: 0.5; }
+.mol3d-marks {
+  list-style: none;
+  margin: 2px 0 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 10px;
+}
+.mol3d-marks li { display: flex; align-items: center; gap: 4px; font-size: 10px; line-height: 1.5; opacity: 0.82; }
+.mol3d-marks i { display: inline-block; width: 7px; height: 7px; border-radius: 1px; }
+.mol3d-marks em { font-style: normal; font-size: 9px; opacity: 0.5; }
+/* 原子名在 3D 资产里找不到时，页面上必须显形（砖红），不能静默当作已高亮 */
+.mol3d-marks em.mol3d-miss { color: var(--brick); opacity: 1; }
+
+.cmp3d-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 4px 6px;
+  border-left: 1px dashed var(--hair);
+  border-right: 1px dashed var(--hair);
+  text-align: center;
+}
+.cmp3d-arrow-glyph { font-size: 24px; line-height: 1; color: var(--brick); }
+.cmp3d-arrow-label { font-size: 10px; line-height: 1.5; color: var(--brick); }
+.cmp3d-delta { font-size: 9px; line-height: 1.5; opacity: 0.62; }
+.cmp3d-legend {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 14px;
+  margin: 6px 0 0;
+  font-size: 9.5px;
+  opacity: 0.72;
+}
+.cmp3d-legend i { display: inline-block; width: 7px; height: 7px; margin-right: 4px; border-radius: 1px; }
+.cmp3d-legend-note { opacity: 0.5; }
+/* 配体来源：块内首屏一句说明（不折叠）——比角标显眼，但仍是事实句，不做辩护式排版 */
+.cmp-ligsrc {
+  display: flex;
+  gap: 8px;
+  margin: 8px 0 0;
+  padding: 7px 10px 8px;
+  background: rgba(46, 110, 107, 0.06);
+  border-left: 3px solid var(--teal);
+}
+.cmp-ligsrc-label {
+  flex: none;
+  padding-top: 1px;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--teal);
+  white-space: nowrap;
+}
+.cmp-ligsrc-list { display: flex; flex-direction: column; gap: 2px; margin: 0; padding: 0; list-style: none; }
+.cmp-ligsrc-list li { display: flex; gap: 6px; align-items: baseline; }
+.cmp-ligsrc-mol { flex: none; font-size: 11px; font-weight: 600; color: var(--ink); }
+.cmp-ligsrc-note { font-size: 11px; line-height: 1.65; color: var(--ink); opacity: 0.8; }
+.cmp-caveat {
+  margin: 4px 0 0;
+  padding-left: 6px;
+  border-left: 2px solid var(--hair);
+  font-size: 9.5px;
+  line-height: 1.55;
+  opacity: 0.55;
+}
+.cmp-cofactor { margin: 6px 0 0; font-size: 9.5px; line-height: 1.55; opacity: 0.6; }
+
+/* 本步酶结构资产未建立：灰字一行声明（文案来自配置，组件不写死） */
+.cmp-enzyme-off {
+  margin: 0;
+  padding: 10px 0 0;
+  border-top: 1px dashed var(--hair);
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--line);
+}
+
+.cmp-missing {
+  margin: 6px 0 0;
+  padding: 8px 10px;
+  border-left: 3px solid var(--brick);
+  background: rgba(122, 46, 14, 0.05);
+  font-size: 10.5px;
+  line-height: 1.6;
+}
+.cmp-missing .cmp-miss-mark {
+  display: inline-block;
+  margin-right: 6px;
+  font-weight: 700;
+  color: var(--brick);
+  letter-spacing: 0.06em;
+}
+@media (max-width: 1000px) {
+  .cmp-body { grid-template-columns: 1fr; }
+}
+
+/* 帧带 */
+.film-band { margin: 0 28px; border-top: 1px solid var(--line); padding: 12px 0 8px; }
+.film-band .band-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+.film-band .band-head .serif { font-size: 13px; font-weight: 700; }
+.film-band .band-sub { font-size: 10px; letter-spacing: 0.1em; opacity: 0.5; }
+.film-band .band-track {
+  display: flex;
+  align-items: stretch;
+  gap: 10px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+.film-band .band-thumb {
+  flex: 0 0 150px;
+  background: var(--paper);
+  border: 1px solid var(--hair-soft);
+  font-family: inherit;
+  text-align: left;
+  padding: 6px 8px 5px;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.film-band .band-thumb:hover { border-color: var(--ink); }
+.film-band .band-thumb.cur { border-color: var(--brick); border-width: 2px; padding: 5px 7px 4px; }
+.film-band .bt-role { font-size: 9.5px; letter-spacing: 0.18em; color: var(--hair); }
+.film-band .band-thumb.cur .bt-role { color: var(--brick); font-weight: 700; }
+.film-band .bt-svg { display: block; height: 84px; border: 1px solid var(--hair-faint); overflow: hidden; }
+.film-band .bt-svg .film-svg { width: 100%; height: 84px; }
+.film-band .bt-empty {
+  display: flex; align-items: center; justify-content: center;
+  height: 100%; font-size: 9.5px; color: var(--brick); letter-spacing: 0.2em;
+}
+.film-band .bt-id { font-size: 9px; opacity: 0.45; letter-spacing: 0.08em; }
+
+/* 断口指示：连续帧带的"待接入"端 */
+.film-band .band-stub {
+  flex: 0 0 120px;
+  border: 1px dashed var(--hair);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 6px;
+  padding: 0 10px;
+}
+.film-band .bs-text { font-size: 10px; color: var(--hair); letter-spacing: 0.1em; line-height: 1.6; }
+.film-band .bs-dash { font-size: 9px; color: var(--hair); opacity: 0.7; letter-spacing: 0.2em; }
+
+/* ---- 跨步分隔条：帧带中"换步"处（区别于步内换帧） ---- */
+.film-band .band-boundary {
+  flex: 0 0 128px;
+  align-self: stretch;
+  border-left: 1px dashed var(--brick);
+  background: rgba(156, 74, 60, 0.045);
+  padding: 10px 8px 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  margin: 0 10px 0 2px;
+}
+.film-band .band-boundary .bb-step {
+  font-size: 9.5px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  color: var(--brick);
+}
+.film-band .band-boundary .bb-text {
+  font-size: 9.5px;
+  line-height: 1.55;
+  color: var(--ink);
+  opacity: 0.75;
+}
+
+/* ---- 声明帧（主舞台）：纯文字，无坐标展示 ---- */
+.film-stage .stage-declare {
+  border: 1px dashed var(--hair);
+  background: var(--paper);
+  padding: 48px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  min-height: 320px;
+  justify-content: center;
+}
+.film-stage .stage-declare .sd-mark {
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  color: var(--brick);
+  font-weight: 700;
+}
+.film-stage .stage-declare p {
+  font-size: 12px;
+  line-height: 1.9;
+  color: var(--ink);
+  opacity: 0.85;
+  max-width: 640px;
+}
+
+/* ---- 2D 结构式帧（主舞台）：纸白底 + 线描结构式，用于 PDB 无坐标分子 ---- */
+.film-stage .stage-2d {
+  border: 1px solid var(--hair-faint);
+  background: var(--paper);
+  padding: 24px 28px 18px;
+}
+.film-stage .stage-2d .s2d-mark {
+  display: block;
+  font-size: 9.5px;
+  letter-spacing: 0.2em;
+  color: var(--brick);
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.film-stage .stage-2d .stage-svg { display: block; width: 100%; height: auto; max-height: 560px; }

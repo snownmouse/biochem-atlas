@@ -1,0 +1,59 @@
+/* ============================================================
+   结构帧入口（frames-entry）样式 —— 独立文件，不动 src/styles.css
+   作用域：挂图右栏详情区的入口行 + 帧页的返回行
+   口径：下划线文字 / 灰字声明，不做按钮、胶囊、卡片；仅 1440 桌面
+   ============================================================ */
+
+/* 挂图右栏：有帧步骤 → "看这一步的结构帧 →"（下划线文字链接） */
+.poster .d-body .frames-entry {
+  display: inline-block;
+  margin: 8px 0 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink, #22282a);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  cursor: pointer;
+}
+.poster .d-body .frames-entry:hover {
+  color: var(--teal, #2e6e6b);
+  text-decoration-color: var(--teal, #2e6e6b);
+}
+.poster .d-body .frames-entry:focus-visible {
+  outline: 1px solid var(--brick, #9c4a3c);
+  outline-offset: 2px;
+}
+
+/* 挂图右栏：无帧步骤 → 灰字"结构帧尚未接入"（声明存在、不可点、不隐藏） */
+.poster .d-body .frames-entry-none {
+  display: inline-block;
+  margin: 8px 0 2px;
+  font-size: 12px;
+  line-height: 1.6;
+  color: var(--ink, #22282a);
+  opacity: 0.45;
+  cursor: default;
+}
+
+/* 帧页返回：面包屑式一行文字链接，不加页头装饰 */
+.film-poster .film-back {
+  padding: 16px 28px 0;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.film-poster .film-back a {
+  color: var(--ink, #22282a);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+.film-poster .film-back a:hover {
+  color: var(--teal, #2e6e6b);
+  text-decoration-color: var(--teal, #2e6e6b);
+}
+.film-poster .film-back .film-back-step {
+  color: var(--ink, #22282a);
+  opacity: 0.55;
+  margin-left: 10px;
+}

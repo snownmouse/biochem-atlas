@@ -1,0 +1,156 @@
+{
+  "stepId": "gk-1-liver",
+  "stepName": "肝型葡萄糖激酶 GCK（器官变体）",
+  "assetVersion": "2.0.0",
+  "generatedAt": "2026-11-03",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12
+  },
+  "pdbId": "1V4S",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2.3,
+  "resolutionPerState": {
+    "holo": 2.3,
+    "apo": 3.4
+  },
+  "atomCount": 3517,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：承载保留配体重原子最多"
+    }
+  },
+  "ligands": [
+    {
+      "id": "GLC",
+      "name": "α-D-葡萄糖",
+      "role": "substrate",
+      "rationale": "真实底物；合成激活剂 MRK 已按替身配体滤除（页面不可见）",
+      "instances": 1,
+      "instanceChains": [
+        "A/500"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 12,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "GCK 为己糖激酶同工酶 IV（肝型变构酶），与主图 HK1 为不同同工酶。",
+    "1V4S 含合成激活剂 MRK（GKA 药物分子），已按替身配体滤除，属补偿性证据。",
+    "1V4T（apo）分辨率 3.40 Å，游离态结构较弱。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 291996,
+      "gzipBytes": 74477
+    },
+    "apo.pdb": {
+      "bytes": 264792,
+      "gzipBytes": 67348
+    },
+    "ligand.sdf": {
+      "bytes": 1220,
+      "gzipBytes": 365
+    },
+    "pocket.json": {
+      "bytes": 6125,
+      "gzipBytes": 767
+    }
+  },
+  "holo": {
+    "pdbId": "1V4S",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.3,
+    "title": "CRYSTAL STRUCTURE OF HUMAN GLUCOKINASE",
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：承载保留配体重原子最多"
+      }
+    },
+    "atomCount": 3517,
+    "proteinAtomCount": 3505,
+    "ligands": [
+      {
+        "id": "GLC",
+        "name": "α-D-葡萄糖",
+        "role": "substrate",
+        "rationale": "真实底物；合成激活剂 MRK 已按替身配体滤除（页面不可见）",
+        "instances": 1,
+        "instanceChains": [
+          "A/500"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 12,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "NA",
+        "role": "artifact",
+        "rationale": "钠离子，结晶添加剂",
+        "instances": 1,
+        "minDistToPrimaryLigand": 21.81
+      },
+      {
+        "id": "MRK",
+        "role": "analog",
+        "rationale": "合成葡萄糖激酶激活剂（GKA 药物分子），非内源配体",
+        "instances": 23,
+        "minDistToPrimaryLigand": 16.23
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "GLC",
+      "NA",
+      "MRK"
+    ]
+  },
+  "apo": {
+    "pdbId": "1V4T",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 3.4,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序选取"
+      }
+    },
+    "atomCount": 3325,
+    "proteinAtomCount": 3325,
+    "ligands": [],
+    "presentLigands": [
+      {
+        "id": "SO4",
+        "role": "artifact",
+        "rationale": "硫酸根，结晶添加剂（可能占据磷酸位点，但不构成底物证据）"
+      },
+      {
+        "id": "NA",
+        "role": "artifact",
+        "rationale": "钠离子，结晶添加剂"
+      }
+    ],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

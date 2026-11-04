@@ -1,0 +1,129 @@
+{
+  "pathwayId": "gluconeogenesis",
+  "canvas": { "width": 1980, "height": 620 },
+  "spatialNote": "糖异生与糖酵解最大的空间差异在几何上用泳道表达：起点丙酮酸在胞质（由 MPC 转运入线粒体基质），羧化在线粒体基质（gn-1），OAA 不能自由穿膜、以苹果酸形式过内膜（跨膜带，顺带把 NADH 带入胞质），PEP 之后的全部反应回到胞质与糖酵解共用酶系（gn-3…gn-10），最后一步 G6Pase 挂在内质网膜、活性位点朝腔侧（gn-11 下潜到 ER 腔泳道）。跨膜环节一律画成泳道切换，不画平线。",
+  "compartments": [
+    {
+      "id": "mito-matrix",
+      "name": "线粒体基质",
+      "band": { "y0": 60, "y1": 200 },
+      "note": "糖异生的起点：丙酮酸被羧化为草酰乙酸（gn-1）。"
+    },
+    {
+      "id": "mito-inner-membrane",
+      "name": "线粒体内膜（转运带）",
+      "band": { "y0": 200, "y1": 250 },
+      "note": "OAA 不能自由穿膜，须以苹果酸形式经载体过膜；本带只放跨膜穿梭节点。"
+    },
+    {
+      "id": "cytosol",
+      "name": "细胞质",
+      "band": { "y0": 250, "y1": 470 },
+      "note": "PEP 之后全部在胞质，与糖酵解共用酶系逆向运行（gn-3…gn-10）。"
+    },
+    {
+      "id": "er-lumen",
+      "name": "内质网腔",
+      "band": { "y0": 500, "y1": 570, "x0": 1700, "x1": 1980 },
+      "note": "仅右段参与本图：G6PC1 是 ER 膜蛋白、活性位点朝腔，G6P 经 SLC37A4 入腔被水解。"
+    }
+  ],
+  "nodes": [
+    { "id": "lac",      "order": null, "x": 60,   "y": 410, "compartment": "cytosol",            "kind": "metabolite", "label": "乳酸",   "entityId": "lac" },
+    { "id": "ala",      "order": null, "x": 60,   "y": 260, "compartment": "cytosol",            "kind": "metabolite", "label": "丙氨酸", "entityId": "ala" },
+    { "id": "pyr-cyt",  "order": null, "x": 200,  "y": 320, "compartment": "cytosol",            "kind": "metabolite", "label": "丙酮酸", "entityId": "pyr" },
+    { "id": "pyr-mit",  "order": 0,    "x": 200,  "y": 130, "compartment": "mito-matrix",        "kind": "metabolite", "label": "丙酮酸", "entityId": "pyr" },
+    { "id": "oaa-mit",  "order": 1,    "x": 360,  "y": 130, "compartment": "mito-matrix",        "kind": "metabolite", "label": "草酰乙酸", "entityId": "oaa" },
+    { "id": "mal",      "order": null, "x": 510,  "y": 225, "compartment": "mito-inner-membrane", "kind": "metabolite", "label": "苹果酸（跨膜穿梭）", "entityId": "mal" },
+    { "id": "oaa-cyt",  "order": 2,    "x": 660,  "y": 320, "compartment": "cytosol",            "kind": "metabolite", "label": "草酰乙酸", "entityId": "oaa" },
+    { "id": "pep",      "order": 3,    "x": 810,  "y": 320, "compartment": "cytosol",            "kind": "metabolite", "label": "PEP" },
+    { "id": "2pg",      "order": 4,    "x": 950,  "y": 320, "compartment": "cytosol",            "kind": "metabolite", "label": "2PG" },
+    { "id": "3pg",      "order": 5,    "x": 1090, "y": 320, "compartment": "cytosol",            "kind": "metabolite", "label": "3PG" },
+    { "id": "13bpg",    "order": 6,    "x": 1230, "y": 320, "compartment": "cytosol",            "kind": "metabolite", "label": "1,3-BPG" },
+    { "id": "g3p",      "order": 7,    "x": 1370, "y": 320, "compartment": "cytosol",            "kind": "metabolite", "label": "G3P" },
+    { "id": "dhap",     "order": null, "x": 1370, "y": 440, "compartment": "cytosol",            "kind": "metabolite", "label": "DHAP" },
+    { "id": "fbp",      "order": 8,    "x": 1550, "y": 320, "compartment": "cytosol",            "kind": "metabolite", "label": "FBP" },
+    { "id": "f6p",      "order": 9,    "x": 1700, "y": 320, "compartment": "cytosol",            "kind": "metabolite", "label": "F6P" },
+    { "id": "g6p",      "order": 10,   "x": 1850, "y": 320, "compartment": "cytosol",            "kind": "metabolite", "label": "G6P" },
+    { "id": "glc",      "order": 11,   "x": 1850, "y": 535, "compartment": "er-lumen",           "kind": "metabolite", "label": "葡萄糖", "note": "经 GLUT2 出肝入血" }
+  ],
+  "links": [
+    { "from": "ala",      "to": "pyr-cyt", "stepId": "gn-ala",  "type": "branch-entry" },
+    { "from": "lac",      "to": "pyr-cyt", "stepId": "gn-cori", "type": "branch-entry" },
+    { "from": "pyr-cyt",  "to": "pyr-mit", "stepId": "gn-shuttle-mpc", "type": "shuttle", "label": "MPC 转运" },
+    { "from": "pyr-mit",  "to": "oaa-mit", "stepId": "gn-1",    "type": "main" },
+    { "from": "oaa-mit",  "to": "mal",     "stepId": "gn-shuttle-mal", "type": "shuttle", "label": "苹果酸穿梭（OAA 出膜 + NADH 搭车入胞质）" },
+    { "from": "mal",      "to": "oaa-cyt", "stepId": "gn-shuttle-mal", "type": "shuttle" },
+    { "from": "oaa-cyt",  "to": "pep",     "stepId": "gn-2",    "type": "main" },
+    { "from": "pep",      "to": "2pg",     "stepId": "gn-3",    "type": "main" },
+    { "from": "2pg",      "to": "3pg",     "stepId": "gn-4",    "type": "main" },
+    { "from": "3pg",      "to": "13bpg",   "stepId": "gn-5",    "type": "main" },
+    { "from": "13bpg",    "to": "g3p",     "stepId": "gn-6",    "type": "main" },
+    { "from": "g3p",      "to": "dhap",    "stepId": "gn-7",    "type": "main" },
+    { "from": "g3p",      "to": "fbp",     "stepId": "gn-8",    "type": "main" },
+    { "from": "dhap",     "to": "fbp",     "stepId": "gn-8",    "type": "branch-join" },
+    { "from": "fbp",      "to": "f6p",     "stepId": "gn-9",    "type": "main" },
+    { "from": "f6p",      "to": "g6p",     "stepId": "gn-10",   "type": "main" },
+    { "from": "g6p",      "to": "glc",     "stepId": "gn-11",   "type": "main", "label": "G6PC1（活性位点朝 ER 腔）+ SLC37A4 转运" }
+  ],
+  "transportSteps": [
+    {
+      "id": "gn-shuttle-mpc",
+      "name": "丙酮酸经线粒体丙酮酸载体（MPC）入基质",
+      "from": "pyr-cyt",
+      "via": null,
+      "to": "pyr-mit",
+      "note": "糖异生的『入场券』：胞质丙酮酸过内膜才能被 gn-1 羧化。"
+    },
+    {
+      "id": "gn-shuttle-mal",
+      "name": "苹果酸穿梭（OAA 出线粒体 + NADH 搭车入胞质）",
+      "from": "oaa-mit",
+      "via": "mal",
+      "to": "oaa-cyt",
+      "note": "OAA 不能自由穿膜：线粒体内先还原为苹果酸过膜，胞质内再氧化回 OAA，顺带把 NADH 带入胞质供 gn-6；替代路线为转天冬氨酸。"
+    }
+  ],
+  "sideBranches": [
+    {
+      "id": "substrate-cycle-pfk-fbpase",
+      "name": "底物循环：PFK-1 把 F6P 推回 FBP（糖酵解向，与 gn-9 对打）",
+      "collapsedByDefault": true,
+      "from": "f6p",
+      "to": "fbp",
+      "stepId": "gk-3",
+      "nodeIds": [],
+      "note": "F2,6BP 单一信使双向裁决：正调 PFK-1、负调 FBPase-1。"
+    },
+    {
+      "id": "substrate-cycle-hk-g6pase",
+      "name": "底物循环：HK/GCK 把葡萄糖磷酸化（糖酵解向，与 gn-11 对打）",
+      "collapsedByDefault": true,
+      "from": "glc",
+      "to": "g6p",
+      "stepId": "gk-1",
+      "nodeIds": [],
+      "note": "第三对拔河：肝 GCK 只在血糖升高时工作，G6PC1 只在空腹时工作，激素错峰调度。"
+    },
+    {
+      "id": "cori-entry",
+      "name": "乳酸入口（Cori 循环）",
+      "collapsedByDefault": false,
+      "from": "lac",
+      "to": "pyr-cyt",
+      "stepId": "gn-cori",
+      "nodeIds": [],
+      "note": "LDH 氧化乳酸时供出胞质 NADH，正好喂给 gn-6。"
+    },
+    {
+      "id": "ala-entry",
+      "name": "丙氨酸入口（葡萄糖-丙氨酸循环）",
+      "collapsedByDefault": false,
+      "from": "ala",
+      "to": "pyr-cyt",
+      "stepId": "gn-ala",
+      "nodeIds": [],
+      "note": "肌蛋白氨基以丙氨酸无毒运肝，碳骨架转氨后进 gn-1。"
+    }
+  ]
+}

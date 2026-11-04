@@ -1,0 +1,144 @@
+{
+  "stepId": "gk-2",
+  "stepName": "G6P ↔ F6P 异构（磷酸葡萄糖异构酶）",
+  "assetVersion": "2.0.0",
+  "generatedAt": "2026-11-03",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12
+  },
+  "pdbId": "2CXS",
+  "species": "Mus musculus",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 1.5,
+  "resolutionPerState": {
+    "holo": 1.5,
+    "apo": 1.9
+  },
+  "atomCount": 8864,
+  "chainSelection": {
+    "chains": [
+      "A",
+      "B"
+    ],
+    "rule": {
+      "A": "R2 主链：承载保留配体重原子最多",
+      "B": "R3(b)：界面口袋贡献 3 个残基（≤4.5 Å）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "F6P",
+      "name": "6-磷酸-D-果糖",
+      "role": "substrate",
+      "rationale": "真实底物",
+      "instances": 2,
+      "instanceChains": [
+        "A/1601",
+        "B/2601"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 32,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "跨物种配对：holo 2CXS 为小鼠（Mus musculus），apo 1JIQ 为人（Homo sapiens），物种不一致。",
+    "2CXS 中 GOL（甘油）为结晶添加剂，已滤除。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 789463,
+      "gzipBytes": 192903
+    },
+    "apo.pdb": {
+      "bytes": 717255,
+      "gzipBytes": 176956
+    },
+    "ligand.sdf": {
+      "bytes": 1576,
+      "gzipBytes": 424
+    },
+    "pocket.json": {
+      "bytes": 7138,
+      "gzipBytes": 898
+    }
+  },
+  "holo": {
+    "pdbId": "2CXS",
+    "species": "Mus musculus",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.5,
+    "title": "CRYSTAL STRUCTURE OF MOUSE AMF / F6P COMPLEX",
+    "chainSelection": {
+      "chains": [
+        "A",
+        "B"
+      ],
+      "rule": {
+        "A": "R2 主链：承载保留配体重原子最多",
+        "B": "R3(b)：界面口袋贡献 3 个残基（≤4.5 Å）"
+      }
+    },
+    "atomCount": 8864,
+    "proteinAtomCount": 8832,
+    "ligands": [
+      {
+        "id": "F6P",
+        "name": "6-磷酸-D-果糖",
+        "role": "substrate",
+        "rationale": "真实底物",
+        "instances": 2,
+        "instanceChains": [
+          "A/1601",
+          "B/2601"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 32,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "GOL",
+        "role": "artifact",
+        "rationale": "甘油，结晶添加剂",
+        "instances": 24,
+        "minDistToPrimaryLigand": 22.65
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "F6P",
+      "GOL"
+    ]
+  },
+  "apo": {
+    "pdbId": "1JIQ",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.9,
+    "chainSelection": {
+      "chains": [
+        "A",
+        "B"
+      ],
+      "rule": {
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序选取",
+        "B": "R4 apo：与 holo 链数一致，按蛋白原子数降序选取"
+      }
+    },
+    "atomCount": 8890,
+    "proteinAtomCount": 8890,
+    "ligands": [],
+    "presentLigands": [],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

@@ -1,0 +1,223 @@
+{
+  "stepId": "gk-9",
+  "stepName": "2PG → PEP 脱水（烯醇化酶 ENO）",
+  "assetVersion": "2.0.0",
+  "generatedAt": "2026-11-03",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12
+  },
+  "pdbId": "3UCD",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 1.41,
+  "resolutionPerState": {
+    "holo": 1.41,
+    "apo": 2.2
+  },
+  "atomCount": 6645,
+  "chainSelection": {
+    "chains": [
+      "A",
+      "B"
+    ],
+    "rule": {
+      "A": "R2 主链：承载保留配体重原子最多",
+      "B": "R3(a)：承载已保留链没有的配体 PEP"
+    }
+  },
+  "ligands": [
+    {
+      "id": "MG",
+      "name": "Mg²⁺（必需金属辅因子）",
+      "role": "cofactor",
+      "rationale": "烯醇化酶活性必需双 Mg²⁺",
+      "instances": 4,
+      "instanceChains": [
+        "A/599",
+        "A/600",
+        "B/599",
+        "B/600"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 3.2,
+      "atomCount": 4,
+      "sdfFile": "ligand-MG.sdf"
+    },
+    {
+      "id": "2PG",
+      "name": "2-磷酸甘油酸",
+      "role": "substrate",
+      "rationale": "真实底物（A 链）",
+      "instances": 1,
+      "instanceChains": [
+        "A/601"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 11,
+      "sdfFile": "ligand-2PG.sdf"
+    },
+    {
+      "id": "PEP",
+      "name": "磷酸烯醇式丙酮酸",
+      "role": "product",
+      "rationale": "真实产物（B 链；口袋判定以 2PG 所在位点为锚）",
+      "instances": 1,
+      "instanceChains": [
+        "B/601"
+      ],
+      "pocketRelevant": false,
+      "minDistToPrimaryA": 31,
+      "atomCount": 10,
+      "sdfFile": "ligand-PEP.sdf"
+    }
+  ],
+  "caveats": [
+    "同工酶差异：holo 3UCD 为 ENO2（神经元型），apo 2PSN 为 ENO1（肌肉型），同为人源但同工酶不同。",
+    "3UCD 中 2PG 在 A 链、PEP 在 B 链，口袋判定以 A 链 2PG 位点为锚，PEP 输出但不参与口袋。",
+    "apo 2PSN 保留必需金属 Mg²⁺；其每链 1 个 PO4 按结晶磷酸滤除。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 556218,
+      "gzipBytes": 137976
+    },
+    "apo.pdb": {
+      "bytes": 532091,
+      "gzipBytes": 132677
+    },
+    "ligand-MG.sdf": {
+      "bytes": 221,
+      "gzipBytes": 162
+    },
+    "ligand-2PG.sdf": {
+      "bytes": 1112,
+      "gzipBytes": 348
+    },
+    "ligand-PEP.sdf": {
+      "bytes": 1023,
+      "gzipBytes": 328
+    },
+    "pocket.json": {
+      "bytes": 9023,
+      "gzipBytes": 952
+    }
+  },
+  "holo": {
+    "pdbId": "3UCD",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.41,
+    "title": "ASYMMETRIC COMPLEX OF HUMAN NEURON SPECIFIC ENOLASE-2-PGA/PEP",
+    "chainSelection": {
+      "chains": [
+        "A",
+        "B"
+      ],
+      "rule": {
+        "A": "R2 主链：承载保留配体重原子最多",
+        "B": "R3(a)：承载已保留链没有的配体 PEP"
+      }
+    },
+    "atomCount": 6645,
+    "proteinAtomCount": 6620,
+    "ligands": [
+      {
+        "id": "MG",
+        "name": "Mg²⁺（必需金属辅因子）",
+        "role": "cofactor",
+        "rationale": "烯醇化酶活性必需双 Mg²⁺",
+        "instances": 4,
+        "instanceChains": [
+          "A/599",
+          "A/600",
+          "B/599",
+          "B/600"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 3.2,
+        "atomCount": 4,
+        "sdfFile": "ligand-MG.sdf"
+      },
+      {
+        "id": "2PG",
+        "name": "2-磷酸甘油酸",
+        "role": "substrate",
+        "rationale": "真实底物（A 链）",
+        "instances": 1,
+        "instanceChains": [
+          "A/601"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 11,
+        "sdfFile": "ligand-2PG.sdf"
+      },
+      {
+        "id": "PEP",
+        "name": "磷酸烯醇式丙酮酸",
+        "role": "product",
+        "rationale": "真实产物（B 链；口袋判定以 2PG 所在位点为锚）",
+        "instances": 1,
+        "instanceChains": [
+          "B/601"
+        ],
+        "pocketRelevant": false,
+        "minDistToPrimaryA": 31,
+        "atomCount": 10,
+        "sdfFile": "ligand-PEP.sdf"
+      }
+    ],
+    "filteredLigands": [],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "MG",
+      "2PG",
+      "PEP"
+    ]
+  },
+  "apo": {
+    "pdbId": "2PSN",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.2,
+    "chainSelection": {
+      "chains": [
+        "C",
+        "A"
+      ],
+      "rule": {
+        "C": "R4 apo：与 holo 链数一致，按蛋白原子数降序选取",
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序选取"
+      }
+    },
+    "atomCount": 6608,
+    "proteinAtomCount": 6604,
+    "ligands": [
+      {
+        "id": "MG",
+        "role": "cofactor",
+        "rationale": "apo 结构中保留的必需辅因子/金属"
+      }
+    ],
+    "presentLigands": [
+      {
+        "id": "MG",
+        "role": "cofactor",
+        "rationale": "apo 结构中保留的必需辅因子/金属"
+      },
+      {
+        "id": "PO4",
+        "role": "artifact",
+        "rationale": "无机磷酸，结晶添加剂（非底物态证据）"
+      }
+    ],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

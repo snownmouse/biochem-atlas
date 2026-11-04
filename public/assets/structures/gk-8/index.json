@@ -1,0 +1,30 @@
+{
+  "stepId": "gk-8",
+  "stepIndex": 8,
+  "frames": [
+    {
+      "frameId": "gk-8-f0",
+      "asset": "frame-f0.json",
+      "source": "1QHF / Saccharomyces cerevisiae / 1.7 Å（3PG）"
+    },
+    {
+      "frameId": "gk-8-f1",
+      "asset": null,
+      "note": "半 apo 4GPZ（NEP 修饰）+ 跨物种 → 声明帧"
+    },
+    {
+      "frameId": "gk-8-f2",
+      "asset": "frame-f2.json",
+      "source": "1QHF / Saccharomyces cerevisiae / 1.7 Å（结合态）"
+    },
+    {
+      "frameId": "gk-8-f3",
+      "asset": "frame-f3.json",
+      "source": "1EQJ / 细菌兜底 / 1.7 Å（2PG，分子级）"
+    }
+  ],
+  "alignment": {
+    "T8": "1QHF·3PG → 9FDN·3PG 第 7 步相机位置，RMSD 1.42 Å（11 重原子，跨物种配体级）",
+    "T8b": "1EQJ·2PG → 3PG 羧基端，RMSD 0.68 Å（5 原子）"
+  }
+}

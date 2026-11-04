@@ -1,0 +1,46 @@
+// 数据入口：JSON 为唯一事实源（前端与 SVG 生成脚本共用），此文件只做类型包装。
+// 与 glycolysis.ts 同款结构；额外导出回补反应与通路级说明。
+import tcaJson from "./tca.json";
+import skeletonTcaJson from "./skeleton-tca.json";
+import type { Entity, Pathway, PathwaySkeleton, Step, AnaplerosisEntry } from "./types";
+
+const data = tcaJson as unknown as Omit<Pathway, "skeleton"> & {
+  entities: Entity[];
+  anaplerosis: AnaplerosisEntry[];
+  organNote?: string;
+};
+
+export const skeletonTca: PathwaySkeleton = skeletonTcaJson as PathwaySkeleton;
+
+export const entitiesTca: Entity[] = data.entities;
+
+export const stepsTca: Step[] = data.steps;
+
+/** 接驳步（PDH）：单独条目，不计入环上 8 步 */
+export const sideBranchStepsTca: Step[] = data.sideBranchSteps ?? [];
+
+export const anaplerosis: AnaplerosisEntry[] = data.anaplerosis ?? [];
+
+export const organNoteTca: string = data.organNote ?? "";
+
+export const pathwayTca: Pathway = {
+  id: data.id,
+  name: data.name,
+  summary: data.summary,
+  organs: data.organs,
+  steps: stepsTca,
+  sideBranchSteps: sideBranchStepsTca,
+  anaplerosis,
+  anaplerosisNote: data.anaplerosisNote,
+  organNote: data.organNote,
+  skeleton: skeletonTca,
+};
+
+/** 本切片刻意留待下一轮或需人工复核的点 */
+export const TODO_NOTES_TCA: string[] = [
+  "所有步骤的生理态 ΔG 数值未核实，页面按『暂同标准态 / 近平衡定性』口径显示，不可作定量判读。",
+  "第 2 步 ΔG°′ ≈ +13.3 kJ/mol：教材差异大，未跨教材核实。",
+  "3D 结合视图整轮未做：PDB 候选（1CTS / 7ACN / 1ZOY 等）尚未按糖酵解同款流程核验，均为候选条目。",
+  "α-KGDH 是否有 PDH 式共价调控开关、PDK 同工型组织分布：细节未核实。",
+  "回补反应的酶学细节按教材标准表述，个别条目（GDH 方向、丙酰-CoA 途径）未逐条核对。"
+];

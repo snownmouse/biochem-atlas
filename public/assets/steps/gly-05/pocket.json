@@ -1,0 +1,331 @@
+{
+  "residues": [
+    {
+      "resi": 10,
+      "resn": "ASN",
+      "chain": "A",
+      "minDist": 3.14,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 12,
+      "resn": "LYS",
+      "chain": "A",
+      "minDist": 3.07,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 95,
+      "resn": "HIS",
+      "chain": "A",
+      "minDist": 2.72,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 97,
+      "resn": "GLU",
+      "chain": "A",
+      "minDist": 4.49,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 165,
+      "resn": "GLU",
+      "chain": "A",
+      "minDist": 2.99,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 169,
+      "resn": "ALA",
+      "chain": "A",
+      "minDist": 3.65,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 170,
+      "resn": "ILE",
+      "chain": "A",
+      "minDist": 3.33,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 171,
+      "resn": "GLY",
+      "chain": "A",
+      "minDist": 2.75,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 210,
+      "resn": "GLY",
+      "chain": "A",
+      "minDist": 3.75,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 211,
+      "resn": "SER",
+      "chain": "A",
+      "minDist": 2.81,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 212,
+      "resn": "ALA",
+      "chain": "A",
+      "minDist": 4.28,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 230,
+      "resn": "LEU",
+      "chain": "A",
+      "minDist": 3.21,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 231,
+      "resn": "VAL",
+      "chain": "A",
+      "minDist": 3.92,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 232,
+      "resn": "GLY",
+      "chain": "A",
+      "minDist": 2.81,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 233,
+      "resn": "GLY",
+      "chain": "A",
+      "minDist": 2.89,
+      "type": "hbond",
+      "provenance": "computed"
+    }
+  ],
+  "hbonds": [
+    {
+      "dist": 3.1,
+      "prot": {
+        "name": "ND2",
+        "resi": 10,
+        "resn": "ASN",
+        "chain": "A",
+        "x": 28.797,
+        "y": 40.987,
+        "z": 12.935
+      },
+      "lig": {
+        "id": "13P",
+        "resi": 5001,
+        "chain": "A",
+        "name": "O3",
+        "x": 26.031,
+        "y": 42.093,
+        "z": 11.946
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.1,
+      "prot": {
+        "name": "NZ",
+        "resi": 12,
+        "resn": "LYS",
+        "chain": "A",
+        "x": 26.657,
+        "y": 43.406,
+        "z": 16.763
+      },
+      "lig": {
+        "id": "13P",
+        "resi": 5001,
+        "chain": "A",
+        "name": "O2",
+        "x": 25.335,
+        "y": 43.954,
+        "z": 14.051
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.7,
+      "prot": {
+        "name": "NE2",
+        "resi": 95,
+        "resn": "HIS",
+        "chain": "A",
+        "x": 27.662,
+        "y": 44.442,
+        "z": 12.732
+      },
+      "lig": {
+        "id": "13P",
+        "resi": 5001,
+        "chain": "A",
+        "name": "O2",
+        "x": 25.335,
+        "y": 43.954,
+        "z": 14.051
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.1,
+      "prot": {
+        "name": "OE1",
+        "resi": 165,
+        "resn": "GLU",
+        "chain": "A",
+        "x": 25.078,
+        "y": 44.733,
+        "z": 10.618
+      },
+      "lig": {
+        "id": "13P",
+        "resi": 5001,
+        "chain": "A",
+        "name": "O3",
+        "x": 26.031,
+        "y": 42.093,
+        "z": 11.946
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.7,
+      "prot": {
+        "name": "N",
+        "resi": 171,
+        "resn": "GLY",
+        "chain": "A",
+        "x": 22.176,
+        "y": 45.512,
+        "z": 18.729
+      },
+      "lig": {
+        "id": "13P",
+        "resi": 5001,
+        "chain": "A",
+        "name": "O2P",
+        "x": 21.573,
+        "y": 43.407,
+        "z": 17.067
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.8,
+      "prot": {
+        "name": "N",
+        "resi": 211,
+        "resn": "SER",
+        "chain": "A",
+        "x": 18.973,
+        "y": 43.55,
+        "z": 16.022
+      },
+      "lig": {
+        "id": "13P",
+        "resi": 5001,
+        "chain": "A",
+        "name": "O2P",
+        "x": 21.573,
+        "y": 43.407,
+        "z": 17.067
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.8,
+      "prot": {
+        "name": "N",
+        "resi": 232,
+        "resn": "GLY",
+        "chain": "A",
+        "x": 23.287,
+        "y": 39.014,
+        "z": 15.007
+      },
+      "lig": {
+        "id": "13P",
+        "resi": 5001,
+        "chain": "A",
+        "name": "O3P",
+        "x": 21.667,
+        "y": 41.018,
+        "z": 16.124
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.9,
+      "prot": {
+        "name": "N",
+        "resi": 233,
+        "resn": "GLY",
+        "chain": "A",
+        "x": 23.698,
+        "y": 38.822,
+        "z": 18.212
+      },
+      "lig": {
+        "id": "13P",
+        "resi": 5001,
+        "chain": "A",
+        "name": "O1P",
+        "x": 23.015,
+        "y": 41.628,
+        "z": 18.241
+      },
+      "provenance": "computed"
+    }
+  ],
+  "waters": [
+    5014,
+    5022,
+    5025,
+    5033,
+    5037,
+    5042,
+    5047,
+    5049,
+    5063,
+    5081,
+    5089,
+    5091,
+    5098,
+    5111,
+    5117,
+    5120,
+    5140,
+    5143,
+    5159,
+    5170,
+    5175,
+    5199,
+    5210,
+    5264,
+    5267,
+    5326,
+    5331
+  ]
+}

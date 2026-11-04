@@ -1,0 +1,29 @@
+{
+  "stepId": "gk-3",
+  "stepIndex": 3,
+  "frames": [
+    {
+      "frameId": "gk-3-f0",
+      "asset": "frame-f0.json",
+      "source": "8W2G / Homo sapiens / 3.0 Å cryo-EM"
+    },
+    {
+      "frameId": "gk-3-f1",
+      "asset": null,
+      "note": "无 apo（P17858 全部 cryo-EM 带配体）→ 声明帧"
+    },
+    {
+      "frameId": "gk-3-f2",
+      "asset": "frame-f2.json",
+      "source": "8W2G / Homo sapiens / 3.0 Å cryo-EM（F6P+催化ADP，四聚体取单亚基）"
+    },
+    {
+      "frameId": "gk-3-f3",
+      "asset": null,
+      "note": "FBP 实测于远端别构位点（42.1 Å）非产物位 → 声明帧"
+    }
+  ],
+  "alignment": {
+    "T3": "8W2G·F6P → 2CXS·F6P 链末端，RMSD 1.34 Å（16 原子，跨物种配体级）"
+  }
+}

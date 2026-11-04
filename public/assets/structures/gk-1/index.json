@@ -1,0 +1,46 @@
+{
+  "pathwayId": "glycolysis",
+  "stepId": "gk-1",
+  "stepIndex": 1,
+  "pdbId": "1CZA",
+  "chain": "N",
+  "resolution": 1.9,
+  "species": "Homo sapiens",
+  "frames": [
+    {
+      "frameId": "gk-1-f0",
+      "role": "substrate",
+      "asset": "frame-f0.json",
+      "computed": false,
+      "ligandCodes": [
+        "GLC"
+      ]
+    },
+    {
+      "frameId": "gk-1-f1",
+      "role": "pocket",
+      "asset": "frame-f1.json",
+      "computed": false,
+      "ligandCodes": []
+    },
+    {
+      "frameId": "gk-1-f2",
+      "role": "bound",
+      "asset": "frame-f2.json",
+      "computed": false,
+      "ligandCodes": [
+        "GLC"
+      ]
+    },
+    {
+      "frameId": "gk-1-f3",
+      "role": "allosteric",
+      "asset": "frame-f3.json",
+      "computed": false,
+      "ligandCodes": [
+        "G6P"
+      ]
+    }
+  ],
+  "totalGzipBudget": "< 5 MB（实际远小于）"
+}

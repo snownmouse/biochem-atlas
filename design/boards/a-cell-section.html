@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>样张 A · 细胞切片纵向代谢流 · 糖酵解（对照版）</title>
+<style>
+  :root{
+    --paper:#F6F3EC; --ink:#22282A; --amber:#B4761F; --teal:#2E6E6B; --brick:#9C4A3C;
+    --hair:rgba(34,40,42,.5); --hair-soft:rgba(34,40,42,.22); --hair-faint:rgba(34,40,42,.10);
+    --serif:"Noto Serif SC","Source Han Serif SC","Source Han Serif CN","Songti SC",SimSun,serif;
+    --sans:"Noto Sans SC","Source Han Sans SC","Source Han Sans CN","PingFang SC","Microsoft YaHei",sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{background:var(--paper)}
+  body{font-family:var(--sans);color:var(--ink);background:var(--paper);font-size:13px;line-height:1.65}
+  .num{font-variant-numeric:tabular-nums}
+
+  header{padding:22px 26px 14px;border-bottom:1.5px solid var(--ink);
+    display:flex;justify-content:space-between;align-items:flex-end;gap:24px}
+  header h1{font-family:var(--serif);font-size:30px;font-weight:600;letter-spacing:.05em}
+  header h1 small{display:block;font-family:var(--sans);font-size:11px;font-weight:400;letter-spacing:.35em;margin-top:6px;opacity:.7}
+  header p{max-width:620px;font-size:12.5px}
+  header .view{font-size:11px;letter-spacing:.2em;white-space:nowrap}
+  header .view b{color:var(--brick)}
+
+  .grid{display:grid;grid-template-columns:minmax(0,1fr) 340px;min-height:calc(100vh - 120px)}
+
+  /* ---- 左：纵向主链（扁平工作图，无装饰层） ---- */
+  .chain{border-right:1px solid var(--hair-soft)}
+  .phase{display:flex;justify-content:space-between;align-items:baseline;
+    padding:7px 26px;border-bottom:1px solid var(--hair-soft);background:rgba(34,40,42,.03)}
+  .phase .pn{font-family:var(--serif);font-weight:600;font-size:13px;letter-spacing:.1em}
+  .phase .pv{font-size:11px;letter-spacing:.1em;opacity:.75}
+  .step{display:grid;grid-template-columns:64px 72px minmax(0,1fr) 300px;
+    border-bottom:1px solid var(--hair-faint);cursor:pointer}
+  .step:hover{background:rgba(34,40,42,.03)}
+  .step.sel{background:rgba(34,40,42,.05);box-shadow:inset 3px 0 0 var(--ink)}
+  .st-no{font-family:var(--serif);font-size:17px;text-align:right;padding:14px 10px 0 0;color:var(--ink)}
+  .st-spine{position:relative}
+  .st-spine::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;background:var(--hair-soft)}
+  .st-spine .nd{position:absolute;left:50%;top:22px;transform:translateX(-50%);
+    width:48px;height:48px;border-radius:50%;background:var(--paper);border:1.4px solid var(--ink);
+    display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:700}
+  .st-spine .nd.sm{font-size:8.5px;letter-spacing:-.02em}
+  .st-spine .arr{position:absolute;left:50%;bottom:-1px;transform:translateX(-50%);
+    width:0;height:0;border-left:4px solid transparent;border-right:4px solid transparent;border-top:6px solid var(--hair)}
+  .st-main{padding:14px 18px 14px 0;min-width:0}
+  .st-main .en{font-size:13px;font-weight:700;letter-spacing:.03em}
+  .st-main .en .irr{font-size:9.5px;font-weight:400;opacity:.55;margin-left:8px}
+  .st-main .eq{font-family:var(--serif);font-size:13px;margin-top:3px}
+  .st-main .tags{margin-top:6px;display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+  .tag{font-size:11px;display:inline-flex;align-items:center;gap:5px;letter-spacing:.05em}
+  .tag i{width:9px;height:9px;display:inline-block}
+  .tag.a{color:var(--amber)} .tag.a i.h{border:1.3px solid var(--amber)} .tag.a i.f{background:var(--amber)}
+  .tag.t{color:var(--teal)} .tag.t i.f{background:var(--teal)}
+  .st-side{border-left:1px solid var(--hair-faint);padding:14px 16px;font-size:11.5px;line-height:1.7}
+  .st-side .dl{color:var(--brick);font-weight:700;letter-spacing:.15em;font-size:10px;display:block;margin-bottom:2px}
+  .st-side.none{opacity:.45;font-size:10.5px;letter-spacing:.05em;align-self:center}
+
+  /* ---- 右：详情栏 + 能量账本 ---- */
+  aside{display:flex;flex-direction:column}
+  .detail{padding:18px 22px;border-bottom:1px solid var(--hair-soft)}
+  .detail .cap{font-size:10px;letter-spacing:.3em;opacity:.6;margin-bottom:10px}
+  #d-body .d-step{font-family:var(--serif);font-size:15px;font-weight:600}
+  #d-body .d-step .no{font-size:21px;margin-right:8px}
+  #d-body .d-enzyme{font-size:13px;font-weight:700;margin:6px 0 2px}
+  #d-body .d-iso{font-size:11px;opacity:.7}
+  #d-body .d-eq{font-family:var(--serif);font-size:13.5px;line-height:1.8;margin:9px 0;padding:9px 11px;
+    border-left:2px solid var(--ink);background:rgba(34,40,42,.035)}
+  #d-body .d-cof{font-size:11px;margin-bottom:7px}
+  #d-body .d-sig{font-size:12px;line-height:1.8;text-align:justify}
+  #d-body .d-organ{margin-top:9px;padding:8px 10px;border-left:2px solid var(--brick);
+    background:rgba(156,74,60,.05);font-size:11.5px;line-height:1.7}
+  #d-body .d-organ .lbl{font-weight:700;color:var(--brick);font-size:10px;letter-spacing:.2em;display:block;margin-bottom:2px}
+  #d-body .d-none{margin-top:9px;font-size:10.5px;opacity:.55}
+
+  .ledger{padding:16px 22px 24px}
+  .ledger .cap{font-size:10px;letter-spacing:.3em;opacity:.6;margin-bottom:10px}
+  table.lg{width:100%;border-collapse:collapse;font-size:11.5px}
+  table.lg th{font-size:10px;letter-spacing:.15em;text-align:left;border-bottom:1px solid var(--hair);padding:4px 6px}
+  table.lg td{border-bottom:1px solid var(--hair-faint);padding:6px;vertical-align:middle}
+  table.lg td.n{font-family:var(--serif)}
+  table.lg .plus{color:var(--amber);font-weight:700} table.lg .mint{color:var(--amber)}
+  table.lg .nad{color:var(--teal);font-weight:700}
+  .sq{width:9px;height:9px;display:inline-block;margin-right:2px;vertical-align:-1px}
+  .sq.fa{background:var(--amber)} .sq.ha{border:1.2px solid var(--amber)} .sq.ft{background:var(--teal)}
+  .lg-net{display:flex;justify-content:space-between;align-items:baseline;margin-top:12px;
+    border-top:1.5px solid var(--ink);padding-top:9px}
+  .lg-net .l{font-size:11px;font-weight:700;letter-spacing:.25em}
+  .lg-net .v{font-family:var(--serif);font-size:17px;font-weight:600}
+  .lg-note{font-size:10.5px;opacity:.6;margin-top:8px;line-height:1.7}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>糖酵解 · 纵向代谢流<small>GLYCOLYSIS — 细胞切片 · 自上而下</small></h1>
+  <p>一分子葡萄糖在细胞质中经 10 步酶促反应生成 2 分子丙酮酸，净得 2 ATP 与 2 NADH。上段为投入期，下段为放能期；空间顺序即"先投资、后回收"。</p>
+  <div class="view">器官视图：<b>肝（Δ3）</b><br>肌 / 红细胞视图仅更换差异标签</div>
+</header>
+
+<div class="grid">
+  <div class="chain" id="chain"><!-- JS 渲染 --></div>
+
+  <aside>
+    <div class="detail">
+      <div class="cap">详情栏 · 当前步骤</div>
+      <div id="d-body"></div>
+    </div>
+    <div class="ledger">
+      <div class="cap">能量账本 · 逐级累加</div>
+      <table class="lg">
+        <tr><th>步</th><th>变动</th><th>方块</th><th>ATP 累计</th><th>NADH 累计</th></tr>
+        <tr><td class="n">Ⅰ</td><td class="mint num">−1 ATP</td><td><span class="sq ha"></span></td><td class="num">−1</td><td class="num">—</td></tr>
+        <tr><td class="n">Ⅲ</td><td class="mint num">−1 ATP</td><td><span class="sq ha"></span></td><td class="num">−2</td><td class="num">—</td></tr>
+        <tr><td class="n">Ⅵ</td><td class="nad num">+2 NADH</td><td><span class="sq ft"></span><span class="sq ft"></span></td><td class="num">−2</td><td class="num">+2</td></tr>
+        <tr><td class="n">Ⅶ</td><td class="plus num">+2 ATP</td><td><span class="sq fa"></span><span class="sq fa"></span></td><td class="num">0</td><td class="num">+2</td></tr>
+        <tr><td class="n">Ⅹ</td><td class="plus num">+2 ATP</td><td><span class="sq fa"></span><span class="sq fa"></span></td><td class="num">+2</td><td class="num">+2</td></tr>
+      </table>
+      <div class="lg-net"><span class="l">结算</span><span class="v num"><span style="color:var(--amber)">净 +2 ATP</span> · <span style="color:var(--teal)">+2 NADH</span></span></div>
+      <div class="lg-note">按每葡萄糖计；第 Ⅴ 步起全部 ×2。方块 = 1 分子：空心为投入，实心为回收。</div>
+    </div>
+  </aside>
+</div>
+
+<script>
+/* 数据与 src/data/glycolysis.json 一致，仅此处为样张内联副本 */
+const STEPS = {
+ 1:{no:"Ⅰ",node:"Glc",name:"葡萄糖磷酸化",enzyme:"己糖激酶",iso:"肝外组织：HK I–III",short:"Glc + ATP → G6P",eq:"葡萄糖 + ATP → 葡糖-6-磷酸 + ADP + H⁺",cof:"ATP · Mg²⁺",irrev:true,
+    sig:"消耗 1 ATP 把葡萄糖\u201C锁\u201D进细胞并带上负电荷防止外漏，是通路的第一个投入点。",
+    liver:"肝表达葡萄糖激酶（HK-IV）：Km 高、不受 G6P 抑制，只在血糖升高时大量工作，起\u201C血糖缓冲\u201D作用。"},
+ 2:{no:"Ⅱ",node:"G6P",name:"G6P 异构为 F6P",enzyme:"磷酸己糖异构酶",iso:"",short:"G6P ⇌ F6P",eq:"葡糖-6-磷酸 ⇌ 果糖-6-磷酸",cof:"无",irrev:false,
+    sig:"醛糖变酮糖，为下一步 C1 磷酸化做准备；G6P 由此步与戊糖磷酸通路共享。",liver:null},
+ 3:{no:"Ⅲ",node:"F6P",name:"F6P 磷酸化（限速步骤）",enzyme:"磷酸果糖激酶-1",iso:"肝 PFK-L；肌 PFK-M；红细胞 L/M 杂合体",short:"F6P + ATP → FBP",eq:"果糖-6-磷酸 + ATP → 果糖-1,6-二磷酸 + ADP + H⁺",cof:"ATP · Mg²⁺",irrev:true,
+    sig:"通路的主要限速与调控点，决定糖酵解整体流量。",
+    liver:"肝 PFK-L 受果糖-2,6-二磷酸强烈激活：胰岛素高时开闸、胰高血糖素高时关闸。"},
+ 4:{no:"Ⅳ",node:"FBP",name:"FBP 裂解",enzyme:"醛缩酶",iso:"",short:"FBP ⇌ G3P + DHAP",eq:"果糖-1,6-二磷酸 ⇌ 甘油醛-3-磷酸 + 磷酸二羟丙酮",cof:"无",irrev:false,
+    sig:"六碳一拆二：每个 FBP 得到 1 个 G3P 和 1 个 DHAP。",liver:null},
+ 5:{no:"Ⅴ",node:"G3P",name:"DHAP 异构为 G3P",enzyme:"磷酸丙糖异构酶",iso:"",short:"DHAP ⇌ G3P（×2 起点）",eq:"磷酸二羟丙酮 ⇌ 甘油醛-3-磷酸",cof:"无",irrev:false,
+    sig:"DHAP 迅速转化为第二个 G3P；自此之后所有步骤按\u201C每葡萄糖 ×2\u201D计。",liver:null},
+ 6:{no:"Ⅵ",node:"1,3-BPG",name:"G3P 氧化磷酸化（Pi 参与）",enzyme:"甘油醛-3-磷酸脱氢酶",iso:"",short:"G3P + Pi + NAD⁺ ⇌ 1,3-BPG + NADH",eq:"甘油醛-3-磷酸 + Pi + NAD⁺ ⇌ 1,3-二磷酸甘油酸 + NADH + H⁺",cof:"NAD⁺ · Pi",irrev:false,
+    sig:"氧化能与磷酸基转移偶联：无机磷（Pi）被\u201C存进\u201D1,3-BPG 的高能酰基磷酸键；砷酸盐冒充 Pi 会使偶联失效。",liver:null},
+ 7:{no:"Ⅶ",node:"3PG",name:"第一次底物水平磷酸化",enzyme:"磷酸甘油酸激酶",iso:"",short:"1,3-BPG + ADP ⇌ 3PG + ATP",eq:"1,3-二磷酸甘油酸 + ADP ⇌ 3-磷酸甘油酸 + ATP",cof:"ADP",irrev:false,
+    sig:"1,3-BPG 把磷酸基交给 ADP 生成 ATP；按 ×2 计，此处正好收回第 1、3 步投入的 2 个 ATP。",liver:null},
+ 8:{no:"Ⅷ",node:"2PG",name:"3PG 变位",enzyme:"磷酸甘油酸变位酶",iso:"",short:"3PG ⇌ 2PG",eq:"3-磷酸甘油酸 ⇌ 2-磷酸甘油酸",cof:"2,3-BPG（催化中间体）",irrev:false,
+    sig:"磷酸基从 C3 移到 C2，为下一步脱水形成高能烯醇键做准备。",liver:null},
+ 9:{no:"Ⅸ",node:"PEP",name:"脱水生成 PEP",enzyme:"烯醇化酶",iso:"",short:"2PG ⇌ PEP + H₂O",eq:"2-磷酸甘油酸 ⇌ 磷酸烯醇式丙酮酸 + H₂O",cof:"Mg²⁺",irrev:false,
+    sig:"脱水使 PEP 成为全通路能量最高的磷酸化合物；氟离子抑制此酶——血样采集管中的氟化钠正靠这一机制阻止葡萄糖被继续消耗。",liver:null},
+ 10:{no:"Ⅹ",node:"Pyr",name:"PEP → 丙酮酸（第二次产 ATP）",enzyme:"丙酮酸激酶",iso:"肝 PK-L；肌 PK-M；红细胞 PK-R",short:"PEP + ADP + H⁺ → Pyr + ATP",eq:"磷酸烯醇式丙酮酸 + ADP + H⁺ → 丙酮酸 + ATP",cof:"ADP · Mg²⁺ · K⁺",irrev:true,
+    sig:"最后一个不可逆步骤，完成第二次底物水平磷酸化，净 ATP 至此转正。",
+    liver:"肝 PK-L 被胰高血糖素依赖的磷酸化钝化，与 PFK-2/FBPase-2 一起按激素状态开关糖酵解。"}
+};
+const ENERGY = {1:"<span class='tag a'><i class='h'></i>ATP −1</span>",3:"<span class='tag a'><i class='h'></i>ATP −1</span>",
+  6:"<span class='tag t'><i class='f'></i>NADH +1 ×2</span>",7:"<span class='tag a'><i class='f'></i>ATP +1 ×2</span>",
+  10:"<span class='tag a'><i class='f'></i>ATP +1 ×2</span>"};
+
+const chain = document.getElementById('chain');
+let html = '<div class="phase"><span class="pn">投入期 · Ⅰ–Ⅴ</span><span class="pv">每葡萄糖消耗 2 ATP · 六碳阶段</span></div>';
+for(let i=1;i<=10;i++){
+  const s=STEPS[i];
+  if(i===6) html += '<div class="phase"><span class="pn">放能期 · Ⅵ–Ⅹ</span><span class="pv">每葡萄糖回收 4 ATP · 三碳阶段 ×2</span></div>';
+  const side = s.liver
+    ? '<div class="st-side"><span class="dl">Δ 肝差异</span>'+s.liver+'</div>'
+    : '<div class="st-side none">本步无组织差异</div>';
+  html += '<div class="step'+(i===1?' sel':'')+'" data-n="'+i+'">'+
+    '<div class="st-no num">'+s.no+'</div>'+
+    '<div class="st-spine"><span class="nd'+(s.node.length>4?' sm':'')+'">'+s.node+'</span><span class="arr"></span></div>'+
+    '<div class="st-main"><div class="en">'+(i)+'. '+s.enzyme+'<span class="irr">'+(s.irrev?'不可逆':'可逆')+'</span></div>'+
+    '<div class="eq">'+s.short+'</div>'+
+    '<div class="tags">'+(ENERGY[i]||'')+'</div></div>'+ side + '</div>';
+}
+chain.innerHTML = html;
+
+const d = document.getElementById('d-body');
+function render(n){
+  const s=STEPS[n];
+  d.innerHTML='<div class="d-step"><span class="no">'+s.no+'</span>'+s.name+'</div>'+
+    '<div class="d-enzyme">'+s.enzyme+'</div>'+(s.iso?'<div class="d-iso">'+s.iso+'</div>':'')+
+    '<div class="d-eq">'+s.eq+'</div><div class="d-cof"><b>辅因子</b>&nbsp;&nbsp;'+s.cof+'</div>'+
+    '<div class="d-sig">'+s.sig+'</div>'+
+    (s.liver?'<div class="d-organ"><span class="lbl">Δ 肝差异</span>'+s.liver+'</div>'
+            :'<div class="d-none">本步无组织差异（肝 / 肌 / 红细胞一致）。</div>');
+  document.querySelectorAll('.step').forEach(el=>el.classList.toggle('sel',+el.dataset.n===n));
+}
+chain.addEventListener('click',e=>{const st=e.target.closest('.step'); if(st) render(+st.dataset.n);});
+render(1);
+</script>
+</body>
+</html>

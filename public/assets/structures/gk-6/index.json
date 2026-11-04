@@ -1,0 +1,32 @@
+{
+  "stepId": "gk-6",
+  "stepIndex": 6,
+  "frames": [
+    {
+      "frameId": "gk-6-f0",
+      "asset": "/assets/structures/2d/gap.json",
+      "kind": "2d",
+      "note": "GAP 无 PDB 组分 → 2D 结构式帧"
+    },
+    {
+      "frameId": "gk-6-f1",
+      "asset": "frame-f1.json",
+      "source": "8G15 / Homo sapiens / 2.07 Å（apo，Cα 对齐并入）"
+    },
+    {
+      "frameId": "gk-6-f2",
+      "asset": "frame-f2.json",
+      "source": "1U8F / Homo sapiens / 1.75 Å（酶+NAD，无底物复合物）"
+    },
+    {
+      "frameId": "gk-6-f3",
+      "asset": "/assets/structures/2d/bpg13.json",
+      "kind": "2d",
+      "note": "1,3-BPG 无 PDB 组分 → 2D 结构式帧"
+    }
+  ],
+  "alignment": {
+    "camera": "第 6 步相机重建（GAP 无 3D 坐标，跨步链断开，帧带 boundaryNote 已声明）",
+    "A6": "8G15 → 1U8F Cα Kabsch，RMSD 0.53 Å（333 对，链 D→O）"
+  }
+}

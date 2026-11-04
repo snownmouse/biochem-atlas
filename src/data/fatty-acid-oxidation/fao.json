@@ -1,0 +1,513 @@
+{
+  "id": "fatty-acid-oxidation",
+  "name": "脂肪酸 β-氧化",
+  "summary": "脂肪酸先在胞质侧活化（脂酰-CoA 合成酶，ATP→AMP+PPi，总代价 2 个高能磷酸键），长链脂酰-CoA 经肉碱穿梭（CPT1→CACT→CPT2）跨内膜进入线粒体基质，再跑四步循环：脱氢（FAD→FADH₂）、水化、再脱氢（NAD⁺→NADH）、硫解——每轮削去 2 碳、释出 1 个乙酰-CoA。C16 棕榈酸跑 7 轮得 8 乙酰-CoA + 7 FADH₂ + 7 NADH，按现代 P/O 口径净 106 ATP（已扣活化 2 个高能键）。循环本身不产 ATP：全部还原当量送呼吸链兑现。",
+  "organs": [
+    { "id": "liver", "name": "肝" },
+    { "id": "heart", "name": "心肌" },
+    { "id": "skeletal-muscle", "name": "骨骼肌" }
+  ],
+  "entities": [
+    { "id": "fa", "name": "脂肪酸", "abbr": "FA", "kind": "metabolite" },
+    { "id": "acylcoa", "name": "脂酰-CoA", "abbr": "Acyl-CoA", "kind": "metabolite" },
+    { "id": "acylcarn", "name": "脂酰肉碱", "abbr": "Acyl-Crn", "kind": "metabolite" },
+    { "id": "carn", "name": "肉碱", "abbr": "Crn", "kind": "metabolite" },
+    { "id": "enoyl", "name": "反式-Δ²-烯酰-CoA", "abbr": "Enoyl-CoA", "kind": "metabolite" },
+    { "id": "hydroxyacyl", "name": "L-3-羟脂酰-CoA", "abbr": "3-OH-Acyl-CoA", "kind": "metabolite" },
+    { "id": "ketoacyl", "name": "3-酮脂酰-CoA", "abbr": "3-Keto-Acyl-CoA", "kind": "metabolite" },
+    { "id": "accoa", "name": "乙酰-CoA", "abbr": "Ac-CoA", "kind": "metabolite" },
+    { "id": "atp", "name": "ATP", "abbr": "ATP", "kind": "metabolite" },
+    { "id": "amp", "name": "AMP", "abbr": "AMP", "kind": "metabolite" },
+    { "id": "ppi", "name": "焦磷酸", "abbr": "PPi", "kind": "metabolite" },
+    { "id": "coa", "name": "辅酶 A", "abbr": "CoA-SH", "kind": "metabolite" },
+    { "id": "fad", "name": "FAD", "abbr": "FAD", "kind": "metabolite" },
+    { "id": "fadh2", "name": "FADH₂", "abbr": "FADH₂", "kind": "metabolite" },
+    { "id": "nad", "name": "NAD⁺", "abbr": "NAD⁺", "kind": "metabolite" },
+    { "id": "nadh", "name": "NADH", "abbr": "NADH", "kind": "metabolite" },
+    { "id": "h2o", "name": "水", "abbr": "H₂O", "kind": "metabolite" },
+    { "id": "acsl", "name": "脂酰-CoA 合成酶", "abbr": "ACSL", "kind": "enzyme" },
+    { "id": "cpt1", "name": "肉碱棕榈酰转移酶 1", "abbr": "CPT1", "kind": "enzyme" },
+    { "id": "cact", "name": "脂酰肉碱转位酶", "abbr": "CACT", "kind": "enzyme" },
+    { "id": "cpt2", "name": "肉碱棕榈酰转移酶 2", "abbr": "CPT2", "kind": "enzyme" },
+    { "id": "acad", "name": "酰基-CoA 脱氢酶", "abbr": "ACAD", "kind": "enzyme" },
+    { "id": "echs1", "name": "烯酰-CoA 水合酶", "abbr": "ECHS1", "kind": "enzyme" },
+    { "id": "hadh", "name": "3-羟酰-CoA 脱氢酶", "abbr": "HADH", "kind": "enzyme" },
+    { "id": "acaa2", "name": "β-酮脂酰-CoA 硫解酶", "abbr": "ACAA2", "kind": "enzyme" }
+  ],
+  "steps": [
+    {
+      "id": "fao-act",
+      "kind": "prep",
+      "index": null,
+      "name": "脂肪酸活化：脂酰-CoA 合成酶",
+      "compartment": "cytosol",
+      "compartments": ["cytosol", "mito-outer-membrane"],
+      "substrates": ["fa", "coa", "atp"],
+      "products": ["acylcoa", "amp", "ppi"],
+      "enzyme": {
+        "entityId": "acsl",
+        "name": "脂酰-CoA 合成酶（酰基-CoA 连接酶）",
+        "isozyme": "长链 ACSL/ACSVL 家族与中链 ACSM 家族分工；outline 核验的结构证据 3EQ6 属中链 ACSM2A，页面须标注同工酶差异"
+      },
+      "cofactors": ["ATP", "CoA-SH", "Mg²⁺"],
+      "irreversible": true,
+      "significance": "把不能自由过膜的疏水脂肪酸改造成『酰基硫酯通货』——全通路唯一的入场费，且一次性交代了为什么脂肪的能量账要扣 2：ATP→AMP+PPi 直接拆 1 个高能键，PPi 水解再补 1 个，合计 2 个高能磷酸键。",
+      "equation": "脂肪酸 + CoA-SH + ATP → 脂酰-CoA + AMP + PPi（PPi 随即水解 → 2 Pi；总代价 2 个高能磷酸键）",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝：空腹动员时肝 ACSL 供给自身 β-氧化与酮体生成的原料，活化能力与脂解联动。" },
+        { "organ": "heart", "text": "心肌以脂肪酸为主要燃料（占比数值教材出入大，未核实不写数）；活化-穿梭-氧化整条流水线在心肌长期高负荷运转。" },
+        { "organ": "red-blood-cell", "text": "红细胞无线粒体：整个通路（含活化产物脂酰-CoA 的去向）都无法运行，只能糖酵解——『RBC 为什么不烧脂肪』的空间答案。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "6.2.1.3",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "强放能（PPi 水解把平衡拉到底，细胞内视为不可逆）",
+        "source": "Lehninger 8e Ch.17（定性结论）",
+        "note": "活化总代价按 2 个高能磷酸键计（教学锚点）；未核实到唯一 ΔG°′ 数值，不编数。"
+      },
+      "stereochemistry": [
+        "两步反应：脂肪酸先腺苷酰化生成酰基-AMP 中间体，再由 CoA-SH 置换出 AMP 成硫酯；3EQ6 捕获的是第二步之后的产物态（中间体已离去），解读时注意"
+      ],
+      "misconceptions": [
+        "「活化消耗 1 个 ATP」——ATP→AMP+PPi 只直接拆 1 个高能键，但 PPi 水解又补了 1 个：合计 2 个高能磷酸键；漏掉 PPi 就会写出错误的账。",
+        "「活化发生在线粒体基质里」——长链脂肪酸在胞质侧/外膜活化，产物却进不了内膜，必须肉碱穿梭；把活化画进基质是最常见的空间错误。"
+      ],
+      "clinical": [
+        "ACSL 缺陷罕见且表型未核实到唯一口径，此处不写具体综合征；临床上活化与转运缺陷常并称脂肪酸氧化代谢障碍，共同表现为空腹不耐受。"
+      ],
+      "threeD": {
+        "status": "pending",
+        "note": "单帧静态展示即可；两步反应中间态无全捕获结构。",
+        "pdbCandidates": [
+          {
+            "pdbId": "3EQ6",
+            "role": "capture-state",
+            "organism": "人（ACSM2A，中链）",
+            "method": "X-ray",
+            "resolution": 2.4,
+            "ligands": ["BCO（丁酰-CoA）", "AMP"],
+            "note": "酰基-CoA + AMP 同框＝活化产物态天然捕获；注意中链同工酶归属与两步反应解读"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fao-shuttle",
+      "kind": "transport",
+      "index": null,
+      "name": "肉碱穿梭：CPT1 → CACT → CPT2",
+      "compartment": "mito-inner-membrane",
+      "compartments": ["cytosol", "mito-outer-membrane", "mito-inner-membrane", "mito-matrix"],
+      "substrates": ["acylcoa", "carn"],
+      "products": ["acylcoa", "carn"],
+      "enzyme": {
+        "entityId": "cact",
+        "name": "肉碱穿梭系统：CPT1（外膜，限速）→ CACT（内膜转位酶）→ CPT2（内膜基质侧）"
+      },
+      "cofactors": ["肉碱（载体）", "不耗 ATP（CACT 电中性交换）"],
+      "irreversible": false,
+      "significance": "长链脂肪酸唯一的入场券：CPT1 是限速闸（被丙二酰-CoA 抑制——『合成开启时焊死分解的门』，避免无效循环），脂酰基换成肉碱载体过内膜，基质侧 CPT2 再换回 CoA-SH。",
+      "equation": "脂酰-CoA（胞质）+ 肉碱 →[CPT1] 脂酰肉碱 →[CACT 过内膜] →[CPT2] 脂酰-CoA（基质）+ 肉碱",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝 CPT1A：空腹时开闸供酮体生成原料；CPT1A 缺乏表现为空腹低血糖。" },
+        { "organ": "skeletal-muscle", "text": "肌 CPT1B + CPT2：成人型 CPT2 缺乏表现为运动/空腹诱发的肌痛与肌红蛋白尿。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "2.3.1.21（CPT1/CPT2 同 EC）；CACT 为转运体 SLC25A20，无 EC",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "电中性交换，净耗能 ≈ 0",
+        "source": "Lehninger 8e Ch.17（定性结论）",
+        "note": "无化学键变化，ΔG 意义有限，只记定性；管控在 CPT1 闸门而非能耗。"
+      },
+      "stereochemistry": [
+        "CACT 电中性交换：一分子脂酰肉碱进、一分子肉碱出，不依赖膜电位"
+      ],
+      "misconceptions": [
+        "「肉碱穿梭耗 ATP」——CACT 是电中性交换不耗能；『过路费』体现为管控（CPT1 丙二酰-CoA 抑制），不是能耗。",
+        "「所有脂肪酸都必须坐肉碱渡船」——中短链脂肪酸可直接扩散入基质，长链（C14+）才必须走这道门。"
+      ],
+      "clinical": [
+        "CPT1A 缺乏：空腹诱发低血糖（OMIM 255120）。",
+        "CPT2 缺乏成人型：运动/空腹诱发肌痛与肌红蛋白尿（OMIM 255110）。",
+        "原发性肉碱缺乏（OCTN2/SLC22A5，OMIM 212140）：肉碱补充有效——『转运体也是通路的一部分』的活例子。"
+      ],
+      "threeD": {
+        "status": "pending",
+        "note": "CPT1 人源无结构（跨膜蛋白），穿梭段骨架走 2D 示意；CPT2 可用大鼠结构做单帧，须标注跨物种。",
+        "pdbCandidates": [
+          {
+            "pdbId": "2RCU",
+            "role": "substrate-state",
+            "organism": "大鼠",
+            "method": "X-ray",
+            "resolution": 1.78,
+            "ligands": ["BUJ（(3R)-3-十六酰氨基-4-(三甲氨基)丁酸，棕榈酰肉碱类似物）"],
+            "note": "人 CPT1/CPT2 均无晶体；鼠 CPT2 质量最高"
+          },
+          {
+            "pdbId": "2H4T",
+            "role": "channel-state",
+            "organism": "大鼠",
+            "method": "X-ray",
+            "resolution": 1.9,
+            "ligands": ["D12（十二烷）"],
+            "note": "疏水通道内烷烃＝通道证据，非肉碱态对照"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fao-1",
+      "kind": "cycle",
+      "index": 1,
+      "name": "酰基-CoA 脱氢：造反式-Δ²双键",
+      "compartment": "mito-matrix",
+      "compartments": ["mito-matrix"],
+      "substrates": ["acylcoa", "fad"],
+      "products": ["enoyl", "fadh2"],
+      "enzyme": {
+        "entityId": "acad",
+        "name": "酰基-CoA 脱氢酶",
+        "isozyme": "ACAD 家族按链长分工：VLCAD/LCAD/MCAD/SCAD；长链底物亦可由三功能蛋白（MTP）兼任"
+      },
+      "cofactors": ["FAD（辅基；MCAD 为非共价结合）"],
+      "irreversible": false,
+      "significance": "每轮的第一刀：从 C2–C3 取氢造一个反式-Δ²双键，把氧化当量记在 FAD 名下——双键氧化的低能级决定了它只够还原 FAD（1.5 ATP 当量），电子经 ETF→ETF-QO 入呼吸链。",
+      "equation": "脂酰-CoA（Cₙ）+ FAD → 反式-Δ²-烯酰-CoA + FADH₂",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝：MCAD/LCAD 高表达；β-氧化过载时乙酰-CoA 走酮体生成（本切片仅注记，不展开）。" },
+        { "organ": "skeletal-muscle", "text": "肌：VLCAD 主管长链底物，空腹耐力运动的燃料主力。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "1.3.8.7（家族成员按链长细分）",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡",
+        "source": "Lehninger 8e Ch.17（定性结论）",
+        "note": "四步循环 β1–β3 近平衡；未核实到唯一 ΔG°′ 数值，不编数。"
+      },
+      "stereochemistry": [
+        "FAD 从底物取走 2H，双键专一为反式（trans）-Δ²，位于 C2–C3"
+      ],
+      "misconceptions": [
+        "「每轮产 3 个还原当量」——每轮只有 1 FADH₂（本步）+ 1 NADH（第 3 步）；且 FAD 在前、NAD⁺ 在后，对应『先生成双键、后氧化羟基』的化学顺序，不能倒。",
+        "「双键位置随便」——专一生成反式-Δ²（C2–C3），不饱和脂肪酸的天然顺式双键反而要异构酶/还原酶 aux enzyme 补位（支路，本切片不展开）。"
+      ],
+      "clinical": [
+        "MCAD 缺乏：最常见的脂肪酸氧化缺陷，婴幼儿空腹诱发低血糖 + 低酮体性昏迷（OMIM 201450）；已纳入新生儿筛查。",
+        "VLCAD 缺乏：长链底物堆积，心肌与骨骼肌受累（OMIM 201475）。"
+      ],
+      "perRoundYield": { "fadh2": 1, "nadh": 0, "acetylCoA": 0 },
+      "threeD": {
+        "status": "pending",
+        "note": "主线帧带可行度最高的酶：人源真底物在位 + 近 apo 帧齐备；链长缺口（底物 C8 vs 后三步 C4）需跨结构对齐并标注。",
+        "pdbCandidates": [
+          {
+            "pdbId": "1EGC",
+            "role": "substrate-state",
+            "organism": "人（MCAD）",
+            "method": "X-ray",
+            "resolution": 2.6,
+            "ligands": ["FAD", "CO8（辛酰-CoA，C8）"],
+            "note": "★ 人源真底物在位；底物为 C8"
+          },
+          {
+            "pdbId": "4P13",
+            "role": "apo",
+            "organism": "人（MCAD）",
+            "method": "X-ray",
+            "resolution": 1.73,
+            "ligands": ["FAD"],
+            "note": "分辨率更高的 apo（带黄素）帧"
+          },
+          {
+            "pdbId": "2UXW",
+            "role": "substrate-state",
+            "organism": "人（VLCAD）",
+            "method": "X-ray",
+            "resolution": 1.45,
+            "ligands": ["FAD", "TH3（反式-Δ²-十六碳烯酰-CoA）"],
+            "note": "β1 产物双键在位，稀有；长链同工酶对照"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fao-2",
+      "kind": "cycle",
+      "index": 2,
+      "name": "烯酰-CoA 水化：双键变羟基",
+      "compartment": "mito-matrix",
+      "compartments": ["mito-matrix"],
+      "substrates": ["enoyl", "h2o"],
+      "products": ["hydroxyacyl"],
+      "enzyme": {
+        "entityId": "echs1",
+        "name": "烯酰-CoA 水合酶",
+        "isozyme": "即 crotonase（巴豆酸酶）；长链底物由 MTP 兼任"
+      },
+      "cofactors": ["H₂O"],
+      "irreversible": false,
+      "significance": "把双键变成可氧化的羟基：一步水化打通『烯→醇』并锁定 L-构型，为第 3 步的标准醇氧化备好底物——没有这步，NAD⁺ 的 2.5 当量就无从谈起。",
+      "equation": "反式-Δ²-烯酰-CoA + H₂O → L-3-羟脂酰-CoA",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝 ECHS1 常量表达；与 MTP 缺乏（累及长链水化）的临床分型相关（见 clinical）。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "4.2.1.17",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡",
+        "source": "Lehninger 8e Ch.17（定性结论）",
+        "note": "未核实到唯一 ΔG°′ 数值，不编数。"
+      },
+      "stereochemistry": [
+        "水加在 C2–C3 双键上，C3 羟基为 L-构型（与脂肪酸合成走 D 型相反，两通路立体化学互为镜像）"
+      ],
+      "misconceptions": [
+        "「水化产物是 D-β-羟脂酰-CoA」——是 L 型；与脂肪酸合成通路恰好相反，别把合成侧的立体化学带过来。",
+        "「加水要花能量」——近平衡反应，H₂O 直接加上去，无 ATP 参与。"
+      ],
+      "clinical": [
+        "LCHAD/MTP 缺乏：三功能蛋白缺陷累及长链水化/脱氢（OMIM 600890）；与母亲 HELLP 综合征的关联细节未核实，此处不展开。"
+      ],
+      "perRoundYield": { "fadh2": 0, "nadh": 0, "acetylCoA": 0 },
+      "threeD": {
+        "status": "pending",
+        "note": "人源底物态 + apo 帧齐备。",
+        "pdbCandidates": [
+          {
+            "pdbId": "2HW5",
+            "role": "substrate-state",
+            "organism": "人（ECHS1）",
+            "method": "X-ray",
+            "resolution": 2.55,
+            "ligands": ["COO（巴豆酰-CoA，C4 真底物）", "MG"],
+            "note": "★ 人源真底物在位"
+          },
+          {
+            "pdbId": "1HZD",
+            "role": "apo",
+            "organism": "人（ECHS1）",
+            "method": "X-ray",
+            "resolution": 2.2,
+            "ligands": [],
+            "note": "apo 帧现成"
+          },
+          {
+            "pdbId": "1DUB",
+            "role": "control-only",
+            "organism": "大鼠（crotonase）",
+            "method": "X-ray",
+            "resolution": 2.5,
+            "ligands": ["CAA（乙酰乙酰-CoA）"],
+            "note": "产物态经典对照结构"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fao-3",
+      "kind": "cycle",
+      "index": 3,
+      "name": "3-羟酰-CoA 脱氢：换 NAD⁺ 当氧化剂",
+      "compartment": "mito-matrix",
+      "compartments": ["mito-matrix"],
+      "substrates": ["hydroxyacyl", "nad"],
+      "products": ["ketoacyl", "nadh"],
+      "enzyme": {
+        "entityId": "hadh",
+        "name": "3-羟酰-CoA 脱氢酶",
+        "isozyme": "短中链为 HADH/SCHAD；长链底物由三功能蛋白（MTP）兼任"
+      },
+      "cofactors": ["NAD⁺"],
+      "irreversible": false,
+      "significance": "第二刀换 NAD⁺：标准醇氧化够格还原 NAD⁺（2.5 ATP 当量），与第 1 步的 FAD（1.5 当量）构成『氧化剂分级』——本通路第二个教学锚点。",
+      "equation": "L-3-羟脂酰-CoA + NAD⁺ → 3-酮脂酰-CoA + NADH + H⁺",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝：NADH 高产与酮体生成联动——NADH 堆积本身即『燃料过剩』信号。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "1.1.1.35",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡",
+        "source": "Lehninger 8e Ch.17（定性结论）",
+        "note": "未核实到唯一 ΔG°′ 数值，不编数。"
+      },
+      "stereochemistry": [
+        "L-3-羟脂酰-CoA 的 C3 羟基被 NAD⁺ 专一氧化为 3-酮基（前一步已锁定 L-构型）"
+      ],
+      "misconceptions": [
+        "「这步的 NADH 和第 1 步的 FADH₂ 等价」——P/O 口径 2.5 对 1.5，每轮差 1 ATP 当量；『氧化剂分级』源自双键氧化与醇氧化的能级差。",
+        "「β-氧化直接产 ATP」——循环本身只产还原当量与乙酰-CoA，ATP 全部在呼吸链兑现；把 β-氧化画成『产 ATP 的循环』是最常见图错。"
+      ],
+      "clinical": [
+        "HADH（SCHAD）缺乏罕见；表型细节未核实到唯一口径，此处不写具体机制。"
+      ],
+      "perRoundYield": { "fadh2": 0, "nadh": 1, "acetylCoA": 0 },
+      "threeD": {
+        "status": "pending",
+        "note": "双配体同框（NAD + 底物类似物），稀有。",
+        "pdbCandidates": [
+          {
+            "pdbId": "1F0Y",
+            "role": "substrate-state",
+            "organism": "人（SCHAD/HADH）",
+            "method": "X-ray",
+            "resolution": 1.8,
+            "ligands": ["NAD", "CAA（乙酰乙酰-CoA）"],
+            "note": "★ 辅酶 + 底物双配体同框"
+          }
+        ]
+      }
+    },
+    {
+      "id": "fao-4",
+      "kind": "cycle",
+      "index": 4,
+      "name": "β-酮脂酰-CoA 硫解：断键收尾",
+      "compartment": "mito-matrix",
+      "compartments": ["mito-matrix"],
+      "substrates": ["ketoacyl", "coa"],
+      "products": ["accoa", "acylcoa"],
+      "enzyme": {
+        "entityId": "acaa2",
+        "name": "β-酮脂酰-CoA 硫解酶",
+        "isozyme": "线粒体 ACAA2（过氧化物酶体 ACAA5 为同工酶对照，非主线）"
+      },
+      "cofactors": ["CoA-SH"],
+      "irreversible": false,
+      "significance": "Claisen 断键收尾：硫酯化学把平衡猛拉向断裂，C3–C4 之间断开、释出乙酰-CoA 入 TCA，剩余链 −2C 即下一轮第 1 步底物——循环因此得名 β-氧化。平台内首次出现 CoA 硫酯 + 亲核催化的 Claisen 断键（与糖酵解『高能键转移』对照）。",
+      "equation": "3-酮脂酰-CoA + CoA-SH → 乙酰-CoA + 脂酰-CoA（Cₙ₋₂）",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝：末轮（C4 底物）硫解一次放出 2 个乙酰-CoA；肝乙酰-CoA 过载即走酮体生成。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "2.3.1.16",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "强放能（把反应拉向断键方向）",
+        "source": "Lehninger 8e Ch.17（定性结论）",
+        "note": "具体 ΔG°′ 数值 Lehninger 未单列，不编数。"
+      },
+      "stereochemistry": [
+        "Cys 硫酯中间体 + CoA-SH 亲核进攻 C3 羰基，C3–C4 断键（Claisen 型裂解）"
+      ],
+      "misconceptions": [
+        "「硫解放能所以这步产 ATP」——放能用于把平衡猛推向断键，没有底物级磷酸化；别和糖酵解 PGK/PK 那类『放能带产 ATP』的步骤类比错。",
+        "「每轮剪掉的 2 碳被浪费」——以乙酰-CoA 完整保留、进 TCA 继续兑现；β-氧化是『拆装』不是『烧掉』。"
+      ],
+      "clinical": [
+        "β-酮脂酰-CoA 硫解酶缺乏极罕见（outline 未核到 OMIM 编号），此处只记『存在』，不编细节。"
+      ],
+      "perRoundYield": { "fadh2": 0, "nadh": 0, "acetylCoA": 1 },
+      "threeD": {
+        "status": "pending",
+        "note": "CoA 在位的产物态近似帧；底物态无捕获。",
+        "pdbCandidates": [
+          {
+            "pdbId": "4C2J",
+            "role": "substrate-state",
+            "organism": "人（ACAA2）",
+            "method": "X-ray",
+            "resolution": 2.0,
+            "ligands": ["COA", "EDO"],
+            "note": "CoA 在位，产物态近似"
+          },
+          {
+            "pdbId": "2IIK",
+            "role": "isoform-control",
+            "organism": "人（过氧化物酶体 ACAA5）",
+            "method": "X-ray",
+            "resolution": 2.55,
+            "ligands": [],
+            "note": "同工酶对照，非主线"
+          }
+        ]
+      }
+    }
+  ],
+  "energyLedger": {
+    "title": "棕榈酸（C16）彻底氧化的能量账",
+    "poBasis": {
+      "nadh": 2.5,
+      "fadh2": 1.5,
+      "accoaViaTca": 10,
+      "source": "Lehninger 8e 现代口径（NADH 2.5 / FADH₂ 1.5；乙酰-CoA 经一轮 TCA = 10），与 TCA 档案同版本，不与旧值混用",
+      "legacy": {
+        "nadh": 3,
+        "fadh2": 2,
+        "netAtp": 129,
+        "note": "旧教材 P/O 3/2 口径净 129 ATP，仅作口径对照展示，两套数字不得在页面混用"
+      }
+    },
+    "perRound": {
+      "fadh2": 1,
+      "nadh": 1,
+      "acetylCoA": 1,
+      "note": "每轮 1 FADH₂ + 1 NADH + 1 乙酰-CoA；第 7 轮（C4 底物）硫解一次释放 2 个乙酰-CoA，故 7 轮共 8 个乙酰-CoA"
+    },
+    "palmitate": {
+      "carbons": 16,
+      "rounds": 7,
+      "fadh2": 7,
+      "nadh": 7,
+      "acetylCoA": 8,
+      "activationHighEnergyBonds": 2
+    },
+    "totals": {
+      "grossAtp": 108,
+      "activationCost": 2,
+      "netAtp": 106
+    },
+    "entries": [
+      {
+        "item": "7 FADH₂（β1 步）",
+        "count": "7 × 1.5",
+        "atp": "10.5",
+        "trace": "每轮第 1 步产 1 FADH₂，经 ETF→ETF-QO 入呼吸链（绕过复合体 I，与 oxphos 档案电子入口衔接）"
+      },
+      {
+        "item": "7 NADH（β3 步）",
+        "count": "7 × 2.5",
+        "atp": "17.5",
+        "trace": "每轮第 3 步产 1 NADH，基质内经复合体 I 入呼吸链"
+      },
+      {
+        "item": "8 乙酰-CoA → TCA",
+        "count": "8 × 10",
+        "atp": "80",
+        "trace": "每乙酰-CoA 一轮 TCA 产 3 NADH + 1 FADH₂ + 1 GTP（TCA 档案同口径）"
+      },
+      {
+        "item": "活化代价",
+        "count": "−2 个高能磷酸键",
+        "atp": "−2",
+        "trace": "ATP→AMP+PPi 拆 1 个高能键，PPi 水解再回收 1 个——合计 2；写『消耗 2 ATP』与『ATP 变 AMP』是同一件事的两种表述，页面必须统一"
+      }
+    ],
+    "netEquation": "棕榈酰-CoA + 7 FAD + 7 NAD⁺ + 7 CoA-SH + 7 H₂O → 8 乙酰-CoA + 7 FADH₂ + 7 NADH + 7 H⁺（Lehninger Ch.17 净式）",
+    "storageNote": "葡萄糖 6C 氧化净 ~30–32 ATP（约 5 ATP/碳）；棕榈酸 16C 净 106（约 6.6 ATP/碳）且几乎无水携带——『为什么储能选脂肪』的数字答案（Lehninger Ch.17）。",
+    "deltaGDiscipline": "能量账只用 Lehninger 8e 现代 P/O 口径（2.5/1.5），与 TCA 档案同版本；旧 129 值仅作对照并列，不参与任何加和。四步循环 β1–β3 近平衡、β4 强放能但无单列数值——ΔG 一律记定性，不编数。"
+  },
+  "threeD": {
+    "status": "pending",
+    "note": "本切片仅登记 PDB 候选，未做任何资产。三个已核验缺口：① 链长统一（MCAD 底物 C8 vs β2–β4 的 C4）需跨结构对齐 + 标注；② CPT1 人源无结构，穿梭段降级 2D；③ 活化步 3EQ6 属中链 ACSM2A，同工酶归属须标注。",
+    "verifiedPdbIds": ["3EQ6", "2RCU", "2H4T", "1EGC", "4P13", "2UXW", "2HW5", "1HZD", "1DUB", "1F0Y", "4C2J", "2IIK"]
+  }
+}

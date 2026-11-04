@@ -1,0 +1,127 @@
+{
+  "stepId": "gk-4",
+  "stepName": "F1,6BP 裂解（醛缩酶 ALDOA）",
+  "assetVersion": "2.0.0",
+  "generatedAt": "2026-11-03",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12
+  },
+  "pdbId": "4ALD",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2.8,
+  "resolutionPerState": {
+    "holo": 2.8,
+    "apo": 1.94
+  },
+  "atomCount": 2783,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：承载保留配体重原子最多"
+    }
+  },
+  "ligands": [
+    {
+      "id": "2FP",
+      "name": "1,6-二磷酸果糖（线形构象，PDB 代码 2FP）",
+      "role": "substrate",
+      "rationale": "真实底物但为线形非生产性构象",
+      "instances": 1,
+      "instanceChains": [
+        "A/364"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 20,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "4ALD 中底物为线形构象 F1,6BP（配体代码 2FP，已核实化学身份为 linear fructose-1,6-bisphosphate），非呋喃环天然构象。",
+    "4ALD 分辨率 2.8 Å，为十步中较弱之一。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 221644,
+      "gzipBytes": 51240
+    },
+    "apo.pdb": {
+      "bytes": 210108,
+      "gzipBytes": 52864
+    },
+    "ligand.sdf": {
+      "bytes": 1894,
+      "gzipBytes": 494
+    },
+    "pocket.json": {
+      "bytes": 8379,
+      "gzipBytes": 879
+    }
+  },
+  "holo": {
+    "pdbId": "4ALD",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.8,
+    "title": "HUMAN MUSCLE FRUCTOSE 1,6-BISPHOSPHATE ALDOLASE COMPLEXED WITH",
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：承载保留配体重原子最多"
+      }
+    },
+    "atomCount": 2783,
+    "proteinAtomCount": 2763,
+    "ligands": [
+      {
+        "id": "2FP",
+        "name": "1,6-二磷酸果糖（线形构象，PDB 代码 2FP）",
+        "role": "substrate",
+        "rationale": "真实底物但为线形非生产性构象",
+        "instances": 1,
+        "instanceChains": [
+          "A/364"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 20,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "2FP"
+    ]
+  },
+  "apo": {
+    "pdbId": "5KY6",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.94,
+    "chainSelection": {
+      "chains": [
+        "B"
+      ],
+      "rule": {
+        "B": "R4 apo：与 holo 链数一致，按蛋白原子数降序选取"
+      }
+    },
+    "atomCount": 2564,
+    "proteinAtomCount": 2564,
+    "ligands": [],
+    "presentLigands": [],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

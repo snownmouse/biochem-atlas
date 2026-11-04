@@ -1,0 +1,37 @@
+{
+  "stepId": "gk-9",
+  "stepIndex": 9,
+  "frames": [
+    {
+      "frameId": "gk-9-f0",
+      "asset": "frame-f0.json",
+      "source": "3UCD / Homo sapiens / 1.41 Å（2PG，A 链）"
+    },
+    {
+      "frameId": "gk-9-f1",
+      "asset": "frame-f1.json",
+      "source": "1TE6 / Homo sapiens / 1.8 Å（apo，人 ENO2 同酶同物种同编号）"
+    },
+    {
+      "frameId": "gk-9-f2",
+      "asset": "frame-f2.json",
+      "source": "3UCD / Homo sapiens / 1.41 Å（结合态 2PG+双 Mg）"
+    },
+    {
+      "frameId": "gk-9-f3",
+      "asset": "frame-f3.json",
+      "source": "3UCD / Homo sapiens / 1.41 Å（一帧双分子：2PG+PEP+双 Mg，PEP 叠合示意）"
+    }
+  ],
+  "alignment": {
+    "T9": "3UCD·2PG → 第 8 步链末端（1EQJ·2PG 重算位置），RMSD 1.41 Å（11 重原子全同名）",
+    "A9": "1TE6 → 3UCD Cα Kabsch，RMSD 1.29 Å（427 对，同酶同物种）",
+    "T9p": "3UCD·PEP → 2PG 位点 7 锚点叠合，RMSD 0.07 Å（f3 双分子示意，已声明）"
+  },
+  "gatekeepers": [
+    "GLU249(A)",
+    "ASP318(A)",
+    "SER248(A)"
+  ],
+  "pocketClosure": "晶体口袋闭合：3UCD 最大可通行球 1.12 Å、1TE6 1.10 Å；2PG 最小重原子半径 1.52 Å → 无配体外进通道"
+}

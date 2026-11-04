@@ -1,0 +1,175 @@
+{
+  "stepId": "gk-1",
+  "stepName": "葡萄糖磷酸化（己糖激酶 HK1）",
+  "assetVersion": "2.0.0",
+  "generatedAt": "2026-11-03",
+  "provenance": "computed",
+  "mode": "static",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12
+  },
+  "pdbId": "1CZA",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 1.9,
+  "resolutionPerState": {
+    "holo": 1.9,
+    "apo": null
+  },
+  "atomCount": 7104,
+  "chainSelection": {
+    "chains": [
+      "N"
+    ],
+    "rule": {
+      "N": "R2 主链：承载保留配体重原子最多"
+    }
+  },
+  "ligands": [
+    {
+      "id": "GLC",
+      "name": "α-D-葡萄糖",
+      "role": "substrate",
+      "rationale": "真实底物，占据活性位点",
+      "instances": 2,
+      "instanceChains": [
+        "N/918",
+        "N/920"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 24,
+      "sdfFile": "ligand-GLC.sdf"
+    },
+    {
+      "id": "G6P",
+      "name": "6-磷酸-D-葡萄糖",
+      "role": "product",
+      "rationale": "真实产物，与底物同存于 1CZA",
+      "instances": 2,
+      "instanceChains": [
+        "N/919",
+        "N/921"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 9.3,
+      "atomCount": 32,
+      "sdfFile": "ligand-G6P.sdf"
+    },
+    {
+      "id": "ADP",
+      "name": "ADP",
+      "role": "cofactor",
+      "rationale": "ATP 已水解为 ADP，代表核苷酸结合态（非 ATP 结合态）",
+      "instances": 1,
+      "instanceChains": [
+        "N/922"
+      ],
+      "pocketRelevant": false,
+      "minDistToPrimaryA": 27,
+      "atomCount": 27,
+      "sdfFile": "ligand-ADP.sdf"
+    }
+  ],
+  "caveats": [
+    "人源 HK1 无 apo 结构，本步仅提供 static 结合态视图（无游离态切换）。",
+    "1CZA 为突变体且仅含 HK1 的 C 端催化半分子（单体），并非全酶四聚体。",
+    "1CZA 中 ADP 为 ATP 水解产物，不代表 ATP 结合态。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 618895,
+      "gzipBytes": 156249
+    },
+    "ligand-GLC.sdf": {
+      "bytes": 1220,
+      "gzipBytes": 364
+    },
+    "ligand-G6P.sdf": {
+      "bytes": 1576,
+      "gzipBytes": 427
+    },
+    "ligand-ADP.sdf": {
+      "bytes": 2593,
+      "gzipBytes": 605
+    },
+    "pocket.json": {
+      "bytes": 11590,
+      "gzipBytes": 1223
+    }
+  },
+  "holo": {
+    "pdbId": "1CZA",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.9,
+    "title": "MUTANT MONOMER OF RECOMBINANT HUMAN HEXOKINASE TYPE I COMPLEXED WITH",
+    "chainSelection": {
+      "chains": [
+        "N"
+      ],
+      "rule": {
+        "N": "R2 主链：承载保留配体重原子最多"
+      }
+    },
+    "atomCount": 7104,
+    "proteinAtomCount": 7021,
+    "ligands": [
+      {
+        "id": "GLC",
+        "name": "α-D-葡萄糖",
+        "role": "substrate",
+        "rationale": "真实底物，占据活性位点",
+        "instances": 2,
+        "instanceChains": [
+          "N/918",
+          "N/920"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 24,
+        "sdfFile": "ligand-GLC.sdf"
+      },
+      {
+        "id": "G6P",
+        "name": "6-磷酸-D-葡萄糖",
+        "role": "product",
+        "rationale": "真实产物，与底物同存于 1CZA",
+        "instances": 2,
+        "instanceChains": [
+          "N/919",
+          "N/921"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 9.3,
+        "atomCount": 32,
+        "sdfFile": "ligand-G6P.sdf"
+      },
+      {
+        "id": "ADP",
+        "name": "ADP",
+        "role": "cofactor",
+        "rationale": "ATP 已水解为 ADP，代表核苷酸结合态（非 ATP 结合态）",
+        "instances": 1,
+        "instanceChains": [
+          "N/922"
+        ],
+        "pocketRelevant": false,
+        "minDistToPrimaryA": 27,
+        "atomCount": 27,
+        "sdfFile": "ligand-ADP.sdf"
+      }
+    ],
+    "filteredLigands": [],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "GLC",
+      "G6P",
+      "ADP"
+    ]
+  },
+  "apo": null
+}

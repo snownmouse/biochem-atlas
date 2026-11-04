@@ -1,0 +1,32 @@
+{
+  "stepId": "gk-7",
+  "stepIndex": 7,
+  "frames": [
+    {
+      "frameId": "gk-7-f0",
+      "asset": "frame-f0.json",
+      "source": "8YHP / Homo sapiens / 1.95 Å（apo，Cα 对齐并入）"
+    },
+    {
+      "frameId": "gk-7-f1",
+      "asset": "/assets/structures/2d/bpg13.json",
+      "kind": "2d",
+      "note": "1,3-BPG 无 PDB 组分 → 2D 结构式帧"
+    },
+    {
+      "frameId": "gk-7-f2",
+      "asset": "frame-f2.json",
+      "source": "2WZB / Homo sapiens / 1.47 Å（ADP+3PG+MGF 过渡态模拟）"
+    },
+    {
+      "frameId": "gk-7-f3",
+      "asset": "frame-f3.json",
+      "source": "9FDN / Homo sapiens / 1.58 Å（3PG+ATP 同结构双配体）"
+    }
+  ],
+  "alignment": {
+    "camera": "第 7 步相机重建（与 GAPDH 无公共 3D 配体，跨步链断开，帧带 boundaryNote 已声明）",
+    "T7a": "2WZB·3PG → 9FDN·3PG，RMSD 0.16 Å（11 重原子）",
+    "A7": "8YHP → 9FDN Cα Kabsch，RMSD 4.95 Å（416 对）"
+  }
+}

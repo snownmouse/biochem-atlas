@@ -1,0 +1,38 @@
+{
+  "stepId": "gly-06",
+  "stepName": "G3P 氧化磷酸化（GAPDH）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-02",
+  "provenance": "computed",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8
+  },
+  "holo": {
+    "pdbId": "1U8F",
+    "organism": "HOMO SAPIENS",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.75,
+    "chain": "P",
+    "atomCount": 2567,
+    "proteinAtomCount": 2523,
+    "ligand": {
+      "id": "NAD",
+      "name": "烟酰胺腺嘌呤二核苷酸（NAD⁺/NADH 辅因子）"
+    },
+    "cofactorOnly": true,
+    "note": "1U8F 不含底物 G3P/1,3-BPG 坐标，配体仅有辅因子 NAD；页面须如实标注“仅辅因子结合，不含底物坐标”。"
+  },
+  "apo": {
+    "pdbId": "8G17",
+    "organism": "HOMO SAPIENS",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 1.98,
+    "chain": "A",
+    "atomCount": 2504,
+    "proteinAtomCount": 2504,
+    "ligand": null,
+    "note": "游离态（apo），无配体坐标。"
+  }
+}

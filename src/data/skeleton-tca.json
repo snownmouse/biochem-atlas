@@ -1,0 +1,45 @@
+{
+  "pathwayId": "tca",
+  "compartments": [{ "id": "matrix", "name": "线粒体基质" }],
+  "nodes": [
+    { "id": "cit",    "order": 1, "x": 880,  "y": 128, "compartment": "matrix", "kind": "metabolite", "label": "柠檬酸" },
+    { "id": "icit",   "order": 2, "x": 1304, "y": 208, "compartment": "matrix", "kind": "metabolite", "label": "异柠檬酸" },
+    { "id": "akg",    "order": 3, "x": 1480, "y": 400, "compartment": "matrix", "kind": "metabolite", "label": "α-KG" },
+    { "id": "succoa", "order": 4, "x": 1304, "y": 592, "compartment": "matrix", "kind": "metabolite", "label": "琥珀酰-CoA" },
+    { "id": "suc",    "order": 5, "x": 880,  "y": 672, "compartment": "matrix", "kind": "metabolite", "label": "琥珀酸" },
+    { "id": "fum",    "order": 6, "x": 456,  "y": 592, "compartment": "matrix", "kind": "metabolite", "label": "延胡索酸" },
+    { "id": "mal",    "order": 7, "x": 280,  "y": 400, "compartment": "matrix", "kind": "metabolite", "label": "苹果酸" },
+    { "id": "oaa",    "order": 8, "x": 456,  "y": 208, "compartment": "matrix", "kind": "metabolite", "label": "草酰乙酸" },
+    { "id": "accoa",  "order": null, "x": 300, "y": 92,  "compartment": "matrix", "kind": "metabolite", "label": "乙酰-CoA" },
+    { "id": "pyr",    "order": null, "x": 110, "y": 300, "compartment": "matrix", "kind": "metabolite", "label": "丙酮酸" },
+    { "id": "glu",    "order": null, "x": 1680, "y": 660, "compartment": "matrix", "kind": "metabolite", "label": "谷氨酸" }
+  ],
+  "sideBranches": [
+    {
+      "id": "anap-pc",
+      "name": "回补：丙酮酸羧化酶 → 草酰乙酸",
+      "collapsedByDefault": true,
+      "from": "pyr",
+      "to": "oaa",
+      "nodeIds": ["pyr"]
+    },
+    {
+      "id": "anap-glu",
+      "name": "回补：谷氨酸 ⇌ α-酮戊二酸",
+      "collapsedByDefault": true,
+      "from": "glu",
+      "to": "akg",
+      "nodeIds": ["glu"]
+    }
+  ],
+  "links": [
+    { "from": "oaa",    "to": "cit",    "stepId": "tca-1" },
+    { "from": "cit",    "to": "icit",   "stepId": "tca-2" },
+    { "from": "icit",   "to": "akg",    "stepId": "tca-3" },
+    { "from": "akg",    "to": "succoa", "stepId": "tca-4" },
+    { "from": "succoa", "to": "suc",    "stepId": "tca-5" },
+    { "from": "suc",    "to": "fum",    "stepId": "tca-6" },
+    { "from": "fum",    "to": "mal",    "stepId": "tca-7" },
+    { "from": "mal",    "to": "oaa",    "stepId": "tca-8" }
+  ]
+}

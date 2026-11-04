@@ -1,0 +1,278 @@
+{
+  "id": "tca",
+  "name": "三羧酸循环",
+  "summary": "乙酰-CoA 与草酰乙酸缩合后经 8 步反应再生草酰乙酸：每轮放出 2 CO₂，产 3 NADH、1 FADH₂ 与 1 GTP。乙酰-CoA 来自糖酵解产物丙酮酸经 PDH 复合体的氧化脱羧，故每分子葡萄糖对应两轮循环（×2）。",
+  "organs": [
+    { "id": "liver", "name": "肝" },
+    { "id": "muscle", "name": "肌" },
+    { "id": "rbc", "name": "红细胞" }
+  ],
+  "organNote": "本通路器官差异有限：TCA 在有氧组织的线粒体基质中共用同一套酶，同工酶/组织特异维度远少于糖酵解。红细胞无线粒体，TCA 循环不运行（红细胞完全依赖糖酵解供能）。",
+  "entities": [
+    { "id": "accoa", "name": "乙酰-CoA", "abbr": "AcCoA", "kind": "metabolite" },
+    { "id": "oaa", "name": "草酰乙酸", "abbr": "OAA", "kind": "metabolite" },
+    { "id": "cit", "name": "柠檬酸", "abbr": "Cit", "kind": "metabolite" },
+    { "id": "icit", "name": "异柠檬酸", "abbr": "ICit", "kind": "metabolite" },
+    { "id": "akg", "name": "α-酮戊二酸", "abbr": "α-KG", "kind": "metabolite" },
+    { "id": "succoa", "name": "琥珀酰-CoA", "abbr": "SucCoA", "kind": "metabolite" },
+    { "id": "suc", "name": "琥珀酸", "abbr": "Suc", "kind": "metabolite" },
+    { "id": "fum", "name": "延胡索酸", "abbr": "Fum", "kind": "metabolite" },
+    { "id": "mal", "name": "苹果酸", "abbr": "Mal", "kind": "metabolite" },
+    { "id": "pyr", "name": "丙酮酸", "abbr": "Pyr", "kind": "metabolite" },
+    { "id": "glu", "name": "谷氨酸", "abbr": "Glu", "kind": "metabolite" },
+    { "id": "cs", "name": "柠檬酸合酶", "abbr": "CS", "kind": "enzyme" },
+    { "id": "aco", "name": "乌头酸酶", "abbr": "ACO", "kind": "enzyme" },
+    { "id": "idh", "name": "异柠檬酸脱氢酶", "abbr": "IDH", "kind": "enzyme" },
+    { "id": "kgdh", "name": "α-KG 脱氢酶复合体", "abbr": "α-KGDH", "kind": "enzyme" },
+    { "id": "sucl", "name": "琥珀酰-CoA 合成酶", "abbr": "SUCL", "kind": "enzyme" },
+    { "id": "sdh", "name": "琥珀酸脱氢酶（复合体 II）", "abbr": "SDH", "kind": "enzyme" },
+    { "id": "fumase", "name": "延胡索酸酶", "abbr": "FH", "kind": "enzyme" },
+    { "id": "mdh", "name": "苹果酸脱氢酶", "abbr": "MDH", "kind": "enzyme" },
+    { "id": "pdhc", "name": "丙酮酸脱氢酶复合体", "abbr": "PDH", "kind": "enzyme" }
+  ],
+  "steps": [
+    {
+      "id": "tca-1",
+      "index": 1,
+      "name": "乙酰-CoA 与草酰乙酸缩合",
+      "substrates": ["accoa", "oaa"],
+      "products": ["cit"],
+      "enzyme": { "entityId": "cs", "name": "柠檬酸合酶" },
+      "cofactors": ["CoA-SH（乙酰基载体，反应中释放）"],
+      "irreversible": true,
+      "significance": "循环的闸门步之一：OAA 浓度极低使本步对 OAA 的捕获成为流量瓶颈；产物柠檬酸兼作胞质脂肪酸合成的碳源外运形式与 PFK-1 的抑制剂。",
+      "equation": "乙酰-CoA + 草酰乙酸 + H₂O → 柠檬酸 + CoA-SH",
+      "organDiffs": [
+        { "organ": "rbc", "text": "红细胞无线粒体，本步及整个 TCA 循环不运行（红细胞完全依赖糖酵解供能）。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "2.3.3.1",
+      "deltaG": { "standard": -32.2, "physiological": -32.2, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "生理态数值未核实，暂按标准态口径显示；定性上强放能、细胞内不可逆（受柠檬酸/琥珀酰-CoA 产物抑制）。" },
+      "stereochemistry": ["柠檬酸无手性碳但是前手性（prochiral）分子：两个 −CH₂COO⁻ 臂在酶腔中被区分为 pro-R / pro-S 臂，后续乌头酸酶只对 pro-R 臂操作。"],
+      "misconceptions": [
+        "「柠檬酸是手性分子，所以酶能区分对映体」——柠檬酸无手性碳，是前手性分子，酶腔把两个相同的臂区分为 pro-R / pro-S。",
+        "「OAA 被循环消耗掉」——OAA 是催化性中间体，每轮末步再生；回补反应只补偿被合成反应抽走的部分。"
+      ],
+      "clinical": ["氟乙酸（灭鼠药）经『致死合成』：转化为氟乙酰-CoA 后与本酶缩合成氟柠檬酸，抑制乌头酸酶。"]
+    },
+    {
+      "id": "tca-2",
+      "index": 2,
+      "name": "柠檬酸异构为异柠檬酸",
+      "substrates": ["cit"],
+      "products": ["icit"],
+      "enzyme": { "entityId": "aco", "name": "乌头酸酶" },
+      "cofactors": ["[4Fe-4S] 簇（第四个铁直接结合底物羟基）"],
+      "irreversible": false,
+      "significance": "两步脱水-再水合的异构化：把 −OH 从 C3 挪到 C4（经顺乌头酸），为下一步氧化脱羧排出正确的 β-羟基羧酸排布；铁硫簇被氧化失活是该酶的氧化应激敏感点。",
+      "equation": "柠檬酸 ⇌ 顺乌头酸 ⇌ 异柠檬酸",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "4.2.1.3",
+      "deltaG": { "standard": 13.3, "physiological": 13.3, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "≈ 值：各教材差异可达 ±1–2 以上，未跨教材核实；细胞内近平衡（定性）。生理态数值未核实，暂按标准态显示。" },
+      "stereochemistry": ["经顺乌头酸中间体（脱水→再水合），不是 −OH 的直接搬移；柠檬酸只以 pro-R 臂进入反应。", "产物为 (2R,3S)-异柠檬酸。"],
+      "misconceptions": [
+        "「乌头酸酶是异构酶所以直接搬 −OH」——实际是脱水→顺乌头酸→再水合两步。",
+        "「Fe-S 簇在这里只管电子传递」——第四个铁直接结合底物羟基参与催化，簇丢失即失活。"
+      ],
+      "clinical": ["顺乌头酸酶的 [4Fe-4S] 可被超氧化物/氧化应激失活；胞质同工酶 ACO1 兼作铁代谢调控蛋白 IRP1。"]
+    },
+    {
+      "id": "tca-3",
+      "index": 3,
+      "name": "异柠檬酸氧化脱羧（限速步骤）",
+      "substrates": ["icit"],
+      "products": ["akg"],
+      "enzyme": { "entityId": "idh", "name": "异柠檬酸脱氢酶", "isozyme": "线粒体基质 NAD⁺ 型（本步）；另有 NADP⁺ 型（线粒体+胞质），分工不同" },
+      "cofactors": ["NAD⁺", "Mg²⁺ / Mn²⁺"],
+      "irreversible": true,
+      "significance": "循环的限速步与主要调控点：ADP / Ca²⁺ 激活、ATP / NADH 抑制。第一次氧化脱羧：氧化当量存入 NADH，放出第一个 CO₂。",
+      "equation": "异柠檬酸 + NAD⁺ → α-酮戊二酸 + CO₂ + NADH",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "1.1.1.41",
+      "deltaG": { "standard": -20.9, "physiological": -20.9, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "生理态数值未核实，暂按标准态口径显示；定性上细胞内不可逆。" },
+      "stereochemistry": ["底物 (2R,3S)-异柠檬酸专一；氧化发生在 C2（β-羟基地位），脱羧后生成 α-酮戊二酸。"],
+      "misconceptions": [
+        "「本步放出的 CO₂ 来自乙酰-CoA」——第一轮放出的两个 CO₂ 均来自 OAA 的碳；乙酰-CoA 的两个碳要在后续轮次才以 CO₂ 离开。",
+        "「IDH 是一种酶」——NAD⁺ 型（本步）与 NADP⁺ 型（1.1.1.42）分工不同；肿瘤代谢语境多指 NADP⁺ 型。"
+      ],
+      "clinical": ["IDH1/IDH2（NADP⁺ 型）热点突变获得新功能：把 α-KG 还原为致癌代谢物 2-羟基戊二酸，见于胶质瘤与急性髓系白血病（对应靶向治疗已获批，本页不展开）。"]
+    },
+    {
+      "id": "tca-4",
+      "index": 4,
+      "name": "α-酮戊二酸氧化脱羧",
+      "substrates": ["akg"],
+      "products": ["succoa"],
+      "enzyme": { "entityId": "kgdh", "name": "α-KG 脱氢酶复合体", "isozyme": "三组分与 PDH 同型：E1/E2 专属，E3 共用" },
+      "cofactors": ["TPP", "硫辛酸", "FAD", "NAD⁺", "Mg²⁺", "CoA-SH"],
+      "irreversible": true,
+      "significance": "第二次氧化脱羧，机理与 PDH 完全同型（E3 共用）；产物琥珀酰-CoA 是高能硫酯，是血红素合成的碳出口。",
+      "equation": "α-酮戊二酸 + CoA-SH + NAD⁺ → 琥珀酰-CoA + CO₂ + NADH",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "1.2.4.2（E1）/ 2.3.1.61（E2）/ 1.8.1.4（E3）",
+      "deltaG": { "standard": -33.5, "physiological": -33.5, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "生理态数值未核实，暂按标准态口径显示；定性上细胞内不可逆。" },
+      "stereochemistry": ["E2 硫辛酰赖氨酸摆臂在三个活性位点间摆动传递，接力顺序 TPP→硫辛酸→FAD→NAD⁺，与 PDH 同型。"],
+      "misconceptions": [
+        "「琥珀酰-CoA 的『高能键』是类似 ATP 的磷酸键」——是硫酯键，能量形式不同，下一步才转成 GTP。",
+        "「α-KG 脱氢酶受与 PDH 相同的磷酸化调控」——调控以 NADH / 琥珀酰-CoA 产物抑制与 Ca²⁺ 激活为主，无 PDH 式激酶/磷酸酶开关（细节未核实）。"
+      ],
+      "clinical": ["亚砷酸盐结合硫辛酸二巯基抑制本复合体（与 PDH 同机理）；遗传性缺陷罕见，个案报道为乳酸酸中毒伴神经退行（未核实）。"]
+    },
+    {
+      "id": "tca-5",
+      "index": 5,
+      "name": "琥珀酰-CoA → 琥珀酸（底物水平磷酸化）",
+      "substrates": ["succoa"],
+      "products": ["suc"],
+      "enzyme": { "entityId": "sucl", "name": "琥珀酰-CoA 合成酶", "isozyme": "ADP 型 SUCLA1 / GDP 型 SUCLG2（组织分布细节未核实）" },
+      "cofactors": ["GDP + Pi（底物水平磷酸化）"],
+      "irreversible": false,
+      "significance": "循环内唯一的底物水平磷酸化（产 GTP）；与糖酵解第 Ⅶ/Ⅹ 步同概念，但发生在线粒体基质。",
+      "equation": "琥珀酰-CoA + GDP + Pi ⇌ 琥珀酸 + GTP + CoA-SH",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "6.2.1.4（ADP 型）/ 6.2.1.5（GDP 型）",
+      "deltaG": { "standard": -2.9, "physiological": -2.9, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "≈ 值；近平衡步。生理态数值未核实，暂按标准态显示。" },
+      "stereochemistry": ["经磷酰-组氨酸酶中间体两步把硫酯键能转给 GTP（酶-磷酰中间体为教材标准表述）。"],
+      "misconceptions": [
+        "「GTP 不算产能」——GTP 经核苷二磷酸激酶与 ATP 方便互换，能量账里与 ATP 等价计。",
+        "「循环里有两处底物水平磷酸化」——环内仅此一处。"
+      ],
+      "clinical": ["SUCLA2 / SUCLG1 缺陷 → 线粒体 DNA 耗竭综合征（脑肌型，罕见）。"]
+    },
+    {
+      "id": "tca-6",
+      "index": 6,
+      "name": "琥珀酸氧化为延胡索酸",
+      "substrates": ["suc"],
+      "products": ["fum"],
+      "enzyme": { "entityId": "sdh", "name": "琥珀酸脱氢酶", "isozyme": "即呼吸链复合体 II（SDHA–SDHD 四亚基 + 组装因子）" },
+      "cofactors": ["FAD", "Fe-S 簇（[2Fe-2S]/[4Fe-4S]/[3Fe-4S]）", "泛醌（电子受体）"],
+      "irreversible": false,
+      "significance": "唯一嵌内膜的 TCA 酶 ＝ 呼吸链复合体 II：FAD 的氧化电位比 NAD⁺ 高，只能收这一步的低电位对；电子直接交泛醌，不泵质子。",
+      "equation": "琥珀酸 + FAD ⇌ 延胡索酸 + FADH₂（FADH₂ 就地交泛醌）",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "1.3.5.1",
+      "deltaG": { "standard": 0, "physiological": 0, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "≈ 0（近平衡）。生理态数值未核实，暂按标准态显示。" },
+      "stereochemistry": ["延胡索酸为反式丁烯二酸（trans 双键）；脱氢的立体化学由酶腔锁定（细节未核实）。"],
+      "misconceptions": [
+        "「FADH₂ 和 NADH 一样进复合体 I」——FADH₂ 的电子从复合体 II / ETF 进入泛醌池，绕过复合体 I，产 ATP 更少。",
+        "「琥珀酸脱氢酶是基质酶」——它是唯一嵌内膜的 TCA 酶，其余 8 步（含 PDH）都在基质。"
+      ],
+      "clinical": ["SDH 亚基（SDHB/SDHC/SDHD）或组装因子突变 → 家族性副神经节瘤/嗜铬细胞瘤综合征；双等位缺陷可致 Leigh 样脑病（条目未核实）。"]
+    },
+    {
+      "id": "tca-7",
+      "index": 7,
+      "name": "延胡索酸水合为苹果酸",
+      "substrates": ["fum"],
+      "products": ["mal"],
+      "enzyme": { "entityId": "fumase", "name": "延胡索酸酶" },
+      "cofactors": [],
+      "irreversible": false,
+      "significance": "反式水合把延胡索酸转成 L-苹果酸；近平衡步，随流量走。",
+      "equation": "延胡索酸 + H₂O ⇌ L-苹果酸",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "4.2.1.2",
+      "deltaG": { "standard": -3.8, "physiological": -3.8, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "近平衡步。生理态数值未核实，暂按标准态显示。" },
+      "stereochemistry": ["延胡索酸＝反式丁烯二酸；顺式异构体（马来酸）不是底物。H 与 OH 反式加成，只产 L-苹果酸（立体专一性的经典教材案例）。"],
+      "misconceptions": [
+        "「顺丁烯二酸也能被水合」——酶严格区分顺/反几何，马来酸不是底物。",
+        "「反应可逆所以加水方向随便」——立体专一：反式加成，只产 L-苹果酸。"
+      ],
+      "clinical": ["FH 双等位缺陷 → 延胡索酸水合酶缺陷综合征（神经皮肤型，罕见）；FH 兼肿瘤抑制基因，胚系失活致 HLRCC（条目未核实）。"]
+    },
+    {
+      "id": "tca-8",
+      "index": 8,
+      "name": "苹果酸氧化为草酰乙酸（闭环）",
+      "substrates": ["mal"],
+      "products": ["oaa"],
+      "enzyme": { "entityId": "mdh", "name": "苹果酸脱氢酶", "isozyme": "线粒体 MDH2（本步）；胞质 MDH1 走苹果酸穿梭" },
+      "cofactors": ["NAD⁺"],
+      "irreversible": false,
+      "significance": "闭合循环：再生 OAA 交给第 1 步柠檬酸合酶。热力学上最不利的一步，靠第 1 步的大负 ΔG 耦合拉动——与糖酵解第 4/5 步被后续大负值拉动同款逻辑。",
+      "equation": "L-苹果酸 + NAD⁺ ⇌ 草酰乙酸 + NADH + H⁺",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "1.1.1.37",
+      "deltaG": { "standard": 29.7, "physiological": 0, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2；生理态口径见 note", "note": "标准态强吸能；细胞内因 OAA 浓度极低（被第 1 步快速抽走）实际近平衡。生理态数值未核实，此处按『近平衡』定性口径记为 ≈0。" },
+      "stereochemistry": ["底物 L-苹果酸 C2 羟基被氧化为羰基，产物 OAA 为酮式。"],
+      "misconceptions": [
+        "「+29.7 kJ/mol 说明这步在细胞里不走」——标准态≠生理态，OAA 被第 1 步快速抽走使本步实际近平衡。",
+        "「苹果酸脱氢酶只有线粒体一种」——胞质 MDH1 与线粒体 MDH2 分工，苹果酸-天冬氨酸穿梭靠两者协作。"
+      ],
+      "clinical": ["MDH2 双等位致病变异罕见神经代谢病（个案层级，未核实）。"]
+    }
+  ],
+  "sideBranchSteps": [
+    {
+      "id": "tca-pdh",
+      "index": null,
+      "name": "丙酮酸氧化脱羧（糖酵解接驳步）",
+      "substrates": ["pyr"],
+      "products": ["accoa"],
+      "enzyme": { "entityId": "pdhc", "name": "丙酮酸脱氢酶复合体", "isozyme": "E1（EC 1.2.4.1，TPP）/ E2（EC 2.3.1.12，硫辛酰摆臂）/ E3（EC 1.8.1.4，FAD-NAD⁺，与 α-KGDH 共用）" },
+      "cofactors": ["TPP", "硫辛酸", "FAD", "NAD⁺", "Mg²⁺", "CoA-SH"],
+      "irreversible": true,
+      "significance": "糖酵解与 TCA 的接驳：把胞质丙酮酸变成线粒体基质内 TCA 的唯一燃料入口乙酰-CoA；丙酮酸的另一去向是经丙酮酸羧化酶走回补。五步辅因子接力（TPP→硫辛酸→FAD→NAD⁺）只能 2D 呈现——接力中间态无全捕获结构。",
+      "equation": "丙酮酸 + CoA-SH + NAD⁺ → 乙酰-CoA + CO₂ + NADH",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝：产物乙酰-CoA / NADH 激活 PDH 激酶（磷酸化＝灭活），胰岛素激活磷酸酶（去磷酸化＝激活）——进食状态开闸。" },
+        { "organ": "muscle", "text": "肌：按能量状态与 Ca²⁺ 信号去磷酸化激活（收缩偶联）；PDK 同工型组织分布细节未核实。" },
+        { "organ": "rbc", "text": "红细胞无线粒体，PDH 与 TCA 均不运行。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "1.2.4.1 / 2.3.1.12 / 1.8.1.4",
+      "deltaG": { "standard": -33.5, "physiological": -33.5, "unit": "kJ/mol", "source": "Lehninger 8e Ch.16（PDH 小节）", "note": "生理态数值未核实，暂按标准态口径显示；定性上不可逆。" },
+      "stereochemistry": ["E2 硫辛酰摆臂『摆动传递』需完整复合物结构支撑；哺乳动物复合体 cryo-EM 条目未核实，3D 不在本轮范围。"],
+      "misconceptions": [
+        "「PDH 是 TCA 循环的一步」——它是独立的多酶复合体接驳反应，不计入环上 8 步。",
+        "「丙酮酸靠 PDH 进线粒体」——丙酮酸先经线粒体丙酮酸载体（MPC）入基质，再被 PDH 脱羧。"
+      ],
+      "clinical": ["砷化物（亚砷酸盐）/汞结合硫辛酸二巯基，同时抑制 PDH 与 α-KGDH。", "PDH 复合体缺陷（最常见 E1 α 亚基 X 连锁）→ 乳酸酸中毒，可伴 Leigh 综合征。"]
+    }
+  ],
+  "anaplerosis": [
+    {
+      "id": "anap-pc",
+      "name": "丙酮酸 → 草酰乙酸",
+      "equation": "丙酮酸 + CO₂ + H₂O + ATP → 草酰乙酸 + ADP + Pi",
+      "enzyme": "丙酮酸羧化酶",
+      "ec": "6.4.1.1",
+      "cofactors": "生物素、ATP、HCO₃⁻",
+      "organScope": "肝 / 肾为主",
+      "significance": "最重要的回补入口，兼糖异生的第一步（OAA → PEP）；受乙酰-CoA 别构激活——燃料充足时即开闸补 OAA。"
+    },
+    {
+      "id": "anap-glu",
+      "name": "谷氨酸 ⇌ α-酮戊二酸",
+      "equation": "谷氨酸 + NAD⁺（或 α-KG 交换）⇌ α-酮戊二酸 + NH₄⁺ / 转氨",
+      "enzyme": "谷氨酸脱氢酶 / 转氨酶族",
+      "organScope": "通用",
+      "significance": "氨基酸代谢与 TCA 的双向接口：补 α-KG 或把氨基氮交给尿素/排泄途径。"
+    },
+    {
+      "id": "anap-asp",
+      "name": "天冬氨酸 ⇌ 草酰乙酸",
+      "equation": "天冬氨酸 + α-KG ⇌ 草酰乙酸 + 谷氨酸（AST）",
+      "enzyme": "天冬氨酸转氨酶（AST）",
+      "organScope": "通用",
+      "significance": "苹果酸-天冬氨酸穿梭的组成步；兼补 OAA。"
+    },
+    {
+      "id": "anap-odd",
+      "name": "奇数碳脂肪酸氧化 → 琥珀酰-CoA",
+      "equation": "丙酰-CoA →（丙酰-CoA 羧化酶等三步）→ 琥珀酰-CoA",
+      "enzyme": "丙酰-CoA 羧化酶族（生物素）",
+      "organScope": "通用",
+      "significance": "奇数碳脂肪酸的末端三碳以琥珀酰-CoA 入环，是脂类补碳的通道。"
+    }
+  ],
+  "anaplerosisNote": "回补反应（anaplerosis）：TCA 中间体被合成反应（血红素、氨基酸、糖异生）持续抽走，若无回补流量即衰减——中间体按『催化量』使用的概念。"
+}

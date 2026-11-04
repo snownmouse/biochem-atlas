@@ -1,0 +1,180 @@
+{
+  "stepId": "gk-7",
+  "stepName": "1,3-BPG ↔ 3PG 磷酰转移（磷酸甘油酸激酶 PGK1）",
+  "assetVersion": "2.0.0",
+  "generatedAt": "2026-11-03",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12
+  },
+  "pdbId": "9FDN",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 1.58,
+  "resolutionPerState": {
+    "holo": 1.58,
+    "apo": 1.95
+  },
+  "atomCount": 3158,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：承载保留配体重原子最多"
+    }
+  },
+  "ligands": [
+    {
+      "id": "ATP",
+      "name": "三磷酸腺苷（ATP）",
+      "role": "substrate",
+      "rationale": "真实 ATP（非类似物），磷酸供体",
+      "instances": 1,
+      "instanceChains": [
+        "A/502"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 10.9,
+      "atomCount": 31,
+      "sdfFile": "ligand-ATP.sdf"
+    },
+    {
+      "id": "3PG",
+      "name": "3-磷酸甘油酸",
+      "role": "substrate",
+      "rationale": "真实底物，磷酸受体",
+      "instances": 1,
+      "instanceChains": [
+        "A/503"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 11,
+      "sdfFile": "ligand-3PG.sdf"
+    }
+  ],
+  "caveats": [],
+  "files": {
+    "holo.pdb": {
+      "bytes": 283822,
+      "gzipBytes": 71497
+    },
+    "apo.pdb": {
+      "bytes": 252255,
+      "gzipBytes": 62438
+    },
+    "ligand-ATP.sdf": {
+      "bytes": 2949,
+      "gzipBytes": 659
+    },
+    "ligand-3PG.sdf": {
+      "bytes": 1112,
+      "gzipBytes": 344
+    },
+    "pocket.json": {
+      "bytes": 13124,
+      "gzipBytes": 1353
+    }
+  },
+  "holo": {
+    "pdbId": "9FDN",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.58,
+    "title": "HUMAN PHOSPHOGLYCERATE KINASE IN COMPLEX WITH ATP AND 3PG FORMED BY",
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：承载保留配体重原子最多"
+      }
+    },
+    "atomCount": 3158,
+    "proteinAtomCount": 3116,
+    "ligands": [
+      {
+        "id": "ATP",
+        "name": "三磷酸腺苷（ATP）",
+        "role": "substrate",
+        "rationale": "真实 ATP（非类似物），磷酸供体",
+        "instances": 1,
+        "instanceChains": [
+          "A/502"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 10.9,
+        "atomCount": 31,
+        "sdfFile": "ligand-ATP.sdf"
+      },
+      {
+        "id": "3PG",
+        "name": "3-磷酸甘油酸",
+        "role": "substrate",
+        "rationale": "真实底物，磷酸受体",
+        "instances": 1,
+        "instanceChains": [
+          "A/503"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 11,
+        "sdfFile": "ligand-3PG.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "NA",
+        "role": "artifact",
+        "rationale": "钠离子，结晶添加剂",
+        "instances": 1,
+        "minDistToPrimaryLigand": 4.63
+      },
+      {
+        "id": "PG4",
+        "role": "artifact",
+        "rationale": "四聚乙二醇（PEG 片段），结晶添加剂",
+        "instances": 13,
+        "minDistToPrimaryLigand": 11.29
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "NA",
+      "ATP",
+      "3PG",
+      "PG4"
+    ]
+  },
+  "apo": {
+    "pdbId": "8YHP",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.95,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序选取"
+      }
+    },
+    "atomCount": 3116,
+    "proteinAtomCount": 3116,
+    "ligands": [],
+    "presentLigands": [
+      {
+        "id": "EDO",
+        "role": "artifact",
+        "rationale": "乙二醇，结晶防冻添加剂"
+      }
+    ],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

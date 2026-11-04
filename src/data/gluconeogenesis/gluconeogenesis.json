@@ -1,0 +1,681 @@
+{
+  "id": "gluconeogenesis",
+  "name": "糖异生",
+  "summary": "由非糖前体（乳酸、丙氨酸、丙酮酸等）合成葡萄糖：7 步共用糖酵解酶逆向运行，3 个不可逆点由 4 个绕道反应（PC、PEPCK、FBPase-1、G6Pase）替换，每葡萄糖净耗 4 ATP + 2 GTP 与 2 NADH。空间上从线粒体基质起步，PEP 之后在胞质完成，最后一步在内质网膜。",
+  "organs": [
+    { "id": "liver", "name": "肝" },
+    { "id": "kidney", "name": "肾皮质" }
+  ],
+  "entities": [
+    { "id": "pyr", "name": "丙酮酸", "abbr": "Pyr", "kind": "metabolite" },
+    { "id": "oaa", "name": "草酰乙酸", "abbr": "OAA", "kind": "metabolite" },
+    { "id": "mal", "name": "苹果酸", "abbr": "Mal", "kind": "metabolite" },
+    { "id": "pep", "name": "磷酸烯醇式丙酮酸", "abbr": "PEP", "kind": "metabolite" },
+    { "id": "2pg", "name": "2-磷酸甘油酸", "abbr": "2PG", "kind": "metabolite" },
+    { "id": "3pg", "name": "3-磷酸甘油酸", "abbr": "3PG", "kind": "metabolite" },
+    { "id": "13bpg", "name": "1,3-二磷酸甘油酸", "abbr": "1,3-BPG", "kind": "metabolite" },
+    { "id": "g3p", "name": "甘油醛-3-磷酸", "abbr": "G3P", "kind": "metabolite" },
+    { "id": "dhap", "name": "磷酸二羟丙酮", "abbr": "DHAP", "kind": "metabolite" },
+    { "id": "fbp", "name": "果糖-1,6-二磷酸", "abbr": "FBP", "kind": "metabolite" },
+    { "id": "f6p", "name": "果糖-6-磷酸", "abbr": "F6P", "kind": "metabolite" },
+    { "id": "g6p", "name": "葡糖-6-磷酸", "abbr": "G6P", "kind": "metabolite" },
+    { "id": "glc", "name": "葡萄糖", "abbr": "Glc", "kind": "metabolite" },
+    { "id": "lac", "name": "乳酸", "abbr": "Lac", "kind": "metabolite" },
+    { "id": "ala", "name": "丙氨酸", "abbr": "Ala", "kind": "metabolite" },
+    { "id": "hco3", "name": "碳酸氢盐", "abbr": "HCO₃⁻", "kind": "metabolite" },
+    { "id": "pc", "name": "丙酮酸羧化酶", "abbr": "PC", "kind": "enzyme" },
+    { "id": "pepck", "name": "PEP 羧激酶", "abbr": "PEPCK", "kind": "enzyme" },
+    { "id": "enolase", "name": "烯醇化酶", "abbr": "Enolase", "kind": "enzyme" },
+    { "id": "pgam", "name": "磷酸甘油酸变位酶", "abbr": "PGAM", "kind": "enzyme" },
+    { "id": "pgk", "name": "磷酸甘油酸激酶", "abbr": "PGK", "kind": "enzyme" },
+    { "id": "gapdh", "name": "甘油醛-3-磷酸脱氢酶", "abbr": "GAPDH", "kind": "enzyme" },
+    { "id": "tpi", "name": "磷酸丙糖异构酶", "abbr": "TPI", "kind": "enzyme" },
+    { "id": "aldolase", "name": "醛缩酶", "abbr": "Aldolase", "kind": "enzyme" },
+    { "id": "fbpase1", "name": "果糖-1,6-二磷酸酶-1", "abbr": "FBPase-1", "kind": "enzyme" },
+    { "id": "pgi", "name": "磷酸葡萄糖异构酶", "abbr": "PGI", "kind": "enzyme" },
+    { "id": "g6pc1", "name": "葡萄糖-6-磷酸酶", "abbr": "G6PC1", "kind": "enzyme" },
+    { "id": "ldh", "name": "乳酸脱氢酶", "abbr": "LDH", "kind": "enzyme" },
+    { "id": "alt", "name": "丙氨酸转氨酶", "abbr": "ALT", "kind": "enzyme" }
+  ],
+  "steps": [
+    {
+      "id": "gn-1",
+      "index": 1,
+      "name": "丙酮酸羧化为草酰乙酸",
+      "compartment": "mito-matrix",
+      "compartments": ["mito-matrix"],
+      "substrates": ["pyr", "hco3"],
+      "products": ["oaa"],
+      "enzyme": { "entityId": "pc", "name": "丙酮酸羧化酶" },
+      "cofactors": ["ATP", "生物素（共价拴在 BCCP 的 Lys 上）", "HCO₃⁻（碳源）", "Mn²⁺/Mg²⁺"],
+      "irreversible": true,
+      "significance": "糖异生的第一个关口：把丙酮酸重新装回 TCA 入口的四碳酸，同时是一次『用 ATP 买碳键』的投亏平衡点。乙酰-CoA 为别构激活剂（必需，无则几乎无活性）——脂解旺盛时乙酰-CoA 多，『告诉』丙酮酸去做糖而不是进 TCA。",
+      "equation": "丙酮酸 + HCO₃⁻ + ATP → 草酰乙酸 + ADP + Pi",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝线粒体 PC 活性高，是空腹血糖维持的主力；乙酰-CoA 别构激活把脂肪酸氧化状态与糖异生启动直接挂钩。" },
+        { "organ": "kidney", "text": "肾皮质同样表达 PC，长期饥饿时肾糖异生贡献显著上升（比例数值教材出入大，未核实不写数）。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "6.4.1.1",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "强放能（ATP 水解驱动羧化）",
+        "source": "Lehninger 8e Ch.20（定性结论，可追溯）",
+        "note": "Ch.20 详表逐列数值未逐字核实到唯一数字，按档案纪律不冒充事实，只记定性结论。"
+      },
+      "stereochemistry": [
+        "生物素臂在 BC（生物素羧化）域与 CT（羧基转移）域两活性位点间摆动（~60 Å）：HCO₃⁻ 先在 BC 域被 ATP 活化接到生物素上，再由 CT 域转移给丙酮酸，产物为 L-构型草酰乙酸"
+      ],
+      "misconceptions": [
+        "「乙酰-CoA 激活 PC 所以被消耗」——乙酰-CoA 是别构激活剂，净不消耗；被消耗的是 ATP 和 HCO₃⁻。",
+        "「CO₂ 固定是把 CO₂ 排出去的反过程所以随便可逆」——羧化由 ATP 水解驱动，是单向投入反应，逆向脱羧不由此酶执行。"
+      ],
+      "clinical": [
+        "PC 缺乏：罕见，乳酸酸中毒 + 低血糖 + 神经发育受损（OMIM 268650）。"
+      ],
+      "mirrorOf": "gk-10",
+      "contrastWithGlycolysis": {
+        "swap": true,
+        "versus": "gk-10（丙酮酸激酶）",
+        "enzyme": "换酶：PK 催化的 PEP→丙酮酸不可逆（ΔG 大幅放能），逆向走不通，须由 PC 先把丙酮酸抬回四碳酸能级。",
+        "energyCost": "PK 正向净产 ATP；PC 正向每葡萄糖耗 2 ATP（两个丙酮酸各 1 个）。",
+        "regulation": "PC 被乙酰-CoA 别构激活（必需激活剂）；PK 在肝被胰高血糖素/PKA 依赖的磷酸化钝化——两酶在激素状态上互为镜像。"
+      },
+      "threeD": {
+        "status": "pending",
+        "note": "单帧静态展示 OK；四聚体 ~2 万原子、双活性位点 + 摆动臂，帧带意义有限（生物素臂运动是『过程』不是『四格』）。资产未制作，无路径。",
+        "pdbCandidates": [
+          { "pdbId": "3BG3", "role": "substrate-state", "organism": "人（线粒体）", "method": "X-ray", "resolution": 2.8, "ligands": ["BTI 生物素", "PYR 丙酮酸", "MN"], "note": "全酶四聚体，双底物同框（稀有）" },
+          { "pdbId": "3TW6", "role": "capture-state", "organism": "根瘤菌 R. etli", "method": "X-ray", "resolution": 2.4, "ligands": ["PAE 丙酮酸", "BTI", "COA", "ADP", "MG", "ZN"], "note": "生物素臂/ADP 同框；跨物种需标注" }
+        ]
+      }
+    },
+    {
+      "id": "gn-2",
+      "index": 2,
+      "name": "草酰乙酸脱羧磷酸化为 PEP",
+      "compartment": "cytosol",
+      "compartments": ["cytosol"],
+      "substrates": ["oaa"],
+      "products": ["pep"],
+      "enzyme": { "entityId": "pepck", "name": "PEP 羧激酶", "isozyme": "人两同工酶：胞质 PCK1（肝为主）、线粒体 PCK2；主图按肝取 PCK1" },
+      "cofactors": ["GTP", "Mn²⁺（人体内首选二价阳离子存在 Mg²⁺/Mn²⁺ 之争，未核实唯一口径）"],
+      "irreversible": true,
+      "significance": "把『不可逆』的 PK 逆向代价拆成两步可控反应的后一半：脱羧放能 + GTP 水解一次完成，把 PEP 的高能磷酸键（水解 ΔG°′ ≈ −61.9 kJ/mol）用 GTP 买回来。",
+      "equation": "草酰乙酸 + GTP → 磷酸烯醇式丙酮酸 + GDP + CO₂",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝以胞质 PCK1 为主：OAA 先以苹果酸形式出线粒体（顺带把 NADH 带入胞质供第 6 步），再在胞质脱羧。" },
+        { "organ": "kidney", "text": "线粒体同工酶 PCK2 路线：OAA 不出膜、原位脱羧为 PEP 后经膜转运出线粒体；两路线的组织占比未核实，不写数。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "4.1.1.32",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能（脱羧驱动 + GTP 水解）",
+        "source": "Lehninger 8e Ch.20（定性结论）；PEP 水解 ΔG°′ ≈ −61.9 kJ/mol 见 Lehninger Ch.13 表系",
+        "note": "详表数值未核实到唯一数字，不冒充事实。"
+      },
+      "stereochemistry": [
+        "脱羧与磷酰化协同完成：OAA 的 C4 羧基以 CO₂ 形式离去，磷酸基上到 C2 烯醇氧，生成 trans-烯醇式 PEP（烯醇磷酸酯）"
+      ],
+      "misconceptions": [
+        "「PEPCK 把 PEP 变回 OAA 所以是可逆酶」——它催化的是单向脱羧磷酸化；CO₂ 的离去使逆向在热力学上被斩断。",
+        "「这一步不耗能，因为是脱羧」——脱羧提供的是热力学推力，磷酸基的来源是 GTP 水解，账要记。"
+      ],
+      "clinical": [
+        "PCK1 缺乏：极罕见（OMIM 261650），临床表型报道有限（未核实）。"
+      ],
+      "mirrorOf": "gk-10",
+      "contrastWithGlycolysis": {
+        "swap": true,
+        "versus": "gk-10（丙酮酸激酶）",
+        "enzyme": "换酶（与 gn-1 合计换两酶绕一道）：PK 一把抓的不可逆反应被 PC+PEPCK 两步接力替代。",
+        "energyCost": "PK 正向把 PEP 磷酸烯醇键砸给 ADP 产 ATP；PEPCK 正向用 1 GTP 把这个键买回来（每葡萄糖 2 GTP）。",
+        "regulation": "人 PCK1（胞质）/PCK2（线粒体）两同工酶提供路线选择；PK 则是别构（FBP 激活）+ 磷酸化钝化的调控对象。"
+      },
+      "threeD": {
+        "status": "pending",
+        "note": "建议只做单帧 + 2D 机理图；OAA/PEP 真底物态人源未检索到（未核实→不写候选），apo 帧缺。资产未制作，无路径。",
+        "pdbCandidates": [
+          { "pdbId": "1KHB", "role": "gtp-analog-bound", "organism": "人（胞质 PCK1）", "method": "X-ray", "resolution": 1.85, "ligands": ["GCP = GTP 不可水解类似物 GMPCP", "MN"], "note": "质量最高的 PEPCK 结构；GCP 不是 GTP 本体，展示需标注" },
+          { "pdbId": "1KHE", "role": "gtp-analog-bound", "organism": "人", "method": "X-ray", "resolution": 2.4, "ligands": ["GCP", "MN"], "note": "同酶另一状态，对照" },
+          { "pdbId": "1M51", "role": "control-only", "organism": "人", "method": "X-ray", "resolution": 2.25, "ligands": ["TSX（黄嘌呤衍生物，非 GTP 本体）", "MN"], "note": "只能当对照，不能标『GTP 态』" }
+        ]
+      }
+    },
+    {
+      "id": "gn-3",
+      "index": 3,
+      "name": "PEP 水合为 2PG（烯醇化酶逆向）",
+      "compartment": "cytosol",
+      "compartments": ["cytosol"],
+      "substrates": ["pep"],
+      "products": ["2pg"],
+      "enzyme": { "entityId": "enolase", "name": "烯醇化酶（与糖酵解同酶，逆向运行）" },
+      "cofactors": ["Mg²⁺"],
+      "irreversible": false,
+      "significance": "同酶反向七步之一：近平衡反应，胞内方向完全由浓度商决定——糖异生流量靠上游 PEPCK 持续供应 PEP、下游持续消耗 2PG 来拉动。",
+      "equation": "磷酸烯醇式丙酮酸 + H₂O ⇌ 2-磷酸甘油酸",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "4.2.1.11",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡（同酶可逆步，方向由浓度商决定）",
+        "source": "热力学上为糖酵解 gk-9 同反应之逆（标准 ΔG′ 取反）；本档案不重复引用数值，口径见 glycolysis.json gk-9（Lehninger 8e Table 15-1）",
+        "note": "同酶可逆步不独立引数：数值引用糖酵解条目，避免两处数字漂移。"
+      },
+      "stereochemistry": [
+        "糖酵解向为 C2=C3 消去水；逆向为对双键的立体专一水合，回到 (2R)-2-磷酸甘油酸"
+      ],
+      "misconceptions": [
+        "「同酶逆向所以平衡点也跟着翻」——平衡常数不变，翻的是细胞里的浓度商和流量方向。"
+      ],
+      "clinical": [],
+      "mirrorOf": "gk-9",
+      "threeD": null
+    },
+    {
+      "id": "gn-4",
+      "index": 4,
+      "name": "2PG 变位为 3PG（磷酸甘油酸变位酶逆向）",
+      "compartment": "cytosol",
+      "compartments": ["cytosol"],
+      "substrates": ["2pg"],
+      "products": ["3pg"],
+      "enzyme": { "entityId": "pgam", "name": "磷酸甘油酸变位酶（与糖酵解同酶，逆向运行）" },
+      "cofactors": ["2,3-BPG（催化引物，缺引物近失活）"],
+      "irreversible": false,
+      "significance": "同酶反向之一：磷酸基仍经磷酰-His 中间体两来两回换位，逆向时同样需要 2,3-BPG 作引物（『催化引物』口径）。",
+      "equation": "2-磷酸甘油酸 ⇌ 3-磷酸甘油酸",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "5.4.2.11",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡（同酶可逆步）",
+        "source": "热力学上为糖酵解 gk-8 同反应之逆；数值口径见 glycolysis.json gk-8（Lehninger 8e Table 15-1）",
+        "note": "同酶可逆步不独立引数。"
+      },
+      "stereochemistry": [
+        "(R) 构型不变；磷酸基 C2→C3 经酶-磷酰中间体换位（糖酵解向为 C3→C2）"
+      ],
+      "misconceptions": [
+        "「2,3-BPG 在糖异生里没用了」——PGAM 逆向同样要 2,3-BPG 引物；红细胞里它是氧亲和力调节物，在肝胞质里它是变位酶的催化引物，一物两用。"
+      ],
+      "clinical": [],
+      "mirrorOf": "gk-8",
+      "threeD": null
+    },
+    {
+      "id": "gn-5",
+      "index": 5,
+      "name": "3PG 磷酸化为 1,3-BPG（PGK 逆向，耗 ATP）",
+      "compartment": "cytosol",
+      "compartments": ["cytosol"],
+      "substrates": ["3pg"],
+      "products": ["13bpg"],
+      "enzyme": { "entityId": "pgk", "name": "磷酸甘油酸激酶（与糖酵解同酶，逆向运行）" },
+      "cofactors": ["ATP", "Mg²⁺"],
+      "irreversible": false,
+      "significance": "糖酵解第 7 步的底物水平磷酸化在此倒放：花 1 ATP 把羧基抬回酰基磷酸能级。每葡萄糖 2 个 ATP 计入 4 ATP 总账。",
+      "equation": "3-磷酸甘油酸 + ATP ⇌ 1,3-二磷酸甘油酸 + ADP",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "2.7.2.3",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡（同酶可逆步；ATP 投入在化学计量里已含于 4 ATP 总账）",
+        "source": "热力学上为糖酵解 gk-7 同反应之逆；数值口径见 glycolysis.json gk-7（Lehninger 8e Table 15-1）",
+        "note": "同酶可逆步不独立引数；ATP 代价在 energyLedger 里按 gn-5 记。"
+      },
+      "stereochemistry": [
+        "磷酰基转移到 C1 羧基形成酰基磷酸；C2 手性中心不参与"
+      ],
+      "misconceptions": [
+        "「逆向 PGK『又』耗 ATP 是重复计费」——正向产多少、逆向就收多少；总账里每葡萄糖 2 ATP 只在 gn-5 记一次。"
+      ],
+      "clinical": [],
+      "mirrorOf": "gk-7",
+      "threeD": null
+    },
+    {
+      "id": "gn-6",
+      "index": 6,
+      "name": "1,3-BPG 还原为 G3P（GAPDH 逆向，耗 NADH）",
+      "compartment": "cytosol",
+      "compartments": ["cytosol"],
+      "substrates": ["13bpg"],
+      "products": ["g3p"],
+      "enzyme": { "entityId": "gapdh", "name": "甘油醛-3-磷酸脱氢酶（与糖酵解同酶，逆向运行）" },
+      "cofactors": ["NADH", "Pi"],
+      "irreversible": false,
+      "significance": "糖酵解产能步骤的镜像：不是产 NADH 而是吃 NADH。每葡萄糖 2 NADH 必须由胞质供应——乳酸入口（Cori 循环 LDH 氧化乳酸时供）或苹果酸穿梭（OAA 出膜时顺带带入）。",
+      "equation": "1,3-二磷酸甘油酸 + NADH + H⁺ ⇌ 甘油醛-3-磷酸 + NAD⁺ + Pi",
+      "organDiffs": [
+        { "organ": "liver", "text": "NADH 来源二选一：乳酸（LDH 氧化时供胞质 NADH）或苹果酸穿梭（OAA 出线粒体时带入）；选哪条取决于原料。" },
+        { "organ": "kidney", "text": "同肝逻辑；若走 PCK2 线粒体路线，NADH 供需的空间配比不同（细节未核实，不写数）。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "1.2.1.12",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡（同酶可逆步；NADH 供给是流量瓶颈而非热力学瓶颈）",
+        "source": "热力学上为糖酵解 gk-6 同反应之逆；数值口径见 glycolysis.json gk-6（Lehninger 8e Table 15-1）",
+        "note": "同酶可逆步不独立引数；NADH 代价在 energyLedger 里按 gn-6 记。"
+      },
+      "stereochemistry": [
+        "半缩硫醛中间体的立体电子编排与糖酵解向相同，氢负离子 transfer 方向反转：NADH → 底物 C1"
+      ],
+      "misconceptions": [
+        "「糖异生不吃 NADH，因为 NADH 是糖酵解产物」——方向反过来 NADH 账也反：每葡萄糖净耗 2 NADH，来源是乳酸或苹果酸穿梭，不是凭空有的。"
+      ],
+      "clinical": [],
+      "mirrorOf": "gk-6",
+      "threeD": null
+    },
+    {
+      "id": "gn-7",
+      "index": 7,
+      "name": "G3P 异构为 DHAP（TPI 逆向）",
+      "compartment": "cytosol",
+      "compartments": ["cytosol"],
+      "substrates": ["g3p"],
+      "products": ["dhap"],
+      "enzyme": { "entityId": "tpi", "name": "磷酸丙糖异构酶（与糖酵解同酶，逆向运行）" },
+      "cofactors": [],
+      "irreversible": false,
+      "significance": "为醛缩酶缩合准备第二个三碳单元；逆向运行时 DHAP 不再被抽走，而是被『存』下来等着与 G3P 缩合。",
+      "equation": "甘油醛-3-磷酸 ⇌ 磷酸二羟丙酮",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "5.3.1.1",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡（同酶可逆步）",
+        "source": "热力学上为糖酵解 gk-5 同反应之逆；数值口径见 glycolysis.json gk-5（Lehninger 8e Table 15-1）",
+        "note": "同酶可逆步不独立引数。"
+      },
+      "stereochemistry": [
+        "经烯二醇中间体；酮糖/醛糖互变异构，无手性碳增减"
+      ],
+      "misconceptions": [],
+      "clinical": [],
+      "mirrorOf": "gk-5",
+      "threeD": null
+    },
+    {
+      "id": "gn-8",
+      "index": 8,
+      "name": "G3P + DHAP 缩合为 FBP（醛缩酶逆向）",
+      "compartment": "cytosol",
+      "compartments": ["cytosol"],
+      "substrates": ["g3p", "dhap"],
+      "products": ["fbp"],
+      "enzyme": { "entityId": "aldolase", "name": "醛缩酶（与糖酵解同酶，逆向运行）" },
+      "cofactors": [],
+      "irreversible": false,
+      "significance": "六碳二合一：两个三碳缩合回一个 FBP。糖酵解标准态下裂解是最吸能的一步（+23.8 kJ/mol），逆向缩合相应放能——但仍靠下游 FBPase-1 水解拉动流量。",
+      "equation": "甘油醛-3-磷酸 + 磷酸二羟丙酮 ⇌ 果糖-1,6-二磷酸",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝为 ALDOB（果糖代谢入口酶），逆向缩合 FBP 同样成立；同工酶差异不影响本步方向。" },
+        { "organ": "kidney", "text": "肾皮质以 ALDOB 为主（表达细节未核实到唯一口径，不写数）。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "4.1.2.13",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡（同酶可逆步；缩合方向靠下游拉动）",
+        "source": "热力学上为糖酵解 gk-4 同反应之逆（标准 ΔG′ 取反）；裂解向数值口径见 glycolysis.json gk-4（Lehninger 8e Table 15-1）",
+        "note": "同酶可逆步不独立引数；『标准态最吸能、生理态被拉负』的教训在逆向同理反向成立。"
+      },
+      "stereochemistry": [
+        "I 型醛缩酶经 Lys 席夫碱电子工程完成醛醇缩合；产物为 β-D-果糖-1,6-二磷酸"
+      ],
+      "misconceptions": [
+        "「缩合要花 ATP」——席夫碱电子工程不需要 ATP 也不需要水；能级靠相邻步骤（gn-6 还原、gn-9 水解）的偶联撑住。"
+      ],
+      "clinical": [],
+      "mirrorOf": "gk-4",
+      "threeD": null
+    },
+    {
+      "id": "gn-9",
+      "index": 9,
+      "name": "FBP 水解为 F6P",
+      "compartment": "cytosol",
+      "compartments": ["cytosol"],
+      "substrates": ["fbp"],
+      "products": ["f6p"],
+      "enzyme": { "entityId": "fbpase1", "name": "果糖-1,6-二磷酸酶-1" },
+      "cofactors": ["Mg²⁺（水解酶活性所需金属，口径见教材通用描述；特异性辅因子未核实到唯一数字）"],
+      "irreversible": true,
+      "significance": "把糖酵解限速步的『正门』换成『排水口』：PFK-1 花 ATP 装上的 C1 磷酸由水解卸下，不产 ATP 也不耗 ATP——水当刀。与 PFK-1 构成教科书级底物循环（futile cycle）。",
+      "equation": "果糖-1,6-二磷酸 + H₂O → 果糖-6-磷酸 + Pi",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝 FBPase-1 是血糖维持的核心闸门之一：F2,6BP 低（胰高血糖素高）时开闸，与 PFK-1 的开/关互为镜像。" },
+        { "organ": "kidney", "text": "肾皮质表达 FBPase-1，长期饥饿时与 G6Pase 一起支撑肾糖异生。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "3.1.3.11",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能（水解驱动）",
+        "source": "Lehninger 8e Ch.20（定性结论）",
+        "note": "禁止把 glycolysis.json gk-3 的 ΔG 取反当本步数据：PFK 的 −14.2 kJ/mol 是 F6P+ATP→FBP+ADP 的标准态，FBPase-1 走水解路径，两者不是同一条自由能曲线的正反两读（outline §3 纪律）。"
+      },
+      "stereochemistry": [
+        "只切 C1 磷酸酯键；呋喃/吡喃环型平衡中酶取其一为底物（细节未核实到唯一口径）"
+      ],
+      "misconceptions": [
+        "「底物循环是浪费设计」——PFK-1/FBPase-1 这对『拔河』正是放大灵敏度与产热的调控结构；F2,6BP 单一信使同时按住一个方向、松开另一个方向。",
+        "「F2,6BP 抑制 FBPase 是产物堆积效应」——AMP 别构抑制位点与 F6P 底物位点分离，F2,6BP 也是纯信号分子，不是质量作用。"
+      ],
+      "clinical": [
+        "FBPase-1 缺乏：空腹诱发低血糖 + 乳酸酸中毒（OMIM 232890）。",
+        "药物视角：FBPase 抑制剂（2Y5K 的 YCU 即磺酰脲类抑制剂）曾是 2 型糖尿病降糖药方向（临床转化状态未核实）。"
+      ],
+      "mirrorOf": "gk-3",
+      "contrastWithGlycolysis": {
+        "swap": true,
+        "versus": "gk-3（磷酸果糖激酶-1）",
+        "enzyme": "换酶：PFK-1 用 ATP 在 C1 磷酸化，FBPase-1 用水在 C1 水解——同一根键，两把不同的刀。",
+        "energyCost": "PFK-1 正向每葡萄糖耗 2 ATP；FBPase-1 水解无 ATP 代价（但这条循环对打时 ATP 净变成热）。",
+        "regulation": "F2,6BP 正调 PFK-1、负调 FBPase-1（单一信使双向裁决）；AMP 别构抑制 FBPase-1（位点与底物位点分离）；胰高血糖素/PKA → PFK-2/FBPase-2 磷酸化 → F2,6BP↓ → 糖异生↑。"
+      },
+      "threeD": {
+        "status": "pending",
+        "note": "最适合做帧带：能复用 gk-1 帧带的跨结构刚体对齐管线；人源 apo 帧缺（未检索到，明说）。资产未制作，无路径。",
+        "pdbCandidates": [
+          { "pdbId": "1FTA", "role": "allosteric", "organism": "人（肝）", "method": "X-ray", "resolution": 2.3, "ligands": ["AMP（别构抑制位点）"], "note": "★ 与 gk-3 PFK 对照的镜像主角" },
+          { "pdbId": "1EYI", "role": "substrate-state", "organism": "猪（肾）", "method": "X-ray", "resolution": 2.32, "ligands": ["F6P", "MG", "PO4"], "note": "跨物种拼帧需标注；原子数为 ASU 单体含量" },
+          { "pdbId": "2Y5K", "role": "inhibitor-bound", "organism": "人", "method": "X-ray", "resolution": 2.1, "ligands": ["YCU（磺酰脲类抑制剂）"], "note": "补偿性证据，页面标注" }
+        ]
+      }
+    },
+    {
+      "id": "gn-10",
+      "index": 10,
+      "name": "F6P 异构为 G6P（PGI 逆向）",
+      "compartment": "cytosol",
+      "compartments": ["cytosol"],
+      "substrates": ["f6p"],
+      "products": ["g6p"],
+      "enzyme": { "entityId": "pgi", "name": "磷酸葡萄糖异构酶（与糖酵解同酶，逆向运行）" },
+      "cofactors": [],
+      "irreversible": false,
+      "significance": "同酶反向之一：酮糖回醛糖，为最后的水解（gn-11）准备好 G6P。",
+      "equation": "果糖-6-磷酸 ⇌ 葡糖-6-磷酸",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "5.3.1.9",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡（同酶可逆步）",
+        "source": "热力学上为糖酵解 gk-2 同反应之逆；数值口径见 glycolysis.json gk-2（Lehninger 8e Table 15-1）",
+        "note": "同酶可逆步不独立引数。"
+      },
+      "stereochemistry": [
+        "β-D-果糖-6-磷酸 ⇌ α-D-葡糖-6-磷酸：经顺-烯二醇中间体，构型变化限于 C1/C2"
+      ],
+      "misconceptions": [],
+      "clinical": [],
+      "mirrorOf": "gk-2",
+      "threeD": null
+    },
+    {
+      "id": "gn-11",
+      "index": 11,
+      "name": "G6P 水解为葡萄糖",
+      "compartment": "er-lumen",
+      "compartments": ["cytosol", "er-lumen"],
+      "substrates": ["g6p"],
+      "products": ["glc"],
+      "enzyme": { "entityId": "g6pc1", "name": "葡萄糖-6-磷酸酶", "isozyme": "G6PC1（肝、肾、肠）；活性位点朝 ER 腔" },
+      "cofactors": ["H₂O", "SLC37A4（G6P 转运体，把 G6P 送入 ER 腔）"],
+      "irreversible": true,
+      "significance": "最后一道闸：只有肝、肾、肠有这对『G6PC1 + SLC37A4』搭档，肌没有——这是『肌糖原不能补血糖』的分子根据。产物葡萄糖经 GLUT2 出肝入血。",
+      "equation": "葡糖-6-磷酸 + H₂O → 葡萄糖 + Pi（发生于 ER 膜，活性位点朝腔侧）",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝是空腹血糖的主要供给者：G6P 经 SLC37A4 入 ER 腔被 G6PC1 水解，葡萄糖经 GLUT2 出肝。" },
+        { "organ": "kidney", "text": "肾皮质同样表达 G6PC1，长期饥饿时贡献上升（比例数值教材出入大，未核实不写数）。肌不表达 G6PC（也无 G6Pase 活性）——肌糖原只能自己用。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "3.1.3.9",
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "强放能（水解驱动）",
+        "source": "Lehninger 8e Ch.20（定性结论）",
+        "note": "与 gk-1 不同路径：HK/GCK 走 ATP 磷酸化、G6PC1 走水解，两者不是同一条自由能曲线的正反两读；不把 gk-1 的 ΔG 取反当本步数据。"
+      },
+      "stereochemistry": [
+        "底物为 α-D-葡糖-6-磷酸（BG6 = 6-O-磷酸-β-D-葡萄糖为已核验配体口径）；切 C6 磷酸酯键"
+      ],
+      "misconceptions": [
+        "「肌糖原可以补血糖」——肌无 G6PC（也不表达 G6Pase 活性），肌肉糖原只能自己用；这是肝/肌糖原教学分工的根源。",
+        "「G6Pase 是胞质酶」——它是多跨膜 ER 蛋白，活性位点朝 ER 腔；G6P 必须先进腔才能被切。"
+      ],
+      "clinical": [
+        "GSD-Ia（von Gierke 病）：G6PC1 缺乏，G6P 堆积 → 严重空腹低血糖、肝大、乳酸酸中毒、高尿酸（OMIM 232200）。",
+        "GSD-Ib：SLC37A4 缺乏，同表型 + 中性粒细胞功能障碍（OMIM 232220）。"
+      ],
+      "mirrorOf": "gk-1",
+      "contrastWithGlycolysis": {
+        "swap": true,
+        "versus": "gk-1（己糖激酶/葡萄糖激酶）",
+        "enzyme": "换酶：HK/GCK 在胞质用 ATP 抓葡萄糖，G6PC1 在 ER 膜上用水切 G6P。",
+        "energyCost": "HK/GCK 正向每葡萄糖耗 1 ATP；G6PC1 水解无代价（糖酵解侧这一步花的 ATP 在糖异生侧白花，构成第三对底物循环）。",
+        "regulation": "G6PC1 靠组织表达分布（肝/肾/肠有、肌无）而非别构调控；HK 受 G6P 反馈抑制，G6PC1 无此机制。"
+      },
+      "threeD": {
+        "status": "pending",
+        "note": "不建议上 3D 四格：多跨膜 ER 蛋白 + 3.1–3.3 Å cryo-EM + GFP 融合构建体（9JTM），位点残基定位粗；降级为 2D 机理示意 + 一张 9J7U 静态单帧（标注『2024 新结构、分辨率有限』）。资产未制作，无路径。",
+        "pdbCandidates": [
+          { "pdbId": "9J7U", "role": "substrate-state", "organism": "人", "method": "cryo-EM", "resolution": 3.14, "ligands": ["BG6 = 6-O-磷酸-β-D-葡萄糖（G6P 本体）", "POV 磷脂"], "note": "2024 新结构，含磷脂共存" },
+          { "pdbId": "9JTM", "role": "substrate-state", "organism": "人", "method": "cryo-EM", "resolution": 2.9, "ligands": ["G6P 本体", "P5S 磷脂酰丝氨酸"], "note": "构建体带 GFP-strep 标签，注意剔除" },
+          { "pdbId": "9J7V", "role": "apo", "organism": "人", "method": "cryo-EM", "resolution": 3.3, "ligands": ["POV（仅磷脂）"], "note": "可当 apo 帧" }
+        ]
+      }
+    }
+  ],
+  "sideBranchSteps": [
+    {
+      "id": "gn-cori",
+      "index": null,
+      "name": "乳酸入口（Cori 循环）",
+      "compartment": "cytosol",
+      "compartments": ["cytosol"],
+      "substrates": ["lac"],
+      "products": ["pyr"],
+      "enzyme": { "entityId": "ldh", "name": "乳酸脱氢酶" },
+      "cofactors": ["NAD⁺"],
+      "irreversible": false,
+      "significance": "原料三选一之一：肌/红细胞的无氧输出乳酸被肝收回，LDH 氧化乳酸的同时供出胞质 NADH——正好喂给 gn-6 的 GAPDH 逆向，碳与还原力一起回肝。",
+      "equation": "乳酸 + NAD⁺ ⇌ 丙酮酸 + NADH + H⁺",
+      "organDiffs": [
+        { "organ": "liver", "text": "Cori 循环的肝侧：收回肌/红细胞的乳酸；NADH/NAD⁺ 比在胞质由该反应与 gn-6 共同决定。" },
+        { "organ": "kidney", "text": "肾皮质也能收回乳酸并异生（长期饥饿时份额上升，数值未核实）。" }
+      ],
+      "bindingProfile": null,
+      "mirrorOf": null,
+      "threeD": null
+    },
+    {
+      "id": "gn-ala",
+      "index": null,
+      "name": "丙氨酸入口（葡萄糖-丙氨酸循环）",
+      "compartment": "cytosol",
+      "compartments": ["cytosol"],
+      "substrates": ["ala"],
+      "products": ["pyr"],
+      "enzyme": { "entityId": "alt", "name": "丙氨酸转氨酶" },
+      "cofactors": ["PLP（磷酸吡哆醛）"],
+      "irreversible": false,
+      "significance": "原料三选一之二：肌蛋白分解的氨基以丙氨酸无毒形式运到肝，碳骨架转氨后进入糖异生，氨基进尿素循环。",
+      "equation": "丙氨酸 + α-酮戊二酸 ⇌ 丙酮酸 + 谷氨酸",
+      "organDiffs": [
+        { "organ": "liver", "text": "葡萄糖-丙氨酸循环的肝侧：ALT 把氨基转给 α-酮戊二酸，丙酮酸进入 gn-1。" },
+        { "organ": "kidney", "text": "肾在酸中毒时另有一条谷氨酰胺产氨路线参与（细节未核实，不写数）。" }
+      ],
+      "bindingProfile": null,
+      "mirrorOf": null,
+      "threeD": null
+    }
+  ],
+  "mirrorMap": {
+    "title": "与糖酵解的逐步对照（本通路最大教学价值，结构化交付）",
+    "note": "糖酵解 10 步全部被覆盖：7 步同酶反向、3 个不可逆点换酶（其中 PK 一步换两酶）。关系枚举：same-enzyme-reversed / enzyme-swap / double-enzyme-detour。能量代价与调控差异逐行给出，不允许只写在文字里。",
+    "pairs": [
+      {
+        "glycolysisStepId": "gk-10",
+        "gluconeogenesisStepIds": ["gn-1", "gn-2"],
+        "relation": "double-enzyme-detour",
+        "relationLabel": "换两酶绕一道（PK 不可逆，逆向走不通）",
+        "energyCostDiff": "每葡萄糖多耗 1 ATP（gn-1 PC）+ 1 GTP（gn-2 PEPCK）= 2 个高能磷酸键",
+        "regulationDiff": "PC 需乙酰-CoA 别构激活（必需激活剂，脂解信号）；PK 在肝被胰高血糖素/PKA 依赖磷酸化钝化——两酶激素响应互为镜像。"
+      },
+      {
+        "glycolysisStepId": "gk-9",
+        "gluconeogenesisStepIds": ["gn-3"],
+        "relation": "same-enzyme-reversed",
+        "relationLabel": "同酶反向（烯醇化酶）",
+        "energyCostDiff": "无",
+        "regulationDiff": "无独立调控，方向由浓度商决定。"
+      },
+      {
+        "glycolysisStepId": "gk-8",
+        "gluconeogenesisStepIds": ["gn-4"],
+        "relation": "same-enzyme-reversed",
+        "relationLabel": "同酶反向（PGAM）",
+        "energyCostDiff": "无（2,3-BPG 引物两侧通用）",
+        "regulationDiff": "无独立调控。"
+      },
+      {
+        "glycolysisStepId": "gk-7",
+        "gluconeogenesisStepIds": ["gn-5"],
+        "relation": "same-enzyme-reversed",
+        "relationLabel": "同酶反向（PGK，底物水平磷酸化倒放）",
+        "energyCostDiff": "每葡萄糖耗 2 ATP（化学计量已含于 4 ATP 总账，不重复计费）",
+        "regulationDiff": "无独立调控，近平衡。"
+      },
+      {
+        "glycolysisStepId": "gk-6",
+        "gluconeogenesisStepIds": ["gn-6"],
+        "relation": "same-enzyme-reversed",
+        "relationLabel": "同酶反向（GAPDH，NADH 账反向）",
+        "energyCostDiff": "每葡萄糖耗 2 NADH（来源：乳酸入口或苹果酸穿梭带入）",
+        "regulationDiff": "无独立调控；NADH 供给是流量瓶颈。"
+      },
+      {
+        "glycolysisStepId": "gk-5",
+        "gluconeogenesisStepIds": ["gn-7"],
+        "relation": "same-enzyme-reversed",
+        "relationLabel": "同酶反向（TPI）",
+        "energyCostDiff": "无",
+        "regulationDiff": "无独立调控。"
+      },
+      {
+        "glycolysisStepId": "gk-4",
+        "gluconeogenesisStepIds": ["gn-8"],
+        "relation": "same-enzyme-reversed",
+        "relationLabel": "同酶反向（醛缩酶，裂解↔缩合）",
+        "energyCostDiff": "无（缩合不需 ATP，靠上下游偶联拉动）",
+        "regulationDiff": "无独立调控。"
+      },
+      {
+        "glycolysisStepId": "gk-3",
+        "gluconeogenesisStepIds": ["gn-9"],
+        "relation": "enzyme-swap",
+        "relationLabel": "换酶：PFK-1 ↔ FBPase-1（F2,6BP 拔河）",
+        "energyCostDiff": "PFK-1 正向耗 ATP；FBPase-1 水解无 ATP 代价（对打时 ATP 净变成热）",
+        "regulationDiff": "F2,6BP 正调 PFK-1 / 负调 FBPase-1；AMP 别构抑制 FBPase-1（位点与底物位点分离）；胰高血糖素 → F2,6BP↓ → 糖异生↑。"
+      },
+      {
+        "glycolysisStepId": "gk-2",
+        "gluconeogenesisStepIds": ["gn-10"],
+        "relation": "same-enzyme-reversed",
+        "relationLabel": "同酶反向（PGI）",
+        "energyCostDiff": "无",
+        "regulationDiff": "无独立调控。"
+      },
+      {
+        "glycolysisStepId": "gk-1",
+        "gluconeogenesisStepIds": ["gn-11"],
+        "relation": "enzyme-swap",
+        "relationLabel": "换酶：HK/GCK ↔ G6PC1（第三对底物循环）",
+        "energyCostDiff": "HK/GCK 正向耗 ATP；G6PC1 水解无代价",
+        "regulationDiff": "组织表达分布即调控：G6PC1 仅肝/肾/肠有、肌无——『肌糖原不能补血糖』的分子根据；HK 受 G6P 反馈抑制，G6PC1 无此机制。"
+      }
+    ],
+    "totals": {
+      "glycolysisNetAtp": 2,
+      "gluconeogenesisCost": "4 ATP + 2 GTP = 6 ATP 当量",
+      "nadhRequired": 2,
+      "irreversiblePoints": 3,
+      "bypassReactions": 4,
+      "asymmetryNote": "与糖酵解净产 2 ATP 不对称，这正是不可逆方向性的代价（Lehninger Ch.20）。"
+    }
+  },
+  "energyLedger": {
+    "title": "能量账本（每生成 1 分子葡萄糖）",
+    "currency": "highEnergyPhosphate",
+    "entries": [
+      {
+        "stepId": "gn-1",
+        "item": "ATP",
+        "count": 2,
+        "trace": "outline §1 B1 行：丙酮酸 + HCO₃⁻ + ATP → 草酰乙酸 + ADP + Pi（两个丙酮酸各 1 ATP）"
+      },
+      {
+        "stepId": "gn-5",
+        "item": "ATP",
+        "count": 2,
+        "trace": "outline 对照表 gk-7 行：同酶反向 ATP 消耗已计入 4 ATP 总账（PGK 逆向，两个三碳各 1 ATP）"
+      },
+      {
+        "stepId": "gn-2",
+        "item": "GTP",
+        "count": 2,
+        "trace": "outline §1 B2 行：草酰乙酸 + GTP → PEP + GDP + CO₂（两个 OAA 各 1 GTP）"
+      },
+      {
+        "stepId": "gn-6",
+        "item": "NADH",
+        "count": 2,
+        "trace": "outline §4：同酶反向七步净耗 2 NADH（GAPDH 逆向把 1,3-BPG 还原到 G3P）"
+      }
+    ],
+    "totals": "4 ATP + 2 GTP = 6 ATP 当量，另需 2 NADH",
+    "asymmetryNote": "糖酵解净产 2 ATP，糖异生耗 6 个高能磷酸键——『逆向跑通路要补 3 倍电力』是本通路第一教学锚点；不对称性正是不可逆方向性的代价（Lehninger Ch.20，可追溯）。",
+    "pepDebtNote": "PEP 的高能负债：PK 正向把 PEP 的磷酸烯醇键（水解 ΔG°′ ≈ −61.9 kJ/mol，Lehninger 表 13 系）砸给 ATP；糖异生用 GTP 把这个键买回来（outline §3）。",
+    "netEquation": "2 丙酮酸 + 4 ATP + 2 GTP + 2 NADH + 6 H₂O → 葡萄糖 + 4 ADP + 2 GDP + 6 Pi + 2 NAD⁺ + 2 H⁺（Lehninger Ch.20 净反应式，可追溯）",
+    "deltaGDiscipline": "逐步 ΔG 的 Lehninger Ch.20 详表数值未逐字核实到唯一数字，全部只记定性结论（B1/B4 强放能，B2 放能，B3 放能，同酶反向七步近平衡）；禁止把 glycolysis.json 的 ΔG 取反当糖异生数据（换酶步路径不同，见各步 deltaG.note）。"
+  },
+  "threeD": {
+    "status": "pending",
+    "note": "3D 资产本轮不做，全部占位；PDB 候选一律来自 research/gluconeogenesis/outline.md 已核验表（2026-11-03 RCSB API），未新增条目。各步 pdbCandidates 仅为登记，不含资产路径。",
+    "verifiedPdbIds": ["3BG3", "3TW6", "1KHB", "1KHE", "1M51", "1FTA", "1EYI", "2Y5K", "9J7U", "9J7V", "9JTM"]
+  }
+}

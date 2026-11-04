@@ -1,0 +1,23 @@
+# 依赖与构建产物（可重新生成，不入库）
+node_modules/
+dist/
+
+# 截图、录屏、预览产物
+preview/
+.screenshots/
+.trae-html-share-packages/
+
+# 脚本缓存与临时目录（可重新下载/重新生成）
+tools/cache/
+tools/.tmp-*
+scripts/cache/
+
+# Python 缓存
+**/__pycache__/
+*.pyc
+
+# 日志与系统文件
+*.log
+.DS_Store
+
+# 注意：public/assets/ 下的 PDB/SDF/JSON 属于项目源资产，必须入库，不在此忽略

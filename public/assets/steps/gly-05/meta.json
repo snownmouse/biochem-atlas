@@ -1,0 +1,133 @@
+{
+  "stepId": "gk-5",
+  "stepName": "DHAP ↔ G3P 异构（磷酸丙糖异构酶 TPI）",
+  "assetVersion": "2.0.0",
+  "generatedAt": "2026-11-03",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12
+  },
+  "pdbId": "1NEY",
+  "species": "Saccharomyces cerevisiae",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 1.2,
+  "resolutionPerState": {
+    "holo": 1.2,
+    "apo": 1.7
+  },
+  "atomCount": 1889,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：承载保留配体重原子最多"
+    }
+  },
+  "ligands": [
+    {
+      "id": "13P",
+      "name": "磷酸二羟丙酮（DHAP，PDB 代码 13P，已核实）",
+      "role": "substrate",
+      "rationale": "真实底物",
+      "instances": 1,
+      "instanceChains": [
+        "A/5001"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 10,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "跨物种配对：holo 1NEY 为酿酒酵母，apo 2JK2 为人，物种不一致。",
+    "1NEY 蛋白含 6-氟色氨酸修饰残基（FTR，替代部分 Trp），已按蛋白残基保留而非配体。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 213515,
+      "gzipBytes": 53714
+    },
+    "apo.pdb": {
+      "bytes": 150237,
+      "gzipBytes": 37026
+    },
+    "ligand.sdf": {
+      "bytes": 1023,
+      "gzipBytes": 333
+    },
+    "pocket.json": {
+      "bytes": 5899,
+      "gzipBytes": 777
+    }
+  },
+  "holo": {
+    "pdbId": "1NEY",
+    "species": "Saccharomyces cerevisiae",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.2,
+    "title": "TRIOSEPHOSPHATE ISOMERASE IN COMPLEX WITH DHAP",
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：承载保留配体重原子最多"
+      }
+    },
+    "atomCount": 1889,
+    "proteinAtomCount": 1879,
+    "ligands": [
+      {
+        "id": "13P",
+        "name": "磷酸二羟丙酮（DHAP，PDB 代码 13P，已核实）",
+        "role": "substrate",
+        "rationale": "真实底物",
+        "instances": 1,
+        "instanceChains": [
+          "A/5001"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 10,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [],
+    "residueModifications": [
+      {
+        "id": "FTR",
+        "note": "共价修饰氨基酸残基，按蛋白保留"
+      }
+    ],
+    "presentLigandsRaw": [
+      "FTR",
+      "13P"
+    ]
+  },
+  "apo": {
+    "pdbId": "2JK2",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.7,
+    "chainSelection": {
+      "chains": [
+        "B"
+      ],
+      "rule": {
+        "B": "R4 apo：与 holo 链数一致，按蛋白原子数降序选取"
+      }
+    },
+    "atomCount": 1856,
+    "proteinAtomCount": 1856,
+    "ligands": [],
+    "presentLigands": [],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

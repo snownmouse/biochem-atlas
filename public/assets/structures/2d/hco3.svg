@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20.0 20.0 253.2 230.0" width="253" height="230" role="img" aria-label="hco3-2d">
+<rect x="20.0" y="20.0" width="253.2" height="230.0" fill="#f6f3ec"/>
+<line x1="233.2" y1="210.0" x2="146.6" y2="160.0" stroke="#22282a" stroke-width="1.6"/>
+<line x1="221.5" y1="200.2" x2="160.9" y2="165.2" stroke="#22282a" stroke-width="1.6"/>
+<line x1="146.6" y1="160.0" x2="60.0" y2="210.0" stroke="#22282a" stroke-width="1.6"/>
+<line x1="146.6" y1="160.0" x2="146.6" y2="60.0" stroke="#22282a" stroke-width="1.6"/>
+<circle cx="233.2" cy="210.0" r="8.5" fill="#f6f3ec"/>
+<text x="233.2" y="213.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<circle cx="146.6" cy="160.0" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="60.0" cy="210.0" r="8.5" fill="#f6f3ec"/>
+<text x="60.0" y="213.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+<text x="69.0" y="218.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
+<circle cx="146.6" cy="60.0" r="8.5" fill="#f6f3ec"/>
+<text x="146.6" y="63.2" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#22282a">O</text>
+</svg>

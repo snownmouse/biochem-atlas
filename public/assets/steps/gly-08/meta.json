@@ -1,0 +1,158 @@
+{
+  "stepId": "gk-8",
+  "stepName": "3PG ↔ 2PG 变位（磷酸甘油酸变位酶 PGAM）",
+  "assetVersion": "2.0.0",
+  "generatedAt": "2026-11-03",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12
+  },
+  "pdbId": "1QHF",
+  "species": "Saccharomyces cerevisiae",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 1.7,
+  "resolutionPerState": {
+    "holo": 1.7,
+    "apo": 1.65
+  },
+  "atomCount": 1910,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：承载保留配体重原子最多"
+    }
+  },
+  "ligands": [
+    {
+      "id": "3PG",
+      "name": "3-磷酸甘油酸",
+      "role": "substrate",
+      "rationale": "真实底物（酵母 dPGM）",
+      "instances": 1,
+      "instanceChains": [
+        "A/252"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 11,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "人源 PGAM1 无任何底物复合物结构，holo 采用酿酒酵母 1QHF（跨种）。",
+    "apo 4GPZ 并非严格游离态：催化组氨酸被 NEP（N1-磷酸组氨酸类似物，共价修饰残基）占据，已按修饰残基保留并如实标注。",
+    "1QHF 中 SO4（每链 2 个）为结晶磷酸已滤除，可能模拟天然磷酰中间态。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 174569,
+      "gzipBytes": 43594
+    },
+    "apo.pdb": {
+      "bytes": 156930,
+      "gzipBytes": 39531
+    },
+    "ligand.sdf": {
+      "bytes": 1112,
+      "gzipBytes": 348
+    },
+    "pocket.json": {
+      "bytes": 4690,
+      "gzipBytes": 676
+    }
+  },
+  "holo": {
+    "pdbId": "1QHF",
+    "species": "Saccharomyces cerevisiae",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.7,
+    "title": "YEAST PHOSPHOGLYCERATE MUTASE-3PG COMPLEX STRUCTURE TO 1.7 A",
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：承载保留配体重原子最多"
+      }
+    },
+    "atomCount": 1910,
+    "proteinAtomCount": 1899,
+    "ligands": [
+      {
+        "id": "3PG",
+        "name": "3-磷酸甘油酸",
+        "role": "substrate",
+        "rationale": "真实底物（酵母 dPGM）",
+        "instances": 1,
+        "instanceChains": [
+          "A/252"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 11,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "SO4",
+        "role": "artifact",
+        "rationale": "硫酸根，结晶添加剂（可能占据磷酸位点，但不构成底物证据）",
+        "instances": 20,
+        "minDistToPrimaryLigand": 0.17
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "SO4",
+      "3PG"
+    ]
+  },
+  "apo": {
+    "pdbId": "4GPZ",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.65,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序选取"
+      }
+    },
+    "atomCount": 1950,
+    "proteinAtomCount": 1950,
+    "ligands": [],
+    "presentLigands": [
+      {
+        "id": "NEP",
+        "role": "unclassified",
+        "rationale": "未归类"
+      },
+      {
+        "id": "CL",
+        "role": "artifact",
+        "rationale": "氯离子，结晶添加剂"
+      },
+      {
+        "id": "MES",
+        "role": "artifact",
+        "rationale": "MES 缓冲液成分"
+      }
+    ],
+    "residueModifications": [
+      {
+        "id": "NEP",
+        "note": "共价修饰氨基酸残基，按蛋白保留"
+      }
+    ],
+    "note": "游离态（apo）视图。"
+  }
+}

@@ -1,0 +1,423 @@
+{
+  "id": "pentose-phosphate",
+  "pathwayId": "pentose-phosphate",
+  "name": "戊糖磷酸通路",
+  "summary": "与糖酵解并联的另一条 G6P 出路：氧化相不可逆地烧 C1 换 2 NADPH + 1 CO₂，非氧化相可逆地把戊糖重排回糖酵解中间体。它不产 ATP，产的是还原力（NADPH）与核酸原料（核糖-5-磷酸）——『旁路不是支路，是并联电路』。",
+  "phases": [
+    {
+      "id": "oxidative",
+      "name": "氧化相（不可逆，产还原力）",
+      "reversible": false,
+      "stepIds": ["ppp-o1", "ppp-o2", "ppp-o3"],
+      "note": "G6P → 核酮糖-5-磷酸 + CO₂ + 2 NADPH。三步整体生理不可逆：G6PD 步强放能、内酯水解与 C1 脱羧共同拉动。逐步 ΔG°′ 数值 Lehninger Ch.14 未列成表，本档案不编数。"
+    },
+    {
+      "id": "non-oxidative",
+      "name": "非氧化相（可逆，碳骨架重组）",
+      "reversible": true,
+      "stepIds": ["ppp-n1", "ppp-n2", "ppp-n3", "ppp-n4", "ppp-n5"],
+      "note": "全部近平衡可逆，流向由下游需求决定。碳骨架重组的本质：转酮醇酶（TK）搬二碳羟乙酰基、转醛醇酶（TA）搬三碳二羟丙酮基，两两接力把 3 个 C5 洗成 2 个 C6 + 1 个 C3。TK 化学上出现两次（ppp-n3 / ppp-n5），是同一个酶 entity 的两段接力。"
+    }
+  ],
+  "entities": [
+    { "id": "g6p",  "name": "葡糖-6-磷酸", "abbr": "G6P", "kind": "metabolite", "carbons": 6, "crossPathwayNote": "与糖酵解 g6p 同 id 同物种：分流点，PPP 与糖酵解（PFK-1）、糖原合成三选一" },
+    { "id": "6pgl", "name": "6-磷酸葡糖酸-δ-内酯", "abbr": "6PGL(内酯)", "kind": "metabolite", "carbons": 6 },
+    { "id": "6pg",  "name": "6-磷酸葡糖酸", "abbr": "6PG", "kind": "metabolite", "carbons": 6 },
+    { "id": "co2",  "name": "二氧化碳", "abbr": "CO₂", "kind": "metabolite", "carbons": 1, "crossPathwayNote": "来自 G6P 的 C1（6PGD 步脱羧），与糖酵解不同（糖酵解的 C1/C6 到丙酮酸才分家）" },
+    { "id": "ru5p", "name": "核酮糖-5-磷酸", "abbr": "Ru5P", "kind": "metabolite", "carbons": 5 },
+    { "id": "r5p",  "name": "核糖-5-磷酸", "abbr": "R5P", "kind": "metabolite", "carbons": 5, "crossPathwayNote": "核酸合成唯一碳源出口" },
+    { "id": "xu5p", "name": "木酮糖-5-磷酸", "abbr": "Xu5P", "kind": "metabolite", "carbons": 5 },
+    { "id": "s7p",  "name": "景天庚酮糖-7-磷酸", "abbr": "S7P", "kind": "metabolite", "carbons": 7 },
+    { "id": "e4p",  "name": "赤藓糖-4-磷酸", "abbr": "E4P", "kind": "metabolite", "carbons": 4, "crossPathwayNote": "芳香族氨基酸合成起点（动物中本通路外的去向有限）" },
+    { "id": "g3p",  "name": "甘油醛-3-磷酸", "abbr": "GAP", "kind": "metabolite", "carbons": 3, "crossPathwayNote": "与糖酵解 g3p 同 id 同物种（糖酵解页缩写 G3P，本页缩写 GAP，同一实体——平台约定注记见 gk-05 混淆点）" },
+    { "id": "f6p",  "name": "果糖-6-磷酸", "abbr": "F6P", "kind": "metabolite", "carbons": 6, "crossPathwayNote": "与糖酵解 f6p 同 id 同物种：回流点，汇入糖酵解 gk-3（PFK-1）" },
+    { "id": "g6pd", "name": "葡萄糖-6-磷酸脱氢酶", "abbr": "G6PD", "kind": "enzyme" },
+    { "id": "pgl",  "name": "6-磷酸葡糖酸内酯酶", "abbr": "6PGL", "kind": "enzyme" },
+    { "id": "6pgd", "name": "6-磷酸葡糖酸脱氢酶", "abbr": "6PGD", "kind": "enzyme" },
+    { "id": "rpia", "name": "核糖-5-磷酸异构酶", "abbr": "RPIA", "kind": "enzyme" },
+    { "id": "rpe",  "name": "核酮糖-5-磷酸 3-差向异构酶", "abbr": "RPE", "kind": "enzyme" },
+    { "id": "tkt",  "name": "转酮醇酶", "abbr": "TK", "kind": "enzyme" },
+    { "id": "taldo","name": "转醛醇酶", "abbr": "TA", "kind": "enzyme" }
+  ],
+  "steps": [
+    {
+      "id": "ppp-o1",
+      "phase": "oxidative",
+      "index": 1,
+      "name": "G6P 脱氢（氧化相限速步）",
+      "substrates": ["g6p"],
+      "products": ["6pgl"],
+      "enzyme": { "entityId": "g6pd", "name": "葡萄糖-6-磷酸脱氢酶" },
+      "cofactors": ["NADP⁺"],
+      "irreversible": true,
+      "significance": "全通路唯一入口与限速步：G6P 在 C1 位脱氢生成 δ-内酯，NADP⁺ 专一收电子（拒收 NAD⁺，2′-磷酸基刻在结合口袋里）。NADP⁺/NADPH 比值是氧化相的节流阀——NADPH 堆积即断流，把 G6P 让给糖酵解。催化碱 His 攻击底物 C1。",
+      "equation": "G6P + NADP⁺ → 6-磷酸葡糖酸-δ-内酯 + NADPH + H⁺",
+      "organDiffs": [
+        { "organ": "rbc", "text": "红细胞没有线粒体，PPP 是唯一 NADPH 来源，撑起 GSH 还原系统抗氧化；红细胞约十分之一量级的 G6P 流入 PPP（教材口径 5–10% 有出入，未核实唯一数）。" },
+        { "organ": "liver", "text": "肝 G6PD 受胰岛素长期上调（合成脂肪要大量 NADPH），喂高糖膳食酶量成倍升高。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "1.1.1.49",
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "生理不可逆；G6PD 步强放能。Lehninger 8e Ch.14 未列 PPP 逐步 ΔG°′ 表，不编数。", "source": "Lehninger 8e Ch.14" },
+      "stereochemistry": ["底物 C1 为氧化位点；产物为 δ-内酯（六元环）"],
+      "misconceptions": [
+        "「G6PD 也接受 NAD⁺」——错，专一性刻在结合口袋：G6PD 拒收 NAD⁺（NADP⁺ 的 2′-磷酸基是识别标记），GAPDH 则拒收 NADP⁺；分解代谢用 NAD⁺、合成与抗氧化用 NADPH 是两套互不串账的货币。",
+        "「NADPH 堆积只是产物多了而已」——实际是节流阀：NADPH 竞争性抑制 G6PD，NADP⁺/NADPH 比值决定 G6P 走 PPP 还是走糖酵解。",
+        "「PPP 是糖酵解的支路/废物处理」——它是并联产能模式，氧化相产还原力而非 ATP。"
+      ],
+      "clinical": [
+        "G6PD 缺乏症（X 连锁，OMIM 305900，全球 >4 亿人，最常见的酶缺陷病）：NADPH 供给不足 → 谷胱甘肽还原系统断粮 → GSH 锐减 → 红细胞膜脂与蛋白（含血红蛋白 β 链巯基）被氧化交联，形成 Heinz 体沉淀 → 脾巨噬细胞『咬切』Heinz 体致红细胞变形性下降 → 急性血管内/外溶血。诱发因素：氧化应激药物（伯氨喹、磺胺）、蚕豆（favism）、感染。",
+        "疟疾选择压力：G6PD 缺乏等位基因在疟疾历史流行区高频（非洲、地中海、东南亚），杂合女性对恶性疟原虫感染有相对保护——与镰刀型杂合优势同类的平衡多态，是『缺陷基因被环境选出来』的经典教学案例。",
+        "本步与 gk-3 Tarui 病、gk-6 红系 NADH 去向同属红细胞性格题，可教学联动。"
+      ],
+      "carbonBookkeeping": { "substrateCarbons": 6, "productCarbons": 6, "mainChainProductCarbons": 6, "netDelta": 0, "note": "只脱氢不脱碳" },
+      "groupTransfer": null,
+      "threeD": {
+        "status": "pending",
+        "note": "7SNI 底物态（NAP+BG6 双配体同框）为帧带首选；人源 apo 缺格（所有 G6PD 结构都带结构性 NADP⁺），沿用声明式缺口体例。",
+        "pdbCandidates": [
+          { "pdbId": "7SNI", "organism": "人", "method": "cryo-EM", "resolution": 2.5, "ligands": ["NAP", "BG6"], "note": "NADP⁺+G6P 本体同框，教学价值最高；NADP⁺ 2′-磷酸基可见" },
+          { "pdbId": "2BH9", "organism": "人", "method": "X-ray", "resolution": 2.5, "ligands": ["NAP", "GOL"], "note": "突变体截短构建，单亚基视角更清" }
+        ]
+      }
+    },
+    {
+      "id": "ppp-o2",
+      "phase": "oxidative",
+      "index": 2,
+      "name": "内酯水解开环",
+      "substrates": ["6pgl"],
+      "products": ["6pg"],
+      "enzyme": { "entityId": "pgl", "name": "6-磷酸葡糖酸内酯酶" },
+      "cofactors": ["H₂O"],
+      "irreversible": true,
+      "significance": "水解 δ-内酯开环成 6-磷酸葡糖酸，为下一步氧化脱羧铺平化学（线性羧酸才能 β-脱羧）。人源是独立胞质酶——勿与 ER 上的 H6PD 双功能酶混淆。",
+      "equation": "6-磷酸葡糖酸-δ-内酯 + H₂O → 6-磷酸葡糖酸 + H⁺",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "3.1.1.31",
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "水解强放能，与 o1 的内酯生成共同把氧化相拉成不可逆。Lehninger 8e Ch.14 未列数值，不编数。", "source": "Lehninger 8e Ch.14" },
+      "stereochemistry": ["开环后为线性 D-葡糖酸 6-磷酸"],
+      "misconceptions": [
+        "「内酯只是中间体随便跳过」——内酯水解是把『环状半缩醛氧化』变成『线性羧酸 β-脱羧』的化学必要铺垫，跳过它 6PGD 的脱羧逻辑讲不通。"
+      ],
+      "clinical": ["人源 6PGL 无结构，罕见缺陷报道极少（细节未核实，不作临床主条目）。"],
+      "carbonBookkeeping": { "substrateCarbons": 6, "productCarbons": 6, "mainChainProductCarbons": 6, "netDelta": 0, "note": "只加水开环" },
+      "groupTransfer": null,
+      "threeD": {
+        "status": "pending",
+        "note": "人源无结构（双缺口之一）：建议纯 2D 或用利什曼原虫 3CH7 / 海栖热袍菌 1VL1 替代并显著标注，不硬凑。",
+        "pdbCandidates": [
+          { "pdbId": "3CH7", "organism": "利什曼原虫 L. braziliensis", "method": "X-ray", "resolution": 2.29, "ligands": [], "note": "跨物种替代候选（apo）" },
+          { "pdbId": "1VL1", "organism": "Thermotoga maritima", "method": "X-ray", "resolution": 1.55, "ligands": ["CIT"], "note": "分辨率最高但细菌源" }
+        ]
+      }
+    },
+    {
+      "id": "ppp-o3",
+      "phase": "oxidative",
+      "index": 3,
+      "name": "氧化脱羧（C1 释放）",
+      "substrates": ["6pg"],
+      "products": ["ru5p", "co2"],
+      "enzyme": { "entityId": "6pgd", "name": "6-磷酸葡糖酸脱氢酶" },
+      "cofactors": ["NADP⁺"],
+      "irreversible": true,
+      "significance": "先氧化 C3-OH 产生第二个 NADPH，再 β-脱羧丢掉 C1（以 CO₂ 逸出），碳骨架从 C6 缩到 C5——核酮糖-5-磷酸就此出炉。注意：脱羧掉的是 G6P 的 C1，与糖酵解『C1/C6 在丙酮酸上才分』严格不同，这是与 gk-02『G6P 在 C1 位分流』一句话的化学落点。",
+      "equation": "6-磷酸葡糖酸 + NADP⁺ → 核酮糖-5-磷酸 + CO₂ + NADPH + H⁺",
+      "organDiffs": [
+        { "organ": "rbc", "text": "6PGD 缺陷亦有报道但远罕见于 G6PD 缺陷；红细胞 PPP 通量即靠本步出 CO₂ 计量（放射示踪 ¹⁴CO₂ 法的经典靶步）。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "1.1.1.44",
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "生理不可逆（脱羧放 CO₂ 不可逆拉动）。Lehninger 8e Ch.14 未列数值，不编数。", "source": "Lehninger 8e Ch.14" },
+      "stereochemistry": ["脱羧丢失底物 C1；产物核酮糖-5-磷酸为酮糖"],
+      "misconceptions": [
+        "「CO₂ 从 C6 释放」——错，丢的是 G6P 的 C1。可以用同位素示踪讲：[1-¹⁴C] 葡萄糖走 PPP 出 ¹⁴CO₂，走糖酵解则 ¹⁴C 留在丙酮酸/乙酰-CoA。",
+        "「6PGD 和 G6PD 是同一个酶的两个名字」——两个酶、两个 EC 号（1.1.1.44 vs 1.1.1.49）、两个 NADPH。"
+      ],
+      "clinical": ["癌症代谢：6PGD 在肿瘤中上调（关联确定，机制叙述需谨慎）。"],
+      "carbonBookkeeping": { "substrateCarbons": 6, "productCarbons": 6, "mainChainProductCarbons": 5, "netDelta": 0, "note": "主链 C6 → C5，差额 1 碳以 CO₂（branchProduct，源自 G6P 的 C1）逸出；总碳仍守恒 6=5+1" },
+      "groupTransfer": null,
+      "threeD": {
+        "status": "pending",
+        "note": "人源无 6PG 底物复合物（搜索确认）；apo 用 4GWG（1.39 Å），辅酶态用 2JKV，底物态跨物种替代 2W90 并显著标注。",
+        "pdbCandidates": [
+          { "pdbId": "4GWG", "organism": "人", "method": "X-ray", "resolution": 1.39, "ligands": ["MES"], "note": "apo，分辨率极佳" },
+          { "pdbId": "2JKV", "organism": "人", "method": "X-ray", "resolution": 2.53, "ligands": ["NAP"], "note": "二聚体完整，NADP⁺ 在位" },
+          { "pdbId": "2W90", "organism": "Geobacillus stearothermophilus", "method": "X-ray", "resolution": 2.2, "ligands": ["6PG"], "note": "6PG 本体，跨物种替代" }
+        ]
+      }
+    },
+    {
+      "id": "ppp-n1",
+      "phase": "non-oxidative",
+      "index": 4,
+      "name": "Ru5P ↔ R5P 异构（酮糖换醛糖）",
+      "substrates": ["ru5p"],
+      "products": ["r5p"],
+      "enzyme": { "entityId": "rpia", "name": "核糖-5-磷酸异构酶" },
+      "cofactors": [],
+      "irreversible": false,
+      "significance": "核酮糖（酮糖）与核糖（醛糖）经烯二醇中间体互变。R5P 是核酸合成的唯一糖骨架出口：核苷酸从头合成与补救都要它。细胞分裂旺盛时这一步正向吃紧。",
+      "equation": "核酮糖-5-磷酸 ⇌ 核糖-5-磷酸",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "5.3.1.6",
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆，流向由 R5P 消耗速率决定。不编数。", "source": "Lehninger 8e Ch.14" },
+      "stereochemistry": ["酮糖↔醛糖异构（C2 羰基 ↔ C1 醛基）"],
+      "misconceptions": [
+        "「非氧化相是垃圾处理环节」——R5P 出口正在这一步：没有 N1，核酸合成的原料就断供。"
+      ],
+      "clinical": ["RPIA 缺乏：罕见神经发育障碍（OMIM 608611，细节未核实）。"],
+      "carbonBookkeeping": { "substrateCarbons": 5, "productCarbons": 5, "mainChainProductCarbons": 5, "netDelta": 0, "note": "同分异构" },
+      "groupTransfer": null,
+      "threeD": {
+        "status": "pending",
+        "note": "人源未检索到任何结构（双缺口之二）：建议纯 2D，或用细菌 MtRpiB 2VVP（1.65 Å，R5P 在位）跨物种替代并显著标注。",
+        "pdbCandidates": [
+          { "pdbId": "2VVP", "organism": "Mycobacterium tuberculosis", "method": "X-ray", "resolution": 1.65, "ligands": ["R5P"], "note": "跨物种替代候选，R5P 在位" }
+        ]
+      }
+    },
+    {
+      "id": "ppp-n2",
+      "phase": "non-oxidative",
+      "index": 5,
+      "name": "Ru5P ↔ Xu5P 差向异构（C3 手性翻转）",
+      "substrates": ["ru5p"],
+      "products": ["xu5p"],
+      "enzyme": { "entityId": "rpe", "name": "核酮糖-5-磷酸 3-差向异构酶" },
+      "cofactors": ["Fe²⁺ 或 Zn²⁺（人源晶体中见 Fe²⁺）"],
+      "irreversible": false,
+      "significance": "把 Ru5P 的 C3 手性翻转成木酮糖-5-磷酸——Xu5P 是转酮醇酶唯一认的酮糖供体形态。非氧化相两条换手路（N1 出 R5P、N2 出 Xu5P）共用同一个 Ru5P 池，这是『碳骨架重组』的第一道分拣。",
+      "equation": "核酮糖-5-磷酸 ⇌ 木酮糖-5-磷酸",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "5.1.3.1",
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆。不编数。", "source": "Lehninger 8e Ch.14" },
+      "stereochemistry": ["C3 差向异构（3-位羟基手性翻转），金属离子稳定烯二醇中间体"],
+      "misconceptions": [
+        "「差向异构和异构差不多」——N1 换的是羰基位置（酮↔醛），N2 换的是羟基手性（差向），化学操作完全不同。"
+      ],
+      "clinical": ["RPE 缺陷临床报道罕见（细节未核实，不作临床主条目）。"],
+      "carbonBookkeeping": { "substrateCarbons": 5, "productCarbons": 5, "mainChainProductCarbons": 5, "netDelta": 0, "note": "同分异构" },
+      "groupTransfer": null,
+      "threeD": {
+        "status": "pending",
+        "note": "全 PPP 唯一人源『apo + 真底物』双帧齐的酶（3OVP apo / 3OVQ 5RP 在位 + Fe²⁺），3D 第二顺位。",
+        "pdbCandidates": [
+          { "pdbId": "3OVQ", "organism": "人", "method": "X-ray", "resolution": 2.0, "ligands": ["5RP", "FE2"], "note": "真底物 5RP（核酮糖-5-磷酸本体）+ Fe²⁺ 在位" },
+          { "pdbId": "3OVP", "organism": "人", "method": "X-ray", "resolution": 1.7, "ligands": ["FE2"], "note": "apo 帧现成" }
+        ]
+      }
+    },
+    {
+      "id": "ppp-n3",
+      "phase": "non-oxidative",
+      "index": 6,
+      "name": "转酮醇酶第一接力（搬 2C：Xu5P → R5P）",
+      "substrates": ["xu5p", "r5p"],
+      "products": ["g3p", "s7p"],
+      "enzyme": { "entityId": "tkt", "name": "转酮醇酶", "isozyme": "体细胞 TKT；肿瘤中 TKTL1 上调（关联确定，机制叙述需谨慎）" },
+      "cofactors": ["TPP", "Mg²⁺"],
+      "irreversible": false,
+      "significance": "TK 用 TPP 的 C2 卡宾化学（与 PDH 同源）从酮糖供体 Xu5P 剪下二碳羟乙酰基，缝到醛糖受体 R5P 的 C1 上：Xu5P(C5) − 2C → GAP(C3) 残链，R5P(C5) + 2C → S7P(C7)。碳骨架重组第一次发生——两个 C5 从此变成一个 C3 和一个 C7。",
+      "equation": "木酮糖-5-磷酸 + 核糖-5-磷酸 ⇌ 甘油醛-3-磷酸（GAP） + 景天庚酮糖-7-磷酸",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "2.2.1.1",
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆。不编数。", "source": "Lehninger 8e Ch.14" },
+      "stereochemistry": ["羟乙酰基以 TPP 烯胺中间体转移；受体 C1 获新 C–C 键"],
+      "misconceptions": [
+        "「转酮醇酶搬的是整个五碳」——错，它只搬 C1–C2 两个碳（羟乙酰基），残下三碳。搬几碳是 TK/TA 的全部区别：TK 搬 2C、TA 搬 3C。",
+        "「TPP 是可有可无的辅因子」——TPP 的噻唑环 C2 负碳是剪基团的刀，没有 TPP 就没有转移化学（与 PDH E1、丙酮酸脱羧酶共享辅胺化学）。"
+      ],
+      "clinical": ["Wernicke-Korsakoff 综合征与 TK 活性下降相关（TPP 依赖酶敏感性的遗传变异，细节未核实唯一表述）。"],
+      "carbonBookkeeping": { "substrateCarbons": 10, "productCarbons": 10, "mainChainProductCarbons": 10, "netDelta": 0, "note": "C5+C5 → C3+C7：总量不变，分布重排" },
+      "groupTransfer": {
+        "enzyme": "transketolase",
+        "carbonsTransferred": 2,
+        "group": "羟乙酰基（二碳）",
+        "donor": "xu5p",
+        "acceptor": "r5p",
+        "donorRemainder": "g3p",
+        "acceptorProduct": "s7p",
+        "mechanism": "TPP 噻唑环 C2 卡宾进攻 Xu5P 羰基碳，C2–C3 键断开释放 GAP 残链，二碳基团以烯胺中间体转移至 R5P 的 C1"
+      },
+      "threeD": {
+        "status": "pending",
+        "note": "4KXV（0.97 Å，TPP + DX5 拟底物）为全 PPP 最高分辨率结构，单帧静态价值极高；但 TK/TA 教学重点是图逻辑（搬几碳、两两接力），建议 3D 单帧 + 2D 接力图组合，不做四格。",
+        "pdbCandidates": [
+          { "pdbId": "4KXV", "organism": "人", "method": "X-ray", "resolution": 0.97, "ligands": ["TPP", "DX5"], "note": "亚原子分辨率；DX5 为 Xu5P 拟底物" },
+          { "pdbId": "3MOS", "organism": "人", "method": "X-ray", "resolution": 1.75, "ligands": ["TPP"], "note": "稳妥备用" }
+        ]
+      }
+    },
+    {
+      "id": "ppp-n4",
+      "phase": "non-oxidative",
+      "index": 7,
+      "name": "转醛醇酶接力（搬 3C：S7P → GAP）",
+      "substrates": ["s7p", "g3p"],
+      "products": ["e4p", "f6p"],
+      "enzyme": { "entityId": "taldo", "name": "转醛醇酶" },
+      "cofactors": [],
+      "irreversible": false,
+      "significance": "TA 用活性 Lys 席夫碱（无辅因子，与糖酵解醛缩酶同款化学）从 S7P 的 C3 侧剪下三碳二羟丙酮基，缝到 GAP 上：S7P(C7) − 3C → E4P(C4) 残链，GAP(C3) + 3C → F6P(C6)。第一个 F6P 在此出炉——碳骨架重组第二次发生，也是回流糖酵解的第一个接口产物。",
+      "equation": "景天庚酮糖-7-磷酸 + 甘油醛-3-磷酸（GAP） ⇌ 赤藓糖-4-磷酸 + 果糖-6-磷酸",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "2.2.1.2",
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆。不编数。", "source": "Lehninger 8e Ch.14" },
+      "stereochemistry": ["二羟丙酮基以 Lys 席夫碱（质子化 Schiff 碱）中间体转移；人源 1F05 中该 Lys 不可见"],
+      "misconceptions": [
+        "「TA 和 TK 反正都是转移酶」——搬的碳数不同（3C vs 2C）、化学不同（席夫碱 vs TPP 卡宾）、辅因子需求不同（无 vs TPP+Mg²⁺）。",
+        "「TA 是第二个 TK」——席夫碱机制与糖酵解醛缩酶同源，与 TK 的辅胺化学是两族。"
+      ],
+      "clinical": ["TALDO 缺乏：罕见，肝硬化样表型 + 白内障 + 心肌病（OMIM 606003，细节未核实）。"],
+      "carbonBookkeeping": { "substrateCarbons": 10, "productCarbons": 10, "mainChainProductCarbons": 10, "netDelta": 0, "note": "C7+C3 → C4+C6：总量不变，分布重排" },
+      "groupTransfer": {
+        "enzyme": "transaldolase",
+        "carbonsTransferred": 3,
+        "group": "二羟丙酮基（三碳）",
+        "donor": "s7p",
+        "acceptor": "g3p",
+        "donorRemainder": "e4p",
+        "acceptorProduct": "f6p",
+        "mechanism": "活性 Lys ε-氨基与 S7P C2 形成席夫碱，C2–C3 键断开释放 E4P 残链，三碳基团以烯胺中间体转移至 GAP 的 C1，水解出 F6P"
+      },
+      "threeD": {
+        "status": "pending",
+        "note": "人源唯一结构 1F05（apo，席夫碱 Lys 不可见）；备用 E. coli Transaldolase B 1ONR。建议 2D 接力图为主。",
+        "pdbCandidates": [
+          { "pdbId": "1F05", "organism": "人", "method": "X-ray", "resolution": 2.45, "ligands": [], "note": "人源唯一结构（apo）" },
+          { "pdbId": "1ONR", "organism": "E. coli", "method": "X-ray", "resolution": 1.87, "ligands": [], "note": "Transaldolase B 备用" }
+        ]
+      }
+    },
+    {
+      "id": "ppp-n5",
+      "phase": "non-oxidative",
+      "index": 8,
+      "name": "转酮醇酶第二接力（搬 2C：Xu5P → E4P）",
+      "substrates": ["xu5p", "e4p"],
+      "products": ["g3p", "f6p"],
+      "enzyme": { "entityId": "tkt", "name": "转酮醇酶", "isozyme": "与 ppp-n3 同一酶 entity 的第二段接力" },
+      "cofactors": ["TPP", "Mg²⁺"],
+      "irreversible": false,
+      "significance": "第二个 Xu5P 再剪 2C 缝给 N4 留下的 E4P：Xu5P(C5) − 2C → GAP(C3)，E4P(C4) + 2C → F6P(C6)。至此净账闭合：3 个 C5（Ru5P×3）= 2 个 C6（F6P×2）+ 1 个 C3（GAP）——15C 进 15C 出，糖酵解的 F6P 与 GAP 两个接口产物全部就位。注意本步产出的 GAP 才是净产物，N3 产出的 GAP 被 N4 消耗（骨架图上画两个 GAP 节点，同实体）。",
+      "equation": "木酮糖-5-磷酸 + 赤藓糖-4-磷酸 ⇌ 果糖-6-磷酸 + 甘油醛-3-磷酸（GAP）",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "2.2.1.1",
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆。不编数。", "source": "Lehninger 8e Ch.14" },
+      "stereochemistry": ["与 ppp-n3 同款 TPP 烯胺化学，受体换为 E4P"],
+      "misconceptions": [
+        "「转酮醇酶只出现一次」——TK 在接力中出现两次（N3、N5），两次都搬 2C；中间夹一次 TA 搬 3C。2C–3C–2C 的节拍是碳骨架重组的全部秘密。"
+      ],
+      "clinical": ["同 ppp-n3（同一酶）。"],
+      "carbonBookkeeping": { "substrateCarbons": 9, "productCarbons": 9, "mainChainProductCarbons": 9, "netDelta": 0, "note": "C5+C4 → C3+C6：总量不变，分布重排" },
+      "groupTransfer": {
+        "enzyme": "transketolase",
+        "carbonsTransferred": 2,
+        "group": "羟乙酰基（二碳）",
+        "donor": "xu5p",
+        "acceptor": "e4p",
+        "donorRemainder": "g3p",
+        "acceptorProduct": "f6p",
+        "mechanism": "与 ppp-n3 同款 TPP 化学：Xu5P 剪下二碳羟乙酰基转移至 E4P 的 C1"
+      },
+      "threeD": {
+        "status": "pending",
+        "note": "与 ppp-n3 共用 4KXV；不重复做四格。",
+        "pdbCandidates": [
+          { "pdbId": "4KXV", "organism": "人", "method": "X-ray", "resolution": 0.97, "ligands": ["TPP", "DX5"], "note": "同 ppp-n3" }
+        ]
+      }
+    }
+  ],
+  "oxidativeBalance": {
+    "input": { "g6p": 1 },
+    "output": { "ru5p": 1, "co2": 1 },
+    "note": "氧化相净账：C6 → C5 + C1(CO₂)，产 2 NADPH。脱羧发生在 ppp-o3，丢的是 G6P 的 C1。校验器按实体碳数验算：6 = 5 + 1。"
+  },
+  "nonOxidativeBalance": {
+    "input": { "ru5p": 3 },
+    "output": { "f6p": 2, "g3p": 1 },
+    "note": "非氧化相净账：3 Ru5P(C5) → 2 F6P(C6) + 1 GAP(C3)，15C = 15C。由 N1/N2 池换手 + TK(2C)–TA(3C)–TK(2C) 三段接力拼成；两步异构各跑 3 次（每分子 Ru5P 换手一次），TK/TA 按 1:1:1 计。"
+  },
+  "modes": [
+    {
+      "id": "mode-nadph-dominant",
+      "name": "情境一：NADPH 需求占优（氧化相全开）",
+      "trigger": "脂肪酸/胆固醇合成、谷胱甘肽还原（抗氧化）、NADPH 氧化酶免疫爆发、细胞色素 P450 等拉高 NADP⁺/NADPH 比值；组织（如脂肪组织、哺乳期乳腺、红细胞）对 NADPH 需求远大于 R5P。",
+      "flowSegments": [
+        { "segment": "oxidative", "direction": "forward", "multiplicity": 6, "note": "6 个 G6P 全部走氧化相，出 12 NADPH + 6 CO₂ + 6 Ru5P" },
+        { "segment": "ppp-n2", "direction": "forward", "multiplicity": 6, "note": "Ru5P 全部换手成 Xu5P（TK 的供体形态）" },
+        { "segment": "ppp-n3", "direction": "forward", "multiplicity": 3, "note": "3 个 Xu5P + 3 个 R5P → 3 GAP + 3 S7P" },
+        { "segment": "ppp-n4", "direction": "forward", "multiplicity": 3, "note": "3 S7P + 3 GAP → 3 F6P + 3 E4P" },
+        { "segment": "ppp-n5", "direction": "forward", "multiplicity": 3, "note": "3 Xu5P + 3 E4P → 3 F6P + 3 GAP（净）" },
+        { "segment": "glycolysis-interface", "direction": "pull-from-glycolysis", "multiplicity": 5, "note": "非氧化相产物 5 F6P + 5 GAP 经糖酵解 gk-3→gk-2 逆向（糖异生方向酶系）拼回 5 G6P 再入氧化相循环" }
+      ],
+      "netEquation": "6 G6P + 12 NADP⁺ + 7 H₂O → 5 G6P + 6 CO₂ + 12 NADPH + 12 H⁺ + Pi（Lehninger 8e Ch.14 循环净账）",
+      "yield": { "g6pConsumed": 1, "nadph": 12, "co2": 6, "atp": 0 },
+      "keyPoint": "『6 进 5 出』：烧掉 1 个 G6P 换 12 NADPH，其余 5/6 的碳全部回炉。回流靠非氧化相可逆性 + 糖酵解中间酶系反用——这就是『旁路是并联电路不是支路』的化学根据。"
+    },
+    {
+      "id": "mode-r5p-dominant",
+      "name": "情境二：核糖-5-磷酸需求占优（核酸合成）",
+      "trigger": "细胞分裂旺盛（淋巴增殖、骨髓、肿瘤、病毒感染后修复）拉高核苷酸合成对 R5P 的需求；此时 R5P 消耗快于 NADPH，非氧化相其余步只做零星补池。",
+      "flowSegments": [
+        { "segment": "oxidative", "direction": "forward", "multiplicity": 1, "note": "1 个 G6P 走氧化相：出 2 NADPH + 1 CO₂ + 1 Ru5P" },
+        { "segment": "ppp-n1", "direction": "forward", "multiplicity": 1, "note": "Ru5P → R5P，交给核苷酸合成" },
+        { "segment": "ppp-n2", "direction": "idle", "multiplicity": 0, "note": "R5P 需求为主时 Xu5P 支线只按需运转" },
+        { "segment": "ppp-n3", "direction": "idle", "multiplicity": 0, "note": "接力段基本闲置；若 R5P 过剩可反向把 F6P/GAP 拆回 Ru5P 补池" },
+        { "segment": "glycolysis-interface", "direction": "push-to-glycolysis", "multiplicity": 0, "note": "本情境不回流：碳以 R5P 形式离开通路进核酸" }
+      ],
+      "netEquation": "G6P + 2 NADP⁺ → R5P + CO₂ + 2 NADPH + 2 H⁺（Lehninger 8e Ch.14）",
+      "yield": { "g6pConsumed": 1, "r5p": 1, "nadph": 2, "co2": 1 },
+      "keyPoint": "R5P 与 NADPH 双收：核酸原料与还原力一次到位。这是氧化相+非氧化相前段（RPIA）就够用的最短路径。"
+    }
+  ],
+  "glycolysisInterfaces": {
+    "note": "全平台首次两条通路共享同一代谢实体。G6P 在糖酵解 gk-2（底物位）分流进 PPP；非氧化相产物 F6P、GAP 分别回流糖酵解 gk-3（PFK-1 底物）与 gk-5（TPI 产物）。注意 GAP 在糖酵解的实体 id 是 g3p（平台缩写 G3P），本页缩写 GAP，同一化学物种，sharedWith.entity 一律写糖酵解侧 id。",
+    "rendererContract": "共享渲染器防双线规则：①凡节点带 sharedWith 的实体，跨通路合并为同一渲染节点，节点 id 取实体 id（g6p/f6p/g3p 三对已刻意取齐）；②通路间连接只画 interfaceLinks 里的箭头（PPP 侧 type=entry-from-glycolysis / return-to-glycolysis），糖酵解骨架 gk-2/gk-3/gk-5 三个节点只新增入边锚点、不得另画 PPP 线；③两图并排时接口箭头画在画布边缘（PPP 左缘入、右缘出），糖酵解图对应节点加『PPP 来向/去向』角标，两图各画半条线，绝不各自画完整线段造成重叠；④箭头端点落在 interface 节点（kind=interface）而非代谢物节点上，interface 节点是糖酵解实体在本图的『投影』，不重复渲染实体本体。",
+    "entryLinks": [
+      {
+        "id": "if-g6p",
+        "entity": "g6p",
+        "sharedWith": { "pathway": "glycolysis", "stepId": "gk-2", "entity": "g6p" },
+        "direction": "entry",
+        "label": "G6P 在 C1 位分流：糖酵解 gk-2 的底物 G6P 被氧化相截走",
+        "geometry": "left",
+        "note": "分流点即竞争点：G6P 三选一（PFK-1 / 糖原合成 / G6PD），NADP⁺/NADPH 比值是 PPP 侧的节流阀。"
+      }
+    ],
+    "returnLinks": [
+      {
+        "id": "if-f6p",
+        "entity": "f6p",
+        "sharedWith": { "pathway": "glycolysis", "stepId": "gk-3", "entity": "f6p" },
+        "direction": "return",
+        "label": "F6P 回流糖酵解第 3 步（PFK-1 底物位汇入）",
+        "geometry": "right",
+        "note": "回流点 1/2：N4 与 N5 各产 1 个 F6P（情境一净产 5 个）。PFK-1 的 F2,6BP 调控决定回流的碳是继续分解还是再拼回 G6P 循环。"
+      },
+      {
+        "id": "if-gap",
+        "entity": "g3p",
+        "sharedWith": { "pathway": "glycolysis", "stepId": "gk-5", "entity": "g3p" },
+        "direction": "return",
+        "label": "GAP 回流糖酵解第 5 步（TPI 产物位，平台 id g3p，缩写 GAP=G3P）",
+        "geometry": "right",
+        "note": "回流点 2/2：N5 净产 1 个 GAP（N3 产出的 GAP 被 N4 消耗，不外流）。糖酵解侧从 gk-6 起半程氧化产能。"
+      }
+    ]
+  },
+  "threeD": {
+    "status": "pending",
+    "note": "3D 本切片不做，仅登记 outline.md 已核验候选（RCSB API 2026-11-03）。最小可行范围：G6PD 7SNI 单帧 + RPE 3OVQ/3OVP 双帧。人源 6PGL 与 RPIA 无结构（双缺口），建议纯 2D；G6PD 人源 apo 缺格沿用声明式缺口体例。",
+    "verifiedPdbIds": ["7SNI", "7UAL", "2BH9", "2BHL", "3CH7", "1VL1", "4GWG", "2JKV", "2W90", "3OVQ", "3OVP", "4KXV", "3MOS", "1F05", "1ONR", "2VVP"]
+  }
+}

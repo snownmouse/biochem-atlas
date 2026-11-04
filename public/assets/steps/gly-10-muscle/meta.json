@@ -1,0 +1,180 @@
+{
+  "stepId": "gk-10-muscle",
+  "stepName": "肌型丙酮酸激酶 PKM2（器官变体）",
+  "assetVersion": "2.0.0",
+  "generatedAt": "2026-11-03",
+  "provenance": "computed",
+  "mode": "static",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12
+  },
+  "pdbId": "3BJF",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2.03,
+  "resolutionPerState": {
+    "holo": 2.03,
+    "apo": null
+  },
+  "atomCount": 3985,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：承载保留配体重原子最多"
+    }
+  },
+  "ligands": [
+    {
+      "id": "FBP",
+      "name": "1,6-二磷酸果糖（变构激活剂）",
+      "role": "cofactor",
+      "rationale": "真实代谢物，变构激活位点",
+      "instances": 1,
+      "instanceChains": [
+        "A/532"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 20,
+      "sdfFile": "ligand-FBP.sdf"
+    },
+    {
+      "id": "K",
+      "name": "K⁺（激活一价阳离子）",
+      "role": "cofactor",
+      "rationale": "PK 反应必需离子，天然结合态",
+      "instances": 1,
+      "instanceChains": [
+        "A/601"
+      ],
+      "pocketRelevant": false,
+      "minDistToPrimaryA": 38.7,
+      "atomCount": 1,
+      "sdfFile": "ligand-K.sdf"
+    },
+    {
+      "id": "MG",
+      "name": "Mg²⁺（必需金属辅因子）",
+      "role": "cofactor",
+      "rationale": "PK 反应必需金属，天然结合态",
+      "instances": 1,
+      "instanceChains": [
+        "A/701"
+      ],
+      "pocketRelevant": false,
+      "minDistToPrimaryA": 35.7,
+      "atomCount": 1,
+      "sdfFile": "ligand-MG.sdf"
+    }
+  ],
+  "caveats": [
+    "3BJF 为 static 变构态结构：仅含变构激活剂 FBP 与必需离子 K⁺/Mg²⁺，无底物 PEP 坐标。",
+    "3BJF 中 OXL（草酸，PEP 类似物）已按替身配体滤除。",
+    "PKM2 为肌肉型同工酶，与主图 PKL 不同同工酶。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 375971,
+      "gzipBytes": 93869
+    },
+    "ligand-FBP.sdf": {
+      "bytes": 1932,
+      "gzipBytes": 487
+    },
+    "ligand-K.sdf": {
+      "bytes": 220,
+      "gzipBytes": 160
+    },
+    "ligand-MG.sdf": {
+      "bytes": 221,
+      "gzipBytes": 162
+    },
+    "pocket.json": {
+      "bytes": 8156,
+      "gzipBytes": 900
+    }
+  },
+  "holo": {
+    "pdbId": "3BJF",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.03,
+    "title": "PYRUVATE KINASE M2 IS A PHOSPHOTYROSINE BINDING PROTEIN",
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：承载保留配体重原子最多"
+      }
+    },
+    "atomCount": 3985,
+    "proteinAtomCount": 3963,
+    "ligands": [
+      {
+        "id": "FBP",
+        "name": "1,6-二磷酸果糖（变构激活剂）",
+        "role": "cofactor",
+        "rationale": "真实代谢物，变构激活位点",
+        "instances": 1,
+        "instanceChains": [
+          "A/532"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 20,
+        "sdfFile": "ligand-FBP.sdf"
+      },
+      {
+        "id": "K",
+        "name": "K⁺（激活一价阳离子）",
+        "role": "cofactor",
+        "rationale": "PK 反应必需离子，天然结合态",
+        "instances": 1,
+        "instanceChains": [
+          "A/601"
+        ],
+        "pocketRelevant": false,
+        "minDistToPrimaryA": 38.7,
+        "atomCount": 1,
+        "sdfFile": "ligand-K.sdf"
+      },
+      {
+        "id": "MG",
+        "name": "Mg²⁺（必需金属辅因子）",
+        "role": "cofactor",
+        "rationale": "PK 反应必需金属，天然结合态",
+        "instances": 1,
+        "instanceChains": [
+          "A/701"
+        ],
+        "pocketRelevant": false,
+        "minDistToPrimaryA": 35.7,
+        "atomCount": 1,
+        "sdfFile": "ligand-MG.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "OXL",
+        "role": "analog",
+        "rationale": "草酸，PEP/丙酮酸类似物（替身配体），非真实底物",
+        "instances": 24,
+        "minDistToPrimaryLigand": 30.17
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "FBP",
+      "OXL",
+      "K",
+      "MG"
+    ]
+  },
+  "apo": null
+}

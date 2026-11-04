@@ -1,0 +1,47 @@
+{
+  "pathwayId": "pentose-phosphate",
+  "canvas": { "width": 1980, "height": 680 },
+  "spatialNote": "PPP 全程在胞质，单泳道即可。几何叙事：左缘的接口箭头（糖酵解 gk-2 的 G6P）把碳『分流』进氧化相线性链（G6P→内酯→6PG→Ru5P，y=340 主行），CO₂ 从 6PGD 步向上逸出；Ru5P 进非氧化相后在中段上下分岔（Xu5P 上、R5P 下），经 TK(2C)–TA(3C)–TK(2C) 三段接力在中段重排，最后 F6P（y=340）与净产物 GAP（y=515）在右缘经两条接口箭头『流回』糖酵解（gk-3 的 F6P、gk-5 的 GAP/G3P）。入口在左、出口在右、高度呼应：分流出去再流回来的闭合关系一眼可读。NADP⁺/NADPH、TPP 等辅因子不在骨架上画垂线（挂图四色体系留待页面接入时统一），只在步骤卡与 modes 账本中表达。两个 GAP 节点（gap1/gap2）是同一实体 g3p 的两个池记号——N3 产出的 GAP 被 N4 消耗，只有 N5 产出的 GAP 是净外流产物；渲染器须支持同实体多节点（FAO acylcoa 先例）。",
+  "compartments": [
+    {
+      "id": "cytosol",
+      "name": "细胞质",
+      "band": { "y0": 60, "y1": 620 },
+      "note": "PPP 全部七步酶都是可溶胞质酶，无跨膜环节。"
+    }
+  ],
+  "nodes": [
+    { "id": "if-in-g6p", "order": null, "x": 55,   "y": 340, "compartment": "cytosol", "kind": "interface", "label": "糖酵解 gk-2 · G6P",       "note": "接口投影节点：糖酵解 gk-2 底物位的 G6P 分流进氧化相（interfaceId=if-g6p）。本体在糖酵解图，不在此重复渲染。" },
+    { "id": "g6p",       "order": null, "x": 185,  "y": 340, "compartment": "cytosol", "kind": "metabolite", "label": "G6P（分流点）", "entityId": "g6p", "note": "三选一岔口：糖酵解（PFK-1）/ 糖原合成 / PPP（G6PD）。NADP⁺/NADPH 比值是 PPP 侧节流阀。" },
+    { "id": "6pgl",      "order": 1,    "x": 405,  "y": 340, "compartment": "cytosol", "kind": "metabolite", "label": "6-磷酸葡糖酸-δ-内酯", "entityId": "6pgl" },
+    { "id": "6pg",       "order": 2,    "x": 630,  "y": 340, "compartment": "cytosol", "kind": "metabolite", "label": "6-磷酸葡糖酸", "entityId": "6pg" },
+    { "id": "co2",       "order": null, "x": 660,  "y": 160, "compartment": "cytosol", "kind": "metabolite", "label": "CO₂（来自 G6P 的 C1）", "entityId": "co2", "note": "ppp-o3 脱羧产物；[1-¹⁴C] 示踪从这里出 ¹⁴CO₂。" },
+    { "id": "ru5p",      "order": 3,    "x": 865,  "y": 340, "compartment": "cytosol", "kind": "metabolite", "label": "核酮糖-5-磷酸（Ru5P）", "entityId": "ru5p", "note": "氧化相出口 = 非氧化相入口，两相换手站。" },
+    { "id": "xu5p",      "order": 5,    "x": 865,  "y": 165, "compartment": "cytosol", "kind": "metabolite", "label": "木酮糖-5-磷酸（Xu5P）", "entityId": "xu5p", "note": "转酮醇酶唯一认的酮糖供体形态。" },
+    { "id": "r5p",       "order": 4,    "x": 865,  "y": 515, "compartment": "cytosol", "kind": "metabolite", "label": "核糖-5-磷酸（R5P）", "entityId": "r5p", "note": "核酸合成唯一糖骨架出口；情境二的主角。" },
+    { "id": "s7p",       "order": 6,    "x": 1135, "y": 255, "compartment": "cytosol", "kind": "metabolite", "label": "景天庚酮糖-7-磷酸（S7P）", "entityId": "s7p" },
+    { "id": "gap1",      "order": 6,    "x": 1135, "y": 515, "compartment": "cytosol", "kind": "metabolite", "label": "GAP（N3 产 → N4 耗）", "entityId": "g3p", "note": "同一实体 g3p 的池记号之一：接力中间体，不外流。" },
+    { "id": "e4p",       "order": 7,    "x": 1400, "y": 165, "compartment": "cytosol", "kind": "metabolite", "label": "赤藓糖-4-磷酸（E4P）", "entityId": "e4p" },
+    { "id": "f6p",       "order": 7,    "x": 1400, "y": 340, "compartment": "cytosol", "kind": "metabolite", "label": "F6P（回流点 1）", "entityId": "f6p", "note": "N4 与 N5 各产 1 个；回流糖酵解 gk-3（PFK-1 底物位）。" },
+    { "id": "gap2",      "order": 8,    "x": 1640, "y": 515, "compartment": "cytosol", "kind": "metabolite", "label": "GAP（净产物）", "entityId": "g3p", "note": "同一实体 g3p 的池记号之二：N5 净产出，外流回糖酵解 gk-5。" },
+    { "id": "if-out-f6p", "order": null, "x": 1885, "y": 340, "compartment": "cytosol", "kind": "interface", "label": "糖酵解 gk-3 · F6P",      "note": "接口投影节点：F6P 汇入糖酵解第 3 步底物位（interfaceId=if-f6p）。" },
+    { "id": "if-out-g3p", "order": null, "x": 1885, "y": 515, "compartment": "cytosol", "kind": "interface", "label": "糖酵解 gk-5 · GAP(G3P)", "note": "接口投影节点：GAP 汇入糖酵解第 5 步产物位（interfaceId=if-gap）；糖酵解侧实体 id 为 g3p。" }
+  ],
+  "links": [
+    { "from": "if-in-g6p", "to": "g6p",   "type": "entry-from-glycolysis", "interfaceId": "if-g6p", "label": "分流：G6P 进氧化相（C1 位截走）" },
+    { "from": "g6p",       "to": "6pgl",  "stepId": "ppp-o1", "type": "main" },
+    { "from": "6pgl",      "to": "6pg",   "stepId": "ppp-o2", "type": "main" },
+    { "from": "6pg",       "to": "ru5p",  "stepId": "ppp-o3", "type": "main" },
+    { "from": "6pg",       "to": "co2",   "stepId": "ppp-o3", "type": "branch-exit", "label": "C1 脱羧" },
+    { "from": "ru5p",      "to": "xu5p",  "stepId": "ppp-n2", "type": "main", "label": "RPE · 可逆" },
+    { "from": "ru5p",      "to": "r5p",   "stepId": "ppp-n1", "type": "main", "label": "RPIA · 可逆" },
+    { "from": "xu5p",      "to": "gap1",  "stepId": "ppp-n3", "type": "main", "label": "供体 −2C（残链 C5→C3）" },
+    { "from": "r5p",       "to": "s7p",   "stepId": "ppp-n3", "type": "main", "label": "受体 +2C（TK 搬来羟乙酰基）" },
+    { "from": "s7p",       "to": "e4p",   "stepId": "ppp-n4", "type": "main", "label": "供体 −3C（残链 C7→C4）" },
+    { "from": "gap1",      "to": "f6p",   "stepId": "ppp-n4", "type": "main", "label": "受体 +3C（TA 搬来二羟丙酮基）" },
+    { "from": "xu5p",      "to": "gap2",  "stepId": "ppp-n5", "type": "main", "label": "供体 −2C（净产物 GAP）" },
+    { "from": "e4p",       "to": "f6p",   "stepId": "ppp-n5", "type": "main", "label": "受体 +2C（TK 第二段接力）" },
+    { "from": "f6p",       "to": "if-out-f6p", "type": "return-to-glycolysis", "interfaceId": "if-f6p", "label": "回流：F6P 汇入糖酵解 gk-3" },
+    { "from": "gap2",      "to": "if-out-g3p", "type": "return-to-glycolysis", "interfaceId": "if-gap", "label": "回流：GAP 汇入糖酵解 gk-5" }
+  ]
+}

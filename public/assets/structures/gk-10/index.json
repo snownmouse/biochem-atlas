@@ -1,0 +1,31 @@
+{
+  "stepId": "gk-10",
+  "stepIndex": 10,
+  "frames": [
+    {
+      "frameId": "gk-10-f0",
+      "asset": "frame-f0.json",
+      "source": "6NN4 / Homo sapiens / 2.15 Å（PEP，D499N 突变体）"
+    },
+    {
+      "frameId": "gk-10-f1",
+      "asset": "frame-f1.json",
+      "source": "6NN5 / Homo sapiens / 2.26 Å（apo PKLR，H527W 工程突变已注明）"
+    },
+    {
+      "frameId": "gk-10-f2",
+      "asset": "frame-f2.json",
+      "source": "6NN4 / Homo sapiens / 2.15 Å（结合态 PEP，D499N）"
+    },
+    {
+      "frameId": "gk-10-f3",
+      "asset": "/assets/structures/2d/pyruvate.json",
+      "kind": "2d",
+      "note": "丙酮酸无产物态实验坐标（6NN4 无 PYR、ADP 未建模）→ 2D 结构式帧"
+    }
+  ],
+  "alignment": {
+    "T10": "6NN4·PEP → gk-9-f3 PEP 呈现位置，RMSD 0.63 Å（10 重原子全同名，人→人同分子）",
+    "A10": "6NN5 → 6NN4 Cα Kabsch，RMSD 1.89 Å（397 对，同酶 PKLR）"
+  }
+}

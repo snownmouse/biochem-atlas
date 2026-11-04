@@ -1,0 +1,319 @@
+{
+  "id": "glycolysis",
+  "name": "糖酵解",
+  "summary": "一分子葡萄糖在细胞质中经 10 步酶促反应生成 2 分子丙酮酸，净得 2 ATP 与 2 NADH。",
+  "organs": [
+    { "id": "liver", "name": "肝" },
+    { "id": "muscle", "name": "肌" },
+    { "id": "rbc", "name": "红细胞" }
+  ],
+  "entities": [
+    { "id": "glc", "name": "葡萄糖", "abbr": "Glc", "kind": "metabolite" },
+    { "id": "g6p", "name": "葡糖-6-磷酸", "abbr": "G6P", "kind": "metabolite" },
+    { "id": "f6p", "name": "果糖-6-磷酸", "abbr": "F6P", "kind": "metabolite" },
+    { "id": "fbp", "name": "果糖-1,6-二磷酸", "abbr": "FBP", "kind": "metabolite" },
+    { "id": "dhap", "name": "磷酸二羟丙酮", "abbr": "DHAP", "kind": "metabolite" },
+    { "id": "g3p", "name": "甘油醛-3-磷酸", "abbr": "G3P", "kind": "metabolite" },
+    { "id": "13bpg", "name": "1,3-二磷酸甘油酸", "abbr": "1,3-BPG", "kind": "metabolite" },
+    { "id": "3pg", "name": "3-磷酸甘油酸", "abbr": "3PG", "kind": "metabolite" },
+    { "id": "2pg", "name": "2-磷酸甘油酸", "abbr": "2PG", "kind": "metabolite" },
+    { "id": "pep", "name": "磷酸烯醇式丙酮酸", "abbr": "PEP", "kind": "metabolite" },
+    { "id": "pyr", "name": "丙酮酸", "abbr": "Pyr", "kind": "metabolite" },
+    { "id": "23bpg", "name": "2,3-二磷酸甘油酸", "abbr": "2,3-BPG", "kind": "metabolite" },
+    { "id": "hexokinase", "name": "己糖激酶", "abbr": "HK", "kind": "enzyme" },
+    { "id": "pgi", "name": "磷酸葡萄糖异构酶", "abbr": "PGI", "kind": "enzyme" },
+    { "id": "pfk1", "name": "磷酸果糖激酶-1", "abbr": "PFK-1", "kind": "enzyme" },
+    { "id": "aldolase", "name": "醛缩酶", "abbr": "Aldolase", "kind": "enzyme" },
+    { "id": "tpi", "name": "磷酸丙糖异构酶", "abbr": "TPI", "kind": "enzyme" },
+    { "id": "gapdh", "name": "甘油醛-3-磷酸脱氢酶", "abbr": "GAPDH", "kind": "enzyme" },
+    { "id": "pgk", "name": "磷酸甘油酸激酶", "abbr": "PGK", "kind": "enzyme" },
+    { "id": "pgam", "name": "磷酸甘油酸变位酶", "abbr": "PGAM", "kind": "enzyme" },
+    { "id": "enolase", "name": "烯醇化酶", "abbr": "Enolase", "kind": "enzyme" },
+    { "id": "pk", "name": "丙酮酸激酶", "abbr": "PK", "kind": "enzyme" },
+    { "id": "bpgm", "name": "二磷酸甘油酸变位酶", "abbr": "BPGM", "kind": "enzyme" }
+  ],
+  "steps": [
+    {
+      "id": "gk-1",
+      "index": 1,
+      "name": "葡萄糖磷酸化",
+      "substrates": ["glc"],
+      "products": ["g6p"],
+      "enzyme": { "entityId": "hexokinase", "name": "己糖激酶", "isozyme": "肌 HK1/HK2（HK2 可诱导）；红细胞 HK1" },
+      "cofactors": ["ATP", "Mg²⁺"],
+      "irreversible": true,
+      "significance": "消耗 1 ATP 把葡萄糖“锁”进细胞并带上负电荷防止外漏，是通路的第一个投入点。",
+      "equation": "葡萄糖 + ATP → 葡糖-6-磷酸 + ADP + H⁺",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝表达葡萄糖激酶（HK-IV）：Km 高、不受 G6P 抑制，只在血糖升高时大量工作，起“血糖缓冲”作用。" },
+        { "organ": "muscle", "text": "肌表达 HK1 与 HK2（HK2 随运动/胰岛素诱导）：Km 低、被产物 G6P 反馈抑制，保证基础速率。" },
+        { "organ": "rbc", "text": "红细胞仅表达 HK1：Km 低、被 G6P 反馈抑制。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "2.7.1.1",
+      "deltaG": { "standard": -16.7, "physiological": -33.4, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "stereochemistry": ["产物为 β-D-葡糖-6-磷酸（β-吡喃型）；葡萄糖开/环两种形式均可作底物"],
+      "misconceptions": [
+        "「葡萄糖磷酸化是为了进入线粒体」——错，糖酵解全程在胞质，磷酸化是把葡萄糖捕获在胞内并标记为代谢对象。",
+        "「G6P 抑制己糖激酶是产物堆积拖慢反应」——实际是特异性别构抑制位点，不是简单的质量作用。"
+      ],
+      "clinical": [
+        "GCK 失活突变 → MODY2（轻度空腹高血糖）；激活突变 → 先天性高胰岛素血症。",
+        "HK1 缺乏症：罕见，慢性非球形溶血性贫血，可伴神经病变。"
+      ]
+    },
+    {
+      "id": "gk-2",
+      "index": 2,
+      "name": "G6P 异构为 F6P",
+      "substrates": ["g6p"],
+      "products": ["f6p"],
+      "enzyme": { "entityId": "pgi", "name": "磷酸葡萄糖异构酶" },
+      "cofactors": [],
+      "irreversible": false,
+      "significance": "醛糖变酮糖：异构化在 C2 造成酮羰基，为下一步 C1 再磷酸化与后续裂解做准备。G6P 本身就是戊糖磷酸通路的入口，在 C1 位与此通路分流，与本步反应无关。本步近平衡，生理上靠下游 PFK-1 持续抽走 F6P，使流向保持 G6P→F6P。",
+      "equation": "葡糖-6-磷酸 ⇌ 果糖-6-磷酸",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "5.3.1.9",
+      "deltaG": { "standard": 1.7, "physiological": -2.5, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "stereochemistry": ["α-D-葡糖-6-磷酸 ⇌ β-D-果糖-6-磷酸：构型变化限于 C1/C2，经顺-烯二醇中间体"],
+      "misconceptions": [
+        "「这一步消耗 ATP 先给 C1 装上磷酸」——错，本步零耗能，C1 磷酸化发生在第 3 步。",
+        "「G6P→F6P 是限速步骤」——限速在 PFK-1，本步近平衡，随流量自动跑。"
+      ],
+      "clinical": ["GPI 缺乏症：慢性非球形溶血性贫血，可伴肌病（罕见）。"]
+    },
+    {
+      "id": "gk-3",
+      "index": 3,
+      "name": "F6P 磷酸化（限速步骤）",
+      "substrates": ["f6p"],
+      "products": ["fbp"],
+      "enzyme": { "entityId": "pfk1", "name": "磷酸果糖激酶-1", "isozyme": "肝 PFKL；肌 PFKM；红细胞 PFKL+PFKM 杂合四聚体" },
+      "cofactors": ["ATP", "Mg²⁺"],
+      "irreversible": true,
+      "significance": "通路的主要限速与调控点，决定糖酵解整体流量。",
+      "equation": "果糖-6-磷酸 + ATP → 果糖-1,6-二磷酸 + ADP + H⁺",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝 PFK-L 受果糖-2,6-二磷酸强烈激活：胰岛素高时开闸、胰高血糖素高时关闸。" },
+        { "organ": "muscle", "text": "肌 PFK-M 主要受局部能量状态（ATP/AMP）调控，不走激素调度。" },
+        { "organ": "rbc", "text": "红细胞 PFK 一般认为是 PFKL 与 PFKM 组成的杂合四聚体（亚基组成细节待文献复核）；红细胞 PFK 缺陷同样引起溶血——Tarui 病（PFKM 缺乏）可伴溶血。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "2.7.1.11",
+      "deltaG": { "standard": -14.2, "physiological": -22.2, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "stereochemistry": ["β-D-构型；在 C1（非 C6）磷酰化，形成对称的二磷酸酯"],
+      "misconceptions": [
+        "「ATP 高抑制 PFK-1 是把反应顶回去」——是别构抑制位点（亚 mM 级 ATP 是底物，mM 级才是抑制剂），不是底物位点的质量作用。",
+        "「F-2,6-BP 是糖酵解中间物」——它是纯信号分子，几乎不走上路，1-位磷酸是它的身份特征。"
+      ],
+      "clinical": ["PFKM 缺乏 → Tarui 病（糖原贮积症 VII 型）：运动不耐受、溶血伴肌红蛋白尿。"]
+    },
+    {
+      "id": "gk-4",
+      "index": 4,
+      "name": "FBP 裂解",
+      "substrates": ["fbp"],
+      "products": ["g3p", "dhap"],
+      "enzyme": { "entityId": "aldolase", "name": "醛缩酶", "isozyme": "肌/红细胞 ALDOA；肝肾小肠 ALDOB；脑 ALDOC" },
+      "cofactors": [],
+      "irreversible": false,
+      "significance": "六碳一拆二：每个 FBP 得到 1 个 G3P 和 1 个 DHAP。",
+      "equation": "果糖-1,6-二磷酸 ⇌ 甘油醛-3-磷酸 + 磷酸二羟丙酮",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝为 ALDOB：除 FBP 外还能裂解果糖-1-磷酸（果糖代谢入口）；ALDOB 缺陷 → 遗传性果糖不耐受（HFI），摄入果糖后 F1P 堆积致肝肾损伤。" },
+        { "organ": "muscle", "text": "肌为 ALDOA：对 FBP 催化效率最高；ALDOA 缺乏极罕见（溶血性贫血 ± 肌病）。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "4.1.2.13",
+      "deltaG": {
+        "standard": 23.8,
+        "physiological": -5.9,
+        "unit": "kJ/mol",
+        "source": "Lehninger 8e Table 15-1",
+        "note": "标准态全通路最吸能、生理态被拉负：产物被 TPI/GAPDH 立即消耗压低浓度商——“ΔG 由浓度商决定”的教科书案例。"
+      },
+      "stereochemistry": ["产物为 D-构型三碳磷酸酯；C3–C4 醛醇断裂，六碳骨架不对称拆分"],
+      "misconceptions": [
+        "「裂解一步释放能量」——标准态下这是全通路最吸能的一步（+23.8 kJ/mol），只是被下游偶联拉动。",
+        "「切断 C–C 键要消耗 ATP 或水」——I 型醛缩酶用席夫碱电子工程，两者都不需要。"
+      ],
+      "clinical": [
+        "ALDOB 缺乏 → 遗传性果糖不耐受（HFI）。",
+        "ALDOA 缺乏：罕见，溶血性贫血 ± 肌病。"
+      ]
+    },
+    {
+      "id": "gk-5",
+      "index": 5,
+      "name": "DHAP 异构为 G3P",
+      "substrates": ["dhap"],
+      "products": ["g3p"],
+      "enzyme": { "entityId": "tpi", "name": "磷酸丙糖异构酶" },
+      "cofactors": [],
+      "irreversible": false,
+      "significance": "DHAP 迅速转化为第二个 G3P；自此之后所有步骤按“每葡萄糖 ×2”计。",
+      "equation": "磷酸二羟丙酮 ⇌ 甘油醛-3-磷酸",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "5.3.1.1",
+      "deltaG": {
+        "standard": 7.5,
+        "physiological": 2.2,
+        "unit": "kJ/mol",
+        "source": "Lehninger 8e Table 15-1",
+        "note": "全通路唯一在生理条件下仍轻微吸能的步骤，靠第 6 步持续抽走 G3P 拉动。"
+      },
+      "stereochemistry": ["生成新的手性中心 C2（R 构型）；平衡强烈偏向 DHAP（约 96:4）"],
+      "misconceptions": [
+        "「DHAP 是无用的支产物」——它是甘油三酯甘油骨架的直接前体，糖酵解/脂代谢的十字路口。",
+        "「本步的 G3P 就是甘油-3-磷酸」——同缩写不同物，后者是脂代谢物（sn-甘油-3-磷酸）。"
+      ],
+      "clinical": ["TPI 缺乏症：极罕见，慢性溶血性贫血 + 进行性神经系统变性（致死性高）。"]
+    },
+    {
+      "id": "gk-6",
+      "index": 6,
+      "name": "G3P 氧化并磷酸化（酰基磷酸生成）",
+      "substrates": ["g3p"],
+      "products": ["13bpg"],
+      "enzyme": { "entityId": "gapdh", "name": "甘油醛-3-磷酸脱氢酶" },
+      "cofactors": ["NAD⁺", "Pi"],
+      "irreversible": false,
+      "significance": "氧化能与磷酸基转移偶联：无机磷（Pi）被“存进”1,3-BPG 的高能酰基磷酸键；砷酸盐冒充 Pi 会使偶联失效。",
+      "equation": "甘油醛-3-磷酸 + Pi + NAD⁺ ⇌ 1,3-二磷酸甘油酸 + NADH + H⁺",
+      "organDiffs": [
+        { "organ": "rbc", "text": "红细胞无线粒体，此步产生的 NADH 主要经 LDH 还原丙酮酸再生 NAD⁺（维持糖酵解流量），小部分用于高铁血红蛋白还原（NADH-细胞色素 b5 还原酶系统），不进呼吸链。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "1.2.1.12",
+      "deltaG": { "standard": 6.3, "physiological": -1.7, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "stereochemistry": ["产物为 (3R)-1,3-二磷酸甘油酸；C1 醛基氧化为羧酸平面，高能酰基磷酸（混合酸酐）在此建立"],
+      "misconceptions": [
+        "「NADH 直接把电子交给氧气」——胞质 NADH 须经苹果酸-天冬氨酸或甘油-3-磷酸穿梭进入线粒体，红细胞根本没有这条线。",
+        "「这一步产 ATP」——不产，产 NADH；ATP 在第 7 步才兑现。"
+      ],
+      "clinical": ["GAPDH 活性 Cys 是芥子气等亲电子毒剂的靶点；酶完全缺乏极罕见。"]
+    },
+    {
+      "id": "gk-7",
+      "index": 7,
+      "name": "第一次底物水平磷酸化",
+      "substrates": ["13bpg"],
+      "products": ["3pg"],
+      "enzyme": { "entityId": "pgk", "name": "磷酸甘油酸激酶" },
+      "cofactors": ["ADP", "Mg²⁺"],
+      "irreversible": false,
+      "significance": "1,3-BPG 把磷酸基交给 ADP 生成 ATP；按 ×2 计，此处正好收回第 1、3 步投入的 2 个 ATP。净产 2 ATP 中的另一半来自第 10 步丙酮酸激酶。",
+      "equation": "1,3-二磷酸甘油酸 + ADP ⇌ 3-磷酸甘油酸 + ATP",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "2.7.2.3",
+      "deltaG": {
+        "standard": -18.8,
+        "physiological": 1.1,
+        "unit": "kJ/mol",
+        "source": "Lehninger 8e Table 15-1",
+        "note": "唯一生理态轻微吸能的“产 ATP”步骤：胞内 ATP/ADP 比被压得很高，反应贴近平衡双向流动。"
+      },
+      "stereochemistry": ["(R) 构型保持；C1 酰基磷酸的磷酰基整体转移给 ADP，产物 3PG 的 C1 变为自由羧基"],
+      "misconceptions": [
+        "「第 7 步收回投入的 ATP 所以必放能」——按标准态放能、生理态接近零甚至微吸能；能量账是全通路的账，不是单步的账。",
+        "「底物水平磷酸化 = 氧化磷酸化」——前者磷酰供体是水溶性代谢物（1,3-BPG/PEP），后者是呼吸链质子梯度。"
+      ],
+      "clinical": ["PGK1 缺乏：X 连锁，慢性溶血性贫血 ± 肌病 ± 神经系统表现（罕见）。"]
+    },
+    {
+      "id": "gk-8",
+      "index": 8,
+      "name": "3PG 变位",
+      "substrates": ["3pg"],
+      "products": ["2pg"],
+      "enzyme": { "entityId": "pgam", "name": "磷酸甘油酸变位酶" },
+      "cofactors": ["2,3-BPG（催化引物，磷酰化活性 His）"],
+      "irreversible": false,
+      "significance": "磷酸基从 C3 移到 C2，为下一步脱水形成高能烯醇键做准备。",
+      "equation": "3-磷酸甘油酸 ⇌ 2-磷酸甘油酸",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "5.4.2.11",
+      "deltaG": { "standard": 4.4, "physiological": 0.6, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "stereochemistry": ["(R) 构型不变；磷酸基 C3→C2 经酶-磷酰中间体两步换位，非分子内直接转移"],
+      "misconceptions": [
+        "「变位酶不需要辅因子」——依赖型 PGAM 必须有 2,3-BPG 引物，缺引物即近失活。",
+        "「磷酸基自己从 C3 跳到 C2」——实际经磷酰-His 中间体两来两回完成。"
+      ],
+      "clinical": ["PGAM2 缺乏 → 糖原贮积症 X 型：运动不耐受、肌红蛋白尿。"]
+    },
+    {
+      "id": "gk-9",
+      "index": 9,
+      "name": "脱水生成 PEP",
+      "substrates": ["2pg"],
+      "products": ["pep"],
+      "enzyme": { "entityId": "enolase", "name": "烯醇化酶" },
+      "cofactors": ["Mg²⁺"],
+      "irreversible": false,
+      "significance": "脱水使 PEP 成为全通路能量最高的磷酸化合物；氟离子抑制此酶——血样采集管中的氟化钠正靠这一机制阻止葡萄糖被继续消耗。",
+      "equation": "2-磷酸甘油酸 ⇌ 磷酸烯醇式丙酮酸 + H₂O",
+      "organDiffs": [],
+      "bindingProfile": null,
+      "ecNumber": "4.2.1.11",
+      "deltaG": { "standard": 1.7, "physiological": -1.1, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "stereochemistry": ["C2–C3 消去一分子水形成双键（C2=C3），PEP 为烯醇磷酸酯"],
+      "misconceptions": [
+        "「脱水放能储给了通路」——储能在“烯醇磷酸”这个化学形式里，能量账在第 10 步结。",
+        "「氟化钠抗凝管抑制糖酵解第一步」——抑制的是烯醇化酶（金属-氟-磷酸复合物卡死催化金属）。"
+      ],
+      "clinical": ["ENO2（NSE）是神经内分泌肿瘤血清标志物；ENO3 缺乏为罕见肌病。"]
+    },
+    {
+      "id": "gk-10",
+      "index": 10,
+      "name": "PEP → 丙酮酸（第二次产 ATP）",
+      "substrates": ["pep"],
+      "products": ["pyr"],
+      "enzyme": { "entityId": "pk", "name": "丙酮酸激酶", "isozyme": "肝 PK-L；肌 PK-M1；红细胞 PK-R；肿瘤/胚胎 PK-M2" },
+      "cofactors": ["ADP", "Mg²⁺", "K⁺"],
+      "irreversible": true,
+      "significance": "最后一个不可逆步骤，完成第二次底物水平磷酸化，净 ATP 至此转正。",
+      "equation": "磷酸烯醇式丙酮酸 + ADP + H⁺ → 丙酮酸 + ATP",
+      "organDiffs": [
+        { "organ": "liver", "text": "肝 PK-L 被胰高血糖素依赖的磷酸化钝化，与 PFK-2/FBPase-2 一起按激素状态开关糖酵解。" },
+        { "organ": "muscle", "text": "肌 PK-M1 无别构激活（组成性活跃），保证肌肉收缩时供能稳定。" },
+        { "organ": "rbc", "text": "红细胞 PK-R 缺陷是最常见的遗传性糖酵解酶病之一，导致慢性溶血性贫血。" }
+      ],
+      "bindingProfile": null,
+      "ecNumber": "2.7.1.40",
+      "deltaG": { "standard": -31.4, "physiological": -23.0, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "stereochemistry": ["PEP 烯醇式当场互变为酮式丙酮酸，净消耗 H⁺（与第 6 步 H⁺ 释放方向相反，两处均为化学事实）"],
+      "misconceptions": [
+        "「PKM2 是『坏』的」——M2 是增殖态的常态配置（胚胎即 M2），其“慢”是可被 FBP 激活的慢，不是缺陷。",
+        "「糖酵解缺氧才发生」——有氧时也全程运转，本步与氧无关，只是 NADH 的去向不同。"
+      ],
+      "clinical": [
+        "PK-R 缺陷是最常见的遗传性红细胞酶病，慢性非球形溶血性贫血（高 2,3-BPG 部分代偿 O₂ 释放）。",
+        "PKM2/Warburg 效应相关变构激活剂仍在临床试验，治疗学结论未定。"
+      ]
+    }
+  ],
+  "sideBranchSteps": [
+    {
+      "id": "gk-rap",
+      "index": null,
+      "name": "Rapoport–Luebering 支路",
+      "substrates": ["13bpg"],
+      "products": ["23bpg"],
+      "enzyme": { "entityId": "bpgm", "name": "二磷酸甘油酸变位酶（双功能）", "isozyme": "红细胞特有" },
+      "cofactors": [],
+      "irreversible": false,
+      "significance": "绕过第 7 步放弃产 ATP，把 1,3-BPG 变为 2,3-BPG，降低血红蛋白对 O₂ 的亲和力（高原适应的分子基础）；BPGM 的磷酸酶活性再把 2,3-BPG 水解回 3PG。",
+      "equation": "1,3-二磷酸甘油酸 ⇌ 2,3-二磷酸甘油酸 →（磷酸酶支）3-磷酸甘油酸 + Pi",
+      "organDiffs": [
+        { "organ": "rbc", "text": "仅红细胞有活跃的 Rapoport–Luebering 支路；肝与肌几乎无 2,3-BPG 堆积。" }
+      ],
+      "bindingProfile": null
+    }
+  ]
+}

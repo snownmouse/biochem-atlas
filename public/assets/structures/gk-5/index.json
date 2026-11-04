@@ -1,0 +1,25 @@
+{
+  "stepId": "gk-5",
+  "stepIndex": 5,
+  "frames": [
+    {
+      "frameId": "gk-5-f0",
+      "asset": "frame-f0.json",
+      "source": "1NEY / Saccharomyces cerevisiae / 1.2 Å（13P=DHAP）"
+    },
+    {
+      "frameId": "gk-5-f1",
+      "asset": "frame-f1.json",
+      "source": "1NEY / Saccharomyces cerevisiae / 1.2 Å（含 FTR168）"
+    },
+    {
+      "frameId": "gk-5-f2",
+      "asset": "/assets/structures/2d/gap.json",
+      "kind": "2d",
+      "note": "GAP 无 PDB 组分（G3P=sn-甘油-3-磷酸，9FFC 陷阱）→ 2D 结构式帧"
+    }
+  ],
+  "alignment": {
+    "T5a": "1NEY·13P → 1ADO·13P 链末端，RMSD 0.87 Å（10 重原子，跨物种配体级）"
+  }
+}
