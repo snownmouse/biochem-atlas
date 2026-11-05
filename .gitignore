@@ -8,9 +8,19 @@ preview/
 .trae-html-share-packages/
 
 # 脚本缓存与临时目录（可重新下载/重新生成）
+cache/
 tools/cache/
 tools/.tmp-*
 scripts/cache/
+
+# 临时文件
+*.tmp
+*.tmp*
+
+# 环境变量与本地覆盖配置（可能含凭据，一律不入库）
+.env
+.env.*
+*.local
 
 # Python 缓存
 **/__pycache__/
