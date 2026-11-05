@@ -14,7 +14,7 @@
     "3dmol": "^2.5.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "react-router-dom": "^6.28.0"
+    "react-router-dom": "^7.18.5"
   },
   "devDependencies": {
     "@types/react": "^18.3.12",
@@ -22,6 +22,6 @@
     "@vitejs/plugin-react": "^4.3.4",
     "playwright-core": "^1.49.1",
     "typescript": "^5.6.3",
-    "vite": "^5.4.11"
+    "vite": "^6.4.5"
   }
 }
