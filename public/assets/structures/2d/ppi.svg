@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20.0 20.0 426.4 253.2" width="426" height="253" role="img" aria-label="ppi-2d">
+<rect x="20.0" y="20.0" width="426.4" height="253.2" fill="#f6f3ec"/>
+<line x1="96.6" y1="233.2" x2="146.6" y2="146.6" stroke="#22282a" stroke-width="1.6"/>
+<line x1="146.6" y1="146.6" x2="196.6" y2="60.0" stroke="#22282a" stroke-width="1.6"/>
+<line x1="146.6" y1="146.6" x2="60.0" y2="96.6" stroke="#22282a" stroke-width="1.6"/>
+<line x1="134.9" y1="136.8" x2="74.3" y2="101.8" stroke="#22282a" stroke-width="1.6"/>
+<line x1="146.6" y1="146.6" x2="233.2" y2="196.6" stroke="#22282a" stroke-width="1.6"/>
+<line x1="233.2" y1="196.6" x2="319.8" y2="146.6" stroke="#22282a" stroke-width="1.6"/>
+<line x1="319.8" y1="146.6" x2="369.8" y2="233.2" stroke="#22282a" stroke-width="1.6"/>
+<line x1="319.8" y1="146.6" x2="269.8" y2="60.0" stroke="#22282a" stroke-width="1.6"/>
+<line x1="314.6" y1="132.3" x2="279.6" y2="71.7" stroke="#22282a" stroke-width="1.6"/>
+<line x1="319.8" y1="146.6" x2="406.4" y2="96.6" stroke="#22282a" stroke-width="1.6"/>
+<circle cx="96.6" cy="233.2" r="8.5" fill="#f6f3ec"/>
+<text x="96.6" y="236.4" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="146.6" cy="146.6" r="8.5" fill="#f6f3ec"/>
+<text x="146.6" y="149.8" text-anchor="middle" data-element="P" data-element-color="#d18a2e" style="fill:#d18a2e" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#d18a2e">P</text>
+<text x="155.6" y="141.6" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">P</text>
+<circle cx="196.6" cy="60.0" r="8.5" fill="#f6f3ec"/>
+<text x="196.6" y="63.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="205.6" y="68.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
+<circle cx="60.0" cy="96.6" r="8.5" fill="#f6f3ec"/>
+<text x="60.0" y="99.8" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="233.2" cy="196.6" r="8.5" fill="#f6f3ec"/>
+<text x="233.2" y="199.8" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="319.8" cy="146.6" r="8.5" fill="#f6f3ec"/>
+<text x="319.8" y="149.8" text-anchor="middle" data-element="P" data-element-color="#d18a2e" style="fill:#d18a2e" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#d18a2e">P</text>
+<text x="328.8" y="141.6" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">P</text>
+<circle cx="369.8" cy="233.2" r="8.5" fill="#f6f3ec"/>
+<text x="369.8" y="236.4" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="378.8" y="241.2" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
+<circle cx="269.8" cy="60.0" r="8.5" fill="#f6f3ec"/>
+<text x="269.8" y="63.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="406.4" cy="96.6" r="8.5" fill="#f6f3ec"/>
+<text x="406.4" y="99.8" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="415.4" y="104.6" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
+</svg>

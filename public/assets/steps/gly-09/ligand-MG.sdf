@@ -1,5 +1,5 @@
 MG
-  RCSB3UCD  instance coordinates extracted offline; bonds inferred from covalent radii (all single)
+  experimental coordinates preserved; bond orders from SMILES template (Kekulé)
 
   1  0  0  0  0  0  0  0  0  0999 V2000
   148.5300   94.3400   26.4240 MG  0  0  0  0  0  0  0  0  0  0  0  0

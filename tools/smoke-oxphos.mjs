@@ -3,7 +3,7 @@
 // 覆盖：
 //   · 数据层：7 个模块、质子回路单独建档、P/O 2.5 / 1.5、复合体 II 与 TCA 共享、
 //     ΔG 全部 null + 定性、3D 只给两个可溶结构域；
-//   · 路由、编号 PLATE 06 / 12 与 SF-06，首页六条通路编号 01–06 连续；
+//   · 路由、编号 PLATE 06 / 12 与 SF-06，首页主挂图与结构页编号精确等于 {01–06,08,09,10}（07 空缺属 Cori）；
 //   · 内膜带构图：I / II / Q / III / IV / ATP 合酶嵌在带上，cyt c 在膜间腔一侧，
 //     ATP 在基质侧产出；
 //   · 电子流（实线实心箭头）与质子流（青色虚线开放式箭头）两套线型严格分开；
@@ -160,16 +160,23 @@ for (const asset of assets) {
 }
 check(`两个 3D 资产总原子 ${atomTotal} < 50k（单页预算）`, atomTotal < 50000);
 
-// 编号连续：主挂图 01–06，结构页 SF-01–SF-06
+// 编号集合：主挂图 01–06 + 08 + 09 + 10（07 属于 Cori，只走回路层、不占标题块，故留空位）
 const homeSrc = fs.readFileSync(join(ROOT, "src/data/homeMap.ts"), "utf8");
-const mainNos = [...homeSrc.matchAll(/plateNo: "PLATE 0(\d)"/g)].map((m) => Number(m[1]));
-check("首页主挂图编号 01–06 连续无重复", mainNos.join(",") === "1,2,3,4,5,6", mainNos.join(","));
-const cmpSrc = fs.readFileSync(join(ROOT, "src/data/comparisonConfig.ts"), "utf8");
-const sfNos = [...cmpSrc.matchAll(/PLATE SF-0(\d)/g)].map((m) => Number(m[1]));
+const mainNos = [...homeSrc.matchAll(/plateNo: "PLATE (\d{2})"/g)].map((m) => Number(m[1]));
 check(
-  "结构页编号 SF-01–SF-05 与新增 SF-06 无重复",
-  new Set(sfNos).size === sfNos.length && [1, 2, 3, 4, 5].every((n) => sfNos.includes(n)) && ox.structurePlateNo === "SF-06",
-  sfNos.join(","),
+  "首页主挂图编号精确等于 {01,02,03,04,05,06,08,09,10}，无重复、无跳号（07 属 Cori）",
+  new Set(mainNos).size === mainNos.length &&
+    [...mainNos].sort((a, b) => a - b).join(",") === "1,2,3,4,5,6,8,9,10",
+  mainNos.join(","),
+);
+const cmpSrc = fs.readFileSync(join(ROOT, "src/data/comparisonConfig.ts"), "utf8");
+// SF 号对齐 PLATE 号：结构页 01–06 + 08 + 09 + 10（07 空缺留给 Cori；06 为氧化磷酸化专页，存在 oxphos.json）
+const sfNos = [...cmpSrc.matchAll(/^  plateNo: "PLATE SF-(\d{2})/gm)].map((m) => Number(m[1]));
+const sfAll = [...new Set([...sfNos, Number(ox.structurePlateNo.slice(3))])].sort((a, b) => a - b);
+check(
+  "结构页编号精确等于 {01,02,03,04,05,06,08,09,10}，无重复、无跳号（07 空缺留给 Cori）",
+  new Set(sfNos).size === sfNos.length && sfAll.join(",") === "1,2,3,4,5,6,8,9,10",
+  sfAll.join(","),
 );
 
 // ===== 1) 路由 / 编号 / 首屏零 3D =====

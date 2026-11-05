@@ -72,7 +72,7 @@ check("2D 圈注对 H 有保护分支（命中 H 不画语义圈）", /if \(a\.e
 /* ---------- 3. 生成的 2D SVG ---------- */
 const svgDir = join(ROOT, "public", "assets", "structures", "2d");
 const svgs = readdirSync(svgDir).filter((f) => f.endsWith(".svg"));
-check("2D SVG 资产数量与生成脚本清单一致（43）", svgs.length === 43);
+check("2D SVG 资产数量与生成脚本清单一致（68）", svgs.length === 68);
 let badSvg = [];
 let hetTexts = 0;
 for (const f of svgs) {

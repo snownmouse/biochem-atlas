@@ -451,7 +451,7 @@ export default function FaoOverviewPage() {
                     <tspan className="st-no serif" fontSize={17}>①</tspan>
                     {"  "}活化 · ACSL
                   </text>
-                  <text x={205} y={205} fontSize={9.5} textAnchor="middle" opacity={0.6}>
+                  <text x={205} y={190} fontSize={9.5} textAnchor="middle" opacity={0.6}>
                     羧基 → 硫酯 · 消耗 2 个高能键
                   </text>
                 </g>

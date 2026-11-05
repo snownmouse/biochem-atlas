@@ -302,7 +302,6 @@ svg .branch { transition: opacity 0.2s ease; }
   --accent: #9c4a3c;
   --serif: "Noto Serif SC", "Source Han Serif SC", "Source Han Serif CN", "Songti SC", SimSun, serif;
   --sans: "Noto Sans SC", "Source Han Sans SC", "Source Han Sans CN", "PingFang SC", "Microsoft YaHei", sans-serif;
-  min-width: 1240px;
   background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
@@ -419,8 +418,8 @@ svg .branch { transition: opacity 0.2s ease; }
   border-bottom-color: var(--brick);
 }
 
-/* 挂图画布：比视口宽，横向漫游 */
-.poster .plate-scroll { overflow-x: auto; overflow-y: hidden; }
+/* 挂图画布：比视口宽，横向漫游；纵向不裁切，页面自然滚动 */
+.poster .plate-scroll { overflow: auto; }
 .poster .plate-canvas {
   position: relative;
   width: 1760px;
@@ -432,6 +431,24 @@ svg .branch { transition: opacity 0.2s ease; }
 .poster .plate-scroll::-webkit-scrollbar { height: 8px; }
 .poster .plate-scroll::-webkit-scrollbar-thumb { background: var(--hair-soft); }
 .poster .plate-scroll::-webkit-scrollbar-track { background: transparent; }
+
+/* ============================================================
+   统一挂图外框（全站唯一一处定义，所有挂图/3D 图都引用这里）
+   · 墨色 1px 直角细框，无圆角、无投影、无渐变
+   · 纸白底，框内四周 24px 冗余内边距（不改 SVG 内部坐标）
+   · 框外留呼吸间距（margin）
+   ============================================================ */
+.poster {
+  --plate-frame-ink: #22282a;
+  --plate-frame-paper: #f6f3ec;
+  --plate-frame-pad: 24px;
+}
+.poster .plate-scroll {
+  border: 1px solid var(--plate-frame-ink);
+  background: var(--plate-frame-paper);
+  padding: var(--plate-frame-pad);
+  margin: 8px 12px 18px;
+}
 
 /* SVG 交互态 */
 .poster svg .stepg, .poster svg .node { cursor: pointer; }
@@ -755,7 +772,7 @@ svg .branch { transition: opacity 0.2s ease; }
 /* ============================================================
    单步结构视图页（.step-poster）—— 与挂图同一套纸墨语言，无卡片堆叠
    ============================================================ */
-.poster.step-poster { min-width: 1240px; padding: 0 28px 28px; }
+.poster.step-poster { padding: 0 28px 28px; }
 
 .poster.step-poster .crumb { margin: 0; padding: 10px 0 0; font-size: 11.5px; letter-spacing: 0.08em; }
 .poster.step-poster .crumb .sep { margin: 0 7px; opacity: 0.4; }
@@ -902,8 +919,9 @@ svg .branch { transition: opacity 0.2s ease; }
 /* ② 3D 主位 */
 .poster.step-poster .s-figure {
   position: relative;
-  border: 1px solid var(--hair-soft);
-  background: #fff;
+  border: 1px solid var(--plate-frame-ink, #22282a);
+  background: var(--plate-frame-paper, #f6f3ec);
+  padding: var(--plate-frame-pad, 24px);
 }
 .poster.step-poster .s-viewer { width: 100%; height: 560px; }
 .poster.step-poster .s-viewer.hidden { display: none; }
@@ -1416,12 +1434,13 @@ svg .branch { transition: opacity 0.2s ease; }
 .e3d { display: flex; flex-direction: column; gap: 8px; }
 .e3d-stage {
   position: relative;
-  height: 320px;
-  border: 1px solid var(--line);
-  background: var(--paper);
+  height: 368px;
+  border: 1px solid var(--plate-frame-ink, #22282a);
+  background: var(--plate-frame-paper, #f6f3ec);
+  padding: var(--plate-frame-pad, 24px);
   overflow: hidden;
 }
-.e3d-host { position: absolute; inset: 0; }
+.e3d-host { position: absolute; inset: var(--plate-frame-pad, 24px); }
 .e3d-host.hidden { visibility: hidden; }
 .e3d-state {
   position: absolute;
@@ -1482,7 +1501,13 @@ svg .branch { transition: opacity 0.2s ease; }
 
 /* --- 2D 结构式（与 3D 同一格子；内容在 SVG 内按像素重排） --- */
 .cmp-load { font-size: 10px; opacity: 0.5; }
-.mol2d-svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.mol2d-svg {
+  position: absolute;
+  inset: var(--plate-frame-pad, 24px);
+  width: calc(100% - 2 * var(--plate-frame-pad, 24px));
+  height: calc(100% - 2 * var(--plate-frame-pad, 24px));
+  display: block;
+}
 .mol2d-state {
   position: absolute;
   inset: 0;
@@ -1521,13 +1546,14 @@ svg .branch { transition: opacity 0.2s ease; }
 .mol3d { display: flex; flex-direction: column; gap: 4px; }
 .mol3d-stage {
   position: relative;
-  height: 250px;
-  border: 1px solid var(--line);
-  background: var(--paper);
+  height: 298px;
+  border: 1px solid var(--plate-frame-ink, #22282a);
+  background: var(--plate-frame-paper, #f6f3ec);
+  padding: var(--plate-frame-pad, 24px);
   overflow: hidden;
 }
-.cmp3d-mols.duo .mol3d-stage { height: 168px; }
-.mol3d-host { position: absolute; inset: 0; }
+.cmp3d-mols.duo .mol3d-stage { height: 216px; }
+.mol3d-host { position: absolute; inset: var(--plate-frame-pad, 24px); }
 .mol3d-state {
   position: absolute;
   inset: 0;
@@ -1539,8 +1565,8 @@ svg .branch { transition: opacity 0.2s ease; }
 }
 .mol3d-hint {
   position: absolute;
-  right: 6px;
-  bottom: 4px;
+  right: calc(var(--plate-frame-pad, 24px) + 6px);
+  bottom: calc(var(--plate-frame-pad, 24px) + 4px);
   font-size: 8.5px;
   letter-spacing: 0.08em;
   opacity: 0.34;
@@ -1832,14 +1858,63 @@ svg .branch { transition: opacity 0.2s ease; }
    ============================================================ */
 .poster-fao .plate-canvas { width: 1980px; height: 880px; }
 
+/* 尿素循环：三泳道 1620×820；只改画布尺寸，图框仍引用上方统一外框 */
+.poster-urea .plate-canvas { width: 1620px; height: 820px; }
+
 /* ============================================================
    首页总图（PLATE 00）—— 上下两域 · 代谢脊柱（第二版构图）
-   上域胞质 / 中膜带 / 下域基质；SVG 按图版栏宽度自适应，不做横向漫游。
+   上域胞质 / 中膜带 / 下域基质；纵向自然滚动，横向在容器内拖动。
    ============================================================ */
 .home-poster .crumb.home-crumb { margin: 14px 28px 0; }
 .home-poster .plate-wrap { min-width: 0; }
-.home-poster .plate-scroll { overflow: visible; }
-.home-poster .plate-canvas { width: 100%; height: auto; }
+/* 右栏折叠：收起后画布列独占整行，可视窗从 1003 增到 1310（1440 视口） */
+.home-poster .body-grid.aside-collapsed { grid-template-columns: minmax(0, 1fr); }
+.home-poster .body-grid.aside-collapsed .plate-wrap { border-right: 0; }
+.home-poster .plate-head { gap: 14px; }
+.home-poster .plate-head .ph-tools {
+  margin-left: auto;
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  min-width: 0;
+  white-space: nowrap;
+}
+.home-poster .aside-toggle {
+  flex: none;
+  border: 1px solid var(--hair-soft);
+  background: none;
+  color: var(--ink);
+  font: inherit;
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+  padding: 3px 8px 2px;
+  cursor: pointer;
+}
+.home-poster .aside-toggle:focus-visible { outline: 1px solid var(--brick); outline-offset: 1px; }
+
+/* 首页画布：横向容器级拖动，纵向交给整页自然滚动；不做 max-height / overflow:hidden 裁切 */
+.home-poster .plate-scroll {
+  overflow-x: auto;
+  overflow-y: visible;
+  cursor: grab;
+  touch-action: pan-y;
+  overscroll-behavior-x: contain;
+}
+.home-poster .plate-scroll:focus-visible { outline: 1px solid var(--brick); outline-offset: -3px; }
+.home-poster .plate-scroll.is-dragging { cursor: grabbing; user-select: none; }
+/* 955 是 1440 展开时的完整可视宽（九条标题全在首屏）；1020 是原生坐标宽，收起后 1:1 呈现 */
+.home-poster .plate-canvas {
+  width: clamp(955px, 100%, 1020px);
+  height: auto;
+  margin: 0 auto;
+}
+/* 默认档：收起态按可视宽等比铺满，1400px 封顶（超宽屏居中留白，避免字号无限放大） */
+.home-poster .body-grid.aside-collapsed.fold-fitwidth .plate-canvas {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+}
 .home-poster .home-canvas { background:
   repeating-linear-gradient(to right, var(--hair-faint) 0 1px, transparent 1px 51px),
   repeating-linear-gradient(to bottom, var(--hair-faint) 0 1px, transparent 1px 46px); }
@@ -2159,3 +2234,93 @@ svg .branch { transition: opacity 0.2s ease; }
 }
 .poster-oxphos .ox-3d-grid .e3d { margin-top: 8px; }
 .poster-oxphos .ox-3d-grid .fn-head { margin-bottom: 2px; }
+
+/* 糖原代谢 PLATE 10：画布 1980×980；右栏只补本站没有的类，不改其它挂图规则 */
+.poster-glycogen .plate-canvas { width: 1980px; height: 980px; background: #f6f3ec; }
+.poster-glycogen .plate-head h2 { font-size: 11px; letter-spacing: 0.28em; font-weight: 400; margin: 0; }
+.poster-glycogen .plate-tools { display: flex; align-items: center; gap: 14px; }
+.poster-glycogen .plate-3d-link {
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hair-soft);
+  padding-bottom: 1px;
+}
+.poster-glycogen .plate-3d-link:hover { color: var(--amber); border-bottom-color: var(--amber); }
+.poster-glycogen .detail { padding-top: 2px; }
+.poster-glycogen .d-kicker { font-size: 10px; letter-spacing: 0.22em; opacity: 0.62; margin-bottom: 6px; }
+.poster-glycogen .d-kicker-sep { margin: 0 7px; }
+.poster-glycogen .d-title { font-family: var(--serif); font-size: 17px; font-weight: 600; letter-spacing: 0.02em; margin: 0 0 4px; }
+.poster-glycogen .d-enzyme { font-size: 12.5px; font-weight: 700; margin: 4px 0 6px; }
+.poster-glycogen .d-kv { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 3px 10px; margin: 8px 0 10px; font-size: 11px; }
+.poster-glycogen .d-kv dt { font-size: 9.2px; letter-spacing: 0.18em; opacity: 0.58; padding-top: 2px; }
+.poster-glycogen .d-kv dd { margin: 0; line-height: 1.55; }
+.poster-glycogen .d-organ { border-left: 2px solid var(--ink); padding-left: 10px; margin: 10px 0 8px; font-size: 11.5px; line-height: 1.7; }
+.poster-glycogen .d-organ-tag { font-size: 9.2px; letter-spacing: 0.22em; font-weight: 700; margin-right: 7px; }
+.poster-glycogen .d-dg { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; border-top: 1px dashed var(--hair-soft); padding-top: 7px; margin-top: 10px; }
+.poster-glycogen .d-dg-tag { font-size: 9.2px; letter-spacing: 0.2em; font-weight: 700; }
+.poster-glycogen .d-dg-none { font-size: 10.5px; font-weight: 700; color: var(--brick); }
+.poster-glycogen .d-dg-q { font-size: 10.5px; line-height: 1.6; }
+.poster-glycogen .d-dg-src { flex-basis: 100%; font-size: 9.2px; opacity: 0.55; }
+.poster-glycogen .d-links-title { font-size: 9.2px; letter-spacing: 0.2em; opacity: 0.58; margin-bottom: 5px; }
+.poster-glycogen .d-link { display: block; font-size: 10.5px; line-height: 1.6; color: var(--teal); text-decoration: none; border-bottom: 1px dotted var(--hair-soft); padding: 2px 0; }
+.poster-glycogen .d-link:hover { color: var(--amber); }
+.poster-glycogen .d-pdb { border-top: 1px dashed var(--hair-soft); margin-top: 12px; padding-top: 8px; }
+.poster-glycogen .d-pdb-row { margin-bottom: 9px; }
+.poster-glycogen .d-pdb-head { display: flex; flex-wrap: wrap; gap: 4px 9px; align-items: baseline; font-size: 9.2px; opacity: 0.75; }
+.poster-glycogen .d-pdb-id { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hair-soft); }
+.poster-glycogen .d-pdb-id:hover { color: var(--amber); border-bottom-color: var(--amber); }
+.poster-glycogen .d-pdb-lig { font-size: 9.2px; line-height: 1.55; margin-top: 3px; }
+.poster-glycogen .d-pdb-note { font-size: 9.2px; line-height: 1.6; opacity: 0.62; margin-top: 2px; }
+.poster-glycogen .ledger-row { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--hair-faint); padding: 5px 0; font-size: 10.5px; }
+.poster-glycogen .ledger-label { opacity: 0.78; }
+.poster-glycogen .ledger-num { font-size: 12px; font-weight: 700; }
+.poster-glycogen .reg-row { border-bottom: 1px solid var(--hair-faint); padding: 7px 0; }
+.poster-glycogen .reg-row:last-child { border-bottom: 0; }
+.poster-glycogen .reg-title { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 2px; }
+.poster-glycogen .if-row { border-bottom: 1px solid var(--hair-faint); padding: 7px 0; }
+.poster-glycogen .if-row:last-child { border-bottom: 0; }
+.poster-glycogen .if-title { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 2px; }
+.poster-glycogen .settle-main { display: flex; align-items: baseline; gap: 7px; }
+.poster-glycogen .settle-num { font-family: var(--serif); font-size: 24px; font-weight: 600; }
+.poster-glycogen .settle-unit { font-size: 10px; letter-spacing: 0.16em; opacity: 0.7; }
+.poster-glycogen .settle-sub { font-size: 9.2px; opacity: 0.62; margin-bottom: 6px; }
+.poster-glycogen svg [data-node-id] { cursor: pointer; }
+.poster-glycogen svg [data-step-block] { cursor: pointer; }
+.poster-glycogen .detail { border-radius: 0; }
+
+/* 糖原 PLP 结构口径：首屏可见的物种 / 表达系统 / 突变状态条 */
+.poster-glycogen .plp-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 26px;
+  padding: 9px 28px 10px;
+  border-bottom: 1px solid var(--hair-soft);
+  font-size: 10px;
+  line-height: 1.6;
+}
+.poster-glycogen .plp-strip-title {
+  font-size: 9.2px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+.poster-glycogen .plp-item { opacity: 0.86; }
+.poster-glycogen .plp-item b { font-weight: 700; letter-spacing: 0.06em; }
+.poster-glycogen .plp-strip-note {
+  flex-basis: 100%;
+  font-size: 9.2px;
+  opacity: 0.6;
+}
+.poster-glycogen .if-unbuilt {
+  display: inline-block;
+  margin: 3px 0 2px;
+  padding: 1px 7px;
+  border: 1px solid var(--brick);
+  color: var(--brick);
+  font-size: 9.2px;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+}
+.poster-glycogen .d-pdb-org { font-size: 9.2px; line-height: 1.55; margin-top: 2px; opacity: 0.82; }

@@ -467,7 +467,7 @@ export default function TcaOverviewPage() {
                   <path d="M 168,318 Q 300,245 428,215" fill="none" stroke={INK} strokeWidth={1} strokeDasharray="4 3" opacity={0.7} markerEnd="url(#t-ah-ink)" />
                   <text x={252} y={272} fontSize={9.5} opacity={0.7}>回补 · 丙酮酸羧化酶（EC 6.4.1.1 · 生物素）</text>
                   <path d="M 1502,424 Q 1600,500 1666,640" fill="none" stroke={INK} strokeWidth={1} strokeDasharray="4 3" opacity={0.7} markerStart="url(#t-ah-open)" markerEnd="url(#t-ah-open)" />
-                  <text x={1548} y={528} fontSize={9.5} opacity={0.7}>回补 · 转氨（AST / GDH）</text>
+                  <text x={1548} y={506} fontSize={9.5} opacity={0.7}>回补 · 转氨（AST / GDH）</text>
                 </g>
 
                 {/* 环上节点 + 入口/回补节点 */}

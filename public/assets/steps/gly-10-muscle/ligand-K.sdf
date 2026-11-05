@@ -1,5 +1,5 @@
 K
-  RCSB3BJF  instance coordinates extracted offline; bonds inferred from covalent radii (all single)
+  experimental coordinates preserved; bond orders from SMILES template (Kekulé)
 
   1  0  0  0  0  0  0  0  0  0999 V2000
     4.3960  -12.9490   39.4830 K   0  0  0  0  0  0  0  0  0  0  0  0

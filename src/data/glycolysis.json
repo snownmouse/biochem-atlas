@@ -310,6 +310,7 @@
       "irreversible": false,
       "significance": "绕过第 7 步放弃产 ATP，把 1,3-BPG 变为 2,3-BPG，降低血红蛋白对 O₂ 的亲和力（高原适应的分子基础）；BPGM 的磷酸酶活性再把 2,3-BPG 水解回 3PG。",
       "equation": "1,3-二磷酸甘油酸 ⇌ 2,3-二磷酸甘油酸 →（磷酸酶支）3-磷酸甘油酸 + Pi",
+      "ecNumber": "5.4.2.4（双磷酸甘油酸变位酶 BPGM；兼有 EC 3.1.3.13 磷酸酶活性，故为双功能酶）",
       "organDiffs": [
         { "organ": "rbc", "text": "仅红细胞有活跃的 Rapoport–Luebering 支路；肝与肌几乎无 2,3-BPG 堆积。" }
       ],

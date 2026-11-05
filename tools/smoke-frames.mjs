@@ -235,6 +235,29 @@ check(
   (await page.locator('[data-testid="default-mode-note"]').innerText()).includes("4 块默认 2D")
 );
 
+// 实验几何偏长双键（1.56–1.71 Å）的页面注记：只写事实，不改坐标、不改键级。
+// 对应块 = gk-4（fbp-linear 底物 + dhap 产物）与 gk-5（dhap 底物），默认均为 2D。
+const GEOM_NOTE = "键级来自模板，坐标为实验结构原值，键长偏长系晶体构象，未做几何纠正。";
+await scrollToStep("gk-5");
+const geomNote = await page.evaluate((txt) => {
+  return ["gk-4", "gk-5"].map((id) => {
+    const b = document.getElementById(id);
+    const hits = b ? [...b.querySelectorAll(".cmp-caveat")].filter((e) => (e.textContent ?? "").includes(txt)) : [];
+    const inFirstScreen = hits.some((e) => {
+      const r = e.getBoundingClientRect();
+      return r.width > 0 && r.height > 0 && r.top >= 0 && r.bottom <= window.innerHeight;
+    });
+    return { id, hits: hits.length, inFirstScreen };
+  });
+}, GEOM_NOTE);
+check(
+  "偏长双键注记在对应块首屏可见（至少 1 块）",
+  geomNote.some((b) => b.hits > 0 && b.inFirstScreen),
+  JSON.stringify(geomNote)
+);
+// 恢复初始滚动位置：下面的「切换前后格子 x/y/w/h 不变」按原口径在 scrollY=0 下取基准
+await page.evaluate(() => window.scrollTo(0, 0));
+
 // 切换前记下每个底物/产物格子的 x/y/w/h（20 个），切到显式 2D 后逐像素比对
 const rectsBefore = await page.evaluate(() =>
   [...document.querySelectorAll(".cmp3d-side")].map((e) => {

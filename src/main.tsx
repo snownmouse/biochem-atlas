@@ -7,8 +7,11 @@ import TcaOverviewPage from "./pages/TcaOverviewPage";
 import GluconeogenesisOverviewPage from "./pages/GluconeogenesisOverviewPage";
 import PppOverviewPage from "./pages/PppOverviewPage";
 import FaoOverviewPage from "./pages/FaoOverviewPage";
+import FasOverviewPage from "./pages/FasOverviewPage";
 import OxphosOverviewPage from "./pages/OxphosOverviewPage";
 import CoriOverviewPage from "./pages/CoriOverviewPage";
+import UreaCycleOverviewPage from "./pages/UreaCycleOverviewPage";
+import GlycogenOverviewPage from "./pages/GlycogenOverviewPage";
 import OxphosStructurePage from "./pages/OxphosStructurePage";
 import StepViewPage from "./pages/StepViewPage";
 import StructureFramesPage from "./pages/StructureFramesPage";
@@ -25,10 +28,16 @@ function PathwayRoute() {
     <PppOverviewPage />
   ) : pathwayId === "fatty-acid-oxidation" ? (
     <FaoOverviewPage />
+  ) : pathwayId === "fatty-acid-synthesis" || pathwayId === "fas" ? (
+    <FasOverviewPage />
   ) : pathwayId === "oxphos" ? (
     <OxphosOverviewPage />
   ) : pathwayId === "cori" ? (
     <CoriOverviewPage />
+  ) : pathwayId === "urea-cycle" || pathwayId === "urea" ? (
+    <UreaCycleOverviewPage />
+  ) : pathwayId === "glycogen" || pathwayId === "glycogen-metabolism" ? (
+    <GlycogenOverviewPage />
   ) : (
     <PathwayOverviewPage />
   );

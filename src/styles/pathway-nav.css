@@ -87,3 +87,43 @@
   outline: 1px solid var(--brick, #9c4a3c);
   outline-offset: 2px;
 }
+
+/* ============================================================
+   Skip link（键盘/读屏用户跳过导航直达正文）
+   放在 nav 之外：nav 有 overflow-x:auto，放进去会被裁切。
+   默认移出视口，只在键盘聚焦时显示。
+   ============================================================ */
+
+.ps-skip {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 100;
+  padding: 6px 10px;
+  background: var(--paper, #f7f4ee);
+  color: var(--ink, #22282a);
+  border: 1px solid var(--ink, #22282a);
+  font-size: 12.5px;
+  line-height: 1.4;
+  text-decoration: none;
+  transform: translateY(-200%);
+  opacity: 0;
+  transition: opacity 120ms ease;
+}
+
+.ps-skip:focus,
+.ps-skip:focus-visible {
+  transform: none;
+  opacity: 1;
+  outline: 2px solid var(--brick, #9c4a3c);
+  outline-offset: 2px;
+}
+
+/* skip link 的落点：零尺寸，不改变任何版式 */
+.ps-after-nav {
+  display: block;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+

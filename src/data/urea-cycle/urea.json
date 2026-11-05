@@ -1,0 +1,678 @@
+{
+  "id": "urea-cycle",
+  "name": "尿素循环",
+  "enName": "UREA CYCLE · KREBS–HENSELEIT CYCLE",
+  "plateNo": "PLATE 09/12",
+  "structureNo": "SF-09",
+  "summary": "两个氮、两个区室、一个跨 TCA 的回流。前两步在线粒体基质（CPS1、OTC），后三步在胞质（ASS、ASL、ARG1）；瓜氨酸与鸟氨酸经 ORNT1/SLC25A15 反向转运跨内膜。一个氮来自游离 NH₃，另一个来自天冬氨酸 α-氨基——它们各自进环、最后一起装进尿素。延胡索酸出环后走 TCA 的延胡索酸 → 苹果酸 → 草酰乙酸，再经 AST 转氨变回天冬氨酸：碳骨架不是废物，是让循环持续运转的回流载体。",
+  "ionizationConvention": "电离态一律按 pH 7.4 的主要质子化形式由 pKa 推导，不由人工估计：羧酸 pKa≈2 → COO⁻；α-氨基 pKa≈9–10 → NH₃⁺；胍基 pKa≈12.5 → +1；酰基磷酸/磷酸单酯 pKa₂≈6.3–7.2 → −2；酰胺 N 不电离 → 0。每个实体的 chargeBasis 保留逐项推导式。",
+  "compartments": [
+    { "id": "mito-matrix", "name": "线粒体基质", "en": "MITOCHONDRIAL MATRIX" },
+    { "id": "mito-inner-membrane", "name": "线粒体内膜 · 转运带", "en": "INNER MEMBRANE · TRANSPORT BAND" },
+    { "id": "cytosol", "name": "细胞质（胞质）", "en": "CYTOSOL" }
+  ],
+  "entities": [
+    {
+      "id": "nh3",
+      "name": "氨（游离 NH₃）",
+      "abbr": "NH₃",
+      "formula": "NH₃",
+      "ionization": "本图按游离 NH₃ 记法；pH 7.4 下以 NH₄⁺ 为主（pKa 9.25）",
+      "kind": "metabolite",
+      "note": "氮源 A：进入氨甲酰磷酸的酰胺氮。"
+    },
+    {
+      "id": "hco3",
+      "name": "碳酸氢根",
+      "abbr": "HCO₃⁻",
+      "formula": "CHO₃⁻",
+      "ionization": "−1",
+      "chargeBasis": "HCO₃⁻(−1) = −1",
+      "ionizableGroups": [
+        { "group": "bicarbonate", "count": 1, "chargePerGroup": -1, "pKa": "H₂CO₃ pKa1 ≈ 6.35" }
+      ],
+      "kind": "metabolite",
+      "note": "提供尿素羰基碳；Lehninger 8e Ch.18 的净方程写 HCO₃⁻。"
+    },
+    {
+      "id": "carbamoylP",
+      "name": "氨甲酰磷酸",
+      "abbr": "CAP",
+      "formula": "CH₂NO₅P²⁻",
+      "ionization": "−2（酰基磷酸 pKa≈3.5–4.5，7.4 下两个磷酸端基 O 均已去质子；酰胺 N 不电离）",
+      "chargeBasis": "酰胺 N(0) + 酰基磷酸(−2) = −2",
+      "ionizableGroups": [
+        { "group": "amide-N", "count": 1, "chargePerGroup": 0, "pKa": "≈0.1（不电离）" },
+        { "group": "acyl-phosphate", "count": 1, "chargePerGroup": -2, "pKa": "≈3.5–4.5" }
+      ],
+      "kind": "metabolite",
+      "note": "CPS1 的产物，也是 OTC 的底物；不是最终尿素。"
+    },
+    {
+      "id": "ornithine",
+      "name": "鸟氨酸",
+      "abbr": "Orn",
+      "formula": "C₅H₁₃N₂O₂⁺",
+      "ionization": "+1（α-羧基 −1；α-NH₃⁺ 与 δ-NH₃⁺ 各 +1）",
+      "chargeBasis": "COO⁻(−1) + α-NH₃⁺(+1) + δ-NH₃⁺(+1) = +1",
+      "ionizableGroups": [
+        { "group": "carboxyl", "count": 1, "chargePerGroup": -1, "pKa": "≈2.2" },
+        { "group": "alpha-amino", "count": 2, "chargePerGroup": 1, "pKa": "α ≈8.9 / δ ≈10.8" }
+      ],
+      "kind": "metabolite",
+      "note": "C5 载体：碳骨架净不变；δ-氨基是载体氮，不是尿素的净氮来源。"
+    },
+    {
+      "id": "citrulline",
+      "name": "瓜氨酸",
+      "abbr": "Cit",
+      "formula": "C₆H₁₃N₃O₃",
+      "ionization": "0（两性离子：α-COO⁻ −1 + α-NH₃⁺ +1；脲基酰胺 N 不电离）",
+      "chargeBasis": "COO⁻(−1) + α-NH₃⁺(+1) = 0",
+      "ionizableGroups": [
+        { "group": "carboxyl", "count": 1, "chargePerGroup": -1, "pKa": "≈2.1" },
+        { "group": "alpha-amino", "count": 1, "chargePerGroup": 1, "pKa": "≈9.6" },
+        { "group": "amide-N", "count": 2, "chargePerGroup": 0, "pKa": "脲基，不电离" }
+      ],
+      "kind": "metabolite",
+      "note": "瓜氨酸/鸟氨酸反向转运的底物；跨内膜时只换区室，不改变分子。"
+    },
+    {
+      "id": "asp",
+      "name": "天冬氨酸",
+      "abbr": "Asp",
+      "formula": "C₄H₆NO₄⁻",
+      "ionization": "−1（两个羧基 −2；α-NH₃⁺ +1）",
+      "chargeBasis": "2×COO⁻(−2) + α-NH₃⁺(+1) = −1",
+      "ionizableGroups": [
+        { "group": "carboxyl", "count": 2, "chargePerGroup": -1, "pKa": "α ≈2.0 / β ≈3.9" },
+        { "group": "alpha-amino", "count": 1, "chargePerGroup": 1, "pKa": "≈9.8" }
+      ],
+      "kind": "metabolite",
+      "note": "氮源 B：α-氨基在 ASS 步接入；其碳骨架来自 TCA 回流再生的草酰乙酸。"
+    },
+    {
+      "id": "argininosuccinate",
+      "name": "精氨酸琥珀酸",
+      "abbr": "AS",
+      "formula": "C₁₀H₁₇N₄O₆⁻",
+      "ionization": "−1（Arg α-COOH、Asp α-COOH、Asp β-COOH 三个羧基均未被酰胺化，各带 −1；Arg α-NH₃⁺ +1；胍基 +1；Asp α-氨基与瓜氨酸脲基碳缩合成胍基的第三个氮，不是游离氨基）",
+      "chargeBasis": "3×COO⁻(−3) + Arg α-NH₃⁺(+1) + 胍基(+1) = −1",
+      "ionizableGroups": [
+        { "group": "carboxyl", "count": 3, "chargePerGroup": -1, "pKa": "Arg α / Asp α / Asp β ≈2" },
+        { "group": "alpha-amino", "count": 1, "chargePerGroup": 1, "pKa": "Arg α ≈9.5" },
+        { "group": "guanidinium", "count": 1, "chargePerGroup": 1, "pKa": "≈12.5" }
+      ],
+      "kind": "metabolite",
+      "note": "瓜氨酸 + 天冬氨酸缩合产物；下一步裂解为精氨酸 + 延胡索酸。"
+    },
+    {
+      "id": "arginine",
+      "name": "精氨酸",
+      "abbr": "Arg",
+      "formula": "C₆H₁₅N₄O₂⁺",
+      "ionization": "+1（α-COO⁻ −1；α-NH₃⁺ +1；胍基 pKa≈12.5 → +1）",
+      "chargeBasis": "COO⁻(−1) + α-NH₃⁺(+1) + 胍基(+1) = +1",
+      "ionizableGroups": [
+        { "group": "carboxyl", "count": 1, "chargePerGroup": -1, "pKa": "≈2.2" },
+        { "group": "alpha-amino", "count": 1, "chargePerGroup": 1, "pKa": "≈9.0" },
+        { "group": "guanidinium", "count": 1, "chargePerGroup": 1, "pKa": "≈12.5" }
+      ],
+      "kind": "metabolite",
+      "note": "鸟氨酸的胍基化形式；胍基三氮中两个最终进入尿素，一个随鸟氨酸保留。"
+    },
+    {
+      "id": "urea",
+      "name": "尿素",
+      "abbr": "Urea",
+      "formula": "CH₄N₂O",
+      "ionization": "0（两个酰胺型 N 均不电离）",
+      "chargeBasis": "酰胺 N(0) + 酰胺 N(0) = 0",
+      "ionizableGroups": [
+        { "group": "amide-N", "count": 2, "chargePerGroup": 0, "pKa": "≈0.1（不电离）" }
+      ],
+      "kind": "metabolite",
+      "note": "两个氮的最终受体：一个来自 NH₃，一个来自 Asp α-氨基。"
+    },
+    {
+      "id": "fumarate",
+      "name": "延胡索酸",
+      "abbr": "Fum",
+      "formula": "C₄H₂O₄²⁻",
+      "ionization": "−2（两个羧基；生理 pH 下完全电离）",
+      "chargeBasis": "2×COO⁻(−2) = −2",
+      "ionizableGroups": [
+        { "group": "carboxyl", "count": 2, "chargePerGroup": -1, "pKa": "≈3.0 / ≈4.5" }
+      ],
+      "kind": "metabolite",
+      "note": "ASL 裂解产物；不是废物——它进入 TCA，最后以天冬氨酸回到循环。",
+      "sharedWith": {
+        "pathway": "tca",
+        "entityId": "fum",
+        "producedByStep": "tca-6",
+        "consumedByStep": "tca-7",
+        "note": "TCA 中延胡索酸由琥珀酸脱氢酶（tca-6）产生，由延胡索酸酶（tca-7）消耗；本图只引用该实体，不复制反应式。"
+      }
+    },
+    {
+      "id": "h2o",
+      "name": "水",
+      "abbr": "H₂O",
+      "formula": "H₂O",
+      "ionization": "0",
+      "kind": "cofactor",
+      "note": "ARG1 水解反应的反应物；辅因子/溶剂不入主链节点。"
+    },
+    {
+      "id": "atp",
+      "name": "ATP",
+      "abbr": "ATP",
+      "formula": "C₁₀H₁₂N₅O₁₃P₃⁴⁻",
+      "ionization": "−4（生理 pH 7.4 的近似净电荷）",
+      "kind": "cofactor",
+      "note": "辅因子，不入画；能量账按分子数 3、高能键 4 双口径记。"
+    },
+    {
+      "id": "adp",
+      "name": "ADP",
+      "abbr": "ADP",
+      "formula": "C₁₀H₁₂N₅O₁₀P₂³⁻",
+      "ionization": "−3（近似）",
+      "kind": "cofactor"
+    },
+    {
+      "id": "amp",
+      "name": "AMP",
+      "abbr": "AMP",
+      "formula": "C₁₀H₁₂N₅O₇P²⁻",
+      "ionization": "−2（近似）",
+      "kind": "cofactor"
+    },
+    {
+      "id": "ppi",
+      "name": "焦磷酸",
+      "abbr": "PPi",
+      "formula": "P₂O₇⁴⁻",
+      "ionization": "−4（近似；PPi 的酸酐键可继续水解）",
+      "kind": "cofactor"
+    },
+    {
+      "id": "pi",
+      "name": "无机磷酸",
+      "abbr": "Pi",
+      "formula": "HO₄P²⁻",
+      "ionization": "−2（近似）",
+      "kind": "cofactor"
+    },
+    {
+      "id": "cps1",
+      "name": "氨甲酰磷酸合成酶 I",
+      "abbr": "CPS1",
+      "kind": "enzyme",
+      "ecNumber": "6.3.4.16",
+      "note": "线粒体基质；N-乙酰谷氨酸是必需变构激活剂。"
+    },
+    {
+      "id": "otc",
+      "name": "鸟氨酸氨甲酰转移酶",
+      "abbr": "OTC",
+      "kind": "enzyme",
+      "ecNumber": "2.1.3.3",
+      "note": "线粒体基质；X 连锁。"
+    },
+    {
+      "id": "ass",
+      "name": "精氨酸琥珀酸合成酶",
+      "abbr": "ASS1",
+      "kind": "enzyme",
+      "ecNumber": "6.3.4.5",
+      "note": "胞质；ATP → AMP + PPi。"
+    },
+    {
+      "id": "asl",
+      "name": "精氨酸琥珀酸裂解酶",
+      "abbr": "ASL",
+      "kind": "enzyme",
+      "ecNumber": "4.3.2.1",
+      "note": "胞质；裂解产生精氨酸 + 延胡索酸。"
+    },
+    {
+      "id": "arg1",
+      "name": "精氨酸酶 1",
+      "abbr": "ARG1",
+      "kind": "enzyme",
+      "ecNumber": "3.5.3.1",
+      "note": "胞质；水解胍基，释放尿素。"
+    },
+    {
+      "id": "ornt1",
+      "name": "线粒体鸟氨酸/瓜氨酸反向转运体",
+      "abbr": "ORNT1",
+      "kind": "transporter",
+      "ecNumber": "SLC25A15",
+      "note": "内膜反向转运：瓜氨酸出、鸟氨酸进；不是酶促步骤。"
+    },
+    {
+      "id": "ast",
+      "name": "天冬氨酸转氨酶",
+      "abbr": "AST",
+      "kind": "enzyme",
+      "ecNumber": "2.6.1.1",
+      "note": "草酰乙酸 + 谷氨酸 ⇌ 天冬氨酸 + α-酮戊二酸；TCA 数据层未单独登记该转氨步。"
+    }
+  ],
+  "steps": [
+    {
+      "id": "urea-1",
+      "index": 1,
+      "kind": "entry",
+      "name": "氨甲酰磷酸生成（进环）",
+      "shortName": "CPS1",
+      "compartment": "mito-matrix",
+      "substrates": ["nh3", "hco3", "atp"],
+      "products": ["carbamoylP", "adp", "pi"],
+      "cofactors": ["Mg²⁺", "N-乙酰谷氨酸（变构激活剂）", "生物素（辅基）"],
+      "enzyme": {
+        "entityId": "cps1",
+        "name": "氨甲酰磷酸合成酶 I",
+        "isozyme": "线粒体基质同工酶；与胞质 CPS2（嘧啶合成）分工"
+      },
+      "equation": "NH₃ + HCO₃⁻ + 2 ATP → 氨甲酰磷酸 + 2 ADP + Pi",
+      "ecNumber": "6.3.4.16",
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "强放能（两步 ATP 驱动，生理上不可逆）",
+        "source": "Lehninger 8e Ch.18",
+        "note": "标准态与生理态数值均未核实；只保留定性结论。"
+      },
+      "nitrogen": {
+        "role": "fix",
+        "sourceIds": ["ammonia"],
+        "atoms": 1,
+        "text": "把游离 NH₃ 固定成氨甲酰磷酸的酰胺氮——这是尿素的第一个氮。"
+      },
+      "carbon": {
+        "netChange": true,
+        "text": "HCO₃⁻ 的羰基碳进入氨甲酰磷酸；它最终成为尿素的羰基碳。"
+      },
+      "significance": "尿素循环的进环步：CPS1 在线粒体基质把 NH₃ 与 HCO₃⁻ 装成氨甲酰磷酸。N-乙酰谷氨酸（NAG）是必需变构激活剂，把氨负荷与尿素合成速率接上。",
+      "misconceptions": [
+        "「CPS1 属于胞质」——CPS1 在线粒体基质；胞质 CPS2 走嘧啶合成，不参与尿素循环。",
+        "「两个氮都来自 NH₃」——CPS1 只固定一个氮；第二个氮在胞质 ASS 步由天冬氨酸提供。"
+      ],
+      "clinical": ["CPS1 缺陷 → 高氨血症；CPS1 是线粒体基质里的调控/限速点。"],
+      "labelAt": { "x": 170, "y": 110, "anchor": "middle" },
+      "subAt": { "x": 170, "y": 126, "anchor": "middle" },
+      "subLabel": "NH₃ + HCO₃⁻ + 2 ATP → 氨甲酰磷酸",
+      "threeD": {
+        "status": "pending",
+        "note": "CPS1 全酶约 165 kDa/单体，公开结构多为片段或复合体片段；本轮未核验可用的人源全酶-底物条目，不登记 PDB ID，也不建资产路径。",
+        "candidates": []
+      }
+    },
+    {
+      "id": "urea-2",
+      "index": 2,
+      "kind": "cycle",
+      "name": "瓜氨酸生成",
+      "shortName": "OTC",
+      "compartment": "mito-matrix",
+      "substrates": ["carbamoylP", "ornithine"],
+      "products": ["citrulline", "pi"],
+      "cofactors": [],
+      "enzyme": {
+        "entityId": "otc",
+        "name": "鸟氨酸氨甲酰转移酶",
+        "isozyme": "OTC · 线粒体基质；X 连锁基因"
+      },
+      "equation": "氨甲酰磷酸 + 鸟氨酸 → 瓜氨酸 + Pi",
+      "ecNumber": "2.1.3.3",
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡；被 CPS1 持续供给的氨甲酰磷酸拉动向前",
+        "source": "Lehninger 8e Ch.18",
+        "note": "数值未核实；只保留定性结论。"
+      },
+      "nitrogen": {
+        "role": "transfer",
+        "sourceIds": [],
+        "atoms": 0,
+        "text": "把氨甲酰基转到鸟氨酸 δ-氨基上；没有新增净氮——鸟氨酸 δ-N 只是载体，随瓜氨酸往下走。"
+      },
+      "carbon": {
+        "netChange": false,
+        "text": "鸟氨酸 C5 骨架不变，只接上氨甲酰基的羰基碳；碳账在载体上净 0。"
+      },
+      "significance": "环的载体入口：氨甲酰磷酸把氨甲酰基交给鸟氨酸，生成瓜氨酸。鸟氨酸的 δ-氨基变成瓜氨酸脲基中的一个氮，但它不是尿素的净氮来源。",
+      "misconceptions": [
+        "「OTC 把氨甲酰基交给天冬氨酸」——受体是鸟氨酸 δ-氨基，不是天冬氨酸。",
+        "「OTC 不可逆」——反应本身可逆，生理上由 CPS1 的持续供给拉动。"
+      ],
+      "clinical": ["OTC 缺陷是最常见的尿素循环障碍，X 连锁；→ 高氨血症。"],
+      "labelAt": { "x": 590, "y": 190, "anchor": "start" },
+      "subAt": { "x": 590, "y": 205, "anchor": "start" },
+      "subLabel": "氨甲酰磷酸 + Orn → Cit（线粒体）",
+      "threeD": {
+        "status": "pending",
+        "note": "OTC 有人源结构：1EP9（X-ray 2.40 Å，结合氨甲酰磷酸，突变体 L101F/Q270R）与 1OTH（X-ray 1.85 Å，结合双底物类似物 PALO）；页面不出 3D。",
+        "candidates": [
+          {
+            "stepId": "urea-2",
+            "enzyme": "OTC",
+            "pdbId": "1EP9",
+            "organism": "human",
+            "method": "X-ray",
+            "resolutionA": 2.4,
+            "ligands": ["CP"],
+            "pocketRole": "own",
+            "note": "人源 OTC + 氨甲酰磷酸（CP），X-ray 2.40 Å；结构为突变体 L101F / Q270R（RCSB 1EP9），非野生型。"
+          },
+          {
+            "stepId": "urea-2",
+            "enzyme": "OTC",
+            "pdbId": "1OTH",
+            "organism": "human",
+            "method": "X-ray",
+            "resolutionA": 1.85,
+            "ligands": ["PALO"],
+            "pocketRole": "own",
+            "note": "人源 OTC 野生型 + N-磷乙酰-L-鸟氨酸（PALO），X-ray 1.85 Å；PALO 是双底物类似物，不是真实底物。"
+          }
+        ]
+      }
+    },
+    {
+      "id": "urea-3",
+      "index": 3,
+      "kind": "cycle",
+      "name": "精氨酸琥珀酸生成（接入第二个氮）",
+      "shortName": "ASS",
+      "compartment": "cytosol",
+      "substrates": ["citrulline", "asp", "atp"],
+      "products": ["argininosuccinate", "amp", "ppi"],
+      "cofactors": ["Mg²⁺"],
+      "enzyme": {
+        "entityId": "ass",
+        "name": "精氨酸琥珀酸合成酶",
+        "isozyme": "胞质 ASS1；线粒体 ASS2 不参与尿素循环"
+      },
+      "equation": "瓜氨酸 + 天冬氨酸 + ATP → 精氨酸琥珀酸 + AMP + PPi",
+      "ecNumber": "6.3.4.5",
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "强放能（ATP → AMP + PPi，两个高能键驱动）",
+        "source": "Lehninger 8e Ch.18",
+        "note": "数值未核实；按 ATP→AMP+PPi 的两键消耗定性。"
+      },
+      "nitrogen": {
+        "role": "fix",
+        "sourceIds": ["aspartate"],
+        "atoms": 1,
+        "text": "天冬氨酸（Asp）α-氨基接入脲基——这是尿素的第二个氮，与 NH₃ 来源不同。"
+      },
+      "carbon": {
+        "netChange": true,
+        "text": "天冬氨酸的 C4 骨架进入精氨酸琥珀酸；裂解后以延胡索酸形式离开，构成 TCA 回流。"
+      },
+      "significance": "第二个氮在此接入：ASS 把瓜氨酸与天冬氨酸缩合成精氨酸琥珀酸。天冬氨酸不是凭空来的——它由 TCA 的草酰乙酸经 AST 转氨再生；这正是循环能持续运转的碳骨架回流。",
+      "misconceptions": [
+        "「ASS 把 NH₃ 再接一次」——第二个氮来自天冬氨酸 α-氨基，不是游离 NH₃。",
+        "「ASS 只耗 1 个高能键」——ATP → AMP + PPi，按高能磷酸键折算为 2 个。"
+      ],
+      "clinical": ["ASS1 缺陷 → 瓜氨酸血症 I 型。"],
+      "labelAt": { "x": 735, "y": 512, "anchor": "middle" },
+      "subAt": { "x": 735, "y": 527, "anchor": "middle" },
+      "subLabel": "Cit + Asp + ATP → 精氨酸琥珀酸",
+      "threeD": {
+        "status": "pending",
+        "note": "ASS1 有人源结构，但本轮未逐条核验 PDB ID / 分辨率 / 物种 / 配体，因此不登记具体候选，也不建资产路径。",
+        "candidates": []
+      }
+    },
+    {
+      "id": "urea-4",
+      "index": 4,
+      "kind": "cycle",
+      "name": "精氨酸与延胡索酸生成",
+      "shortName": "ASL",
+      "compartment": "cytosol",
+      "substrates": ["argininosuccinate"],
+      "products": ["arginine", "fumarate"],
+      "cofactors": [],
+      "enzyme": {
+        "entityId": "asl",
+        "name": "精氨酸琥珀酸裂解酶",
+        "isozyme": "胞质"
+      },
+      "equation": "精氨酸琥珀酸 → 精氨酸 + 延胡索酸",
+      "ecNumber": "4.3.2.1",
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡，随底物与产物浓度双向流动",
+        "source": "Lehninger 8e Ch.18",
+        "note": "数值未核实；只保留定性结论。"
+      },
+      "nitrogen": {
+        "role": "carry",
+        "sourceIds": [],
+        "atoms": 0,
+        "text": "裂解不改变氮的归属：两个净氮留在精氨酸胍基里，等待 ARG1 释放。"
+      },
+      "carbon": {
+        "netChange": true,
+        "text": "天冬氨酸的 C4 骨架以延胡索酸离开；延胡索酸进入 TCA，不是终产物。"
+      },
+      "significance": "延胡索酸在此出环。它不是废物：TCA 把延胡索酸水合成苹果酸、再氧化成草酰乙酸，AST 转氨后变回天冬氨酸——碳骨架回流，尿素循环才不必净消耗天冬氨酸。",
+      "misconceptions": [
+        "「延胡索酸是尿素循环的废物」——它进 TCA，最终以天冬氨酸回到 ASS 步。",
+        "「ASL 释放尿素」——尿素在下一步 ARG1 才释放；ASL 只裂解。"
+      ],
+      "clinical": ["ASL 缺陷 → 精氨酸琥珀酸尿症。"],
+      "labelAt": { "x": 1065, "y": 428, "anchor": "middle" },
+      "subAt": { "x": 1065, "y": 443, "anchor": "middle" },
+      "subLabel": "精氨酸琥珀酸 → Arg + 延胡索酸",
+      "threeD": {
+        "status": "pending",
+        "note": "ASL 有人源结构，但本轮未逐条核验 PDB ID / 分辨率 / 物种 / 配体，因此不登记具体候选，也不建资产路径。",
+        "candidates": []
+      }
+    },
+    {
+      "id": "urea-5",
+      "index": 5,
+      "kind": "cycle",
+      "name": "尿素释放与鸟氨酸再生",
+      "shortName": "ARG1",
+      "compartment": "cytosol",
+      "substrates": ["arginine", "h2o"],
+      "products": ["urea", "ornithine"],
+      "cofactors": ["Mn²⁺ / Mg²⁺（金属辅因子，细节未核实）"],
+      "enzyme": {
+        "entityId": "arg1",
+        "name": "精氨酸酶 1",
+        "isozyme": "胞质 ARG1；线粒体 ARG2 主要走另一条精氨酸代谢"
+      },
+      "equation": "精氨酸 + H₂O → 尿素 + 鸟氨酸",
+      "ecNumber": "3.5.3.1",
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "强放能（胍基水解，生理上不可逆）",
+        "source": "Lehninger 8e Ch.18",
+        "note": "数值未核实；只保留定性结论。"
+      },
+      "nitrogen": {
+        "role": "release",
+        "sourceIds": ["ammonia", "aspartate"],
+        "atoms": 2,
+        "text": "尿素的两个氮在这里一起释放：一个来自 NH₃（尿素-1），一个来自 Asp α-氨基（尿素-3）。"
+      },
+      "carbon": {
+        "netChange": true,
+        "text": "尿素 1 C + 鸟氨酸 C5 载体；鸟氨酸碳骨架净不变，回到线粒体继续下一轮。"
+      },
+      "significance": "循环的收口：ARG1 水解释放尿素（两个氮），同时再生鸟氨酸。鸟氨酸经 ORNT1 回到线粒体基质，再次被 OTC 消耗——闭环不是回到 CPS1，而是回到 OTC。",
+      "misconceptions": [
+        "「鸟氨酸回到 CPS1」——鸟氨酸是 OTC 的底物，闭环回到 OTC；CPS1 只负责进环供料。",
+        "「尿素的两个氮都来自 NH₃」——一个来自 NH₃，一个来自 Asp α-氨基。"
+      ],
+      "clinical": ["ARG1 缺陷 → 精氨酸血症（高精氨酸血症）。"],
+      "labelAt": { "x": 1320, "y": 430, "anchor": "middle" },
+      "subAt": { "x": 1320, "y": 445, "anchor": "middle" },
+      "subLabel": "Arg + H₂O → 尿素 + Orn",
+      "threeD": {
+        "status": "pending",
+        "note": "ARG1 有人源结构，但本轮未逐条核验 PDB ID / 分辨率 / 物种 / 配体，因此不登记具体候选，也不建资产路径。",
+        "candidates": []
+      }
+    }
+  ],
+  "dualNitrogen": {
+    "sources": [
+      {
+        "id": "ammonia",
+        "label": "氮源 A · 游离 NH₃",
+        "donor": "NH₃ / NH₄⁺（来自氨基酸脱氨与肠道氨）",
+        "entersAtStep": "urea-1",
+        "entersAs": "氨甲酰磷酸的酰胺氮 → 瓜氨酸脲基 → 尿素",
+        "entityId": "nh3",
+        "color": "brick",
+        "assertion": "一个氮来自游离 NH₃，在 CPS1 步被固定。"
+      },
+      {
+        "id": "aspartate",
+        "label": "氮源 B · 天冬氨酸 α-氨基",
+        "donor": "天冬氨酸（由 TCA 草酰乙酸经 AST 转氨再生）",
+        "entersAtStep": "urea-3",
+        "entersAs": "精氨酸琥珀酸 → 精氨酸胍基 → 尿素",
+        "entityId": "asp",
+        "color": "teal",
+        "assertion": "另一个氮来自天冬氨酸 α-氨基，在 ASS 步接入；两个来源不同。"
+      }
+    ],
+    "urea": { "entityId": "urea", "nitrogenAtoms": 2 },
+    "distinctSourceIds": ["ammonia", "aspartate"],
+    "diagramNote": "两支线各自进环、最后一起汇入尿素：A 走 CPS1（线粒体），B 走 ASS（胞质）。不要笼统写成「2 NH₃」。"
+  },
+  "energyLedger": {
+    "title": "能量账 · 每轮尿素",
+    "nominalAtp": 3,
+    "highEnergyBonds": 4,
+    "nominalLabel": "名义 3 ATP",
+    "bondLabel": "折算 4 个高能键",
+    "entries": [
+      {
+        "stepId": "urea-1",
+        "label": "CPS1",
+        "atp": 2,
+        "bonds": 2,
+        "detail": "2 ATP → 2 ADP + Pi"
+      },
+      {
+        "stepId": "urea-3",
+        "label": "ASS",
+        "atp": 1,
+        "bonds": 2,
+        "detail": "1 ATP → AMP + PPi（酸酐键 + 酯键）"
+      }
+    ],
+    "adp": 2,
+    "amp": 1,
+    "pi": 2,
+    "ppi": 1,
+    "netEquation": "NH₃ + HCO₃⁻ + 天冬氨酸 + 3 ATP + H₂O → 尿素 + 延胡索酸 + 2 ADP + AMP + 2 Pi + PPi",
+    "balanceNote": "ATP 名义数 3 是分子计数；高能磷酸键 4 是能量口径（ATP → AMP + PPi 计 2 个键）。两种口径同时保留，不混用。",
+    "nitrogenNote": "2 N 进（NH₃ 1 + Asp α-NH₂ 1）→ 尿素 2 N；鸟氨酸 δ-N 只是载体，不计入净输入。",
+    "carbonNote": "HCO₃⁻ 1 C + Asp 4 C → 尿素 1 C + 延胡索酸 4 C；鸟氨酸 C5 载体净不变。",
+    "deltaGDiscipline": "五步 ΔG 数值均未核实：standard / physiological 一律 null，只给定性结论；source = Lehninger 8e Ch.18。"
+  },
+  "nitrogenLedger": {
+    "inputs": [
+      { "id": "ammonia", "atoms": 1, "stepId": "urea-1", "text": "游离 NH₃ → 氨甲酰磷酸酰胺氮" },
+      { "id": "aspartate", "atoms": 1, "stepId": "urea-3", "text": "天冬氨酸 α-氨基 → 精氨酸胍基" }
+    ],
+    "urea": { "entityId": "urea", "atoms": 2 },
+    "carrier": {
+      "entityId": "ornithine",
+      "atoms": 1,
+      "netChange": 0,
+      "text": "鸟氨酸 δ-氨基是载体氮；它随鸟氨酸回到线粒体，不是尿素的净氮输入。"
+    },
+    "assertion": "1 + 1 = 2"
+  },
+  "carbonLedger": {
+    "inputs": [
+      { "entityId": "hco3", "carbons": 1, "text": "HCO₃⁻ 提供尿素羰基碳" },
+      { "entityId": "asp", "carbons": 4, "text": "天冬氨酸 C4 骨架" }
+    ],
+    "outputs": [
+      { "entityId": "urea", "carbons": 1, "text": "尿素羰基碳" },
+      { "entityId": "fumarate", "carbons": 4, "text": "延胡索酸 C4 骨架" }
+    ],
+    "carrier": {
+      "entityId": "ornithine",
+      "carbons": 5,
+      "netChange": 0,
+      "text": "鸟氨酸 C5 载体：每轮进出不变，不参与净碳账。"
+    },
+    "assertion": "1 + 4 = 1 + 4；鸟氨酸 C5 净变化 0"
+  },
+  "tcaInterface": {
+    "fumarateEntityId": "fumarate",
+    "sharedWith": {
+      "pathway": "tca",
+      "entityId": "fum",
+      "producedByStep": "tca-6",
+      "consumedByStep": "tca-7",
+      "note": "延胡索酸是 TCA 的真实实体 fum：tca-6 产生、tca-7 消耗；本图只引用，不复制 TCA 反应式。"
+    },
+    "recycleChain": [
+      { "stepId": "tca-7", "from": "fum", "to": "mal", "enzyme": "延胡索酸酶", "registeredInTca": true },
+      { "stepId": "tca-8", "from": "mal", "to": "oaa", "enzyme": "苹果酸脱氢酶", "registeredInTca": true },
+      {
+        "stepId": "ast",
+        "from": "oaa",
+        "to": "asp",
+        "enzyme": "AST 转氨",
+        "registeredInTca": false,
+        "note": "TCA 数据层未单独登记 AST 转氨步；此处只写接口事实，不伪造 stepId。"
+      }
+    ],
+    "astNote": "草酰乙酸 + 谷氨酸 ⇌ 天冬氨酸 + α-酮戊二酸（AST，EC 2.6.1.1）；TCA 数据层没有单独的 AST 步，因此本页只把它标成接口，不给它编造步骤号。",
+    "explanation": "延胡索酸出环 → TCA 第 7 步水合成苹果酸 → 第 8 步氧化成草酰乙酸 → AST 转氨生成天冬氨酸。天冬氨酸正是 ASS 步的第二个氮来源。",
+    "whyItMatters": "如果没有这条回流，尿素循环每转一轮都要净消耗一个天冬氨酸（以及一个草酰乙酸）。回流让碳骨架循环使用，尿素循环才能持续运转；这也是尿素循环与 TCA 在延胡索酸处必须接上的原因。"
+  },
+  "cycleClosure": {
+    "loopStepIds": ["urea-2", "urea-3", "urea-4", "urea-5"],
+    "carrierEntityId": "ornithine",
+    "carrierStartsAtStepId": "urea-2",
+    "carrierReturnsFromStepId": "urea-5",
+    "entryStepId": "urea-1",
+    "entryProductEntityId": "carbamoylP",
+    "note": "闭环是 2 → 3 → 4 → 5 → 2：ARG1 再生的鸟氨酸经 ORNT1 回到线粒体，被 OTC 再次消耗。CPS1 是进环供料步，不是闭环的起点；把闭环写成回到 CPS1 是常见误解。"
+  },
+  "clinical": [
+    { "id": "otc", "name": "OTC 缺陷", "inheritance": "X 连锁", "mechanism": "最常见尿素循环障碍；氨甲酰磷酸不能转给鸟氨酸，氨负荷升高。" },
+    { "id": "cps1", "name": "CPS1 缺陷", "inheritance": "常染色体隐性", "mechanism": "进环第一步受阻，线粒体基质内氨不能装成氨甲酰磷酸。" },
+    { "id": "arg1", "name": "ARG1 缺陷", "inheritance": "常染色体隐性", "mechanism": "精氨酸不能水解释放尿素，形成精氨酸血症（高精氨酸血症）。" },
+    { "id": "asl", "name": "ASL 缺陷", "inheritance": "常染色体隐性", "mechanism": "精氨酸琥珀酸不能裂解，形成精氨酸琥珀酸尿症。" }
+  ],
+  "threeD": {
+    "status": "pending",
+    "note": "本轮不出 3D：五步中仅 OTC 有已核实的人源结构候选（1EP9 结合氨甲酰磷酸但为突变体 L101F/Q270R，X-ray 2.40 Å；1OTH 结合双底物类似物 PALO，野生型，X-ray 1.85 Å）；其余四步未核验到可用的人源本酶-底物条目。页面不建 /assets/steps/urea-* 资产路径，也不以 2D 图冒充 3D。"
+  }
+}

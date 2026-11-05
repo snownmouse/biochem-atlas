@@ -4,9 +4,10 @@ import type { HomePathwayId } from "./homeMap";
  * 上下两域 · 代谢脊柱（PLATE 00 第二版构图）。
  * 上域胞质（糖酵解主链向右 + 糖异生同链逆向 + PPP 自 G6P 分叉回流），
  * 中间三条膜线（外膜 / 膜间腔 / 内膜），下域线粒体基质（TCA 与 β-氧化在乙酰-CoA 会合）。
- * 画布按 1440 视口的图版栏宽度设计，SVG 以 100% 宽度自适应缩放，不做横向漫游。
+ * 画布宽 1020（原生坐标宽），CSS 宽度锁在 955–1020：1440 首屏恰好完整可见，
+ * 更窄视口在容器内横向拖动；高度延伸到 744，给第 10–12 条通路留出纵向落位区。
  */
-export const HOME_CANVAS = { width: 1020, height: 552 };
+export const HOME_CANVAS = { width: 1020, height: 744 };
 
 /**
  * Cori 循环在首页的表达：不新增第七个标题块，也不新增第七个通路节点。
@@ -157,11 +158,46 @@ export interface HomePathwayLabel {
 }
 
 export const HOME_PATHWAY_LABELS: HomePathwayLabel[] = [
-  { pathwayId: "glycolysis", x: 36, y: 78, anchor: "start", note: "10 步 → 主链向右" },
-  { pathwayId: "gluconeogenesis", x: 600, y: 102, anchor: "start", note: "11 步 ← 沿同一链逆向" },
-  { pathwayId: "ppp", x: 180, y: 24, anchor: "start", note: "分流 · 回流" },
-  { pathwayId: "tca", x: 28, y: 332, anchor: "start", note: "8 步闭环 · 乙酰-CoA 入口" },
-  { pathwayId: "fatty-acid-oxidation", x: 700, y: 336, anchor: "start", note: "4 步 ×7 轮 · 在乙酰-CoA 会合" },
+  { pathwayId: "glycolysis", x: 36, y: 74, anchor: "start", note: "10 步 → 主链向右" },
+  { pathwayId: "gluconeogenesis", x: 600, y: 98, anchor: "start", note: "11 步 ← 沿同一链逆向" },
+  { pathwayId: "ppp", x: 180, y: 22, anchor: "start", note: "分流 · 回流" },
+  { pathwayId: "tca", x: 28, y: 330, anchor: "start", note: "8 步闭环 · 乙酰-CoA 入口" },
+  { pathwayId: "fatty-acid-oxidation", x: 700, y: 326, anchor: "start", note: "4 步 ×7 轮 · 在乙酰-CoA 会合" },
   // 氧化磷酸化的语义就是膜本身：标题直接放进膜带，不再另挤一个域标题。
+  // 266 是膜带内的安全位：note 落在 281，不压 276 的膜间腔中线。
   { pathwayId: "oxphos", x: 600, y: 266, anchor: "start", note: "膜内 · NADH / FADH₂ → Q" },
+  // 脂肪酸从头合成：原镜像位（y=216）与 C16 节点、ALT / 乳酸标签同线相压；
+  // 右缘 y=194/170 仍会被糖酵解支路文字碰到，最终放到右上角空白带（y=56），不压任何文字。
+  { pathwayId: "fatty-acid-synthesis", x: 1016, y: 56, anchor: "end", note: "胞质 · 7 轮 × +2C · 与 β-氧化镜像" },
+  // 尿素循环：下域（线粒体基质）左下空白带，note 明写延胡索酸 ↔ 天冬氨酸，和 TCA 的 fum 位置呼应。
+  // 455 是「九条标题首屏」的收口位置：1440 展开时底边约 833，留出约 67px 首屏余量。
+  { pathwayId: "urea-cycle", x: 28, y: 455, anchor: "start", note: "5 步 · 线粒体 → 胞质 · 延胡索酸 ↔ 天冬氨酸" },
+  // 糖原代谢：第 10 条真实标题块。左侧 y=505 会与 TCA 右缘的 SUCL 标注相压（layout-audit 3.9×7px），
+  // 因此放在右下空白带 x=560；y 从 505 上移到 497，把实测标题底边从 885.2 收到约 877，
+  // 距 900 的首屏余量 ≥20px。第 11、12 空槽保持 y=650 / 698 不变。
+  { pathwayId: "glycogen", x: 560, y: 497, anchor: "start", note: "9 步 · 分解 / 合成双臂 · 肝 vs 肌" },
+];
+
+/**
+ * 第 11–12 条通路的纵向落位区（画布 y 552–744）。
+ * 第 10 条糖原代谢已接入：标题块在 HOME_PATHWAY_LABELS 的 y=505，原占位槽移除；
+ * 第 11、12 条只保留编号与空槽，等数据层接入后再补标题与通路。
+ */
+export interface HomeReservedSlot {
+  no: number;
+  y: number;
+  name?: string;
+  en?: string;
+  note: string;
+}
+
+export const HOME_RESERVED_HEAD = {
+  x: 28,
+  y: 572,
+  text: "PLATE 10 已接入 · RESERVED SLOTS 11–12",
+};
+
+export const HOME_RESERVED_SLOTS: HomeReservedSlot[] = [
+  { no: 11, y: 650, note: "数据未接入 · 只保留纵向版面" },
+  { no: 12, y: 698, note: "数据未接入 · 只保留纵向版面" },
 ];

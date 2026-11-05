@@ -7,7 +7,9 @@
 //      数据层 part.formula 三方比对；
 //   3) 跨通路一致性：同一实体（g6p↔g6p-g6pd、f6p↔f6p-gn、fbp↔fbp-linear↔fbp-gn、
 //      pyr↔pyr-gn、6pg↔6pg-l、ru5p↔ru5p-i）必须得到完全相同的分子式字符串；
-//   4) 2D/3D 资产一致（重原子元素计数、净电荷、键级计数）+ 打印「分子 × 通路」全量对照表。
+//   4) 2D/3D 资产一致（重原子元素计数、净电荷、键级计数）+ 打印「分子 × 通路」全量对照表；
+//   5) 尿素循环数据层（无 3D 资产）：按 pKa 推导表逐分子核对电荷/分子式/chargeBasis，
+//      并内置负例自检（瓜氨酸改回 −1 必须报错）。
 //
 // 用法：node tools/validate-ionization.mjs
 // 非零退出 = 有任一项不一致。
@@ -20,7 +22,7 @@ import { build } from "esbuild";
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const P3D = join(ROOT, "public", "assets", "ligands3d");
 const P2D = join(ROOT, "public", "assets", "structures", "2d");
-const PATHWAYS = ["glycolysis", "tca", "ppp", "gluconeogenesis", "fatty-acid-oxidation"];
+const PATHWAYS = ["glycolysis", "tca", "ppp", "gluconeogenesis", "fatty-acid-oxidation", "urea-cycle"];
 
 let failed = false;
 const ok = (label, cond, detail = "") => {
@@ -34,6 +36,9 @@ const RULES = [
   { key: "acyl_phosphate", group: "酰基磷酸（混酐）", charge: -2, pKa: "pKa ≈ 3.5–4.5（强酸）" },
   { key: "enol_phosphate", group: "烯醇磷酸", charge: -2, pKa: "按磷酸单酯 pKa2 ≈ 6.3" },
   { key: "carboxyl", group: "羧酸", charge: -1, pKa: "pKa ≈ 4.8" },
+  { key: "carboxyl_amino_acid", group: "氨基酸 α-羧基", charge: -1, pKa: "pKa ≈ 2.0–2.4" },
+  { key: "guanidinium", group: "胍基（精氨酸/精氨酸琥珀酸）", charge: +1, pKa: "pKa ≈ 12.5" },
+  { key: "amide_n", group: "酰胺/脲基 N", charge: 0, pKa: "pKa ≈ 0.1（7.4 下不电离）" },
   { key: "thioester", group: "硫酯", charge: 0, pKa: "pKa > 13（7.4 下不电离）" },
   { key: "amino_acid_n", group: "氨基酸 α-氨基", charge: +1, pKa: "pKa ≈ 9.0–9.7" },
   { key: "quaternary_n", group: "季铵/肉碱", charge: +1, pKa: "pKa 不适用（永久电荷，不随 pH 变）" },
@@ -323,7 +328,10 @@ for (const pid of PATHWAYS) {
       for (const p of parts) {
         const n = normFormula(p.formula);
         if (!n) continue;
-        want.push(canonical(formulaMap(n)));
+        // 一个 part 内可能并列多个分子（尿素循环把“NH₃ + HCO₃⁻”放在同一块），按 + 展开后再比
+        for (const piece of n.split("+")) {
+          if (piece.trim()) want.push(canonical(formulaMap(piece)));
+        }
       }
       const raw = normFormula(side.formula) ?? "";
       let got;
@@ -338,6 +346,119 @@ for (const pid of PATHWAYS) {
     }
   }
 }
+
+// ---------- 7) 尿素循环数据层电离态（pKa 推导，无 3D 资产） ----------
+console.log("\n=== 7) 尿素循环电离态（pKa 推导） ===");
+// 此表的值由 pKa 推导，不由人工估计：羧酸 pKa≈2 → COO⁻；α-氨基 pKa≈9–10 → NH₃⁺；
+// 胍基 pKa≈12.5 → +1；酰基磷酸/磷酸单酯 pKa₂≈6.3–7.2 → −2；酰胺 N 不电离 → 0。
+// 键 = [净电荷, 分子式（ASCII，不含电荷符号）]。
+// 尿素循环没有 3D 资产，所以不走 EXPECT 的资产推算路径，直接核对 urea.json 数据层。
+const UREA_EXPECT = {
+  carbamoylP: [-2, "CH2NO5P"],
+  citrulline: [0, "C6H13N3O3"],          // 两性离子：COO⁻ + NH₃⁺
+  argininosuccinate: [-1, "C10H17N4O6"], // 3 个游离羧基 −3；α-NH₃⁺ +1；胍基 +1
+  arginine: [+1, "C6H15N4O2"],
+  urea: [0, "CH4N2O"],
+  fumarate: [-2, "C4H2O4"],
+  ornithine: [+1, "C5H13N2O2"],
+  asp: [-1, "C4H6NO4"],
+  hco3: [-1, "CHO3"],
+};
+
+// 基团清单基线：数字对不等于结构对。每个分子必须与这张结构基线逐项一致。
+// 例：精氨酸琥珀酸 = 3 个游离羧基（Arg α、Asp α、Asp β）+ 1 个 Arg α-氨基 + 1 个胍基；
+// 若误把 Asp β-羧基当成酰胺、把 Asp α-氨基当成游离氨基，即使净电荷仍凑成 −1，也必须报错。
+const UREA_GROUP_CHARGE = {
+  carboxyl: -1,
+  "alpha-amino": +1,
+  guanidinium: +1,
+  "amide-N": 0,
+  "acyl-phosphate": -2,
+  bicarbonate: -1,
+};
+const UREA_GROUPS = {
+  carbamoylP: { "amide-N": 1, "acyl-phosphate": 1 },
+  citrulline: { carboxyl: 1, "alpha-amino": 1, "amide-N": 2 },
+  argininosuccinate: { carboxyl: 3, "alpha-amino": 1, guanidinium: 1 },
+  arginine: { carboxyl: 1, "alpha-amino": 1, guanidinium: 1 },
+  urea: { "amide-N": 2 },
+  fumarate: { carboxyl: 2 },
+  ornithine: { carboxyl: 1, "alpha-amino": 2 },
+  asp: { carboxyl: 2, "alpha-amino": 1 },
+  hco3: { bicarbonate: 1 },
+};
+
+function checkUreaIonization(data) {
+  const errors = [];
+  const byId = new Map((data.entities ?? []).map((e) => [e.id, e]));
+  for (const [id, [wantCharge, wantFormula]] of Object.entries(UREA_EXPECT)) {
+    const e = byId.get(id);
+    if (!e) { errors.push(`${id} 实体缺失`); continue; }
+    const nf = normFormula(e.formula);
+    if (canonical(formulaMap(nf ?? "")) !== wantFormula) errors.push(`${id} 分子式 ${nf} ≠ ${wantFormula}`);
+    // 只取 description 的头部电荷，避免把括号内的“−1 / +1”当成净电荷
+    const headCharge = parseCharge(String(e.ionization ?? "").replace(/（.*$/, "").replace(/\(.*$/, "").trim());
+    if (headCharge !== wantCharge) errors.push(`${id} 电荷 ${headCharge} ≠ ${wantCharge}`);
+    if (!e.chargeBasis) { errors.push(`${id} 缺 chargeBasis`); continue; }
+    const terms = [...String(e.chargeBasis).matchAll(/[（(]\s*([+−-]?\d+)\s*[）)]/g)].map((m) => parseCharge(m[1]));
+    const sum = terms.reduce((a, b) => a + b, 0);
+    if (terms.length === 0) errors.push(`${id} chargeBasis 无可解析的逐项电荷`);
+    else if (sum !== wantCharge) errors.push(`${id} chargeBasis 求和 ${sum} ≠ ${wantCharge}`);
+
+    // 基团清单 vs 结构基线：防止“净电荷凑对、基团清单写错”
+    const base = UREA_GROUPS[id] ?? {};
+    const declared = new Map();
+    for (const g of e.ionizableGroups ?? []) {
+      if (!(g.group in UREA_GROUP_CHARGE)) { errors.push(`${id} 未知可电离基团 ${g.group}`); continue; }
+      if (g.chargePerGroup !== UREA_GROUP_CHARGE[g.group]) {
+        errors.push(`${id} ${g.group} 单基团电荷 ${g.chargePerGroup} ≠ ${UREA_GROUP_CHARGE[g.group]}`);
+      }
+      declared.set(g.group, (declared.get(g.group) ?? 0) + g.count);
+    }
+    for (const [g, n] of Object.entries(base)) {
+      if ((declared.get(g) ?? 0) !== n) errors.push(`${id} ${g} 数量 ${declared.get(g) ?? 0} ≠ 结构基线 ${n}`);
+      declared.delete(g);
+    }
+    for (const [g, n] of declared) errors.push(`${id} 多出结构基线外的基团 ${g}×${n}`);
+    const groupSum = (e.ionizableGroups ?? []).reduce((s, g) => s + g.count * g.chargePerGroup, 0);
+    if (groupSum !== wantCharge) errors.push(`${id} 基团清单求电荷 ${groupSum} ≠ ${wantCharge}`);
+  }
+  return errors;
+}
+
+const ureaData = JSON.parse(readFileSync(join(ROOT, "src", "data", "urea-cycle", "urea.json"), "utf8"));
+ok(
+  "urea.json 声明电离态由 pKa 推导、不由人工估计",
+  /pKa/.test(ureaData.ionizationConvention ?? "") && /不由人工估计/.test(ureaData.ionizationConvention ?? ""),
+);
+const ureaErrors = checkUreaIonization(ureaData);
+ok(
+  `urea.json ${Object.keys(UREA_EXPECT).length} 个分子：电荷 / 分子式 / chargeBasis 逐项一致`,
+  ureaErrors.length === 0,
+  ureaErrors.join("；"),
+);
+
+// 负例自检：把瓜氨酸改回上一轮错误的 −1（分子式、电荷、推导式三项自洽但化学错误），必须报错。
+const badUrea = JSON.parse(JSON.stringify(ureaData));
+const badCit = badUrea.entities.find((e) => e.id === "citrulline");
+badCit.formula = "C₆H₁₂N₃O₃⁻";
+badCit.ionization = "−1";
+badCit.chargeBasis = "COO⁻(−1) = −1";
+const badErrors = checkUreaIonization(badUrea);
+ok("负例被抓：瓜氨酸改回 −1 时校验报错", badErrors.length > 0, badErrors.join("；"));
+
+// 负例自检：精氨酸琥珀酸写成“2 个游离羧基 + Asp β-羧基成酰胺 + 胍基”，
+// 净电荷与 chargeBasis 求和都仍是 −1，但基团清单与结构不符（少 1 个羧基、少 Arg α-氨基），必须报错。
+const badAS = JSON.parse(JSON.stringify(ureaData));
+const badASE = badAS.entities.find((e) => e.id === "argininosuccinate");
+badASE.chargeBasis = "2×COO⁻(−2) + 酰胺 N(0) + 胍基(+1) = −1";
+badASE.ionizableGroups = [
+  { group: "carboxyl", count: 2, chargePerGroup: -1, pKa: "≈2" },
+  { group: "amide-N", count: 1, chargePerGroup: 0, pKa: "β-羧基成酰胺" },
+  { group: "guanidinium", count: 1, chargePerGroup: 1, pKa: "≈12.5" },
+];
+const badASErrors = checkUreaIonization(badAS);
+ok("负例被抓：精氨酸琥珀酸净电荷 −1 但基团清单不符结构", badASErrors.length > 0, badASErrors.join("；"));
 
 console.log(failed ? "\n✗ 电离态口径校验失败" : "\n✓ 电离态口径校验全部通过");
 process.exit(failed ? 1 : 0);

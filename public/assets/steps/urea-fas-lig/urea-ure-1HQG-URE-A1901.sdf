@@ -1,0 +1,12 @@
+urea-ure-1HQG-URE-A1901.sdf
+  experimental coordinates preserved; bond orders from SMILES template (Kekulé)
+
+  4  3  0  0  0  0  0  0  0  0999 V2000
+   35.6850   28.7280   -8.9600 C   0  0  0  0  0  0  0  0  0  0  0  0
+   35.5550   29.5250   -8.0320 O   0  0  0  0  0  0  0  0  0  0  0  0
+   34.6800   27.9960   -9.3880 N   0  0  0  0  0  0  0  0  0  0  0  0
+   36.8430   28.5430   -9.5750 N   0  0  0  0  0  0  0  0  0  0  0  0
+  1  2  2  0  0  0  0
+  1  4  1  0  0  0  0
+  3  1  1  0  0  0  0
+M  END

@@ -1,31 +1,31 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="20.0 20.0 495.8 276.4" width="496" height="276" role="img" aria-label="fum-2d">
 <rect x="20.0" y="20.0" width="495.8" height="276.4" fill="#f6f3ec"/>
-<line x1="60.0" y1="223.7" x2="135.6" y2="158.2" stroke="#22282a" stroke-width="1.6"/>
-<line x1="135.6" y1="158.2" x2="116.7" y2="60.0" stroke="#22282a" stroke-width="1.6"/>
-<line x1="135.3" y1="143.0" x2="122.1" y2="74.2" stroke="#22282a" stroke-width="1.6"/>
-<line x1="135.6" y1="158.2" x2="230.1" y2="190.9" stroke="#22282a" stroke-width="1.6"/>
-<line x1="230.1" y1="190.9" x2="305.7" y2="125.5" stroke="#22282a" stroke-width="1.6"/>
-<line x1="243.1" y1="183.1" x2="296.1" y2="137.3" stroke="#22282a" stroke-width="1.6"/>
-<line x1="305.7" y1="125.5" x2="400.2" y2="158.2" stroke="#22282a" stroke-width="1.6"/>
-<line x1="400.2" y1="158.2" x2="419.1" y2="256.4" stroke="#22282a" stroke-width="1.6"/>
-<line x1="400.5" y1="173.4" x2="413.7" y2="242.2" stroke="#22282a" stroke-width="1.6"/>
-<line x1="400.2" y1="158.2" x2="475.8" y2="92.7" stroke="#22282a" stroke-width="1.6"/>
-<circle cx="60.0" cy="223.7" r="8.5" fill="#f6f3ec"/>
-<text x="60.0" y="226.9" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
-<text x="69.0" y="231.7" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
-<circle cx="135.6" cy="158.2" r="1.8" fill="rgba(34,40,42,0.55)"/>
-<text x="144.6" y="153.2" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C1</text>
-<circle cx="116.7" cy="60.0" r="8.5" fill="#f6f3ec"/>
-<text x="116.7" y="63.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
-<circle cx="230.1" cy="190.9" r="1.8" fill="rgba(34,40,42,0.55)"/>
-<text x="239.1" y="185.9" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C2</text>
-<circle cx="305.7" cy="125.5" r="1.8" fill="rgba(34,40,42,0.55)"/>
-<text x="314.7" y="120.5" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C3</text>
+<line x1="475.8" y1="223.7" x2="400.2" y2="158.2" stroke="#22282a" stroke-width="1.6"/>
+<line x1="400.2" y1="158.2" x2="419.1" y2="60.0" stroke="#22282a" stroke-width="1.6"/>
+<line x1="405.6" y1="144.0" x2="418.8" y2="75.2" stroke="#22282a" stroke-width="1.6"/>
+<line x1="400.2" y1="158.2" x2="305.7" y2="190.9" stroke="#22282a" stroke-width="1.6"/>
+<line x1="305.7" y1="190.9" x2="230.1" y2="125.5" stroke="#22282a" stroke-width="1.6"/>
+<line x1="296.1" y1="179.1" x2="243.1" y2="133.3" stroke="#22282a" stroke-width="1.6"/>
+<line x1="230.1" y1="125.5" x2="135.6" y2="158.2" stroke="#22282a" stroke-width="1.6"/>
+<line x1="135.6" y1="158.2" x2="60.0" y2="92.7" stroke="#22282a" stroke-width="1.6"/>
+<line x1="126.0" y1="146.4" x2="73.0" y2="100.6" stroke="#22282a" stroke-width="1.6"/>
+<line x1="135.6" y1="158.2" x2="116.7" y2="256.4" stroke="#22282a" stroke-width="1.6"/>
+<circle cx="475.8" cy="223.7" r="8.5" fill="#f6f3ec"/>
+<text x="475.8" y="226.9" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="484.8" y="231.7" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
 <circle cx="400.2" cy="158.2" r="1.8" fill="rgba(34,40,42,0.55)"/>
-<text x="409.2" y="153.2" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C4</text>
-<circle cx="419.1" cy="256.4" r="8.5" fill="#f6f3ec"/>
-<text x="419.1" y="259.6" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
-<circle cx="475.8" cy="92.7" r="8.5" fill="#f6f3ec"/>
-<text x="475.8" y="95.9" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
-<text x="484.8" y="100.7" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
+<text x="409.2" y="153.2" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C1</text>
+<circle cx="419.1" cy="60.0" r="8.5" fill="#f6f3ec"/>
+<text x="419.1" y="63.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="305.7" cy="190.9" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<text x="314.7" y="185.9" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C2</text>
+<circle cx="230.1" cy="125.5" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<text x="239.1" y="120.5" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C3</text>
+<circle cx="135.6" cy="158.2" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<text x="144.6" y="153.2" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C4</text>
+<circle cx="60.0" cy="92.7" r="8.5" fill="#f6f3ec"/>
+<text x="60.0" y="95.9" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="116.7" cy="256.4" r="8.5" fill="#f6f3ec"/>
+<text x="116.7" y="259.6" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="125.7" y="264.4" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
 </svg>

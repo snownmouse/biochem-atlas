@@ -532,7 +532,7 @@ export default function PathwayOverviewPage() {
                   <text x={14} y={246} fontSize={9.5} opacity={0.65}>← 来自糖原磷酸解 / 摄入糖</text>
                   <line x1={1672} y1={210} x2={1746} y2={210} stroke={INK} strokeWidth={1.2} markerEnd="url(#ah-ink-heavy)" />
                   <text x={1746} y={244} fontSize={9.5} textAnchor="end" opacity={0.65}>丙酮酸 → 线粒体（挂图 02）</text>
-                  <text x={1746} y={258} fontSize={9.5} textAnchor="end" opacity={0.65}>NADH → 呼吸链（本版未含）</text>
+                  <text x={1746} y={186} fontSize={9.5} textAnchor="end" opacity={0.65}>NADH → 呼吸链（本版未含）</text>
                 </g>
 
                 {/* 主链步骤组（gk-5 为垂直双头细线，手绘于 DHAP 支路上方） */}

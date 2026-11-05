@@ -7,9 +7,9 @@
 <line x1="230.6" y1="158.5" x2="247.8" y2="60.0" stroke="#22282a" stroke-width="1.6"/>
 <line x1="230.6" y1="158.5" x2="307.4" y2="222.6" stroke="#22282a" stroke-width="1.6"/>
 <line x1="307.4" y1="222.6" x2="401.3" y2="188.3" stroke="#22282a" stroke-width="1.6"/>
-<line x1="401.3" y1="188.3" x2="418.4" y2="89.7" stroke="#22282a" stroke-width="1.6"/>
-<line x1="406.4" y1="174.0" x2="418.4" y2="104.9" stroke="#22282a" stroke-width="1.6"/>
 <line x1="401.3" y1="188.3" x2="478.0" y2="252.4" stroke="#22282a" stroke-width="1.6"/>
+<line x1="411.1" y1="199.9" x2="464.8" y2="244.8" stroke="#22282a" stroke-width="1.6"/>
+<line x1="401.3" y1="188.3" x2="418.4" y2="89.7" stroke="#22282a" stroke-width="1.6"/>
 <circle cx="60.0" cy="128.8" r="8.5" fill="#f6f3ec"/>
 <text x="60.0" y="132.0" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <text x="69.0" y="136.8" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
@@ -25,9 +25,9 @@
 <text x="316.4" y="217.6" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C3</text>
 <circle cx="401.3" cy="188.3" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="410.3" y="183.3" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C4</text>
-<circle cx="418.4" cy="89.7" r="8.5" fill="#f6f3ec"/>
-<text x="418.4" y="92.9" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <circle cx="478.0" cy="252.4" r="8.5" fill="#f6f3ec"/>
 <text x="478.0" y="255.6" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
-<text x="487.0" y="260.4" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
+<circle cx="418.4" cy="89.7" r="8.5" fill="#f6f3ec"/>
+<text x="418.4" y="92.9" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="427.4" y="97.7" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
 </svg>

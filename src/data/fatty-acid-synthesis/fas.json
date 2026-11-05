@@ -1,0 +1,452 @@
+{
+  "id": "fatty-acid-synthesis",
+  "plateNo": "PLATE 08 / 12",
+  "structurePlateNo": "SF-08",
+  "name": "脂肪酸从头合成",
+  "shortName": "FAS",
+  "summary": "合成发生在胞质，原料却来自线粒体：丙酮酸先在线粒体脱羧成乙酰-CoA，再经柠檬酸穿梭搬到胞质，由 ACLY 裂解回乙酰-CoA。ACC 把乙酰-CoA 羧化成丙二酰-CoA（消耗 ATP、生物素为辅基、限速不可逆），FASN 的四步环每轮把丙二酰单元缩合上去并净增 2 个碳，7 轮后由 TE 释放棕榈酸（C16）。整条通路与 β-氧化在区室、酰基载体、辅因子与成键方向上逐项镜像。",
+  "organs": [
+    { "id": "liver", "name": "肝" },
+    { "id": "adipose", "name": "脂肪组织" },
+    { "id": "mammary", "name": "乳腺（泌乳期）" }
+  ],
+  "compartments": [
+    { "id": "mito-matrix", "name": "线粒体基质", "en": "MITOCHONDRIAL MATRIX", "range": [60, 220] },
+    { "id": "mito-inner-membrane", "name": "线粒体内膜 · 转运带", "en": "INNER MEMBRANE · TRANSPORT BAND", "range": [220, 300] },
+    { "id": "cytosol", "name": "细胞质", "en": "CYTOSOL", "range": [300, 840] }
+  ],
+  "entities": [
+    { "id": "pyr", "name": "丙酮酸", "abbr": "Pyr", "formula": "C3H3O3-", "ionization": "羧酸 −1" },
+    { "id": "coa", "name": "辅酶 A（CoA-SH）", "abbr": "CoA", "ionization": "硫醇 0" },
+    { "id": "accoa", "name": "乙酰-CoA", "abbr": "AcCoA", "ionization": "硫酯 0（片段 C3H6OS 净 0）" },
+    { "id": "nad", "name": "NAD⁺", "abbr": "NAD⁺", "ionization": "不适用（辅因子）" },
+    { "id": "nadh", "name": "NADH", "abbr": "NADH", "ionization": "不适用（辅因子）" },
+    { "id": "co2", "name": "二氧化碳", "abbr": "CO₂", "formula": "CO2", "ionization": "0" },
+    { "id": "h2o", "name": "水", "abbr": "H₂O", "formula": "H2O", "ionization": "0" },
+    { "id": "cit", "name": "柠檬酸", "abbr": "Cit", "formula": "C6H5O7³⁻", "ionization": "三个羧酸各 −1，净 −3（生理 pH 以柠檬酸根为主）" },
+    { "id": "oaa", "name": "草酰乙酸", "abbr": "OAA", "formula": "C4H2O5²⁻", "ionization": "两个羧酸各 −1，净 −2" },
+    { "id": "atp", "name": "ATP", "abbr": "ATP", "ionization": "磷酸单酯/酸酐混合，本图只记计量" },
+    { "id": "adp", "name": "ADP", "abbr": "ADP", "ionization": "本图只记计量" },
+    { "id": "pi", "name": "无机磷酸", "abbr": "Pi", "ionization": "本图只记计量" },
+    { "id": "hco3", "name": "碳酸氢根", "abbr": "HCO₃⁻", "formula": "CHO3-", "ionization": "−1（§2.8）" },
+    { "id": "malonylcoa", "name": "丙二酰-CoA", "abbr": "Mal-CoA", "ionization": "游离羧酸 −1；硫酯 0" },
+    { "id": "acp", "name": "酰基载体蛋白（ACP）", "abbr": "ACP", "ionization": "4′-磷酸泛酰巯基乙胺辅基，硫醇 0" },
+    { "id": "malonylacp", "name": "丙二酰-ACP", "abbr": "Mal-ACP", "ionization": "硫酯 0；羧酸 −1" },
+    { "id": "acylacp", "name": "脂酰-ACP（Cₙ）", "abbr": "Cn-ACP", "ionization": "硫酯 0" },
+    { "id": "ketoacylacp", "name": "3-酮脂酰-ACP", "abbr": "3-Keto", "ionization": "硫酯 0；酮基不电离" },
+    { "id": "hydroxyacylacp", "name": "3-羟基脂酰-ACP", "abbr": "3-OH", "ionization": "硫酯 0；羟基不电离" },
+    { "id": "enoylacp", "name": "反式-Δ²-烯脂酰-ACP", "abbr": "Enoyl", "ionization": "硫酯 0" },
+    { "id": "nadph", "name": "NADPH", "abbr": "NADPH", "ionization": "不适用（辅因子）" },
+    { "id": "nadp", "name": "NADP⁺", "abbr": "NADP⁺", "ionization": "不适用（辅因子）" },
+    { "id": "palmitate", "name": "棕榈酸（C16）", "abbr": "C16", "formula": "C16H31O2-", "ionization": "羧酸 −1（中性式 C16H32O2）" },
+    { "id": "pdh", "name": "丙酮酸脱氢酶复合体", "abbr": "PDH", "ionization": "酶" },
+    { "id": "cs", "name": "柠檬酸合酶", "abbr": "CS", "ionization": "酶" },
+    { "id": "cic", "name": "柠檬酸载体（SLC25A1）", "abbr": "CIC", "ionization": "转运体" },
+    { "id": "acly", "name": "ATP-柠檬酸裂解酶", "abbr": "ACLY", "ionization": "酶" },
+    { "id": "acc", "name": "乙酰-CoA 羧化酶", "abbr": "ACC", "ionization": "酶" },
+    { "id": "fasn", "name": "脂肪酸合酶（Ⅰ型，多结构域）", "abbr": "FASN", "ionization": "酶" },
+    { "id": "mpc", "name": "线粒体丙酮酸载体", "abbr": "MPC", "ionization": "转运体" }
+  ],
+  "steps": [
+    {
+      "id": "fas-pdh",
+      "name": "丙酮酸脱氢：线粒体里先造乙酰-CoA",
+      "kind": "prep",
+      "index": null,
+      "compartment": "mito-matrix",
+      "compartments": ["mito-inner-membrane", "mito-matrix"],
+      "substrates": ["pyr", "coa", "nad"],
+      "products": ["accoa", "co2", "nadh"],
+      "cofactors": ["TPP", "硫辛酸", "FAD", "CoA-SH", "NAD⁺", "Mg²⁺"],
+      "enzyme": {
+        "name": "丙酮酸脱氢酶复合体（E1 / E2 / E3）",
+        "entityId": "pdh",
+        "isozyme": "丙酮酸经 MPC 进入基质后由 PDH 脱羧；这是 FAS 碳源的第一道空间分界"
+      },
+      "equation": "丙酮酸 + CoA-SH + NAD⁺ → 乙酰-CoA + CO₂ + NADH + H⁺",
+      "ecNumber": "1.2.4.1",
+      "irreversible": true,
+      "deltaG": {
+        "valueKcal": null,
+        "qualitative": "强放能、生理条件下不可逆（脱羧 + 电子转移）",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "significance": "线粒体基质把丙酮酸变成乙酰-CoA：C2 单元在这里产生，但乙酰-CoA 不能自由穿过内膜，下一步必须换成柠檬酸才能出线粒体。",
+      "misconceptions": [
+        "「乙酰-CoA 可以直接扩散到胞质供 FAS」——不能，要走柠檬酸穿梭或肉碱穿梭",
+        "把 PDH 当成 FAS 的一部分——它是碳源准备，不在胞质的 FASN 四步环里"
+      ],
+      "clinical": [
+        "PDH 复合体缺陷导致乳酸升高与神经症状；与 FAS 抑制不是同一类靶点"
+      ],
+      "organDiffs": [
+        { "organ": "liver", "text": "肝脏 PDH 活性随营养状态与胰岛素信号变化，为胞质脂合成提供乙酰-CoA。" },
+        { "organ": "adipose", "text": "脂肪组织 PDH 供碳；餐后胰岛素上调葡萄糖摄取与 PDH 通量。" },
+        { "organ": "mammary", "text": "泌乳期乳腺的 PDH 与 FASN 同步上调，为乳脂合成供碳。" }
+      ],
+      "threeD": {
+        "status": "pending",
+        "note": "PDH 是约 9 MDa 的多酶复合体；本轮只登记候选，不出 3D 视图。",
+        "pdbCandidates": []
+      }
+    },
+    {
+      "id": "fas-shuttle",
+      "name": "柠檬酸穿梭 + ACLY：把 C2 单元搬到胞质",
+      "kind": "transport",
+      "index": null,
+      "compartment": "mito-inner-membrane",
+      "compartments": ["mito-matrix", "mito-inner-membrane", "cytosol"],
+      "substrates": ["accoa", "oaa", "h2o", "atp", "coa"],
+      "products": ["accoa", "oaa", "adp", "pi"],
+      "cofactors": ["ATP", "CoA-SH", "Mg²⁺", "柠檬酸载体 CIC（SLC25A1）"],
+      "enzyme": {
+        "name": "柠檬酸合酶 → 柠檬酸载体 → ATP-柠檬酸裂解酶（CS → CIC → ACLY）",
+        "entityId": "acly",
+        "isozyme": "CIC 为 SLC25A1；ACLY 由 ATP 水解驱动，把柠檬酸裂解回乙酰-CoA + OAA"
+      },
+      "equation": "乙酰-CoA（基质）+ 草酰乙酸 + H₂O →[CS] 柠檬酸 →[CIC 过内膜] →[ACLY] 乙酰-CoA（胞质）+ 草酰乙酸 + ADP + Pi",
+      "ecNumber": "2.3.3.8（CS）/ 4.1.3.8（ACLY）；CIC 为转运体 SLC25A1，无 EC",
+      "irreversible": true,
+      "deltaG": {
+        "valueKcal": null,
+        "qualitative": "CS 强放能；ACLY 由 ATP 水解拉动，整段在生理条件下按单向处理",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "stereochemistry": [
+        "ACLY 裂解柠檬酸时保留 pro-R 氢的立体化学；本图不展开手性，只标 C2 单元的搬运"
+      ],
+      "significance": "这一步把「合成在胞质、原料在线粒体」实锤成一条有方向的搬运链：乙酰-CoA 先与 OAA 合成柠檬酸，柠檬酸过内膜，再在胞质被 ACLY 裂解。OAA 回到基质循环使用，净效果是 1 个胞质乙酰-CoA + ADP + Pi，代价是 1 ATP。",
+      "misconceptions": [
+        "「ACLY 顺带产 NADPH」——ACLY 不产 NADPH；胞质 NADPH 来自 PPP 与苹果酸酶，本图不计入合成账",
+        "把柠檬酸穿梭当成一步酶促反应——它是 CS、CIC、ACLY 三段串联的搬运",
+        "把 OAA 当成净产物——OAA 回到基质再参与缩合，账上按循环处理"
+      ],
+      "clinical": [
+        "ACLY 是脂合成与胆固醇合成的共同上游；CIC 缺陷会影响胞质乙酰-CoA 供给",
+        "肿瘤细胞常依赖 ACLY 供胞质乙酰-CoA，但本图不展开病理定量"
+      ],
+      "organDiffs": [
+        { "organ": "liver", "text": "肝脏 ACLY 高表达，是餐后脂合成的关键节点；饥饿时受抑制。" },
+        { "organ": "adipose", "text": "脂肪组织依赖柠檬酸穿梭把线粒体碳搬到胞质，供 ACC 与 FASN 使用。" },
+        { "organ": "mammary", "text": "泌乳期乳腺的柠檬酸穿梭与 ACLY 通量升高，配合乳脂大量合成。" }
+      ],
+      "threeD": {
+        "status": "pending",
+        "note": "穿梭段没有单一酶可画：CS、CIC、ACLY 三个实体各司其职；本轮只登记候选，不出 3D 视图。",
+        "pdbCandidates": []
+      }
+    },
+    {
+      "id": "fas-acc",
+      "name": "ACC 羧化：把乙酰-CoA 变成丙二酰-CoA",
+      "kind": "prep",
+      "index": null,
+      "compartment": "cytosol",
+      "substrates": ["accoa", "atp", "hco3"],
+      "products": ["malonylcoa", "adp", "pi"],
+      "cofactors": ["生物素（共价辅基）", "Mn²⁺ / Mg²⁺", "ATP"],
+      "enzyme": {
+        "name": "乙酰-CoA 羧化酶（ACC）",
+        "entityId": "acc",
+        "isozyme": "ACC1（ACACA）在胞质，供脂合成；ACC2（ACACB）多在线粒体外膜，主要调控 β-氧化"
+      },
+      "equation": "乙酰-CoA + HCO₃⁻ + ATP → 丙二酰-CoA + ADP + Pi",
+      "ecNumber": "6.4.1.2",
+      "irreversible": true,
+      "deltaG": {
+        "valueKcal": null,
+        "qualitative": "由 ATP 水解驱动，生理条件下不可逆（承诺步 / 限速步）",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "significance": "ACC 是整条通路的第一道承诺步：只有羧化成丙二酰-CoA 的 C2 单元才能进入 FASN 四步环。生物素把 HCO₃⁻ 的碳临时装上，缩合时再以 CO₂ 放掉——这个碳不进碳链。丙二酰-CoA 同时是 CPT1 的抑制剂，把「合成开启」与「氧化关闭」连在一起。",
+      "misconceptions": [
+        "「HCO₃⁻ 的碳进入碳链」——不进；它在缩合时以 CO₂ 离去，丙二酰单元对碳链的净贡献只有 C2",
+        "「ACC 产生 NADPH」——ACC 不产生还原当量，只消耗 ATP",
+        "把 ACC2 当成胞质同工酶——ACC2 主要在线粒体外膜，功能偏调控氧化"
+      ],
+      "clinical": [
+        "ACC 抑制剂被研究用于代谢病与肿瘤，但尚未成为常规临床药物",
+        "ACC1 缺失在胚胎期影响脂合成；本图不展开剂量与表型细节"
+      ],
+      "organDiffs": [
+        { "organ": "liver", "text": "肝脏以 ACC1 为主；胰岛素上调、AMPK 磷酸化使其失活，是餐后/饥饿切换的开关。" },
+        { "organ": "adipose", "text": "脂肪组织 ACC1 高表达，直接决定丙二酰-CoA 供给与 FASN 通量。" },
+        { "organ": "mammary", "text": "泌乳期乳腺 ACC 与 FASN 协同上调，乳脂中 C16 占比高。" }
+      ],
+      "perRoundYield": { "carbonDelta": 0, "nadph": 0, "malonylCoA": 1, "atp": 1, "note": "ACC 不直接增碳，只为每轮提供 1 个丙二酰单元" },
+      "threeD": {
+        "status": "pending",
+        "note": "ACC 是多结构域生物素依赖羧化酶；人源完整结构本轮未核验，不出 3D 视图。",
+        "pdbCandidates": []
+      }
+    },
+    {
+      "id": "fas-ks",
+      "name": "四步环 Ⅰ · KS 缩合（+2C，释放 CO₂）",
+      "kind": "cycle",
+      "index": 1,
+      "compartment": "cytosol",
+      "substrates": ["acylacp", "malonylacp"],
+      "products": ["ketoacylacp", "acp", "co2"],
+      "cofactors": ["ACP（酰基载体蛋白）", "缩合由脱羧驱动"],
+      "enzyme": {
+        "name": "FASN Ⅰ型 · KS 结构域（β-酮脂酰-ACP 合成酶）",
+        "entityId": "fasn",
+        "isozyme": "Ⅰ型 FASN 把 KS / KR / DH / ER / TE 全放在同一条多肽链上；本图按结构域画，不拆成四个独立酶"
+      },
+      "equation": "脂酰-ACP（Cₙ）+ 丙二酰-ACP → 3-酮脂酰-ACP（Cₙ₊₂）+ ACP + CO₂",
+      "ecNumber": "2.3.1.41（β-酮脂酰-ACP 合成酶）",
+      "irreversible": true,
+      "deltaG": {
+        "valueKcal": null,
+        "qualitative": "脱羧驱动的 C–C 成键，近不可逆 / 放能",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "stereochemistry": [
+        "新键形成在增长链的 C2（α-碳）与丙二酰单元的 C2 之间；按产物编号相当于 C2–C3 之间，不是 C3–C4",
+        "丙二酰的游离羧基以 CO₂ 离去，因此每轮净增 2 个碳"
+      ],
+      "significance": "缩合是四步环里唯一增碳的一步：乙酰-CoA 的 C1–C2 作为单元接入，新键落在链的 C2–C3 之间。7 轮缩合把 C2 引物推到 C16，同时释放 7 个 CO₂——这就是 ACC 预先装上的 HCO₃⁻ 碳。",
+      "misconceptions": [
+        "「缩合断在 C3–C4」——断/成键位置是 C2–C3；C3–C4 是 β-氧化硫解的断键位置，不能镜像照抄",
+        "「缩合直接消耗 NADPH」——缩合不耗 NADPH；还原在 KR 与 ER 两步",
+        "「CO₂ 来自碳链」——CO₂ 来自丙二酰的游离羧基（原先的 HCO₃⁻），不是链上碳"
+      ],
+      "organDiffs": [
+        { "organ": "liver", "text": "肝脏 FASN 的 KS 结构域与 ACC1 协同；表达量随营养状态变化，结构域本身不变。" },
+        { "organ": "adipose", "text": "脂肪组织 FASN 高表达；KS 结构域序列与肝型同源，差异主要在表达量。" }
+      ],
+      "perRoundYield": { "carbonDelta": 2, "nadph": 0, "malonylCoA": 1, "atp": 0, "note": "本轮唯一增碳步：+2C，CO₂ 离去" },
+      "threeD": {
+        "status": "pending",
+        "note": "FASN 约 540 kDa，结构过大，本版以 2D 分域呈现；人源全长结构 8VM0（cryo-EM 3.30 Å，含 NADPH/NDP）仅登记候选，未建资产。",
+        "pdbCandidates": [
+          { "pdbId": "8VM0", "role": "complex-state", "organism": "Homo sapiens", "method": "cryo-EM", "resolutionA": 3.3, "ligands": ["NDP"], "note": "人 FASN 全长同源二聚体 + NADPH 复合态；RCSB 8VM0，560.43 kDa，无突变" }
+        ]
+      }
+    },
+    {
+      "id": "fas-kr",
+      "name": "四步环 Ⅱ · KR 还原（NADPH ×1，生成 D-3-羟基）",
+      "kind": "cycle",
+      "index": 2,
+      "compartment": "cytosol",
+      "substrates": ["ketoacylacp", "nadph"],
+      "products": ["hydroxyacylacp", "nadp"],
+      "cofactors": ["NADPH", "H⁺"],
+      "enzyme": {
+        "name": "FASN Ⅰ型 · KR 结构域（β-酮脂酰-ACP 还原酶）",
+        "entityId": "fasn",
+        "isozyme": "NADPH 依赖；与 β-氧化的 NADH 依赖、L-3-羟基方向相反"
+      },
+      "equation": "3-酮脂酰-ACP + NADPH + H⁺ → D-3-羟基脂酰-ACP + NADP⁺",
+      "ecNumber": "1.1.1.100（3-氧代脂酰-ACP 还原酶）",
+      "irreversible": false,
+      "deltaG": {
+        "valueKcal": null,
+        "qualitative": "NADPH 还原，放能但可逆；整条环由缩合与 ER 拉动",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "stereochemistry": [
+        "生成 D-3-羟基脂酰-ACP；β-氧化的水化酶生成 L-3-羟基脂酰-CoA，两者是镜像构型",
+        "还原当量用 NADPH，不是 NADH——这是合成与氧化最容易被记混的辅因子差异"
+      ],
+      "significance": "第一步还原把 3-酮基变成 3-羟基，消耗 1 个 NADPH。FAS 用 NADPH、β-氧化用 NAD⁺/FAD，方向与辅因子都成镜像。",
+      "misconceptions": [
+        "「FAS 用 NADH」——FAS 的 KR 与 ER 都用 NADPH；NADH 是 β-氧化产生的",
+        "把 D-3-羟基与 L-3-羟基当成同一个构型——两者是镜像，不能互换酶名"
+      ],
+      "organDiffs": [],
+      "perRoundYield": { "carbonDelta": 0, "nadph": 1, "malonylCoA": 0, "atp": 0, "note": "每轮第 1 个 NADPH" },
+      "threeD": {
+        "status": "pending",
+        "note": "KR 结构域位于 FASN 全长内，候选随人源 8VM0（cryo-EM 3.30 Å，含 NDP）；本轮不出 3D 视图。",
+        "pdbCandidates": [
+          { "pdbId": "8VM0", "role": "complex-state", "organism": "Homo sapiens", "method": "cryo-EM", "resolutionA": 3.3, "ligands": ["NDP"], "note": "人 FASN 全长复合态；KR 结构域在该链内，非单独结晶" }
+        ]
+      }
+    },
+    {
+      "id": "fas-dh",
+      "name": "四步环 Ⅲ · DH 脱水（−H₂O，生成反式-Δ²）",
+      "kind": "cycle",
+      "index": 3,
+      "compartment": "cytosol",
+      "substrates": ["hydroxyacylacp"],
+      "products": ["enoylacp", "h2o"],
+      "cofactors": ["脱水不需要辅因子"],
+      "enzyme": {
+        "name": "FASN Ⅰ型 · DH 结构域（β-羟基脂酰-ACP 脱水酶）",
+        "entityId": "fasn",
+        "isozyme": "与 β-氧化水化酶方向相反：这里是脱水，不是加水"
+      },
+      "equation": "D-3-羟基脂酰-ACP → 反式-Δ²-烯脂酰-ACP + H₂O",
+      "ecNumber": "4.2.1.59（3-羟基脂酰-ACP 脱水酶）",
+      "irreversible": false,
+      "deltaG": {
+        "valueKcal": null,
+        "qualitative": "脱水近平衡；由后续 ER 还原拉动",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "stereochemistry": [
+        "生成反式-Δ²-烯脂酰-ACP；β-氧化水化生成 L-3-羟基，方向相反",
+        "脱水释放 1 个 H₂O，不改碳数"
+      ],
+      "significance": "脱水把 3-羟基变成反式双键，为下一步 ER 还原准备。它与 β-氧化的水化步骤正好反向：合成脱水、氧化加水。",
+      "misconceptions": [
+        "「DH 消耗 NADPH」——脱水不耗还原当量",
+        "「脱水改变碳数」——只移除 H₂O，碳数不变"
+      ],
+      "organDiffs": [],
+      "perRoundYield": { "carbonDelta": 0, "nadph": 0, "malonylCoA": 0, "atp": 0, "note": "只脱水，不改碳数、不耗还原当量" },
+      "threeD": {
+        "status": "pending",
+        "note": "DH 结构域位于 FASN 全长内，候选随人源 8VM0；本轮不出 3D 视图。",
+        "pdbCandidates": []
+      }
+    },
+    {
+      "id": "fas-er",
+      "name": "四步环 Ⅳ · ER 还原（NADPH ×1，回到饱和链）",
+      "kind": "cycle",
+      "index": 4,
+      "compartment": "cytosol",
+      "substrates": ["enoylacp", "nadph"],
+      "products": ["acylacp", "nadp"],
+      "cofactors": ["NADPH", "H⁺"],
+      "enzyme": {
+        "name": "FASN Ⅰ型 · ER 结构域（烯脂酰-ACP 还原酶）",
+        "entityId": "fasn",
+        "isozyme": "NADPH 依赖；把反式-Δ² 双键还原成饱和链，完成一轮 +2C"
+      },
+      "equation": "反式-Δ²-烯脂酰-ACP + NADPH + H⁺ → 脂酰-ACP（Cₙ₊₂）+ NADP⁺",
+      "ecNumber": "1.3.1.39（烯脂酰-ACP 还原酶，NADPH，Re 特异）",
+      "irreversible": false,
+      "deltaG": {
+        "valueKcal": null,
+        "qualitative": "NADPH 还原，放能；与 KR 一起构成每轮 2 个 NADPH 的消耗",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "stereochemistry": [
+        "还原反式-Δ² 双键，回到饱和脂酰-ACP；碳链完成 +2C",
+        "与 β-氧化的酰基-CoA 脱氢方向相反（这里加氢，氧化那里脱氢）"
+      ],
+      "significance": "ER 还原是四步环的收口：把双键还原掉，产物重新变成饱和脂酰-ACP，才能回到 KS 进入下一轮。每轮到这里为止净 +2C、耗 2 NADPH。",
+      "misconceptions": [
+        "「四步环是四个独立酶」——Ⅰ型 FASN 里它们是同一条多肽链上的结构域",
+        "「ER 还原用 NADH」——用 NADPH",
+        "「每轮只耗 1 个 NADPH」——KR 与 ER 各耗 1 个，合计 2 个"
+      ],
+      "organDiffs": [],
+      "perRoundYield": { "carbonDelta": 0, "nadph": 1, "malonylCoA": 0, "atp": 0, "note": "每轮第 2 个 NADPH；碳数已在 KS 增加，这里只是还原收口" },
+      "threeD": {
+        "status": "pending",
+        "note": "ER 结构域候选随酵母 FAS；本轮不出 3D 视图。",
+        "pdbCandidates": []
+      }
+    },
+    {
+      "id": "fas-te",
+      "name": "TE 硫酯酶：C16 到站，释放棕榈酸",
+      "kind": "prep",
+      "index": null,
+      "compartment": "cytosol",
+      "substrates": ["acylacp", "h2o"],
+      "products": ["palmitate", "acp"],
+      "cofactors": ["H₂O"],
+      "enzyme": {
+        "name": "FASN Ⅰ型 · TE 结构域（酰基-ACP 硫酯酶）",
+        "entityId": "fasn",
+        "isozyme": "TE 对链长有选择性；C16 到站后水解硫酯，把棕榈酸放出环"
+      },
+      "equation": "棕榈酰-ACP（C16）+ H₂O → 棕榈酸 + ACP + H⁺",
+      "ecNumber": "3.1.2.14（酰基-ACP 硫酯酶）",
+      "irreversible": true,
+      "deltaG": {
+        "valueKcal": null,
+        "qualitative": "硫酯水解强放能，按单向处理",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "significance": "四步环本身不决定链长；是 TE 在 C16 时把链从 ACP 上水解下来，棕榈酸才成为主要产物。若 TE 继续放行，链会继续延长——所以「C16」是酶的选择性结果，不是四步环自动停止。",
+      "misconceptions": [
+        "「四步环跑到 8 轮自然停」——环没有终止信号，终止靠 TE 的长度选择性",
+        "「TE 释放的是棕榈酰-CoA」——释放的是游离棕榈酸 + ACP；要变棕榈酰-CoA 需另做活化",
+        "把 TE 当成四步环的第 5 步——它是出环水解，不是循环步"
+      ],
+      "clinical": [
+        "FASN 的 TE 结构域是抑制剂开发靶点；本图不展开药物与剂量",
+        "乳腺与肝脏的 TE 表达差异影响产物链长分布，本轮只作定性说明"
+      ],
+      "organDiffs": [
+        { "organ": "liver", "text": "肝脏 FASN 的 TE 释放 C16 为主，过长链会被其他延长系统接管。" },
+        { "organ": "adipose", "text": "脂肪组织以 C16 棕榈酸为主要从头合成产物。" },
+        { "organ": "mammary", "text": "泌乳期乳腺的产物链长分布受 TE 与延长酶共同影响，乳脂中 C16 占比高。" }
+      ],
+      "threeD": {
+        "status": "pending",
+        "note": "TE 结构域有人源单独结晶结构 1XKT（X-ray 2.60 Å，无配体）；棕榈酸分子资产本轮未建，不出 3D 视图。",
+        "pdbCandidates": [
+          { "pdbId": "1XKT", "role": "domain-fragment", "organism": "Homo sapiens", "method": "X-ray", "resolutionA": 2.6, "ligands": [], "note": "人 FASN 硫酯酶（TE）结构域单独结晶；无配体，非全长复合态" }
+        ]
+      }
+    }
+  ],
+  "mirrorTable": [
+    { "item": "区室", "synthesis": "胞质（ACC + FASN）；乙酰-CoA 经柠檬酸穿梭来自线粒体", "oxidation": "线粒体基质（β-氧化）；脂酰-CoA 经肉碱穿梭进入" },
+    { "item": "酰基载体", "synthesis": "ACP（酰基载体蛋白，FASN 的结构域）", "oxidation": "CoA-SH（辅酶 A）" },
+    { "item": "辅因子", "synthesis": "NADPH（还原当量；14 个 / 棕榈酸）", "oxidation": "FAD / NAD⁺（氧化当量；生成 FADH₂ / NADH）" },
+    { "item": "四步酶名", "synthesis": "KS 缩合 → KR 还原 → DH 脱水 → ER 还原", "oxidation": "酰基-CoA 脱氢 → 水化 → 再脱氢 → 硫解" },
+    { "item": "断键 / 成键方向", "synthesis": "形成 C–C 键（C2–C3 之间接入 C₂ 单元），每轮 +2C", "oxidation": "断裂 C2–C3 键（硫解），每轮 −2C" },
+    { "item": "产物", "synthesis": "棕榈酸（C16）+ 8 CoA + 7 ADP + 7 Pi + 14 NADP⁺", "oxidation": "乙酰-CoA（C2）+ FADH₂ + NADH" },
+    { "item": "链长走向", "synthesis": "C2 → C4 → C6 → … → C16（7 轮）", "oxidation": "C16 → C14 → … → C4 → 2×C2（7 轮）" },
+    { "item": "能量方向", "synthesis": "耗 7 ATP + 14 NADPH（还原性合成）", "oxidation": "产 7 FADH₂ + 7 NADH + 8 乙酰-CoA（氧化放能）" }
+  ],
+  "energyLedger": {
+    "title": "棕榈酸（C16）从头合成的能量账",
+    "palmitate": {
+      "carbons": 16,
+      "primerCarbons": 2,
+      "rounds": 7,
+      "acetylCoA": 8,
+      "malonylCoA": 7,
+      "atp": 7,
+      "nadph": 14,
+      "protons": 14,
+      "bicarbonate": 7,
+      "co2Released": 7
+    },
+    "perRound": {
+      "carbonDelta": 2,
+      "nadph": 2,
+      "malonylCoA": 1,
+      "atp": 1,
+      "note": "每轮 = 1 个丙二酰-CoA（对应 1 次 ACC，耗 1 ATP）、KS +2C 并释 1 CO₂、KR 与 ER 各耗 1 NADPH；四步净 +2C、2 NADPH。"
+    },
+    "totals": {
+      "atp": 7,
+      "nadph": 14,
+      "acetylCoA": 8
+    },
+    "entries": [
+      { "label": "ATP（7 次 ACC 羧化）", "value": 7, "unit": "ATP", "sign": "consume", "note": "每形成 1 个丙二酰-CoA 消耗 1 ATP" },
+      { "label": "NADPH（KR / ER 各 1 / 轮）", "value": 14, "unit": "NADPH", "sign": "consume", "note": "7 轮 × 2，全部来自胞质还原当量池，不由 ACLY 产生" },
+      { "label": "乙酰-CoA（1 引物 + 7 羧化）", "value": 8, "unit": "乙酰-CoA", "sign": "consume", "note": "7 个变丙二酰-CoA，1 个作 C2 引物" },
+      { "label": "HCO₃⁻（羧化引入，缩合时以 CO₂ 离去）", "value": 7, "unit": "HCO₃⁻", "sign": "neutral", "note": "碳不进碳链；7 个 CO₂ 在缩合时释放" },
+      { "label": "丙二酰单元净增碳", "value": 14, "unit": "C", "sign": "neutral", "note": "7 × C2；加引物 C2 = C16" }
+    ],
+    "netEquation": "8 乙酰-CoA + 7 ATP + 14 NADPH + 14 H⁺ → 棕榈酸（C16）+ 8 CoA + 7 ADP + 7 Pi + 14 NADP⁺",
+    "balanceNote": "净方程按用户给定口径只列主币种；把 7 HCO₃⁻ 与 7 CO₂、以及 6 H₂O（7 轮释放 7、TE 水解耗 1）补齐后仍原子守恒。CO₂ 的碳来自 HCO₃⁻，不进碳链。",
+    "carbonNote": "碳守恒：8 个乙酰-CoA 各 C2，合计 16 个碳；其中 1 个作引物、7 个羧化成丙二酰-CoA。丙二酰的游离羧基在缩合时以 CO₂ 离去，所以碳链恰好是 8 × C2 = C16。缩合新键在链的 C2–C3 之间，不是 C3–C4。",
+    "deltaGDiscipline": "ΔG 全部未核实，页面只给定性结论；不编数值、不做定量比较。来源口径统一记为 Lehninger 8e Ch.21。"
+  },
+  "threeD": {
+    "status": "pending",
+    "note": "FASN 约 540 kDa（同源二聚体），结构过大；本版以 2D 分域呈现，页面不出任何 3D 视图，也不伪造资产路径。候选结构为人源全长 8VM0（cryo-EM 3.30 Å，含 NDP）与人源 TE 结构域 1XKT（X-ray 2.60 Å，无配体），均已核验，未建资产。",
+    "pdbCandidates": [
+      { "pdbId": "8VM0", "role": "complex-state", "organism": "Homo sapiens", "method": "cryo-EM", "resolutionA": 3.3, "ligands": ["NDP"], "note": "人 FASN 全长同源二聚体 + NADPH 复合态，560.43 kDa，无突变" },
+      { "pdbId": "1XKT", "role": "domain-fragment", "organism": "Homo sapiens", "method": "X-ray", "resolutionA": 2.6, "ligands": [], "note": "人 FASN 硫酯酶（TE）结构域单独结晶，无配体" }
+    ]
+  },
+  "conflicts": []
+}

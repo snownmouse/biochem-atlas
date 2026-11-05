@@ -1,0 +1,323 @@
+{
+  "canvas": { "width": 1620, "height": 820 },
+  "compartments": [
+    { "id": "mito-matrix", "name": "线粒体基质", "en": "MITOCHONDRIAL MATRIX", "range": [60, 250] },
+    { "id": "mito-inner-membrane", "name": "线粒体内膜 · 转运带", "en": "INNER MEMBRANE · TRANSPORT BAND", "range": [250, 340] },
+    { "id": "cytosol", "name": "细胞质（胞质）", "en": "CYTOSOL", "range": [340, 780] }
+  ],
+  "nodes": [
+    {
+      "id": "nh3",
+      "entityId": "nh3",
+      "x": 80,
+      "y": 135,
+      "label": "NH₃（氮源 A）",
+      "abbr": "NH₃",
+      "compartment": "mito-matrix",
+      "role": "metabolite",
+      "labelPos": { "dx": 28, "dy": 4, "anchor": "start" }
+    },
+    {
+      "id": "hco3",
+      "entityId": "hco3",
+      "x": 80,
+      "y": 205,
+      "label": "HCO₃⁻（碳源）",
+      "abbr": "HCO₃⁻",
+      "compartment": "mito-matrix",
+      "role": "metabolite",
+      "labelPos": { "dx": 28, "dy": 4, "anchor": "start" }
+    },
+    {
+      "id": "cps1",
+      "entityId": "cps1",
+      "x": 220,
+      "y": 170,
+      "label": "CPS1",
+      "compartment": "mito-matrix",
+      "role": "machine"
+    },
+    {
+      "id": "carbamoylP",
+      "entityId": "carbamoylP",
+      "x": 350,
+      "y": 170,
+      "label": "氨甲酰磷酸",
+      "abbr": "CAP",
+      "compartment": "mito-matrix",
+      "role": "metabolite",
+      "labelPos": { "dx": 0, "dy": -27, "anchor": "middle" }
+    },
+    {
+      "id": "ornithine-mit",
+      "entityId": "ornithine",
+      "x": 455,
+      "y": 230,
+      "label": "鸟氨酸",
+      "abbr": "Orn",
+      "compartment": "mito-matrix",
+      "role": "metabolite",
+      "labelPos": { "dx": -26, "dy": 4, "anchor": "end" }
+    },
+    {
+      "id": "otc",
+      "entityId": "otc",
+      "x": 430,
+      "y": 175,
+      "label": "OTC",
+      "compartment": "mito-matrix",
+      "role": "machine"
+    },
+    {
+      "id": "citrulline-mit",
+      "entityId": "citrulline",
+      "x": 560,
+      "y": 135,
+      "label": "瓜氨酸（基质）",
+      "abbr": "Cit",
+      "compartment": "mito-matrix",
+      "role": "metabolite",
+      "labelPos": { "dx": 0, "dy": -27, "anchor": "middle" }
+    },
+    {
+      "id": "ornt1",
+      "entityId": "ornt1",
+      "x": 660,
+      "y": 305,
+      "label": "ORNT1",
+      "compartment": "mito-inner-membrane",
+      "role": "machine"
+    },
+    {
+      "id": "citrulline-cyt",
+      "entityId": "citrulline",
+      "x": 660,
+      "y": 395,
+      "label": "瓜氨酸（胞质）",
+      "abbr": "Cit",
+      "compartment": "cytosol",
+      "role": "metabolite",
+      "labelPos": { "dx": 0, "dy": 27, "anchor": "middle" }
+    },
+    {
+      "id": "asp-entry",
+      "entityId": "asp",
+      "x": 820,
+      "y": 305,
+      "label": "Asp 进入",
+      "abbr": "Asp",
+      "compartment": "mito-inner-membrane",
+      "role": "projection",
+      "labelPos": { "dx": 26, "dy": 4, "anchor": "start" }
+    },
+    {
+      "id": "asp",
+      "entityId": "asp",
+      "x": 820,
+      "y": 395,
+      "label": "天冬氨酸",
+      "abbr": "Asp",
+      "compartment": "cytosol",
+      "role": "metabolite",
+      "labelPos": { "dx": -26, "dy": 4, "anchor": "end" }
+    },
+    {
+      "id": "ass",
+      "entityId": "ass",
+      "x": 760,
+      "y": 440,
+      "label": "ASS",
+      "compartment": "cytosol",
+      "role": "machine"
+    },
+    {
+      "id": "argininosuccinate",
+      "entityId": "argininosuccinate",
+      "x": 920,
+      "y": 475,
+      "label": "精氨酸琥珀酸",
+      "abbr": "AS",
+      "compartment": "cytosol",
+      "role": "metabolite",
+      "labelPos": { "dx": 0, "dy": -27, "anchor": "middle" }
+    },
+    {
+      "id": "asl",
+      "entityId": "asl",
+      "x": 1060,
+      "y": 475,
+      "label": "ASL",
+      "compartment": "cytosol",
+      "role": "machine"
+    },
+    {
+      "id": "arginine",
+      "entityId": "arginine",
+      "x": 1200,
+      "y": 450,
+      "label": "精氨酸",
+      "abbr": "Arg",
+      "compartment": "cytosol",
+      "role": "metabolite",
+      "labelPos": { "dx": 0, "dy": -27, "anchor": "middle" }
+    },
+    {
+      "id": "arg1",
+      "entityId": "arg1",
+      "x": 1320,
+      "y": 495,
+      "label": "ARG1",
+      "compartment": "cytosol",
+      "role": "machine"
+    },
+    {
+      "id": "urea",
+      "entityId": "urea",
+      "x": 1450,
+      "y": 450,
+      "label": "尿素",
+      "abbr": "Urea",
+      "compartment": "cytosol",
+      "role": "metabolite",
+      "labelPos": { "dx": 0, "dy": -27, "anchor": "middle" }
+    },
+    {
+      "id": "fumarate",
+      "entityId": "fumarate",
+      "x": 1200,
+      "y": 575,
+      "label": "延胡索酸",
+      "abbr": "Fum",
+      "compartment": "cytosol",
+      "role": "metabolite",
+      "labelPos": { "dx": 26, "dy": 4, "anchor": "start" }
+    },
+    {
+      "id": "ornithine-cyt",
+      "entityId": "ornithine",
+      "x": 1450,
+      "y": 575,
+      "label": "鸟氨酸（胞质）",
+      "abbr": "Orn",
+      "compartment": "cytosol",
+      "role": "metabolite",
+      "labelPos": { "dx": 0, "dy": -27, "anchor": "middle" }
+    }
+  ],
+  "links": [
+    {
+      "from": "nh3",
+      "to": "carbamoylP",
+      "stepId": "urea-1",
+      "type": "main",
+      "label": "CPS1：NH₃ + HCO₃⁻ + 2 ATP"
+    },
+    {
+      "from": "hco3",
+      "to": "carbamoylP",
+      "stepId": "urea-1",
+      "type": "feed",
+      "label": "HCO₃⁻ 提供羰基碳"
+    },
+    {
+      "from": "carbamoylP",
+      "to": "citrulline-mit",
+      "stepId": "urea-2",
+      "type": "main",
+      "label": "OTC：氨甲酰基转移"
+    },
+    {
+      "from": "ornithine-mit",
+      "to": "citrulline-mit",
+      "stepId": "urea-2",
+      "type": "feed",
+      "label": "鸟氨酸 δ-N（载体）"
+    },
+    {
+      "from": "citrulline-mit",
+      "to": "citrulline-cyt",
+      "transportId": "urea-ornt1",
+      "type": "shuttle"
+    },
+    {
+      "from": "ornithine-cyt",
+      "to": "ornithine-mit",
+      "transportId": "urea-ornt1",
+      "type": "cycle-return"
+    },
+    {
+      "from": "asp-entry",
+      "to": "asp",
+      "transportId": "urea-asp-entry",
+      "type": "feed"
+    },
+    {
+      "from": "citrulline-cyt",
+      "to": "argininosuccinate",
+      "stepId": "urea-3",
+      "type": "main",
+      "label": "ASS：+ Asp + ATP"
+    },
+    {
+      "from": "asp",
+      "to": "argininosuccinate",
+      "stepId": "urea-3",
+      "type": "feed",
+      "label": "Asp α-氨基（第二个氮）"
+    },
+    {
+      "from": "argininosuccinate",
+      "to": "arginine",
+      "stepId": "urea-4",
+      "type": "main",
+      "label": "ASL：裂解"
+    },
+    {
+      "from": "argininosuccinate",
+      "to": "fumarate",
+      "stepId": "urea-4",
+      "type": "branch",
+      "label": "延胡索酸出环 → TCA"
+    },
+    {
+      "from": "arginine",
+      "to": "ornithine-cyt",
+      "stepId": "urea-5",
+      "type": "main",
+      "label": "ARG1：水解，鸟氨酸回到载体"
+    },
+    {
+      "from": "arginine",
+      "to": "urea",
+      "stepId": "urea-5",
+      "type": "cycle-exit",
+      "label": "尿素（2 N）"
+    },
+    {
+      "from": "fumarate",
+      "to": "asp",
+      "type": "recycle",
+      "refPathway": "tca",
+      "label": "TCA 7–8 步 + AST 转氨 → Asp"
+    }
+  ],
+  "transportSteps": [
+    {
+      "id": "urea-ornt1",
+      "name": "瓜氨酸 / 鸟氨酸反向转运（ORNT1 / SLC25A15）",
+      "from": "citrulline-mit",
+      "via": "ornt1",
+      "to": "citrulline-cyt",
+      "note": "内膜反向转运：瓜氨酸出、鸟氨酸进，由同一个 ORNT1/SLC25A15 机器完成。它不是酶促步骤，不计入五步，也不消耗 ATP。"
+    },
+    {
+      "id": "urea-asp-entry",
+      "name": "天冬氨酸进入胞质",
+      "from": "asp-entry",
+      "via": "asp-entry",
+      "to": "asp",
+      "note": "天冬氨酸由 TCA 回流（延胡索酸 → 苹果酸 → 草酰乙酸）+ AST 转氨再生，经天冬氨酸穿梭进入胞质。本图只画供给箭头，不把它算作循环步。"
+    }
+  ],
+  "spatialNote": "线粒体基质（60–250）放 CPS1 与 OTC 两步；内膜转运带（250–340）放 ORNT1/SLC25A15 与天冬氨酸进入；胞质（340–780）放 ASS、ASL、ARG1 三步。瓜氨酸出、鸟氨酸进，两条竖线显式穿越泳道边界；延胡索酸的 TCA 回流带在底部单独画出，不新增 TCA 中间节点。"
+}

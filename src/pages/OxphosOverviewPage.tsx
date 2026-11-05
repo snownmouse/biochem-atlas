@@ -403,7 +403,7 @@ export default function OxphosOverviewPage() {
                 </g>
                 <g fontSize={9.5} fill={INK} fontWeight={700} opacity={0.8}>
                   <text x={196} y={620}>2 e⁻</text>
-                  <text x={610} y={330}>2 e⁻</text>
+                  <text x={505} y={318}>2 e⁻</text>
                   <text x={752} y={330}>2 e⁻</text>
                   <text x={1288} y={258}>1 e⁻</text>
                   <text x={1298} y={296} fontSize={8.5} opacity={0.7}>cyt c 往返</text>

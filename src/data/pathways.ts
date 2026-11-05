@@ -27,7 +27,7 @@ function plateDigits(plateNo: string): string {
 
 const cori = coriJson as unknown as { name: string; plateNo: string };
 
-export const PATHWAY_NAV: PathwayNavEntry[] = [
+const NAV_ENTRIES: PathwayNavEntry[] = [
   { id: "home", name: "首页", route: "/", structureRoute: null, plateNo: "00" },
   ...HOME_PATHWAYS.map((pathway) => ({
     id: pathway.id,
@@ -44,5 +44,8 @@ export const PATHWAY_NAV: PathwayNavEntry[] = [
     plateNo: plateDigits(cori.plateNo),
   },
 ];
+
+/** 按 PLATE 编号排序，保证 Cori（07）与 FAS（08）不会因为加入顺序而倒挂 */
+export const PATHWAY_NAV: PathwayNavEntry[] = NAV_ENTRIES.sort((a, b) => a.plateNo.localeCompare(b.plateNo));
 
 export const PATHWAY_NAV_TOTAL = PATHWAY_NAV.length;

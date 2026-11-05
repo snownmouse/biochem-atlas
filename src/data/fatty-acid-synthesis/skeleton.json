@@ -1,0 +1,61 @@
+{
+  "canvas": { "width": 1980, "height": 880 },
+  "compartments": [
+    { "id": "mito-matrix", "name": "线粒体基质", "en": "MITOCHONDRIAL MATRIX", "range": [60, 220] },
+    { "id": "mito-inner-membrane", "name": "线粒体内膜 · 转运带", "en": "INNER MEMBRANE · TRANSPORT BAND", "range": [220, 300] },
+    { "id": "cytosol", "name": "细胞质", "en": "CYTOSOL", "range": [300, 840] }
+  ],
+  "nodes": [
+    { "id": "pyr", "entityId": "pyr", "x": 80, "y": 150, "label": "丙酮酸", "order": 0, "compartment": "mito-matrix", "role": "metabolite" },
+    { "id": "accoa-mito", "entityId": "accoa", "x": 330, "y": 150, "label": "乙酰-CoA（基质）", "order": 1, "compartment": "mito-matrix", "role": "metabolite" },
+    { "id": "oaa-mito", "entityId": "oaa", "x": 450, "y": 90, "label": "草酰乙酸", "order": null, "compartment": "mito-matrix", "role": "projection" },
+    { "id": "cit", "entityId": "cit", "x": 480, "y": 150, "label": "柠檬酸", "order": 2, "compartment": "mito-matrix", "role": "metabolite" },
+    { "id": "pdh", "entityId": "pdh", "x": 190, "y": 118, "label": "PDH", "order": null, "compartment": "mito-matrix", "role": "machine" },
+    { "id": "cs", "entityId": "cs", "x": 400, "y": 118, "label": "CS", "order": null, "compartment": "mito-matrix", "role": "machine" },
+    { "id": "mpc", "entityId": "mpc", "x": 150, "y": 260, "label": "MPC", "order": null, "compartment": "mito-inner-membrane", "role": "machine" },
+    { "id": "cic", "entityId": "cic", "x": 560, "y": 260, "label": "CIC", "order": null, "compartment": "mito-inner-membrane", "role": "machine" },
+    { "id": "accoa-cyt", "entityId": "accoa", "x": 660, "y": 360, "label": "乙酰-CoA（胞质）", "order": 3, "compartment": "cytosol", "role": "metabolite" },
+    { "id": "acl", "entityId": "acly", "x": 620, "y": 320, "label": "ACLY", "order": null, "compartment": "cytosol", "role": "machine" },
+    { "id": "acc", "entityId": "acc", "x": 800, "y": 318, "label": "ACC", "order": null, "compartment": "cytosol", "role": "machine" },
+    { "id": "malonylcoa", "entityId": "malonylcoa", "x": 930, "y": 360, "label": "丙二酰-CoA", "order": 4, "compartment": "cytosol", "role": "metabolite" },
+    { "id": "acylacp", "entityId": "acylacp", "x": 1100, "y": 540, "label": "脂酰-ACP（Cₙ）", "order": 5, "compartment": "cytosol", "role": "metabolite" },
+    { "id": "ketoacylacp", "entityId": "ketoacylacp", "x": 1330, "y": 450, "label": "3-酮脂酰-ACP", "order": 6, "compartment": "cytosol", "role": "metabolite" },
+    { "id": "hydroxyacylacp", "entityId": "hydroxyacylacp", "x": 1560, "y": 540, "label": "3-羟基脂酰-ACP", "order": 7, "compartment": "cytosol", "role": "metabolite" },
+    { "id": "enoylacp", "entityId": "enoylacp", "x": 1560, "y": 700, "label": "反式-Δ²-烯脂酰-ACP", "order": 8, "compartment": "cytosol", "role": "metabolite" },
+    { "id": "acylacp-next", "entityId": "acylacp", "x": 1330, "y": 790, "label": "脂酰-ACP（Cₙ₊₂）", "order": 9, "compartment": "cytosol", "role": "metabolite" },
+    { "id": "palmitate", "entityId": "palmitate", "x": 1030, "y": 700, "label": "棕榈酸（C16）", "order": 10, "compartment": "cytosol", "role": "metabolite" },
+    { "id": "te", "entityId": "fasn", "x": 1180, "y": 790, "label": "TE", "order": null, "compartment": "cytosol", "role": "machine" }
+  ],
+  "links": [
+    { "from": "pyr", "to": "accoa-mito", "stepId": "fas-pdh", "type": "main", "label": "PDH：脱羧 + 产 NADH" },
+    { "from": "accoa-mito", "to": "cit", "stepId": "fas-shuttle", "type": "shuttle", "label": "CS：乙酰-CoA + OAA → 柠檬酸" },
+    { "from": "cit", "to": "accoa-cyt", "stepId": "fas-shuttle", "type": "shuttle", "label": "CIC 过内膜 → ACLY 胞质裂解（ATP → ADP + Pi）" },
+    { "from": "accoa-cyt", "to": "malonylcoa", "stepId": "fas-acc", "type": "main", "label": "ACC：+ HCO₃⁻ + ATP（生物素）" },
+    { "from": "malonylcoa", "to": "ketoacylacp", "stepId": "fas-ks", "type": "feed", "label": "丙二酰-ACP 进入缩合" },
+    { "from": "acylacp", "to": "ketoacylacp", "stepId": "fas-ks", "type": "main", "label": "KS 缩合（+2C，CO₂ 离去）" },
+    { "from": "ketoacylacp", "to": "hydroxyacylacp", "stepId": "fas-kr", "type": "main", "label": "KR 还原（NADPH ×1，生成 D-3-羟基）" },
+    { "from": "hydroxyacylacp", "to": "enoylacp", "stepId": "fas-dh", "type": "main", "label": "DH 脱水（−H₂O，反式-Δ²）" },
+    { "from": "enoylacp", "to": "acylacp-next", "stepId": "fas-er", "type": "main", "label": "ER 还原（NADPH ×1，回到饱和链）" },
+    { "from": "acylacp-next", "to": "acylacp", "stepId": "fas-er", "type": "cycle-return", "label": "下一轮 · 链已 +2C（Cₙ₊₂ 作为新 Cₙ；不是第 5 步）" },
+    { "from": "acylacp-next", "to": "palmitate", "stepId": "fas-te", "type": "cycle-exit", "label": "C16 到站 · TE 水解，释出棕榈酸" }
+  ],
+  "transportSteps": [
+    {
+      "id": "fas-pdh",
+      "name": "丙酮酸转运（MPC）",
+      "from": "pyr",
+      "via": "mpc",
+      "to": "accoa-mito",
+      "note": "丙酮酸经线粒体丙酮酸载体（MPC）进入基质后由 PDH 脱羧；乙酰-CoA 生成后不能自由穿膜，下一步必须换成柠檬酸。"
+    },
+    {
+      "id": "fas-shuttle",
+      "name": "柠檬酸穿梭（CS → CIC → ACLY）",
+      "from": "accoa-mito",
+      "via": "cit",
+      "to": "accoa-cyt",
+      "note": "乙酰-CoA + OAA 在基质合成柠檬酸；柠檬酸经内膜载体 CIC（SLC25A1）进入胞质，再由 ACLY 耗 1 ATP 裂解回乙酰-CoA + OAA。OAA 回基质循环使用。"
+    }
+  ],
+  "spatialNote": "合成发生在胞质（ACC 与 FASN），但 C2 单元来自线粒体：丙酮酸先在基质脱羧成乙酰-CoA，再经柠檬酸穿梭搬到胞质。三条泳道是硬约束——区室靠标签与带位区分，不靠颜色；跨膜段只放 MPC / CIC 两个机器，不画成第四步。四步环画在胞质右侧的闭合回路上，回流弧表示 Cₙ₊₂ 作为下一轮 Cₙ，不是第 5 步；出环弧是 TE 的长度选择性释放。整张图与 β-氧化逐项镜像：胞质 ↔ 基质、ACP ↔ CoA、NADPH ↔ FAD/NAD⁺、成键 +2C ↔ 断键 −2C。"
+}

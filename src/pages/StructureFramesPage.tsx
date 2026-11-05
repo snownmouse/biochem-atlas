@@ -129,6 +129,33 @@ function names2dOf(asset: Frame2DAsset): Map<number, string> {
   return out;
 }
 
+/** 注释按可用宽度折行；CJK 记 9px、拉丁与数字约 5px，避免长句溢出画布被裁 */
+function wrapCaption(text: string, maxWidth: number, fontSize: number): string[] {
+  const wOf = (ch: string) => (/[\u2e80-\u9fff\uff00-\uffef]/.test(ch) ? fontSize : /[A-Z]/.test(ch) ? fontSize * 0.68 : fontSize * 0.56);
+  const lines: string[] = [];
+  let cur = "";
+  let curW = 0;
+  for (const ch of text) {
+    const w = ch === " " ? fontSize * 0.42 : wOf(ch);
+    if (curW + w > maxWidth && cur) {
+      const cut = cur.search(/[，。、·\s][^，。、·\s]*$/);
+      if (cut > 0 && curW - (cur.length - cut) * fontSize * 0.5 > maxWidth * 0.55) {
+        lines.push(cur.slice(0, cut).trim());
+        cur = cur.slice(cut).trimStart();
+        curW = [...cur].reduce((n, c) => n + (c === " " ? fontSize * 0.42 : wOf(c)), 0);
+      } else {
+        lines.push(cur.trim());
+        cur = "";
+        curW = 0;
+      }
+    }
+    cur += ch;
+    curW += w;
+  }
+  if (cur.trim()) lines.push(cur.trim());
+  return lines;
+}
+
 /** 2D 结构式：在格子像素空间里重排（坐标等比映射、字号固定像素），矢量放大不模糊 */
 function Molecule2D({ asset, marks, height }: { asset: Frame2DAsset; marks?: MolMark[]; height: number }) {
   const byId = useMemo(() => new Map(asset.atoms.map((a) => [a.id, a])), [asset]);
@@ -143,11 +170,114 @@ function Molecule2D({ asset, marks, height }: { asset: Frame2DAsset; marks?: Mol
       h: Math.max(...ys) - Math.min(...ys) || 1,
     };
   }, [asset]);
-  // 等比映射到格子：留 16px 边，居中；键线/字号是像素常量，因此小分子读得清
-  const scale = Math.min((M2D_W - M2D_PAD * 2) / box.w, (height - M2D_PAD * 2) / box.h);
+  // 注释原来是 860×540 画布坐标，映射到格子后会落到画布外被裁；改为画布底部折行注脚
+  const captionLines = wrapCaption(
+    (asset.annotations ?? []).map((a: { text: string }) => a.text).join(" · "),
+    M2D_W - M2D_PAD * 2,
+    9
+  );
+  const captionH = captionLines.length ? captionLines.length * 11 + 6 : 0;
+  const drawH = height - captionH;
+  // 等比映射到格子上部（给注脚留固定高度）：留 16px 边，居中；键线/字号是像素常量
+  const scale = Math.min((M2D_W - M2D_PAD * 2) / box.w, (drawH - M2D_PAD * 2) / box.h);
   const ox = (M2D_W - box.w * scale) / 2 - box.x * scale;
-  const oy = (height - box.h * scale) / 2 - box.y * scale;
+  const oy = (drawH - box.h * scale) / 2 - box.y * scale;
   const px = (a: Frame2DAtom) => ({ x: a.x * scale + ox, y: a.y * scale + oy });
+  // 原子标签按顺序落位：先避开杂原子圆，再避开已放好的标签（相邻碳编号不再互相压字）
+  const labelLayout = new Map<number, { x: number; y: number; anchor: "start" | "end" | "middle"; w: number }>();
+  {
+    const placed: { x0: number; x1: number; y0: number; y1: number }[] = [];
+    for (const a of asset.atoms) {
+      if (!a.label) continue;
+      const A = px(a);
+      const w = a.label.length * 5.6;
+      const spots = [
+        { x: A.x + 8, y: A.y - 5, anchor: "start" as const },
+        { x: A.x - 8, y: A.y - 5, anchor: "end" as const },
+        { x: A.x, y: A.y - 14, anchor: "middle" as const },
+        { x: A.x + 8, y: A.y + 14, anchor: "start" as const },
+        { x: A.x - 8, y: A.y + 14, anchor: "end" as const },
+        { x: A.x, y: A.y + 20, anchor: "middle" as const },
+        // 长链分子（画布 1300–1500 单位压进 246px）原子间距小于字高，近位全被占时退到更外一圈
+        { x: A.x + 14, y: A.y - 18, anchor: "start" as const },
+        { x: A.x - 14, y: A.y - 18, anchor: "end" as const },
+        { x: A.x, y: A.y - 25, anchor: "middle" as const },
+        { x: A.x + 14, y: A.y + 26, anchor: "start" as const },
+        { x: A.x - 14, y: A.y + 26, anchor: "end" as const },
+        { x: A.x, y: A.y + 32, anchor: "middle" as const },
+      ];
+      // 候选方位逐个打分：优先不压杂原子圆/既有标签/不容越界；全被占时取冲突最少的一处（不能默认压第一处）
+      let chosen = spots[0];
+      let bestScore = Infinity;
+      for (const s of spots) {
+        const left = s.anchor === "start" ? s.x : s.anchor === "end" ? s.x - w : s.x - w / 2;
+        const box = { x0: left, x1: left + w, y0: s.y - 9, y1: s.y + 2 };
+        const hitHet = asset.atoms.some((o) => {
+          if (o.id === a.id || !HET.has(o.el)) return false;
+          const O = px(o);
+          return O.x + 7.6 > box.x0 - 1 && O.x - 7.6 < box.x1 + 1 && O.y + 7.6 > box.y0 && O.y - 7.6 < box.y1;
+        });
+        const hitLabel = placed.some((p) => p.x0 < box.x1 + 1 && p.x1 > box.x0 - 1 && p.y0 < box.y1 + 1 && p.y1 > box.y0 - 1);
+        const outOfCanvas = box.x0 < 2 || box.x1 > M2D_W - 2 || box.y0 < 1 || box.y1 > height - 1;
+        const score = (hitHet ? 2 : 0) + (hitLabel ? 2 : 0) + (outOfCanvas ? 8 : 0);
+        if (score < bestScore) {
+          bestScore = score;
+          chosen = s;
+        }
+      }
+      let left = chosen.anchor === "start" ? chosen.x : chosen.anchor === "end" ? chosen.x - w : chosen.x - w / 2;
+      left = Math.max(2, Math.min(left, M2D_W - 2 - w));
+      const ly = Math.max(10, Math.min(chosen.y, height - 3));
+      placed.push({ x0: left, x1: left + w, y0: ly - 9, y1: ly + 2 });
+      labelLayout.set(a.id, { x: left, y: ly, anchor: "start", w });
+    }
+  }
+  // 电荷符号落位：默认右下 (+8,+9)；若与相邻杂原子标签、碳编号或其它电荷压叠，依次退让。
+  // 只挪电荷符号的位置偏移，不改字号、键线与原子标签。
+  const chargeLayout = new Map<number, { x: number; y: number }>();
+  {
+    const boxes = [...asset.atoms].filter((a) => HET.has(a.el)).map((a) => {
+      const A = px(a);
+      // 按 11.5px 元素字的实际行盒（x −4.45..+5.2、y −10.65..+5.9）留位，
+      // 与体检脚本量到的文字包围盒同口径，避免电荷只差亚像素就贴上元素字。
+      return { x0: A.x - 4.45, x1: A.x + 5.2, y0: A.y - 10.65, y1: A.y + 5.9 };
+    });
+    // 9.5px 标签的行盒：锚点左侧 −1.4、右侧 +1.3，纵向 −11..+2.9（含字符侧承）
+    for (const l of labelLayout.values()) boxes.push({ x0: l.x - 1.4, x1: l.x + l.w + 1.3, y0: l.y - 11, y1: l.y + 2.9 });
+    const placed: { x0: number; x1: number; y0: number; y1: number }[] = [];
+    const spots = [
+      [8, 9],
+      [8, -8],
+      [14, 9],
+      [8, 17],
+      [14, 17],
+      [8, 24],
+      [16, -5],
+      [4, -17],
+    ];
+    for (const a of asset.atoms) {
+      if (!a.charge) continue;
+      const A = px(a);
+      let best = spots[0];
+      let bestScore = Infinity;
+      for (const [dx, dy] of spots) {
+        const b = { x0: A.x + dx - 1.4, x1: A.x + dx + 5.5, y0: A.y + dy - 11, y1: A.y + dy + 2.8 };
+        let score = b.x0 < 1 || b.x1 > M2D_W - 1 || b.y0 < 1 || b.y1 > height - 1 ? 400 : 0;
+        for (const o of [...boxes, ...placed]) {
+          const ix = Math.min(b.x1, o.x1) - Math.max(b.x0, o.x0);
+          const iy = Math.min(b.y1, o.y1) - Math.max(b.y0, o.y0);
+          if (ix > 0 && iy > 0) score += ix * iy + 1;
+        }
+        if (score < bestScore) {
+          bestScore = score;
+          best = [dx, dy];
+          if (score === 0) break;
+        }
+      }
+      placed.push({ x0: A.x + best[0] - 1.4, x1: A.x + best[0] + 5.5, y0: A.y + best[1] - 11, y1: A.y + best[1] + 2.8 });
+      chargeLayout.set(a.id, { x: A.x + best[0], y: A.y + best[1] });
+    }
+  }
 
   const markedIds = useMemo(() => {
     const ids = new Set<number>();
@@ -260,16 +390,24 @@ function Molecule2D({ asset, marks, height }: { asset: Frame2DAsset; marks?: Mol
               ) : (
                 <circle cx={A.x} cy={A.y} r={1.8} fill="var(--hair)" />
               )}
-              {a.label && (
-                <text x={A.x + 8} y={A.y - 5} fontSize={9.5} fill="var(--hair)">
-                  {a.label}
-                </text>
-              )}
-              {a.charge && (
-                <text x={A.x + 8} y={A.y + 9} fontSize={9.5} fill="var(--brick)">
-                  {a.charge}
-                </text>
-              )}
+              {a.label &&
+                (() => {
+                  const l = labelLayout.get(a.id) ?? { x: 0, y: 0, anchor: "start" as const };
+                  return (
+                    <text x={l.x} y={l.y} textAnchor={l.anchor} fontSize={9.5} fill="var(--hair)">
+                      {a.label}
+                    </text>
+                  );
+                })()}
+              {a.charge &&
+                (() => {
+                  const c = chargeLayout.get(a.id) ?? { x: A.x + 8, y: A.y + 9 };
+                  return (
+                    <text x={c.x} y={c.y} fontSize={9.5} fill="var(--brick)">
+                      {a.charge}
+                    </text>
+                  );
+                })()}
             </g>
           );
         })}
@@ -296,9 +434,16 @@ function Molecule2D({ asset, marks, height }: { asset: Frame2DAsset; marks?: Mol
             );
           })
         )}
-        {asset.annotations?.map((an, i) => (
-          <text key={`t${i}`} x={an.x * scale + ox} y={an.y * scale + oy} fontSize={10.5} fill="var(--hair)">
-            {an.text}
+        {captionLines.map((line, i) => (
+          <text
+            key={`t${i}`}
+            x={M2D_PAD}
+            y={drawH + 13 + i * 11}
+            fontSize={9}
+            fill="var(--hair)"
+            data-2d-caption="1"
+          >
+            {line}
           </text>
         ))}
       </svg>

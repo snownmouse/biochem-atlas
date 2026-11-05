@@ -1,0 +1,696 @@
+{
+  "id": "glycogen",
+  "name": "糖原代谢",
+  "en": "GLYCOGEN METABOLISM",
+  "plateNo": "PLATE 10 / 12",
+  "summary": "糖原分解与糖原合成两条臂，共用同一糖原颗粒池。肝表达 G6PC1，能把 G6P 水解成游离葡萄糖供全身；肌不表达 G6PC1，G6P 只能进糖酵解自用。",
+  "organs": [
+    {
+      "id": "liver",
+      "name": "肝",
+      "en": "LIVER",
+      "structural": "表达 G6PC1（ER 膜）与 SLC37A4；糖原分解产生的 G6P 可水解为游离葡萄糖，经 GLUT2 入血。",
+      "g6pc1": true,
+      "fate": "肝糖原供全身：血糖缓冲与空腹释糖"
+    },
+    {
+      "id": "muscle",
+      "name": "肌",
+      "en": "MUSCLE",
+      "structural": "不表达 G6PC1；G6P 只能经 PGI 进糖酵解，糖原不释放入血。",
+      "g6pc1": false,
+      "fate": "肌糖原只供自己：收缩时局部氧化供能"
+    }
+  ],
+  "entities": [
+    { "id": "glycogen", "name": "糖原", "abbr": "Gly", "kind": "metabolite", "formula": "C₆H₁₀O₅（每残基）", "charge": 0, "note": "α-1,4 线性链段 + α-1,6 分支；聚合物无单一分子量，分子式按每残基计" },
+    { "id": "glycogen-limit", "name": "极限糊精", "abbr": "Limit dextrin", "kind": "metabolite", "formula": "C₆H₁₀O₅（每残基）", "charge": 0, "note": "磷酸化酶在距分支点 4 个残基处停下后剩下的分支糖原" },
+    { "id": "g1p", "name": "葡萄糖-1-磷酸", "abbr": "G1P", "kind": "metabolite", "formula": "C₆H₁₁O₉P", "charge": -2, "note": "磷酸单酯二价阴离子（pKa₂ ≈ 6.3）" },
+    { "id": "g6p", "name": "葡萄糖-6-磷酸", "abbr": "G6P", "kind": "metabolite", "formula": "C₆H₁₁O₉P", "charge": -2, "note": "磷酸单酯二价阴离子（pKa₂ ≈ 6.3）" },
+    { "id": "glucose", "name": "葡萄糖", "abbr": "Glc", "kind": "metabolite", "formula": "C₆H₁₂O₆", "charge": 0, "note": "α-D-吡喃葡萄糖" },
+    { "id": "f6p", "name": "果糖-6-磷酸", "abbr": "F6P", "kind": "metabolite", "formula": "C₆H₁₁O₉P", "charge": -2, "note": "磷酸单酯二价阴离子（pKa₂ ≈ 6.3）" },
+    { "id": "utp", "name": "尿苷三磷酸", "abbr": "UTP", "kind": "metabolite", "formula": "C₉H₁₁N₂O₁₅P₃", "charge": -4, "note": "pH 7.4 下按四价阴离子近似；三磷酸链质子化程度实际在 −3/−4 间浮动" },
+    { "id": "udp-glucose", "name": "UDP-葡萄糖", "abbr": "UDP-Glc", "kind": "metabolite", "formula": "C₁₅H₂₂N₂O₁₇P₂", "charge": -2, "note": "两个非桥氧各 −1；pH 7.4 按二价阴离子" },
+    { "id": "ppi", "name": "焦磷酸", "abbr": "PPi", "kind": "metabolite", "formula": "HP₂O₇", "charge": -3, "note": "pH 7.4 以 −3/−4 混合；本账按 −3 计，水解后再释放 1 个酐键" },
+    { "id": "udp", "name": "尿苷二磷酸", "abbr": "UDP", "kind": "metabolite", "formula": "C₉H₁₂N₂O₁₂P₂", "charge": -2, "note": "两个磷酸各一个非桥氧 −1" },
+    { "id": "pi", "name": "无机磷酸", "abbr": "Pi", "kind": "metabolite", "formula": "HPO₄", "charge": -2, "note": "pH 7.4 以 HPO₄²⁻ 为主（pKa₂ ≈ 7.2）" },
+    { "id": "h2o", "name": "水", "abbr": "H₂O", "kind": "metabolite", "formula": "H₂O", "charge": 0 },
+    { "id": "amp", "name": "腺苷一磷酸", "abbr": "AMP", "kind": "metabolite", "formula": "C₁₀H₁₂N₅O₇P", "charge": -2, "note": "磷酸单酯二价阴离子" },
+    { "id": "atp", "name": "腺苷三磷酸", "abbr": "ATP", "kind": "metabolite", "formula": "C₁₀H₁₂N₅O₁₃P₃", "charge": -4, "note": "pH 7.4 按四价阴离子" },
+    { "id": "camp", "name": "环腺苷一磷酸", "abbr": "cAMP", "kind": "metabolite", "formula": "C₁₀H₁₁N₅O₆P", "charge": -1, "note": "环磷酸二酯，一个非桥氧 −1" },
+    { "id": "glycogen-phosphorylase", "name": "糖原磷酸化酶", "abbr": "PYG", "kind": "enzyme", "note": "肝 PYGL / 肌 PYGM；PLP 以共价醛胺键连接活性位点 Lys" },
+    { "id": "debranching-enzyme", "name": "脱支酶", "abbr": "AGL", "kind": "enzyme", "note": "双功能：4-α-葡聚糖转移酶 + 淀粉-α-1,6-葡萄糖苷酶" },
+    { "id": "pgm1", "name": "磷酸葡萄糖变位酶 1", "abbr": "PGM1", "kind": "enzyme", "note": "辅因子 glucose-1,6-bisphosphate 在活性位点循环" },
+    { "id": "g6pc1", "name": "葡萄糖-6-磷酸酶催化亚基 1", "abbr": "G6PC1", "kind": "enzyme", "note": "ER 膜蛋白；与 SLC37A4（G6P 转运体）协同" },
+    { "id": "pgi", "name": "磷酸葡萄糖异构酶", "abbr": "PGI", "kind": "enzyme", "note": "糖酵解第二步；G6P ⇌ F6P" },
+    { "id": "ugp2", "name": "UDP-葡萄糖焦磷酸化酶", "abbr": "UGP2", "kind": "enzyme", "note": "把 G1P 活化为 UDP-葡萄糖" },
+    { "id": "gys", "name": "糖原合酶", "abbr": "GYS", "kind": "enzyme", "note": "肌 GYS1 / 肝 GYS2；只延长 α-1,4 链，起始需 glycogenin 引物" },
+    { "id": "gbe1", "name": "糖原分支酶", "abbr": "GBE1", "kind": "enzyme", "note": "转移 6–7 个残基形成 α-1,6 分支" },
+    { "id": "phosphorylase-kinase", "name": "磷酸化酶激酶", "abbr": "PHK", "kind": "enzyme", "note": "α/β/γ 亚基；受 PKA 磷酸化与 Ca²⁺ 调控" },
+    { "id": "pp1", "name": "蛋白磷酸酶 1", "abbr": "PP1", "kind": "enzyme", "note": "去磷酸化磷酸化酶与糖原合酶" },
+    { "id": "pka", "name": "cAMP 依赖蛋白激酶 A", "abbr": "PKA", "kind": "enzyme", "note": "cAMP 结合调节亚基后释放催化亚基" },
+    { "id": "insulin", "name": "胰岛素", "abbr": "Insulin", "kind": "signal", "note": "促合成信号；肝与肌均响应" },
+    { "id": "glucagon", "name": "胰高血糖素", "abbr": "Glucagon", "kind": "signal", "note": "仅肝响应；促糖原分解与糖异生" },
+    { "id": "epinephrine", "name": "肾上腺素", "abbr": "Epinephrine", "kind": "signal", "note": "肝与肌均响应；促糖原分解" }
+  ],
+  "steps": [
+    {
+      "id": "gly-1",
+      "index": 1,
+      "name": "糖原磷酸解（α-1,4 裂解）",
+      "short": "磷酸解",
+      "phase": "breakdown",
+      "organ": "shared",
+      "reaction": {
+        "substrates": ["glycogen", "pi"],
+        "products": ["g1p", "glycogen"],
+        "cofactors": ["PLP（共价辅因子）"],
+        "equation": "(α-1,4-糖原)ₙ + Pi → G1P + (α-1,4-糖原)ₙ₋₁"
+      },
+      "enzyme": {
+        "entityId": "glycogen-phosphorylase",
+        "name": "糖原磷酸化酶",
+        "abbr": "PYG",
+        "ec": "2.4.1.1",
+        "isozyme": "肝 PYGL / 肌 PYGM",
+        "organNote": "同一反应由两器官同工酶催化"
+      },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "体外近平衡（ΔG°′ 略正）；体内由高 [Pi] 与 G1P 快速移除驱动单向",
+        "source": "Lehninger 8e Ch.19"
+      },
+      "physiology": "磷酸解直接把 Pi 插进糖苷键，不消耗 ATP；每释放 1 个 G1P 相当于省下 1 个 ATP。PLP 是活性位点必需的共价辅因子。",
+      "organDifference": "肝 PYGL 受葡萄糖变构抑制；肌 PYGM 受 AMP 变构激活、受 ATP/G6P 抑制。",
+      "sharedWith": [],
+      "pdbCandidates": ["1EM6", "1FA9", "1Z8D"]
+    },
+    {
+      "id": "gly-2",
+      "index": 2,
+      "name": "脱支：转移 + α-1,6 水解",
+      "short": "脱支",
+      "phase": "breakdown",
+      "organ": "shared",
+      "reaction": {
+        "substrates": ["glycogen-limit"],
+        "products": ["glycogen", "glucose"],
+        "cofactors": [],
+        "equation": "极限糊精（分支）→ 线性糖原 + 游离葡萄糖"
+      },
+      "enzyme": {
+        "entityId": "debranching-enzyme",
+        "name": "脱支酶",
+        "abbr": "AGL",
+        "ec": "2.4.1.25（转移）/ 3.2.1.33（水解）"
+      },
+      "direction": "branch",
+      "deltaG": {
+        "value": null,
+        "qualitative": "α-1,6 水解放能；转移步骤近平衡",
+        "source": "Lehninger 8e Ch.19"
+      },
+      "physiology": "磷酸化酶在距分支点 4 个残基处停下；AGL 先把 3 个残基转到主链，再水解 α-1,6 键，每分支释放 1 个游离葡萄糖。",
+      "organDifference": "肝：游离葡萄糖可直接经 GLUT2 释出；肌：游离葡萄糖需己糖激酶再磷酸化（耗 1 ATP）后进糖酵解。",
+      "sharedWith": [],
+      "pdbCandidates": ["8ZEQ"]
+    },
+    {
+      "id": "gly-3",
+      "index": 3,
+      "name": "磷酸葡萄糖变位（分解向）",
+      "short": "PGM · G1P→G6P",
+      "phase": "breakdown",
+      "organ": "shared",
+      "reaction": {
+        "substrates": ["g1p"],
+        "products": ["g6p"],
+        "cofactors": ["glucose-1,6-bisphosphate（催化中间体）"],
+        "equation": "G1P ⇌ G6P"
+      },
+      "enzyme": {
+        "entityId": "pgm1",
+        "name": "磷酸葡萄糖变位酶 1",
+        "abbr": "PGM1",
+        "ec": "5.4.2.2"
+      },
+      "direction": "reversible",
+      "deltaG": {
+        "value": null,
+        "qualitative": "近平衡（ΔG°′ ≈ 0，可逆）",
+        "source": "Lehninger 8e Ch.19"
+      },
+      "physiology": "把糖原磷酸解产物接到糖酵解与糖异生共用的 G6P 池；不消耗 ATP。",
+      "organDifference": "肝与肌同酶；肝 G6P 可去 G6PC1，肌 G6P 只能进糖酵解。",
+      "sharedWith": [
+        { "pathwayId": "glycolysis", "stepId": "gk-1", "entityId": "g6p", "note": "G6P 池的入口步骤" },
+        { "pathwayId": "glycolysis", "stepId": "gk-2", "entityId": "g6p", "note": "G6P 进糖酵解" },
+        { "pathwayId": "gluconeogenesis", "stepId": "gn-11", "entityId": "g6p", "note": "糖异生最后一步的底物" }
+      ],
+      "pdbCandidates": ["6UIQ"]
+    },
+    {
+      "id": "gly-4",
+      "index": 4,
+      "stageLabel": "肝臂 · 释糖",
+      "name": "葡萄糖-6-磷酸酶水解",
+      "short": "肝臂 · G6PC1",
+      "phase": "breakdown",
+      "organ": "liver",
+      "reaction": {
+        "substrates": ["g6p", "h2o"],
+        "products": ["glucose", "pi"],
+        "cofactors": [],
+        "equation": "G6P + H₂O → 葡萄糖 + Pi"
+      },
+      "enzyme": {
+        "entityId": "g6pc1",
+        "name": "葡萄糖-6-磷酸酶催化亚基 1",
+        "abbr": "G6PC1",
+        "ec": "3.1.3.9",
+        "organNote": "ER 膜催化亚基；SLC37A4 负责 G6P 进入 ER 腔"
+      },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "强放能（磷酸酯水解，生理不可逆）",
+        "source": "Lehninger 8e Ch.19"
+      },
+      "physiology": "肝糖原补充血糖的唯一出口；肌不表达 G6PC1，因此肌糖原不能直接释放葡萄糖。",
+      "organDifference": "仅肝（及肾皮质）表达；肌无 G6PC1，G6P 无释糖出口。",
+      "sharedWith": [
+        { "pathwayId": "gluconeogenesis", "stepId": "gn-11", "entityId": "glc", "note": "同酶同反应：G6P → 葡萄糖" }
+      ],
+      "pdbCandidates": ["9JTM", "9JTN", "9JTO"]
+    },
+    {
+      "id": "gly-5",
+      "index": 5,
+      "stageLabel": "肌臂 · 进糖酵解",
+      "name": "磷酸葡萄糖异构（肌向）",
+      "short": "肌臂 · PGI",
+      "phase": "breakdown",
+      "organ": "muscle",
+      "reaction": {
+        "substrates": ["g6p"],
+        "products": ["f6p"],
+        "cofactors": [],
+        "equation": "G6P ⇌ F6P"
+      },
+      "enzyme": {
+        "entityId": "pgi",
+        "name": "磷酸葡萄糖异构酶",
+        "abbr": "PGI",
+        "ec": "5.3.1.9"
+      },
+      "direction": "reversible",
+      "deltaG": {
+        "value": null,
+        "qualitative": "近平衡（ΔG°′ ≈ 0，可逆）",
+        "source": "Lehninger 8e Ch.19"
+      },
+      "physiology": "肌内 G6P 的唯一去向：经 PGI 进入糖酵解，为收缩供 ATP；不释放入血。",
+      "organDifference": "肝也有 PGI，但肝 G6P 还可走 G6PC1；肌只能走糖酵解。",
+      "sharedWith": [
+        { "pathwayId": "glycolysis", "stepId": "gk-2", "entityId": "f6p", "note": "肌糖原进糖酵解的接口" }
+      ],
+      "pdbCandidates": []
+    },
+    {
+      "id": "gly-6",
+      "index": 6,
+      "name": "磷酸葡萄糖变位（合成向）",
+      "short": "PGM · G6P→G1P",
+      "phase": "synthesis",
+      "organ": "shared",
+      "reaction": {
+        "substrates": ["g6p"],
+        "products": ["g1p"],
+        "cofactors": ["glucose-1,6-bisphosphate（催化中间体）"],
+        "equation": "G6P ⇌ G1P"
+      },
+      "enzyme": {
+        "entityId": "pgm1",
+        "name": "磷酸葡萄糖变位酶 1",
+        "abbr": "PGM1",
+        "ec": "5.4.2.2"
+      },
+      "direction": "reversible",
+      "deltaG": {
+        "value": null,
+        "qualitative": "近平衡（ΔG°′ ≈ 0，可逆）",
+        "source": "Lehninger 8e Ch.19"
+      },
+      "physiology": "把 G6P 转成 G1P，为 UDP-葡萄糖活化做准备；与分解向同一酶、同一可逆反应。",
+      "organDifference": "肝与肌同酶；两器官的合成速率差异来自激素与 AMPK 对下游合酶的调控。",
+      "sharedWith": [
+        { "pathwayId": "glycolysis", "stepId": "gk-1", "entityId": "g6p", "note": "G6P 池的入口步骤" },
+        { "pathwayId": "glycolysis", "stepId": "gk-2", "entityId": "g6p", "note": "G6P 进糖酵解" },
+        { "pathwayId": "gluconeogenesis", "stepId": "gn-11", "entityId": "g6p", "note": "糖异生最后一步的底物" }
+      ],
+      "pdbCandidates": ["6UIQ"]
+    },
+    {
+      "id": "gly-7",
+      "index": 7,
+      "name": "UDP-葡萄糖焦磷酸化",
+      "short": "UGP2",
+      "phase": "synthesis",
+      "organ": "shared",
+      "reaction": {
+        "substrates": ["g1p", "utp"],
+        "products": ["udp-glucose", "ppi"],
+        "cofactors": [],
+        "equation": "G1P + UTP ⇌ UDP-葡萄糖 + PPi"
+      },
+      "enzyme": {
+        "entityId": "ugp2",
+        "name": "UDP-葡萄糖焦磷酸化酶",
+        "abbr": "UGP2",
+        "ec": "2.7.7.9"
+      },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "近平衡；PPi 被焦磷酸酶水解后整体强放能",
+        "source": "Lehninger 8e Ch.19"
+      },
+      "physiology": "把 G1P 活化成 UDP-葡萄糖；UTP 的 β/γ 磷酸以 PPi 形式释出，PPi 水解再耗 1 个酐键，合计每个残基 2 个高能磷酸键。",
+      "organDifference": "肝、肌同酶；UTP 由嘧啶核苷酸合成供给（本平台未建该通路，仅注记，不伪造接口）。",
+      "sharedWith": [],
+      "pdbCandidates": ["4R7P"]
+    },
+    {
+      "id": "gly-8",
+      "index": 8,
+      "name": "糖原合酶（α-1,4 延伸）",
+      "short": "糖原合酶",
+      "phase": "synthesis",
+      "organ": "shared",
+      "reaction": {
+        "substrates": ["udp-glucose", "glycogen"],
+        "products": ["glycogen", "udp"],
+        "cofactors": ["glycogenin 引物"],
+        "equation": "UDP-葡萄糖 + (α-1,4-糖原)ₙ → (α-1,4-糖原)ₙ₊₁ + UDP"
+      },
+      "enzyme": {
+        "entityId": "gys",
+        "name": "糖原合酶",
+        "abbr": "GYS",
+        "ec": "2.4.1.11",
+        "isozyme": "肌 GYS1 / 肝 GYS2",
+        "organNote": "两器官同工酶；起始均依赖 glycogenin"
+      },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "近平衡（糖基转移）；由 UDP-葡萄糖供给与 PPi 水解拉动",
+        "source": "Lehninger 8e Ch.19"
+      },
+      "physiology": "糖原合酶只延长 α-1,4 链；起始需要 glycogenin 自糖基化引物。",
+      "organDifference": "肝 GYS2 受 G6P 与胰岛素/PP1 调控；肌 GYS1 受收缩/AMPK 与胰岛素调控。",
+      "sharedWith": [],
+      "pdbCandidates": ["7Q13", "7Q0S"]
+    },
+    {
+      "id": "gly-9",
+      "index": 9,
+      "name": "分支酶（α-1,6 形成）",
+      "short": "分支酶",
+      "phase": "synthesis",
+      "organ": "shared",
+      "reaction": {
+        "substrates": ["glycogen"],
+        "products": ["glycogen"],
+        "cofactors": [],
+        "equation": "线性 α-1,4 链段 → 转移 6–7 残基，形成 α-1,6 分支"
+      },
+      "enzyme": {
+        "entityId": "gbe1",
+        "name": "糖原分支酶",
+        "abbr": "GBE1",
+        "ec": "2.4.1.18"
+      },
+      "direction": "branch",
+      "deltaG": {
+        "value": null,
+        "qualitative": "近平衡（糖基转移）",
+        "source": "Lehninger 8e Ch.19"
+      },
+      "physiology": "分支增加非还原端数量，使磷酸化酶与合酶能同时作用更多末端；分支点也是脱支酶的底物。",
+      "organDifference": "肝、肌同酶；分支密度影响两器官的动员速度。",
+      "sharedWith": [],
+      "pdbCandidates": ["5CLW", "4BZY"]
+    }
+  ],
+  "regulation": [
+    {
+      "id": "reg-covalent",
+      "kind": "covalent",
+      "title": "共价修饰：磷酸化 / 去磷酸化",
+      "text": "磷酸化酶激酶（PhK）磷酸化糖原磷酸化酶 b → a（开），同时磷酸化糖原合酶 a → b（关）；PP1 去磷酸化，方向相反：磷酸化酶 a → b（关）、合酶 b → a（开）。",
+      "targets": ["glycogen-phosphorylase", "gys", "phosphorylase-kinase", "pp1"],
+      "source": "Lehninger 8e Ch.19"
+    },
+    {
+      "id": "reg-hormone",
+      "kind": "hormonal",
+      "title": "胰岛素 vs 胰高血糖素 / 肾上腺素",
+      "text": "胰岛素激活 PP1，去磷酸化后合酶开、磷酸化酶关，促合成；胰高血糖素（仅肝）与肾上腺素（肝 + 肌）经 cAMP–PKA 激活 PhK，促分解、抑合成。",
+      "targets": ["insulin", "glucagon", "epinephrine", "camp", "pka", "pp1"],
+      "source": "Lehninger 8e Ch.19"
+    },
+    {
+      "id": "reg-allosteric",
+      "kind": "allosteric",
+      "title": "AMP / ATP / G6P 的变构",
+      "text": "AMP 只激活肌磷酸化酶 b（运动时 AMP 升高）；ATP 与 G6P 变构抑制；肝磷酸化酶 a 受葡萄糖抑制。",
+      "targets": ["amp", "atp", "g6p", "glycogen-phosphorylase"],
+      "source": "Lehninger 8e Ch.19"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "int-glycolysis",
+      "entityId": "g6p",
+      "title": "G6P ↔ 糖酵解",
+      "note": "分解端 G6P 可经 gk-2 进糖酵解；合成端从 G6P 起步。两条臂都通过同一个 G6P 池与糖酵解相接。",
+      "status": "connected",
+      "sharedWith": [
+        { "pathwayId": "glycolysis", "stepId": "gk-1", "entityId": "g6p", "note": "葡萄糖 → G6P" },
+        { "pathwayId": "glycolysis", "stepId": "gk-2", "entityId": "g6p", "note": "G6P → F6P" }
+      ]
+    },
+    {
+      "id": "int-gluconeogenesis",
+      "entityId": "g6p",
+      "title": "G6P ↔ 糖异生",
+      "note": "肝 G6PC1 与糖异生最后一步 gn-11 是同酶同反应；肌无此出口。",
+      "status": "connected",
+      "sharedWith": [
+        { "pathwayId": "gluconeogenesis", "stepId": "gn-11", "entityId": "glc", "note": "G6P → 葡萄糖" }
+      ]
+    },
+    {
+      "id": "int-utp",
+      "entityId": "utp",
+      "title": "UTP 来源",
+      "note": "UTP 由嘧啶核苷酸合成供给（UMP → UDP → UTP）。本平台未建该通路，因此不给 sharedWith 指向任何不存在的 id，只在此注记。",
+      "status": "unbuilt",
+      "sharedWith": []
+    },
+    {
+      "id": "int-glycogenin",
+      "entityId": "glycogen",
+      "title": "糖原引物 glycogenin",
+      "note": "糖原合酶起始需要 glycogenin 自糖基化引物；本平台不单列 glycogenin 实体，只在此注记。",
+      "status": "unbuilt",
+      "sharedWith": []
+    }
+  ],
+  "energyLedger": {
+    "title": "糖原代谢能量账（按每个葡萄糖残基计）",
+    "basis": "Lehninger 8e Ch.19（糖原分解与合成）",
+    "unit": "高能磷酸键 / 葡萄糖残基",
+    "perResidue": {
+      "breakdownSavedAtp": 1,
+      "synthesisHighEnergyBonds": 2,
+      "utpToPpiBonds": 1,
+      "ppiHydrolysisBonds": 1,
+      "debranchFreeGlucosePerBranch": 1,
+      "muscleHexokinaseCostPerFreeGlucose": 1
+    },
+    "referenceRun": {
+      "residues": 100,
+      "synthesisCost": 200,
+      "breakdownSaving": 100,
+      "note": "100 个残基的参考轮次：合成端 100 × 2 = 200 个酐键；分解端 100 × 1 = 100 个 ATP 当量被省下。脱支游离葡萄糖按分支计数，不并入每残基求和。"
+    },
+    "entries": [
+      { "id": "e-phosphorolysis", "label": "糖原磷酸解（每残基）", "perResidue": -1, "note": "Pi 直接裂解 α-1,4 键，省下己糖激酶所需的 1 ATP" },
+      { "id": "e-utp", "label": "UTP → PPi（每残基）", "perResidue": 1, "note": "UTP 的 β/γ 磷酸以 PPi 释出" },
+      { "id": "e-ppi", "label": "PPi 水解（每残基）", "perResidue": 1, "note": "焦磷酸酶水解 PPi，拉动 UGP2 反应" },
+      { "id": "e-synthesis", "label": "合成净耗（每残基）", "perResidue": 2, "note": "1 + 1 = 2 个酐键 / 残基" },
+      { "id": "e-debranch", "label": "脱支游离葡萄糖（每分支）", "perResidue": 0, "note": "每分支 1 个游离葡萄糖；肌内再磷酸化 +1 ATP/个，肝可直接释出" }
+    ]
+  },
+  "conservation": {
+    "carbon": {
+      "perResidue": 6,
+      "note": "C6 单元在两条臂中都不丢失；脱支释放的游离葡萄糖仍是 C6"
+    },
+    "phosphate": {
+      "breakdown": {
+        "input": 1,
+        "output": 1,
+        "note": "Pi → G1P → G6P → Pi（肝 G6PC1 水解后释放）；肌内 G6P 的磷酸进入糖酵解"
+      },
+      "synthesis": {
+        "input": 4,
+        "output": 4,
+        "note": "G1P 1 + UTP 3 = UDP-葡萄糖 2 + PPi 2；合酶后 UDP 2 + PPi 2，仍为 4"
+      }
+    },
+    "highEnergy": {
+      "synthesisPerResidue": 2,
+      "breakdownSavedPerResidue": 1,
+      "note": "合成每残基 2 个酐键；分解每残基省 1 ATP 当量。两者不是同一方向的加减，不能相抵成“净赚 1 ATP”。"
+    }
+  },
+  "threeD": {
+    "status": "pending",
+    "note": "本轮只完成酶结构的 RCSB 实时身份核验，不生成原子级 3D 资产；结构对照页只使用既有 G6P / GLC 资产，G1P、UDP-葡萄糖与糖原保持 2D-only。",
+    "verifiedOn": "2026-11-05",
+    "candidates": [
+      {
+        "pdbId": "1EM6",
+        "enzyme": "糖原磷酸化酶（肝 PYGL a）",
+        "entityId": "glycogen-phosphorylase",
+        "role": "inhibitor-complex",
+        "organism": "Homo sapiens（PYGL，taxid 9606）",
+        "expressionSystem": "Spodoptera frugiperda（昆虫细胞宿主；RCSB 未注明株系）",
+        "mutations": "PDB mutation 字段为空，无工程点突变",
+        "method": "X-RAY DIFFRACTION",
+        "resolution": 2.2,
+        "chains": "A, B",
+        "ligands": ["PLP（吡哆醛-5′-磷酸，共价辅因子）", "NBG（N-乙酰-β-D-葡糖胺，活性位点类似物）", "CP4（CP-526423 抑制剂）", "MPD（结晶添加剂）"],
+        "ligandCodes": ["PLP", "NBG", "CP4", "MPD"],
+        "entryTitle": "HUMAN LIVER GLYCOGEN PHOSPHORYLASE A COMPLEXED WITH GLCNAC AND CP-526,423",
+        "note": "PLP 与活性位点葡萄糖类似物 NBG 同时可见；NBG 不是天然底物 G1P。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "1FA9",
+        "enzyme": "糖原磷酸化酶（肝 PYGL a）",
+        "entityId": "glycogen-phosphorylase",
+        "role": "allosteric",
+        "organism": "Homo sapiens（PYGL，taxid 9606）",
+        "expressionSystem": "Escherichia coli（宿主菌；RCSB 未注明株系）",
+        "mutations": "PDB mutation 字段为空，无工程点突变",
+        "method": "X-RAY DIFFRACTION",
+        "resolution": 2.4,
+        "chains": "A",
+        "ligands": ["GLC（α-D-葡萄糖）", "AMP", "PLP（共价 / 活性位点）"],
+        "ligandCodes": ["GLC", "AMP", "PLP"],
+        "entryTitle": "HUMAN LIVER GLYCOGEN PHOSPHORYLASE A COMPLEXED WITH AMP",
+        "note": "AMP 变构位点 + 葡萄糖；PLP 以共价形式存在。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "1Z8D",
+        "enzyme": "糖原磷酸化酶（肌 PYGM a）",
+        "entityId": "glycogen-phosphorylase",
+        "role": "allosteric",
+        "organism": "Homo sapiens（PYGM，taxid 9606）",
+        "expressionSystem": "Spodoptera frugiperda（昆虫细胞宿主；RCSB 未注明株系）",
+        "mutations": "无工程点突变；PDB mutation 字段列出 S14(SEP) 与 K680(LLP)，实为修饰残基（磷酸化 Ser14 / PLP-赖氨酸），非致病突变",
+        "method": "X-RAY DIFFRACTION",
+        "resolution": 2.3,
+        "chains": "A",
+        "ligands": ["GLC（α-D-葡萄糖）", "AMP", "ADE（腺嘌呤，结晶配体）"],
+        "ligandCodes": ["GLC", "AMP", "ADE"],
+        "entryTitle": "Crystal Structure of Human Muscle Glycogen Phosphorylase a with AMP and Glucose",
+        "note": "肌 PYGM a；PLP 以共价修饰残基 LLP 出现在聚合物实体，不是游离配体。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "9JTM",
+        "enzyme": "葡萄糖-6-磷酸酶催化亚基 1（G6PC1）",
+        "entityId": "g6pc1",
+        "role": "substrate-state",
+        "organism": "Homo sapiens",
+        "method": "ELECTRON MICROSCOPY",
+        "resolution": 2.9,
+        "chains": "A",
+        "ligands": ["G6P（天然底物）"],
+        "ligandCodes": ["G6P"],
+        "entryTitle": "Human glucose 6 phosphate catalytic subunit 1 (hG6PC1) bound with G6P",
+        "note": "真人源 G6PC1–G6P 复合物；标题声明 G6P，另有脂质环境组分 P5S。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "9JTN",
+        "enzyme": "葡萄糖-6-磷酸酶催化亚基 1（G6PC1）",
+        "entityId": "g6pc1",
+        "role": "product-state",
+        "organism": "Homo sapiens",
+        "method": "ELECTRON MICROSCOPY",
+        "resolution": 3.1,
+        "chains": "A",
+        "ligands": ["PO₄（标题声明的产物磷酸）"],
+        "ligandCodes": ["PO4"],
+        "entryTitle": "Human glucose 6 phosphate catalytic subunit 1 (hG6PC1) bound with phosphate.",
+        "note": "与 9JTM 配对看水解前后；磷酸在坐标内以离子 / 修饰形式出现。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "9JTO",
+        "enzyme": "葡萄糖-6-磷酸酶催化亚基 1（G6PC1）",
+        "entityId": "g6pc1",
+        "role": "inhibitor-complex",
+        "organism": "Homo sapiens",
+        "method": "ELECTRON MICROSCOPY",
+        "resolution": 3.3,
+        "chains": "A",
+        "ligands": ["F6P（标题声明的结合配体）"],
+        "ligandCodes": ["F6P"],
+        "entryTitle": "Human glucose 6 phosphate catalytic subunit 1 (hG6PC1) bound with F6P.",
+        "note": "F6P 是 G6P 的异构体，不是本步底物；只作口袋对照，不当作底物复合物。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "7Q13",
+        "enzyme": "糖原合酶（GYS1–GYG1 复合物）",
+        "entityId": "gys",
+        "role": "substrate-state",
+        "organism": "Homo sapiens",
+        "method": "ELECTRON MICROSCOPY",
+        "resolution": 3.0,
+        "chains": "A–D",
+        "ligands": ["G6P", "UDP（合酶反应产物）"],
+        "ligandCodes": ["G6P", "UDP"],
+        "entryTitle": "Human GYS1-GYG1 complex activated state bound to glucose-6-phosphate, uridine diphosphate, and glucose",
+        "note": "GYS1–GYG1 活化态；UDP 是糖基转移后的产物，不是 UDP-葡萄糖底物本身。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "7Q0S",
+        "enzyme": "糖原合酶（GYS1–GYG1 复合物）",
+        "entityId": "gys",
+        "role": "inhibitor-complex",
+        "organism": "Homo sapiens",
+        "method": "ELECTRON MICROSCOPY",
+        "resolution": 4.0,
+        "chains": "A–D",
+        "ligands": ["G6P"],
+        "ligandCodes": ["G6P"],
+        "entryTitle": "Human GYS1-GYG1 complex inhibited-like state bound to glucose-6-phosphate",
+        "note": "抑制样态，只有 G6P；与 7Q13 配对看活化态差异。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "5CLW",
+        "enzyme": "糖原分支酶（GBE1）",
+        "entityId": "gbe1",
+        "role": "substrate-state",
+        "organism": "Homo sapiens",
+        "method": "X-RAY DIFFRACTION",
+        "resolution": 2.8,
+        "chains": "A, B, C",
+        "ligands": ["maltoheptaose（α-1,4 七糖）"],
+        "ligandCodes": [],
+        "entryTitle": "Crystal structure of human glycogen branching enzyme (GBE1) in complex with maltoheptaose",
+        "note": "maltoheptaose 是 α-1,4 糖链底物类似物；分支反应的 α-1,6 产物未在此结构中建模。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "5CLT",
+        "enzyme": "糖原分支酶（GBE1）",
+        "entityId": "gbe1",
+        "role": "inhibitor-complex",
+        "organism": "Homo sapiens",
+        "method": "X-RAY DIFFRACTION",
+        "resolution": 2.79,
+        "chains": "A, B, C",
+        "ligands": ["acarbose（抑制剂）"],
+        "ligandCodes": [],
+        "entryTitle": "Crystal structure of human glycogen branching enzyme (GBE1) in complex with acarbose",
+        "note": "acarbose 是抑制剂，不是天然底物。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "4R7P",
+        "enzyme": "UDP-葡萄糖焦磷酸化酶（UGP2 isoform 1）",
+        "entityId": "ugp2",
+        "role": "product-state",
+        "organism": "Homo sapiens",
+        "method": "X-RAY DIFFRACTION",
+        "resolution": 3.35,
+        "chains": "A–D",
+        "ligands": ["UPG（UDP-葡萄糖，天然产物）", "ZN / SO4 / ACT / EDO（结晶添加剂）"],
+        "ligandCodes": ["UPG", "ZN", "SO4", "ACT", "EDO"],
+        "entryTitle": "Human UDP-glucose pyrophosphorylase isoform 1 in complex with UDP-glucose",
+        "note": "真人源 UGP2–UDP-葡萄糖复合物；UDP-葡萄糖是天然产物。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "6UIQ",
+        "enzyme": "磷酸葡萄糖变位酶 1（PGM1）",
+        "entityId": "pgm1",
+        "role": "substrate-state",
+        "organism": "Homo sapiens",
+        "method": "X-RAY DIFFRACTION",
+        "resolution": 2.3,
+        "chains": "A, B",
+        "ligands": ["G6P（天然底物）", "MG（Mg²⁺）"],
+        "ligandCodes": ["G6P", "MG"],
+        "entryTitle": "Crystal structure of wild-type human phosphoglucomutase 1 in complex with Glucose-6-Phosphate",
+        "note": "G6P 是合成向（G6P → G1P）的底物；分解向 G1P → G6P 则是其逆反应。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "8ZEQ",
+        "enzyme": "糖原脱支酶（AGL）",
+        "entityId": "debranching-enzyme",
+        "role": "apo",
+        "organism": "Homo sapiens",
+        "method": "ELECTRON MICROSCOPY",
+        "resolution": 3.36,
+        "chains": "A",
+        "ligands": [],
+        "ligandCodes": [],
+        "entryTitle": "Molecular Architecture of Human Glycogen Debranching Enzyme: Insights into Glycogen Storage Disease III Pathogenesis",
+        "note": "整体架构，无糖原或寡糖配体；不能当作底物复合物。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "4BZY",
+        "enzyme": "糖原分支酶（GBE1）",
+        "entityId": "gbe1",
+        "role": "apo",
+        "organism": "Homo sapiens",
+        "method": "X-RAY DIFFRACTION",
+        "resolution": 2.75,
+        "chains": "A, B, C",
+        "ligands": [],
+        "ligandCodes": [],
+        "entryTitle": "Crystal structure of human glycogen branching enzyme (GBE1)",
+        "note": "apo 结构；无糖链配体。",
+        "verifiedOn": "2026-11-05"
+      }
+    ],
+    "assets": {
+      "moleculeAssets": ["g6p", "glc"],
+      "missingAssets": ["g1p", "utp", "udp-glucose", "ppi", "udp", "glycogen"],
+      "note": "g6p / glc 取自既有 1CZA 人己糖激酶口袋；不是糖原代谢酶的口袋。其余分子本轮不生成原子资产。"
+    }
+  },
+  "notes": [
+    "糖原分解与合成共用同一 G6P / G1P 池；两条臂通过 G6P 与糖原颗粒闭合，不是两个独立通路。",
+    "肝 vs 肌的结构性差异只有一条：是否表达 G6PC1。肝有出口、肌没有出口；其余酶基本相同。",
+    "糖原磷酸化酶的 PLP 是共价辅因子，不是游离底物；3D 角标必须写清 PLP 与 NBG 的身份。",
+    "所有 ΔG 为 null；只写定性方向与 Lehninger 8e 出处，不编造数值。",
+    "UTP 来源、glycogenin 引物在本平台未建独立通路，只在 interfaces 注记，sharedWith 留空。"
+  ]
+}

@@ -2,6 +2,7 @@
 // 体例：单行文字 + 两位 PLATE 编号；当前项加粗并在字下压一条实线，其余为点线下划线。
 // 不做卡片 / 胶囊 / 圆角 / 投影 / 下拉；条目增长时靠单行横向滚动兜底，不换行、不遮内容。
 import type { ReactNode } from "react";
+import { useId } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { PATHWAY_NAV, type NavItemId } from "../data/pathways";
 import "../styles/pathway-nav.css";
@@ -32,37 +33,53 @@ function hrefFor(route: string, isCurrent: boolean, search: string): string {
 
 export default function PathwaySwitcher({ current, variant = "poster", context }: PathwaySwitcherProps) {
   const { search } = useLocation();
+  const skipId = `ps-skip-${useId().replace(/[:]/g, "")}`;
 
   return (
-    <nav
-      className={`crumb pathway-switcher pathway-switcher--${variant}${variant === "home" ? " home-crumb" : ""}`}
-      data-testid="pathway-switcher"
-      data-pathway-nav="1"
-      data-current={current}
-      aria-label="通路切换"
-    >
-      {PATHWAY_NAV.map((entry, index) => {
-        const isCurrent = entry.id === current;
-        return (
-          <span className="ps-item" data-nav-id={entry.id} key={entry.id}>
-            {index > 0 && (
-              <span className="ps-sep" aria-hidden="true">
-                ／
-              </span>
-            )}
-            <Link
-              to={hrefFor(entry.route, isCurrent, search)}
-              className={isCurrent ? "ps-link ps-cur" : "ps-link"}
-              aria-current={isCurrent ? "page" : undefined}
-              data-nav-route={entry.route}
-            >
-              <span className="ps-no num">{entry.plateNo}</span>
-              {entry.name}
-            </Link>
-          </span>
-        );
-      })}
-      {context ? <span className="ps-context">{context}</span> : null}
-    </nav>
+    <>
+      <a
+        className="ps-skip"
+        href={`#${skipId}`}
+        data-skip-link="1"
+        onClick={(event) => {
+          event.preventDefault();
+          document.getElementById(skipId)?.focus();
+        }}
+      >
+        跳到主要内容
+      </a>
+      <nav
+        className={`crumb pathway-switcher pathway-switcher--${variant}${variant === "home" ? " home-crumb" : ""}`}
+        data-testid="pathway-switcher"
+        data-pathway-nav="1"
+        data-current={current}
+        aria-label="通路切换"
+      >
+        {PATHWAY_NAV.map((entry, index) => {
+          const isCurrent = entry.id === current;
+          return (
+            <span className="ps-item" data-nav-id={entry.id} key={entry.id}>
+              {index > 0 && (
+                <span className="ps-sep" aria-hidden="true">
+                  ／
+                </span>
+              )}
+              <Link
+                to={hrefFor(entry.route, isCurrent, search)}
+                className={isCurrent ? "ps-link ps-cur" : "ps-link"}
+                aria-current={isCurrent ? "page" : undefined}
+                data-nav-route={entry.route}
+              >
+                <span className="ps-no num">{entry.plateNo}</span>
+                {entry.name}
+              </Link>
+            </span>
+          );
+        })}
+        {context ? <span className="ps-context">{context}</span> : null}
+      </nav>
+      {/* skip link 的落点：导航之后、正文之前；零尺寸，不参与版式 */}
+      <span id={skipId} className="ps-after-nav" tabIndex={-1} />
+    </>
   );
 }

@@ -1,0 +1,109 @@
+{
+  "canvas": { "width": 1980, "height": 980 },
+  "compartments": [
+    {
+      "id": "cytosol",
+      "name": "细胞质",
+      "en": "CYTOSOL",
+      "x0": 24,
+      "x1": 1956,
+      "y0": 40,
+      "y1": 520,
+      "note": "糖原颗粒在胞质；分解臂与合成臂共用这一域，右侧外缘留调控栏"
+    },
+    {
+      "id": "liver-arm",
+      "name": "肝细胞 · 肝臂",
+      "en": "LIVER ARM",
+      "x0": 24,
+      "x1": 1956,
+      "y0": 540,
+      "y1": 740,
+      "note": "G6PC1 在 ER 膜胞质面；SLC37A4 把 G6P 送入 ER 腔水解，游离葡萄糖经 GLUT2 入血"
+    },
+    {
+      "id": "muscle-arm",
+      "name": "肌细胞 · 肌臂",
+      "en": "MUSCLE ARM",
+      "x0": 24,
+      "x1": 1956,
+      "y0": 760,
+      "y1": 960,
+      "note": "肌无 G6PC1；G6P 只能经 PGI 进糖酵解，肌糖原不释放入血"
+    }
+  ],
+  "nodes": [
+    { "id": "glycogen-bd", "entityId": "glycogen", "x": 120, "y": 150, "r": 20, "kind": "metabolite", "label": "糖原", "sub": "α-1,4 链", "organ": "shared" },
+    { "id": "g1p-bd", "entityId": "g1p", "x": 430, "y": 150, "r": 18, "kind": "metabolite", "label": "G1P", "sub": "葡萄糖-1-磷酸", "organ": "shared" },
+    { "id": "g6p", "entityId": "g6p", "x": 780, "y": 150, "r": 18, "kind": "metabolite", "label": "G6P", "sub": "葡萄糖-6-磷酸", "organ": "shared" },
+    { "id": "limit-dextrin", "entityId": "glycogen-limit", "x": 230, "y": 300, "r": 20, "kind": "metabolite", "label": "极限糊精", "sub": "分支剩余", "organ": "shared" },
+    { "id": "free-glc", "entityId": "glucose", "x": 470, "y": 300, "r": 18, "kind": "metabolite", "label": "游离葡萄糖", "sub": "脱支产物", "organ": "shared" },
+    { "id": "g1p-syn", "entityId": "g1p", "x": 600, "y": 440, "r": 18, "kind": "metabolite", "label": "G1P", "sub": "合成向", "organ": "shared" },
+    { "id": "udp-glc", "entityId": "udp-glucose", "x": 340, "y": 440, "r": 20, "kind": "metabolite", "label": "UDP-葡萄糖", "sub": "活化糖基", "organ": "shared" },
+    { "id": "glycogen-syn", "entityId": "glycogen", "x": 110, "y": 440, "r": 20, "kind": "metabolite", "label": "糖原", "sub": "α-1,4 链延伸", "organ": "shared" },
+
+    { "id": "phospho", "entityId": "glycogen-phosphorylase", "x": 285, "y": 205, "w": 130, "h": 30, "kind": "enzyme", "label": "糖原磷酸化酶", "sub": "PLP · Pi 磷酸解", "organ": "shared" },
+    { "id": "debranch", "entityId": "debranching-enzyme", "x": 340, "y": 350, "w": 150, "h": 30, "kind": "enzyme", "label": "脱支酶 AGL", "sub": "转移 3 残基 + α-1,6 水解", "organ": "shared" },
+    { "id": "pgm-bd", "entityId": "pgm1", "x": 605, "y": 205, "w": 110, "h": 28, "kind": "enzyme", "label": "PGM1", "sub": "G1P ↔ G6P", "organ": "shared" },
+    { "id": "pgm-syn", "entityId": "pgm1", "x": 700, "y": 330, "w": 110, "h": 28, "kind": "enzyme", "label": "PGM1", "sub": "G6P → G1P", "organ": "shared" },
+    { "id": "ugp2", "entityId": "ugp2", "x": 470, "y": 495, "w": 110, "h": 28, "kind": "enzyme", "label": "UGP2", "sub": "UTP → PPi", "organ": "shared" },
+    { "id": "gys", "entityId": "gys", "x": 225, "y": 495, "w": 130, "h": 28, "kind": "enzyme", "label": "糖原合酶", "sub": "α-1,4 延伸 · 需引物", "organ": "shared" },
+    { "id": "gbe1", "entityId": "gbe1", "x": 60, "y": 380, "w": 110, "h": 28, "kind": "enzyme", "label": "分支酶 GBE1", "sub": "α-1,6", "organ": "shared" },
+
+    { "id": "g6pc1", "entityId": "g6pc1", "x": 560, "y": 610, "w": 140, "h": 30, "kind": "enzyme", "label": "G6PC1", "sub": "ER 膜 · SLC37A4", "organ": "liver" },
+    { "id": "glucose-liver", "entityId": "glucose", "x": 820, "y": 610, "r": 18, "kind": "metabolite", "label": "葡萄糖", "sub": "肝释放", "organ": "liver" },
+    { "id": "blood", "entityId": "glucose", "x": 1130, "y": 610, "w": 120, "h": 36, "kind": "projection", "label": "血液", "sub": "供全身", "organ": "liver" },
+
+    { "id": "pgi", "entityId": "pgi", "x": 1210, "y": 825, "w": 120, "h": 28, "kind": "enzyme", "label": "PGI", "sub": "G6P → F6P", "organ": "muscle" },
+    { "id": "f6p", "entityId": "f6p", "x": 1450, "y": 825, "r": 18, "kind": "metabolite", "label": "F6P", "sub": "进糖酵解", "organ": "muscle" },
+    { "id": "glycolysis-proj", "entityId": "f6p", "x": 1700, "y": 825, "w": 120, "h": 36, "kind": "projection", "label": "糖酵解", "sub": "gk-2 接口", "organ": "muscle" },
+
+    { "id": "insulin", "entityId": "insulin", "x": 1510, "y": 100, "w": 110, "h": 28, "kind": "signal", "label": "胰岛素", "sub": "促合成", "organ": "shared" },
+    { "id": "pp1", "entityId": "pp1", "x": 1740, "y": 100, "w": 90, "h": 28, "kind": "enzyme", "label": "PP1", "sub": "去磷酸化", "organ": "shared" },
+    { "id": "glucagon", "entityId": "glucagon", "x": 1510, "y": 180, "w": 110, "h": 26, "kind": "signal", "label": "胰高血糖素", "sub": "仅肝", "organ": "shared" },
+    { "id": "epinephrine", "entityId": "epinephrine", "x": 1510, "y": 220, "w": 110, "h": 26, "kind": "signal", "label": "肾上腺素", "sub": "肝 + 肌", "organ": "shared" },
+    { "id": "camp", "entityId": "camp", "x": 1690, "y": 200, "r": 14, "kind": "metabolite", "label": "cAMP", "sub": "", "organ": "shared" },
+    { "id": "pka", "entityId": "pka", "x": 1850, "y": 200, "w": 90, "h": 28, "kind": "enzyme", "label": "PKA", "sub": "", "organ": "shared" },
+    { "id": "phk", "entityId": "phosphorylase-kinase", "x": 1850, "y": 285, "w": 130, "h": 28, "kind": "enzyme", "label": "磷酸化酶激酶", "sub": "PhK", "organ": "shared" },
+    { "id": "amp", "entityId": "amp", "x": 1690, "y": 395, "r": 14, "kind": "metabolite", "label": "AMP", "sub": "", "organ": "shared" },
+    { "id": "atp", "entityId": "atp", "x": 1850, "y": 395, "r": 14, "kind": "metabolite", "label": "ATP", "sub": "", "organ": "shared" }
+  ],
+  "links": [
+    { "id": "l-gly-1", "from": "glycogen-bd", "to": "g1p-bd", "stepId": "gly-1", "type": "main", "path": "M 150,150 L 390,150", "label": "Pi · 磷酸解", "labelX": 270, "labelY": 138, "labelAnchor": "middle" },
+    { "id": "l-gly-2-transfer", "from": "glycogen-bd", "to": "limit-dextrin", "stepId": "gly-2", "type": "side", "path": "M 132,175 C 140,235 170,272 205,290", "label": "转移 3 残基", "labelX": 150, "labelY": 252, "labelAnchor": "start" },
+    { "id": "l-gly-2-hydrolysis", "from": "limit-dextrin", "to": "free-glc", "stepId": "gly-2", "type": "side", "path": "M 268,300 L 424,300", "label": "α-1,6 水解", "labelX": 346, "labelY": 288, "labelAnchor": "middle" },
+    { "id": "l-gly-2-liver-release", "from": "free-glc", "to": "glucose-liver", "stepId": "gly-2", "type": "organ", "path": "M 480,325 C 610,430 720,555 790,592", "label": "肝：可直接释出", "labelX": 640, "labelY": 505, "labelAnchor": "start" },
+    { "id": "l-gly-3", "from": "g1p-bd", "to": "g6p", "stepId": "gly-3", "type": "main", "path": "M 466,150 L 742,150", "label": "G1P → G6P", "labelX": 604, "labelY": 138, "labelAnchor": "middle" },
+    { "id": "l-gly-4", "from": "g6p", "to": "g6pc1", "stepId": "gly-4", "type": "organ", "path": "M 746,176 C 660,300 610,480 578,562", "label": "肝臂", "labelX": 650, "labelY": 470, "labelAnchor": "start" },
+    { "id": "l-gly-4-hydrolysis", "from": "g6pc1", "to": "glucose-liver", "stepId": "gly-4", "type": "organ", "path": "M 632,610 L 782,610", "label": "水解", "labelX": 707, "labelY": 598, "labelAnchor": "middle" },
+    { "id": "l-gly-4-blood", "from": "glucose-liver", "to": "blood", "stepId": "gly-4", "type": "organ", "path": "M 862,610 L 1086,610", "label": "GLUT2", "labelX": 974, "labelY": 598, "labelAnchor": "middle" },
+    { "id": "l-gly-5", "from": "g6p", "to": "pgi", "stepId": "gly-5", "type": "organ", "path": "M 812,176 C 1000,400 1170,690 1206,798", "label": "肌臂", "labelX": 1040, "labelY": 640, "labelAnchor": "start" },
+    { "id": "l-gly-5-isomerase", "from": "pgi", "to": "f6p", "stepId": "gly-5", "type": "organ", "path": "M 1272,825 L 1412,825", "label": "", "labelX": 1340, "labelY": 813, "labelAnchor": "middle" },
+    { "id": "l-gly-5-glycolysis", "from": "f6p", "to": "glycolysis-proj", "stepId": "gly-5", "type": "interface", "path": "M 1490,825 L 1660,825", "label": "gk-2 接口", "labelX": 1575, "labelY": 813, "labelAnchor": "middle" },
+    { "id": "l-gly-6", "from": "g6p", "to": "g1p-syn", "stepId": "gly-6", "type": "main", "path": "M 748,176 C 700,265 650,375 622,414", "label": "G6P → G1P", "labelX": 700, "labelY": 360, "labelAnchor": "start" },
+    { "id": "l-gly-7", "from": "g1p-syn", "to": "udp-glc", "stepId": "gly-7", "type": "main", "path": "M 560,440 L 384,440", "label": "UTP → PPi", "labelX": 472, "labelY": 428, "labelAnchor": "middle" },
+    { "id": "l-gly-8", "from": "udp-glc", "to": "glycogen-syn", "stepId": "gly-8", "type": "main", "path": "M 298,440 L 154,440", "label": "α-1,4 延伸", "labelX": 226, "labelY": 428, "labelAnchor": "middle" },
+    { "id": "l-gly-9-branch", "from": "glycogen-syn", "to": "gbe1", "stepId": "gly-9", "type": "side", "path": "M 96,424 C 84,410 74,400 68,396", "label": "α-1,6", "labelX": 18, "labelY": 365, "labelAnchor": "start" },
+    { "id": "l-gly-9-pool", "from": "glycogen-syn", "to": "glycogen-bd", "stepId": "gly-9", "type": "cycle-return", "path": "M 122,420 L 128,180", "label": "同一颗粒池", "labelX": 270, "labelY": 250, "labelAnchor": "middle" },
+
+    { "id": "l-reg-insulin-pp1", "from": "insulin", "to": "pp1", "type": "control", "path": "M 1568,100 L 1692,100", "label": "激活", "labelX": 1630, "labelY": 88, "labelAnchor": "middle" },
+    { "id": "l-reg-glucagon-camp", "from": "glucagon", "to": "camp", "type": "control", "path": "M 1566,180 L 1676,196", "label": "", "labelX": 1620, "labelY": 172, "labelAnchor": "middle" },
+    { "id": "l-reg-epinephrine-camp", "from": "epinephrine", "to": "camp", "type": "control", "path": "M 1566,220 L 1676,210", "label": "", "labelX": 1620, "labelY": 232, "labelAnchor": "middle" },
+    { "id": "l-reg-camp-pka", "from": "camp", "to": "pka", "type": "control", "path": "M 1706,200 L 1804,200", "label": "cAMP", "labelX": 1755, "labelY": 188, "labelAnchor": "middle" },
+    { "id": "l-reg-pka-phk", "from": "pka", "to": "phk", "type": "control", "path": "M 1850,216 L 1850,269", "label": "磷酸化", "labelX": 1865, "labelY": 245, "labelAnchor": "start" }
+  ],
+  "annotations": [
+    { "id": "an-cytosol", "x": 40, "y": 74, "text": "胞质 · 糖原颗粒", "anchor": "start", "size": 12, "weight": 700 },
+    { "id": "an-cytosol-sub", "x": 40, "y": 93, "text": "分解臂在上，合成臂在下；两臂共用同一颗粒池", "anchor": "start", "size": 9.2 },
+    { "id": "an-pool", "x": 40, "y": 268, "text": "同一颗粒池：分支后回分解端", "anchor": "start", "size": 8.5 },
+    { "id": "an-reg-title", "x": 1480, "y": 65, "text": "调控 · REGULATION（外围）", "anchor": "start", "size": 10.5, "weight": 700 },
+    { "id": "an-reg-amp", "x": 1480, "y": 500, "text": "AMP 激活肌磷酸化酶 b；ATP / G6P 变构抑制", "anchor": "start", "size": 9.2 },
+    { "id": "an-reg-hormone", "x": 1480, "y": 518, "text": "胰岛素 → PP1；胰高血糖素（肝）/ 肾上腺素 → cAMP–PKA", "anchor": "start", "size": 9.2 },
+    { "id": "an-liver", "x": 40, "y": 574, "text": "肝 · 肝糖原供全身", "anchor": "start", "size": 12, "weight": 700, "organ": "liver" },
+    { "id": "an-liver-sub", "x": 40, "y": 594, "text": "G6PC1 在 ER 膜；SLC37A4 把 G6P 送入 ER 腔", "anchor": "start", "size": 9.2, "organ": "liver" },
+    { "id": "an-liver-fate", "x": 1120, "y": 660, "text": "游离葡萄糖入血，供全身", "anchor": "start", "size": 9.2, "organ": "liver" },
+    { "id": "an-muscle", "x": 40, "y": 794, "text": "肌 · 肌糖原只供自己", "anchor": "start", "size": 12, "weight": 700, "organ": "muscle" },
+    { "id": "an-muscle-sub", "x": 40, "y": 814, "text": "肌无 G6PC1：G6P 不能释放，只能进糖酵解", "anchor": "start", "size": 9.2, "organ": "muscle" },
+    { "id": "an-muscle-fate", "x": 1470, "y": 880, "text": "肌糖原不释放入血：只在肌内氧化供能", "anchor": "start", "size": 9.2, "organ": "muscle" }
+  ]
+}

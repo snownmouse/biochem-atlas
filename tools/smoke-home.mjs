@@ -2,14 +2,22 @@
 //
 // 【因功能取消的旧断言】旧版是 2480 px 横向长卷 + 三段刻度滚动导航 + 顶部十条索引栏，
 // 因此此前断言「横向漫游可滚到 TCA / β-氧化」「三段导航可点/键盘换段」「home-index 十条去向」。
-// 本版改为上下两域构图：六条通路在 1440 首屏一次全览，不再横向漫游，三段刻度换成了
-// 「胞质 / 基质」域标签 + 全图指示，顶部索引栏被移除（十二条去向仍在右栏保留）。
+// 本版改为上下两域构图：七条通路在 1440 首屏一次全览，不再横向漫游，三段刻度换成了
+// 「胞质 / 基质」域标签 + 全图指示，顶部索引栏被移除（十四条去向仍在右栏保留）。
 // 这些断言是随功能取消而删除，并非弱化；新构图对应的断言在下面第 2、10 节补足。
 //
 // 【第六条通路上线后的计数更新】新增氧化磷酸化：节点 35→38（NADH / FADH₂ / Q），
 // 共用节点 14→16（NADH 与 FADH₂ 各连 TCA / β-氧化 / 氧化磷酸化三条），
 // 边 56→62（新增四条 TCA / β-氧化到 NADH / FADH₂ 的辅因子虚线，以及 NADH / FADH₂ → Q 两条入口线）；
 // 通路区块与标题 5→6，右栏去向 10→12。这些是计数同步，不是放宽断言。
+//
+// 【第八条通路上线后的计数更新】新增脂肪酸从头合成（FAS，PLATE 08）：只登记标题块与导航，
+// 不并入 SOURCES，因此节点 38 / 共用节点 16 / 边 62 的口径保持不变；
+// 通路区块与标题 6→7，右栏去向 12→14。同样是计数同步，不是放宽断言。
+//
+// 【版式政策更新 2026-11-05】横向滚动口径由「图版单屏零溢出」改为
+// 「页面级零横向滚动 + 图版容器按档位可拖」：1440 展开 0、1280 展开 ≤ 200px、收起 0。
+// 这是按新政策替换过期断言，不是放宽阈值；页面级溢出仍要求严格为 0。
 //
 // 需先 `npm run build`，并让 preview 服务跑在 BASE_URL（默认 http://localhost:4173）。
 import { mkdirSync } from "node:fs";
@@ -50,6 +58,9 @@ const PATHWAYS = [
   ["ppp", "磷酸戊糖途径"],
   ["fatty-acid-oxidation", "β-氧化"],
   ["oxphos", "氧化磷酸化"],
+  ["fatty-acid-synthesis", "脂肪酸从头合成"],
+  ["urea-cycle", "尿素循环"],
+  ["glycogen", "糖原代谢"],
 ];
 
 const firstScreenTitles = async () =>
@@ -75,46 +86,80 @@ check("报头 PLATE 00", (await page.locator(".plate-no").innerText()).includes(
 check("首屏无 3D canvas", (await page.locator("canvas").count()) === 0);
 check("无控制台报错", errors.length === 0, errors.join(" | "));
 
-// ===== 2) 六条通路区块：存在、可点、1440×900 首屏标题全部可见 =====
+// ===== 1b) 默认态 = 收起辅助栏 + 等比铺满（受 1400px 上限约束） =====
+// 政策（2026-11-05）：无参数默认不再是展开态。默认档 = 收起 + fitwidth；
+// 旧的「展开」口径保留为 ?fold=open，旧的「收起 1020 居中」保留为 ?fold=center。
+check(
+  "默认态 · 右栏收起（aria-expanded=false）",
+  (await page.locator('[data-aside-toggle="1"]').getAttribute("aria-expanded")) === "false",
+);
+check(
+  "默认态 · 按钮文案「展开辅助栏」",
+  (await page.locator('[data-aside-toggle="1"]').innerText()).trim() === "展开辅助栏",
+);
+check("默认态 · 右栏不可见", await page.locator("#home-aside").isHidden());
+check(
+  "默认态 · 档位为 fitwidth",
+  (await page.locator(".home-poster .body-grid").getAttribute("data-fold-mode")) === "fitwidth",
+);
+
+// ===== 2) 八条通路区块：存在、可点、1440×900 展开档标题全部可见 =====
+// 默认档改为「收起 + 等比铺满」后，首屏完整可见 8/10（尿素 / 糖原落到首屏下方，逐档实测见第 15 节）。
+// 原「十条全见」断言的判定口径是「展开档」；用同一套 ?fold=open 参数还原展开档，断言与阈值原样保留。
+/** 路由别名：FAS 的挂图路由按需求为 /pathway/fas，结构页沿用 /structures/<数据目录名> */
+const ROUTE_ALIAS = {
+  "fatty-acid-synthesis": { poster: "/pathway/fas", structures: "/structures/fatty-acid-synthesis" },
+};
+const posterRoute = (id) => ROUTE_ALIAS[id]?.poster ?? `/pathway/${id}`;
+const structureRoute = (id) => ROUTE_ALIAS[id]?.structures ?? `/structures/${id}`;
+
+await page.goto(`${BASE}/?fold=open`, { waitUntil: "networkidle" });
+
 const blockAttrs = await page.locator("[data-pathway-block]").evaluateAll((els) =>
   els.map((el) => [el.getAttribute("data-pathway-block"), el.getAttribute("href")])
 );
-check("六个通路区块存在", blockAttrs.length === 6, String(blockAttrs.length));
+check("九个通路区块存在", blockAttrs.length === 9, String(blockAttrs.length));
 check(
-  "通路区块 href 指向六条挂图",
-  blockAttrs.every(([id, href]) => href === `/pathway/${id}`),
+  "通路区块 href 指向九条挂图",
+  blockAttrs.every(([id, href]) => href === posterRoute(id)),
   JSON.stringify(blockAttrs)
 );
 
 const titles = await firstScreenTitles();
-check("六个通路标题存在", titles.length === 6, String(titles.length));
+check("十个通路标题存在（九区块 + Cori 连接带）", titles.length === 10, String(titles.length));
 for (const [id, name] of PATHWAYS) {
   const title = titles.find((item) => item.id === id);
   check(`图上出现「${name}」标题`, Boolean(title) && title.text.includes(name), title?.text ?? "missing");
 }
+check(
+  "图上出现「Cori 循环」连接带标题",
+  titles.some((t) => t.id === "cori" && t.text.toLowerCase().includes("cori 循环")),
+  titles.find((t) => t.id === "cori")?.text ?? "missing",
+);
 const offscreen = titles.filter((t) => t.y < 0 || t.bottom > 900 || t.x < 0 || t.right > 1440);
 check(
-  "1440×900 首屏内六条通路标题全部可见（无需横向漫游）",
-  titles.length === 6 && offscreen.length === 0,
+  "1440×900 首屏内十条通路标题全部可见（无需横向漫游）",
+  titles.length === 10 && offscreen.length === 0,
   JSON.stringify(titles.map((t) => [t.id, t.x, t.y, t.right, t.bottom]))
 );
 const mapBox = await page.locator('svg[data-home-map="1"]').boundingBox();
 check(
-  "六条通路标题都在同一屏高内（最低标题底边 ≤ 900）",
+  "十条通路标题都在同一屏高内（最低标题底边 ≤ 900）",
   Boolean(mapBox) && Math.max(...titles.map((t) => t.bottom)) <= 900,
   JSON.stringify({ mapTop: mapBox?.y, mapHeight: mapBox?.height, lowestTitle: Math.max(...titles.map((t) => t.bottom)) })
 );
 
-// ===== 3) 右栏十二条去向 =====
+// ===== 3) 右栏十八条去向 =====
 const destLinks = await page.locator("[data-home-link]").evaluateAll((els) =>
   els.map((el) => el.getAttribute("href"))
 );
-check("右栏十二条去向链接", destLinks.length === 12, String(destLinks.length));
+check("右栏十八条去向链接", destLinks.length === 18, String(destLinks.length));
 check(
-  "十二条去向覆盖六挂图 + 六结构对照",
+  "十八条去向覆盖九挂图 + 九结构对照",
   PATHWAYS.every(
-    ([id]) => destLinks.includes(`/pathway/${id}`) && destLinks.includes(`/structures/${id}`),
-  )
+    ([id]) => destLinks.includes(posterRoute(id)) && destLinks.includes(structureRoute(id)),
+  ),
+  JSON.stringify(destLinks)
 );
 
 // ===== 4) 共用节点合并：同一实体只出现一次 =====
@@ -187,7 +232,10 @@ check(
   ),
 );
 const edgeSourcesText = edgeInfo.map((edge) => edge.sources).join(" ");
-for (const [id] of PATHWAYS) check(`连线来源含 ${id} 步骤`, edgeSourcesText.includes(`${id}:`));
+// FAS / 尿素循环 / 糖原本轮只登记标题块与导航，不并入 SOURCES（节点 38 / 共用 16 / 边 62 口径不变），
+// 因此不参与「连线来源」这条断言；其余六条仍逐条核对。
+for (const [id] of PATHWAYS.filter(([pid]) => pid !== "fatty-acid-synthesis" && pid !== "urea-cycle" && pid !== "glycogen"))
+  check(`连线来源含 ${id} 步骤`, edgeSourcesText.includes(`${id}:`));
 check(
   "NADH / FADH₂ 各有两条来自 TCA 与 β-氧化的接口线",
   edgeInfo.filter((edge) => edge.id.endsWith("->nadh")).length === 2 &&
@@ -206,7 +254,11 @@ check(
 // ===== 7) 点共用节点：右栏列出连接通路，不跳转 =====
 await page.locator('svg [data-node-id="g6p"] circle').first().click({ force: true });
 await page.waitForTimeout(250);
-check("点共用节点不跳转", page.url().endsWith("/"), page.url());
+check(
+  "点共用节点不跳转",
+  new URL(page.url()).pathname === "/",
+  page.url(),
+);
 const panelText = await page.locator('[data-testid="junction-panel"]').innerText();
 check("右栏显示 G6P", panelText.includes("G6P"));
 check(
@@ -245,7 +297,8 @@ await page.waitForURL("**/pathway/glycolysis?step=gk-2", { timeout: 5000 }).catc
 check("点步骤连线带 ?step=", page.url().includes("/pathway/glycolysis?step=gk-2"), page.url());
 
 // ===== 10) 区室与域标签 =====
-await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+// 后续第 11 节按「1440 展开」测容器横向政策，这里起就固定在展开档（默认档已改为收起）。
+await page.goto(`${BASE}/?fold=open`, { waitUntil: "networkidle" });
 const mapText = await page.locator("svg[data-home-map='1']").evaluate((el) => el.textContent ?? "");
 for (const label of ["细胞质", "膜间腔", "外膜", "内膜", "线粒体基质", "ER 腔"]) {
   check(`区室/膜带标注「${label}」`, mapText.includes(label));
@@ -273,7 +326,11 @@ check(
   "点「线粒体基质」指示当前域为基质",
   (await page.locator('[data-testid="home-domain-count"]').innerText()).includes("当前域 · 基质"),
 );
-check("点击域标签不跳页", page.url().endsWith("/"), page.url());
+check(
+  "点击域标签不跳页",
+  new URL(page.url()).pathname === "/",
+  page.url(),
+);
 await page.locator('[data-domain-nav="matrix"]').click();
 await page.waitForTimeout(150);
 check("再点同一域恢复全图", (await page.locator('[data-testid="home-domain-count"]').innerText()).includes("全图"));
@@ -283,21 +340,47 @@ check(
   (await page.evaluate(() => document.activeElement?.getAttribute("data-domain-nav"))) === "cytosol",
 );
 
-// ===== 11) 首屏不横向滚动 =====
-const scrollFit = await page.locator('[data-testid="home-plate-scroll"]').evaluate((el) => ({
-  client: el.clientWidth,
-  scroll: el.scrollWidth,
-}));
-check("图版容器无横向溢出（1440）", scrollFit.scroll <= scrollFit.client + 2, JSON.stringify(scrollFit));
-const docFit = await page.evaluate(() => ({
-  client: document.documentElement.clientWidth,
-  scroll: document.documentElement.scrollWidth,
-}));
-check("文档无横向溢出（1440）", docFit.scroll <= docFit.client + 2, JSON.stringify(docFit));
+// ===== 11) 图版横向政策 =====
+// 政策（2026-11-05 起）：「页面级」不得出现横向滚动条；图版容器在「展开」态可横向拖动。
+// 阈值按档位固定：1440 展开 = 0 溢出，1280 展开 ≤ 200px（实测 160px），收起（1020 居中）= 0。
+const plateMetrics = () =>
+  page.locator('[data-testid="home-plate-scroll"]').evaluate((el) => ({
+    client: el.clientWidth,
+    scroll: el.scrollWidth,
+    left: el.scrollLeft,
+  }));
+const docMetrics = () =>
+  page.evaluate(() => ({
+    client: document.documentElement.clientWidth,
+    scroll: document.documentElement.scrollWidth,
+    scrollX: window.scrollX,
+  }));
+async function setAsideOpen(open) {
+  const btn = page.locator('[data-aside-toggle="1"]');
+  const expanded = (await btn.getAttribute("aria-expanded")) === "true";
+  if (expanded !== open) {
+    await btn.click();
+    await page.waitForTimeout(250);
+  }
+}
+async function assertFold(label, maxOverflow) {
+  const doc = await docMetrics();
+  check(`${label} · 页面级横向溢出为 0`, doc.scroll - doc.client === 0, JSON.stringify(doc));
+  const plate = await plateMetrics();
+  const delta = plate.scroll - plate.client;
+  check(`${label} · 图版容器溢出 ${delta}px ≤ ${maxOverflow}px`, delta <= maxOverflow, JSON.stringify(plate));
+  return delta;
+}
+
+await assertFold("1440 展开", 0);
 check(
   "右栏不与图版重叠（双栏栅格仍在）",
   (await page.locator(".home-aside").boundingBox()).x > (await page.locator(".plate-wrap").boundingBox()).x,
 );
+
+await setAsideOpen(false);
+await assertFold("1440 收起", 0);
+await setAsideOpen(true);
 
 // ===== 12) 致敬栏 =====
 const tribute = await page.locator(".home-tribute").innerText();
@@ -306,7 +389,7 @@ check("致敬写 Nicholson 与 1960", tribute.includes("Nicholson") && tribute.i
 check("致敬写 KEGG 与 1995 / Kanehisa", tribute.includes("KEGG") && tribute.includes("1995") && tribute.includes("Kanehisa"));
 check("明确是体例致敬而非内容引用", tribute.includes("体例致敬") && tribute.includes("不取自"));
 
-// ===== 13) 十二条去向页都有首页入口 =====
+// ===== 13) 十八条去向页都有首页入口 =====
 for (const [id] of PATHWAYS) {
   for (const route of [`/pathway/${id}`, `/structures/${id}`]) {
     await page.goto(`${BASE}${route}`, { waitUntil: "domcontentloaded" });
@@ -316,43 +399,273 @@ for (const [id] of PATHWAYS) {
   }
 }
 
-// ===== 14) 截图：1440 首屏 / 共用节点状态 / 1280 可用性 =====
+// ===== 14) 截图：1440 展开首屏 / 共用节点状态 / 1280 可用性 =====
+// 本节的「十条标题全见」「容器可拖动量」判定口径都是展开档，统一用 ?fold=open 还原。
 await page.setViewportSize({ width: 1440, height: 900 });
-await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+await page.goto(`${BASE}/?fold=open`, { waitUntil: "networkidle" });
 await page.waitForTimeout(500);
 await page.screenshot({ path: join(ROOT, "preview", "home-overview.png") });
-console.log("✓ 截图 preview/home-overview.png（1440×900 首屏 · 六条通路一次全览）");
+console.log("✓ 截图 preview/home-overview.png（1440×900 展开档首屏 · 十条通路一次全览）");
 await page.screenshot({ path: join(ROOT, "preview", "home-full.png"), fullPage: true });
 console.log("✓ 截图 preview/home-full.png（1440 宽整页）");
 
-await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+await page.goto(`${BASE}/?fold=open`, { waitUntil: "networkidle" });
 await page.locator('svg [data-node-id="accoa"] circle').first().click({ force: true });
 await page.waitForTimeout(400);
 await page.screenshot({ path: join(ROOT, "preview", "home-junction.png") });
 console.log("✓ 截图 preview/home-junction.png（1440×900 · 点乙酰-CoA 共用节点）");
 
-// 1280 窄屏：只记录可用性结论，不为窄屏改版。
+// 1280 窄屏：展开态允许容器横向拖动（≤200px），页面级仍必须零溢出；收起态回到 0。
 await page.setViewportSize({ width: 1280, height: 900 });
-await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+await page.goto(`${BASE}/?fold=open`, { waitUntil: "networkidle" });
 await page.waitForTimeout(400);
 const titles1280 = await firstScreenTitles();
-const fit1280 = await page.evaluate(() => ({
-  client: document.documentElement.clientWidth,
-  scroll: document.documentElement.scrollWidth,
-}));
 check(
-  "1280 下六条通路标题仍全部可见",
-  titles1280.length === 6 && titles1280.every((t) => t.y >= 0 && t.bottom <= 900 && t.x >= 0 && t.right <= 1280),
+  "1280 下十条通路标题仍全部可见",
+  titles1280.length === 10 && titles1280.every((t) => t.y >= 0 && t.bottom <= 900 && t.x >= 0 && t.right <= 1280),
   JSON.stringify(titles1280.map((t) => [t.id, t.x, t.y, t.right, t.bottom]))
 );
-check("1280 下无横向滚动", fit1280.scroll <= fit1280.client + 2, JSON.stringify(fit1280));
-const scroll1280 = await page.locator('[data-testid="home-plate-scroll"]').evaluate((el) => ({
-  client: el.clientWidth,
-  scroll: el.scrollWidth,
+
+const delta1280Open = await assertFold("1280 展开", 200);
+check("1280 展开 · 容器确实存在可拖动量（溢出 > 0）", delta1280Open > 0, `${delta1280Open}px`);
+
+// 拖动只作用于图版容器：scrollLeft 增大，页面 scrollX 与 location.href 都不变。
+const beforeDrag = await page.evaluate(() => ({
+  url: location.href,
+  scrollX: window.scrollX,
+  left: document.querySelector('[data-testid="home-plate-scroll"]').scrollLeft,
 }));
-check("1280 下图版无横向溢出", scroll1280.scroll <= scroll1280.client + 2, JSON.stringify(scroll1280));
+const plateBox = await page.locator('[data-testid="home-plate-scroll"]').boundingBox();
+await page.mouse.move(plateBox.x + plateBox.width - 60, plateBox.y + 60);
+await page.mouse.down();
+await page.mouse.move(plateBox.x + 60, plateBox.y + 60, { steps: 12 });
+await page.mouse.up();
+await page.waitForTimeout(200);
+const afterDrag = await page.evaluate(() => ({
+  url: location.href,
+  scrollX: window.scrollX,
+  left: document.querySelector('[data-testid="home-plate-scroll"]').scrollLeft,
+}));
+const dragDoc = await docMetrics();
+check("拖动后 location.href / 路由不变", afterDrag.url === beforeDrag.url, `${beforeDrag.url} → ${afterDrag.url}`);
+check(
+  "拖动只作用于图版容器（scrollLeft 增大、页面 scrollX 仍为 0）",
+  afterDrag.left > beforeDrag.left && dragDoc.scrollX === 0,
+  JSON.stringify({ beforeDrag, afterDrag, dragDoc }),
+);
+
+await setAsideOpen(false);
+await assertFold("1280 收起", 0);
 await page.screenshot({ path: join(ROOT, "preview", "home-1280.png") });
-console.log("✓ 截图 preview/home-1280.png（1280×900 · 可用性记录）");
+console.log("✓ 截图 preview/home-1280.png（1280×900 · 收起态）");
+
+// ===== 15) 默认档 + 三档还原 × 四视口：版面 / 字号 / 首屏条数 / 按钮态 =====
+// 默认（无参数）= 收起 + 等比铺满（1400px 上限）；?fold=center = 收起 + 1020 居中；
+// ?fold=open = 展开。四视口逐档实测，默认档首屏完整可见 8/10（尿素 / 糖原落到首屏下方）。
+const FOLD_MODES = [
+  { id: "default", url: "/", fold: "fitwidth", aside: false, btn: "展开辅助栏", aria: "false" },
+  { id: "center", url: "/?fold=center", fold: "center", aside: false, btn: "展开辅助栏", aria: "false" },
+  { id: "open", url: "/?fold=open", fold: "open", aside: true, btn: "收起辅助栏", aria: "true" },
+];
+const MATRIX_VPS = [1440, 1280, 1920, 2560];
+const matrixRows = [];
+
+for (const vp of MATRIX_VPS) {
+  for (const mode of FOLD_MODES) {
+    await page.setViewportSize({ width: vp, height: 900 });
+    await page.goto(`${BASE}${mode.url}`, { waitUntil: "networkidle" });
+    await page.waitForTimeout(350);
+    const row = await page.evaluate(() => {
+      const grid = document.querySelector(".home-poster .body-grid");
+      const scroll = document.querySelector('[data-testid="home-plate-scroll"]');
+      const canvas = document.querySelector(".home-poster .plate-canvas");
+      const aside = document.querySelector("#home-aside");
+      const btn = document.querySelector('[data-aside-toggle="1"]');
+      const sc = scroll.getBoundingClientRect();
+      const css = getComputedStyle(scroll);
+      const contentLeft = sc.left + parseFloat(css.borderLeftWidth) + parseFloat(css.paddingLeft);
+      const contentRight = sc.right - parseFloat(css.borderRightWidth) - parseFloat(css.paddingRight);
+      const cr = canvas.getBoundingClientRect();
+      const scale = cr.width / 1020;
+      const glyph = document.querySelector('[data-pathway-title="glycolysis"]');
+      const noteEl = glyph?.closest("a")?.nextElementSibling ?? null;
+      const titles = [...document.querySelectorAll("[data-pathway-title]")].map((el) => {
+        const r = el.getBoundingClientRect();
+        return {
+          id: el.getAttribute("data-pathway-title"),
+          x: r.x,
+          y: r.y,
+          right: r.right,
+          bottom: r.bottom,
+        };
+      });
+      const notVisible = titles
+        .filter((t) => t.x < 0 || t.y < 0 || t.right > innerWidth || t.bottom > innerHeight)
+        .map((t) => t.id);
+      return {
+        fold: grid?.getAttribute("data-fold-mode"),
+        asideVisible: aside ? !aside.hasAttribute("hidden") && aside.getBoundingClientRect().height > 0 : false,
+        btnText: (btn?.textContent ?? "").trim(),
+        aria: btn?.getAttribute("aria-expanded"),
+        docDelta: document.documentElement.scrollWidth - document.documentElement.clientWidth,
+        containerDelta: scroll.scrollWidth - scroll.clientWidth,
+        contentWidth: Math.round((contentRight - contentLeft) * 10) / 10,
+        canvasWidth: Math.round(cr.width * 10) / 10,
+        leftGap: Math.round((cr.left - contentLeft) * 10) / 10,
+        rightGap: Math.round((contentRight - cr.right) * 10) / 10,
+        titlePx: glyph ? Math.round(parseFloat(getComputedStyle(glyph).fontSize) * scale * 100) / 100 : null,
+        notePx: noteEl ? Math.round(parseFloat(getComputedStyle(noteEl).fontSize) * scale * 100) / 100 : null,
+        visibleCount: titles.length - notVisible.length,
+        notVisible,
+      };
+    });
+    const label = `${vp} · ${mode.id}`;
+    check(`${label} · data-fold-mode=${mode.fold}`, row.fold === mode.fold, String(row.fold));
+    check(`${label} · document 横向差精确 0`, row.docDelta === 0, `${row.docDelta}px`);
+    if (mode.id === "open" && vp === 1280) {
+      check(
+        `${label} · 容器横向差 ${row.containerDelta}px（>0 且 ≤200，可拖动）`,
+        row.containerDelta > 0 && row.containerDelta <= 200,
+        `${row.containerDelta}px`,
+      );
+    } else {
+      check(`${label} · 容器横向差 0`, row.containerDelta === 0, `${row.containerDelta}px`);
+    }
+    const expectedCanvas =
+      mode.id === "open"
+        ? Math.min(Math.max(955, row.contentWidth), 1020)
+        : Math.min(row.contentWidth, mode.id === "center" ? 1020 : 1400);
+    check(
+      `${label} · 画布渲染宽 ${row.canvasWidth}px（期望 ${Math.round(expectedCanvas * 10) / 10}）`,
+      Math.abs(row.canvasWidth - expectedCanvas) <= 1,
+      `${row.canvasWidth} vs ${expectedCanvas}`,
+    );
+    const scale = row.canvasWidth / 1020;
+    check(
+      `${label} · 标题屏幕字号 ${row.titlePx}px`,
+      Math.abs(row.titlePx - 12 * scale) <= 0.2,
+      `期望 ${(12 * scale).toFixed(2)}px`,
+    );
+    check(
+      `${label} · 注记屏幕字号 ${row.notePx}px`,
+      Math.abs(row.notePx - 9.2 * scale) <= 0.2,
+      `期望 ${(9.2 * scale).toFixed(2)}px`,
+    );
+    check(`${label} · 按钮文案「${mode.btn}」`, row.btnText === mode.btn, row.btnText);
+    check(`${label} · aria-expanded=${mode.aria}`, row.aria === mode.aria, String(row.aria));
+    check(`${label} · 右栏${mode.aside ? "可见" : "隐藏"}`, row.asideVisible === mode.aside, String(row.asideVisible));
+
+    // 展开档 1440 / 1280 画布 955（纵向压缩），十条全见；1920 / 2560 画布 1020，糖原落到首屏下方。
+    const expectedVisible =
+      mode.id === "default" ? 8 : mode.id === "center" ? 9 : vp === 1920 || vp === 2560 ? 9 : 10;
+    const expectedHidden =
+      mode.id === "default"
+        ? "urea-cycle,glycogen"
+        : mode.id === "center"
+          ? "glycogen"
+          : vp === 1920 || vp === 2560
+            ? "glycogen"
+            : "";
+    check(
+      `${label} · 首屏完整可见 ${row.visibleCount}/10（预期 ${expectedVisible}）`,
+      row.visibleCount === expectedVisible,
+      `未完整可见：${row.notVisible.join(",") || "无"}`,
+    );
+    check(
+      `${label} · 首屏未完整可见 = ${expectedHidden || "无"}`,
+      row.notVisible.join(",") === expectedHidden,
+      row.notVisible.join(",") || "无",
+    );
+    if (mode.id === "default" && vp >= 1920) {
+      check(`${label} · 1400 上限生效（画布 1400）`, Math.abs(row.canvasWidth - 1400) <= 1, `${row.canvasWidth}px`);
+      check(
+        `${label} · 超宽屏左右留白对称（${row.leftGap} / ${row.rightGap}）`,
+        Math.abs(row.leftGap - row.rightGap) <= 1 && row.leftGap > 0,
+        `${row.leftGap}/${row.rightGap}`,
+      );
+    }
+    matrixRows.push({ vp, mode: mode.id, ...row });
+  }
+}
+
+console.log("\n四视口 × 三档实测（默认 = 收起 + 等比铺满；center = 收起 + 1020；open = 展开）");
+console.log("| 视口 | 档 | document Δ | 容器 Δ | 画布宽 | 标题 px | 注记 px | 首屏完整可见 | 未完整可见 |");
+console.log("| --- | --- | --- | --- | --- | --- | --- | --- | --- |");
+for (const r of matrixRows) {
+  console.log(
+    `| ${r.vp} | ${r.mode} | ${r.docDelta} | ${r.containerDelta} | ${r.canvasWidth} | ${r.titlePx} | ${r.notePx} | ${r.visibleCount}/10 | ${r.notVisible.join(", ") || "无"} |`,
+  );
+}
+
+// ===== 16) 折叠按钮两态 + 键盘 + 无缩放控件 =====
+await page.setViewportSize({ width: 1440, height: 900 });
+await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+const toggle = page.locator('[data-aside-toggle="1"]');
+const toggleState = async () => ({
+  text: (await toggle.innerText()).trim(),
+  aria: await toggle.getAttribute("aria-expanded"),
+  asideVisible: !(await page.locator("#home-aside").isHidden()),
+});
+check(
+  "默认态按钮位于页眉工具区且可见",
+  (await toggle.isVisible()) && (await toggle.evaluate((el) => Boolean(el.closest(".plate-head"))))
+);
+check(
+  "默认态按钮两态文案 =「展开辅助栏」",
+  (await toggleState()).text === "展开辅助栏",
+);
+await toggle.click();
+await page.waitForTimeout(200);
+{
+  const st = await toggleState();
+  check("点按钮展开 · 文案「收起辅助栏」/ aria=true / 右栏可见", st.text === "收起辅助栏" && st.aria === "true" && st.asideVisible, JSON.stringify(st));
+}
+await toggle.click();
+await page.waitForTimeout(200);
+{
+  const st = await toggleState();
+  check("再点收起 · 文案「展开辅助栏」/ aria=false / 右栏隐藏", st.text === "展开辅助栏" && st.aria === "false" && st.asideVisible === false, JSON.stringify(st));
+  check(
+    "收起后按钮仍在页眉原位可见",
+    (await toggle.isVisible()) && (await toggle.evaluate((el) => Boolean(el.closest(".plate-head"))))
+  );
+}
+await toggle.focus();
+check(
+  "折叠按钮可键盘聚焦",
+  (await page.evaluate(() => document.activeElement?.getAttribute("data-aside-toggle"))) === "1",
+);
+await page.keyboard.press("Space");
+await page.waitForTimeout(150);
+check("Space 展开", (await toggleState()).aria === "true");
+await page.keyboard.press("Space");
+await page.waitForTimeout(150);
+check("Space 收起", (await toggleState()).aria === "false");
+await page.keyboard.press("Enter");
+await page.waitForTimeout(150);
+check("Enter 展开", (await toggleState()).aria === "true");
+await page.keyboard.press("Enter");
+await page.waitForTimeout(150);
+check("Enter 收起", (await toggleState()).aria === "false");
+
+// 无缩放控件：只认真正的缩放交互件，浏览器默认缩放不算
+const zoomCount = await page.locator("button, input, [role=slider], [class*=zoom]").evaluateAll(
+  (els) =>
+    els.filter((el) => {
+      const t = (el.textContent ?? "").trim();
+      return /zoom|缩放|放大|缩小/.test(t) || /zoom/i.test(String(el.className));
+    }).length,
+);
+check("首页无缩放控件", zoomCount === 0, String(zoomCount));
+
+// 默认态截图：1440 / 1280，另加 1920 验证 1400 上限留白
+for (const vp of [1440, 1280, 1920]) {
+  await page.setViewportSize({ width: vp, height: 900 });
+  await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+  await page.waitForTimeout(400);
+  await page.screenshot({ path: join(ROOT, "preview", `home-default-${vp}.png`) });
+  console.log(`✓ 截图 preview/home-default-${vp}.png（默认收起 + 等比铺满）`);
+}
 
 if (errors.length) {
   console.error("页面错误：", errors);

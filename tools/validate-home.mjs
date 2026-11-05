@@ -10,7 +10,7 @@
  *  6. 版面坐标覆盖全部节点且落在画布内；自环只允许出现在 cycle-return；
  *  7. 上下两域构图：三条域带连续覆盖画布、三条膜线都在膜带内、跨域共用节点
  *     （丙酮酸 / 乙酰-CoA / 草酰乙酸）贴着膜带（±40 px）、节点之间不重叠、
- *     五个通路标签都在画布内；共用分子仍只出现一次（第 1 节）。
+ *     七个通路标签都在画布内；共用分子仍只出现一次（第 1 节）。
  *
  * 若 homeMap.ts 改动，本脚本用 esbuild 重新打包后读取，避免维护第二份推导逻辑。
  */
@@ -95,11 +95,15 @@ check("节点 id 唯一（同一实体不画两次）", new Set(nodeIds).size ==
 const strayNodes = home.HOME_NODES.filter((node) => node.pathwayIds.length < 1);
 check("每个节点至少被一条通路引用", strayNodes.length === 0, strayNodes.map((node) => node.id).join(","));
 
-// 1b) 挂图编号：01–06 连续、无重复（总图是 PLATE 00）
+// 1b) 挂图编号：01–06、08、09、10（07 属 Cori，只走首页回路层、不占标题块），无重复
 const plateNos = home.HOME_PATHWAYS.map((pathway) => pathway.plateNo);
 check(
-  "六条挂图编号 PLATE 01–06 连续且无重复",
-  plateNos.join(",") === "PLATE 01,PLATE 02,PLATE 03,PLATE 04,PLATE 05,PLATE 06",
+  "九条挂图编号 PLATE 01–06 + 08 + 09 + 10 无重复",
+  new Set(plateNos).size === plateNos.length &&
+    ["PLATE 01", "PLATE 02", "PLATE 03", "PLATE 04", "PLATE 05", "PLATE 06", "PLATE 08", "PLATE 09", "PLATE 10"].every((no) =>
+      plateNos.includes(no),
+    ) &&
+    plateNos.length === 9,
   plateNos.join(","),
 );
 
@@ -112,34 +116,35 @@ check(
   junctions.every((junction) => nodeIds.includes(junction.entityId)),
 );
 
-// 3) 边可解析
+// 3) 边可解析（用独立的 edgeFailures：不能拿全局 failures 判断，否则前面的编号/节点失败会串到这条）
 const nodeSet = new Set(nodeIds);
 const edgeIds = new Set();
+const edgeFailures = [];
 for (const edge of home.HOME_EDGES) {
-  if (edgeIds.has(edge.id)) failures.push(`重复边 id: ${edge.id}`);
+  if (edgeIds.has(edge.id)) edgeFailures.push(`重复边 id: ${edge.id}`);
   edgeIds.add(edge.id);
   if (!nodeSet.has(edge.from) || !nodeSet.has(edge.to)) {
-    failures.push(`边端点不在节点表: ${edge.id}`);
+    edgeFailures.push(`边端点不在节点表: ${edge.id}`);
   }
   if (edge.from === edge.to && edge.kind !== "cycle-return") {
-    failures.push(`非 cycle-return 自环: ${edge.id}`);
+    edgeFailures.push(`非 cycle-return 自环: ${edge.id}`);
   }
   if (!edge.sources.length) {
-    failures.push(`边没有数据来源: ${edge.id}`);
+    edgeFailures.push(`边没有数据来源: ${edge.id}`);
   }
   for (const source of edge.sources) {
     if (source.stepId) {
       const isTransport = transportIdsByPathway.get(source.pathwayId)?.has(source.stepId);
       const isStep = stepIdsByPathway.get(source.pathwayId)?.has(source.stepId);
       if (!isStep && !isTransport) {
-        failures.push(`边来源无法解析: ${edge.id} ← ${source.pathwayId}:${source.stepId}`);
+        edgeFailures.push(`边来源无法解析: ${edge.id} ← ${source.pathwayId}:${source.stepId}`);
       }
     } else if (source.linkType !== "cycle-return" && source.linkType !== "cycle-exit") {
-      failures.push(`边来源缺少 stepId 且不是结构性环路/出环边: ${edge.id} (${source.linkType})`);
+      edgeFailures.push(`边来源缺少 stepId 且不是结构性环路/出环边: ${edge.id} (${source.linkType})`);
     }
   }
 }
-check("每条边都能解析到数据来源", failures.length === 0, failures.slice(0, 3).join(" | "));
+check("每条边都能解析到数据来源", edgeFailures.length === 0, edgeFailures.slice(0, 3).join(" | "));
 
 // 4) 每个主步骤都有可见边
 const sourcedSteps = new Set();
@@ -251,8 +256,8 @@ check(
 );
 const pathwayLabels = layout.HOME_PATHWAY_LABELS ?? [];
 check(
-  "六个通路标签都在画布内",
-  pathwayLabels.length === 6 &&
+  "九个通路标签都在画布内",
+  pathwayLabels.length === 9 &&
     pathwayLabels.every((label) => label.x > 0 && label.y > 0 && label.x < canvas.width && label.y < canvas.height),
   JSON.stringify(pathwayLabels.map((label) => [label.pathwayId, label.x, label.y])),
 );

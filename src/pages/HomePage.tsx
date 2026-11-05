@@ -1,4 +1,11 @@
-import { useMemo, useState } from "react";
+import {
+  useMemo,
+  useRef,
+  useState,
+  type KeyboardEvent as ReactKeyboardEvent,
+  type MouseEvent as ReactMouseEvent,
+  type PointerEvent as ReactPointerEvent,
+} from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   HOME_EDGES,
@@ -21,6 +28,8 @@ import {
   HOME_MEMBRANE_LINES,
   HOME_PATHWAY_LABELS,
   HOME_POS,
+  HOME_RESERVED_HEAD,
+  HOME_RESERVED_SLOTS,
   HOME_SHARED_TAGS,
 } from "../data/homeLayout";
 import PathwaySwitcher from "../components/PathwaySwitcher";
@@ -43,6 +52,9 @@ const PATH_COLOR: Record<HomePathwayId, string> = {
   ppp: C.teal,
   "fatty-acid-oxidation": C.amber,
   oxphos: C.teal,
+  "fatty-acid-synthesis": C.ink,
+  "urea-cycle": C.brick,
+  glycogen: C.amber,
 };
 
 const JUNCTION_IDS = new Set(HOME_NODES.filter((node) => node.junction).map((node) => node.id));
@@ -177,12 +189,31 @@ function crossingPoint(x1: number, y1: number, x2: number, y2: number, targetY: 
   return { x: x1 + (x2 - x1) * t, y: targetY };
 }
 
-/** 跨膜文字若压在节点上，只把文字推开；红色刻线仍留在膜带原位。 */
-function crossLabelShift(x: number, y: number): number {
+/** 通路标题/注记占位：跨膜文字必须避开，不能只避节点。 */
+const PATHWAY_LABEL_OBSTACLES = HOME_PATHWAY_LABELS.flatMap((l) => {
+  const meta = homePathwayMeta(l.pathwayId);
+  const title = `${meta.name} · ${meta.en}`;
+  const wTitle = textWidth(title, 12);
+  const wNote = textWidth(l.note, 9);
+  const leftOf = (w: number) => (l.anchor === "start" ? l.x : l.anchor === "end" ? l.x - w : l.x - w / 2);
+  const tx = leftOf(wTitle);
+  const nx = leftOf(wNote);
+  return [
+    { x0: tx, x1: tx + wTitle, y: l.y },
+    { x0: nx, x1: nx + wNote, y: l.y + 15 },
+  ];
+});
+
+/** 跨膜文字若压在节点或通路标题上，只把文字推开；红色刻线仍留在膜带原位。
+ *  传入的是文字矩形（x0..x1），不能只测锚点：右展文字向左延伸，锚点不落在标题框内时仍会压字。 */
+function crossLabelShift(x0: number, x1: number, y: number): number {
   for (const node of HOME_NODES) {
     const pos = HOME_POS[node.id];
     if (!pos) continue;
-    if (Math.abs(pos.x - x) < 34 && Math.abs(pos.y - y) < 22) return pos.y <= y ? 12 : -12;
+    if (x1 > pos.x - 30 && x0 < pos.x + 30 && Math.abs(pos.y - y) < 22) return pos.y <= y ? 12 : -12;
+  }
+  for (const ob of PATHWAY_LABEL_OBSTACLES) {
+    if (x1 > ob.x0 - 4 && x0 < ob.x1 + 4 && Math.abs(ob.y - y) < 12) return ob.y <= y ? 12 : -12;
   }
   return 0;
 }
@@ -260,6 +291,71 @@ export function HomePage() {
   const navigate = useNavigate();
   const [selectedJunction, setSelectedJunction] = useState<string | null>(null);
   const [domainFocus, setDomainFocus] = useState<DomainFocus>("all");
+  /**
+   * 三档共用同一套 URL 参数：
+   *   无参数          → 收起右栏 + 按可视宽等比铺满（fitwidth，受 1400px 上限约束）
+   *   ?fold=center    → 收起右栏 + 1020 居中
+   *   ?fold=open      → 展开右栏
+   */
+  const foldParam = useMemo(() => {
+    if (typeof window === "undefined") return null;
+    return new URLSearchParams(window.location.search).get("fold");
+  }, []);
+  const [asideOpen, setAsideOpen] = useState(() => foldParam === "open");
+  const foldMode: "center" | "fitwidth" = foldParam === "center" ? "center" : "fitwidth";
+
+  /** 横向漫游：容器级拖动（不接管页面纵向滚动），仅在位移超过阈值后才捕获指针。 */
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const panRef = useRef({ active: false, startX: 0, startScroll: 0, moved: false, endAt: 0 });
+
+  function handlePanDown(event: ReactPointerEvent<HTMLDivElement>) {
+    if (event.button !== 0) return;
+    const el = scrollRef.current;
+    if (!el) return;
+    panRef.current = { active: true, startX: event.clientX, startScroll: el.scrollLeft, moved: false, endAt: 0 };
+  }
+
+  function handlePanMove(event: ReactPointerEvent<HTMLDivElement>) {
+    const el = scrollRef.current;
+    const pan = panRef.current;
+    if (!el || !pan.active) return;
+    const dx = event.clientX - pan.startX;
+    if (!pan.moved) {
+      if (Math.abs(dx) < 5) return;
+      pan.moved = true;
+      el.setPointerCapture(event.pointerId);
+      el.classList.add("is-dragging");
+    }
+    event.preventDefault();
+    el.scrollLeft = pan.startScroll - dx;
+  }
+
+  function handlePanEnd(event: ReactPointerEvent<HTMLDivElement>) {
+    const el = scrollRef.current;
+    const pan = panRef.current;
+    pan.active = false;
+    if (el?.hasPointerCapture(event.pointerId)) el.releasePointerCapture(event.pointerId);
+    el?.classList.remove("is-dragging");
+    if (pan.moved) pan.endAt = Date.now();
+  }
+
+  /** 拖动结束后紧跟着的那次 click 不应触发节点/连线跳转。 */
+  function handlePanClickCapture(event: ReactMouseEvent<HTMLDivElement>) {
+    if (Date.now() - panRef.current.endAt < 150) {
+      event.preventDefault();
+      event.stopPropagation();
+      panRef.current.endAt = 0;
+    }
+  }
+
+  function handlePanKeyDown(event: ReactKeyboardEvent<HTMLDivElement>) {
+    if (event.target !== event.currentTarget) return;
+    if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+    const el = scrollRef.current;
+    if (!el || el.scrollWidth <= el.clientWidth) return;
+    event.preventDefault();
+    el.scrollLeft += event.key === "ArrowRight" ? 96 : -96;
+  }
 
   const pairGroups = useMemo(() => {
     const groups = new Map<string, HomeEdge[]>();
@@ -306,7 +402,10 @@ export function HomePage() {
       const width = textWidth(edge.crossLabel, 8.5);
       const x0 = toRight ? anchor.x + dx - width : anchor.x + dx;
       const x1 = x0 + width;
-      const baseY = anchor.onBand ? anchor.y + 3 + crossLabelShift(anchor.x, anchor.y) : anchor.y - 16;
+      // 不在膜带上的注记同样要避开通路标题/注记（否则会压住“膜内 · NADH …”）
+      const baseY = anchor.onBand
+        ? anchor.y + 3 + crossLabelShift(x0, x1, anchor.y)
+        : anchor.y - 16 + crossLabelShift(x0, x1, anchor.y - 16);
       let y = baseY;
       const offsets = [0, 12, -12, 24, -24, 36];
       for (const offset of offsets) {
@@ -411,14 +510,31 @@ export function HomePage() {
         </span>
         <span className="lg" style={{ color: C.teal }}>青 · 磷酸戊糖 / 氧化磷酸化</span>
         <span className="lg" style={{ color: C.amber }}>琥珀 · 线粒体两条</span>
-        <span className="legend-hint">上下两域 · 首屏全览六条通路</span>
+        <span className="legend-hint">上下两域 · 首屏可览八条通路</span>
       </div>
 
-      <div className="body-grid">
+      <div
+        className={`body-grid${asideOpen ? "" : " aside-collapsed"}${
+          !asideOpen && foldMode === "fitwidth" ? " fold-fitwidth" : ""
+        }`}
+        data-fold-mode={asideOpen ? "open" : foldMode}
+      >
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">总图 · MASTER MAP</span>
-            <span className="organ-switch">上域：胞质 → 膜带：外膜 / 膜间腔 / 内膜 → 下域：线粒体基质</span>
+            <div className="ph-tools">
+              <span className="organ-switch">上域：胞质 → 膜带：外膜 / 膜间腔 / 内膜 → 下域：线粒体基质</span>
+              <button
+                type="button"
+                className="aside-toggle"
+                aria-expanded={asideOpen}
+                aria-controls="home-aside"
+                data-aside-toggle="1"
+                onClick={() => setAsideOpen((open) => !open)}
+              >
+                {asideOpen ? "收起辅助栏" : "展开辅助栏"}
+              </button>
+            </div>
           </div>
 
           <div className="home-domainnav" data-testid="home-domainnav">
@@ -448,14 +564,27 @@ export function HomePage() {
             </span>
           </div>
 
-          <div className="plate-scroll" data-testid="home-plate-scroll">
+          <div
+            className="plate-scroll"
+            data-testid="home-plate-scroll"
+            ref={scrollRef}
+            tabIndex={0}
+            role="region"
+            aria-label="总图画布：按住横向拖动，或用左右方向键横向移动"
+            onPointerDown={handlePanDown}
+            onPointerMove={handlePanMove}
+            onPointerUp={handlePanEnd}
+            onPointerCancel={handlePanEnd}
+            onClickCapture={handlePanClickCapture}
+            onKeyDown={handlePanKeyDown}
+          >
             <div className="plate-canvas home-canvas">
               <svg
                 viewBox={`0 ${HOME_CORI_LOOP.band.minY} ${HOME_CANVAS.width} ${HOME_CANVAS.height + HOME_CORI_LOOP.band.height}`}
                 preserveAspectRatio="xMidYMid meet"
                 data-home-map="1"
                 role="img"
-                aria-label="上下两域六通路代谢总图 + Cori 循环跨器官血液回路"
+                aria-label="上下两域七通路代谢总图 + Cori 循环跨器官血液回路"
                 style={{ display: "block", width: "100%", height: "auto" }}
               >
                 <defs>
@@ -504,6 +633,7 @@ export function HomePage() {
                     stroke={C.paper}
                     strokeWidth={3}
                     paintOrder="stroke"
+                    data-pathway-title="cori"
                   >
                     {HOME_CORI_LOOP.bandTitle.text}
                   </text>
@@ -831,12 +961,63 @@ export function HomePage() {
                     </g>
                   );
                 })}
+
+                {/* 第 10–12 条：只保留版面落位区，不绘制任何通路节点/连线。 */}
+                <g data-reserved-section="1">
+                  {svgText(HOME_RESERVED_HEAD.text, HOME_RESERVED_HEAD.x, HOME_RESERVED_HEAD.y, 9, "start", {
+                    opacity: 0.5,
+                    letterSpacing: "0.18em",
+                  })}
+                  {HOME_RESERVED_SLOTS.map((slot) => (
+                    <g
+                      key={slot.no}
+                      data-reserved-slot={slot.no}
+                      data-reserved-kind={slot.name ? "placeholder" : "empty"}
+                    >
+                      <rect
+                        x={24}
+                        y={slot.y - 14}
+                        width={HOME_CANVAS.width - 48}
+                        height={44}
+                        fill="rgba(34,40,42,0.012)"
+                        stroke={C.hairFaint}
+                        strokeWidth={1}
+                      />
+                      <text
+                        x={40}
+                        y={slot.y + 2}
+                        fontSize={12}
+                        letterSpacing="0.1em"
+                        fontWeight={700}
+                        fill={C.ink}
+                        opacity={slot.name ? 0.5 : 0.36}
+                        className="serif"
+                      >
+                        {slot.name ? `${slot.name} · ${slot.en}` : `第 ${slot.no} 条 · 预留位`}
+                      </text>
+                      <text x={40} y={slot.y + 17} fontSize={9.2} fill={C.ink} opacity={0.55}>
+                        {slot.note}
+                      </text>
+                      <text
+                        x={HOME_CANVAS.width - 40}
+                        y={slot.y + 2}
+                        fontSize={8.5}
+                        textAnchor="end"
+                        letterSpacing="0.2em"
+                        fill={C.ink}
+                        opacity={0.35}
+                      >
+                        {`NO. ${slot.no}`}
+                      </text>
+                    </g>
+                  ))}
+                </g>
               </svg>
             </div>
           </div>
         </div>
 
-        <aside className="home-aside">
+        <aside className="home-aside" id="home-aside" hidden={!asideOpen}>
           <div className="panel-block">
             <div className="pb-title">
               共用节点 <span className="en">JUNCTIONS ×{HOME_JUNCTIONS.length}</span>
@@ -906,7 +1087,7 @@ export function HomePage() {
 
           <div className="panel-block">
             <div className="pb-title">
-              全部去向 <span className="en">TWELVE DESTINATIONS</span>
+              全部去向 <span className="en">EIGHTEEN DESTINATIONS</span>
             </div>
             <div className="j-dest">
               {HOME_PATHWAYS.map((pathway) => (

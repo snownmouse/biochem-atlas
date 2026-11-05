@@ -1,5 +1,5 @@
 2PG
-  RCSB3UCD  instance coordinates extracted offline; bonds inferred from covalent radii (all single)
+  experimental coordinates preserved; bond orders from SMILES template (Kekulé)
 
  11 10  0  0  0  0  0  0  0  0999 V2000
   147.3430   94.3440   24.1080 C   0  0  0  0  0  0  0  0  0  0  0  0
@@ -13,14 +13,14 @@
   147.9490   93.1780   19.6300 O   0  0  0  0  0  0  0  0  0  0  0  0
   147.7280   91.9230   21.8350 O   0  0  0  0  0  0  0  0  0  0  0  0
   145.6720   92.5700   20.5960 O   0  0  0  0  0  0  0  0  0  0  0  0
-  1  2  1  0  0  0
-  1  5  1  0  0  0
-  1  6  1  0  0  0
-  2  3  1  0  0  0
-  2  8  1  0  0  0
-  3  7  1  0  0  0
-  4  8  1  0  0  0
-  4  9  1  0  0  0
-  4 10  1  0  0  0
-  4 11  1  0  0  0
+  1  2  1  0  0  0  0
+  1  6  2  0  0  0  0
+  2  3  1  0  0  0  0
+  2  8  1  0  0  0  0
+  3  7  1  0  0  0  0
+  4  9  2  0  0  0  0
+  4 10  1  0  0  0  0
+  4 11  1  0  0  0  0
+  5  1  1  0  0  0  0
+  8  4  1  0  0  0  0
 M  END

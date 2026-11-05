@@ -387,7 +387,14 @@ export default function GluconeogenesisOverviewPage() {
           {STEP_SHORT[stepId] ?? step.enzyme.name}
         </text>
         {cfg.note && (
-          <text x={cfg.x} y={cfg.y + 15} fontSize={9} textAnchor={cfg.anchor} opacity={0.55} fill={cfg.noteColor}>
+          <text
+            x={stepId === "gn-1" ? 48 : cfg.x}
+            y={cfg.y + 15}
+            fontSize={9}
+            textAnchor={stepId === "gn-1" ? "start" : cfg.anchor}
+            opacity={0.55}
+            fill={cfg.noteColor}
+          >
             {cfg.note}
           </text>
         )}
@@ -587,10 +594,10 @@ export default function GluconeogenesisOverviewPage() {
                 </g>
                 {/* 泳道标签 */}
                 <g fontSize={11} letterSpacing={4} fontWeight={700} fill={INK}>
-                  <text x={48} y={95}>线粒体基质 · MITOCHONDRIAL MATRIX</text>
-                  <text x={48} y={232} fontSize={10}>线粒体内膜 · 转运带（只放转运机器）</text>
+                  <text x={48} y={68}>线粒体基质 · MITOCHONDRIAL MATRIX</text>
+                  <text x={48} y={212} fontSize={10}>线粒体内膜 · 转运带（只放转运机器）</text>
                   <text x={48} y={440}>细胞质 · CYTOSOL</text>
-                  <text x={1712} y={548} fontSize={10}>内质网腔 · ER LUMEN</text>
+                  <text x={1712} y={566} fontSize={10}>内质网腔 · ER LUMEN</text>
                 </g>
 
                 {/* ===== 底物循环（与糖酵解对打，虚线注记，引用糖酵解步 gk-3 / gk-1） ===== */}
@@ -638,7 +645,7 @@ export default function GluconeogenesisOverviewPage() {
                           </text>
                         )}
                         {n.id === "glc" && n.note && (
-                          <text x={p.x - 30} y={p.y - 24} fontSize={8.5} textAnchor="end" opacity={0.6}>{n.note}</text>
+                          <text x={p.x + 34} y={p.y - 24} fontSize={8.5} textAnchor="start" opacity={0.6}>{n.note}</text>
                         )}
                       </g>
                     );

@@ -15,7 +15,6 @@
 <line x1="146.8" y1="171.4" x2="117.4" y2="107.9" stroke="#22282a" stroke-width="1.6"/>
 <line x1="150.7" y1="186.1" x2="192.8" y2="276.8" stroke="#22282a" stroke-width="1.6"/>
 <line x1="150.7" y1="186.1" x2="60.0" y2="228.2" stroke="#22282a" stroke-width="1.6"/>
-<polygon points="495.8,217.2 483.2,316.5 490.4,317.1" fill="#22282a"/>
 <circle cx="595.4" cy="75.5" r="8.5" fill="#f6f3ec"/>
 <text x="595.4" y="78.7" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <circle cx="586.5" cy="175.1" r="1.8" fill="rgba(34,40,42,0.55)"/>

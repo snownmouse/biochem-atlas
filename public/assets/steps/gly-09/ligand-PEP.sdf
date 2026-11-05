@@ -1,5 +1,5 @@
 PEP
-  RCSB3UCD  instance coordinates extracted offline; bonds inferred from covalent radii (all single)
+  experimental coordinates preserved; bond orders from SMILES template (Kekulé)
 
  10  9  0  0  0  0  0  0  0  0999 V2000
   135.3300  111.9760   -1.4300 C   0  0  0  0  0  0  0  0  0  0  0  0
@@ -12,13 +12,13 @@ PEP
   133.9330  112.3410    2.5370 O   0  0  0  0  0  0  0  0  0  0  0  0
   136.0380  113.6590    2.8080 O   0  0  0  0  0  0  0  0  0  0  0  0
   134.3950  114.1350    0.9030 O   0  0  0  0  0  0  0  0  0  0  0  0
-  1  2  1  0  0  0
-  1  3  1  0  0  0
-  1  4  1  0  0  0
-  4  5  1  0  0  0
-  4  6  1  0  0  0
-  6  7  1  0  0  0
-  7  8  1  0  0  0
-  7  9  1  0  0  0
-  7 10  1  0  0  0
+  1  3  2  0  0  0  0
+  1  4  1  0  0  0  0
+  2  1  1  0  0  0  0
+  4  5  2  0  0  0  0
+  4  6  1  0  0  0  0
+  6  7  1  0  0  0  0
+  7  8  2  0  0  0  0
+  7  9  1  0  0  0  0
+  7 10  1  0  0  0  0
 M  END

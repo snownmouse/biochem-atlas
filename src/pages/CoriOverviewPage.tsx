@@ -252,7 +252,7 @@ export default function CoriOverviewPage() {
           <span style={{ margin: "0 6px", color: TEAL, fontWeight: 700 }}>青</span>＝NADH
         </span>
         {quizOn && <span className="lg quiz-hint">自测中 · 引用步名与代谢物名已隐藏 · 悬停或点击揭晓</span>}
-        <span className="lg legend-hint">1440 视口两器官同屏 · 更窄视口可 Shift+滚轮漫游</span>
+        <span className="lg legend-hint">1440 视口两器官基本同屏（约 45px 需横向拖动）· 更窄视口可拖动或 Shift+滚轮漫游</span>
       </div>
 
       {/* ===== 主体 ===== */}
@@ -354,7 +354,7 @@ export default function CoriOverviewPage() {
                   <text x={282} y={110} fontSize={10.5} textAnchor="end" opacity={0.7} className="num">
                     2 Lac → 1 Glc
                   </text>
-                  <text x={282} y={126} fontSize={8.5} textAnchor="end" opacity={0.5}>
+                  <text x={282} y={126} fontSize={9.2} textAnchor="end" opacity={0.5}>
                     花 6 个高能键
                   </text>
                 </g>
@@ -368,14 +368,14 @@ export default function CoriOverviewPage() {
                   <text x={982} y={110} fontSize={10.5} textAnchor="end" opacity={0.7} className="num">
                     1 Glc → 2 Lac
                   </text>
-                  <text x={982} y={126} fontSize={8.5} textAnchor="end" opacity={0.5}>
+                  <text x={982} y={126} fontSize={9.2} textAnchor="end" opacity={0.5}>
                     净得 2 ATP
                   </text>
                 </g>
 
                 {/* ===== 血流带：两条方向相反的物流 ===== */}
                 <g data-blood-band="1">
-                  <text x={296} y={140} fontSize={8.5} opacity={0.55} letterSpacing={1.6}>
+                  <text x={296} y={140} fontSize={9.2} opacity={0.55} letterSpacing={1.6}>
                     跨器官 · 不穿细胞膜
                   </text>
                   <path
@@ -410,7 +410,7 @@ export default function CoriOverviewPage() {
                   <text
                     x={skel.blood.glucose.labelX}
                     y={skel.blood.glucose.labelY + 13}
-                    fontSize={8.5}
+                    fontSize={9.2}
                     textAnchor={skel.blood.glucose.labelAnchor}
                     opacity={0.55}
                   >
@@ -431,7 +431,7 @@ export default function CoriOverviewPage() {
                   <text
                     x={skel.blood.lactate.labelX}
                     y={skel.blood.lactate.labelY + 13}
-                    fontSize={8.5}
+                    fontSize={9.2}
                     textAnchor={skel.blood.lactate.labelAnchor}
                     opacity={0.55}
                   >
@@ -457,10 +457,10 @@ export default function CoriOverviewPage() {
                   <text x={skel.blood.rbc.x + 14} y={skel.blood.rbc.y + 42} fontSize={9} opacity={0.65}>
                     糖酵解终点恒为乳酸
                   </text>
-                  <text x={skel.blood.rbc.x + 14} y={skel.blood.rbc.y + 58} fontSize={8.5} opacity={0.5}>
+                  <text x={skel.blood.rbc.x + 14} y={skel.blood.rbc.y + 58} fontSize={9.2} opacity={0.5}>
                     第三来源 · 不画完整臂
                   </text>
-                  <text x={skel.blood.rbc.x + 14} y={skel.blood.rbc.y + 78} fontSize={8.5} opacity={0.5}>
+                  <text x={skel.blood.rbc.x + 14} y={skel.blood.rbc.y + 78} fontSize={9.2} opacity={0.5}>
                     静息血乳酸贡献比例未核实
                   </text>
                   <path
@@ -471,7 +471,7 @@ export default function CoriOverviewPage() {
                     strokeDasharray="4 3"
                     markerEnd="url(#cori-ah-ink)"
                   />
-                  <text x={skel.blood.rbc.x + 14} y={skel.blood.rbc.y + 128} fontSize={8.5} opacity={0.6}>
+                  <text x={skel.blood.rbc.x + 14} y={skel.blood.rbc.y + 128} fontSize={9.2} opacity={0.6}>
                     红细胞 → 血乳酸
                   </text>
                 </g>
@@ -600,7 +600,7 @@ export default function CoriOverviewPage() {
                 <text x={982} y={558} fontSize={9} textAnchor="end" opacity={0.55}>
                   有氧时 Pyr → PDH → TCA
                 </text>
-                <text x={982} y={574} fontSize={8.5} textAnchor="end" opacity={0.45}>
+                <text x={982} y={574} fontSize={9.2} textAnchor="end" opacity={0.45}>
                   本带刻意留空
                 </text>
               </svg>

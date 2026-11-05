@@ -15,9 +15,9 @@
 <line x1="1099.0" y1="67.4" x2="1186.6" y2="115.5" stroke="#22282a" stroke-width="1.6"/>
 <line x1="1186.6" y1="115.5" x2="1272.2" y2="63.7" stroke="#22282a" stroke-width="1.6"/>
 <line x1="1272.2" y1="63.7" x2="1359.8" y2="111.8" stroke="#22282a" stroke-width="1.6"/>
-<line x1="1359.8" y1="111.8" x2="1362.0" y2="211.8" stroke="#22282a" stroke-width="1.6"/>
-<line x1="1357.5" y1="126.9" x2="1359.1" y2="196.9" stroke="#22282a" stroke-width="1.6"/>
 <line x1="1359.8" y1="111.8" x2="1445.3" y2="60.0" stroke="#22282a" stroke-width="1.6"/>
+<line x1="1374.0" y1="106.3" x2="1433.8" y2="70.0" stroke="#22282a" stroke-width="1.6"/>
+<line x1="1359.8" y1="111.8" x2="1362.0" y2="211.8" stroke="#22282a" stroke-width="1.6"/>
 <circle cx="60.0" cy="89.7" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <text x="69.0" y="84.7" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">C16</text>
 <circle cx="147.7" cy="137.8" r="1.8" fill="rgba(34,40,42,0.55)"/>
@@ -35,9 +35,9 @@
 <circle cx="1186.6" cy="115.5" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <circle cx="1272.2" cy="63.7" r="1.8" fill="rgba(34,40,42,0.55)"/>
 <circle cx="1359.8" cy="111.8" r="1.8" fill="rgba(34,40,42,0.55)"/>
-<circle cx="1362.0" cy="211.8" r="8.5" fill="#f6f3ec"/>
-<text x="1362.0" y="215.0" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
 <circle cx="1445.3" cy="60.0" r="8.5" fill="#f6f3ec"/>
 <text x="1445.3" y="63.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
-<text x="1454.3" y="68.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
+<circle cx="1362.0" cy="211.8" r="8.5" fill="#f6f3ec"/>
+<text x="1362.0" y="215.0" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="1371.0" y="219.8" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
 </svg>

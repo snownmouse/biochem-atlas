@@ -13,7 +13,7 @@
 // 酶结构：public/assets/steps/<assetDir>（由 manifest.json 解析）；TCA 无酶资产，enzymePanel=false
 // ============================================================
 
-import type { PartEvidence, StepComparison } from "./stepComparison";
+import type { MolPart, PartEvidence, StepComparison } from "./stepComparison";
 
 /**
  * 证据字段的构造器（只写结构化事实，不写等级）：
@@ -83,9 +83,16 @@ const FBP_LINEAR = {
   name: "果糖-1,6-二磷酸（线形，4ALD 结合态）",
   formula: "C₆H₁₀O₁₂P₂",
   asset2d: D2("fbp-linear"),
-  caveat: "4ALD 晶体里结合的是线形构象（2FP），此处按结合态呈现，不是自由态呋喃环。",
+  caveat:
+    "4ALD 晶体里结合的是线形构象（2FP），此处按结合态呈现，不是自由态呋喃环。键级来自模板，坐标为实验结构原值，键长偏长系晶体构象，未做几何纠正。",
 };
-const DHAP = { id: "dhap", name: "磷酸二羟丙酮（DHAP）", formula: "C₃H₅O₆P", asset2d: D2("dhap") };
+const DHAP = {
+  id: "dhap",
+  name: "磷酸二羟丙酮（DHAP）",
+  formula: "C₃H₅O₆P",
+  asset2d: D2("dhap"),
+  caveat: "键级来自模板，坐标为实验结构原值，键长偏长系晶体构象，未做几何纠正。",
+};
 const GAP = {
   id: "gap",
   name: "甘油醛-3-磷酸（GAP）",
@@ -162,12 +169,12 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     substrate: {
       name: "6-磷酸葡萄糖（G6P）",
       formula: "C₆H₁₁O₉P",
-      parts: [{ ...G6P, marks: [{ name: "C1", kind: "newbond", note: "醛基" }, { name: "C2", kind: "newbond", note: "醇" }] }],
+      parts: [{ ...G6P, sourceNote: "取自人己糖激酶 HK1 PDB 1CZA（1.90 Å · X-ray · Homo sapiens · 链 A · 配体 G6P）——人源但非本步 GPI 口袋（且 1CZA 中 G6P 位于抑制位点）；实验坐标。", marks: [{ name: "C1", kind: "newbond", note: "醛基" }, { name: "C2", kind: "newbond", note: "醇" }] }],
     },
     product: {
       name: "6-磷酸果糖（F6P）",
       formula: "C₆H₁₁O₉P",
-      parts: [{ ...F6P, marks: [{ name: "C1", kind: "newbond", note: "醇" }, { name: "C2", kind: "newbond", note: "酮基" }] }],
+      parts: [{ ...F6P, sourceNote: "取自小鼠磷酸葡萄糖异构酶 GPI PDB 2CXS（1.50 Å · X-ray · Mus musculus · 链 A · 配体 F6P）——本步本酶（GPI）活性位点但非人源；实验坐标。", marks: [{ name: "C1", kind: "newbond", note: "醇" }, { name: "C2", kind: "newbond", note: "酮基" }] }],
     },
     arrowLabel: "GPI · C1–C2 异构化（醛糖→酮糖）",
     change: "羰基从 C1 移到 C2：醛糖（吡喃六元环）变成酮糖（呋喃五元环），C1 退为 CH₂OH；无原子增减，环的大小与形状随之一变。",
@@ -189,7 +196,7 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     substrate: {
       name: "6-磷酸果糖（F6P）",
       formula: "C₆H₁₁O₉P",
-      parts: [{ ...F6P, marks: [{ name: "C1", kind: "newbond", note: "C1–OH" }] }],
+      parts: [{ ...F6P, sourceNote: "取自小鼠磷酸葡萄糖异构酶 GPI PDB 2CXS（1.50 Å · X-ray · Mus musculus · 链 A · 配体 F6P）——非本步 PFK-1 口袋，且非人源；实验坐标。", marks: [{ name: "C1", kind: "newbond", note: "C1–OH" }] }],
     },
     product: {
       name: "果糖-1,6-二磷酸（F1,6BP）",
@@ -228,7 +235,7 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
       name: "甘油醛-3-磷酸（GAP）＋ 磷酸二羟丙酮（DHAP）",
       formula: "两个 C₃H₅O₆P",
       parts: [
-        { ...DHAP, marks: [{ name: "C3", kind: "newbond", note: "新 CH₂OH" }] },
+        { ...DHAP, sourceNote: "取自酿酒酵母磷酸丙糖异构酶 TPI PDB 1NEY（1.20 Å · X-ray · Saccharomyces cerevisiae · 链 A · 配体 DHAP）——非本步醛缩酶口袋，且非人源；实验坐标。", marks: [{ name: "C3", kind: "newbond", note: "新 CH₂OH" }] },
         { ...GAP, marks: [{ name: "C1", kind: "newbond", note: "新醛基" }] },
       ],
     },
@@ -253,7 +260,7 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     substrate: {
       name: "磷酸二羟丙酮（DHAP）",
       formula: "C₃H₅O₆P",
-      parts: [{ ...DHAP, marks: [{ name: "C1", kind: "newbond", note: "醇" }, { name: "C2", kind: "newbond", note: "酮基" }] }],
+      parts: [{ ...DHAP, sourceNote: "取自酿酒酵母磷酸丙糖异构酶 TPI PDB 1NEY（1.20 Å · X-ray · Saccharomyces cerevisiae · 链 A · 配体 DHAP）——本步本酶（TPI）活性位点但非人源；实验坐标。", marks: [{ name: "C1", kind: "newbond", note: "醇" }, { name: "C2", kind: "newbond", note: "酮基" }] }],
     },
     product: {
       name: "甘油醛-3-磷酸（GAP）",
@@ -338,12 +345,12 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     substrate: {
       name: "3-磷酸甘油酸（3PG）",
       formula: "C₃H₄O₇P",
-      parts: [{ ...PG3, marks: [{ name: "C3", kind: "newbond", note: "磷酸离开 C3" }, { name: "P3", kind: "newbond" }] }],
+      parts: [{ ...PG3, sourceNote: "取自人磷酸甘油酸激酶 PGK1 PDB 9FDN（1.58 Å · X-ray · Homo sapiens · 链 A · 配体 3PG）——人源但非本步 PGAM 口袋；实验坐标。", marks: [{ name: "C3", kind: "newbond", note: "磷酸离开 C3" }, { name: "P3", kind: "newbond" }] }],
     },
     product: {
       name: "2-磷酸甘油酸（2PG）",
       formula: "C₃H₄O₇P",
-      parts: [{ ...PG2, marks: [{ name: "C2", kind: "newbond", note: "磷酸落到 C2" }, { name: "P2", kind: "newbond" }] }],
+      parts: [{ ...PG2, sourceNote: "取自人烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 A · 配体 2PG）——人源但非本步 PGAM 口袋；实验坐标。", marks: [{ name: "C2", kind: "newbond", note: "磷酸落到 C2" }, { name: "P2", kind: "newbond" }] }],
     },
     arrowLabel: "PGAM · 磷酸基 C3→C2 迁移",
     change: "磷酰基从 C3–O3 迁移到 C2–O2（经磷酰化组氨酸中间体）：原子组成不变，只换连接位置——3D 里表现为磷酸基贴着碳链平移了一段。",
@@ -389,7 +396,7 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     substrate: {
       name: "磷酸烯醇式丙酮酸（PEP）",
       formula: "C₃H₂O₆P",
-      parts: [{ ...PEP, marks: [{ name: "P2", kind: "leaving", note: "磷酰基转移给 ADP" }, { name: "C2", kind: "newbond", note: "C2=C3 消失" }, { name: "C3", kind: "newbond" }] }],
+      parts: [{ ...PEP, sourceNote: "取自人烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 A · 配体 PEP）——人源但非本步丙酮酸激酶口袋；实验坐标。", marks: [{ name: "P2", kind: "leaving", note: "磷酰基转移给 ADP" }, { name: "C2", kind: "newbond", note: "C2=C3 消失" }, { name: "C3", kind: "newbond" }] }],
     },
     product: {
       name: "丙酮酸",
@@ -2018,7 +2025,7 @@ const PPP_CONFIG: ComparisonConfig = {
   title: "磷酸戊糖途径 · 结构对照",
   summary:
     "八块逐步对照：氧化支路 3 步 + 非氧化支路 5 步，只对分子本身作形状对照——左侧酶位如实声明「未建立」，不伪造酶结构。页头开关整页切换 3D 球棍 / 2D 结构式；箭头下方始终给出范德华体积与主轴长度变化。11 个分子中 7 个用 RCSB 实验配体坐标，3 个（6PGL / Xu5P / GAP）无本体络合物、用 RDKit 计算构象并标「自由态，不等于结合态」；CO₂ 只做 2D、3D 不建。每块分子对照下方有一句首屏可见的「配体来源」。",
-  plateNo: "PLATE SF-03 · 结构对照 · PPP · 2026",
+  plateNo: "PLATE SF-04 · 结构对照 · PPP · 2026",
   back: { to: "/pathway/ppp", label: "← 返回挂图" },
   backCaption: "磷酸戊糖途径 · 结构对照（挂图页 /pathway/ppp）",
   enzymePanel: false,
@@ -2035,7 +2042,7 @@ const GLUCONEOGENESIS_CONFIG: ComparisonConfig = {
   title: "糖异生 · 结构对照",
   summary:
     "十一块主链 + 两条支路（乳酸 Cori、丙氨酸）：只对分子本身作形状对照——左侧酶位如实声明「未建立」，不伪造酶结构。页头开关整页切换 3D 球棍 / 2D 结构式；箭头下方始终给出范德华体积与主轴长度变化。FBP / F6P / 丙酮酸 / 乳酸 / 丙氨酸 / 谷氨酸使用本轮新建的实验或计算资产，其余沿用糖酵解/TCA 页共享资产并在块内写明来源。HCO₃⁻ 只做 2D、3D 不建。",
-  plateNo: "PLATE SF-04 · 结构对照 · 糖异生 · 2026",
+  plateNo: "PLATE SF-03 · 结构对照 · 糖异生 · 2026",
   back: { to: "/pathway/gluconeogenesis", label: "← 返回挂图" },
   backCaption: "糖异生 · 结构对照",
   enzymePanel: false,
@@ -2047,12 +2054,810 @@ const GLUCONEOGENESIS_CONFIG: ComparisonConfig = {
   steps: GLUCONEOGENESIS_COMPARISON,
 };
 
+// ------------------------------------------------------------
+// PLATE SF-08 · 脂肪酸从头合成（FAS）· 结构对照
+//
+// 本轮补齐：6 块 12 个分子块都有 2D 结构式 + 3D 资产。
+//   · 实验坐标 3 个：乙酰-CoA（8ZW1，人 CS）、丙二酰-CoA（8H6C，人 GCN5）、棕榈酸（2WUT，人髓鞘蛋白 P2）——
+//     全部不是 FASN 本酶口袋，块内首屏 sourceNote 逐条写明来源蛋白；等级由 evidenceGrade.ts 推导为 C（人源非本酶）。
+//   · 计算构象 6 个：C2 引物、C4 酮 / D-3-羟基 / 反式-Δ²-烯酰 / 饱和酰基、C16 酰基-ACP——
+//     均为 ACP 上的共价中间体，PDB 无小分子配体络合物，用 RDKit ETKDGv3 + MMFF94，页面标「计算构象」。
+//   · FASN ≈540 kDa 巨型合酶：不做酶的三维，只做小分子；不截取结构冒充全酶。
+// 默认模式按既有数据判据逐块计算（数字见每块 defaultModeRule），不手写等级。
+// ------------------------------------------------------------
+const FAS_ACCOA_FRAG = {
+  id: "fas-accoa",
+  name: "乙酰-CoA（反应端片段）",
+  formula: "C₂H₃OS（片段）",
+  asset2d: D2("fas-accoa"),
+  caveat: "按本页口径只画乙酰基 + 硫酯 S，CoA 长链省略；与 TCA / β-氧化页的乙酰-CoA 分块一致。",
+  sourceNote:
+    "实验坐标：PDB 8ZW1 · 链 B · 配体 ACO（X-ray，2.1 Å，Homo sapiens）· 来源蛋白是人柠檬酸合酶 CS（TCA 第 1 步），不是本步 ACC、更不是 FASN；本酶口袋内同分子高分辨结构未获。只取乙酰基 + 硫酯 S 的实测几何，CoA 长链省略。",
+};
+const FAS_MALONYL_FRAG = {
+  id: "fas-malonyl",
+  name: "丙二酰-CoA（反应端片段）",
+  formula: "C₃H₃O₃S（片段）",
+  asset2d: D2("fas-malonyl"),
+  caveat: "游离羧酸 −1、硫酯 0；羧基碳在缩合时以 CO₂ 离去，不进入碳链。",
+  sourceNote:
+    "实验坐标：PDB 8H6C · 链 C · 配体 MLC（X-ray，2.5 Å，Homo sapiens）· 来源蛋白是人 GCN5 组蛋白乙酰转移酶，不是本步 ACC、也不是 FASN；本酶口袋内同分子高分辨结构未获。只取丙二酰基 + 硫酯 S 的实测几何，CoA 长链省略。",
+};
+const FAS_C2_ACP = {
+  id: "fas-c2",
+  name: "乙酰-ACP（C2 引物 · 分块）",
+  formula: "C₂H₃OS（酰基-ACP 反应端）",
+  asset2d: D2("fas-c2"),
+  caveat: "ACP 是 FASN 的结构域载体，不按独立分子画；只保留酰基链 + 硫酯 S。",
+  sourceNote:
+    "计算构象：RDKit ETKDGv3（30 起点）+ MMFF94 取最低能量，无实验配体坐标（酰基-ACP 是 ACP 上的共价中间体，PDB 无小分子配体络合物）；自由态构象不等于 ACP 口袋内的结合态。",
+};
+const FAS_C4_KETO = {
+  id: "fas-c4-keto",
+  name: "3-酮丁酰-ACP（C4 · 分块）",
+  formula: "C₄H₅O₂S（酰基-ACP 反应端）",
+  asset2d: D2("fas-c4-keto"),
+  caveat: "缩合新键在 C2–C3 之间；C4 是「引物 C2 + 丙二酰 C2 − CO₂」的结果。",
+  sourceNote:
+    "计算构象：RDKit ETKDGv3（30 起点）+ MMFF94 取最低能量，无实验配体坐标（C4 酮酰-ACP 是 ACP 上的共价中间体，PDB 无小分子配体络合物）。",
+};
+const FAS_C4_OH = {
+  id: "fas-c4-oh",
+  name: "D-3-羟基丁酰-ACP（C4 · 分块）",
+  formula: "C₄H₇O₂S（酰基-ACP 反应端）",
+  asset2d: D2("fas-c4-oh"),
+  caveat: "FAS 生成 D-3-羟基（C3 为 R）；β-氧化水化生成 L-3-羟基，两者是镜像构型，不能互换。",
+  sourceNote:
+    "计算构象：RDKit ETKDGv3（30 起点，按 C3=R 建模）+ MMFF94 取最低能量，无实验配体坐标（羟酰-ACP 是 ACP 上的共价中间体）。",
+};
+const FAS_C4_ENOYL = {
+  id: "fas-c4-enoyl",
+  name: "反式-Δ²-丁烯酰-ACP（C4 · 分块）",
+  formula: "C₄H₅OS（酰基-ACP 反应端）",
+  asset2d: D2("fas-c4-enoyl"),
+  caveat: "脱水生成反式-Δ² 双键；β-氧化在对应步骤加水，方向相反。",
+  sourceNote:
+    "计算构象：RDKit ETKDGv3（30 起点，C2=C3 反式）+ MMFF94 取最低能量，无实验配体坐标（烯酰-ACP 是 ACP 上的共价中间体）。",
+};
+const FAS_C4_ACYL = {
+  id: "fas-c4-acyl",
+  name: "丁酰-ACP（C4，饱和 · 分块）",
+  formula: "C₄H₇OS（酰基-ACP 反应端）",
+  asset2d: D2("fas-c4-acyl"),
+  caveat: "饱和脂酰-ACP 回到 KS 作为下一轮 Cₙ；这是环的收口，不是新步骤。",
+  sourceNote:
+    "计算构象：RDKit ETKDGv3（30 起点）+ MMFF94 取最低能量，无实验配体坐标（丁酰-ACP 是 ACP 上的共价中间体）。",
+};
+const FAS_C16_ACYL = {
+  id: "fas-c16-acyl",
+  name: "棕榈酰-ACP（C16 · 分块）",
+  formula: "C₁₆H₃₁OS（酰基-ACP 反应端）",
+  asset2d: D2("fas-c16-acyl"),
+  caveat: "C16 是 TE 的长度选择性结果，不是四步环自动停止；只画酰基链 + 硫酯 S。",
+  sourceNote:
+    "计算构象：RDKit ETKDGv3（30 起点）+ MMFF94 取最低能量，无实验配体坐标（棕榈酰-ACP 是 ACP 上的共价中间体，PDB 无小分子配体络合物）。",
+};
+const FAS_C16 = {
+  id: "fas-c16",
+  name: "棕榈酸（C16）",
+  formula: "C₁₆H₃₁O₂⁻（中性式 C₁₆H₃₂O₂）",
+  asset2d: D2("fas-c16"),
+  caveat: "TE 在 C16 到站时水解硫酯；释放的是游离棕榈酸，不是棕榈酰-CoA。",
+  sourceNote:
+    "实验坐标：PDB 2WUT · 链 A · 配体 PLM（X-ray，1.85 Å，Homo sapiens）· 来源蛋白是人髓鞘蛋白 P2（脂肪酸结合蛋白），不是 FASN；本酶口袋内同分子高分辨结构未获。",
+};
+
+const FAS_COMPARISON: StepComparison[] = [
+  {
+    stepId: "fas-acc",
+    index: 1,
+    stageLabel: "准备步 · ACC 羧化",
+    enzyme: "乙酰-CoA 羧化酶（ACC）",
+    isozyme: "ACC1（ACACA）",
+    equation: "乙酰-CoA + HCO₃⁻ + ATP → 丙二酰-CoA + ADP + Pi",
+    substrate: {
+      name: "乙酰-CoA（反应端片段）",
+      formula: "C₂H₃OS（片段）",
+      parts: [{ ...FAS_ACCOA_FRAG, marks: [{ name: "C2", kind: "newbond", note: "羧基接入位点" }] }],
+      cofactorNote: "ATP / HCO₃⁻ / 生物素不入画；只有羧化成丙二酰-CoA 的 C2 单元能进四步环。",
+    },
+    product: {
+      name: "丙二酰-CoA（反应端片段）",
+      formula: "C₃H₃O₃S（片段）",
+      parts: [{ ...FAS_MALONYL_FRAG, marks: [{ name: "C2", kind: "added", note: "新增游离羧基（−1）" }] }],
+      cofactorNote: "ADP / Pi 不入画；羧基碳在缩合时以 CO₂ 离去，因此对碳链的净贡献仍是 C2。",
+    },
+    evidence: { substrate: [evOtherHuman("fas-accoa")], product: [evOtherHuman("fas-malonyl")] },
+    arrowLabel: "羧化：+ HCO₃⁻ + ATP，引入游离羧基（−1）",
+    change:
+      "乙酰-CoA 的 C2 被生物素依赖的羧化酶装上 HCO₃⁻，生成丙二酰-CoA：多出一个游离羧基（电离态 −1），硫酯键保留。重原子增加 1 个碳 + 2 个氧；两块资产均为实验坐标（8ZW1 / 8H6C，非 FASN 本酶口袋），首屏来源说明已逐条标注。",
+    physiology:
+      "承诺步 / 限速步：只有羧化的 C2 单元能被 KS 缩合。丙二酰-CoA 还抑制 CPT1，把「合成开启」与「β-氧化关闭」连成同一个开关。",
+    defaultMode: "3d",
+    defaultModeRule:
+      "默认 3D 判据：重原子 4→7（改变，不命中「重原子数不变」）；体积 63.6→92.0 Å³（ΔV +44.7%）；拓扑改变（C2 新增游离羧基）。重原子数与体积都明显变化，3D 直接呈现分子长大。",
+  },
+  {
+    stepId: "fas-ks",
+    index: 2,
+    stageLabel: "四步环 Ⅰ · KS 缩合",
+    enzyme: "FASN Ⅰ型 · KS 结构域",
+    equation: "脂酰-ACP（C2）+ 丙二酰-ACP → 3-酮丁酰-ACP（C4）+ ACP + CO₂",
+    substrate: {
+      name: "乙酰-ACP（C2 引物） + 丙二酰-ACP",
+      formula: "C₂H₃OS + C₃H₃O₃S（反应端片段）",
+      parts: [{ ...FAS_C2_ACP, marks: [{ name: "C2", kind: "newbond", note: "成键位点（C2–C3）" }] }],
+      cofactorNote: "丙二酰-ACP 由 ACC 产物经 MAT 转到 ACP；ACP 不作独立分子入画。",
+    },
+    product: {
+      name: "3-酮丁酰-ACP（C4）",
+      formula: "C₄H₅O₂S（片段）",
+      parts: [{ ...FAS_C4_KETO, marks: [{ name: "C3", kind: "newbond", note: "新酮基；C2–C3 成键" }] }],
+      cofactorNote: "CO₂ 与 ACP 不入画；CO₂ 的碳来自 HCO₃⁻，不是链上碳。",
+    },
+    evidence: { substrate: [evComputed("fas-c2")], product: [evComputed("fas-c4-keto")] },
+    arrowLabel: "+C2 单元：C2–C3 成键，CO₂ 离去",
+    change:
+      "丙二酰单元以脱羧驱动缩合：新 C–C 键落在增长链的 C2 与丙二酰 C2 之间（编号后为 C2–C3），净增 2 个碳并释放 1 个 CO₂。不是 C3–C4——那是 β-氧化硫解的断键位置。",
+    physiology:
+      "四步环唯一增碳的一步。7 轮缩合把 C2 引物推到 C16，同时释放 7 个 CO₂；这一步决定整条链的长度上限。",
+    defaultMode: "3d",
+    defaultModeRule:
+      "默认 3D 判据：重原子 4→7（改变）；体积 64.1→99.1 Å³（ΔV +54.6%）；拓扑改变（C2–C3 成键，新增 2 个碳 + 1 个氧）。重原子数与体积都变，3D 直接呈现链增长。",
+  },
+  {
+    stepId: "fas-kr",
+    index: 3,
+    stageLabel: "四步环 Ⅱ · KR 还原",
+    enzyme: "FASN Ⅰ型 · KR 结构域",
+    equation: "3-酮丁酰-ACP + NADPH + H⁺ → D-3-羟基丁酰-ACP + NADP⁺",
+    substrate: {
+      name: "3-酮丁酰-ACP（C4）",
+      formula: "C₄H₅O₂S（片段）",
+      parts: [{ ...FAS_C4_KETO, marks: [{ name: "C3", kind: "newbond", note: "C3=O → C3-OH" }] }],
+      cofactorNote: "NADPH + H⁺ 不入画；还原当量必须用 NADPH，不是 NADH。",
+    },
+    product: {
+      name: "D-3-羟基丁酰-ACP（C4）",
+      formula: "C₄H₇O₂S（片段）",
+      parts: [{ ...FAS_C4_OH, marks: [{ name: "C3", kind: "added", note: "D-3-羟基（与 β-氧化 L 型镜像）" }] }],
+      cofactorNote: "NADP⁺ 不入画；羟基构型为 D 型。",
+    },
+    evidence: { substrate: [evComputed("fas-c4-keto")], product: [evComputed("fas-c4-oh")] },
+    arrowLabel: "还原：C3=O → D-3-OH，耗 1 NADPH",
+    change:
+      "β-酮基被 NADPH 还原成 D-3-羟基；重原子数不变，只改 C3 的键级与构型。FAS 用 NADPH、β-氧化用 NAD⁺，方向与辅因子都成镜像。",
+    physiology:
+      "每轮 2 个 NADPH 中的第 1 个。胞质 NADPH 由 PPP / 苹果酸酶供给，不由 ACLY 产生——这是「NADPH 来源」最常见的误解点。",
+    defaultMode: "3d",
+    defaultModeRule:
+      "默认 3D 判据：重原子 7→7（不变）；体积 99.1→105.8 Å³（ΔV +6.76%，>2.5%）；拓扑改变（C3=O→C3–OH）。体积变化超过 2.5% 阈值，不命中「默认 2D」，按 3D。",
+  },
+  {
+    stepId: "fas-dh",
+    index: 4,
+    stageLabel: "四步环 Ⅲ · DH 脱水",
+    enzyme: "FASN Ⅰ型 · DH 结构域",
+    equation: "D-3-羟基丁酰-ACP → 反式-Δ²-丁烯酰-ACP + H₂O",
+    substrate: {
+      name: "D-3-羟基丁酰-ACP（C4）",
+      formula: "C₄H₇O₂S（片段）",
+      parts: [{ ...FAS_C4_OH }],
+      cofactorNote: "脱水不耗辅因子；与 β-氧化的水化方向相反。",
+    },
+    product: {
+      name: "反式-Δ²-丁烯酰-ACP（C4）",
+      formula: "C₄H₅OS（片段）",
+      parts: [{ ...FAS_C4_ENOYL, marks: [{ name: "C2", kind: "newbond", note: "C2=C3 双键（反式）" }] }],
+      cofactorNote: "H₂O 不入画；只移除 H₂O，碳数不变。",
+    },
+    evidence: { substrate: [evComputed("fas-c4-oh")], product: [evComputed("fas-c4-enoyl")] },
+    arrowLabel: "脱水：C3-OH + C2-H → 反式-Δ²，−H₂O",
+    change:
+      "DH 移除 1 分子 H₂O，生成反式-Δ² 双键；重原子数不变，拓扑改变。β-氧化在对应步骤加水，FAS 是脱水——方向相反，不能照抄酶名。",
+    physiology:
+      "脱水为下一步还原准备双键；它不改碳数、不耗还原当量，是最容易被忽略的一步。",
+    defaultMode: "3d",
+    defaultModeRule:
+      "默认 3D 判据：重原子 7→6（改变，脱水少 1 个氧）；体积 105.8→92.4 Å³（ΔV −12.7%）；拓扑改变（C3–OH + C2–H → C2=C3 反式双键）。重原子数减少，按 3D。",
+  },
+  {
+    stepId: "fas-er",
+    index: 5,
+    stageLabel: "四步环 Ⅳ · ER 还原",
+    enzyme: "FASN Ⅰ型 · ER 结构域",
+    equation: "反式-Δ²-丁烯酰-ACP + NADPH + H⁺ → 丁酰-ACP（C4）+ NADP⁺",
+    substrate: {
+      name: "反式-Δ²-丁烯酰-ACP（C4）",
+      formula: "C₄H₅OS（片段）",
+      parts: [{ ...FAS_C4_ENOYL }],
+      cofactorNote: "NADPH + H⁺ 不入画；每轮第 2 个 NADPH。",
+    },
+    product: {
+      name: "丁酰-ACP（C4，饱和）",
+      formula: "C₄H₇OS（片段）",
+      parts: [{ ...FAS_C4_ACYL, marks: [{ name: "C2", kind: "newbond", note: "双键还原为单键" }] }],
+      cofactorNote: "NADP⁺ 不入画；产物回到第 1 步的底物位。",
+    },
+    evidence: { substrate: [evComputed("fas-c4-enoyl")], product: [evComputed("fas-c4-acyl")] },
+    arrowLabel: "还原：双键 → 饱和链，耗 1 NADPH，本轮 +2C 收口",
+    change:
+      "ER 把反式-Δ² 双键还原成饱和链，碳数在 KS 已经 +2，这里只做还原收口。产物回到 KS，构成闭合四步环。",
+    physiology:
+      "每轮 2 个 NADPH 中的第 2 个。到这里一轮结束：净 +2C、耗 2 NADPH；C16 到站后由 TE 出环，四步环本身没有终止信号。",
+    defaultMode: "3d",
+    defaultModeRule:
+      "默认 3D 判据：重原子 6→6（不变）；体积 92.4→97.5 Å³（ΔV +5.52%，>2.5%）；拓扑改变（C2=C3 还原为单键）。体积变化超过 2.5% 阈值，不命中「默认 2D」，按 3D。",
+  },
+  {
+    stepId: "fas-te",
+    index: 6,
+    stageLabel: "终步 · TE 硫酯酶释放",
+    enzyme: "FASN Ⅰ型 · TE 结构域",
+    equation: "棕榈酰-ACP（C16）+ H₂O → 棕榈酸 + ACP + H⁺",
+    substrate: {
+      name: "棕榈酰-ACP（C16· 分块）",
+      formula: "C₁₆H₃₁OS（酰基-ACP 反应端）",
+      parts: [{ ...FAS_C16_ACYL, marks: [{ name: "C1", kind: "leaving", note: "硫酯水解位点" }] }],
+      cofactorNote: "ACP 与 H₂O 不单独入画；水解的是硫酯，不是碳链。",
+    },
+    product: {
+      name: "棕榈酸（C16）",
+      formula: "C₁₆H₃₁O₂⁻（中性式 C₁₆H₃₂O₂）",
+      parts: [{ ...FAS_C16, marks: [{ name: "C1", kind: "newbond", note: "游离羧酸（−1）" }] }],
+      cofactorNote: "ACP 回环再用；释放的是游离棕榈酸，要变棕榈酰-CoA 需另做活化。",
+    },
+    evidence: { substrate: [evComputed("fas-c16-acyl")], product: [evOtherHuman("fas-c16")] },
+    arrowLabel: "水解硫酯：C16 到站，棕榈酸出环",
+    change:
+      "TE 水解棕榈酰-ACP 的硫酯键，释放游离棕榈酸 + ACP；碳链不变，只把载体去掉。这一步不在四步环内，也不增碳。",
+    physiology:
+      "链长由 TE 的选择性决定：C16 到站才释放。若 TE 放行，链会继续延长；所以「C16」是酶学结果，不是环的数学终点。",
+    defaultMode: "3d",
+    defaultModeRule:
+      "默认 3D 判据：重原子 18→18（不变）；体积 300.9→285.3 Å³（ΔV −5.19%，>2.5%）；拓扑改变（硫酯 C1–S 水解为 C1–O⁻）。体积变化超过 2.5% 阈值，不命中「默认 2D」，按 3D。",
+  },
+];
+
+const FAS_CONFIG: ComparisonConfig = {
+  pathwayId: "fatty-acid-synthesis",
+  title: "脂肪酸从头合成 · 结构对照",
+  summary:
+    "六块逐步对照：ACC 羧化、四步环（KS / KR / DH / ER）、TE 释放。12 个分子端都补上了 2D 结构式与 3D 资产：乙酰-CoA（8ZW1，人 CS）、丙二酰-CoA（8H6C，人 GCN5）、棕榈酸（2WUT，人髓鞘蛋白 P2）为实验坐标，但都不是 FASN 本酶口袋，块内首屏逐条写明来源蛋白；C2 引物、C4 四个中间体与 C16 酰基-ACP 没有小分子实验配体，用 RDKit 计算构象并标「计算构象」。FASN 约 540 kDa 巨型合酶，本页不做酶的三维。",
+  plateNo: "PLATE SF-08 · 结构对照 · 脂肪酸合成 · 2026",
+  back: { to: "/pathway/fas", label: "← 返回挂图" },
+  backCaption: "脂肪酸从头合成 · 结构对照（挂图页 /pathway/fas）",
+  enzymePanel: false,
+  enzymePanelOffNote: "本通路不做酶的三维（FASN ≈540 kDa 巨型合酶）· 只做小分子结构对照",
+  footerNote:
+    "FAS 6 个分子块（12 个分子端）：乙酰-CoA 片段、丙二酰-CoA 片段、C2 引物、C4 酮 / D-3-羟基 / 反式-Δ²-烯酰 / 饱和酰基、C16 酰基-ACP、C16 棕榈酸。坐标口径：① 实验坐标 3 个——乙酰-CoA 取自 8ZW1（人柠檬酸合酶 CS，链 B，配体 ACO，X-ray 2.1 Å）、丙二酰-CoA 取自 8H6C（人 GCN5，链 C，配体 MLC，X-ray 2.5 Å）、棕榈酸取自 2WUT（人髓鞘蛋白 P2，链 A，配体 PLM，X-ray 1.85 Å）；三者都不是 FASN 本酶口袋，本酶口袋内同分子高分辨结构未获，按 evidenceGrade 计为 C（人源非本酶），块内首屏逐条写明。② 计算构象 6 个——C2 引物、C4 四个中间体与 C16 酰基-ACP 都是 ACP 上的共价中间体，PDB 无小分子配体络合物，用 RDKit ETKDGv3（30 起点）+ MMFF94，页面标「计算构象」，不与实验坐标混标。分块口径：乙酰-CoA / 丙二酰-CoA 与酰基-ACP 只画反应端（酰基链 + 硫酯 S），CoA / ACP 长链省略，资产里 S 以硫醇盐表示省略的连接，不冒充完整分子。FASN 约 540 kDa（同源二聚体），完整结构过大，本页不做酶视图，也不截取任一段结构冒充全酶。未入画：ATP / ADP / Pi / NADPH / NADP⁺ / CoA-SH / ACP / HCO₃⁻ / CO₂ / H₂O。",
+  defaultModePolicy:
+    "默认模式按数据判据逐块决定：重原子数不变 + 拓扑改变 + |ΔV| ≤2.5% → 该块默认 2D，其余默认 3D。六块实测数字写在每块 defaultModeRule；本轮六块全部按数字落到 3D（三块重原子数改变、三块体积变化 >2.5%）。?mode=2d|3d 为显式覆盖，优先级高于默认值。",
+  steps: FAS_COMPARISON,
+};
+
+// ============================================================
+// 尿素循环（PLATE 09/12 · 结构对照 SF-09）
+// 五块：CPS1 → OTC → ASS → ASL → ARG1。
+// 本轮补齐：瓜氨酸 / 鸟氨酸 / 天冬氨酸 / 精氨酸琥珀酸 / 精氨酸 / 延胡索酸 / 尿素
+// 共 7 个分子补 2D + 3D；NH₃、HCO₃⁻、氨甲酰磷酸只做 2D（原子过少或中间体不稳定，逐条写原因）。
+// 3D 全部为实验坐标，但多数取自相邻酶或非人源同源酶，块内首屏 sourceNote 写明；
+// 等级由 evidenceGrade.ts 从 pocketRole + species 推导，不手写。
+// CPS1 等尿素循环酶的三维一律不做（巨型酶 / 只做小分子），不截取结构冒充全酶。
+// ============================================================
+const UREA_NH3 = {
+  id: "urea-nh3",
+  name: "氨（NH₃）",
+  formula: "NH₃",
+  asset2d: D2("urea-nh3"),
+  no3dReason: "NH₃ 仅 1 个重原子，球棍模型没有可读的三维形状；沿用项目 CO₂ / HCO₃⁻ 口径只做 2D，不伪造 3D。",
+  caveat: "只做 2D；不建 3D。",
+  sourceNote: "无实验配体坐标：NH₃ 仅 1 个重原子，无可读三维形状；本页只做 2D 结构式，3D 不建。",
+};
+const UREA_CAP = {
+  id: "urea-cap",
+  name: "氨甲酰磷酸（CAP²⁻）",
+  formula: "CH₂NO₅P²⁻",
+  asset2d: D2("urea-cap"),
+  no3dReason:
+    "氨甲酰磷酸在水溶液中不稳定（易水解为氨甲酸 / 磷酸），且本轮未获本酶 CPS1 口袋内同分子高分辨络合物；按项目「不稳定中间体只做 2D」的口径，3D 留缺并如实说明。",
+  caveat: "2D 为 RDKit 由 SMILES 生成的结构式，不是三维构象。",
+  sourceNote: "无实验坐标、无计算 3D：本酶 CPS1 口袋内同分子高分辨结构未获，且 CAP 易水解；只做 2D 结构式。",
+};
+const UREA_ORN = {
+  id: "urea-orn",
+  name: "L-鸟氨酸",
+  formula: "C₅H₁₃N₂O₂⁺",
+  asset2d: D2("urea-orn"),
+  caveat: "实验坐标来自 3GMZ（人 ARG1）：第 2 步（OTC 底物）不是 OTC 口袋；第 5 步（ARG1 产物）为本酶口袋。",
+  sourceNote:
+    "实验坐标：PDB 3GMZ · 链 A · 配体 ORN（X-ray，1.43 Å，Homo sapiens）· 来源蛋白是人精氨酸酶 1 ARG1。第 2 步是 OTC 的底物，不是本酶口袋；第 5 步是 ARG1 的产物，为本酶口袋。",
+};
+const UREA_CIT = {
+  id: "urea-cit",
+  name: "L-瓜氨酸",
+  formula: "C₆H₁₃N₃O₃",
+  asset2d: D2("urea-cit"),
+  caveat: "实验坐标来自 2NZ2（人 ASS1）：第 2 步（OTC 产物）不是 OTC 口袋；第 3 步（ASS1 底物）为本酶口袋。",
+  sourceNote:
+    "实验坐标：PDB 2NZ2 · 链 A · 配体 CIR（X-ray，2.4 Å，Homo sapiens）· 来源蛋白是人精氨酸琥珀酸合成酶 ASS1。第 2 步是 OTC 的产物，不是本酶口袋；第 3 步是 ASS1 的底物，为本酶口袋。",
+};
+const UREA_ASP = {
+  id: "urea-asp",
+  name: "L-天冬氨酸（ASP⁻）",
+  formula: "C₄H₆NO₄⁻",
+  asset2d: D2("urea-asp"),
+  caveat: "实验坐标来自 2NZ2（人 ASS1 本酶口袋内的天冬氨酸底物）。",
+  sourceNote:
+    "实验坐标：PDB 2NZ2 · 链 A · 配体 ASP（X-ray，2.4 Å，Homo sapiens）· 人 ASS1 本酶口袋内的天冬氨酸底物（与瓜氨酸同晶体）。",
+};
+const UREA_AS1 = {
+  id: "urea-as1",
+  name: "L-精氨酸琥珀酸（AS1⁻）",
+  formula: "C₁₀H₁₇N₄O₆⁻",
+  asset2d: D2("urea-as1"),
+  caveat: "实验坐标来自 1J20（嗜热栖热菌 ASS1）：第 3 步为本酶产物（非人源）；第 4 步（ASL 底物）不是 ASL 口袋。",
+  sourceNote:
+    "实验坐标：PDB 1J20 · 链 A · 配体 AS1（X-ray，2.0 Å，Thermus thermophilus）· 嗜热栖热菌 ASS1 同源酶。第 3 步（ASS1 产物）为本酶口袋但非人源；第 4 步（ASL 底物）不是 ASL 本酶口袋。",
+};
+const UREA_ARG = {
+  id: "urea-arg",
+  name: "L-精氨酸（ARG⁺）",
+  formula: "C₆H₁₅N₄O₂⁺",
+  asset2d: D2("urea-arg"),
+  caveat: "实验坐标来自 9GGJ（拟南芥 ASL）：第 4 步为本酶产物（非人源）；第 5 步（ARG1 底物）不是 ARG1 口袋。",
+  sourceNote:
+    "实验坐标：PDB 9GGJ · 链 B · 配体 ARG（X-ray，2.0 Å，Arabidopsis thaliana）· 拟南芥精氨酸琥珀酸裂解酶 ASL。第 4 步（ASL 产物）为本酶口袋但非人源；第 5 步（ARG1 底物）不是 ARG1 本酶口袋。",
+};
+const UREA_FUM = {
+  id: "urea-fum",
+  name: "延胡索酸（反式）",
+  formula: "C₄H₂O₄²⁻",
+  asset2d: D2("urea-fum"),
+  caveat: "延胡索酸出环后进入 TCA 回流，不是尿素循环的终产物；本条为 9GGJ 拟南芥 ASL 本酶口袋内的反式构型。",
+  sourceNote:
+    "实验坐标：PDB 9GGJ · 链 A · 配体 FUM（X-ray，2.0 Å，Arabidopsis thaliana）· 拟南芥 ASL 本酶口袋内的延胡索酸产物（反式）。",
+};
+const UREA_URE = {
+  id: "urea-ure",
+  name: "尿素",
+  formula: "CH₄N₂O",
+  asset2d: D2("urea-ure"),
+  caveat: "实验坐标来自 1HQG（大鼠 ARG1 H141C 突变体）：本酶口袋但非人源、且为突变体。",
+  sourceNote:
+    "实验坐标：PDB 1HQG · 链 A · 配体 URE（X-ray，2.0 Å，Rattus norvegicus）· 大鼠精氨酸酶 1 H141C 突变体口袋；非人源、突变体，中性记录。",
+};
+
+const UREA_COMPARISON: StepComparison[] = [
+  {
+    stepId: "urea-1",
+    index: 1,
+    stageLabel: "① 进环 · CPS1",
+    enzyme: "CPS1 · 氨甲酰磷酸合成酶 I（线粒体基质）",
+    equation: "NH₃ + HCO₃⁻ + 2 ATP → 氨甲酰磷酸 + 2 ADP + Pi",
+    substrate: {
+      name: "NH₃ + HCO₃⁻ + 2 ATP",
+      formula: "NH₃ + CHO₃⁻（ATP 为分子式辅因子，不入画）",
+      parts: [{ ...UREA_NH3 }, { ...HCO3 }],
+      cofactorNote: "2 ATP 不入画；ATP 名义计数 2，高能键折算 2。",
+    },
+    product: {
+      name: "氨甲酰磷酸",
+      formula: "CH₂NO₅P²⁻",
+      parts: [{ ...UREA_CAP }],
+      cofactorNote: "2 ADP + Pi 不入画；Pi 来自 CPS1 的第二个 ATP。",
+    },
+    evidence: { substrate: [evOnly2d("urea-nh3"), evOnly2d("hco3")], product: [evOnly2d("urea-cap")] },
+    arrowLabel: "固定第一个氮：NH₃ + HCO₃⁻ + 2 ATP → 氨甲酰磷酸",
+    change: "CPS1 把游离 NH₃ 的氮装进氨甲酰磷酸的酰胺位，HCO₃⁻ 提供羰基碳；两个 ATP 驱动，生理上不可逆。",
+    physiology: "线粒体基质的进环步；N-乙酰谷氨酸是必需变构激活剂，把氨负荷接到尿素合成速率上。",
+    defaultMode: "2d",
+    defaultModeRule:
+      "默认 2D：NH₃ 仅 1 个重原子、HCO₃⁻ 仅 4 个原子、CAP 为不稳定中间体且本酶口袋高分辨结构未获——三块都没有 3D 坐标，无法参与体积/拓扑判据，按数据缺失默认 2D。",
+  },
+  {
+    stepId: "urea-2",
+    index: 2,
+    stageLabel: "② 闭环 Ⅰ · OTC",
+    enzyme: "OTC · 鸟氨酸氨甲酰转移酶（线粒体基质，X 连锁）",
+    equation: "氨甲酰磷酸 + 鸟氨酸 → 瓜氨酸 + Pi",
+    substrate: {
+      name: "氨甲酰磷酸 + 鸟氨酸",
+      formula: "CH₂NO₅P²⁻ + C₅H₁₃N₂O₂⁺",
+      parts: [{ ...UREA_CAP }, { ...UREA_ORN }],
+      cofactorNote: "鸟氨酸 δ-氨基是载体氮，不进入尿素的净氮账。",
+    },
+    product: {
+      name: "瓜氨酸",
+      formula: "C₆H₁₃N₃O₃",
+      parts: [{ ...UREA_CIT }],
+      cofactorNote: "Pi 不入画；这一步没有新增净氮。",
+    },
+    evidence: { substrate: [evOnly2d("urea-cap"), evOtherHuman("urea-orn")], product: [evOtherHuman("urea-cit")] },
+    arrowLabel: "氨甲酰基转移：CAP + Orn → Cit，鸟氨酸 C5 骨架不变",
+    change: "氨甲酰磷酸把氨甲酰基交给鸟氨酸 δ-氨基；鸟氨酸 C5 与 δ-N 都留在载体上，碳账净 0。",
+    physiology: "反应本身可逆，生理上由 CPS1 的持续供料拉动；OTC 缺陷是最常见的尿素循环障碍。",
+    defaultMode: "2d",
+    defaultModeRule:
+      "默认 2D：底物侧 CAP 只有 2D，无法与产物做同口径体积对比（重原子 8+9=17 → 12 已改变，但 CAP 缺 3D）；按「含无 3D 分子」默认 2D。",
+  },
+  {
+    stepId: "urea-3",
+    index: 3,
+    stageLabel: "③ 闭环 Ⅱ · ASS（接入第二个氮）",
+    enzyme: "ASS1 · 精氨酸琥珀酸合成酶（胞质）",
+    equation: "瓜氨酸 + 天冬氨酸 + ATP → 精氨酸琥珀酸 + AMP + PPi",
+    substrate: {
+      name: "瓜氨酸 + 天冬氨酸 + ATP",
+      formula: "C₆H₁₃N₃O₃ + C₄H₆NO₄⁻（ATP 辅因子，不入画）",
+      parts: [{ ...UREA_CIT }, { ...UREA_ASP }],
+      cofactorNote: "ATP → AMP + PPi，折算 2 个高能键；Mg²⁺ 不入画。",
+    },
+    product: {
+      name: "精氨酸琥珀酸",
+      formula: "C₁₀H₁₇N₄O₆⁻",
+      parts: [{ ...UREA_AS1 }],
+      cofactorNote: "AMP + PPi 不入画；PPi 的酸酐键可继续水解。",
+    },
+    evidence: { substrate: [evOwnHuman("urea-cit"), evOwnHuman("urea-asp")], product: [evOwnNonhuman("urea-as1")] },
+    arrowLabel: "接入第二个氮：Cit + Asp α-NH₂ + ATP → 精氨酸琥珀酸",
+    change: "天冬氨酸 α-氨基接到脲基上；这是尿素的第二个氮，来源与 NH₃ 不同。ATP 走 AMP + PPi，计 2 个高能键。",
+    physiology: "第二个氮在此进环；天冬氨酸由 TCA 草酰乙酸经 AST 转氨再生，是碳骨架回流的接口。",
+    defaultMode: "3d",
+    defaultModeRule:
+      "默认 3D 判据：重原子 12+9=21 → 20（改变）；体积 158.8+108.0=266.8 → 252.1 Å³（ΔV −5.51%，>2.5%）；拓扑改变（瓜氨酸脲基与 Asp α-NH₂ 缩合成新 C–N 键）。重原子数与体积都变，按 3D。",
+  },
+  {
+    stepId: "urea-4",
+    index: 4,
+    stageLabel: "④ 闭环 Ⅲ · ASL",
+    enzyme: "ASL · 精氨酸琥珀酸裂解酶（胞质）",
+    equation: "精氨酸琥珀酸 → 精氨酸 + 延胡索酸",
+    substrate: {
+      name: "精氨酸琥珀酸",
+      formula: "C₁₀H₁₇N₄O₆⁻",
+      parts: [{ ...UREA_AS1 }],
+      cofactorNote: "裂解不需要辅因子；不改变氮的归属。",
+    },
+    product: {
+      name: "精氨酸 + 延胡索酸",
+      formula: "C₆H₁₅N₄O₂⁺ + C₄H₂O₄²⁻",
+      parts: [{ ...UREA_ARG }, { ...UREA_FUM }],
+      cofactorNote: "延胡索酸不入尿素终产物账；它经 TCA 回到天冬氨酸。",
+    },
+    evidence: { substrate: [evOtherNonhuman("urea-as1")], product: [evOwnNonhuman("urea-arg"), evOwnNonhuman("urea-fum")] },
+    arrowLabel: "裂解：精氨酸琥珀酸 → Arg + 延胡索酸（C4 出环）",
+    change: "ASL 裂解精氨酸琥珀酸，延胡索酸带着天冬氨酸的 C4 骨架离开；两个净氮留在精氨酸胍基里。",
+    physiology: "延胡索酸进 TCA，最后以天冬氨酸回到 ASS 步；没有这条回流，循环每轮都要净耗天冬氨酸。",
+    defaultMode: "2d",
+    defaultModeRule:
+      "默认 2D 判据：重原子 20 → 12+8=20（不变）；体积 252.1 → 166.7+88.8=255.5 Å³（ΔV +1.35%，≤2.5%）；拓扑改变（一分子裂成两分子）。三项命中，默认 2D。",
+  },
+  {
+    stepId: "urea-5",
+    index: 5,
+    stageLabel: "⑤ 闭环 Ⅳ · ARG1",
+    enzyme: "ARG1 · 精氨酸酶 1（胞质）",
+    equation: "精氨酸 + H₂O → 尿素 + 鸟氨酸",
+    substrate: {
+      name: "精氨酸 + H₂O",
+      formula: "C₆H₁₅N₄O₂⁺（H₂O 不入画）",
+      parts: [{ ...UREA_ARG }],
+      cofactorNote: "H₂O 与金属辅因子不入画；水解的是胍基。",
+    },
+    product: {
+      name: "尿素 + 鸟氨酸",
+      formula: "CH₄N₂O + C₅H₁₃N₂O₂⁺",
+      parts: [{ ...UREA_URE }, { ...UREA_ORN }],
+      cofactorNote: "尿素含 2 N；鸟氨酸 C5 载体碳骨架净不变。",
+    },
+    evidence: { substrate: [evOtherNonhuman("urea-arg")], product: [evOwnNonhuman("urea-ure"), evOwnHuman("urea-orn")] },
+    arrowLabel: "水解胍基：Arg → 尿素（2 N）+ 鸟氨酸（回到 OTC）",
+    change: "ARG1 水解释放尿素，两个氮一起出环；鸟氨酸再生，经 ORNT1 回到线粒体基质。",
+    physiology: "排氮的收口步；尿素的两个氮来源不同，鸟氨酸只是载体，必须回到 OTC 才能继续下一轮。",
+    defaultMode: "3d",
+    defaultModeRule:
+      "默认 3D 判据：重原子 12 → 4+9=13（改变）；体积 166.7 → 53.2+131.5=184.7 Å³（ΔV +10.8%，>2.5%）；拓扑改变（胍基水解，一分子变两分子）。重原子数与体积都变，按 3D。",
+  },
+];
+
+const UREA_CONFIG: ComparisonConfig = {
+  pathwayId: "urea-cycle",
+  title: "尿素循环 · 结构对照",
+  summary:
+    "五块逐步对照：CPS1、OTC、ASS、ASL、ARG1。瓜氨酸、鸟氨酸、天冬氨酸、精氨酸琥珀酸、精氨酸、延胡索酸、尿素共 7 个分子补上了 2D + 3D；NH₃、HCO₃⁻ 与氨甲酰磷酸只做 2D（原子过少 / 中间体不稳定，逐条写原因）。3D 全部为实验坐标，但多数取自相邻酶或非人源同源酶，块内首屏说明写明来源蛋白与本酶口袋是否命中；只有瓜氨酸、天冬氨酸（人 ASS1 2NZ2）与鸟氨酸（人 ARG1 3GMZ）在本步本酶口袋内且人源。CPS1（约 165 kDa/单体）等尿素循环酶的三维一律不做，只做小分子。",
+  plateNo: "PLATE SF-09 · 结构对照 · 尿素循环 · 2026",
+  back: { to: "/pathway/urea-cycle", label: "← 返回挂图" },
+  backCaption: "尿素循环 · 结构对照（挂图页 /pathway/urea-cycle）",
+  enzymePanel: false,
+  enzymePanelOffNote: "本通路不做酶的三维（CPS1 ≈165 kDa/单体等）· 只做小分子结构对照",
+  footerNote:
+    "尿素循环 5 块 10 个分子端：NH₃、HCO₃⁻、氨甲酰磷酸、鸟氨酸、瓜氨酸、天冬氨酸、精氨酸琥珀酸、精氨酸、延胡索酸、尿素。坐标口径：① 只做 2D——NH₃（1 个重原子）、HCO₃⁻（4 个原子）、氨甲酰磷酸（易水解且本酶 CPS1 口袋内同分子高分辨结构未获），3D 不建并逐条写原因。② 实验坐标 7 个——鸟氨酸 3GMZ（人 ARG1，链 A，配体 ORN，X-ray 1.43 Å）、瓜氨酸与天冬氨酸 2NZ2（人 ASS1，链 A，配体 CIR / ASP，X-ray 2.4 Å）、精氨酸琥珀酸 1J20（Thermus thermophilus ASS1，链 A，配体 AS1，X-ray 2.0 Å）、精氨酸与延胡索酸 9GGJ（拟南芥 ASL，链 B / A，配体 ARG / FUM，X-ray 2.0 Å）、尿素 1HQG（大鼠 ARG1 H141C 突变体，链 A，配体 URE，X-ray 2.0 Å）。跨物种、同工酶、突变体均已写进块内首屏来源说明：OTC 本酶口袋内同分子高分辨结构未获，因此第 2 步的鸟氨酸 / 瓜氨酸取自 ARG1 / ASS1 口袋（C）；第 3 步的 ASS1 本酶口袋命中（瓜氨酸 / 天冬氨酸人源 A、精氨酸琥珀酸非人源 B）；第 4 步的 ASL 本酶口袋为拟南芥同源酶（B），其底物精氨酸琥珀酸取自嗜热菌 ASS1（D）；第 5 步的 ARG1 口袋只有大鼠突变体 1HQG（B），底物精氨酸取自拟南芥 ASL（D）。③ 不做酶的三维：CPS1 约 165 kDa/单体，其余尿素循环酶同样只做小分子，不截取结构冒充全酶。延胡索酸出环后进入 TCA 回流，本页用 9GGJ 的 ASL 本酶口袋坐标，不复制 TCA 页资产。未入画：ATP / ADP / AMP / PPi / Pi / H₂O / Mg²⁺ / Mn²⁺。",
+  defaultModePolicy:
+    "默认模式按数据判据逐块决定：重原子数不变 + 拓扑改变 + |ΔV| ≤2.5% → 该块默认 2D，其余默认 3D。逐块实测数字写在 defaultModeRule；第 1、2 块因含仅 2D 分子（NH₃ / HCO₃⁻ / CAP）无法参与体积判据，保持 2D；第 4 块命中默认 2D（ΔV +1.35%、重原子不变、拓扑改变）；第 3、5 块重原子数改变，按 3D。?mode=2d|3d 为显式覆盖，优先级高于默认值。",
+  steps: UREA_COMPARISON,
+};
+
+// —— 糖原代谢（PLATE SF-10）——
+// 6 块：磷酸解、脱支、PGM 分解向、肝 G6PC1、UGP2、糖原合酶。
+// 3D 只用既有 g6p / glc（1CZA 人 HK1 口袋，非糖原代谢酶）；
+// G1P、UTP、UDP-葡萄糖、PPi、UDP 与糖原/极限糊精各补 2D 结构式（RDKit 由 SMILES 生成），
+// 这 7 个仍不生成 3D、不写 PDB 坐标，逐条在首屏写原因。等级全部由 evidenceGrade 推导，不手写 A/B/C/D。
+const GLY_GLYCOGEN = {
+  id: "glycogen",
+  name: "糖原（α-1,4 链段）ₙ",
+  formula: "C₆H₁₀O₅（每残基）",
+  asset2d: D2("glycogen"),
+  no3dReason: "糖原聚合度不固定，没有单一实验构象；只做 2D 片段示意，3D 不建。",
+  caveat:
+    "2D 为麦芽三糖片段（3 个残基）的 α-1,4 链段示意，不代表整条糖原的聚合度与分支拓扑。",
+  sourceNote:
+    "2D 由 RDKit 生成（片段示意，非三维构象）；糖原为不均一聚合物，无单一 PDB 配体能代表整条链。本轮只登记分支酶/脱支酶的酶结构候选（5CLW、8ZEQ），不把糖链片段冒充糖原。",
+};
+const GLY_LIMIT = {
+  id: "glycogen-limit",
+  name: "极限糊精（分支糖原剩余）",
+  formula: "C₆H₁₀O₅（每残基）",
+  asset2d: D2("glycogen-limit"),
+  no3dReason: "聚合度与分支拓扑不固定，无单一 3D 构象；只做 2D 片段示意，3D 不建。",
+  caveat:
+    "2D 为潘糖片段（α-1,6 分支 + α-1,4 主链，3 个残基）的分支示意；极限糊精的分支度与聚合度都不固定，此图不代表真实链长。",
+  sourceNote:
+    "2D 由 RDKit 生成（片段示意，非三维构象）；极限糊精不是单一分子。脱支酶 8ZEQ（人 AGL，3.36 Å，cryo-EM）为 apo 架构，无糖原配体，不能当作底物复合物。",
+};
+const GLY_G1P = {
+  id: "g1p",
+  name: "葡萄糖-1-磷酸（G1P）",
+  formula: "C₆H₁₁O₉P",
+  asset2d: D2("g1p"),
+  no3dReason: "本分子无 3D 资产；不拿其他分子坐标替代，3D 不建。",
+  sourceNote:
+    "2D 由 RDKit 由 SMILES 生成；本分子不建 3D。人源 PGM1–G6P 结构 6UIQ（2.3 Å，X-ray，链 A/B，配体 G6P + MG）已核验；G1P 是同一可逆反应的产物侧，但未取坐标。",
+};
+const GLY_UTP = {
+  id: "utp",
+  name: "尿苷三磷酸（UTP）",
+  formula: "C₉H₁₁N₂O₁₅P₃",
+  asset2d: D2("utp"),
+  no3dReason: "UTP 来源未建独立通路，也没有本轮可用的同分子本酶坐标；不生成 3D 资产。",
+  sourceNote:
+    "2D 由 RDKit 由 SMILES 生成；本分子不建 3D。UTP 由嘧啶核苷酸合成供给；本平台未建该通路，只注记，不指向任何不存在的接口 id。",
+};
+const GLY_UDPG = {
+  id: "udp-glucose",
+  name: "UDP-葡萄糖（UDP-Glc）",
+  formula: "C₁₅H₂₂N₂O₁₇P₂",
+  asset2d: D2("udp-glucose"),
+  no3dReason:
+    "本分子不生成 3D 资产；4R7P 的 UPG 坐标只完成身份核验，未提取为原子资产。",
+  sourceNote:
+    "2D 由 RDKit 由 SMILES 生成；本分子不建 3D。人源 UGP2–UDP-葡萄糖结构 4R7P（3.35 Å，X-ray，链 A–D，配体 UPG）已核验，但未把 UPG 坐标提取成 3D 资产。",
+};
+const GLY_PPI = {
+  id: "ppi",
+  name: "焦磷酸（PPi）",
+  formula: "HP₂O₇",
+  asset2d: D2("ppi"),
+  no3dReason: "原子数过少，球棍无形状信息量；只做 2D 结构式，3D 不建。",
+  sourceNote:
+    "2D 由 RDKit 由 SMILES 生成；本分子不建 3D。PPi 作为 UGP2 的离去基团；水解后计 1 个酐键。",
+};
+const GLY_UDP = {
+  id: "udp",
+  name: "尿苷二磷酸（UDP）",
+  formula: "C₉H₁₂N₂O₁₂P₂",
+  asset2d: D2("udp"),
+  no3dReason: "本分子无 3D 资产；不拿其他核苷酸坐标替代，3D 不建。",
+  sourceNote:
+    "2D 由 RDKit 由 SMILES 生成；本分子不建 3D。UDP 是糖原合酶反应的离去基团。",
+};
+const GLY_G6P: MolPart = {
+  ...G6P,
+  sourceNote:
+    "首屏来源：坐标取自人己糖激酶 HK1（1CZA，1.9 Å，X-ray）口袋里的 G6P；HK1 不是本步酶。本步人源 PGM1–G6P 结构 6UIQ（2.3 Å，X-ray，链 A/B，配体 G6P + MG）已核验，但本轮未生成对应原子资产。",
+};
+const GLY_GLC: MolPart = {
+  ...GLC,
+  sourceNote:
+    "首屏来源：坐标取自人己糖激酶 HK1（1CZA，1.9 Å，X-ray）口袋里的 α-D-葡萄糖；HK1 不是本步酶。人源 G6PC1–G6P 结构 9JTM（2.9 Å，cryo-EM）只作酶结构核验，产物葡萄糖资产仍取自 1CZA。",
+};
+
+const GLYCOGEN_COMPARISON: StepComparison[] = [
+  {
+    stepId: "gly-1",
+    index: 1,
+    enzyme: "糖原磷酸化酶（肝 PYGL / 肌 PYGM）",
+    isozyme: "PLP 共价辅因子",
+    equation: "(α-1,4-糖原)ₙ + Pi → G1P + (α-1,4-糖原)ₙ₋₁",
+    substrate: {
+      name: "糖原（α-1,4）ₙ + Pi",
+      formula: "C₆H₁₀O₅（每残基）+ HPO₄²⁻",
+      parts: [GLY_GLYCOGEN],
+      cofactorNote: "Pi 与 PLP 只作文字：Pi 单原子基团不入画，PLP 是酶共价辅因子。",
+    },
+    product: {
+      name: "G1P + 糖原（n−1）",
+      formula: "C₆H₁₁O₉P²⁻ + C₆H₁₀O₅（每残基）",
+      parts: [GLY_G1P],
+      cofactorNote: "糖原（n−1）仍是同一聚合物，不入画。",
+    },
+    arrowLabel: "Pi 直接插入 α-1,4 键",
+    change: "磷酸解：糖苷键被 Pi 裂解，葡萄糖单位以 G1P 形式释放；不消耗 ATP。",
+    physiology: "磷酸解每释放 1 个 G1P 相当于省下 1 个 ATP；PLP 是活性位点必需的共价辅因子。",
+    evidence: {
+      substrate: [evOnly2d("glycogen")],
+      product: [evOnly2d("g1p")],
+    },
+    defaultMode: "2d",
+    defaultModeRule:
+      "两侧都无可比 3D（糖原为聚合物只有 2D 片段、G1P 无 3D），保持 2D。",
+  },
+  {
+    stepId: "gly-2",
+    index: 2,
+    enzyme: "脱支酶（AGL，双功能）",
+    equation: "极限糊精（分支）→ 线性糖原 + 游离葡萄糖",
+    substrate: {
+      name: "极限糊精（分支糖原剩余）",
+      formula: "C₆H₁₀O₅（每残基）",
+      parts: [GLY_LIMIT],
+      cofactorNote: "转移与水解是同一酶的两个活性，不另画辅因子。",
+    },
+    product: {
+      name: "游离葡萄糖（每分支 1 个）",
+      formula: "C₆H₁₂O₆",
+      parts: [GLY_GLC],
+      cofactorNote: "线性糖原仍留在颗粒中，不入画；表中只对照被切下的游离葡萄糖。",
+    },
+    arrowLabel: "转移 3 残基 + 水解 α-1,6",
+    change: "AGL 先把 3 个残基转到主链，再水解 α-1,6 键；每分支释放 1 个游离葡萄糖。",
+    physiology: "肝可直接释出游离葡萄糖；肌需己糖激酶再磷酸化（耗 1 ATP）后进糖酵解。",
+    evidence: {
+      substrate: [evOnly2d("glycogen-limit")],
+      product: [evOtherHuman("glc")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "底物侧为分支聚合物（只有 2D 片段、无 3D）；产物侧只有既有 GLC 3D，保持 2D 以保证两侧对称。",
+  },
+  {
+    stepId: "gly-3",
+    index: 3,
+    enzyme: "磷酸葡萄糖变位酶 1（PGM1）",
+    equation: "G1P ⇌ G6P",
+    substrate: {
+      name: "葡萄糖-1-磷酸（G1P）",
+      formula: "C₆H₁₁O₉P²⁻",
+      parts: [GLY_G1P],
+      cofactorNote: "glucose-1,6-bisphosphate 是催化中间体，不入画。",
+    },
+    product: {
+      name: "葡萄糖-6-磷酸（G6P）",
+      formula: "C₆H₁₁O₉P²⁻",
+      parts: [GLY_G6P],
+      cofactorNote: "磷酸基从 C1 转到 C6，不消耗 ATP。",
+    },
+    arrowLabel: "磷酸基 C1 → C6",
+    change: "同一磷酸基在葡萄糖环上换位；G1P 与 G6P 都是磷酸单酯二价阴离子。",
+    physiology: "把糖原磷酸解产物接到糖酵解与糖异生共用的 G6P 池。",
+    evidence: {
+      substrate: [evOnly2d("g1p")],
+      product: [evOtherHuman("g6p")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "G1P 只有 2D、无 3D；G6P 一侧有既有 3D，保持 2D，避免把单侧 3D 当成两侧对照。",
+  },
+  {
+    stepId: "gly-4",
+    index: 4,
+    stageLabel: "肝臂 · 释糖",
+    enzyme: "葡萄糖-6-磷酸酶催化亚基 1（G6PC1）",
+    isozyme: "ER 膜 · SLC37A4 转运 G6P",
+    equation: "G6P + H₂O → 葡萄糖 + Pi",
+    substrate: {
+      name: "葡萄糖-6-磷酸（G6P）",
+      formula: "C₆H₁₁O₉P²⁻",
+      parts: [GLY_G6P],
+      cofactorNote: "H₂O 与 Pi 不入画：单原子/小基团无形状信息量。",
+    },
+    product: {
+      name: "葡萄糖（GLC）",
+      formula: "C₆H₁₂O₆",
+      parts: [GLY_GLC],
+      cofactorNote: "Pi 是水解产物，不入画；本块只对照 G6P → 葡萄糖。",
+    },
+    arrowLabel: "磷酸酯水解",
+    change: "G6P 的 C6 磷酸酯键被水解释放，生成游离葡萄糖与 Pi；这是肝糖原补充血糖的唯一出口。",
+    physiology: "仅肝（及肾皮质）表达 G6PC1；肌无此酶，肌糖原不能直接释放葡萄糖。",
+    evidence: {
+      substrate: [evOtherHuman("g6p")],
+      product: [evOtherHuman("glc")],
+    },
+    defaultMode: "3d",
+    defaultModeRule: "两侧均有既有 3D 资产（g6p / glc，均取自 1CZA 人 HK1 口袋）；产物少一个磷酸基，重原子数与体积均改变，按 3D。",
+  },
+  {
+    stepId: "gly-7",
+    index: 7,
+    enzyme: "UDP-葡萄糖焦磷酸化酶（UGP2）",
+    equation: "G1P + UTP ⇌ UDP-葡萄糖 + PPi",
+    substrate: {
+      name: "G1P + UTP",
+      formula: "C₆H₁₁O₉P²⁻ + C₉H₁₁N₂O₁₅P₃⁴⁻",
+      parts: [GLY_G1P, GLY_UTP],
+      cofactorNote: "UTP 的 β/γ 磷酸以 PPi 释出；本块不入画 UTP 的 3D。",
+    },
+    product: {
+      name: "UDP-葡萄糖 + PPi",
+      formula: "C₁₅H₂₂N₂O₁₇P₂²⁻ + HP₂O₇³⁻",
+      parts: [GLY_UDPG, GLY_PPI],
+      cofactorNote: "PPi 随后被焦磷酸酶水解为 2 Pi，拉动本反应。",
+    },
+    arrowLabel: "G1P 攻击 UTP α-磷酸",
+    change: "G1P 的磷酸与 UMP 的 α-磷酸成酐键，β/γ 磷酸以 PPi 离去。",
+    physiology: "每活化 1 个残基消耗 2 个酐键：UTP → PPi 一个，PPi 水解一个。",
+    evidence: {
+      substrate: [evOnly2d("g1p"), evOnly2d("utp")],
+      product: [evOnly2d("udp-glucose"), evOnly2d("ppi")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "四个分子端都只有 2D、无 3D；保持 2D，不拿其他核苷酸坐标替代。",
+  },
+  {
+    stepId: "gly-8",
+    index: 8,
+    enzyme: "糖原合酶（肌 GYS1 / 肝 GYS2）",
+    isozyme: "需要 glycogenin 引物",
+    equation: "UDP-葡萄糖 + (α-1,4-糖原)ₙ → (α-1,4-糖原)ₙ₊₁ + UDP",
+    substrate: {
+      name: "UDP-葡萄糖 + 糖原（α-1,4）ₙ",
+      formula: "C₁₅H₂₂N₂O₁₇P₂²⁻ + C₆H₁₀O₅（每残基）",
+      parts: [GLY_UDPG, GLY_GLYCOGEN],
+      cofactorNote: "UDP-葡萄糖是活化糖基；糖原链段不入画。",
+    },
+    product: {
+      name: "糖原（α-1,4）ₙ₊₁ + UDP",
+      formula: "C₆H₁₀O₅（每残基）+ C₉H₁₂N₂O₁₂P₂²⁻",
+      parts: [GLY_GLYCOGEN, GLY_UDP],
+      cofactorNote: "UDP 是离去基团；糖原只延长一个残基，不入画整链。",
+    },
+    arrowLabel: "糖基转移到非还原端",
+    change: "UDP-葡萄糖的 C1 被转到糖原非还原端，UDP 离去；只延长 α-1,4 链。",
+    physiology: "糖原合酶起始需要 glycogenin 自糖基化引物；本平台不单列 glycogenin 实体。",
+    evidence: {
+      substrate: [evOnly2d("udp-glucose"), evOnly2d("glycogen")],
+      product: [evOnly2d("glycogen"), evOnly2d("udp")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "两侧都含糖原聚合物与只有 2D 的分子；保持 2D。",
+  },
+];
+
+const GLYCOGEN_CONFIG: ComparisonConfig = {
+  pathwayId: "glycogen",
+  title: "糖原代谢 · 结构对照",
+  summary:
+    "六块逐步对照：磷酸解、脱支、PGM 分解向、肝 G6PC1、UGP2、糖原合酶。只有 G6P 与葡萄糖使用既有 3D 资产（取自人 HK1 1CZA 口袋，不是糖原代谢酶）；G1P、UTP、UDP-葡萄糖、PPi、UDP 与糖原/极限糊精只有 2D 结构式（RDKit 由 SMILES 生成），不建 3D、不写 PDB 坐标，逐条在首屏写原因。糖原磷酸化酶、G6PC1、GYS1、GBE1、UGP2、PGM1、AGL 的 PDB 身份已在挂图页实时核验，但本轮不提取为原子资产。",
+  plateNo: "PLATE SF-10 · 结构对照 · 糖原代谢 · 2026",
+  back: { to: "/pathway/glycogen", label: "← 返回挂图" },
+  backCaption: "糖原代谢 · 结构对照（挂图页 /pathway/glycogen）",
+  enzymePanel: false,
+  enzymePanelOffNote: "本通路不做酶的三维（糖原磷酸化酶 / G6PC1 / GYS1 等只做身份核验）· 只做小分子结构对照",
+  footerNote:
+    "糖原代谢 6 块：磷酸解、脱支、PGM 分解向、肝 G6PC1、UGP2、糖原合酶。3D 只有 G6P 与 α-D-葡萄糖，坐标取自人己糖激酶 HK1 1CZA（1.9 Å，X-ray）口袋，不是糖原代谢酶口袋，首屏来源说明已写明。G1P、UTP、UDP-葡萄糖、PPi、UDP 与糖原/极限糊精只有 2D 结构式（RDKit 由 SMILES 生成，糖原与极限糊精为 3 残基片段示意），不建 3D、不写 PDB 坐标：G1P 与 UDP-葡萄糖虽有已核验的人源本酶结构（6UIQ 2.3 Å、4R7P 3.35 Å），但未提取坐标；糖原为不均一聚合物，无单一实验构象。酶结构候选：1EM6（人 PYGL a 2.2 Å，PLP + NBG + CP4）、1FA9（人 PYGL a 2.4 Å，GLC + AMP）、1Z8D（人 PYGM a 2.3 Å，GLC + AMP）、9JTM/9JTN/9JTO（人 G6PC1 2.9/3.1/3.3 Å，G6P/PO4/F6P）、7Q13/7Q0S（人 GYS1–GYG1 3.0/4.0 Å）、5CLW/5CLT/4BZY（人 GBE1 2.8/2.79/2.75 Å）、4R7P（人 UGP2 3.35 Å，UPG）、6UIQ（人 PGM1 2.3 Å，G6P）、8ZEQ（人 AGL 3.36 Å，apo）。全部 ΔG 为 null，只写定性方向与 Lehninger 8e Ch.19，不编数字。",
+  defaultModePolicy:
+    "默认模式逐块决定：两侧都有可比 3D 资产且重原子数/体积改变 → 3D；任一侧含聚合物或只有 2D 的分子 → 2D。?mode=2d|3d 为显式覆盖，优先级高于默认值。",
+  steps: GLYCOGEN_COMPARISON,
+};
+
 export const COMPARISON_CONFIGS: Record<string, ComparisonConfig> = {
   glycolysis: GLYCOLYSIS_CONFIG,
   tca: TCA_CONFIG,
   ppp: PPP_CONFIG,
   gluconeogenesis: GLUCONEOGENESIS_CONFIG,
   "fatty-acid-oxidation": FAO_CONFIG,
+  "fatty-acid-synthesis": FAS_CONFIG,
+  "urea-cycle": UREA_CONFIG,
+  glycogen: GLYCOGEN_CONFIG,
 };
 
 export const comparisonConfigFor = (pathwayId?: string): ComparisonConfig | null =>

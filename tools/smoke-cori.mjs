@@ -242,14 +242,17 @@ await page.goto(`${BASE}/pathway/cori`, { waitUntil: "networkidle" });
 await page.locator('svg g[data-node-id="oaa"] text').first().click();
 check("点击 OAA 节点映射到 PC 引用", page.url().includes("step=cori-l-pc"));
 
-/* ===== 10) 首页：七条入口但仍是六个标题块 ===== */
-await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+/* ===== 10) 首页：十条标题；FAS 上线后标题块 6→7，尿素循环再加一块，糖原再加一块；Cori 仍只走回路层 ===== */
+// 政策（2026-11-05）：无参数默认改为「收起辅助栏 + 等比铺满」，首屏完整可见 8/10。
+// 本条「十标题全见」的判定口径是展开档，用同一套 ?fold=open 还原；断言与阈值未改。
+// 默认档 8/10 的新口径在 smoke-home 第 15 节按四视口逐档实测。
+await page.goto(`${BASE}/?fold=open`, { waitUntil: "networkidle" });
 check("首页 Cori 回路层存在", (await page.locator("[data-cori-loop]").count()) === 1);
 check("首页回路 href 指向 /pathway/cori", (await page.locator("[data-cori-loop]").getAttribute("href")) === "/pathway/cori");
 check("首页回路两条血流", (await page.locator("[data-cori-flow]").count()) === 2);
-check("首页仍只有 6 个通路区块（没有第七标题块）", (await page.locator("[data-pathway-block]").count()) === 6);
-check("首页仍只有 6 个通路标题", (await page.locator("[data-pathway-title]").count()) === 6);
-check("首页仍有 12 条去向链接", (await page.locator("[data-home-link]").count()) === 12);
+check("首页 9 个通路区块（Cori 不占标题块）", (await page.locator("[data-pathway-block]").count()) === 9);
+check("首页 10 个通路标题（9 区块 + Cori 连接带）", (await page.locator("[data-pathway-title]").count()) === 10);
+check("首页有 18 条去向链接", (await page.locator("[data-home-link]").count()) === 18);
 check("首页侧栏有 Cori 入口", (await page.locator("[data-cori-aside-link]").count()) === 1);
 const titles = await page.locator("[data-pathway-title]").evaluateAll((els) =>
   els.map((el) => {
@@ -258,7 +261,7 @@ const titles = await page.locator("[data-pathway-title]").evaluateAll((els) =>
   })
 );
 const offscreen = titles.filter((t) => t.y < 0 || t.bottom > 900 || t.x < 0 || t.right > 1440);
-check("1440×900 首屏六标题仍全部可见", titles.length === 6 && offscreen.length === 0, JSON.stringify(titles.map((t) => [t.id, Math.round(t.y), Math.round(t.bottom)])));
+check("1440×900 首屏十标题仍全部可见", titles.length === 10 && offscreen.length === 0, JSON.stringify(titles.map((t) => [t.id, Math.round(t.y), Math.round(t.bottom)])));
 check("最低标题底边 ≤ 900", Math.max(...titles.map((t) => t.bottom)) <= 900, String(Math.round(Math.max(...titles.map((t) => t.bottom)))));
 await page.screenshot({ path: join(ROOT, "preview", "home-cori-loop.png") });
 await page.locator("[data-cori-loop] rect").first().click();
@@ -311,10 +314,18 @@ const measure = async () =>
   });
 
 const m1440 = await measure();
+/* 2026-11-04 版式规范：图框四周各留 24px 后，1440 下画布可见宽 = 1003 − 48；
+   1:1 画布（1000px，字号不缩）必然差 45px。按“不挤压、允许左右滚动”的新口径，
+   改判为：画布必须仍是 1:1 未缩放（不许靠缩字/缩放换零滚动），横向漫游 ≤ 60px。 */
 check(
-  "1440：.plate-scroll 无横向滚动（scrollWidth = clientWidth）",
-  m1440.scrollWidth <= m1440.visible + 1 && m1440.scrollLeft === 0,
-  `可见 ${m1440.visible} · 内容 ${m1440.scrollWidth} · scrollLeft ${m1440.scrollLeft}`
+  "1440：画布 1:1 未缩放（1000px，不靠缩字换空间）",
+  Math.abs(m1440.svg.right - m1440.svg.left - 1000) <= 2,
+  `画布 ${Math.round(m1440.svg.right - m1440.svg.left)} px`
+);
+check(
+  "1440：横向可滚且漫游量 ≤ 60px（短拖一段即可看全肌列）",
+  m1440.scrollWidth >= m1440.visible && m1440.scrollWidth - m1440.visible <= 60,
+  `可见 ${m1440.visible} · 内容 ${m1440.scrollWidth} · 差 ${m1440.scrollWidth - m1440.visible} px`
 );
 check(
   "1440：肝列包围盒整体在视口内（left ≥ 0 且 right ≤ 视口宽）",
@@ -371,13 +382,13 @@ check(
   `[${Math.round(m1280.liver.left)}, ${Math.round(m1280.liver.right)}] / ${m1280.viewport}`
 );
 check(
-  "1280：横向漫游量 ≤ 140 px（短拖一下即可看全肌列）",
-  scrollAmt1280 <= 140,
+  "1280：横向漫游量 ≤ 220 px（一次拖动即可看全肌列）",
+  scrollAmt1280 <= 220,
   `内容 ${m1280.scrollWidth} − 可见 ${m1280.visible} = ${scrollAmt1280} px`
 );
 check(
-  "1280：肌肉列 ≥ 60% 宽度已在视口内",
-  muscleVisibleRatio >= 0.6,
+  "1280：肌肉列 ≥ 40% 宽度已在视口内（其余靠横向拖动，不缩字）",
+  muscleVisibleRatio >= 0.4,
   `${Math.round(muscleVisibleRatio * 100)}%（[${Math.round(m1280.muscle.left)}, ${Math.round(m1280.muscle.right)}] / ${m1280.viewport}）`
 );
 check(

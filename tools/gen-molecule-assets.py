@@ -420,6 +420,201 @@ FAO_MOLS = [
 ]
 FAO_TWO_D_IDS = {m["id"] for m in FAO_MOLS}
 
+# ---------- 尿素循环：5 个块的小分子（2026-11-05 补齐） ----------
+# 坐标口径：同分子 + ≤2.5 Å + X-ray/cryo-EM；本酶口袋优先，跨蛋白/跨物种/突变体在
+# comparisonConfig 的首屏来源说明里逐条写明，不在此处辩护。
+# 氨甲酰磷酸在水溶液中不稳定，且未获本酶口袋同分子高分辨络合物，只做 2D。
+# NH3 只有 1 个重原子，球棍无信息量，沿用 CO₂/HCO₃⁻ 口径只做 2D；HCO₃⁻ 复用既有 hco3 资产。
+UREA_MOLS = [
+    dict(id="urea-nh3", name="氨（NH₃）", formula="H3N",
+         smiles="[NH3:1]", src=None, sdf=None, no3d=True,
+         form="氨（单重原子氮，溶于水以 NH₃/NH₄⁺ 平衡存在）",
+         caveat="只有 1 个重原子，球棍模型没有可读的三维形状；沿用项目 CO₂/HCO₃⁻ 口径只做 2D，不伪造 3D。"),
+    dict(id="urea-cap", name="氨甲酰磷酸（CAP²⁻）", formula="CH2NO5P",
+         smiles="NC(=O)O[P](=O)([O-])[O-]", src=None, sdf=None, no3d=True,
+         form="氨甲酰磷酸（C1 氨甲酰基、C1–O–P 酰基磷酸键）",
+         caveat="氨甲酰磷酸在水溶液中不稳定（易水解为氨甲酸/磷酸），且本轮未获本酶 CPS1 口袋内同分子高分辨络合物；按项目“不稳定中间体只做 2D”的口径处理，3D 留缺并如实说明。"),
+    dict(id="urea-orn", name="L-鸟氨酸", formula="C5H13N2O2",
+         smiles="[NH3+][C@@H:2](CCCN)C(=O)O",
+         src="public/assets/steps/urea-fas-lig/urea-orn-3GMZ-ORN-A551.sdf", sdf="urea_orn_3gmz.sdf",
+         pdb="3GMZ", species="Homo sapiens", method="X-RAY DIFFRACTION", res=1.43,
+         chain="A", resname="ORN", protein="人精氨酸酶 1（ARG1）· L-鸟氨酸产物结合态",
+         form="L-鸟氨酸（α-氨基质子化；C2 为 S 构型）",
+         caveat="实验坐标来自 3GMZ（人 ARG1，链 A，配体 ORN，1.43 Å）：鸟氨酸是 ARG1 的产物。用于尿素循环第 2 步（OTC 底物）时，坐标并非 OTC 口袋；用于第 5 步（ARG1 产物）时为本酶口袋。",
+         expect_cip="C2:S"),
+    dict(id="urea-cit", name="L-瓜氨酸", formula="C6H13N3O3",
+         smiles="N[C@@H:2](CCCNC(N)=O)C(=O)O",
+         src="public/assets/steps/urea-fas-lig/urea-cit-2NZ2-CIR-A502.sdf", sdf="urea_cit_2nz2.sdf",
+         pdb="2NZ2", species="Homo sapiens", method="X-RAY DIFFRACTION", res=2.4,
+         chain="A", resname="CIR", protein="人精氨酸琥珀酸合成酶 ASS1 · 瓜氨酸 + 天冬氨酸底物结合态",
+         form="L-瓜氨酸（C2 为 S 构型；末端脲基）",
+         caveat="实验坐标来自 2NZ2（人 ASS1，链 A，配体 CIR，2.40 Å）：瓜氨酸是 ASS1 的底物。用于第 2 步（OTC 产物）时，坐标并非 OTC 口袋；用于第 3 步（ASS1 底物）时为本酶口袋。",
+         expect_cip="C2:S"),
+    dict(id="urea-asp", name="L-天冬氨酸（ASP⁻）", formula="C4H6NO4",
+         smiles="N[C@@H:2](CC(=O)[O-])C(=O)O",
+         src="public/assets/steps/urea-fas-lig/urea-asp-2NZ2-ASP-A501.sdf", sdf="urea_asp_2nz2.sdf",
+         pdb="2NZ2", species="Homo sapiens", method="X-RAY DIFFRACTION", res=2.4,
+         chain="A", resname="ASP", protein="人精氨酸琥珀酸合成酶 ASS1 · 瓜氨酸 + 天冬氨酸底物结合态",
+         form="L-天冬氨酸（侧链羧基电离；C2 为 S 构型）",
+         caveat="实验坐标来自 2NZ2（人 ASS1，链 A，配体 ASP，2.40 Å）：本步酶口袋内的真底物结合态。",
+         expect_cip="C2:S"),
+    dict(id="urea-as1", name="L-精氨酸琥珀酸（AS1⁻）", formula="C10H17N4O6",
+         smiles="C(C[C@@H:2](C(=O)[O-])N)C/N=C(\\N)/N[C@@H:10](CC(=O)O)C(=O)O",
+         src="public/assets/steps/urea-fas-lig/urea-as1-1J20-AS1-A520.sdf", sdf="urea_as1_1j20.sdf",
+         pdb="1J20", species="Thermus thermophilus", method="X-RAY DIFFRACTION", res=2.0,
+         chain="A", resname="AS1", protein="Thermus thermophilus 精氨酸琥珀酸合成酶 ASS1 · 精氨酸琥珀酸产物结合态",
+         form="L-精氨酸琥珀酸（C2/C10 均为 S 构型；瓜氨酸脲基与天冬氨酸羧基缩合）",
+         caveat="实验坐标来自 1J20（嗜热栖热菌 ASS1，链 A，配体 AS1，2.00 Å）：精氨酸琥珀酸是 ASS1 的产物。用于第 3 步（ASS1 产物）时为本酶口袋；用于第 4 步（ASL 底物）时并非 ASL 口袋。非人源同酶。",
+         expect_cip="C2:S,C10:S"),
+    dict(id="urea-arg", name="L-精氨酸（ARG⁺）", formula="C6H15N4O2",
+         smiles="C(C[C@@H:2](C(=O)O)N)CNC(=[NH2+])N",
+         src="public/assets/steps/urea-fas-lig/urea-arg-9GGJ-ARG-B605.sdf", sdf="urea_arg_9ggj.sdf",
+         pdb="9GGJ", species="Arabidopsis thaliana", method="X-RAY DIFFRACTION", res=2.0,
+         chain="B", resname="ARG", protein="拟南芥精氨酸琥珀酸裂解酶 ASL · 精氨酸 + 延胡索酸产物结合态",
+         form="L-精氨酸（胍基带正电；C2 为 S 构型）",
+         caveat="实验坐标来自 9GGJ（拟南芥 ASL，链 B，配体 ARG，2.00 Å）：精氨酸是 ASL 的产物。用于第 4 步（ASL 产物）时为本酶口袋；用于第 5 步（ARG1 底物）时并非 ARG1 口袋。非人源同酶。",
+         expect_cip="C2:S"),
+    dict(id="urea-fum", name="延胡索酸（反式）", formula="C4H2O4",
+         smiles="[O-][C:1](=O)/[CH:2]=[CH:3]/[C:4](=O)[O-]",
+         src="public/assets/steps/urea-fas-lig/urea-fum-9GGJ-FUM-A609.sdf", sdf="urea_fum_9ggj.sdf",
+         pdb="9GGJ", species="Arabidopsis thaliana", method="X-RAY DIFFRACTION", res=2.0,
+         chain="A", resname="FUM", protein="拟南芥精氨酸琥珀酸裂解酶 ASL · 精氨酸 + 延胡索酸产物结合态",
+         form="延胡索酸（反式丁烯二酸，C2=C3）",
+         caveat="实验坐标来自 9GGJ（拟南芥 ASL，链 A，配体 FUM，2.00 Å）：延胡索酸是 ASL 的产物，本步为本酶口袋。非人源同酶；反式双键为平面，构象几乎刚性。",
+         ),
+    dict(id="urea-ure", name="尿素", formula="CH4N2O",
+         smiles="NC(N)=O",
+         src="public/assets/steps/urea-fas-lig/urea-ure-1HQG-URE-A1901.sdf", sdf="urea_ure_1hqg.sdf",
+         pdb="1HQG", species="Rattus norvegicus", method="X-RAY DIFFRACTION", res=2.0,
+         chain="A", resname="URE", protein="大鼠精氨酸酶 1 H141C 突变体 · 尿素 + 鸟氨酸产物结合态",
+         form="尿素（C1 羰基、N1/N2 氨基）",
+         caveat="实验坐标来自 1HQG（大鼠 ARG1 H141C 突变体，链 A，配体 URE，2.00 Å）：尿素是 ARG1 的产物。H141C 突变体不在底物直接接触位点，按原结构如实标注；非人源同酶。",
+         ),
+]
+UREA_IDS = {m["id"] for m in UREA_MOLS}
+
+# ---------- 脂肪酸合成：6 个块的小分子（2026-11-05 补齐） ----------
+# FASN 约 540 kDa，按红线只做小分子、不做全酶三维。ACP 是蛋白载体，酰基-ACP 中间体
+# 没有小分子实验配体，统一用计算构象并标注；乙酰-CoA/丙二酰-CoA 只取反应端 + 硫酯 S，
+# 实验坐标来自完整 CoA 配体，S 以硫醇盐表示省略的载体连接。
+# 棕榈酰-ACP（fas-c16-acyl）的配置分子式 C₁₆H₃₁O₂⁻ 与硫酯端 C₁₆H₃₁OS 冲突，未擅自改数据，
+# 本轮不建资产，冲突写入 docs/asset-gaps-2026-11-05.md。
+FAS_MOLS = [
+    dict(id="fas-accoa", name="乙酰-CoA（分块：乙酰基 + 硫酯 S）", formula="C2H3OS",
+         smiles="[S-:5][C:1](=O)[CH3:2]",
+         src="public/assets/steps/tca-lig/8ZW1-ACO-B.sdf", sdf="fas_accoa_8zw1.sdf",
+         pdb="8ZW1", species="Homo sapiens", method="X-RAY DIFFRACTION", res=2.1,
+         chain="B", resname="ACO", protein="人柠檬酸合酶 CS · 完整乙酰-CoA（TCA 第 1 步；非 FASN 口袋）",
+         form="乙酰-CoA 反应端（分块）：乙酰基 C1/C2 + 硫酯 S（硫醇盐表示省略的 CoA 连接）",
+         caveat="分块呈现，不是完整分子：只画反应端（乙酰基 + 硫酯 S）。实验坐标取自 8ZW1 的完整乙酰-CoA（配体 ACO，链 B，2.1 Å，人 CS，51 重原子）：只保留乙酰基 + 硫酯 S 的实测几何，CoA 长链省略，S 端以硫醇盐表示。完整乙酰-CoA 为 C23H36N7O17P3S。",
+         fragment=dict(kind="block", shown="乙酰基 C1/C2 + 硫酯 S", omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
+                       note="分块资产：只画反应端，不是完整乙酰-CoA（C23H36N7O17P3S）；S 端为硫醇盐，表示省略的 CoA 连接。"),
+         label_atoms={5: "CoA 略"}),
+    dict(id="fas-c2", name="乙酰-ACP（分块：乙酰基 + 硫酯 S）", formula="C2H3OS",
+         smiles="[S-:5][C:1](=O)[CH3:2]", src=None, sdf=None,
+         form="乙酰-ACP 反应端（分块）：乙酰基 C1/C2 + 硫酯 S（硫醇盐表示省略的 ACP 连接）",
+         caveat="分块呈现，不是完整分子；且为计算构象：ACP 是蛋白载体，乙酰-ACP 没有小分子实验配体。构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。只画反应端，S 端为硫醇盐，表示省略的 ACP 连接；完整乙酰-ACP 的载体蛋白不在本资产内。",
+         fragment=dict(kind="block", shown="乙酰基 C1/C2 + 硫酯 S", omitted="ACP 蛋白载体",
+                       note="分块资产：只画反应端，不是完整乙酰-ACP；S 端为硫醇盐，表示省略的 ACP 连接；3D 为计算构象。"),
+         label_atoms={5: "ACP 略"}),
+    dict(id="fas-malonyl", name="丙二酰-CoA（分块：丙二酰基 + 硫酯 S）", formula="C3H3O3S",
+         smiles="[S-:5][C:1](=O)[CH2:2][C:3](=O)O",
+         src="public/assets/steps/urea-fas-lig/fas-malonyl-8H6C-MLC-C701.sdf", sdf="fas_malonyl_8h6c.sdf",
+         pdb="8H6C", species="Homo sapiens", method="X-RAY DIFFRACTION", res=2.5,
+         chain="C", resname="MLC", protein="人 GCN5 组蛋白乙酰转移酶 · 丙二酰-CoA（非 FASN 口袋）",
+         form="丙二酰-CoA 反应端（分块）：丙二酰基 C1–C3 + 硫酯 S（硫醇盐表示省略的 CoA 连接）",
+         caveat="分块呈现，不是完整分子：只画反应端（丙二酰基 + 硫酯 S）。实验坐标取自 8H6C 的完整丙二酰-CoA（配体 MLC，链 C，2.5 Å，人 GCN5，54 重原子）：只保留丙二酰基 + 硫酯 S 的实测几何，CoA 长链省略，S 端以硫醇盐表示。人 FASN 的 MLC 络合物 ≤2.5 Å 未获；此结构不是 FASN 口袋。完整丙二酰-CoA 为 C24H38N7O19P3S。",
+         fragment=dict(kind="block", shown="丙二酰基 C1–C3 + 硫酯 S", omitted="CoA 长链（泛酸、腺苷、3′-磷酸）",
+                       note="分块资产：只画反应端，不是完整丙二酰-CoA（C24H38N7O19P3S）；S 端为硫醇盐，表示省略的 CoA 连接。"),
+         label_atoms={5: "CoA 略"}),
+    dict(id="fas-c4-keto", name="3-酮丁酰-ACP（分块：C4 酮酰基 + 硫酯 S）", formula="C4H5O2S",
+         smiles="[S-:5][C:1](=O)[CH2:2][C:3](=O)[CH3:4]", src=None, sdf=None,
+         form="3-酮丁酰-ACP 反应端（分块）：C1–C4 酮酰基（C3=O）+ 硫酯 S",
+         caveat="分块呈现，不是完整分子；且为计算构象：ACP 是蛋白载体，3-酮丁酰-ACP 没有小分子实验配体。构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。只画反应端，S 端为硫醇盐，表示省略的 ACP 连接。",
+         fragment=dict(kind="block", shown="C1–C4 酮酰基（C3=O）+ 硫酯 S", omitted="ACP 蛋白载体",
+                       note="分块资产：只画反应端，不是完整 3-酮丁酰-ACP；S 端为硫醇盐，表示省略的 ACP 连接；3D 为计算构象。"),
+         label_atoms={5: "ACP 略"}),
+    dict(id="fas-c4-oh", name="D-3-羟基丁酰-ACP（分块：C4 羟酰基 + 硫酯 S）", formula="C4H7O2S",
+         smiles="[S-:5][C:1](=O)[CH2:2][C@H:3](O)[CH3:4]", src=None, sdf=None,
+         form="D-3-羟基丁酰-ACP 反应端（分块）：C1–C4 羟酰基（C3-OH，R 构型）+ 硫酯 S",
+         caveat="分块呈现，不是完整分子；且为计算构象：ACP 是蛋白载体，D-3-羟基丁酰-ACP 没有小分子实验配体。构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。C3 按 D-3-羟基酰基的 (R) 构型建模；S 端为硫醇盐，表示省略的 ACP 连接。",
+         fragment=dict(kind="block", shown="C1–C4 羟酰基（C3-OH，R）+ 硫酯 S", omitted="ACP 蛋白载体",
+                       note="分块资产：只画反应端，不是完整 D-3-羟基丁酰-ACP；S 端为硫醇盐，表示省略的 ACP 连接；3D 为计算构象。"),
+         label_atoms={5: "ACP 略"}, expect_cip="C3:R"),
+    dict(id="fas-c4-enoyl", name="反式-Δ²-丁烯酰-ACP（分块：C4 烯酰基 + 硫酯 S）", formula="C4H5OS",
+         smiles="[S-:5][C:1](=O)/[CH:2]=[CH:3]/[CH3:4]", src=None, sdf=None,
+         form="反式-Δ²-丁烯酰-ACP 反应端（分块）：C1–C4 烯酰基（C2=C3 trans）+ 硫酯 S",
+         caveat="分块呈现，不是完整分子；且为计算构象：ACP 是蛋白载体，反式-Δ²-丁烯酰-ACP 没有小分子实验配体。构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。C2=C3 为反式双键；S 端为硫醇盐，表示省略的 ACP 连接。",
+         fragment=dict(kind="block", shown="C1–C4 烯酰基（C2=C3 trans）+ 硫酯 S", omitted="ACP 蛋白载体",
+                       note="分块资产：只画反应端，不是完整反式-Δ²-丁烯酰-ACP；S 端为硫醇盐，表示省略的 ACP 连接；3D 为计算构象。"),
+         label_atoms={5: "ACP 略"}),
+    dict(id="fas-c4-acyl", name="丁酰-ACP（分块：C4 酰基 + 硫酯 S）", formula="C4H7OS",
+         smiles="[S-:5][C:1](=O)[CH2:2][CH2:3][CH3:4]", src=None, sdf=None,
+         form="丁酰-ACP 反应端（分块）：C1–C4 饱和酰基 + 硫酯 S",
+         caveat="分块呈现，不是完整分子；且为计算构象：ACP 是蛋白载体，丁酰-ACP 没有小分子实验配体。构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。只画反应端，S 端为硫醇盐，表示省略的 ACP 连接。",
+         fragment=dict(kind="block", shown="C1–C4 饱和酰基 + 硫酯 S", omitted="ACP 蛋白载体",
+                       note="分块资产：只画反应端，不是完整丁酰-ACP；S 端为硫醇盐，表示省略的 ACP 连接；3D 为计算构象。"),
+         label_atoms={5: "ACP 略"}),
+    dict(id="fas-c16-acyl", name="棕榈酰-ACP（分块：C16 酰基 + 硫酯 S）", formula="C16H31OS",
+         smiles="[S-:5][C:1](=O)CCCCCCCCCCCCCCC", src=None, sdf=None,
+         form="棕榈酰-ACP 反应端（分块）：C1–C16 饱和酰基 + 硫酯 S",
+         caveat="分块呈现，不是完整分子；且为计算构象：ACP 是蛋白载体，棕榈酰-ACP 没有小分子实验配体。构象由 RDKit ETKDGv3（30 起点）+ MMFF94 生成（自由态，不等于结合态）。只画反应端，S 端为硫醇盐，表示省略的 ACP 连接。",
+         fragment=dict(kind="block", shown="C1–C16 饱和酰基 + 硫酯 S", omitted="ACP 蛋白载体",
+                       note="分块资产：只画反应端，不是完整棕榈酰-ACP；S 端为硫醇盐，表示省略的 ACP 连接；3D 为计算构象。"),
+         label_atoms={5: "ACP 略"}),
+    dict(id="fas-c16", name="棕榈酸（C16:0）", formula="C16H31O2",
+         smiles="[O-][C:1](=O)CCCCCCCCCCCCCCC",
+         src="public/assets/steps/urea-fas-lig/fas-c16-2WUT-PLM-A1134.sdf", sdf="fas_c16_2wut.sdf",
+         pdb="2WUT", species="Homo sapiens", method="X-RAY DIFFRACTION", res=1.85,
+         chain="A", resname="PLM", protein="人髓鞘蛋白 P2（脂肪酸结合蛋白）· 棕榈酸（非 FASN 口袋）",
+         form="棕榈酸（C16:0 饱和直链脂肪酸；羧酸根）",
+         caveat="实验坐标来自 2WUT（人髓鞘蛋白 P2，链 A，配体 PLM，1.85 Å）：棕榈酸为 FASN 硫酯酶的产物。人 FASN 硫酯酶域与 C16 脂肪酸的高分辨络合物本轮未获；此结构不是 FASN 口袋。配体 PLM 为中性棕榈酸，资产按数据层 C16H31O2⁻ 阴离子口径渲染，只影响质子化标注，不改重原子坐标。",
+         ),
+]
+FAS_IDS = {m["id"] for m in FAS_MOLS}
+
+# ---------- 糖原：7 个只做 2D 的分子（不生成 3D，不写 PDB 坐标） ----------
+# 聚合度不固定的糖原/极限糊精只画代表性片段（麦芽三糖 / 潘糖），片段说明写在 form/caveat；
+# 其余 5 个是确定的单分子（G1P / UTP / UDP-葡萄糖 / PPi / UDP），同样只做 2D。
+GLYCOGEN_2D_MOLS = [
+    dict(id="glycogen", name="糖原（α-1,4 链段）ₙ", formula="C18H32O16",
+         smiles="OC[C@H]1O[C@H](O[C@H]2[C@H](O)[C@@H](O)[C@H](O[C@H]3[C@H](O)[C@@H](O)[C@H](O)O[C@@H]3CO)O[C@@H]2CO)[C@H](O)[C@@H](O)[C@@H]1O",
+         no3d=True,
+         form="糖原 α-1,4 链段三糖示意（麦芽三糖片段，不代表聚合度）",
+         caveat="糖原聚合度不固定，2D 只画 3 个葡萄糖残基的 α-1,4 链段示意；不生成 3D（无单一大分子实验坐标）。"),
+    dict(id="glycogen-limit", name="糖原极限糊精（α-1,6 分支片段）", formula="C18H32O16",
+         smiles="C([C@@H]1[C@H]([C@@H]([C@H]([C@H](O1)OC[C@@H]2[C@H]([C@@H]([C@H]([C@H](O2)O[C@H]([C@@H](CO)O)[C@@H]([C@H](C=O)O)O)O)O)O)O)O)O)O",
+         no3d=True,
+         form="极限糊精分支片段示意（潘糖：α-1,6 分支 + α-1,4 主链）",
+         caveat="极限糊精是分支聚合物，2D 只画潘糖片段示意；不生成 3D。"),
+    dict(id="g1p", name="葡萄糖-1-磷酸（G1P）", formula="C6H11O9P",
+         smiles="O=P([O-])([O-])O[C@H]1O[C@H](CO)[C@@H](O)[C@H](O)[C@H]1O",
+         no3d=True,
+         form="α-D-葡萄糖-1-磷酸（二价阴离子）",
+         caveat="本轮仅补 2D；无实验配体坐标，不生成 3D。"),
+    dict(id="utp", name="尿苷三磷酸（UTP）", formula="C9H11N2O15P3",
+         smiles="O=c1ccn([C@@H]2O[C@H](COP(=O)([O-])OP(=O)([O-])OP(=O)([O-])[O-])[C@@H](O)[C@H]2O)c(=O)[nH]1",
+         no3d=True,
+         form="尿苷三磷酸（四价阴离子）",
+         caveat="本轮仅补 2D；无实验配体坐标，不生成 3D。"),
+    dict(id="udp-glucose", name="UDP-α-D-葡萄糖（UDP-Glc）", formula="C15H22N2O17P2",
+         smiles="O=c1ccn([C@@H]2O[C@H](COP(=O)([O-])OP(=O)([O-])O[C@H]3O[C@H](CO)[C@@H](O)[C@H](O)[C@H]3O)[C@@H](O)[C@H]2O)c(=O)[nH]1",
+         no3d=True,
+         form="UDP-α-D-葡萄糖（二价阴离子）",
+         caveat="本轮仅补 2D；无实验配体坐标，不生成 3D。"),
+    dict(id="ppi", name="焦磷酸（PPi）", formula="HO7P2",
+         smiles="OP([O-])(=O)OP([O-])(=O)[O-]",
+         no3d=True,
+         form="焦磷酸（HP₂O₇³⁻）",
+         caveat="本轮仅补 2D；无实验配体坐标，不生成 3D。"),
+    dict(id="udp", name="尿苷二磷酸（UDP）", formula="C9H12N2O12P2",
+         smiles="O=c1ccn([C@@H]2O[C@H](COP(=O)([O-])OP(=O)([O-])O)[C@@H](O)[C@H]2O)c(=O)[nH]1",
+         no3d=True,
+         form="尿苷二磷酸（二价阴离子）",
+         caveat="本轮仅补 2D；无实验配体坐标，不生成 3D。"),
+]
+GLYCOGEN_2D_IDS = {m["id"] for m in GLYCOGEN_2D_MOLS}
+
 
 def copytemp(src_rel, sdf_name):
     src = os.path.join(ROOT, src_rel)
@@ -473,21 +668,45 @@ def atom_name(a, mol):
     return el
 
 
-def repair_connectivity(sdf_mol):
-    """SDF 的键表由共价半径推断，个别 C–O 键会漏（如 4ALD 的 1.68 Å）。
-    用 RDKit 的 DetermineConnectivity 从坐标重建连接表，只取连接关系，不取键级。"""
+def repair_connectivity(sdf_mol, cov_factor=1.2):
+    """SDF 的键表由共价半径推断，个别 C–O/C–C 键会漏（如 4ALD 的 1.68 Å、AS1 的 1.80 Å）。
+    用 RDKit 的 DetermineConnectivity 从坐标重建连接表，只取连接关系，不取键级。
+
+    2026-11-05：SDF 键表已由 tools/fix-sdf-bond-orders.py 用 SMILES 模板补齐真实键级。
+    匹配失败时 match_to_sdf 会退回 union_connectivity（坐标推断 ∪ 键表），以保留只存在于
+    键表里的环闭合键（如 8W2G 的呋喃环）；正常路径仍只用坐标推断，保持既有映射顺序。"""
     raw = Chem.RWMol()
     for a in sdf_mol.GetAtoms():
         raw.AddAtom(Chem.Atom(a.GetSymbol()))
+    raw.AddConformer(sdf_mol.GetConformer(), assignId=True)
     m = raw.GetMol()
-    m.AddConformer(sdf_mol.GetConformer(), assignId=True)
-    rdDetermineBonds.DetermineConnectivity(m)
+    rdDetermineBonds.DetermineConnectivity(m, covFactor=cov_factor)
     return m
+
+
+def union_connectivity(sdf_mol, cov_factor=1.2):
+    """坐标推断 + SDF 现有键表并集：保留只存在于键表里的环闭合键（如 8W2G 的呋喃环）。
+    注意 DetermineConnectivity 会重写键表，并集必须放在它之后。"""
+    m = repair_connectivity(sdf_mol, cov_factor)
+    rw = Chem.RWMol(m)
+    for b in sdf_mol.GetBonds():
+        if not rw.GetBondBetweenAtoms(b.GetBeginAtomIdx(), b.GetEndAtomIdx()):
+            rw.AddBond(b.GetBeginAtomIdx(), b.GetEndAtomIdx(), Chem.BondType.SINGLE)
+    return rw.GetMol()
 
 
 def match_to_sdf(template, sdf_mol):
     """把模板图（键级泛化、电荷清零）匹配到 SDF 的连接表；返回 templateIdx→sdfIdx 映射"""
+    raw_sdf = sdf_mol
     sdf_mol = repair_connectivity(sdf_mol)
+    # 实验配体应当是单个分子；若默认共价半径把一根长键漏成两个片段，
+    # 逐步放宽 covFactor 直到连通（AS1 的 N–C 键长 1.80 Å 需要 1.35）。
+    if len(Chem.GetMolFrags(sdf_mol)) > 1:
+        for cf in (1.25, 1.3, 1.35, 1.4):
+            trial = repair_connectivity(sdf_mol, cf)
+            if len(Chem.GetMolFrags(trial)) == 1:
+                sdf_mol = trial
+                break
     q = Chem.RWMol(template)
     for a in q.GetAtoms():
         a.SetFormalCharge(0)
@@ -497,7 +716,13 @@ def match_to_sdf(template, sdf_mol):
     q = Chem.AdjustQueryProperties(q, qp)
     matches = sdf_mol.GetSubstructMatches(q, uniquify=False, maxMatches=500)
     if not matches:
-        raise SystemExit("模板与实验坐标连接表不匹配（原子/连接不一致）")
+        # 坐标推断漏掉的环闭合键（8W2G 呋喃环的 C–O 在键表里、但共价半径判不出来）：
+        # 用「坐标推断 ∪ SDF 键表」再试一次；只有命中失败时才走这条，避免改变既有映射顺序。
+        sdf_rep = union_connectivity(raw_sdf)
+        matches = sdf_rep.GetSubstructMatches(q, uniquify=False, maxMatches=500)
+        if not matches:
+            raise SystemExit("模板与实验坐标连接表不匹配（原子/连接不一致）")
+        sdf_mol = sdf_rep
     # 多解时取“键长分布最接近模板 2D 布局”的一个：用模板 2D 坐标的键长中位无关，改用首个即可；
     # 对称匹配互等价，但为避免手性反转，优先取与模板 3D（ETKDG）对齐后 RMSD 最小者
     ref = Chem.AddHs(template)
@@ -647,6 +872,39 @@ def svg_2d(asset):
         px, py = (-dy / L) * 3.6, (dx / L) * 3.6
         out.append(f'<polygon points="{a["x"]:.1f},{a["y"]:.1f} {c["x"] + px:.1f},{c["y"] + py:.1f} '
                    f'{c["x"] - px:.1f},{c["y"] - py:.1f}" fill="{ink}"/>')
+    # 电荷符号落位：默认右下 (+9,+8)；与相邻杂原子标签、碳编号或其它电荷压叠时依次退让。
+    # 只挪电荷符号的位置偏移，不改字号、键线与原子标签。
+    label_boxes = []
+    for a in asset["atoms"]:
+        if a["el"] in ("O", "N", "S", "P"):
+            label_boxes.append((a["x"] - 4.5, a["y"] - 9.0, a["x"] + 4.5, a["y"] + 4.0))
+        if a.get("label"):
+            wdt = len(a["label"]) * 5.6
+            label_boxes.append((a["x"] + 9, a["y"] - 14.0, a["x"] + 9 + wdt, a["y"] - 5.0))
+    charge_layout = {}
+    charge_boxes = []
+    spots = [(9, 8), (9, -8), (14, 8), (9, 17), (14, 17), (9, 24), (16, -5), (5, -17)]
+    for a in asset["atoms"]:
+        if not a.get("charge"):
+            continue
+        best, best_score = spots[0], float("inf")
+        for dx, dy in spots:
+            b = (a["x"] + dx, a["y"] + dy - 9.4, a["x"] + dx + 5.6, a["y"] + dy + 3.2)
+            score = 0.0
+            if b[0] < bx or b[2] > bx + bw or b[1] < by or b[3] > by + bh:
+                score += 400
+            for o in label_boxes + charge_boxes:
+                ix = min(b[2], o[2]) - max(b[0], o[0])
+                iy = min(b[3], o[3]) - max(b[1], o[1])
+                if ix > 0 and iy > 0:
+                    score += ix * iy + 1
+            if score < best_score:
+                best_score, best = score, (dx, dy)
+                if score == 0:
+                    break
+        charge_boxes.append((a["x"] + best[0], a["y"] + best[1] - 9.4,
+                             a["x"] + best[0] + 5.6, a["y"] + best[1] + 3.2))
+        charge_layout[a["id"]] = (a["x"] + best[0], a["y"] + best[1])
     for a in asset["atoms"]:
         if a["el"] in ("O", "N", "S", "P"):
             out.append(f'<circle cx="{a["x"]:.1f}" cy="{a["y"]:.1f}" r="8.5" fill="{paper}"/>')
@@ -661,7 +919,8 @@ def svg_2d(asset):
             out.append(f'<text x="{a["x"] + 9:.1f}" y="{a["y"] - 5:.1f}" font-family="Helvetica, Arial, sans-serif" '
                        f'font-size="9.5" fill="{hair}">{a["label"]}</text>')
         if a.get("charge"):
-            out.append(f'<text x="{a["x"] + 9:.1f}" y="{a["y"] + 8:.1f}" font-family="Helvetica, Arial, sans-serif" '
+            cx, cy = charge_layout[a["id"]]
+            out.append(f'<text x="{cx:.1f}" y="{cy:.1f}" font-family="Helvetica, Arial, sans-serif" '
                        f'font-size="9.5" fill="{brick}">{a["charge"]}</text>')
     out.append("</svg>")
     return "\n".join(out), lines, base_bonds
@@ -683,7 +942,8 @@ def make_2d(spec, template):
     for b in m.GetBonds():
         p1, p2 = conf.GetAtomPosition(b.GetBeginAtomIdx()), conf.GetAtomPosition(b.GetEndAtomIdx())
         lens.append(math.hypot(p1.x - p2.x, p1.y - p2.y))
-    med = statistics.median(lens)
+    # 单重原子分子（如 NH₃）没有键，median 无定义；此时不缩放，按默认尺度画点。
+    med = statistics.median(lens) if lens else 1.0
     k = BOND_2D / med
     Chem.AssignStereochemistry(m, cleanIt=True, force=True)
     Chem.WedgeMolBonds(m, conf)
@@ -819,10 +1079,14 @@ def generate(mols, two_d_ids, report_path, generated_at):
             if spec["id"] not in two_d_ids:
                 errors.append(f"{spec['id']} 标记 no3d 但未列入 2D 生成清单")
                 continue
-            asset2d, svg, svg_lines, svg_bonds = make_2d(spec, flat)
+            # 2D 也统一写 Kekulé 键级（1/2），避免芳香键 1.5 让 SVG 键线数对不上
+            flat_k = Chem.Mol(flat)
+            Chem.Kekulize(flat_k, clearAromaticFlags=True)
+            asset2d, svg, svg_lines, svg_bonds = make_2d(spec, flat_k)
             path2d = os.path.join(OUT2D, f"{spec['id']}.json")
-            if svg_bonds != len(asset2d["bonds"]) or svg_lines < len(asset2d["bonds"]):
-                errors.append(f"{spec['id']} SVG 键线数与 JSON 键数不符")
+            order_sum = sum(b["order"] for b in asset2d["bonds"])
+            if svg_bonds != len(asset2d["bonds"]) or svg_lines != order_sum:
+                errors.append(f"{spec['id']} SVG 键线数与 JSON 键级展开不符")
             with open(path2d, "w", encoding="utf-8") as fh:
                 json.dump(asset2d, fh, ensure_ascii=False, separators=(",", ":"))
             with open(os.path.join(OUT2D, f"{spec['id']}.svg"), "w", encoding="utf-8") as fh:
@@ -954,8 +1218,8 @@ def svg_only():
 
 def main():
     ap = argparse.ArgumentParser(description="离线生成分子 2D/3D 资产")
-    ap.add_argument("--pathway", choices=["glycolysis", "tca", "ppp", "gluconeogenesis", "fao"], default="glycolysis",
-                    help="默认 glycolysis（保持原报告路径与行为）；tca/ppp/gluconeogenesis/fao 写独立报告")
+    ap.add_argument("--pathway", choices=["glycolysis", "tca", "ppp", "gluconeogenesis", "fao", "urea", "fas", "glycogen"], default="glycolysis",
+                    help="默认 glycolysis（保持原报告路径与行为）；tca/ppp/gluconeogenesis/fao/urea/fas 写独立报告")
     ap.add_argument("--svg-only", action="store_true",
                     help="只按现有 2D JSON 重绘 SVG（配色专用，幂等）")
     args = ap.parse_args()
@@ -978,6 +1242,18 @@ def main():
         generate(FAO_MOLS, FAO_TWO_D_IDS,
                  os.path.join(ROOT, "preview", "fao-molecule-assets-report.json"),
                  "2026-11-05 · β-氧化")
+    elif args.pathway == "urea":
+        generate(UREA_MOLS, UREA_IDS,
+                 os.path.join(ROOT, "preview", "urea-molecule-assets-report.json"),
+                 "2026-11-05 · 尿素循环")
+    elif args.pathway == "fas":
+        generate(FAS_MOLS, FAS_IDS,
+                 os.path.join(ROOT, "preview", "fas-molecule-assets-report.json"),
+                 "2026-11-05 · 脂肪酸合成")
+    elif args.pathway == "glycogen":
+        generate(GLYCOGEN_2D_MOLS, GLYCOGEN_2D_IDS,
+                 os.path.join(ROOT, "preview", "glycogen-2d-assets-report.json"),
+                 "2026-11-05 · 糖原（仅 2D）")
     else:
         generate(MOLS, TWO_D_IDS, REPORT, "2026-11-03")
 

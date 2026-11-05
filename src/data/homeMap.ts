@@ -17,7 +17,10 @@ export type HomePathwayId =
   | "gluconeogenesis"
   | "ppp"
   | "fatty-acid-oxidation"
-  | "oxphos";
+  | "oxphos"
+  | "fatty-acid-synthesis"
+  | "urea-cycle"
+  | "glycogen";
 
 export interface HomePathwayMeta {
   id: HomePathwayId;
@@ -97,6 +100,44 @@ export const HOME_PATHWAYS: HomePathwayMeta[] = [
     plateNo: "PLATE 06",
     stepCount: 7,
     accent: "teal",
+  },
+  // 脂肪酸从头合成：胞质侧，与基质的 β-氧化在首页形成镜像对位。
+  // 只登记标题块与导航，不并入 SOURCES——首页节点口径保持既有退化结论不变。
+  {
+    id: "fatty-acid-synthesis",
+    sourceId: "fatty-acid-synthesis",
+    name: "脂肪酸从头合成",
+    en: "DE NOVO FATTY ACID SYNTHESIS",
+    route: "/pathway/fas",
+    structureRoute: "/structures/fatty-acid-synthesis",
+    plateNo: "PLATE 08",
+    stepCount: 8,
+    accent: "ink",
+  },
+  // 尿素循环：下域（肝/线粒体侧），标题块贴近 TCA 的延胡索酸位置。
+  // 与 FAS 一样只登记标题块与导航，不并入 SOURCES，保持首页节点/边口径不变。
+  {
+    id: "urea-cycle",
+    sourceId: "urea-cycle",
+    name: "尿素循环",
+    en: "UREA CYCLE",
+    route: "/pathway/urea-cycle",
+    structureRoute: "/structures/urea-cycle",
+    plateNo: "PLATE 09",
+    stepCount: 5,
+    accent: "brick",
+  },
+  // 糖原代谢：PLATE 10，只登记标题块与导航；不并入 SOURCES，首页节点/边口径不变。
+  {
+    id: "glycogen",
+    sourceId: "glycogen",
+    name: "糖原代谢",
+    en: "GLYCOGEN METABOLISM",
+    route: "/pathway/glycogen",
+    structureRoute: "/structures/glycogen",
+    plateNo: "PLATE 10",
+    stepCount: 9,
+    accent: "amber",
   },
 ];
 
