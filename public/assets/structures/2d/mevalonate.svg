@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20.0 20.0 447.1 396.5" width="447" height="396" role="img" aria-label="mevalonate-2d">
+<rect x="20.0" y="20.0" width="447.1" height="396.5" fill="#f6f3ec"/>
+<line x1="254.3" y1="376.5" x2="279.8" y2="279.8" stroke="#22282a" stroke-width="1.6"/>
+<line x1="279.8" y1="279.8" x2="305.2" y2="183.0" stroke="#22282a" stroke-width="1.6"/>
+<line x1="305.2" y1="183.0" x2="401.7" y2="156.7" stroke="#22282a" stroke-width="1.6"/>
+<line x1="401.7" y1="156.7" x2="427.1" y2="60.0" stroke="#22282a" stroke-width="1.6"/>
+<line x1="279.8" y1="279.8" x2="183.0" y2="254.3" stroke="#22282a" stroke-width="1.6"/>
+<line x1="183.0" y1="254.3" x2="156.7" y2="157.9" stroke="#22282a" stroke-width="1.6"/>
+<line x1="156.7" y1="157.9" x2="60.0" y2="132.4" stroke="#22282a" stroke-width="1.6"/>
+<line x1="142.9" y1="151.6" x2="75.2" y2="133.7" stroke="#22282a" stroke-width="1.6"/>
+<line x1="156.7" y1="157.9" x2="227.1" y2="86.8" stroke="#22282a" stroke-width="1.6"/>
+<line x1="279.8" y1="279.8" x2="376.5" y2="305.2" stroke="#22282a" stroke-width="1.6"/>
+<circle cx="254.3" cy="376.5" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="279.8" cy="279.8" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="305.2" cy="183.0" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="401.7" cy="156.7" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="427.1" cy="60.0" r="8.5" fill="#f6f3ec"/>
+<text x="427.1" y="63.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="183.0" cy="254.3" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="156.7" cy="157.9" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="60.0" cy="132.4" r="8.5" fill="#f6f3ec"/>
+<text x="60.0" y="135.6" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="227.1" cy="86.8" r="8.5" fill="#f6f3ec"/>
+<text x="227.1" y="90.0" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="236.1" y="94.8" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
+<circle cx="376.5" cy="305.2" r="8.5" fill="#f6f3ec"/>
+<text x="376.5" y="308.4" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+</svg>

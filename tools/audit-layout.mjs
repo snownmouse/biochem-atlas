@@ -36,6 +36,8 @@ const glycogen = read("src/data/glycogen/glycogen.json");
 const glycogenSkel = read("src/data/glycogen/skeleton.json");
 const amino = read("src/data/amino-acid/amino.json");
 const aminoSkel = read("src/data/amino-acid/skeleton.json");
+const cholesterol = read("src/data/cholesterol/cholesterol.json");
+const cholesterolSkel = read("src/data/cholesterol/skeleton.json");
 
 const EXPECT = {
   glycolysis: {
@@ -108,6 +110,13 @@ const EXPECT = {
     sources: ["amino-acid/amino.json", "amino-acid/skeleton.json"],
     plate: amino.plateNo,
   },
+  cholesterol: {
+    // 13 步：ch-1…ch-13，下游 9 酶压缩在 ch-13 的簇节点 / 簇内清单，不另起节点
+    steps: cholesterol.steps.length,
+    nodes: cholesterolSkel.nodes.length,
+    sources: ["cholesterol/cholesterol.json", "cholesterol/skeleton.json"],
+    plate: cholesterol.plateNo,
+  },
 };
 
 const ROUTES = [
@@ -123,6 +132,7 @@ const ROUTES = [
   { id: "urea-cycle", path: "/pathway/urea-cycle", kind: "poster", pathway: "urea-cycle" },
   { id: "glycogen", path: "/pathway/glycogen", kind: "poster", pathway: "glycogen" },
   { id: "amino-acids", path: "/pathway/amino-acids", kind: "poster", pathway: "amino-acids" },
+  { id: "cholesterol", path: "/pathway/cholesterol", kind: "poster", pathway: "cholesterol" },
   { id: "structures-glycolysis", path: "/structures/glycolysis", kind: "structures" },
   { id: "structures-tca", path: "/structures/tca", kind: "structures" },
   { id: "structures-gluconeogenesis", path: "/structures/gluconeogenesis", kind: "structures" },
@@ -132,6 +142,7 @@ const ROUTES = [
   { id: "structures-urea-cycle", path: "/structures/urea-cycle", kind: "structures" },
   { id: "structures-glycogen", path: "/structures/glycogen", kind: "structures" },
   { id: "structures-amino-acids", path: "/structures/amino-acids", kind: "structures" },
+  { id: "structures-cholesterol", path: "/structures/cholesterol", kind: "structures" },
   { id: "structures-oxphos", path: "/structures/oxphos", kind: "structures" },
   { id: "step-gk-1", path: "/step/gk-1", kind: "step" },
   { id: "step-gk-6", path: "/step/gk-6", kind: "step" },

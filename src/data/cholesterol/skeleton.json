@@ -1,0 +1,671 @@
+{
+  "canvas": {
+    "width": 1980,
+    "height": 1000
+  },
+  "compartments": [
+    {
+      "id": "cytosol",
+      "name": "细胞质",
+      "en": "CYTOSOL",
+      "x0": 24,
+      "x1": 1956,
+      "y0": 40,
+      "y1": 500,
+      "note": "甲羟戊酸上游：乙酰-CoA → HMG-CoA → 甲羟戊酸 → IPP → DMAPP → GPP → FPP（9 步）。FDPS 位于胞质（部分过氧化物酶体）。"
+    },
+    {
+      "id": "er",
+      "name": "内质网",
+      "en": "ENDOPLASMIC RETICULUM",
+      "x0": 24,
+      "x1": 1956,
+      "y0": 520,
+      "y1": 980,
+      "note": "FDFT1 / SQLE / LSS 与全部去甲基化、还原修饰酶位于内质网膜；DHCR7 与 DHCR24 是两条并行终段路线。"
+    }
+  ],
+  "nodes": [
+    {
+      "id": "accoa",
+      "entityId": "accoa",
+      "x": 110,
+      "y": 150,
+      "r": 18,
+      "kind": "metabolite",
+      "label": "乙酰-CoA",
+      "sub": "C2 入口"
+    },
+    {
+      "id": "acat2",
+      "entityId": "acat2",
+      "x": 205,
+      "y": 215,
+      "w": 100,
+      "h": 28,
+      "kind": "enzyme",
+      "label": "ACAT2",
+      "sub": "2 × C2 → C4"
+    },
+    {
+      "id": "acacoa",
+      "entityId": "acacoa",
+      "x": 300,
+      "y": 150,
+      "r": 20,
+      "kind": "metabolite",
+      "label": "乙酰乙酰-CoA",
+      "sub": "C4 硫酯"
+    },
+    {
+      "id": "hmgcs1",
+      "entityId": "hmgcs1",
+      "x": 395,
+      "y": 215,
+      "w": 120,
+      "h": 28,
+      "kind": "enzyme",
+      "label": "HMGCS1",
+      "sub": "+ 乙酰-CoA"
+    },
+    {
+      "id": "hmgcoa",
+      "entityId": "hmgcoa",
+      "x": 490,
+      "y": 150,
+      "r": 22,
+      "kind": "metabolite",
+      "label": "HMG-CoA",
+      "sub": "C6 分支点"
+    },
+    {
+      "id": "hmgcr",
+      "entityId": "hmgcr",
+      "x": 585,
+      "y": 215,
+      "w": 120,
+      "h": 30,
+      "kind": "enzyme",
+      "label": "HMGCR",
+      "sub": "ER 膜 · 限速步"
+    },
+    {
+      "id": "mevalonate",
+      "entityId": "mevalonate",
+      "x": 680,
+      "y": 150,
+      "r": 18,
+      "kind": "metabolite",
+      "label": "甲羟戊酸",
+      "sub": "MVA · C6"
+    },
+    {
+      "id": "mvk",
+      "entityId": "mvk",
+      "x": 770,
+      "y": 215,
+      "w": 100,
+      "h": 28,
+      "kind": "enzyme",
+      "label": "MVK",
+      "sub": "5-OH 磷酸化"
+    },
+    {
+      "id": "mev5p",
+      "entityId": "mev5p",
+      "x": 860,
+      "y": 150,
+      "r": 20,
+      "kind": "metabolite",
+      "label": "MVA-5-P",
+      "sub": "C6 磷酸"
+    },
+    {
+      "id": "pmvk",
+      "entityId": "pmvk",
+      "x": 945,
+      "y": 215,
+      "w": 100,
+      "h": 28,
+      "kind": "enzyme",
+      "label": "PMVK",
+      "sub": "再磷酸化"
+    },
+    {
+      "id": "mev5pp",
+      "entityId": "mev5pp",
+      "x": 1030,
+      "y": 150,
+      "r": 20,
+      "kind": "metabolite",
+      "label": "MVA-5-PP",
+      "sub": "C6 二磷酸"
+    },
+    {
+      "id": "mvd",
+      "entityId": "mvd",
+      "x": 1115,
+      "y": 215,
+      "w": 100,
+      "h": 28,
+      "kind": "enzyme",
+      "label": "MVD",
+      "sub": "脱羧"
+    },
+    {
+      "id": "ipp",
+      "entityId": "ipp",
+      "x": 1200,
+      "y": 150,
+      "r": 16,
+      "kind": "metabolite",
+      "label": "IPP",
+      "sub": "C5"
+    },
+    {
+      "id": "idi1",
+      "entityId": "idi1",
+      "x": 1280,
+      "y": 215,
+      "w": 100,
+      "h": 28,
+      "kind": "enzyme",
+      "label": "IDI1",
+      "sub": "⇌ 异构"
+    },
+    {
+      "id": "dmapp",
+      "entityId": "dmapp",
+      "x": 1360,
+      "y": 150,
+      "r": 16,
+      "kind": "metabolite",
+      "label": "DMAPP",
+      "sub": "C5 烯丙基供体"
+    },
+    {
+      "id": "ipp-2",
+      "entityId": "ipp",
+      "x": 1150,
+      "y": 330,
+      "r": 16,
+      "kind": "metabolite",
+      "label": "IPP",
+      "sub": "第二单位"
+    },
+    {
+      "id": "dmapp-2",
+      "entityId": "dmapp",
+      "x": 1310,
+      "y": 330,
+      "r": 16,
+      "kind": "metabolite",
+      "label": "DMAPP",
+      "sub": "起链"
+    },
+    {
+      "id": "fdps",
+      "entityId": "fdps",
+      "x": 1455,
+      "y": 395,
+      "w": 130,
+      "h": 28,
+      "kind": "enzyme",
+      "label": "FDPS",
+      "sub": "两次 head-to-tail 缩合"
+    },
+    {
+      "id": "gpp",
+      "entityId": "gpp",
+      "x": 1580,
+      "y": 330,
+      "r": 18,
+      "kind": "metabolite",
+      "label": "GPP",
+      "sub": "C10"
+    },
+    {
+      "id": "fpp",
+      "entityId": "fpp",
+      "x": 1740,
+      "y": 330,
+      "r": 20,
+      "kind": "metabolite",
+      "label": "FPP",
+      "sub": "C15 分支点"
+    },
+    {
+      "id": "ggpp",
+      "entityId": "fpp",
+      "x": 1850,
+      "y": 240,
+      "w": 180,
+      "h": 44,
+      "kind": "projection",
+      "label": "非甾醇类异戊二烯",
+      "sub": "GGPP · 多萜醇 · 血红素 A · CoQ10"
+    },
+    {
+      "id": "statin",
+      "entityId": "statin",
+      "x": 585,
+      "y": 300,
+      "w": 150,
+      "h": 30,
+      "kind": "drug",
+      "label": "他汀类",
+      "sub": "HMGCR 抑制"
+    },
+    {
+      "id": "squalene",
+      "entityId": "squalene",
+      "x": 1600,
+      "y": 590,
+      "r": 22,
+      "kind": "metabolite",
+      "label": "角鲨烯",
+      "sub": "C30"
+    },
+    {
+      "id": "fdft1",
+      "entityId": "fdft1",
+      "x": 1740,
+      "y": 590,
+      "w": 110,
+      "h": 28,
+      "kind": "enzyme",
+      "label": "FDFT1",
+      "sub": "2 FPP → C30 · ER 膜"
+    },
+    {
+      "id": "oxy",
+      "entityId": "oxidosqualene",
+      "x": 1300,
+      "y": 590,
+      "r": 22,
+      "kind": "metabolite",
+      "label": "2,3-环氧角鲨烯",
+      "sub": "环化底物"
+    },
+    {
+      "id": "sqle",
+      "entityId": "sqle",
+      "x": 1440,
+      "y": 590,
+      "w": 110,
+      "h": 30,
+      "kind": "enzyme",
+      "label": "SQLE",
+      "sub": "+O₂ / NADPH"
+    },
+    {
+      "id": "lanosterol",
+      "entityId": "lanosterol",
+      "x": 1020,
+      "y": 590,
+      "r": 22,
+      "kind": "metabolite",
+      "label": "羊毛甾醇",
+      "sub": "C30 四环"
+    },
+    {
+      "id": "lss",
+      "entityId": "lss",
+      "x": 1160,
+      "y": 590,
+      "w": 110,
+      "h": 30,
+      "kind": "enzyme",
+      "label": "LSS",
+      "sub": "环化"
+    },
+    {
+      "id": "mod-cluster",
+      "entityId": "cyp51a1",
+      "x": 800,
+      "y": 770,
+      "w": 520,
+      "h": 48,
+      "kind": "projection",
+      "label": "去甲基化 / 还原修饰簇（9 酶）",
+      "sub": "9 酶逐条清单与 EC 见右栏"
+    },
+    {
+      "id": "7dhc",
+      "entityId": "7dhc",
+      "x": 980,
+      "y": 900,
+      "r": 16,
+      "kind": "metabolite",
+      "label": "7-DHC",
+      "sub": "DHCR7 底物"
+    },
+    {
+      "id": "cholesterol",
+      "entityId": "cholesterol",
+      "x": 330,
+      "y": 770,
+      "r": 24,
+      "kind": "metabolite",
+      "label": "胆固醇",
+      "sub": "C27 终产物"
+    }
+  ],
+  "links": [
+    {
+      "id": "l-ch-1",
+      "from": "accoa",
+      "to": "acacoa",
+      "stepId": "ch-1",
+      "type": "main",
+      "path": "M 128,150 L 280,150",
+      "label": "ACAT2 · 缩合",
+      "labelX": 204,
+      "labelY": 138,
+      "labelAnchor": "middle"
+    },
+    {
+      "id": "l-ch-2",
+      "from": "acacoa",
+      "to": "hmgcoa",
+      "stepId": "ch-2",
+      "type": "main",
+      "path": "M 320,150 L 468,150",
+      "label": "HMGCS1",
+      "labelX": 394,
+      "labelY": 138,
+      "labelAnchor": "middle"
+    },
+    {
+      "id": "l-ch-3",
+      "from": "hmgcoa",
+      "to": "mevalonate",
+      "stepId": "ch-3",
+      "type": "main",
+      "path": "M 512,150 L 662,150",
+      "label": "2 NADPH · 限速",
+      "labelX": 587,
+      "labelY": 138,
+      "labelAnchor": "middle"
+    },
+    {
+      "id": "l-ch-4",
+      "from": "mevalonate",
+      "to": "mev5p",
+      "stepId": "ch-4",
+      "type": "main",
+      "path": "M 698,150 L 840,150",
+      "label": "ATP",
+      "labelX": 769,
+      "labelY": 138,
+      "labelAnchor": "middle"
+    },
+    {
+      "id": "l-ch-5",
+      "from": "mev5p",
+      "to": "mev5pp",
+      "stepId": "ch-5",
+      "type": "main",
+      "path": "M 880,150 L 1010,150",
+      "label": "ATP",
+      "labelX": 945,
+      "labelY": 138,
+      "labelAnchor": "middle"
+    },
+    {
+      "id": "l-ch-6",
+      "from": "mev5pp",
+      "to": "ipp",
+      "stepId": "ch-6",
+      "type": "main",
+      "path": "M 1050,150 L 1184,150",
+      "label": "ATP · CO₂",
+      "labelX": 1117,
+      "labelY": 138,
+      "labelAnchor": "middle"
+    },
+    {
+      "id": "l-ch-7",
+      "from": "ipp",
+      "to": "dmapp",
+      "stepId": "ch-7",
+      "type": "main",
+      "path": "M 1216,150 L 1344,150",
+      "label": "⇌ IDI1",
+      "labelX": 1280,
+      "labelY": 138,
+      "labelAnchor": "middle"
+    },
+    {
+      "id": "l-ch-8-ipp",
+      "from": "ipp-2",
+      "to": "dmapp-2",
+      "stepId": "ch-8",
+      "type": "main",
+      "path": "M 1168,330 L 1290,330",
+      "label": "",
+      "labelX": 1229,
+      "labelY": 318,
+      "labelAnchor": "middle"
+    },
+    {
+      "id": "l-ch-8",
+      "from": "dmapp-2",
+      "to": "gpp",
+      "stepId": "ch-8",
+      "type": "main",
+      "path": "M 1328,330 L 1562,330",
+      "label": "+ IPP · PPi",
+      "labelX": 1445,
+      "labelY": 318,
+      "labelAnchor": "middle"
+    },
+    {
+      "id": "l-ch-9",
+      "from": "gpp",
+      "to": "fpp",
+      "stepId": "ch-9",
+      "type": "main",
+      "path": "M 1600,330 L 1718,330",
+      "label": "+ IPP · PPi",
+      "labelX": 1659,
+      "labelY": 318,
+      "labelAnchor": "middle"
+    },
+    {
+      "id": "l-ch-10",
+      "from": "fpp",
+      "to": "squalene",
+      "stepId": "ch-10",
+      "type": "main",
+      "path": "M 1730,350 C 1690,440 1680,520 1626,570",
+      "label": "×2 FPP → C30",
+      "labelX": 1690,
+      "labelY": 462,
+      "labelAnchor": "start"
+    },
+    {
+      "id": "l-ch-11",
+      "from": "squalene",
+      "to": "oxy",
+      "stepId": "ch-11",
+      "type": "main",
+      "path": "M 1578,590 L 1322,590",
+      "label": "SQLE",
+      "labelX": 1450,
+      "labelY": 566,
+      "labelAnchor": "middle"
+    },
+    {
+      "id": "l-ch-12",
+      "from": "oxy",
+      "to": "lanosterol",
+      "stepId": "ch-12",
+      "type": "main",
+      "path": "M 1278,590 L 1042,590",
+      "label": "LSS · 环化",
+      "labelX": 1160,
+      "labelY": 566,
+      "labelAnchor": "middle"
+    },
+    {
+      "id": "l-ch-13a",
+      "from": "lanosterol",
+      "to": "mod-cluster",
+      "stepId": "ch-13",
+      "type": "main",
+      "path": "M 1010,610 C 970,670 930,720 900,746",
+      "label": "9 酶修饰簇",
+      "labelX": 940,
+      "labelY": 690,
+      "labelAnchor": "start"
+    },
+    {
+      "id": "l-ch-13b",
+      "from": "mod-cluster",
+      "to": "cholesterol",
+      "stepId": "ch-13",
+      "type": "main",
+      "path": "M 540,770 L 354,770",
+      "label": "C30 → C27",
+      "labelX": 447,
+      "labelY": 758,
+      "labelAnchor": "middle"
+    },
+    {
+      "id": "l-side-fpp",
+      "from": "fpp",
+      "to": "ggpp",
+      "stepId": null,
+      "type": "side",
+      "path": "M 1752,310 C 1780,288 1804,266 1838,255",
+      "label": "旁路",
+      "labelX": 1790,
+      "labelY": 268,
+      "labelAnchor": "start"
+    },
+    {
+      "id": "l-drug",
+      "from": "statin",
+      "to": "hmgcr",
+      "type": "control",
+      "path": "M 585,284 L 585,232",
+      "label": "抑制",
+      "labelX": 600,
+      "labelY": 258,
+      "labelAnchor": "start"
+    },
+    {
+      "id": "l-clinical",
+      "from": "mod-cluster",
+      "to": "7dhc",
+      "stepId": null,
+      "type": "side",
+      "path": "M 960,794 C 968,830 976,858 978,880",
+      "label": "DHCR7 阻滞",
+      "labelX": 1000,
+      "labelY": 842,
+      "labelAnchor": "start"
+    }
+  ],
+  "annotations": [
+    {
+      "id": "an-cytosol",
+      "x": 40,
+      "y": 74,
+      "text": "胞质 · 甲羟戊酸通路",
+      "anchor": "start",
+      "size": 12,
+      "weight": 700
+    },
+    {
+      "id": "an-cytosol-sub",
+      "x": 40,
+      "y": 93,
+      "text": "乙酰-CoA → HMG-CoA → 甲羟戊酸 → IPP → FPP（9 步）",
+      "anchor": "start",
+      "size": 9.2
+    },
+    {
+      "id": "an-srebp",
+      "x": 40,
+      "y": 300,
+      "text": "SREBP-2 反馈：胆固醇 ↑ → INSIG 扣留 SCAP → HMGCR 转录 ↓ / 蛋白降解 ↑（注记，非步骤）",
+      "anchor": "start",
+      "size": 9.2
+    },
+    {
+      "id": "an-per",
+      "x": 40,
+      "y": 440,
+      "text": "每 1 分子胆固醇：18 乙酰-CoA · 18 ATP · 14 NADPH（簇前）",
+      "anchor": "start",
+      "size": 9.2
+    },
+    {
+      "id": "an-stat",
+      "x": 620,
+      "y": 318,
+      "text": "药物节点：他汀作用于 HMGCR，不写成反应步骤",
+      "anchor": "start",
+      "size": 8.5
+    },
+    {
+      "id": "an-side",
+      "x": 1786,
+      "y": 190,
+      "text": "FPP 旁路（降权表达）",
+      "anchor": "start",
+      "size": 8.5
+    },
+    {
+      "id": "an-fdps",
+      "x": 1100,
+      "y": 262,
+      "text": "FDPS 在胞质（部分过氧化物酶体），不在内质网",
+      "anchor": "start",
+      "size": 8.5
+    },
+    {
+      "id": "an-er",
+      "x": 40,
+      "y": 554,
+      "text": "内质网膜 · 甾醇环化与修饰",
+      "anchor": "start",
+      "size": 12,
+      "weight": 700
+    },
+    {
+      "id": "an-er-sub",
+      "x": 40,
+      "y": 573,
+      "text": "FDFT1 → SQLE → LSS → 9 酶修饰簇；DHCR7 与 DHCR24 为两条并行终段",
+      "anchor": "start",
+      "size": 9.2
+    },
+    {
+      "id": "an-dest",
+      "x": 150,
+      "y": 850,
+      "text": "胆固醇去向：膜脂 · 胆汁酸 · 甾体激素（均未建通路）",
+      "anchor": "start",
+      "size": 9.2
+    },
+    {
+      "id": "an-cluster-ec",
+      "x": 300,
+      "y": 940,
+      "text": "簇内酶与 EC：CYP51A1 1.14.14.154 · TM7SF2 1.3.1.70 · MSMO1 1.14.13.72 · NSDHL 1.1.1.170 · HSD17B7 1.1.1.62 · EBP 5.3.3.5 · SC5D 1.3.1.21 · DHCR7 1.3.1.71 · DHCR24 1.3.1.72",
+      "anchor": "start",
+      "size": 8.5
+    },
+    {
+      "id": "an-slos",
+      "x": 1006,
+      "y": 862,
+      "text": "DHCR7 缺陷 → 7-DHC 堆积（SLOS）；DHCR24 缺陷 → desmosterol 堆积",
+      "anchor": "start",
+      "size": 8.5
+    }
+  ]
+}

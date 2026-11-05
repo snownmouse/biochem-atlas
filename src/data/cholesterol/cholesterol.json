@@ -1,0 +1,975 @@
+{
+  "id": "cholesterol",
+  "name": "胆固醇合成 / 甲羟戊酸通路",
+  "en": "CHOLESTEROL BIOSYNTHESIS / MEVALONATE PATHWAY",
+  "plateNo": "PLATE 12 / 12",
+  "summary": "从乙酰-CoA 到胆固醇的三段式通路：胞质甲羟戊酸上游（7 步）→ 内质网甾醇环化（3 步）→ 去甲基化 / 还原修饰簇（9 个酶压缩成 1 步）。HMGCR 是限速步，也是他汀类药物的作用节点；SREBP-2 反馈调节只作注记，不画成反应步骤。",
+  "compartmentsNote": "甲羟戊酸上游（含 FDPS 的两步缩合）在胞质进行；FDFT1、SQLE、LSS 与全部下游修饰酶位于内质网膜。HMGCR 是内质网膜蛋白，催化结构域朝向胞质，因此画在胞质带并注明膜定位。",
+  "entities": [
+    {
+      "id": "accoa",
+      "name": "乙酰-CoA",
+      "abbr": "Ac-CoA",
+      "kind": "metabolite",
+      "formula": "C₂₃H₃₆N₇O₁₇P₃S",
+      "charge": -2,
+      "chargeBasis": "按 research/ionization-convention.md §2.4：完整 CoA 只计 3′-磷酸单酯（pKa₂ ≈ 6.3）−2，焦磷酸按中性式写；页面不整分子入画。",
+      "ionizableGroups": ["3′-磷酸单酯 −2"],
+      "note": "完整分子式只作块级来源注记；骨架中作为入口节点。"
+    },
+    {
+      "id": "acacoa",
+      "name": "乙酰乙酰-CoA",
+      "abbr": "AcAc-CoA",
+      "kind": "metabolite",
+      "formula": "C₂₅H₃₈N₇O₁₈P₃S",
+      "charge": -2,
+      "chargeBasis": "完整 CoA 按项目口径只计 3′-磷酸 −2；乙酰乙酰基不带可电离基团。",
+      "ionizableGroups": ["3′-磷酸单酯 −2"],
+      "note": "两个乙酰-CoA 硫解缩合的产物，仍保留硫酯键。"
+    },
+    {
+      "id": "hmgcoa",
+      "name": "3-羟基-3-甲基戊二酰-CoA",
+      "abbr": "HMG-CoA",
+      "kind": "metabolite",
+      "formula": "C₂₇H₄₁N₇O₂₀P₃S",
+      "charge": -3,
+      "chargeBasis": "3′-磷酸 −2（§2.4）+ C1 羧基 −1（pKa ≈ 4.8，§2.1）= −3。",
+      "ionizableGroups": ["3′-磷酸单酯 −2", "C1 羧基 −1"],
+      "note": "HMGCR 的底物；他汀类与该位点竞争。"
+    },
+    {
+      "id": "mevalonate",
+      "name": "甲羟戊酸",
+      "abbr": "MVA",
+      "kind": "metabolite",
+      "formula": "C₆H₁₁O₄",
+      "charge": -1,
+      "chargeBasis": "C1 羧基 pKa ≈ 4.8，pH 7.4 全解离 → −1；C3 / C5 羟基不解离。",
+      "ionizableGroups": ["C1 羧基 −1"],
+      "note": "3,5-二羟基-3-甲基戊酸；C3 为叔醇，不被磷酸化。"
+    },
+    {
+      "id": "mev5p",
+      "name": "甲羟戊酸-5-磷酸",
+      "abbr": "MVA-5-P",
+      "kind": "metabolite",
+      "formula": "C₆H₁₀O₇P",
+      "charge": -3,
+      "chargeBasis": "羧基 −1（pKa ≈ 4.8）+ 磷酸单酯 −2（pKa₂ ≈ 6.3）= −3。",
+      "ionizableGroups": ["C1 羧基 −1", "5-磷酸单酯 −2"],
+      "note": "MVK 产物；C3 叔醇不被磷酸化。"
+    },
+    {
+      "id": "mev5pp",
+      "name": "甲羟戊酸-5-二磷酸",
+      "abbr": "MVA-5-PP",
+      "kind": "metabolite",
+      "formula": "C₆H₁₀O₁₀P₂",
+      "charge": -4,
+      "chargeBasis": "羧基 −1 + 二磷酸单酯 −3（内部磷酸 −1、末端 −2，§2.2）= −4。",
+      "ionizableGroups": ["C1 羧基 −1", "5-二磷酸单酯 −3"],
+      "note": "PMVK 产物；MVD 的底物。"
+    },
+    {
+      "id": "ipp",
+      "name": "异戊烯基二磷酸",
+      "abbr": "IPP",
+      "kind": "metabolite",
+      "formula": "C₅H₉O₇P₂",
+      "charge": -3,
+      "chargeBasis": "二磷酸单酯按内部 −1、末端 −2 计 → −3；烃链无其他可电离基团。",
+      "ionizableGroups": ["末端二磷酸单酯 −3"],
+      "note": "C5 异戊二烯单位；MVD 脱羧产物。"
+    },
+    {
+      "id": "dmapp",
+      "name": "二甲基烯丙基二磷酸",
+      "abbr": "DMAPP",
+      "kind": "metabolite",
+      "formula": "C₅H₉O₇P₂",
+      "charge": -3,
+      "chargeBasis": "与 IPP 同分子式、同电离态：二磷酸单酯 −3。",
+      "ionizableGroups": ["末端二磷酸单酯 −3"],
+      "note": "IDI1 催化的 IPP 异构体；是缩合反应的烯丙基供体。"
+    },
+    {
+      "id": "gpp",
+      "name": "牻牛儿基二磷酸",
+      "abbr": "GPP",
+      "kind": "metabolite",
+      "formula": "C₁₀H₁₇O₇P₂",
+      "charge": -3,
+      "chargeBasis": "二磷酸单酯 −3；C10 烃链无其他可电离基团。",
+      "ionizableGroups": ["末端二磷酸单酯 −3"],
+      "note": "C10 中间体；FDPS 第一步缩合产物。"
+    },
+    {
+      "id": "fpp",
+      "name": "法尼基二磷酸",
+      "abbr": "FPP",
+      "kind": "metabolite",
+      "formula": "C₁₅H₂₅O₇P₂",
+      "charge": -3,
+      "chargeBasis": "二磷酸单酯 −3；C15 烃链无其他可电离基团。",
+      "ionizableGroups": ["末端二磷酸单酯 −3"],
+      "note": "C15 分支点：甾醇合成、蛋白异戊二烯化、多萜醇、血红素 A、CoQ10 的共同前体。"
+    },
+    {
+      "id": "squalene",
+      "name": "角鲨烯",
+      "abbr": "Squalene",
+      "kind": "metabolite",
+      "formula": "C₃₀H₅₀",
+      "charge": 0,
+      "chargeBasis": "全烃，无 pKa 相关基团；pH 7.4 中性。",
+      "ionizableGroups": [],
+      "note": "两个 FPP 头尾缩合的 C30 产物。"
+    },
+    {
+      "id": "oxidosqualene",
+      "name": "2,3-环氧角鲨烯",
+      "abbr": "2,3-OS",
+      "kind": "metabolite",
+      "formula": "C₃₀H₅₀O",
+      "charge": 0,
+      "chargeBasis": "环氧与烃链均不解离；pH 7.4 中性。",
+      "ionizableGroups": [],
+      "note": "SQLE 产物；LSS 环化的底物。"
+    },
+    {
+      "id": "lanosterol",
+      "name": "羊毛甾醇",
+      "abbr": "Lanosterol",
+      "kind": "metabolite",
+      "formula": "C₃₀H₅₀O",
+      "charge": 0,
+      "chargeBasis": "3β-羟基 pKa ≈ 15，pH 7.4 不解离；中性。",
+      "ionizableGroups": [],
+      "note": "第一个甾醇骨架产物；C30，需经 9 个酶的去甲基 / 还原修饰才能变成 C27 胆固醇。"
+    },
+    {
+      "id": "7dhc",
+      "name": "7-脱氢胆固醇",
+      "abbr": "7-DHC",
+      "kind": "metabolite",
+      "formula": "C₂₇H₄₄O",
+      "charge": 0,
+      "chargeBasis": "3β-羟基不解离；中性。",
+      "ionizableGroups": [],
+      "note": "DHCR7 的底物；DHCR7 缺陷时堆积，导致 Smith-Lemli-Opitz 综合征。"
+    },
+    {
+      "id": "desmosterol",
+      "name": "链甾醇（desmosterol）",
+      "abbr": "Desmosterol",
+      "kind": "metabolite",
+      "formula": "C₂₇H₄₄O",
+      "charge": 0,
+      "chargeBasis": "3β-羟基不解离；中性。",
+      "ionizableGroups": [],
+      "note": "DHCR24 平行路线的底物；与 DHCR7 路线在 7-DHC 处分叉。"
+    },
+    {
+      "id": "cholesterol",
+      "name": "胆固醇",
+      "abbr": "Cholesterol",
+      "kind": "metabolite",
+      "formula": "C₂₇H₄₆O",
+      "charge": 0,
+      "chargeBasis": "3β-羟基 pKa ≈ 15，pH 7.4 不解离；中性。",
+      "ionizableGroups": [],
+      "note": "终产物；去向包括膜脂、胆汁酸与甾体激素。"
+    },
+
+    { "id": "acat2", "name": "乙酰-CoA 乙酰转移酶 2", "abbr": "ACAT2", "kind": "enzyme", "note": "胞质硫解酶，把两个乙酰-CoA 缩合成乙酰乙酰-CoA；EC 2.3.1.9" },
+    { "id": "hmgcs1", "name": "HMG-CoA 合酶 1", "abbr": "HMGCS1", "kind": "enzyme", "note": "胞质；乙酰乙酰-CoA + 乙酰-CoA → HMG-CoA；EC 2.3.3.10" },
+    { "id": "hmgcr", "name": "HMG-CoA 还原酶", "abbr": "HMGCR", "kind": "enzyme", "note": "内质网膜蛋白，催化结构域朝胞质；限速步，他汀类靶点；EC 1.1.1.34" },
+    { "id": "mvk", "name": "甲羟戊酸激酶", "abbr": "MVK", "kind": "enzyme", "note": "胞质；甲羟戊酸 → MVA-5-P；EC 2.7.1.36" },
+    { "id": "pmvk", "name": "磷酸甲羟戊酸激酶", "abbr": "PMVK", "kind": "enzyme", "note": "胞质；MVA-5-P → MVA-5-PP；EC 2.7.4.2" },
+    { "id": "mvd", "name": "甲羟戊酸二磷酸脱羧酶", "abbr": "MVD", "kind": "enzyme", "note": "胞质；ATP 依赖的脱羧，生成 IPP；EC 4.1.1.33" },
+    { "id": "idi1", "name": "异戊烯基二磷酸异构酶 1", "abbr": "IDI1", "kind": "enzyme", "note": "胞质；IPP ⇌ DMAPP；EC 5.3.3.2" },
+    { "id": "fdps", "name": "法尼基二磷酸合酶", "abbr": "FDPS", "kind": "enzyme", "note": "胞质（部分定位于过氧化物酶体）；两步 head-to-tail 缩合；EC 2.5.1.10" },
+    { "id": "fdft1", "name": "角鲨烯合酶", "abbr": "FDFT1", "kind": "enzyme", "note": "内质网膜；两个 FPP 缩合成角鲨烯；EC 2.5.1.21" },
+    { "id": "sqle", "name": "角鲨烯单加氧酶", "abbr": "SQLE", "kind": "enzyme", "note": "内质网膜；角鲨烯 → 2,3-环氧角鲨烯；EC 1.14.14.17" },
+    { "id": "lss", "name": "羊毛甾醇合酶", "abbr": "LSS", "kind": "enzyme", "note": "内质网膜；2,3-环氧角鲨烯环化 → 羊毛甾醇；EC 5.4.99.7" },
+    { "id": "cyp51a1", "name": "羊毛甾醇 14α-去甲基酶", "abbr": "CYP51A1", "kind": "enzyme", "note": "内质网膜；EC 1.14.14.154" },
+    { "id": "tm7sf2", "name": "Δ14-甾醇还原酶", "abbr": "TM7SF2", "kind": "enzyme", "note": "内质网膜；EC 1.3.1.70" },
+    { "id": "msmo1", "name": "甲基甾醇单加氧酶 1", "abbr": "MSMO1", "kind": "enzyme", "note": "内质网膜；SC4MOL；EC 1.14.13.72" },
+    { "id": "nsdhl", "name": "甾醇-4α-羧酸 3-脱氢酶", "abbr": "NSDHL", "kind": "enzyme", "note": "内质网膜；EC 1.1.1.170" },
+    { "id": "hsd17b7", "name": "3-酮甾醇还原酶", "abbr": "HSD17B7", "kind": "enzyme", "note": "内质网膜；EC 1.1.1.62" },
+    { "id": "ebp", "name": "Δ8-Δ7 甾醇异构酶", "abbr": "EBP", "kind": "enzyme", "note": "内质网膜；EC 5.3.3.5" },
+    { "id": "sc5d", "name": "Δ5-甾醇去饱和酶", "abbr": "SC5D", "kind": "enzyme", "note": "内质网膜；EC 1.3.1.21" },
+    { "id": "dhcr7", "name": "7-脱氢胆固醇还原酶", "abbr": "DHCR7", "kind": "enzyme", "note": "内质网膜；EC 1.3.1.71" },
+    { "id": "dhcr24", "name": "24-脱氢胆固醇还原酶", "abbr": "DHCR24", "kind": "enzyme", "note": "内质网膜；desmosterol → 胆固醇的平行路线；EC 1.3.1.72" },
+    { "id": "srebp2", "name": "SREBP-2", "abbr": "SREBP-2", "kind": "signal", "note": "膜结合转录因子；胆固醇耗竭时经 SCAP/INSIG 通路入核，上调 HMGCR 等基因" },
+    { "id": "statin", "name": "他汀类药物", "abbr": "Statin", "kind": "drug", "note": "HMG-CoA 位点竞争性抑制剂；作用于 HMGCR 节点，不是反应步骤" }
+  ],
+  "steps": [
+    {
+      "id": "ch-1",
+      "index": 1,
+      "name": "硫解缩合：两个乙酰-CoA → 乙酰乙酰-CoA",
+      "short": "ACAT2 缩合",
+      "phase": "upstream",
+      "compartment": "cytosol",
+      "reaction": {
+        "substrates": ["accoa"],
+        "products": ["acacoa"],
+        "cofactors": ["CoA-SH（产物，不入画）"],
+        "equation": "2 乙酰-CoA ⇌ 乙酰乙酰-CoA + CoA-SH"
+      },
+      "enzyme": { "entityId": "acat2", "name": "乙酰-CoA 乙酰转移酶 2", "abbr": "ACAT2", "ec": "2.3.1.9" },
+      "direction": "reversible",
+      "deltaG": {
+        "value": null,
+        "qualitative": "硫酯键交换，近平衡；体内由 HMGCS1 持续消耗乙酰乙酰-CoA 拉动",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "physiology": "把两个 C2 单位接成 C4 硫酯，为 HMG-CoA 合酶准备底物；不消耗 ATP 或 NADPH。",
+      "sharedWith": [{ "pathwayId": "tca", "stepId": "tca-1", "entityId": "accoa", "note": "乙酰-CoA 池与 TCA 柠檬酸合酶共用" }],
+      "pdbCandidates": []
+    },
+    {
+      "id": "ch-2",
+      "index": 2,
+      "name": "HMG-CoA 合成",
+      "short": "HMGCS1 缩合",
+      "phase": "upstream",
+      "compartment": "cytosol",
+      "reaction": {
+        "substrates": ["acacoa", "accoa"],
+        "products": ["hmgcoa"],
+        "cofactors": ["H₂O", "CoA-SH（产物）"],
+        "equation": "乙酰乙酰-CoA + 乙酰-CoA + H₂O → HMG-CoA + CoA-SH"
+      },
+      "enzyme": { "entityId": "hmgcs1", "name": "HMG-CoA 合酶 1", "abbr": "HMGCS1", "ec": "2.3.3.10" },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "硫酯水解驱动，体内偏正向；具体 ΔG 未核实",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "physiology": "生成 HMG-CoA——甲羟戊酸通路的最后一个非限速中间体，也是 HMGCR 的底物。",
+      "clinical": "HMGCS1 缺陷可致甲羟戊酸通路下游产物不足；本页不展开。",
+      "sharedWith": [{ "pathwayId": "tca", "stepId": "tca-1", "entityId": "accoa", "note": "乙酰-CoA 池与 TCA 共用" }],
+      "pdbCandidates": []
+    },
+    {
+      "id": "ch-3",
+      "index": 3,
+      "name": "HMG-CoA 还原（限速步 / 他汀靶点）",
+      "short": "HMGCR 还原",
+      "phase": "upstream",
+      "compartment": "cytosol",
+      "reaction": {
+        "substrates": ["hmgcoa"],
+        "products": ["mevalonate"],
+        "cofactors": ["2 NADPH", "2 H⁺", "CoA-SH（产物）"],
+        "equation": "HMG-CoA + 2 NADPH + 2 H⁺ → 甲羟戊酸 + CoA-SH + 2 NADP⁺"
+      },
+      "enzyme": { "entityId": "hmgcr", "name": "HMG-CoA 还原酶", "abbr": "HMGCR", "ec": "1.1.1.34", "note": "内质网膜蛋白；催化结构域朝胞质" },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "强放能（两个 NADPH 参与的还原 + 硫酯水解）；数值未核实",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "physiology": "全通路限速步：把 HMG-CoA 的硫酯还原为伯醇，生成甲羟戊酸。消耗 2 个 NADPH。",
+      "clinical": "他汀类与该步 HMG-CoA 位点竞争性结合，降低胆固醇合成并上调 LDL 受体。药物作用于该节点，不是反应步骤。",
+      "sharedWith": [],
+      "pdbCandidates": ["1HWK", "1HW9", "1DQA"]
+    },
+    {
+      "id": "ch-4",
+      "index": 4,
+      "name": "甲羟戊酸 5-磷酸化",
+      "short": "MVK 磷酸化",
+      "phase": "upstream",
+      "compartment": "cytosol",
+      "reaction": {
+        "substrates": ["mevalonate"],
+        "products": ["mev5p"],
+        "cofactors": ["ATP", "ADP（产物）"],
+        "equation": "甲羟戊酸 + ATP → 甲羟戊酸-5-磷酸 + ADP"
+      },
+      "enzyme": { "entityId": "mvk", "name": "甲羟戊酸激酶", "abbr": "MVK", "ec": "2.7.1.36" },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "ATP 水解驱动，体内偏正向；数值未核实",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "physiology": "只磷酸化 C5 伯羟基；C3 叔羟基不被磷酸化。消耗 1 ATP。",
+      "clinical": "MVK 缺陷导致高 IgD 综合征 / 甲羟戊酸尿症。",
+      "sharedWith": [],
+      "pdbCandidates": ["2R3V"]
+    },
+    {
+      "id": "ch-5",
+      "index": 5,
+      "name": "磷酸甲羟戊酸再磷酸化",
+      "short": "PMVK 磷酸化",
+      "phase": "upstream",
+      "compartment": "cytosol",
+      "reaction": {
+        "substrates": ["mev5p"],
+        "products": ["mev5pp"],
+        "cofactors": ["ATP", "ADP（产物）"],
+        "equation": "甲羟戊酸-5-磷酸 + ATP → 甲羟戊酸-5-二磷酸 + ADP"
+      },
+      "enzyme": { "entityId": "pmvk", "name": "磷酸甲羟戊酸激酶", "abbr": "PMVK", "ec": "2.7.4.2" },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "ATP 水解驱动；体外近平衡偏正向，数值未核实",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "physiology": "把 3-羟基磷酸化，生成 3-磷酸-5-二磷酸中间体，为 MVD 的脱羧-消除反应准备离去基团。消耗 1 ATP。",
+      "sharedWith": [],
+      "pdbCandidates": ["3CH4"]
+    },
+    {
+      "id": "ch-6",
+      "index": 6,
+      "name": "二磷酸甲羟戊酸脱羧",
+      "short": "MVD 脱羧",
+      "phase": "upstream",
+      "compartment": "cytosol",
+      "reaction": {
+        "substrates": ["mev5pp"],
+        "products": ["ipp"],
+        "cofactors": ["ATP", "ADP", "Pi", "CO₂（产物）"],
+        "equation": "甲羟戊酸-5-二磷酸 + ATP → IPP + CO₂ + ADP + Pi"
+      },
+      "enzyme": { "entityId": "mvd", "name": "甲羟戊酸二磷酸脱羧酶", "abbr": "MVD", "ec": "4.1.1.33" },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "ATP 依赖的脱羧，放能；数值未核实",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "physiology": "MVD 先用 ATP 磷酸化 3-OH，再经 β-消除脱去 CO₂ 与磷酸，生成 C5 的 IPP。消耗 1 ATP。",
+      "sharedWith": [],
+      "pdbCandidates": ["3D4J"]
+    },
+    {
+      "id": "ch-7",
+      "index": 7,
+      "name": "IPP ⇌ DMAPP 异构",
+      "short": "IDI1 异构",
+      "phase": "upstream",
+      "compartment": "cytosol",
+      "reaction": {
+        "substrates": ["ipp"],
+        "products": ["dmapp"],
+        "cofactors": [],
+        "equation": "IPP ⇌ DMAPP"
+      },
+      "enzyme": { "entityId": "idi1", "name": "异戊烯基二磷酸异构酶 1", "abbr": "IDI1", "ec": "5.3.3.2" },
+      "direction": "reversible",
+      "deltaG": {
+        "value": null,
+        "qualitative": "近平衡（ΔG°′ ≈ 0，可逆）；数值未核实",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "physiology": "把 IPP 的双键移到末端，生成烯丙基型 DMAPP——缩合反应的亲核供体。无净能量收支。",
+      "sharedWith": [],
+      "pdbCandidates": ["2ICK"]
+    },
+    {
+      "id": "ch-8",
+      "index": 8,
+      "name": "GPP 合成（第一次 head-to-tail 缩合）",
+      "short": "FDPS · GPP",
+      "phase": "upstream",
+      "compartment": "cytosol",
+      "reaction": {
+        "substrates": ["ipp", "dmapp"],
+        "products": ["gpp"],
+        "cofactors": ["PPi（产物，随后水解）"],
+        "equation": "IPP + DMAPP → GPP + PPi"
+      },
+      "enzyme": { "entityId": "fdps", "name": "法尼基二磷酸合酶", "abbr": "FDPS", "ec": "2.5.1.10", "note": "胞质；同一酶连续催化两步缩合" },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "烯丙基二磷酸离去 + PPi 水解拉动，放能；数值未核实",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "physiology": "DMAPP 的烯丙基进攻 IPP，形成 C10 的 GPP；焦磷酸是离去基团。无 ATP / NADPH 支出。",
+      "sharedWith": [],
+      "pdbCandidates": ["5CG6"]
+    },
+    {
+      "id": "ch-9",
+      "index": 9,
+      "name": "FPP 合成（第二次 head-to-tail 缩合）",
+      "short": "FDPS · FPP",
+      "phase": "upstream",
+      "compartment": "cytosol",
+      "reaction": {
+        "substrates": ["gpp", "ipp"],
+        "products": ["fpp"],
+        "cofactors": ["PPi（产物，随后水解）"],
+        "equation": "GPP + IPP → FPP + PPi"
+      },
+      "enzyme": { "entityId": "fdps", "name": "法尼基二磷酸合酶", "abbr": "FDPS", "ec": "2.5.1.10" },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "第二次缩合同样由 PPi 水解拉动；数值未核实",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "physiology": "GPP 再接受一个 IPP，生成 C15 的 FPP——甾醇合成与非甾醇类异戊二烯的共同分支点。",
+      "sharedWith": [],
+      "pdbCandidates": ["5JA0"]
+    },
+    {
+      "id": "ch-10",
+      "index": 10,
+      "name": "角鲨烯合成（FDFT1）",
+      "short": "FDFT1 缩合",
+      "phase": "midstream",
+      "compartment": "er",
+      "reaction": {
+        "substrates": ["fpp"],
+        "products": ["squalene"],
+        "cofactors": ["NADPH", "H⁺", "2 PPi（产物）"],
+        "equation": "2 FPP + NADPH + H⁺ → 角鲨烯 + 2 PPi + NADP⁺"
+      },
+      "enzyme": { "entityId": "fdft1", "name": "角鲨烯合酶", "abbr": "FDFT1", "ec": "2.5.1.21", "note": "内质网膜" },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "双缩合 + NADPH 还原，强放能；数值未核实",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "physiology": "两个 FPP 头对头缩合为 C30 的角鲨烯；先形成环丙基中间体，再由 NADPH 还原。消耗 1 NADPH。",
+      "sharedWith": [],
+      "pdbCandidates": ["3WEG", "3VJC"]
+    },
+    {
+      "id": "ch-11",
+      "index": 11,
+      "name": "角鲨烯环氧化（SQLE）",
+      "short": "SQLE 环氧化",
+      "phase": "midstream",
+      "compartment": "er",
+      "reaction": {
+        "substrates": ["squalene"],
+        "products": ["oxidosqualene"],
+        "cofactors": ["O₂", "NADPH", "H⁺"],
+        "equation": "角鲨烯 + O₂ + NADPH + H⁺ → 2,3-环氧角鲨烯 + H₂O + NADP⁺"
+      },
+      "enzyme": { "entityId": "sqle", "name": "角鲨烯单加氧酶", "abbr": "SQLE", "ec": "1.14.14.17", "note": "内质网膜" },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "单加氧放能；数值未核实",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "physiology": "在角鲨烯末端双键上加一个氧，生成 2,3-环氧角鲨烯——LSS 环化的起爆点。消耗 1 NADPH + 1 O₂。",
+      "clinical": "SQLE 过表达与多种肿瘤相关；也是抗真菌 / 抗寄生虫药物的潜在靶点。",
+      "sharedWith": [],
+      "pdbCandidates": ["6C6P"]
+    },
+    {
+      "id": "ch-12",
+      "index": 12,
+      "name": "羊毛甾醇环化（LSS）",
+      "short": "LSS 环化",
+      "phase": "midstream",
+      "compartment": "er",
+      "reaction": {
+        "substrates": ["oxidosqualene"],
+        "products": ["lanosterol"],
+        "cofactors": ["H⁺（质子化引发）"],
+        "equation": "2,3-环氧角鲨烯 + H⁺ → 羊毛甾醇"
+      },
+      "enzyme": { "entityId": "lss", "name": "羊毛甾醇合酶", "abbr": "LSS", "ec": "5.4.99.7", "note": "内质网膜" },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "环化重排强放能；数值未核实",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "physiology": "一个质子引发环氧开环，C30 链经多轮 1,2-迁移环化成四环羊毛甾醇骨架。无 ATP / NADPH 净支出。",
+      "sharedWith": [],
+      "pdbCandidates": ["1W6K", "1W6J"]
+    },
+    {
+      "id": "ch-13",
+      "index": 13,
+      "name": "去甲基化 / 还原修饰簇：羊毛甾醇 → 胆固醇",
+      "short": "修饰簇 · 9 酶",
+      "phase": "downstream",
+      "compartment": "er",
+      "reaction": {
+        "substrates": ["lanosterol"],
+        "products": ["cholesterol"],
+        "cofactors": ["NADPH / NAD⁺", "O₂", "CO₂（释放）"],
+        "equation": "羊毛甾醇 →（CYP51A1 → TM7SF2 → MSMO1 / NSDHL → HSD17B7 → EBP → SC5D → DHCR7）→ 胆固醇；DHCR24 可从 desmosterol 平行进入"
+      },
+      "enzyme": { "entityId": "cyp51a1", "name": "羊毛甾醇 14α-去甲基酶（簇首酶）", "abbr": "CYP51A1", "ec": "1.14.14.154" },
+      "direction": "forward",
+      "deltaG": {
+        "value": null,
+        "qualitative": "多步氧化 / 还原，总体放能；各步数值未核实，不合并成单一数字",
+        "source": "Lehninger 8e Ch.21"
+      },
+      "physiology": "羊毛甾醇比胆固醇多 3 个碳（C30 → C27）。这一簇依次去掉 14α-甲基、两个 C4-甲基，还原 Δ14 / Δ8 双键，再引入 Δ5 并还原 Δ7（或经 desmosterol 由 DHCR24 还原 Δ24），最终得到胆固醇。",
+      "clinical": "DHCR7 缺陷 → 7-脱氢胆固醇堆积（Smith-Lemli-Opitz 综合征）；DHCR24 缺陷 → desmosterol 堆积。",
+      "cluster": {
+        "enzymes": [
+          { "name": "羊毛甾醇 14α-去甲基酶", "abbr": "CYP51A1", "ec": "1.14.14.154", "action": "14α-甲基氧化脱去（3 O₂ + 3 NADPH，释放甲酸）" },
+          { "name": "Δ14-甾醇还原酶", "abbr": "TM7SF2", "ec": "1.3.1.70", "action": "还原 Δ14 双键（NADPH）" },
+          { "name": "甲基甾醇单加氧酶 1", "abbr": "MSMO1", "ec": "1.14.13.72", "action": "C4-甲基氧化为羧基（O₂ + NADPH）" },
+          { "name": "甾醇-4α-羧酸 3-脱氢酶", "abbr": "NSDHL", "ec": "1.1.1.170", "action": "3-羟基脱氢并脱羧，去掉 C4 羧基（NAD⁺）" },
+          { "name": "3-酮甾醇还原酶", "abbr": "HSD17B7", "ec": "1.1.1.62", "action": "3-酮还原为 3β-羟基（NADPH）" },
+          { "name": "Δ8-Δ7 甾醇异构酶", "abbr": "EBP", "ec": "5.3.3.5", "action": "Δ8 双键异构为 Δ7" },
+          { "name": "Δ5-甾醇去饱和酶", "abbr": "SC5D", "ec": "1.3.1.21", "action": "引入 Δ5 双键（O₂ + NADH / NADPH）" },
+          { "name": "7-脱氢胆固醇还原酶", "abbr": "DHCR7", "ec": "1.3.1.71", "action": "还原 Δ7 双键 → 胆固醇（NADPH）" },
+          { "name": "24-脱氢胆固醇还原酶", "abbr": "DHCR24", "ec": "1.3.1.72", "action": "desmosterol → 胆固醇（NADPH，平行路线）" }
+        ],
+        "note": "任务口径中的 MSDHL 按标准基因名 MSMO1（SC4MOL）处理；DHCR24 与 DHCR7 是两条并行终段路线，页面用簇表达压缩，不逐步画箭头。"
+      },
+      "sharedWith": [],
+      "pdbCandidates": ["4UHI", "6UEZ", "6JKH", "6OHT"]
+    }
+  ],
+  "regulation": [
+    {
+      "id": "reg-statin",
+      "kind": "drug",
+      "title": "他汀类：作用于 HMGCR 节点（不是反应步骤）",
+      "text": "他汀类的内酯 / 酸形式与 HMG-CoA 竞争 HMGCR 催化位点，抑制甲羟戊酸生成；细胞胆固醇下降后 SREBP-2 上调 LDL 受体，血浆 LDL 降低。药物节点画在 HMGCR 上方，用砖红虚线标“抑制”，不并入主链箭头。",
+      "targets": ["hmgcr", "statin"],
+      "source": "Lehninger 8e Ch.21；他汀为 HMGCR 竞争性抑制剂"
+    },
+    {
+      "id": "reg-srebp2",
+      "kind": "feedback",
+      "title": "SREBP-2 / SCAP / INSIG 反馈",
+      "text": "内质网胆固醇升高时，INSIG 结合 SCAP，阻止 SREBP-2 入核；HMGCR 蛋白也受固醇加速降解。胆固醇耗竭时反馈解除，HMGCR 转录与蛋白稳定性上升。本页只作注记，不画成通路步骤。",
+      "targets": ["srebp2", "hmgcr"],
+      "source": "Lehninger 8e Ch.21"
+    }
+  ],
+  "interfaces": [
+    {
+      "id": "int-tca",
+      "entityId": "accoa",
+      "title": "乙酰-CoA ↔ TCA",
+      "note": "胆固醇合成与 TCA 共用同一乙酰-CoA 池：TCA 第一步（tca-1，柠檬酸合酶）消耗乙酰-CoA；本平台未建糖酵解终点 / 丙酮酸脱氢酶独立步骤，故只登记 tca-1 这一条真实接口。",
+      "status": "connected",
+      "sharedWith": [
+        { "pathwayId": "tca", "stepId": "tca-1", "entityId": "accoa", "note": "乙酰-CoA → 柠檬酸" }
+      ]
+    },
+    {
+      "id": "int-isoprenoid",
+      "entityId": "fpp",
+      "title": "FPP → 非甾醇类异戊二烯",
+      "note": "FPP 还可经 GGPP 合成酶转为 GGPP，进入蛋白异戊二烯化、多萜醇、血红素 A 与辅酶 Q10 分支；本平台未建这些通路，只作旁路注记。",
+      "status": "unbuilt",
+      "sharedWith": []
+    },
+    {
+      "id": "int-bile-acid",
+      "entityId": "cholesterol",
+      "title": "胆固醇 → 胆汁酸",
+      "note": "胆固醇在肝内经 CYP7A1 转为胆汁酸；本平台未建该通路，只在去向注记中列出。",
+      "status": "unbuilt",
+      "sharedWith": []
+    },
+    {
+      "id": "int-steroid",
+      "entityId": "cholesterol",
+      "title": "胆固醇 → 甾体激素",
+      "note": "胆固醇经 CYP11A1 侧链裂解生成孕烯醇酮，再进入性激素 / 糖皮质激素合成；本平台未建该通路。",
+      "status": "unbuilt",
+      "sharedWith": []
+    }
+  ],
+  "energyLedger": {
+    "title": "胆固醇合成能量账（按 1 分子胆固醇口径，只列有明确化学计量的节点）",
+    "basis": "Lehninger 8e Ch.21（甲羟戊酸通路）；簇内还原当量不合并成单一总数",
+    "unit": "ATP / NADPH 当量",
+    "perMevalonate": {
+      "atp": 3,
+      "nadphHmgcr": 2
+    },
+    "referenceRun": {
+      "mevalonateUnits": 6,
+      "atpCost": 18,
+      "nadphBeforeCluster": 14,
+      "note": "1 分子胆固醇（C27）需 6 个甲羟戊酸（C6）：6 × 3 ATP（MVK / PMVK / MVD）= 18 ATP；6 × 2 NADPH（HMGCR）= 12，加 FDFT1 1 + SQLE 1 = 14 NADPH。羊毛甾醇 → 胆固醇簇另耗还原当量与 O₂，精确当量随中间体路线与同工酶而异，不并入该总数。"
+    },
+    "entries": [
+      { "id": "e-acat2", "label": "ACAT2 硫解缩合", "value": 0, "unit": "ATP / NADPH", "note": "无净收支：硫酯交换" },
+      { "id": "e-hmgcs1", "label": "HMGCS1 缩合", "value": 0, "unit": "ATP / NADPH", "note": "无净收支：硫酯水解驱动" },
+      { "id": "e-hmgcr", "label": "HMGCR 还原（每 HMG-CoA）", "value": 2, "unit": "NADPH", "note": "限速步；他汀靶点" },
+      { "id": "e-mvk", "label": "MVK 磷酸化（每甲羟戊酸）", "value": 1, "unit": "ATP", "note": "5-OH 磷酸化" },
+      { "id": "e-pmvk", "label": "PMVK 磷酸化（每 MVA-5-P）", "value": 1, "unit": "ATP", "note": "生成 5-二磷酸" },
+      { "id": "e-mvd", "label": "MVD 脱羧（每 MVA-5-PP）", "value": 1, "unit": "ATP", "note": "ATP 依赖的脱羧-消除" },
+      { "id": "e-idi1", "label": "IDI1 异构", "value": 0, "unit": "ATP / NADPH", "note": "无净收支：近平衡异构" },
+      { "id": "e-fdps", "label": "FDPS 两次缩合", "value": 0, "unit": "ATP / NADPH", "note": "无净收支：PPi 离去驱动" },
+      { "id": "e-fdft1", "label": "FDFT1 角鲨烯合成", "value": 1, "unit": "NADPH", "note": "每分子角鲨烯 1 NADPH" },
+      { "id": "e-sqle", "label": "SQLE 环氧化", "value": 1, "unit": "NADPH", "note": "每分子角鲨烯 1 NADPH + 1 O₂" },
+      { "id": "e-cluster", "label": "去甲基化 / 还原修饰簇", "value": null, "unit": "NADPH / O₂", "note": "9 个酶各有还原当量与 O₂；不合并成单一总数" }
+    ]
+  },
+  "conservation": {
+    "carbon": {
+      "acetylCoaUnits": 18,
+      "acetylCoaCarbons": 36,
+      "cholesterolCarbons": 27,
+      "co2Carbons": 9,
+      "note": "18 个乙酰-CoA（36 C）→ 胆固醇 C27 + 9 CO₂：6 个甲羟戊酸脱羧释放 6 CO₂；羊毛甾醇 C30 → 胆固醇 C27 再失去 3 个碳（14α-甲基与两个 C4-甲基）。36 = 27 + 9。"
+    },
+    "phosphate": {
+      "atpInput": 18,
+      "adpOutput": 18,
+      "piOutput": 18,
+      "note": "6 个甲羟戊酸 × 3 ATP（MVK / PMVK / MVD）= 18 ATP → 18 ADP + 18 Pi。"
+    },
+    "isoprene": {
+      "ippUnits": 6,
+      "squaleneCarbons": 30,
+      "fppUnitsPerSqualene": 2,
+      "note": "6 个 IPP（C5）→ 角鲨烯 C30；角鲨烯由 2 个 FPP（C15）头尾缩合。"
+    },
+    "redox": {
+      "nadphBeforeCluster": 14,
+      "note": "HMGCR 6 × 2 = 12；FDFT1 1；SQLE 1，共 14 NADPH 进入簇前；簇内另计。"
+    }
+  },
+ "threeD": {
+    "status": "pending",
+    "note": "已完成 18 个酶结构条目的 RCSB 实时身份核验（物种 / 方法 / 分辨率 / 配体 / 链 / 突变）；DHCR7、DHCR24、TM7SF2、MSMO1、HSD17B7、SC5D 六种酶全库无人源结构（NONE）。本轮不生成原子级 3D 资产；结构对照页只做小分子 2D，不伪造酶口袋或跨物种配体坐标。",
+    "verifiedOn": "2026-11-05",
+    "candidates": [
+      {
+        "pdbId": "1HWK",
+        "enzyme": "HMG-CoA 还原酶",
+        "entityId": "hmgcr",
+        "role": "inhibitor-complex",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "M485I（晶体构建体）",
+        "method": "X-ray",
+        "resolution": 2.22,
+        "chains": "A–D",
+        "ligands": ["ADP", "阿托伐他汀（117）"],
+        "ligandCodes": ["ADP", "117"],
+        "entryTitle": "COMPLEX OF THE CATALYTIC PORTION OF HUMAN HMG-COA REDUCTASE WITH ATORVASTATIN",
+        "note": "人源催化域 + 阿托伐他汀；他汀是 HMG-CoA 位点竞争性抑制剂，不是底物。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "1HW9",
+        "enzyme": "HMG-CoA 还原酶",
+        "entityId": "hmgcr",
+        "role": "inhibitor-complex",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "M485I（晶体构建体）",
+        "method": "X-ray",
+        "resolution": 2.33,
+        "chains": "A–D",
+        "ligands": ["ADP", "辛伐他汀酸（SIM）"],
+        "ligandCodes": ["ADP", "SIM"],
+        "entryTitle": "COMPLEX OF THE CATALYTIC PORTION OF HUMAN HMG-COA REDUCTASE WITH SIMVASTATIN",
+        "note": "辛伐他汀酸复合物；与 1HWK 同属 M485I 晶体构建体。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "1DQA",
+        "enzyme": "HMG-CoA 还原酶",
+        "entityId": "hmgcr",
+        "role": "substrate-state",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "构建体突变（条目未列位点）",
+        "method": "X-ray",
+        "resolution": 2.0,
+        "chains": "A–D",
+        "ligands": ["HMG 酸（MAH）", "CoA", "NADP⁺（NAP）"],
+        "ligandCodes": ["MAH", "COA", "NAP"],
+        "entryTitle": "COMPLEX OF THE CATALYTIC PORTION OF HUMAN HMG-COA REDUCTASE WITH HMG, COA, AND NADP+",
+        "note": "HMG-CoA 被拆成 HMG 酸 + CoA + NADP⁺；不是完整 HMG-CoA 构象，配体状态需中性标注。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "2R3V",
+        "enzyme": "甲羟戊酸激酶",
+        "entityId": "mvk",
+        "role": "apo",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "无",
+        "method": "X-ray",
+        "resolution": 2.5,
+        "chains": "A–D",
+        "ligands": ["无（apo，未建模底物 / ATP）"],
+        "ligandCodes": [],
+        "entryTitle": "The Biochemical and Structural Basis for Feedback Inhibition of Mevalonate Kinase and Isoprenoid Metabolism",
+        "note": "唯一人源 MVK 条目；apo，未建模底物 / ATP。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "3CH4",
+        "enzyme": "磷酸甲羟戊酸激酶",
+        "entityId": "pmvk",
+        "role": "apo",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "无",
+        "method": "X-ray",
+        "resolution": 1.76,
+        "chains": "B",
+        "ligands": ["硫酸根（SO4）", "MPD"],
+        "ligandCodes": ["SO4", "MPD"],
+        "entryTitle": "The Crystal Structure of Human Phosphomavelonate Kinase At 1.8 A Resolution",
+        "note": "唯一人源 PMVK 条目；仅硫酸根与 MPD，无底物共晶。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "3D4J",
+        "enzyme": "甲羟戊酸二磷酸脱羧酶",
+        "entityId": "mvd",
+        "role": "apo",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "无",
+        "method": "X-ray",
+        "resolution": 2.4,
+        "chains": "A,B",
+        "ligands": ["硫酸根（SO4）"],
+        "ligandCodes": ["SO4"],
+        "entryTitle": "Crystal structure of Human mevalonate diphosphate decarboxylase",
+        "note": "唯一人源 MVD 条目；仅硫酸根，无底物。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "2ICK",
+        "enzyme": "异戊烯基二磷酸异构酶 1",
+        "entityId": "idi1",
+        "role": "product-state",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "无",
+        "method": "X-ray",
+        "resolution": 1.93,
+        "chains": "A",
+        "ligands": ["Mn²⁺", "DMAPP（DMA）"],
+        "ligandCodes": ["MN", "DMA"],
+        "entryTitle": "Human isopentenyl diphophate isomerase complexed with substrate analog",
+        "note": "DMAPP（DMA）结合，是 IDI1 的产物态；条目称 substrate analog，按产物态使用。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "5CG6",
+        "enzyme": "法尼基二磷酸合酶",
+        "entityId": "fdps",
+        "role": "inhibitor-complex",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "无",
+        "method": "X-ray / 中子",
+        "resolution": 1.7,
+        "chains": "A",
+        "ligands": ["Mg²⁺", "利塞膦酸（RIS）", "IPP（IPE）"],
+        "ligandCodes": ["MG", "RIS", "IPE"],
+        "entryTitle": "Neutron crystal structure of human farnesyl pyrophosphate synthase in complex with risedronate and isopentenyl pyrophosphate",
+        "note": "活性位点 IPP（IPE）+ 利塞膦酸（RIS）三元复合物；中子/X-ray 联合，X-ray 分辨率 1.7 Å。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "5JA0",
+        "enzyme": "法尼基二磷酸合酶",
+        "entityId": "fdps",
+        "role": "substrate-state",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "无",
+        "method": "X-ray",
+        "resolution": 1.9,
+        "chains": "F",
+        "ligands": ["磷酸根（PO4）", "FPP"],
+        "ligandCodes": ["PO4", "FPP"],
+        "entryTitle": "Crystal structure of human FPPS with allosterically bound FPP",
+        "note": "FPP 结合于别构位点，不是活性中心底物态；页面必须中性标注。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "3WEG",
+        "enzyme": "角鲨烯合酶",
+        "entityId": "fdft1",
+        "role": "substrate-state",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "无",
+        "method": "X-ray",
+        "resolution": 1.75,
+        "chains": "A",
+        "ligands": ["Mg²⁺", "FPP 硫代类似物（FPS）"],
+        "ligandCodes": ["MG", "FPS"],
+        "entryTitle": "Crystal structure of the human squalene synthase in complex with farnesyl thiopyrophosphate and magnesium ion",
+        "note": "FPS 是 FPP 的硫代类似物，不是天然底物；只作底物口袋参考。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "3VJC",
+        "enzyme": "角鲨烯合酶",
+        "entityId": "fdft1",
+        "role": "inhibitor-complex",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "无",
+        "method": "X-ray",
+        "resolution": 1.89,
+        "chains": "A–F",
+        "ligands": ["zaragozic acid A（ZGA）", "磷酸根", "Mg²⁺"],
+        "ligandCodes": ["ZGA", "PO4", "MG"],
+        "entryTitle": "Crystal structure of the human squalene synthase in complex with zaragozic acid A",
+        "note": "天然产物抑制剂复合物；六聚体。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "6C6P",
+        "enzyme": "角鲨烯单加氧酶",
+        "entityId": "sqle",
+        "role": "inhibitor-complex",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "无",
+        "method": "X-ray",
+        "resolution": 2.5,
+        "chains": "A,B",
+        "ligands": ["FAD", "NB-598（EMV）", "CHAPS（CPS）"],
+        "ligandCodes": ["FAD", "EMV", "CPS"],
+        "entryTitle": "Human squalene epoxidase (SQLE, squalene monooxygenase) structure with FAD and NB-598",
+        "note": "FAD + 真实抑制剂 NB-598；去污剂 CPS 不是配体。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "1W6K",
+        "enzyme": "羊毛甾醇合酶",
+        "entityId": "lss",
+        "role": "product-state",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Pichia pastoris",
+        "mutations": "无",
+        "method": "X-ray",
+        "resolution": 2.1,
+        "chains": "A",
+        "ligands": ["羊毛甾醇（LAN）", "BOG（去污剂）"],
+        "ligandCodes": ["LAN", "BOG"],
+        "entryTitle": "Structure of human OSC in complex with Lanosterol",
+        "note": "羊毛甾醇是 LSS 的真实产物，结合态可用；BOG 为去污剂。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "1W6J",
+        "enzyme": "羊毛甾醇合酶",
+        "entityId": "lss",
+        "role": "inhibitor-complex",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Pichia pastoris",
+        "mutations": "无",
+        "method": "X-ray",
+        "resolution": 2.2,
+        "chains": "A",
+        "ligands": ["Ro 48-8071（R71）", "BOG", "C14"],
+        "ligandCodes": ["R71", "BOG", "C14"],
+        "entryTitle": "Structure of human OSC in complex with Ro 48-8071",
+        "note": "抑制剂 Ro 48-8071 复合物；BOG / C14 为去污剂与烷烃。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "4UHI",
+        "enzyme": "羊毛甾醇 14α-去甲基酶",
+        "entityId": "cyp51a1",
+        "role": "inhibitor-complex",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "无",
+        "method": "X-ray",
+        "resolution": 2.04,
+        "chains": "A–D",
+        "ligands": ["血红素（HEM）", "VFV（咪唑类抑制剂）"],
+        "ligandCodes": ["HEM", "VFV"],
+        "entryTitle": "HUMAN STEROL 14-ALPHA DEMETHYLASE (CYP51) IN COMPLEX WITH VFV IN C121 SPACE GROUP",
+        "note": "野生型 CYP51 + 咪唑类抑制剂 + 血红素；不是底物态。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "6UEZ",
+        "enzyme": "羊毛甾醇 14α-去甲基酶",
+        "entityId": "cyp51a1",
+        "role": "substrate-state",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "D231A / H314A（条目注释）",
+        "method": "X-ray",
+        "resolution": 1.98,
+        "chains": "A,B",
+        "ligands": ["血红素（HEM）", "羊毛甾醇（LAN）"],
+        "ligandCodes": ["HEM", "LAN"],
+        "entryTitle": "Human sterol 14a-demethylase (CYP51) in complex with the substrate lanosterol",
+        "note": "真实底物羊毛甾醇共晶，但为双突变体；引用时必须标注突变，不当作野生型口袋。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "6JKH",
+        "enzyme": "甾醇-4α-羧酸 3-脱氢酶",
+        "entityId": "nsdhl",
+        "role": "architecture",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Escherichia coli",
+        "mutations": "无",
+        "method": "X-ray",
+        "resolution": 3.0,
+        "chains": "A,B",
+        "ligands": ["NAD⁺（NAD）"],
+        "ligandCodes": ["NAD"],
+        "entryTitle": "The NAD+-bound form of human NSDHL",
+        "note": "NAD⁺ 结合型；只有辅因子，无甾醇底物。",
+        "verifiedOn": "2026-11-05"
+      },
+      {
+        "pdbId": "6OHT",
+        "enzyme": "Δ8-Δ7 甾醇异构酶",
+        "entityId": "ebp",
+        "role": "inhibitor-complex",
+        "organism": "Homo sapiens",
+        "expressionSystem": "Homo sapiens 细胞",
+        "mutations": "无",
+        "method": "X-ray",
+        "resolution": 3.2,
+        "chains": "A–C",
+        "ligands": ["U18666A（MKM）"],
+        "ligandCodes": ["MKM"],
+        "entryTitle": "Structure of EBP and U18666A",
+        "note": "经典 EBP 抑制剂 U18666A 复合物；人源细胞表达。",
+        "verifiedOn": "2026-11-05"
+      }
+    ],
+    "assets": {
+      "moleculeAssets": [],
+      "missingAssets": ["mevalonate", "mev5p", "mev5pp", "ipp", "dmapp", "squalene", "oxidosqualene", "lanosterol", "cholesterol"],
+      "note": "9 个分子已有 2D 结构式；本轮不生成 3D 原子资产。"
+    }
+  },
+  "notes": [
+    "通路分三段：胞质甲羟戊酸上游（ch-1..ch-9）→ 内质网环化（ch-10..ch-12）→ 去甲基化 / 还原修饰簇（ch-13，9 个酶压缩成 1 步）。",
+    "FDPS 在胞质（部分过氧化物酶体），不在内质网；任务简报把“中游”整体归到内质网，本页按酶的实际定位把 ch-8 / ch-9 留在胞质，只把 FDFT1 / SQLE / LSS 与下游画进内质网带。",
+    "他汀类只作为作用于 HMGCR 的药物节点与调控注记出现，不写成一步反应。",
+    "SREBP-2 / SCAP / INSIG 反馈只作注记，不画成步骤。",
+    "所有 ΔG 均为 null；只写定性方向与 Lehninger 8e 出处，不编造数值。",
+    "结构对照 7 块全部为小分子 2D；HMGCR、SQLE、DHCR7、CYP51A1 的 PDB 条目只用于右栏身份核对，不冒充配体坐标资产。"
+  ]
+}

@@ -5696,3 +5696,100 @@ svg .branch { transition: opacity 0.2s ease; }
   font-size: 9.2px;
 }
 .poster-amino .d-evidence { display: flex; flex-wrap: wrap; gap: 6px 10px; font-size: 9.6px; margin-top: 8px; }
+
+/* ============================================================
+   胆固醇合成 / 甲羟戊酸通路挂图（/pathway/cholesterol · PLATE 12 / SF-12）
+   画布 1980×1000，两条分区带（胞质 40–500 / 内质网 520–980）；
+   其余版式沿用 .poster 统一外框，不另造圆角/投影/渐变。
+   ============================================================ */
+.poster-cholesterol .plate-canvas {
+  width: 1980px;
+  height: 1000px;
+  background: var(--plate-frame-paper, #f6f3ec);
+}
+.poster-cholesterol .plate-head h2 { font-size: 11px; letter-spacing: 0.28em; font-weight: 400; margin: 0; }
+.poster-cholesterol .plate-tools { display: flex; align-items: center; gap: 14px; }
+.poster-cholesterol .plate-3d-link {
+  font-size: 10.5px;
+  letter-spacing: 0.18em;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hair-soft);
+  padding-bottom: 1px;
+}
+.poster-cholesterol .plate-3d-link:hover { color: var(--amber); border-bottom-color: var(--amber); }
+
+/* 区室 + 能量口径条：首屏可见，不折叠 */
+.poster-cholesterol .output-strip {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 26px;
+  padding: 9px 28px 10px;
+  border-bottom: 1px solid var(--hair-soft);
+  font-size: 10px;
+  line-height: 1.65;
+}
+.poster-cholesterol .output-strip-title {
+  font-size: 9.2px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+}
+.poster-cholesterol .output-item { opacity: 0.86; }
+.poster-cholesterol .output-item b { font-weight: 700; letter-spacing: 0.06em; }
+
+.poster-cholesterol .detail { padding-top: 2px; border-radius: 0; }
+.poster-cholesterol .d-kicker { font-size: 10px; letter-spacing: 0.22em; opacity: 0.62; margin-bottom: 6px; }
+.poster-cholesterol .d-kicker-sep { margin: 0 7px; }
+.poster-cholesterol .d-title { font-family: var(--serif); font-size: 17px; font-weight: 600; letter-spacing: 0.02em; margin: 0 0 4px; }
+.poster-cholesterol .d-enzyme { font-size: 12.5px; font-weight: 700; margin: 4px 0 6px; }
+.poster-cholesterol .d-kv { display: grid; grid-template-columns: 46px minmax(0, 1fr); gap: 3px 10px; margin: 8px 0 10px; font-size: 11px; }
+.poster-cholesterol .d-kv dt { font-size: 9.2px; letter-spacing: 0.18em; opacity: 0.58; padding-top: 2px; }
+.poster-cholesterol .d-kv dd { margin: 0; line-height: 1.55; }
+.poster-cholesterol .d-organ { border-left: 2px solid var(--brick); padding-left: 10px; margin: 10px 0 8px; font-size: 11.5px; line-height: 1.7; }
+.poster-cholesterol .d-organ-tag { font-size: 9.2px; letter-spacing: 0.22em; font-weight: 700; margin-right: 7px; color: var(--brick); }
+.poster-cholesterol .d-dg { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 10px; border-top: 1px dashed var(--hair-soft); padding-top: 7px; margin-top: 10px; }
+.poster-cholesterol .d-dg-tag { font-size: 9.2px; letter-spacing: 0.2em; font-weight: 700; }
+.poster-cholesterol .d-dg-none { font-size: 10.5px; font-weight: 700; color: var(--brick); }
+.poster-cholesterol .d-dg-q { font-size: 10.5px; line-height: 1.6; }
+.poster-cholesterol .d-dg-src { flex-basis: 100%; font-size: 9.2px; opacity: 0.55; }
+.poster-cholesterol .d-links-title { font-size: 9.2px; letter-spacing: 0.2em; opacity: 0.58; margin-bottom: 5px; }
+.poster-cholesterol .d-link { display: block; font-size: 10.5px; line-height: 1.6; color: var(--teal); text-decoration: none; border-bottom: 1px dotted var(--hair-soft); padding: 2px 0; }
+.poster-cholesterol .d-link:hover { color: var(--amber); }
+.poster-cholesterol .d-pdb { border-top: 1px dashed var(--hair-soft); margin-top: 12px; padding-top: 8px; }
+.poster-cholesterol .d-pdb-row { margin-bottom: 9px; }
+.poster-cholesterol .d-pdb-head { display: flex; flex-wrap: wrap; gap: 4px 9px; align-items: baseline; font-size: 9.2px; opacity: 0.75; }
+.poster-cholesterol .d-pdb-id { font-size: 11px; font-weight: 700; letter-spacing: 0.08em; color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--hair-soft); }
+.poster-cholesterol .d-pdb-id:hover { color: var(--amber); border-bottom-color: var(--amber); }
+.poster-cholesterol .d-pdb-org { font-size: 9.2px; line-height: 1.55; margin-top: 2px; opacity: 0.82; }
+.poster-cholesterol .d-pdb-lig { font-size: 9.2px; line-height: 1.55; margin-top: 3px; }
+.poster-cholesterol .d-pdb-note { font-size: 9.2px; line-height: 1.6; opacity: 0.62; margin-top: 2px; }
+.poster-cholesterol .ledger-row { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--hair-faint); padding: 5px 0; font-size: 10.5px; }
+.poster-cholesterol .ledger-label { opacity: 0.78; }
+.poster-cholesterol .ledger-num { font-size: 12px; font-weight: 700; }
+.poster-cholesterol .reg-row { border-bottom: 1px solid var(--hair-faint); padding: 7px 0; }
+.poster-cholesterol .reg-row:last-child { border-bottom: 0; }
+.poster-cholesterol .reg-title { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 2px; }
+.poster-cholesterol .if-row { border-bottom: 1px solid var(--hair-faint); padding: 7px 0; }
+.poster-cholesterol .if-row:last-child { border-bottom: 0; }
+.poster-cholesterol .if-title { font-size: 10.5px; font-weight: 700; letter-spacing: 0.06em; margin-bottom: 2px; }
+.poster-cholesterol .if-unbuilt {
+  display: inline-block;
+  margin: 3px 0 2px;
+  padding: 1px 7px;
+  border: 1px solid var(--brick);
+  color: var(--brick);
+  font-size: 9.2px;
+  letter-spacing: 0.16em;
+  font-weight: 700;
+}
+.poster-cholesterol .settle-main { display: flex; align-items: baseline; gap: 7px; }
+.poster-cholesterol .settle-num { font-family: var(--serif); font-size: 24px; font-weight: 600; }
+.poster-cholesterol .settle-unit { font-size: 10px; letter-spacing: 0.16em; opacity: 0.7; }
+.poster-cholesterol .settle-sub { font-size: 9.2px; opacity: 0.62; margin-bottom: 6px; }
+/* 簇内逐酶清单：直角、无底色，只用左细线分组 */
+.poster-cholesterol [data-cluster] { border-left: 2px solid var(--ink); padding-left: 10px; margin-top: 10px; }
+.poster-cholesterol [data-cluster-enzyme] { font-size: 9.6px; line-height: 1.7; margin: 0; }
+.poster-cholesterol svg [data-node-id] { cursor: pointer; }
+.poster-cholesterol svg [data-step-block] { cursor: pointer; }
+.poster-cholesterol svg [data-zone] { pointer-events: none; }

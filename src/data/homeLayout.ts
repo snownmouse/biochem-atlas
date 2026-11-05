@@ -177,15 +177,17 @@ export const HOME_PATHWAY_LABELS: HomePathwayLabel[] = [
   // 距 900 的首屏余量 ≥20px。第 11、12 空槽保持 y=650 / 698 不变。
   { pathwayId: "glycogen", x: 560, y: 497, anchor: "start", note: "9 步 · 分解 / 合成双臂 · 肝 vs 肌" },
   // 氨基酸代谢：第 11 条真实标题块，落在原第 11 空槽位置 y=650（用户已接受出屏，不压任何既有标题）。
-  // 第 12 空槽保留 y=698，便于后续通路继续纵向落位。
   { pathwayId: "amino-acids", x: 28, y: 650, anchor: "start", note: "7 步 · 20 种 · 三分类 · 两闸 · 七去路" },
+  // 胆固醇合成：第 12 条（全站最后一条），落在原第 12 空槽 y=698；用户已明确接受出屏。
+  // 1980 画布宽 / 1020 原生坐标下，1440 视口首屏底边约 819，本条标题在屏外，靠页面纵向滚动可见。
+  { pathwayId: "cholesterol", x: 28, y: 698, anchor: "start", note: "13 步 · 胞质 → 内质网 · 他汀靶点" },
 ];
 
 /**
  * 第 11–12 条通路的纵向落位区（画布 y 552–744）。
  * 第 10 条糖原代谢已接入（标题 y=497，原占位槽移除）；
  * 第 11 条氨基酸代谢已接入（标题 y=650，原第 11 空槽移除）；
- * 仅第 12 槽保留空位，等后续数据层接入。
+ * 第 12 条胆固醇合成已接入（标题 y=698，第 12 空槽移除），本表已清空。
  */
 export interface HomeReservedSlot {
   no: number;
@@ -198,9 +200,7 @@ export interface HomeReservedSlot {
 export const HOME_RESERVED_HEAD = {
   x: 28,
   y: 572,
-  text: "PLATE 11 已接入 · RESERVED SLOT 12",
+  text: "PLATE 12 已接入 · 12 / 12 · 无预留槽",
 };
 
-export const HOME_RESERVED_SLOTS: HomeReservedSlot[] = [
-  { no: 12, y: 698, note: "数据未接入 · 只保留纵向版面" },
-];
+export const HOME_RESERVED_SLOTS: HomeReservedSlot[] = [];

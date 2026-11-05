@@ -13,6 +13,7 @@ import CoriOverviewPage from "./pages/CoriOverviewPage";
 import UreaCycleOverviewPage from "./pages/UreaCycleOverviewPage";
 import GlycogenOverviewPage from "./pages/GlycogenOverviewPage";
 import AminoAcidOverviewPage from "./pages/AminoAcidOverviewPage";
+import CholesterolOverviewPage from "./pages/CholesterolOverviewPage";
 import OxphosStructurePage from "./pages/OxphosStructurePage";
 import StepViewPage from "./pages/StepViewPage";
 import StructureFramesPage from "./pages/StructureFramesPage";
@@ -41,6 +42,8 @@ function PathwayRoute() {
     <GlycogenOverviewPage />
   ) : pathwayId === "amino-acids" || pathwayId === "amino-acid-metabolism" ? (
     <AminoAcidOverviewPage />
+  ) : pathwayId === "cholesterol" || pathwayId === "cholesterol-synthesis" ? (
+    <CholesterolOverviewPage />
   ) : (
     <PathwayOverviewPage />
   );

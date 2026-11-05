@@ -1,5 +1,5 @@
 // 统一通路切换器冒烟（PathwaySwitcher）—— 新增脚本，不并入既有 smoke-embed。
-// 校验口径：挂图页 / 结构页 / 首页共用同一组件；条目数 = 11 条通路 + 首页（12 条）；
+// 校验口径：挂图页 / 结构页 / 首页共用同一组件；条目数 = 12 条通路 + 首页（13 条）；
 // 每页当前项高亮唯一且正确；任意页都能点到其余 11 条；点击落到对应路由；
 // 同一通路内切换保留 ?step= / ?organ=；1440 下不换行、不裁切、不压报头。
 // 旧的手写面包屑断言仍在 smoke-gluconeogenesis / smoke-fao / smoke-ppp-poster 中，
@@ -32,6 +32,7 @@ const NAV = [
   { id: "urea-cycle", name: "尿素循环", route: "/pathway/urea-cycle" },
   { id: "glycogen", name: "糖原代谢", route: "/pathway/glycogen" },
   { id: "amino-acids", name: "氨基酸代谢", route: "/pathway/amino-acids" },
+  { id: "cholesterol", name: "胆固醇合成", route: "/pathway/cholesterol" },
 ];
 
 /** 全页口径：11 张挂图 + 结构对照页（本脚本额外覆盖全部 10 张结构页与首页） */
@@ -48,6 +49,7 @@ const PAGES = [
   { route: "/pathway/urea-cycle", current: "urea-cycle" },
   { route: "/pathway/glycogen", current: "glycogen" },
   { route: "/pathway/amino-acids", current: "amino-acids" },
+  { route: "/pathway/cholesterol", current: "cholesterol" },
   { route: "/structures/glycolysis", current: "glycolysis" },
   { route: "/structures/tca", current: "tca" },
   { route: "/structures/gluconeogenesis", current: "gluconeogenesis" },
@@ -58,6 +60,7 @@ const PAGES = [
   { route: "/structures/urea-cycle", current: "urea-cycle" },
   { route: "/structures/glycogen", current: "glycogen" },
   { route: "/structures/amino-acids", current: "amino-acids" },
+  { route: "/structures/cholesterol", current: "cholesterol" },
 ];
 
 async function launch() {
@@ -90,7 +93,7 @@ for (const item of PAGES) {
     els.map((el) => el.getAttribute("data-nav-id")),
   );
   check(
-    `${item.route} 条目数 = 11 条通路 + 首页（${ids.length}）`,
+    `${item.route} 条目数 = 12 条通路 + 首页（${ids.length}）`,
     ids.length === NAV.length && JSON.stringify(ids) === JSON.stringify(NAV.map((n) => n.id)),
     ids.join(","),
   );
@@ -108,10 +111,10 @@ for (const item of PAGES) {
   const links = await page
     .locator('[data-testid="pathway-switcher"] [data-nav-id] a')
     .evaluateAll((els) => els.map((el) => ({ id: el.parentElement.getAttribute("data-nav-id"), href: el.getAttribute("href") })));
-  check(`${item.route} 12 条条目都是可点链接`, links.length === NAV.length, String(links.length));
+  check(`${item.route} 13 条条目都是可点链接`, links.length === NAV.length, String(links.length));
   const missing = NAV.filter((n) => !links.some((l) => l.id === n.id && (l.href ?? "").startsWith(n.route)));
   check(
-    `${item.route} 能点到其余 11 条（含本通路自链）`,
+    `${item.route} 能点到其余 12 条（含本通路自链）`,
     missing.length === 0,
     missing.map((n) => n.id).join(","),
   );
@@ -200,7 +203,7 @@ await page.waitForSelector('[data-testid="pathway-switcher"]');
   });
   const tops = geo.items.map((i) => i.top);
   check(
-    "12 条目在 1440 下单行排列（基线差 ≤ 4px）",
+    "13 条目在 1440 下单行排列（基线差 ≤ 4px）",
     Math.max(...tops) - Math.min(...tops) <= 4,
     JSON.stringify(tops.map((t) => Math.round(t))),
   );

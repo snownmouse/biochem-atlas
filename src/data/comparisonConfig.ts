@@ -3137,6 +3137,302 @@ const AMINO_CONFIG: ComparisonConfig = {
   steps: AMINO_COMPARISON,
 };
 
+// ============================================================
+// 胆固醇合成 / 甲羟戊酸通路（PLATE 12 · 结构对照 SF-12）
+// 七块：MVK → PMVK → MVD → IDI1 → SQLE → LSS → 去甲基化簇末步。
+// 只做小分子对照，不渲染酶 3D（enzymePanel=false）；酶 PDB 身份在挂图页实时核验。
+// 9 个分子全部只有 2D 资产（RDKit 由 pH 7.4 电离态 SMILES 生成），不建 3D、不写 PDB 坐标。
+// 等级由 evidenceGrade.ts 从 pocketRole + species + coordSource 推导，不手写。
+// ============================================================
+const CHOL_MEV = {
+  id: "mevalonate",
+  name: "甲羟戊酸（MVA）",
+  formula: "C₆H₁₁O₄⁻",
+  asset2d: D2("mevalonate"),
+  caveat: "只做 2D：HMGCR 反应产物。他汀结合的 1HWK / 1HW9 / 1DQA 均未建模甲羟戊酸，不借酶坐标冒充底物 / 产物。",
+  sourceNote: "无本步产物坐标：1HWK（2.22 Å，ADP + 阿托伐他汀）与 1DQA（2.00 Å，HMG-CoA + CoA + NADP）都停在底物侧；仅 2D 结构式。",
+};
+const CHOL_MEV5P = {
+  id: "mev5p",
+  name: "甲羟戊酸-5-磷酸（MVA-5-P）",
+  formula: "C₆H₁₀O₇P³⁻",
+  asset2d: D2("mev5p"),
+  caveat: "只做 2D：MVK 产物。2R3V 为 apo 结构，未建模底物或产物，不建 3D。",
+  sourceNote: "无本步配体坐标：2R3V（2.50 Å，apo）；仅 2D 结构式。",
+};
+const CHOL_MEV5PP = {
+  id: "mev5pp",
+  name: "甲羟戊酸-5-二磷酸（MVA-5-PP）",
+  formula: "C₆H₁₀O₁₀P₂⁴⁻",
+  asset2d: D2("mev5pp"),
+  caveat: "只做 2D：PMVK 产物。3CH4 只含 SO4 与 MPD，未建模 MVA-5-P / MVA-5-PP，不建 3D。",
+  sourceNote: "无本步配体坐标：3CH4（1.76 Å，SO4 + MPD）；仅 2D 结构式。",
+};
+const CHOL_IPP = {
+  id: "ipp",
+  name: "异戊烯基二磷酸（IPP）",
+  formula: "C₅H₉O₇P₂³⁻",
+  asset2d: D2("ipp"),
+  caveat: "只做 2D：MVD 产物、IDI1 底物。3D4J 只含 SO4，未建模 IPP，不建 3D。",
+  sourceNote: "无本步配体坐标：3D4J（2.40 Å，SO4）；仅 2D 结构式。",
+};
+const CHOL_DMAPP = {
+  id: "dmapp",
+  name: "二甲基烯丙基二磷酸（DMAPP）",
+  formula: "C₅H₉O₇P₂³⁻",
+  asset2d: D2("dmapp"),
+  caveat: "只做 2D：IDI1 产物、FDPS 的烯丙基供体。2ICK 含 MN + DMA，但 DMA 不是 DMAPP，不拿它冒充。",
+  sourceNote: "无本酶 DMAPP 坐标：2ICK（1.93 Å，MN + DMA）建模的是 DMA 类似物，不是 DMAPP；仅 2D 结构式。",
+};
+const CHOL_SQUALENE = {
+  id: "squalene",
+  name: "角鲨烯（Squalene）",
+  formula: "C₃₀H₅₀",
+  asset2d: D2("squalene"),
+  caveat: "只做 2D：FDFT1 产物、SQLE 底物。3WEG / 3VJC 只含 FPS 类似物或 ZGA，均未建模角鲨烯，不建 3D。",
+  sourceNote: "无本步底物坐标：3WEG（1.75 Å，MG + FPS 类似物）、3VJC（1.89 Å，ZGA + PO4 + MG）；仅 2D 结构式。",
+};
+const CHOL_OXSQ = {
+  id: "oxidosqualene",
+  name: "2,3-环氧角鲨烯（2,3-OS）",
+  formula: "C₃₀H₅₀O",
+  asset2d: D2("oxidosqualene"),
+  caveat: "只做 2D：SQLE 产物、LSS 底物。6C6P 含 NB-598 与 FAD，未建模 2,3-OS，不建 3D。",
+  sourceNote: "无本步产物坐标：6C6P（2.50 Å，FAD + NB-598 + CPS）是抑制剂复合物，不含 2,3-OS；仅 2D 结构式。",
+};
+const CHOL_LANOSTEROL = {
+  id: "lanosterol",
+  name: "羊毛甾醇（Lanosterol）",
+  formula: "C₃₀H₅₀O",
+  asset2d: D2("lanosterol"),
+  caveat: "只做 2D：LSS 产物、下游去甲基化簇底物。1W6K 的 LAN 配体只用于酶身份核验，按项目口径不截取为分子资产。",
+  sourceNote: "1W6K（2.10 Å，LAN + BOG）已核验为 LSS 与羊毛甾醇复合物；本轮只做 2D，不生成 3D 原子资产。",
+};
+const CHOL_CHOLESTEROL = {
+  id: "cholesterol",
+  name: "胆固醇（Cholesterol）",
+  formula: "C₂₇H₄₆O",
+  asset2d: D2("cholesterol"),
+  caveat: "只做 2D：去甲基化簇终产物。DHCR7 / DHCR24 全库无人源结构，不借他物种坐标冒充。",
+  sourceNote: "无本步产物坐标：DHCR7、DHCR24 均无人源实验结构；仅 2D 结构式。",
+};
+
+const CHOLESTEROL_COMPARISON: StepComparison[] = [
+  {
+    stepId: "ch-4",
+    index: 4,
+    enzyme: "甲羟戊酸激酶（MVK）",
+    isozyme: "ATP 依赖 · 过氧化物酶体 / 胞质",
+    equation: "甲羟戊酸 + ATP → 甲羟戊酸-5-磷酸 + ADP",
+    substrate: {
+      name: "甲羟戊酸（MVA）",
+      formula: "C₆H₁₁O₄⁻",
+      parts: [CHOL_MEV],
+      cofactorNote: "ATP 不入画；只对照 C6 酸骨架的磷酸化位点（C5 羟基）。",
+    },
+    product: {
+      name: "甲羟戊酸-5-磷酸（MVA-5-P）",
+      formula: "C₆H₁₀O₇P³⁻",
+      parts: [CHOL_MEV5P],
+      cofactorNote: "C5 羟基被磷酸单酯化；羧基与 C3 羟基不变。",
+    },
+    arrowLabel: "MVK · C5 羟基磷酸化",
+    change: "在 C5 羟基上接一个磷酸基（−2），分子从 C6 羧酸变成磷酸酯；其余碳骨架未动。",
+    physiology: "第一个 ATP 支出步。MVK 缺陷导致高 IgD 综合征 / 甲羟戊酸尿症，说明这条通路也供应非甾醇类异戊二烯。",
+    evidence: {
+      substrate: [evOnly2d("mevalonate")],
+      product: [evOnly2d("mev5p")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "两侧只有 2D：2R3V 为 apo 结构，无本酶配体坐标，不判 3D。",
+  },
+  {
+    stepId: "ch-5",
+    index: 5,
+    enzyme: "磷酸甲羟戊酸激酶（PMVK）",
+    isozyme: "ATP 依赖 · 胞质",
+    equation: "甲羟戊酸-5-磷酸 + ATP → 甲羟戊酸-5-二磷酸 + ADP",
+    substrate: {
+      name: "甲羟戊酸-5-磷酸（MVA-5-P）",
+      formula: "C₆H₁₀O₇P³⁻",
+      parts: [CHOL_MEV5P],
+      cofactorNote: "ATP 不入画；第二个 ATP 支出步。",
+    },
+    product: {
+      name: "甲羟戊酸-5-二磷酸（MVA-5-PP）",
+      formula: "C₆H₁₀O₁₀P₂⁴⁻",
+      parts: [CHOL_MEV5PP],
+      cofactorNote: "C3 羟基被磷酸化，形成 3-磷酸-5-二磷酸的“二磷酸化”中间体。",
+    },
+    arrowLabel: "PMVK · C3 羟基磷酸化",
+    change: "C3 羟基再接一个磷酸，原来的磷酸单酯变成更长的二磷酸尾；净电荷从 −3 变为 −4。",
+    physiology: "为下一步 MVD 的 β-消除准备第二个离去基团；没有这一步，MVD 无法脱羧。",
+    evidence: {
+      substrate: [evOnly2d("mev5p")],
+      product: [evOnly2d("mev5pp")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "两侧只有 2D：3CH4 只含 SO4 / MPD，无底物或产物坐标。",
+  },
+  {
+    stepId: "ch-6",
+    index: 6,
+    enzyme: "甲羟戊酸二磷酸脱羧酶（MVD）",
+    isozyme: "ATP 依赖 · 胞质",
+    equation: "甲羟戊酸-5-二磷酸 + ATP → IPP + ADP + Pi + CO₂",
+    substrate: {
+      name: "甲羟戊酸-5-二磷酸（MVA-5-PP）",
+      formula: "C₆H₁₀O₁₀P₂⁴⁻",
+      parts: [CHOL_MEV5PP],
+      cofactorNote: "ATP 不入画；脱羧产生的 CO₂ 只做文字，不建 3D。",
+    },
+    product: {
+      name: "异戊烯基二磷酸（IPP）",
+      formula: "C₅H₉O₇P₂³⁻",
+      parts: [CHOL_IPP],
+      cofactorNote: "CO₂ 与 Pi 不入画；C6 → C5，少一个碳。",
+    },
+    arrowLabel: "MVD · 磷酸化后 β-消除脱羧",
+    change: "C3 磷酸作为离去基团，同时脱去 C1 羧基碳为 CO₂；C6 骨架缩成 C5 的 IPP，双键落到位。",
+    physiology: "这一步把 C6 甲羟戊酸骨架彻底转成 C5 异戊二烯单元，是整条通路“碳数收紧”的关键点。",
+    evidence: {
+      substrate: [evOnly2d("mev5pp")],
+      product: [evOnly2d("ipp")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "两侧只有 2D：3D4J 只含 SO4；CO₂ 只做文字，不参与模式判定。",
+  },
+  {
+    stepId: "ch-7",
+    index: 7,
+    enzyme: "异戊烯基二磷酸异构酶（IDI1）",
+    isozyme: "金属离子依赖（Mn²⁺ / Mg²⁺）",
+    equation: "IPP ⇌ DMAPP",
+    substrate: {
+      name: "异戊烯基二磷酸（IPP）",
+      formula: "C₅H₉O₇P₂³⁻",
+      parts: [CHOL_IPP],
+      cofactorNote: "同一分子式，只换双键位置；无异构酶以外的辅因子。",
+    },
+    product: {
+      name: "二甲基烯丙基二磷酸（DMAPP）",
+      formula: "C₅H₉O₇P₂³⁻",
+      parts: [CHOL_DMAPP],
+      cofactorNote: "DMAPP 是 FDPS 缩合反应的烯丙基供体。",
+    },
+    arrowLabel: "IDI1 · 双键异构",
+    change: "双键从 IPP 的末端移到 C2–C3，生成烯丙基型 DMAPP；原子数、电荷都不变。",
+    physiology: "IDI1 让 IPP 与 DMAPP 保持平衡，DMAPP 才能作为 C5 供体进入 GPP / FPP 合成。",
+    evidence: {
+      substrate: [evOnly2d("ipp")],
+      product: [evOnly2d("dmapp")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "两侧只有 2D：2ICK 的 DMA 配体不是 DMAPP，不借它做 3D。",
+  },
+  {
+    stepId: "ch-11",
+    index: 11,
+    enzyme: "角鲨烯环氧酶（SQLE）",
+    isozyme: "FAD 依赖 · 内质网",
+    equation: "角鲨烯 + O₂ + NADPH + H⁺ → 2,3-环氧角鲨烯 + NADP⁺ + H₂O",
+    substrate: {
+      name: "角鲨烯（Squalene）",
+      formula: "C₃₀H₅₀",
+      parts: [CHOL_SQUALENE],
+      cofactorNote: "O₂ 与 NADPH 不入画；只对照 C30 烃链末端 2,3 双键的环氧化。",
+    },
+    product: {
+      name: "2,3-环氧角鲨烯（2,3-OS）",
+      formula: "C₃₀H₅₀O",
+      parts: [CHOL_OXSQ],
+      cofactorNote: "在 C2–C3 上加一个氧原子形成环氧；碳数不变。",
+    },
+    arrowLabel: "SQLE · C2–C3 环氧化",
+    change: "末端双键被环氧化，C30 烃变成环氧；这是甾醇环化的“引信”，不是环化本身。",
+    physiology: "SQLE 是内质网上的 FAD 加氧酶；NB-598 等抑制剂结合在底物通道，6C6P 即其复合物。",
+    evidence: {
+      substrate: [evOnly2d("squalene")],
+      product: [evOnly2d("oxidosqualene")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "两侧只有 2D：6C6P 是抑制剂复合物，不含角鲨烯或 2,3-OS。",
+  },
+  {
+    stepId: "ch-12",
+    index: 12,
+    enzyme: "羊毛甾醇合酶（LSS）",
+    isozyme: "质子引发 · 内质网",
+    equation: "2,3-环氧角鲨烯 → 羊毛甾醇",
+    substrate: {
+      name: "2,3-环氧角鲨烯（2,3-OS）",
+      formula: "C₃₀H₅₀O",
+      parts: [CHOL_OXSQ],
+      cofactorNote: "开环由酸性残基提供的质子引发，不消耗 ATP / NADPH。",
+    },
+    product: {
+      name: "羊毛甾醇（Lanosterol）",
+      formula: "C₃₀H₅₀O",
+      parts: [CHOL_LANOSTEROL],
+      cofactorNote: "C30 链折叠成四环；一个氧保留在 3-OH。",
+    },
+    arrowLabel: "LSS · 环氧开环 + 四环化",
+    change: "环氧开环产生碳正离子，C30 链经多轮 1,2-迁移与环化，形成 6-6-6-5 四环羊毛甾醇骨架。",
+    physiology: "这是甾醇生物合成的分水岭：从开链烃进入四环甾核。LSS 抑制剂会阻断全部甾醇 downstream。",
+    evidence: {
+      substrate: [evOnly2d("oxidosqualene")],
+      product: [evOnly2d("lanosterol")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "两侧只有 2D：1W6K / 1W6J 的配体用于酶身份核验，本轮不截取为分子资产。",
+  },
+  {
+    stepId: "ch-13",
+    index: 13,
+    enzyme: "去甲基化 / 还原修饰簇（9 种酶）",
+    isozyme: "CYP51A1 → TM7SF2 → MSMO1 → NSDHL → HSD17B7 → EBP → SC5D → DHCR7 → DHCR24",
+    equation: "羊毛甾醇 →（9 步）→ 胆固醇",
+    substrate: {
+      name: "羊毛甾醇（Lanosterol）",
+      formula: "C₃₀H₅₀O",
+      parts: [CHOL_LANOSTEROL],
+      cofactorNote: "9 步各自需要 NADPH / NADH / O₂ 或 FAD，逐酶 EC 见挂图页簇内清单；本块只对照首尾碳骨架。",
+    },
+    product: {
+      name: "胆固醇（Cholesterol）",
+      formula: "C₂₇H₄₆O",
+      parts: [CHOL_CHOLESTEROL],
+      cofactorNote: "净去 3 个碳（14α-甲基、4,4-二甲基）并把双键移位到 5–6。",
+    },
+    arrowLabel: "9 酶簇 · 去 3C + 双键移位",
+    change: "C30 → C27：去掉 14α-甲基与 4,4-二甲基；B 环双键经 SC5D / DHCR7 移到 5–6；C24 双键由 DHCR24 还原。",
+    physiology: "9 种膜蛋白在内质网依次作业；DHCR7 缺陷导致 Smith–Lemli–Opitz 综合征（SLOS），DHCR24 缺陷导致 desmosterolosis。",
+    evidence: {
+      substrate: [evOnly2d("lanosterol")],
+      product: [evOnly2d("cholesterol")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "两侧只有 2D：DHCR7、DHCR24 无人源结构；CYP51A1 / NSDHL / EBP 的配体不截取为分子资产。",
+  },
+];
+
+const CHOLESTEROL_CONFIG: ComparisonConfig = {
+  pathwayId: "cholesterol",
+  title: "胆固醇合成 · 结构对照",
+  summary:
+    "七块逐步对照：MVK、PMVK、MVD、IDI1、SQLE、LSS、去甲基化簇末步。只做小分子 2D，不渲染酶三维；9 个分子（甲羟戊酸、MVA-5-P、MVA-5-PP、IPP、DMAPP、角鲨烯、2,3-OS、羊毛甾醇、胆固醇）只有 2D 结构式，逐条在首屏写无可借用坐标的原因。所有 PDB 身份已在挂图页向 RCSB 实时核验；ΔG 一律 null，只写定性方向与 Lehninger 8e 出处。",
+  plateNo: "PLATE SF-12 · 结构对照 · 胆固醇合成 · 2026",
+  back: { to: "/pathway/cholesterol", label: "← 返回挂图" },
+  backCaption: "胆固醇合成 · 结构对照（挂图页 /pathway/cholesterol）",
+  enzymePanel: false,
+  enzymePanelOffNote: "本通路不渲染酶三维：HMGCR / MVK / PMVK / MVD / IDI1 / FDPS / FDFT1 / SQLE / LSS / CYP51A1 等只做 PDB 身份核验，不截取膜蛋白结构冒充全酶。",
+  footerNote:
+    "胆固醇合成 7 块：MVK、PMVK、MVD、IDI1、SQLE、LSS、去甲基化簇末步。9 个分子全部只有 2D 结构式（RDKit 由 pH 7.4 电离态 SMILES 生成），不建 3D、不写 PDB 坐标：HMGCR 的 1HWK / 1HW9 / 1DQA 停在底物侧或他汀复合物，未建模甲羟戊酸；MVK 2R3V 为 apo；PMVK 3CH4 只含 SO4 / MPD；MVD 3D4J 只含 SO4；IDI1 2ICK 的 DMA 不是 DMAPP；FDFT1 3WEG / 3VJC 只含 FPS 类似物或 ZGA；SQLE 6C6P 是 NB-598 抑制剂复合物；LSS 1W6K / 1W6J 的 LAN 只用于身份核验。乙酰-CoA / 乙酰乙酰-CoA / HMG-CoA 因 CoA 分子过大且本平台未建其资产，不入对照块。全部 ΔG 为 null，只写定性方向与 Lehninger 8e Ch.21，不编数字。他汀作用于 HMGCR 节点，不是反应步骤，本页不作为底物或产物入画。",
+  defaultModePolicy:
+    "本通路全部为 2D：9 个分子都没有可用的本酶实验配体坐标，故 defaultMode 逐块为 2d；?mode=3d 为显式覆盖时会显示“无 3D 资产”的逐块说明，不用假球填充。",
+  steps: CHOLESTEROL_COMPARISON,
+};
+
 export const COMPARISON_CONFIGS: Record<string, ComparisonConfig> = {
   glycolysis: GLYCOLYSIS_CONFIG,
   tca: TCA_CONFIG,
@@ -3147,6 +3443,7 @@ export const COMPARISON_CONFIGS: Record<string, ComparisonConfig> = {
   "urea-cycle": UREA_CONFIG,
   glycogen: GLYCOGEN_CONFIG,
   "amino-acids": AMINO_CONFIG,
+  cholesterol: CHOLESTEROL_CONFIG,
 };
 
 export const comparisonConfigFor = (pathwayId?: string): ComparisonConfig | null =>

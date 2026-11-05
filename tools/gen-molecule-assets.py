@@ -660,6 +660,58 @@ AMINO_2D_MOLS = [
 ]
 AMINO_2D_IDS = {m["id"] for m in AMINO_2D_MOLS}
 
+# 胆固醇合成 / 甲羟戊酸通路（PLATE 12）：仅补 2D，不生成 3D。
+# SMILES 取自 PubChem 规范 SMILES（CID 449 / 439400 / 439418 / 1195 / 647 / 638072 / 5366020 / 246983 / 5997），
+# 前五个按 pH 7.4 去质子（羧基 −1；单磷酸 −2；二磷酸 −3；二磷酸单酯 −3）。
+CHOLESTEROL_2D_MOLS = [
+    dict(id="mevalonate", name="甲羟戊酸（MVA）", formula="C6H11O4",
+         smiles="CC(CCO)(CC(=O)[O-])O",
+         no3d=True,
+         form="甲羟戊酸阴离子（C1 羧基 −1；C3 / C5 羟基 pKa≈15，pH 7.4 不电离）",
+         caveat="本轮仅补 2D；无本步酶 HMGCR 口袋内甲羟戊酸的实验配体坐标，不生成 3D。"),
+    dict(id="mev5p", name="甲羟戊酸-5-磷酸（MVA-5-P）", formula="C6H10O7P",
+         smiles="C[C@@](CCOP(=O)([O-])[O-])(CC(=O)[O-])O",
+         no3d=True,
+         form="甲羟戊酸-5-磷酸三价阴离子（羧基 −1 + 5-磷酸单酯 −2）",
+         caveat="本轮仅补 2D；无实验配体坐标，不生成 3D。"),
+    dict(id="mev5pp", name="甲羟戊酸-5-二磷酸（MVA-5-PP）", formula="C6H10O10P2",
+         smiles="C[C@@](CCOP(=O)([O-])OP(=O)([O-])[O-])(CC(=O)[O-])O",
+         no3d=True,
+         form="甲羟戊酸-5-二磷酸四价阴离子（羧基 −1 + 二磷酸单酯 −3）",
+         caveat="本轮仅补 2D；无实验配体坐标，不生成 3D。"),
+    dict(id="ipp", name="异戊烯基二磷酸（IPP）", formula="C5H9O7P2",
+         smiles="CC(=C)CCOP(=O)([O-])OP(=O)([O-])[O-]",
+         no3d=True,
+         form="IPP 三价阴离子（二磷酸单酯：内部 −1、末端 −2）",
+         caveat="本轮仅补 2D；无实验配体坐标，不生成 3D。"),
+    dict(id="dmapp", name="二甲基烯丙基二磷酸（DMAPP）", formula="C5H9O7P2",
+         smiles="CC(=CCOP(=O)([O-])OP(=O)([O-])[O-])C",
+         no3d=True,
+         form="DMAPP 三价阴离子（与 IPP 同分子式；二磷酸单酯 −3）",
+         caveat="本轮仅补 2D；FBPP / FDPS 口袋内 DMAPP 的实验坐标未取，不生成 3D。"),
+    dict(id="squalene", name="角鲨烯（Squalene）", formula="C30H50",
+         smiles="CC(=CCC/C(=C/CC/C(=C/CC/C=C(/CC/C=C(/CCC=C(C)C)\\C)\\C)/C)/C)C",
+         no3d=True,
+         form="全反式 C30 烃，无 pKa 相关基团，pH 7.4 中性",
+         caveat="本轮仅补 2D；无实验配体坐标，不生成 3D。"),
+    dict(id="oxidosqualene", name="2,3-环氧角鲨烯（2,3-OS）", formula="C30H50O",
+         smiles="CC(=CCC/C(=C/CC/C(=C/CC/C=C(\\C)/CC/C=C(\\C)/CCC1C(O1)(C)C)/C)/C)C",
+         no3d=True,
+         form="环氧与烃链均不解离，pH 7.4 中性",
+         caveat="本轮仅补 2D；无实验配体坐标，不生成 3D。"),
+    dict(id="lanosterol", name="羊毛甾醇（Lanosterol）", formula="C30H50O",
+         smiles="C[C@H](CCC=C(C)C)[C@H]1CC[C@@]2([C@@]1(CCC3=C2CC[C@@H]4[C@@]3(CC[C@@H](C4(C)C)O)C)C)C",
+         no3d=True,
+         form="3β-羟基 pKa≈15，pH 7.4 不解离；中性",
+         caveat="本轮仅补 2D；LSS 的 1W6K 虽有羊毛甾醇配体，按项目口径不截取酶坐标做分子资产，不生成 3D。"),
+    dict(id="cholesterol", name="胆固醇（Cholesterol）", formula="C27H46O",
+         smiles="C[C@H](CCCC(C)C)[C@H]1CC[C@@H]2[C@@]1(CC[C@H]3[C@H]2CC=C4[C@@]3(CC[C@@H](C4)O)C)C",
+         no3d=True,
+         form="3β-羟基 pKa≈15，pH 7.4 不解离；中性",
+         caveat="本轮仅补 2D；无实验配体坐标，不生成 3D。"),
+]
+CHOLESTEROL_2D_IDS = {m["id"] for m in CHOLESTEROL_2D_MOLS}
+
 
 def copytemp(src_rel, sdf_name):
     src = os.path.join(ROOT, src_rel)
@@ -1263,7 +1315,7 @@ def svg_only():
 
 def main():
     ap = argparse.ArgumentParser(description="离线生成分子 2D/3D 资产")
-    ap.add_argument("--pathway", choices=["glycolysis", "tca", "ppp", "gluconeogenesis", "fao", "urea", "fas", "glycogen", "amino"], default="glycolysis",
+    ap.add_argument("--pathway", choices=["glycolysis", "tca", "ppp", "gluconeogenesis", "fao", "urea", "fas", "glycogen", "amino", "cholesterol"], default="glycolysis",
                     help="默认 glycolysis（保持原报告路径与行为）；tca/ppp/gluconeogenesis/fao/urea/fas 写独立报告")
     ap.add_argument("--svg-only", action="store_true",
                     help="只按现有 2D JSON 重绘 SVG（配色专用，幂等）")
@@ -1303,6 +1355,10 @@ def main():
         generate(AMINO_2D_MOLS, AMINO_2D_IDS,
                  os.path.join(ROOT, "preview", "amino-2d-assets-report.json"),
                  "2026-11-05 · 氨基酸代谢（仅 2D）")
+    elif args.pathway == "cholesterol":
+        generate(CHOLESTEROL_2D_MOLS, CHOLESTEROL_2D_IDS,
+                 os.path.join(ROOT, "preview", "cholesterol-2d-assets-report.json"),
+                 "2026-11-05 · 胆固醇合成（仅 2D）")
     else:
         generate(MOLS, TWO_D_IDS, REPORT, "2026-11-03")
 

@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20.0 20.0 628.1 388.4" width="628" height="388" role="img" aria-label="mev5p-2d">
+<rect x="20.0" y="20.0" width="628.1" height="388.4" fill="#f6f3ec"/>
+<line x1="107.3" y1="368.4" x2="177.5" y2="297.1" stroke="#22282a" stroke-width="1.6"/>
+<line x1="177.5" y1="297.1" x2="247.6" y2="225.8" stroke="#22282a" stroke-width="1.6"/>
+<line x1="247.6" y1="225.8" x2="344.4" y2="250.9" stroke="#22282a" stroke-width="1.6"/>
+<line x1="344.4" y1="250.9" x2="414.5" y2="179.6" stroke="#22282a" stroke-width="1.6"/>
+<line x1="414.5" y1="179.6" x2="511.3" y2="204.7" stroke="#22282a" stroke-width="1.6"/>
+<line x1="511.3" y1="204.7" x2="536.4" y2="107.9" stroke="#22282a" stroke-width="1.6"/>
+<line x1="517.6" y1="190.8" x2="535.2" y2="123.1" stroke="#22282a" stroke-width="1.6"/>
+<line x1="511.3" y1="204.7" x2="486.2" y2="301.5" stroke="#22282a" stroke-width="1.6"/>
+<line x1="511.3" y1="204.7" x2="608.1" y2="229.8" stroke="#22282a" stroke-width="1.6"/>
+<line x1="177.5" y1="297.1" x2="106.2" y2="226.9" stroke="#22282a" stroke-width="1.6"/>
+<line x1="106.2" y1="226.9" x2="131.3" y2="130.1" stroke="#22282a" stroke-width="1.6"/>
+<line x1="131.3" y1="130.1" x2="60.0" y2="60.0" stroke="#22282a" stroke-width="1.6"/>
+<line x1="122.4" y1="117.7" x2="72.5" y2="68.7" stroke="#22282a" stroke-width="1.6"/>
+<line x1="131.3" y1="130.1" x2="227.7" y2="103.5" stroke="#22282a" stroke-width="1.6"/>
+<line x1="177.5" y1="297.1" x2="248.7" y2="367.2" stroke="#22282a" stroke-width="1.6"/>
+<circle cx="107.3" cy="368.4" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="177.5" cy="297.1" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="247.6" cy="225.8" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="344.4" cy="250.9" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="414.5" cy="179.6" r="8.5" fill="#f6f3ec"/>
+<text x="414.5" y="182.8" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="511.3" cy="204.7" r="8.5" fill="#f6f3ec"/>
+<text x="511.3" y="207.9" text-anchor="middle" data-element="P" data-element-color="#d18a2e" style="fill:#d18a2e" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#d18a2e">P</text>
+<text x="520.3" y="199.7" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="rgba(34,40,42,0.55)">P</text>
+<circle cx="536.4" cy="107.9" r="8.5" fill="#f6f3ec"/>
+<text x="536.4" y="111.1" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="486.2" cy="301.5" r="8.5" fill="#f6f3ec"/>
+<text x="486.2" y="304.7" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="495.2" y="309.5" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
+<circle cx="608.1" cy="229.8" r="8.5" fill="#f6f3ec"/>
+<text x="608.1" y="233.0" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="617.1" y="237.8" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
+<circle cx="106.2" cy="226.9" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="131.3" cy="130.1" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="60.0" cy="60.0" r="8.5" fill="#f6f3ec"/>
+<text x="60.0" y="63.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="227.7" cy="103.5" r="8.5" fill="#f6f3ec"/>
+<text x="227.7" y="106.7" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="236.7" y="111.5" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
+<circle cx="248.7" cy="367.2" r="8.5" fill="#f6f3ec"/>
+<text x="248.7" y="370.4" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+</svg>

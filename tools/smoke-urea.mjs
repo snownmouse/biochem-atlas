@@ -211,17 +211,19 @@ const titles = await page.locator("[data-pathway-title]").evaluateAll((els) =>
   }),
 );
 const offscreen = titles.filter((t) => t.y < 0 || t.bottom > 900 || t.x < 0 || t.right > 1440);
-check("首页十一条通路标题齐全", titles.length === 11, titles.map((t) => t.id).join(","));
+check("首页十二条通路标题齐全", titles.length === 12, titles.map((t) => t.id).join(","));
 check("首页出现「尿素循环」标题", titles.some((t) => t.id === "urea-cycle" && t.text.includes("尿素循环")));
 check("首页出现「糖原代谢」标题", titles.some((t) => t.id === "glycogen" && t.text.includes("糖原代谢")));
 check(
-  "1440×900 展开档：仅氨基酸代谢出屏，其余十条全见",
-  titles.length === 11 && offscreen.length === 1 && offscreen[0].id === "amino-acids",
+  "1440×900 展开档：仅氨基酸代谢与胆固醇合成出屏，其余十条全见",
+  titles.length === 12 &&
+    offscreen.length === 2 &&
+    ["amino-acids", "cholesterol"].every((id) => offscreen.some((t) => t.id === id)),
   JSON.stringify(titles.map((t) => [t.id, t.x, t.y, t.bottom])),
 );
-const lowest = Math.max(...titles.filter((t) => t.id !== "amino-acids").map((t) => t.bottom));
-check("除氨基酸代谢外，十条标题最低底边 ≤ 900", lowest <= 900, `最低底边 ${lowest}px（余量 ${900 - lowest}px）`);
-console.log(`  · 除氨基酸代谢外，首页十条标题实测最低底边 ${lowest}px；距首屏下沿 ${900 - lowest}px`);
+const lowest = Math.max(...titles.filter((t) => t.id !== "amino-acids" && t.id !== "cholesterol").map((t) => t.bottom));
+check("除氨基酸代谢 / 胆固醇合成外，十条标题最低底边 ≤ 900", lowest <= 900, `最低底边 ${lowest}px（余量 ${900 - lowest}px）`);
+console.log(`  · 除氨基酸代谢 / 胆固醇合成外，首页十条标题实测最低底边 ${lowest}px；距首屏下沿 ${900 - lowest}px`);
 
 // ===== 10) audit-layout 本页 0 重叠 0 裁切 =====
 let audit = null;

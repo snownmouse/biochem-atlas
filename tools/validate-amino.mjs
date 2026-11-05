@@ -502,7 +502,7 @@ function check(data, skel, ctx) {
   if (!/plateNo:\s*"PLATE 11"/.test(ctx.homeMapSrc)) warn("homeMap 的 amino-acids 必须是 PLATE 11");
   if (!/pathwayId:\s*"amino-acids"/.test(ctx.homeLayoutSrc)) warn("homeLayout 未登记 amino-acids 标题");
   if (!/pathwayId:\s*"amino-acids".*y:\s*650/.test(ctx.homeLayoutSrc)) warn("amino-acids 标题应落在第 11 槽 y=650");
-  if (!/no:\s*12/.test(ctx.homeLayoutSrc)) warn("第 12 空槽必须保留");
+  if (!/HOME_RESERVED_SLOTS[^=]*=\s*\[\]/s.test(ctx.homeLayoutSrc)) warn("第 12 槽已由胆固醇接入，预留槽必须为空");
   if (!/amino-acids/.test(ctx.mainSrc)) warn("main.tsx 未登记 amino-acids 路由");
 
   return errors;

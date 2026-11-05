@@ -21,7 +21,8 @@ export type HomePathwayId =
   | "fatty-acid-synthesis"
   | "urea-cycle"
   | "glycogen"
-  | "amino-acids";
+  | "amino-acids"
+  | "cholesterol";
 
 export interface HomePathwayMeta {
   id: HomePathwayId;
@@ -151,6 +152,18 @@ export const HOME_PATHWAYS: HomePathwayMeta[] = [
     plateNo: "PLATE 11",
     stepCount: 7,
     accent: "teal",
+  },
+  // 胆固醇合成：PLATE 12，只登记标题块与导航；不并入 SOURCES，首页节点/边口径不变。
+  {
+    id: "cholesterol",
+    sourceId: "cholesterol",
+    name: "胆固醇合成",
+    en: "CHOLESTEROL BIOSYNTHESIS",
+    route: "/pathway/cholesterol",
+    structureRoute: "/structures/cholesterol",
+    plateNo: "PLATE 12",
+    stepCount: 13,
+    accent: "brick",
   },
 ];
 

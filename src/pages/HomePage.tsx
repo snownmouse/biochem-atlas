@@ -56,6 +56,7 @@ const PATH_COLOR: Record<HomePathwayId, string> = {
   "urea-cycle": C.brick,
   glycogen: C.amber,
   "amino-acids": C.teal,
+  cholesterol: C.brick,
 };
 
 const JUNCTION_IDS = new Set(HOME_NODES.filter((node) => node.junction).map((node) => node.id));
@@ -466,7 +467,7 @@ export function HomePage() {
         <div className="mast-main">
           <h1>
             代谢总图
-            <small>METABOLIC ATLAS · ELEVEN PATHWAYS · 20 DESTINATIONS</small>
+            <small>METABOLIC ATLAS · TWELVE PATHWAYS · 22 DESTINATIONS</small>
           </h1>
           <p className="mast-summary">
             上下两域：上为胞质（糖酵解向右主链、糖异生同链逆向、PPP 自 G6P 分叉回流），中为三层膜带（氧化磷酸化的呼吸链就画在膜内），下为线粒体基质（TCA 与 β-氧化在乙酰-CoA 会合）；<b>同名代谢物只画一次</b>。点通路名或连线进入挂图，点共用节点看它接通了哪几条路。
