@@ -1,0 +1,148 @@
+{
+  "canvas": { "width": 1980, "height": 1240 },
+  "compartments": [
+    { "id": "zone-classify", "name": "上层 · 20 种氨基酸按碳骨架去路分组", "en": "CLASSIFICATION", "x": 24, "y": 40, "w": 1932, "h": 272 },
+    { "id": "grp-glucogenic", "name": "生糖 · GLUCOGENIC（14）", "en": "GLUCOGENIC", "x": 40, "y": 98, "w": 880, "h": 168 },
+    { "id": "grp-both", "name": "生糖兼生酮 · BOTH（4）", "en": "GLUCOGENIC + KETOGENIC", "x": 940, "y": 98, "w": 280, "h": 168 },
+    { "id": "grp-ketogenic", "name": "生酮 · KETOGENIC（2）", "en": "KETOGENIC", "x": 1240, "y": 98, "w": 240, "h": 168 },
+
+    { "id": "zone-gates", "name": "中层 · 两道闸：转氨 → 氧化脱氨", "en": "TWO GATES", "x": 24, "y": 332, "w": 1932, "h": 272 },
+
+    { "id": "zone-fates", "name": "下层 · 七个碳骨架去路", "en": "SEVEN FATES", "x": 24, "y": 624, "w": 1932, "h": 242 },
+
+    { "id": "zone-organs", "name": "器官差异 · 肝 / 肌 / 肾", "en": "ORGAN CONTEXT", "x": 24, "y": 870, "w": 1932, "h": 142 },
+    { "id": "organ-liver", "name": "肝 · 转氨与尿素循环主场所", "en": "LIVER", "x": 40, "y": 900, "w": 640, "h": 100 },
+    { "id": "organ-muscle", "name": "肌 · BCAA 供能", "en": "MUSCLE", "x": 700, "y": 900, "w": 600, "h": 100 },
+    { "id": "organ-kidney", "name": "肾 · 谷氨酰胺生 NH₄⁺", "en": "KIDNEY", "x": 1320, "y": 900, "w": 620, "h": 100 },
+
+    { "id": "zone-clinical", "name": "临床支路 · 三条（降权显示，可收起）", "en": "CLINICAL BRANCHES", "x": 24, "y": 1032, "w": 1932, "h": 184 }
+  ],
+  "nodes": [
+    { "id": "aa-chip-ala", "entityId": "ala", "kind": "amino", "x": 118, "y": 154, "w": 100, "h": 30, "label": "Ala", "sub": "丙氨酸" },
+    { "id": "aa-chip-arg", "entityId": "arg", "kind": "amino", "x": 236, "y": 154, "w": 100, "h": 30, "label": "Arg", "sub": "精氨酸" },
+    { "id": "aa-chip-asn", "entityId": "asn", "kind": "amino", "x": 354, "y": 154, "w": 100, "h": 30, "label": "Asn", "sub": "天冬酰胺" },
+    { "id": "aa-chip-asp", "entityId": "asp", "kind": "amino", "x": 472, "y": 154, "w": 100, "h": 30, "label": "Asp", "sub": "天冬氨酸" },
+    { "id": "aa-chip-cys", "entityId": "cys", "kind": "amino", "x": 590, "y": 154, "w": 100, "h": 30, "label": "Cys", "sub": "半胱氨酸" },
+    { "id": "aa-chip-gln", "entityId": "gln", "kind": "amino", "x": 708, "y": 154, "w": 100, "h": 30, "label": "Gln", "sub": "谷氨酰胺" },
+    { "id": "aa-chip-glu", "entityId": "glu", "kind": "amino", "x": 826, "y": 154, "w": 100, "h": 30, "label": "Glu", "sub": "谷氨酸" },
+    { "id": "aa-chip-gly", "entityId": "gly", "kind": "amino", "x": 118, "y": 200, "w": 100, "h": 30, "label": "Gly", "sub": "甘氨酸" },
+    { "id": "aa-chip-his", "entityId": "his", "kind": "amino", "x": 236, "y": 200, "w": 100, "h": 30, "label": "His", "sub": "组氨酸" },
+    { "id": "aa-chip-met", "entityId": "met", "kind": "amino", "x": 354, "y": 200, "w": 100, "h": 30, "label": "Met", "sub": "甲硫氨酸" },
+    { "id": "aa-chip-pro", "entityId": "pro", "kind": "amino", "x": 472, "y": 200, "w": 100, "h": 30, "label": "Pro", "sub": "脯氨酸" },
+    { "id": "aa-chip-ser", "entityId": "ser", "kind": "amino", "x": 590, "y": 200, "w": 100, "h": 30, "label": "Ser", "sub": "丝氨酸" },
+    { "id": "aa-chip-thr", "entityId": "thr", "kind": "amino", "x": 708, "y": 200, "w": 100, "h": 30, "label": "Thr", "sub": "苏氨酸" },
+    { "id": "aa-chip-val", "entityId": "val", "kind": "amino", "x": 826, "y": 200, "w": 100, "h": 30, "label": "Val", "sub": "缬氨酸" },
+
+    { "id": "aa-chip-ile", "entityId": "ile", "kind": "amino", "x": 1000, "y": 154, "w": 100, "h": 30, "label": "Ile", "sub": "异亮氨酸" },
+    { "id": "aa-chip-phe", "entityId": "phe", "kind": "amino", "x": 1140, "y": 154, "w": 100, "h": 30, "label": "Phe", "sub": "苯丙氨酸" },
+    { "id": "aa-chip-trp", "entityId": "trp", "kind": "amino", "x": 1000, "y": 200, "w": 100, "h": 30, "label": "Trp", "sub": "色氨酸" },
+    { "id": "aa-chip-tyr", "entityId": "tyr", "kind": "amino", "x": 1140, "y": 200, "w": 100, "h": 30, "label": "Tyr", "sub": "酪氨酸" },
+
+    { "id": "aa-chip-leu", "entityId": "leu", "kind": "amino", "x": 1290, "y": 154, "w": 100, "h": 30, "label": "Leu", "sub": "亮氨酸" },
+    { "id": "aa-chip-lys", "entityId": "lys", "kind": "amino", "x": 1410, "y": 154, "w": 100, "h": 30, "label": "Lys", "sub": "赖氨酸" },
+
+    { "id": "hub-akg", "entityId": "akg", "kind": "metabolite", "x": 700, "y": 436, "w": 180, "h": 38, "label": "α-酮戊二酸", "sub": "α-KG · 氨基受体" },
+    { "id": "hub-glu", "entityId": "glu", "kind": "metabolite", "x": 700, "y": 526, "w": 180, "h": 38, "label": "L-谷氨酸", "sub": "Glu · 氨基供体" },
+
+    { "id": "enz-alt", "entityId": "alt", "kind": "enzyme", "x": 320, "y": 420, "w": 190, "h": 36, "label": "ALT · 丙氨酸转氨酶", "sub": "Ala + α-KG ⇌ Pyr + Glu · PLP" },
+    { "id": "enz-ast", "entityId": "ast", "kind": "enzyme", "x": 320, "y": 500, "w": 190, "h": 36, "label": "AST · 天冬氨酸转氨酶", "sub": "Asp + α-KG ⇌ OAA + Glu · PLP" },
+    { "id": "enz-bcat2", "entityId": "bcat2", "kind": "enzyme", "x": 1040, "y": 420, "w": 210, "h": 38, "label": "BCAT2 · 支链氨基转移酶", "sub": "Leu / Ile / Val + α-KG ⇌ α-酮酸 + Glu" },
+    { "id": "enz-gldh", "entityId": "gldh", "kind": "enzyme", "x": 1040, "y": 545, "w": 210, "h": 38, "label": "GLDH · 谷氨酸脱氢酶", "sub": "Glu + NAD(P)⁺ → α-KG + NH₄⁺" },
+    { "id": "enz-gls", "entityId": "gls", "kind": "enzyme", "x": 1280, "y": 440, "w": 190, "h": 36, "label": "GLS1 · 谷氨酰胺酶", "sub": "Gln + H₂O → Glu + NH₄⁺" },
+
+    { "id": "if-nh4", "entityId": "nh4", "kind": "interface", "x": 1640, "y": 510, "w": 250, "h": 54, "label": "NH₄⁺ → 尿素循环", "sub": "PLATE 09 · urea-1（接口）" },
+
+    { "id": "fate-pyr", "entityId": "pyr", "kind": "fate", "x": 160, "y": 770, "w": 244, "h": 84, "label": "丙酮酸", "sub": "→ 糖酵解 / 糖异生", "status": "linked" },
+    { "id": "fate-accoa", "entityId": "accoa", "kind": "fate", "x": 430, "y": 770, "w": 244, "h": 84, "label": "乙酰-CoA", "sub": "→ TCA（乙酰-CoA）", "status": "linked" },
+    { "id": "fate-acacoa", "kind": "fate", "x": 700, "y": 770, "w": 244, "h": 84, "label": "乙酰乙酰-CoA", "sub": "→ 生酮（本平台未建）", "status": "unbuilt" },
+    { "id": "fate-akg", "entityId": "akg", "kind": "fate", "x": 970, "y": 770, "w": 244, "h": 84, "label": "α-酮戊二酸", "sub": "→ TCA（α-KG）", "status": "linked" },
+    { "id": "fate-succoa", "entityId": "succoa", "kind": "fate", "x": 1240, "y": 770, "w": 244, "h": 84, "label": "琥珀酰-CoA", "sub": "→ TCA（琥珀酰-CoA）", "status": "linked" },
+    { "id": "fate-fum", "entityId": "fum", "kind": "fate", "x": 1510, "y": 770, "w": 244, "h": 84, "label": "延胡索酸", "sub": "→ TCA / 尿素循环", "status": "linked" },
+    { "id": "fate-oaa", "entityId": "oaa", "kind": "fate", "x": 1780, "y": 770, "w": 244, "h": 84, "label": "草酰乙酸", "sub": "→ TCA / 糖异生", "status": "linked" },
+
+    { "id": "clin-pku", "entityId": "pah", "kind": "enzyme", "x": 340, "y": 1128, "w": 600, "h": 64, "label": "PAH · 苯丙氨酸羟化酶", "sub": "PKU · OMIM 261600", "clinical": true },
+    { "id": "clin-msud", "entityId": "bcat2", "kind": "enzyme", "x": 1000, "y": 1128, "w": 600, "h": 64, "label": "BCAT2 / BCKDH", "sub": "MSUD · OMIM 248600", "clinical": true },
+    { "id": "clin-cbs", "entityId": "cbs", "kind": "enzyme", "x": 1630, "y": 1128, "w": 620, "h": 64, "label": "CBS · 胱硫醚 β-合酶", "sub": "同型半胱氨酸尿症 · OMIM 236200", "clinical": true }
+  ],
+  "links": [
+    { "id": "l-grp-glucogenic", "from": "grp-glucogenic", "to": "hub-akg", "type": "main", "path": "M 700,268 C 720,330 700,390 700,414", "label": "生糖 14 种 → 转氨", "labelX": 720, "labelY": 330 },
+    { "id": "l-grp-both", "from": "grp-both", "to": "hub-akg", "type": "main", "path": "M 1080,268 C 980,330 810,390 720,414", "label": "生糖兼生酮 4 种", "labelX": 930, "labelY": 330 },
+    { "id": "l-grp-ketogenic", "from": "grp-ketogenic", "to": "enz-bcat2", "type": "side", "path": "M 1360,268 C 1320,340 1160,390 1110,400", "label": "Leu / Lys（经 BCAT2）", "labelX": 1260, "labelY": 334 },
+
+    { "id": "l-aa-1", "from": "enz-alt", "to": "hub-glu", "stepId": "aa-1", "type": "main", "path": "M 415,432 C 500,455 600,500 610,512", "label": "Ala → Pyr · NH₂ 转移", "labelX": 500, "labelY": 458 },
+    { "id": "l-aa-2", "from": "enz-ast", "to": "hub-glu", "stepId": "aa-2", "type": "main", "path": "M 415,505 C 490,515 570,523 610,526", "label": "Asp → OAA · NH₂ 转移", "labelX": 500, "labelY": 512 },
+    { "id": "l-hub-shuttle", "from": "hub-akg", "to": "hub-glu", "type": "dashed", "path": "M 700,456 L 700,506", "label": "转氨 · 氨基穿梭", "labelX": 712, "labelY": 486 },
+    { "id": "l-aa-5", "from": "enz-bcat2", "to": "hub-glu", "stepId": "aa-5", "type": "main", "path": "M 935,432 C 860,455 800,500 792,512", "label": "BCAA → α-酮酸", "labelX": 860, "labelY": 458 },
+    { "id": "l-aa-3", "from": "hub-glu", "to": "enz-gldh", "stepId": "aa-3", "type": "main", "path": "M 792,530 L 932,541", "label": "氧化脱氨", "labelX": 862, "labelY": 522 },
+    { "id": "l-aa-4", "from": "enz-gls", "to": "hub-glu", "stepId": "aa-4", "type": "main", "path": "M 1185,448 C 1080,475 900,510 792,522", "label": "Gln → Glu", "labelX": 1030, "labelY": 480 },
+    { "id": "l-gls-nh4", "from": "enz-gls", "to": "if-nh4", "stepId": "aa-4", "type": "interface", "path": "M 1375,448 C 1450,470 1520,495 1513,503", "label": "NH₄⁺", "labelX": 1440, "labelY": 462 },
+    { "id": "l-gldh-nh4", "from": "enz-gldh", "to": "if-nh4", "stepId": "aa-3", "type": "interface", "path": "M 1145,548 C 1280,558 1420,538 1513,525", "label": "NH₄⁺", "labelX": 1320, "labelY": 552 },
+
+    { "id": "l-fate-pyr", "from": "hub-glu", "to": "fate-pyr", "type": "side", "path": "M 620,545 C 470,630 260,690 165,726" },
+    { "id": "l-fate-accoa", "from": "hub-glu", "to": "fate-accoa", "type": "side", "path": "M 645,545 C 570,640 480,690 432,726" },
+    { "id": "l-fate-acacoa", "from": "enz-bcat2", "to": "fate-acacoa", "type": "side", "path": "M 1000,440 C 900,560 760,680 705,726" },
+    { "id": "l-fate-akg", "from": "hub-akg", "to": "fate-akg", "type": "side", "path": "M 770,455 C 850,560 930,680 966,726" },
+    { "id": "l-fate-succoa", "from": "hub-glu", "to": "fate-succoa", "type": "side", "path": "M 730,545 C 900,620 1120,690 1236,726" },
+    { "id": "l-fate-fum", "from": "hub-glu", "to": "fate-fum", "type": "side", "path": "M 740,545 C 980,630 1350,690 1505,726" },
+    { "id": "l-fate-oaa", "from": "hub-glu", "to": "fate-oaa", "type": "side", "path": "M 750,545 C 1050,640 1600,700 1775,726" },
+
+    { "id": "l-clin-pku", "from": "organ-liver", "to": "clin-pku", "stepId": "aa-6", "type": "dashed", "clinical": true, "path": "M 340,1002 L 340,1092", "label": "PAH 支路", "labelX": 352, "labelY": 1052 },
+    { "id": "l-clin-msud", "from": "organ-muscle", "to": "clin-msud", "stepId": "aa-5", "type": "dashed", "clinical": true, "path": "M 1000,1002 L 1000,1092", "label": "BCAT2 / BCKDH 支路", "labelX": 1012, "labelY": 1052 },
+    { "id": "l-clin-cbs", "from": "organ-kidney", "to": "clin-cbs", "stepId": "aa-7", "type": "dashed", "clinical": true, "path": "M 1630,1002 L 1630,1092", "label": "CBS 支路", "labelX": 1642, "labelY": 1052 }
+  ],
+  "stepLabels": [
+    { "stepId": "aa-1", "x": 320, "y": 392 },
+    { "stepId": "aa-2", "x": 320, "y": 472 },
+    { "stepId": "aa-3", "x": 1040, "y": 519 },
+    { "stepId": "aa-4", "x": 1280, "y": 412 },
+    { "stepId": "aa-5", "x": 1040, "y": 392 }
+  ],
+  "annotations": [
+    { "x": 40, "y": 78, "text": "Lehninger 8e Ch.18 碳骨架去路分组；20 种按 14 / 4 / 2 成簇，不平铺", "size": 9.2 },
+    { "x": 1512, "y": 118, "text": "分组依据 · SOURCE", "size": 10.5, "weight": 700 },
+    { "x": 1512, "y": 138, "text": "Lehninger Principles of Biochemistry, 8e,", "size": 9 },
+    { "x": 1512, "y": 154, "text": "Ch.18 碳骨架去路分组表", "size": 9 },
+    { "x": 1512, "y": 176, "text": "生糖 14 + 生糖兼生酮 4 + 生酮 2 = 20", "size": 9 },
+    { "x": 1512, "y": 198, "text": "生酮仅 Leu、Lys（8e 口径）", "size": 9 },
+    { "x": 1512, "y": 220, "text": "Thr 分歧：8e 列生糖；部分教材按", "size": 9 },
+    { "x": 1512, "y": 236, "text": "乙酰-CoA 生成列生糖兼生酮。", "size": 9 },
+    { "x": 1512, "y": 252, "text": "本页按 8e 归生糖，分歧并列，不裁定。", "size": 9 },
+
+    { "x": 40, "y": 372, "text": "转氨把氨基集中到 Glu；GLDH / GLS 把氨基释放为 NH₄⁺；PLP 与 NAD(P)⁺ 为辅因子", "size": 9.2 },
+    { "x": 40, "y": 404, "text": "调控 · REGULATION", "size": 10.5, "weight": 700 },
+    { "x": 40, "y": 424, "text": "GLDH：ADP / GDP + Leu 激活；ATP / GTP 抑制", "size": 9 },
+    { "x": 40, "y": 442, "text": "BCKDH：BCKDK 磷酸化失活；PDP1 去磷酸激活", "size": 9 },
+    { "x": 40, "y": 460, "text": "胰岛素促进 BCKDH 去磷酸（进食后）", "size": 9 },
+    { "x": 1640, "y": 556, "text": "血氨处置见尿素循环 PLATE 09", "size": 9.2, "anchor": "middle" },
+    { "x": 1640, "y": 576, "text": "3D 面板 pending：已核验 PDB 见右栏与 SF-11", "size": 8.8, "anchor": "middle" },
+    { "x": 1640, "y": 594, "text": "本页不渲染酶 3D，只做 2D", "size": 8.8, "anchor": "middle" },
+
+    { "x": 40, "y": 668, "text": "去路 id 均指向真实步骤；乙酰乙酰-CoA 对应通路未建，置 unbuilt，不编造接口", "size": 9.2 },
+    { "x": 160, "y": 828, "text": "来自 Ala · Cys · Gly · Ser · Thr · Trp", "size": 8.4, "anchor": "middle" },
+    { "x": 430, "y": 828, "text": "来自 Leu · Lys · Ile · Phe · Tyr · Trp", "size": 8.4, "anchor": "middle" },
+    { "x": 700, "y": 828, "text": "来自 Leu · Lys · Phe · Tyr · Trp", "size": 8.4, "anchor": "middle" },
+    { "x": 970, "y": 828, "text": "来自 Glu · Gln · Arg · Pro · His", "size": 8.4, "anchor": "middle" },
+    { "x": 1240, "y": 828, "text": "来自 Ile · Met · Val · Thr", "size": 8.4, "anchor": "middle" },
+    { "x": 1510, "y": 828, "text": "来自 Asp · Phe · Tyr", "size": 8.4, "anchor": "middle" },
+    { "x": 1780, "y": 828, "text": "来自 Asp", "size": 8.4, "anchor": "middle" },
+
+    { "x": 54, "y": 946, "text": "ALT / AST 活性高；GLDH 释放的 NH₄⁺ 进入尿素循环", "size": 9 },
+    { "x": 54, "y": 964, "text": "PAH、CBS 主要在此表达；丙氨酸–葡萄糖循环输出端", "size": 9 },
+    { "x": 54, "y": 982, "text": "血氨处置：PLATE 09（不在本页重复画）", "size": 8.8 },
+
+    { "x": 714, "y": 946, "text": "BCAT2 高表达；支链氨基酸转氨后经 BCKDH 氧化", "size": 9 },
+    { "x": 714, "y": 964, "text": "肌缺完整尿素循环，氮以 Ala / Gln 送回肝", "size": 9 },
+    { "x": 714, "y": 982, "text": "BCAA 是运动时肌内主要供能氨基酸", "size": 8.8 },
+
+    { "x": 1334, "y": 946, "text": "GLS1 高表达，以谷氨酰胺生成 NH₄⁺ 排酸", "size": 9 },
+    { "x": 1334, "y": 964, "text": "GLDH 可释放第二个氨，参与酸碱平衡", "size": 9 },
+    { "x": 1334, "y": 982, "text": "CBS 也在此表达，参与 Hcy 清除", "size": 8.8 },
+
+    { "x": 52, "y": 1176, "text": "Phe → Tyr 受阻；Phe 蓄积并经转氨生成苯丙酮酸", "size": 9 },
+    { "x": 52, "y": 1194, "text": "BH₄ 合成 / 再生缺陷需另行鉴别（本页不画蝶呤通路）", "size": 9 },
+    { "x": 712, "y": 1176, "text": "支链 α-酮酸（KIC 等）蓄积；BCKDH 缺陷是经典型", "size": 9 },
+    { "x": 712, "y": 1194, "text": "BCAT2 是入口、BCKDH 是脱羧闸门，二者并列不混为一病", "size": 9 },
+    { "x": 1332, "y": 1176, "text": "Hcy → 胱硫醚受阻，同型半胱氨酸蓄积", "size": 9 },
+    { "x": 1332, "y": 1194, "text": "MTHFR / 钴胺素缺陷也可致升高，本页只画 CBS", "size": 9 }
+  ]
+}

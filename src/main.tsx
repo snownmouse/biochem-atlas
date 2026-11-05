@@ -12,6 +12,7 @@ import OxphosOverviewPage from "./pages/OxphosOverviewPage";
 import CoriOverviewPage from "./pages/CoriOverviewPage";
 import UreaCycleOverviewPage from "./pages/UreaCycleOverviewPage";
 import GlycogenOverviewPage from "./pages/GlycogenOverviewPage";
+import AminoAcidOverviewPage from "./pages/AminoAcidOverviewPage";
 import OxphosStructurePage from "./pages/OxphosStructurePage";
 import StepViewPage from "./pages/StepViewPage";
 import StructureFramesPage from "./pages/StructureFramesPage";
@@ -38,6 +39,8 @@ function PathwayRoute() {
     <UreaCycleOverviewPage />
   ) : pathwayId === "glycogen" || pathwayId === "glycogen-metabolism" ? (
     <GlycogenOverviewPage />
+  ) : pathwayId === "amino-acids" || pathwayId === "amino-acid-metabolism" ? (
+    <AminoAcidOverviewPage />
   ) : (
     <PathwayOverviewPage />
   );

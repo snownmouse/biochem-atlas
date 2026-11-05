@@ -5558,3 +5558,141 @@ svg .branch { transition: opacity 0.2s ease; }
   font-weight: 700;
 }
 .poster-glycogen .d-pdb-org { font-size: 9.2px; line-height: 1.55; margin-top: 2px; opacity: 0.82; }
+
+/* ============================================================
+   氨基酸代谢挂图（/pathway/amino-acids · PLATE 11 / SF-11）
+   1980×1240；画布去网格底纹，只留纸白；其余沿用 .poster 统一外框
+   ============================================================ */
+.poster-amino .plate-canvas {
+  width: 1980px;
+  height: 1240px;
+  background: var(--plate-frame-paper);
+}
+.poster-amino .plate-head-tools {
+  display: flex;
+  align-items: baseline;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.poster-amino .plate-tool-link {
+  background: none;
+  border: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  color: var(--ink);
+  border-bottom: 1px dotted var(--dim);
+  cursor: pointer;
+}
+.poster-amino .plate-tool-link:hover { color: var(--brick); border-bottom-color: var(--brick); }
+
+.poster-amino .ao-class-row {
+  display: grid;
+  grid-template-columns: 76px 22px 1fr;
+  gap: 6px;
+  align-items: baseline;
+  padding: 5px 0;
+  border-bottom: 1px dotted var(--hair-faint);
+  font-size: 10.2px;
+  line-height: 1.5;
+}
+.poster-amino .ao-class-name { font-weight: 700; letter-spacing: 0.06em; }
+.poster-amino .ao-class-count { opacity: 0.7; text-align: right; }
+.poster-amino .ao-class-members { opacity: 0.78; }
+.poster-amino .ao-note {
+  font-size: 9.6px;
+  line-height: 1.65;
+  opacity: 0.72;
+  margin: 7px 0 0;
+}
+.poster-amino .ao-note.ao-dispute {
+  border-left: 2px solid var(--amber);
+  padding-left: 8px;
+  opacity: 0.88;
+}
+.poster-amino .ao-fate-row {
+  display: grid;
+  grid-template-columns: 84px 1fr;
+  gap: 8px;
+  padding: 4px 0;
+  border-bottom: 1px dotted var(--hair-faint);
+  font-size: 9.8px;
+  line-height: 1.5;
+}
+.poster-amino .ao-fate-name { font-weight: 700; }
+.poster-amino .ao-fate-id { font-family: var(--mono, var(--sans)); opacity: 0.7; word-break: break-all; }
+.poster-amino .ao-fate-id.is-unbuilt { color: var(--brick); font-weight: 700; opacity: 0.9; }
+.poster-amino .ao-organ-row { padding: 5px 0; border-bottom: 1px dotted var(--hair-faint); }
+.poster-amino .ao-organ-name {
+  display: inline-block;
+  min-width: 26px;
+  font-weight: 700;
+  font-size: 10.5px;
+  margin-right: 7px;
+}
+.poster-amino .ao-organ-text { font-size: 9.6px; line-height: 1.65; opacity: 0.78; }
+.poster-amino .ao-energy-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 10px;
+  padding: 4px 0;
+  border-bottom: 1px dotted var(--hair-faint);
+}
+.poster-amino .ao-pdb-row {
+  padding: 5px 0 6px;
+  border-bottom: 1px dotted var(--hair-faint);
+}
+.poster-amino .ao-pdb-head { display: flex; gap: 8px; align-items: baseline; font-size: 10px; }
+.poster-amino .ao-pdb-id { font-weight: 700; color: var(--brick); letter-spacing: 0.08em; }
+.poster-amino .ao-pdb-species { flex: 1; opacity: 0.72; }
+.poster-amino .ao-pdb-res { opacity: 0.6; }
+.poster-amino .ao-pdb-meta { font-size: 9.2px; opacity: 0.66; line-height: 1.55; margin-top: 1px; }
+.poster-amino .ao-pdb-note { font-size: 9.2px; opacity: 0.74; line-height: 1.55; margin-top: 2px; }
+.poster-amino .ao-note-row {
+  display: grid;
+  grid-template-columns: 58px 1fr;
+  gap: 7px;
+  padding: 5px 0;
+  border-bottom: 1px dotted var(--hair-faint);
+  font-size: 9.4px;
+  line-height: 1.55;
+}
+.poster-amino .ao-note-tag {
+  font-size: 8.2px;
+  letter-spacing: 0.1em;
+  font-weight: 700;
+  text-transform: uppercase;
+  border: 1px solid var(--hair-soft);
+  padding: 0 4px;
+  align-self: start;
+  text-align: center;
+}
+.poster-amino .ao-note-tag.is-verified { color: var(--teal); border-color: var(--teal); }
+.poster-amino .ao-note-tag.is-pending { color: var(--amber); border-color: var(--amber); }
+.poster-amino .ao-note-tag.is-disputed { color: var(--brick); border-color: var(--brick); }
+.poster-amino .ao-note-tag.is-unbuilt { color: var(--brick); border-color: var(--brick); }
+.poster-amino .ao-shared {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 10px;
+  align-items: baseline;
+  margin: 8px 0 4px;
+  font-size: 9.6px;
+}
+.poster-amino .ao-shared-label { letter-spacing: 0.18em; opacity: 0.6; font-size: 9px; }
+.poster-amino .ao-shared-link { color: var(--teal); text-decoration: none; border-bottom: 1px dotted var(--teal); }
+.poster-amino .ao-shared-link:hover { color: var(--brick); border-bottom-color: var(--brick); }
+.poster-amino .ao-pdb-inline { font-size: 9.4px; line-height: 1.6; opacity: 0.8; margin-top: 6px; }
+.poster-amino .ao-pdb-link { color: var(--brick); text-decoration: none; border-bottom: 1px dotted var(--brick); }
+.poster-amino .ao-ion { margin: 8px 0 4px; border-top: 1px dotted var(--hair-soft); }
+.poster-amino .ao-ion-row {
+  display: grid;
+  grid-template-columns: 1fr 58px 96px;
+  gap: 8px;
+  padding: 3px 0;
+  border-bottom: 1px dotted var(--hair-faint);
+  font-size: 9.2px;
+}
+.poster-amino .d-evidence { display: flex; flex-wrap: wrap; gap: 6px 10px; font-size: 9.6px; margin-top: 8px; }

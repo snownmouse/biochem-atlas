@@ -187,10 +187,10 @@ const cmpSteps = await page.locator("[data-step-id]").evaluateAll((els) => els.m
 check("结构对照 5 块（urea-1…urea-5）", cmpSteps.length === 5 && ["urea-1", "urea-2", "urea-3", "urea-4", "urea-5"].every((id) => cmpSteps.includes(id)), cmpSteps.join(","));
 check("结构对照页无控制台报错", errors.length === 0, errors.slice(0, 3).join(" | "));
 
-// ===== 9) 首页 1440×900 展开档：十条标题全见 =====
-// 政策（2026-11-05）：无参数默认改为「收起辅助栏 + 等比铺满」，首屏完整可见 8/10。
-// 本条原判定口径是展开档（右栏可见、画布 955），用同一套 ?fold=open 还原；断言与阈值未改。
-// 默认档 8/10 的新口径在 smoke-home 第 15 节按四视口逐档实测。
+// ===== 9) 首页 1440×900 展开档：十条既有标题全见（第 11 条氨基酸代谢允许出屏） =====
+// 政策（2026-11-05）：无参数默认改为「收起辅助栏 + 等比铺满」，首屏完整可见 8/11。
+// 本条原判定口径是展开档（右栏可见、画布 955），用同一套 ?fold=open 还原；断言与阈值未改，
+// 仅把第 11 条（氨基酸代谢，y=650）按用户口径排除在「必须可见」之外（不许压其它标题坐标）。
 await page.setViewportSize({ width: 1440, height: 900 });
 await page.goto(`${BASE}/?fold=open`, { waitUntil: "networkidle" });
 await page.waitForTimeout(300);
@@ -211,13 +211,17 @@ const titles = await page.locator("[data-pathway-title]").evaluateAll((els) =>
   }),
 );
 const offscreen = titles.filter((t) => t.y < 0 || t.bottom > 900 || t.x < 0 || t.right > 1440);
-check("首页十条通路标题齐全", titles.length === 10, titles.map((t) => t.id).join(","));
+check("首页十一条通路标题齐全", titles.length === 11, titles.map((t) => t.id).join(","));
 check("首页出现「尿素循环」标题", titles.some((t) => t.id === "urea-cycle" && t.text.includes("尿素循环")));
 check("首页出现「糖原代谢」标题", titles.some((t) => t.id === "glycogen" && t.text.includes("糖原代谢")));
-check("1440×900 首屏十条标题全部可见", titles.length === 10 && offscreen.length === 0, JSON.stringify(titles.map((t) => [t.id, t.x, t.y, t.bottom])));
-const lowest = Math.max(...titles.map((t) => t.bottom));
-check("十条标题最低底边 ≤ 900", lowest <= 900, `最低底边 ${lowest}px（余量 ${900 - lowest}px）`);
-console.log(`  · 首页十条标题实测最低底边 ${lowest}px；距首屏下沿 ${900 - lowest}px`);
+check(
+  "1440×900 展开档：仅氨基酸代谢出屏，其余十条全见",
+  titles.length === 11 && offscreen.length === 1 && offscreen[0].id === "amino-acids",
+  JSON.stringify(titles.map((t) => [t.id, t.x, t.y, t.bottom])),
+);
+const lowest = Math.max(...titles.filter((t) => t.id !== "amino-acids").map((t) => t.bottom));
+check("除氨基酸代谢外，十条标题最低底边 ≤ 900", lowest <= 900, `最低底边 ${lowest}px（余量 ${900 - lowest}px）`);
+console.log(`  · 除氨基酸代谢外，首页十条标题实测最低底边 ${lowest}px；距首屏下沿 ${900 - lowest}px`);
 
 // ===== 10) audit-layout 本页 0 重叠 0 裁切 =====
 let audit = null;

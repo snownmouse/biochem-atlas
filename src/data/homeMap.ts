@@ -20,7 +20,8 @@ export type HomePathwayId =
   | "oxphos"
   | "fatty-acid-synthesis"
   | "urea-cycle"
-  | "glycogen";
+  | "glycogen"
+  | "amino-acids";
 
 export interface HomePathwayMeta {
   id: HomePathwayId;
@@ -138,6 +139,18 @@ export const HOME_PATHWAYS: HomePathwayMeta[] = [
     plateNo: "PLATE 10",
     stepCount: 9,
     accent: "amber",
+  },
+  // 氨基酸代谢：PLATE 11，只登记标题块与导航；不并入 SOURCES，首页节点/边口径不变。
+  {
+    id: "amino-acids",
+    sourceId: "amino-acids",
+    name: "氨基酸代谢",
+    en: "AMINO ACID METABOLISM",
+    route: "/pathway/amino-acids",
+    structureRoute: "/structures/amino-acids",
+    plateNo: "PLATE 11",
+    stepCount: 7,
+    accent: "teal",
   },
 ];
 

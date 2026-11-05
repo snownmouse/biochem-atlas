@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20.0 20.0 418.0 305.0" width="418" height="305" role="img" aria-label="ser-2d">
+<rect x="20.0" y="20.0" width="418.0" height="305.0" fill="#f6f3ec"/>
+<line x1="250.9" y1="60.0" x2="229.0" y2="157.6" stroke="#22282a" stroke-width="1.6"/>
+<line x1="229.0" y1="157.6" x2="302.6" y2="225.3" stroke="#22282a" stroke-width="1.6"/>
+<line x1="302.6" y1="225.3" x2="398.0" y2="195.5" stroke="#22282a" stroke-width="1.6"/>
+<line x1="229.0" y1="157.6" x2="133.6" y2="187.4" stroke="#22282a" stroke-width="1.6"/>
+<line x1="133.6" y1="187.4" x2="60.0" y2="119.7" stroke="#22282a" stroke-width="1.6"/>
+<line x1="124.3" y1="175.3" x2="72.8" y2="127.9" stroke="#22282a" stroke-width="1.6"/>
+<line x1="133.6" y1="187.4" x2="111.7" y2="285.0" stroke="#22282a" stroke-width="1.6"/>
+<circle cx="250.9" cy="60.0" r="8.5" fill="#f6f3ec"/>
+<text x="250.9" y="63.2" text-anchor="middle" data-element="N" data-element-color="#2f4e92" style="fill:#2f4e92" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#2f4e92">N</text>
+<text x="259.9" y="68.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">+</text>
+<circle cx="229.0" cy="157.6" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="302.6" cy="225.3" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="398.0" cy="195.5" r="8.5" fill="#f6f3ec"/>
+<text x="398.0" y="198.7" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="133.6" cy="187.4" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="60.0" cy="119.7" r="8.5" fill="#f6f3ec"/>
+<text x="60.0" y="122.9" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="111.7" cy="285.0" r="8.5" fill="#f6f3ec"/>
+<text x="111.7" y="288.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<text x="120.7" y="293.0" font-family="Helvetica, Arial, sans-serif" font-size="9.5" fill="#9c4a3c">−</text>
+</svg>

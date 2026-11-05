@@ -1,0 +1,410 @@
+{
+  "id": "amino-acids",
+  "name": "氨基酸代谢",
+  "en": "AMINO ACID METABOLISM",
+  "plateNo": "PLATE 11 / 12",
+  "structureNo": "SF-11",
+  "structurePlateNo": "SF-11",
+  "summary": "以谷氨酸 / α-酮戊二酸为枢纽的氨基酸汇流图：上层 20 种氨基酸按生糖 / 生糖兼生酮 / 生酮三类成簇汇入，中层经转氨（ALT / AST / BCAT2）与氧化脱氨（GLDH）两道闸，下层落到丙酮酸、乙酰-CoA、乙酰乙酰-CoA、α-酮戊二酸、琥珀酰-CoA、延胡索酸、草酰乙酸七条去路。NH₄⁺ 不在本页重复画，统一指向尿素循环 PLATE 09。",
+  "classification": {
+    "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（Amino Acid Oxidation and the Production of Urea）碳骨架去路分组表",
+    "groups": [
+      {
+        "id": "glucogenic",
+        "name": "生糖氨基酸",
+        "en": "GLUCOGENIC",
+        "count": 14,
+        "members": ["ala", "arg", "asn", "asp", "cys", "gln", "glu", "gly", "his", "met", "pro", "ser", "thr", "val"],
+        "note": "碳骨架最终可生成丙酮酸、α-酮戊二酸、琥珀酰-CoA、延胡索酸或草酰乙酸，进入糖异生。"
+      },
+      {
+        "id": "both",
+        "name": "生糖兼生酮",
+        "en": "GLUCOGENIC + KETOGENIC",
+        "count": 4,
+        "members": ["ile", "phe", "trp", "tyr"],
+        "note": "同一碳骨架可分别生成生糖中间物与乙酰乙酰-CoA / 乙酰-CoA。"
+      },
+      {
+        "id": "ketogenic",
+        "name": "生酮氨基酸",
+        "en": "KETOGENIC",
+        "count": 2,
+        "members": ["leu", "lys"],
+        "note": "Lehninger 8e 只在生酮组列 Leu、Lys；两者不能净生成葡萄糖。"
+      }
+    ],
+    "disputed": [
+      {
+        "title": "Thr 的归属",
+        "text": "Lehninger 8e 将 Thr 列入生糖氨基酸；部分教材按苏氨酸醛缩酶可产生乙酰-CoA 的口径把 Thr 列为生糖兼生酮。本页按 Lehninger 8e 主口径归入生糖组，并在本注记并列说明分歧，不作单方面裁定。"
+      }
+    ]
+  },
+  "entities": [
+    { "id": "ala", "name": "L-丙氨酸", "abbr": "Ala", "kind": "amino-acid", "formula": "C₃H₇NO₂", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1，侧链不电离，pH 7.4 净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.35, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.87, "chargeAt74": 1 }
+    ] },
+    { "id": "arg", "name": "L-精氨酸", "abbr": "Arg", "kind": "amino-acid", "formula": "C₆H₁₅N₄O₂", "charge": 1, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1、胍基 +1，pH 7.4 净电荷 +1。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.18, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.04, "chargeAt74": 1 },
+      { "group": "胍基（C(NH₂)₂⁺）", "pKa": 12.48, "chargeAt74": 1, "note": "pH 7.4 完全质子化。" }
+    ] },
+    { "id": "asn", "name": "L-天冬酰胺", "abbr": "Asn", "kind": "amino-acid", "formula": "C₄H₈N₂O₃", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1，侧链酰胺不电离，净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.02, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 8.80, "chargeAt74": 1 }
+    ] },
+    { "id": "asp", "name": "L-天冬氨酸", "abbr": "Asp", "kind": "amino-acid", "formula": "C₄H₆NO₄", "charge": -1, "chargeBasis": "α-COO⁻ −1、β-COO⁻ −1、α-NH₃⁺ +1，pH 7.4 净电荷 −1。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 1.99, "chargeAt74": -1 },
+      { "group": "β-羧基（COO⁻）", "pKa": 3.90, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.90, "chargeAt74": 1 }
+    ] },
+    { "id": "cys", "name": "L-半胱氨酸", "abbr": "Cys", "kind": "amino-acid", "formula": "C₃H₇NO₂S", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1；巯基 pKa 8.3，pH 7.4 约 12% 电离，按 0 记。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 1.96, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 10.28, "chargeAt74": 1 },
+      { "group": "巯基（SH）", "pKa": 8.30, "chargeAt74": 0, "note": "pH 7.4 仅少部分电离，按中性记。" }
+    ] },
+    { "id": "gln", "name": "L-谷氨酰胺", "abbr": "Gln", "kind": "amino-acid", "formula": "C₅H₁₀N₂O₃", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1，侧链酰胺不电离，净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.17, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.13, "chargeAt74": 1 }
+    ] },
+    { "id": "glu", "name": "L-谷氨酸", "abbr": "Glu", "kind": "amino-acid", "formula": "C₅H₈NO₄", "charge": -1, "chargeBasis": "α-COO⁻ −1、γ-COO⁻ −1、α-NH₃⁺ +1，pH 7.4 净电荷 −1。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.19, "chargeAt74": -1 },
+      { "group": "γ-羧基（COO⁻）", "pKa": 4.25, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.67, "chargeAt74": 1 }
+    ] },
+    { "id": "gly", "name": "甘氨酸", "abbr": "Gly", "kind": "amino-acid", "formula": "C₂H₅NO₂", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1，无侧链，净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.35, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.78, "chargeAt74": 1 }
+    ] },
+    { "id": "his", "name": "L-组氨酸", "abbr": "His", "kind": "amino-acid", "formula": "C₆H₉N₃O₂", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1；咪唑 pKa 6.0，pH 7.4 以中性为主（约 4% 质子化），按 0 记。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 1.82, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.17, "chargeAt74": 1 },
+      { "group": "咪唑环（中性）", "pKa": 6.00, "chargeAt74": 0, "note": "pH 7.4 仅约 4% 质子化，按中性记。" }
+    ] },
+    { "id": "ile", "name": "L-异亮氨酸", "abbr": "Ile", "kind": "amino-acid", "formula": "C₆H₁₃NO₂", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1，烃侧链不电离，净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.32, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.76, "chargeAt74": 1 }
+    ] },
+    { "id": "leu", "name": "L-亮氨酸", "abbr": "Leu", "kind": "amino-acid", "formula": "C₆H₁₃NO₂", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1，烃侧链不电离，净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.36, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.60, "chargeAt74": 1 }
+    ] },
+    { "id": "lys", "name": "L-赖氨酸", "abbr": "Lys", "kind": "amino-acid", "formula": "C₆H₁₅N₂O₂", "charge": 1, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1、ε-NH₃⁺ +1，pH 7.4 净电荷 +1。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.18, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 8.95, "chargeAt74": 1 },
+      { "group": "ε-氨基（NH₃⁺）", "pKa": 10.53, "chargeAt74": 1, "note": "pH 7.4 完全质子化。" }
+    ] },
+    { "id": "met", "name": "L-甲硫氨酸", "abbr": "Met", "kind": "amino-acid", "formula": "C₅H₁₁NO₂S", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1，硫醚不电离，净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.28, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.21, "chargeAt74": 1 }
+    ] },
+    { "id": "phe", "name": "L-苯丙氨酸", "abbr": "Phe", "kind": "amino-acid", "formula": "C₉H₁₁NO₂", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1，苯环不电离，净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 1.83, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.13, "chargeAt74": 1 }
+    ] },
+    { "id": "pro", "name": "L-脯氨酸", "abbr": "Pro", "kind": "amino-acid", "formula": "C₅H₉NO₂", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-亚氨基（NH₂⁺）+1，pH 7.4 净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 1.99, "chargeAt74": -1 },
+      { "group": "α-亚氨基（NH₂⁺）", "pKa": 10.60, "chargeAt74": 1 }
+    ] },
+    { "id": "ser", "name": "L-丝氨酸", "abbr": "Ser", "kind": "amino-acid", "formula": "C₃H₇NO₃", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1；羟基 pKa≈13，pH 7.4 不电离，净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.21, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.15, "chargeAt74": 1 }
+    ] },
+    { "id": "thr", "name": "L-苏氨酸", "abbr": "Thr", "kind": "amino-acid", "formula": "C₄H₉NO₃", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1；羟基不电离，净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.63, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 10.43, "chargeAt74": 1 }
+    ] },
+    { "id": "trp", "name": "L-色氨酸", "abbr": "Trp", "kind": "amino-acid", "formula": "C₁₁H₁₂N₂O₂", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1，吲哚环不电离，净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.38, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.39, "chargeAt74": 1 }
+    ] },
+    { "id": "tyr", "name": "L-酪氨酸", "abbr": "Tyr", "kind": "amino-acid", "formula": "C₉H₁₁NO₃", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1；酚羟基 pKa 10.1，pH 7.4 不电离，净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.20, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.11, "chargeAt74": 1 },
+      { "group": "酚羟基（OH）", "pKa": 10.07, "chargeAt74": 0 }
+    ] },
+    { "id": "val", "name": "L-缬氨酸", "abbr": "Val", "kind": "amino-acid", "formula": "C₅H₁₁NO₂", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1，烃侧链不电离，净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.32, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.62, "chargeAt74": 1 }
+    ] },
+
+    { "id": "akg", "name": "α-酮戊二酸", "abbr": "α-KG", "kind": "keto-acid", "formula": "C₅H₄O₅", "charge": -2, "chargeBasis": "两个羧基在 pH 7.4 均电离，净电荷 −2。", "ionizableGroups": [
+      { "group": "C1 羧基（COO⁻）", "pKa": 2.5, "chargeAt74": -1 },
+      { "group": "C5 羧基（COO⁻）", "pKa": 4.6, "chargeAt74": -1 }
+    ] },
+    { "id": "pyr", "name": "丙酮酸", "abbr": "Pyr", "kind": "keto-acid", "formula": "C₃H₃O₃", "charge": -1, "chargeBasis": "羧基在 pH 7.4 电离，净电荷 −1。", "ionizableGroups": [
+      { "group": "羧基（COO⁻）", "pKa": 2.50, "chargeAt74": -1 }
+    ] },
+    { "id": "oaa", "name": "草酰乙酸", "abbr": "OAA", "kind": "keto-acid", "formula": "C₄H₂O₅", "charge": -2, "chargeBasis": "两个羧基在 pH 7.4 均电离，净电荷 −2。", "ionizableGroups": [
+      { "group": "C1 羧基（COO⁻）", "pKa": 2.2, "chargeAt74": -1 },
+      { "group": "C4 羧基（COO⁻）", "pKa": 3.8, "chargeAt74": -1 }
+    ] },
+    { "id": "kic", "name": "α-酮异己酸", "abbr": "KIC", "kind": "keto-acid", "formula": "C₆H₉O₃", "charge": -1, "chargeBasis": "α-酮酸羧基在 pH 7.4 电离，净电荷 −1。", "ionizableGroups": [
+      { "group": "羧基（COO⁻）", "pKa": 2.4, "chargeAt74": -1 }
+    ] },
+    { "id": "hcy", "name": "L-高半胱氨酸", "abbr": "Hcy", "kind": "amino-acid", "formula": "C₄H₉NO₂S", "charge": 0, "chargeBasis": "α-COO⁻ −1、α-NH₃⁺ +1；巯基 pKa≈10.4，pH 7.4 不电离，净电荷 0。", "ionizableGroups": [
+      { "group": "α-羧基（COO⁻）", "pKa": 2.2, "chargeAt74": -1 },
+      { "group": "α-氨基（NH₃⁺）", "pKa": 9.5, "chargeAt74": 1 },
+      { "group": "巯基（SH）", "pKa": 10.4, "chargeAt74": 0 }
+    ] },
+    { "id": "cystathionine", "name": "L-胱硫醚", "abbr": "Cysta", "kind": "amino-acid", "formula": "C₇H₁₄N₂O₄S", "charge": 0, "chargeBasis": "两个 α-COO⁻（−2）与两个 α-NH₃⁺（+2）相抵，净电荷 0。", "ionizableGroups": [
+      { "group": "羧基 1（COO⁻）", "pKa": 2.2, "chargeAt74": -1 },
+      { "group": "羧基 2（COO⁻）", "pKa": 2.4, "chargeAt74": -1 },
+      { "group": "氨基 1（NH₃⁺）", "pKa": 9.2, "chargeAt74": 1 },
+      { "group": "氨基 2（NH₃⁺）", "pKa": 9.6, "chargeAt74": 1 }
+    ] },
+    { "id": "nh4", "name": "铵离子", "abbr": "NH₄⁺", "kind": "gas", "formula": "NH₄⁺", "charge": 1, "chargeBasis": "铵 pKa 9.25，pH 7.4 以 NH₄⁺ 为主，净电荷 +1。", "ionizableGroups": [
+      { "group": "铵（NH₄⁺）", "pKa": 9.25, "chargeAt74": 1 }
+    ] },
+    { "id": "h2o", "name": "水", "abbr": "H₂O", "kind": "intermediate", "formula": "H₂O", "charge": 0, "chargeBasis": "中性分子，不电离。", "ionizableGroups": [] },
+    { "id": "o2", "name": "氧", "abbr": "O₂", "kind": "gas", "formula": "O₂", "charge": 0, "chargeBasis": "中性分子，不电离。", "ionizableGroups": [] }
+  ],
+  "steps": [
+    {
+      "id": "aa-1",
+      "index": 1,
+      "name": "丙氨酸转氨酶（ALT）",
+      "short": "ALT 转氨",
+      "gate": "transamination",
+      "compartment": "both",
+      "organs": ["liver", "muscle"],
+      "equation": "L-丙氨酸 + α-酮戊二酸 ⇌ 丙酮酸 + L-谷氨酸",
+      "reaction": { "substrates": ["ala", "akg"], "products": ["pyr", "glu"], "cofactors": ["PLP（磷酸吡哆醛）"] },
+      "enzyme": { "name": "丙氨酸氨基转移酶", "gene": "GPT1 / GPT2", "ec": "2.6.1.2", "isozyme": "ALT1（胞质，GPT1）/ ALT2（线粒体，GPT2）", "organelle": "胞质与线粒体", "note": "人 ALT1 未见 ≤2.5 Å 的 Ala 复合物；3IHJ 为人 ALT2。" },
+      "direction": "reversible",
+      "deltaG": { "value": null, "qualitative": "转氨反应 ΔG°′ 近于 0，可逆；实际方向由 α-KG / 谷氨酸与丙氨酸 / 丙酮酸的浓度比决定。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（转氨反应）" },
+      "physiology": "把丙氨酸的氨基交给 α-KG，碳骨架成为丙酮酸；肝内丙酮酸可进入糖异生，是葡萄糖–丙氨酸循环的门户。",
+      "organDifference": "肝：ALT 活性高，丙氨酸→丙酮酸→糖异生；肌：ALT 较低，丙氨酸主要由肌释放入血送到肝。",
+      "sharedWith": [
+        { "pathwayId": "glycolysis", "stepId": "gk-10", "entityId": "pyr", "note": "丙酮酸是糖酵解终产物，也是糖异生起点。" },
+        { "pathwayId": "gluconeogenesis", "stepId": "gn-1", "entityId": "pyr", "note": "肝内丙酮酸经糖异生回到葡萄糖。" }
+      ],
+      "pdbCandidates": [
+        { "pdbId": "3IHJ", "title": "Alanine aminotransferase 2", "species": "Homo sapiens", "method": "X-ray", "resolution": 2.3, "chains": "A", "ligands": "PLP", "mutation": "无", "status": "verified", "note": "同工酶 ALT2（GPT2）的 PLP 复合物；无 Ala / Pyr 配体，不能当本步底物口袋。" },
+        { "pdbId": "1L1F", "title": "Glutamate Dehydrogenase 1", "species": "Homo sapiens", "method": "X-ray", "resolution": 2.7, "chains": "A,B,C,D,E,F", "ligands": "无", "mutation": "无", "status": "verified", "note": "人 GLDH apo，无 Glu / NAD(P) 配体；仅登记，不用于 3D。" }
+      ]
+    },
+    {
+      "id": "aa-2",
+      "index": 2,
+      "name": "天冬氨酸转氨酶（AST）",
+      "short": "AST 转氨",
+      "gate": "transamination",
+      "compartment": "both",
+      "organs": ["liver", "muscle"],
+      "equation": "L-天冬氨酸 + α-酮戊二酸 ⇌ 草酰乙酸 + L-谷氨酸",
+      "reaction": { "substrates": ["asp", "akg"], "products": ["oaa", "glu"], "cofactors": ["PLP（磷酸吡哆醛）"] },
+      "enzyme": { "name": "天冬氨酸氨基转移酶", "gene": "GOT1 / GOT2", "ec": "2.6.1.1", "isozyme": "GOT1（胞质）/ GOT2（线粒体）", "organelle": "胞质与线粒体", "note": "3II0 为人胞质 GOT1，含 PLP 与竞争性抑制剂酒石酸。" },
+      "direction": "reversible",
+      "deltaG": { "value": null, "qualitative": "转氨近平衡，可逆；草酰乙酸与谷氨酸的后续去除推动正反应。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（转氨反应）" },
+      "physiology": "把 Asp 的氨基转入 Glu，生成的 OAA 可进入 TCA 或糖异生；Asp 同时是尿素循环的第二个氮供体。",
+      "organDifference": "肝：AST 参与尿素循环与糖异生；肌：AST 与 ALT 共同处理运动产生的氨基。",
+      "sharedWith": [
+        { "pathwayId": "tca", "stepId": "tca-8", "entityId": "oaa", "note": "草酰乙酸回到 TCA 循环。" },
+        { "pathwayId": "urea-cycle", "stepId": "urea-3", "entityId": "asp", "note": "天冬氨酸是尿素循环的第二个氮供体。" }
+      ],
+      "pdbCandidates": [
+        { "pdbId": "3II0", "title": "Aspartate aminotransferase, cytoplasmic", "species": "Homo sapiens", "method": "X-ray", "resolution": 2.05, "chains": "A,B,C,D", "ligands": "PLP, TAR", "mutation": "无", "status": "verified", "note": "人 GOT1 的 PLP 复合物；TAR（酒石酸）是竞争性抑制剂，不是生理底物。" },
+        { "pdbId": "5AX8", "title": "Aspartate aminotransferase, mitochondrial", "species": "Homo sapiens", "method": "X-ray", "resolution": 2.99, "chains": "A,B,C,D", "ligands": "无", "mutation": "无", "status": "verified", "note": "人 GOT2 apo；分辨率 2.99 Å，仅登记。" }
+      ]
+    },
+    {
+      "id": "aa-3",
+      "index": 3,
+      "name": "谷氨酸脱氢酶（GLDH）",
+      "short": "GLDH 脱氨",
+      "gate": "oxidative-deamination",
+      "compartment": "mitochondria",
+      "organs": ["liver", "kidney"],
+      "equation": "L-谷氨酸 + NAD(P)⁺ ⇌ α-酮戊二酸 + NH₄⁺ + NAD(P)H",
+      "reaction": { "substrates": ["glu"], "products": ["akg", "nh4"], "cofactors": ["NAD⁺ / NADP⁺（氧化型）", "NADH / NADPH（还原型）"] },
+      "enzyme": { "name": "谷氨酸脱氢酶 1", "gene": "GLUD1", "ec": "1.4.1.2", "isozyme": "GLUD1（线粒体基质）/ GLUD2（神经组织）", "organelle": "线粒体基质", "note": "人 GLUD1 无配体复合物（1L1F 为 apo，2.7 Å）；本步只做 2D。" },
+      "direction": "reversible",
+      "deltaG": { "value": null, "qualitative": "正反应 ΔG°′ 略负，但在高 Glu、低 NH₄⁺ 条件下可逆；本页不写数值。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（氧化脱氨）" },
+      "physiology": "唯一以 NAD(P)⁺ 为辅酶的氧化脱氨反应；NH₄⁺ 直接进入尿素循环，α-KG 回补 TCA。",
+      "organDifference": "肝：GLDH 与尿素循环偶联处置血氨；肾：GLDH 与谷氨酰胺酶协同生成 NH₄⁺ 排酸。",
+      "sharedWith": [
+        { "pathwayId": "tca", "stepId": "tca-4", "entityId": "akg", "note": "α-KG 是 TCA 第 4 步底物，可回补循环。" },
+        { "pathwayId": "urea-cycle", "stepId": "urea-1", "entityId": "nh3", "note": "NH₄⁺ 进入尿素循环 PLATE 09。" }
+      ],
+      "pdbCandidates": [
+        { "pdbId": "1L1F", "title": "Glutamate Dehydrogenase 1", "species": "Homo sapiens", "method": "X-ray", "resolution": 2.7, "chains": "A,B,C,D,E,F", "ligands": "无", "mutation": "无", "status": "verified", "note": "人 GLUD1 apo；无 Glu / NAD(P) 配体，本步 3D 不建。" }
+      ]
+    },
+    {
+      "id": "aa-4",
+      "index": 4,
+      "name": "谷氨酰胺酶（GLS1）",
+      "short": "GLS 脱氨",
+      "gate": "oxidative-deamination",
+      "compartment": "mitochondria",
+      "organs": ["kidney", "liver"],
+      "equation": "L-谷氨酰胺 + H₂O → L-谷氨酸 + NH₄⁺",
+      "reaction": { "substrates": ["gln", "h2o"], "products": ["glu", "nh4"], "cofactors": [] },
+      "enzyme": { "name": "谷氨酰胺酶肾型", "gene": "GLS", "ec": "3.5.1.2", "isozyme": "GLS1（肾型，KGA）/ GLS2（肝型，GAB）", "organelle": "线粒体", "note": "3CZD 为人肾型 GLS1，2.4 Å，链 A，配体 GLU（产物结合态）；底物 Gln 未建模。" },
+      "direction": "forward",
+      "deltaG": { "value": null, "qualitative": "谷氨酰胺水解 ΔG°′ 明显负（不可逆）；肾脏生氨的方向由底物供给与排酸需求推动。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（谷氨酰胺与肾氨生成）" },
+      "physiology": "肾近端小管以谷氨酰胺为氮源生成 NH₄⁺ 排酸；谷氨酸可再经 GLDH 释放第二个氨，构成肾氨生成的两步。",
+      "organDifference": "肾：GLS1 高表达，是酸碱平衡核心；肝：表达较低，主要处理门静脉来源的谷氨酰胺。",
+      "sharedWith": [
+        { "pathwayId": "urea-cycle", "stepId": "urea-1", "entityId": "nh3", "note": "NH₄⁺ 的去向见尿素循环 PLATE 09；肾内也可直接排入尿。" }
+      ],
+      "pdbCandidates": [
+        { "pdbId": "3CZD", "title": "Glutaminase kidney isoform", "species": "Homo sapiens", "method": "X-ray", "resolution": 2.4, "chains": "A", "ligands": "GLU, SO4", "mutation": "无", "status": "verified", "note": "人肾型 GLS1 本酶口袋，GLU 为产物结合态；底物 Gln 未建模。GLU 的 3D 实验坐标即取自该条目。" }
+      ]
+    },
+    {
+      "id": "aa-5",
+      "index": 5,
+      "name": "支链氨基转移酶（BCAT2）",
+      "short": "BCAT2 转氨",
+      "gate": "transamination",
+      "compartment": "mitochondria",
+      "organs": ["muscle", "liver"],
+      "equation": "L-亮氨酸（/ Ile / Val） + α-酮戊二酸 ⇌ α-酮异己酸（/ 相应 α-酮酸） + L-谷氨酸",
+      "reaction": { "substrates": ["leu", "akg"], "products": ["kic", "glu"], "cofactors": ["PLP（磷酸吡哆醛）"] },
+      "enzyme": { "name": "支链氨基转移酶 2", "gene": "BCAT2", "ec": "2.6.1.42", "isozyme": "BCAT2（线粒体）/ BCAT1（胞质）", "organelle": "线粒体", "note": "1KT8 为人 BCAT2 与 PLP–异亮氨酸外部醛亚胺，配体是 Ile 而非 Leu。" },
+      "direction": "reversible",
+      "deltaG": { "value": null, "qualitative": "转氨近平衡，可逆；支链 α-酮酸的后续氧化推动通量。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（支链氨基酸分解）" },
+      "physiology": "肌是 BCAA 转氨的主要场所；生成的 α-酮酸经 BCKDH 氧化脱羧，进入乙酰-CoA / 乙酰乙酰-CoA / 琥珀酰-CoA。",
+      "organDifference": "肌：BCAT2 高，BCAA 用于供能；肝：BCAT2 较低，主要处理支链 α-酮酸。",
+      "sharedWith": [
+        { "pathwayId": "tca", "stepId": "tca-1", "entityId": "accoa", "note": "经 BCKDH 后，Leu / Ile 的碳骨架进入乙酰-CoA。" },
+        { "pathwayId": "tca", "stepId": "tca-5", "entityId": "succoa", "note": "Val 的碳骨架进入琥珀酰-CoA。" }
+      ],
+      "pdbCandidates": [
+        { "pdbId": "1KT8", "title": "Branched-chain amino acid aminotransferase, mitochondrial", "species": "Homo sapiens", "method": "X-ray", "resolution": 1.9, "chains": "A,B", "ligands": "ILP, ACY", "mutation": "无", "status": "verified", "note": "ILP = N-(O-phosphono-pyridoxyl)isoleucine（PLP–Ile 外部醛亚胺）；证明 PLP 转氨机制，但配体是 Ile 不是 Leu。" },
+        { "pdbId": "1OLS", "title": "2-Oxoisovalerate dehydrogenase alpha subunit", "species": "Homo sapiens", "method": "X-ray", "resolution": 1.85, "chains": "A", "ligands": "TPP, K, MN, GOL", "mutation": "未核实（条目标题为 His291 / His146 机制研究，可能是突变体）", "status": "verified", "note": "人 BCKDH E1 α 亚基，TPP 与 K / MN / GOL 均在坐标中；BCKDH 不在本页做独立步骤，仅登记为支链去路的下一酶。" }
+      ]
+    },
+    {
+      "id": "aa-6",
+      "index": 6,
+      "name": "苯丙氨酸羟化酶（PAH）",
+      "short": "PAH 羟化",
+      "gate": "secondary",
+      "compartment": "cytosol",
+      "organs": ["liver"],
+      "equation": "L-苯丙氨酸 + BH₄ + O₂ → L-酪氨酸 + BH₂ + H₂O",
+      "reaction": { "substrates": ["phe", "o2"], "products": ["tyr", "h2o"], "cofactors": ["BH₄（四氢生物蝶呤）", "Fe(II)"] },
+      "enzyme": { "name": "苯丙氨酸羟化酶", "gene": "PAH", "ec": "1.14.16.1", "isozyme": "单一基因产物（肝细胞胞质）", "organelle": "胞质", "note": "1J8U 为人 PAH 催化域 1.5 Å，Fe(II) 与 BH₄（H4B）均在坐标中；无 Phe / Tyr 底物建模。" },
+      "direction": "forward",
+      "deltaG": { "value": null, "qualitative": "BH₄ 依赖的羟化不可逆，ΔG°′ 明显负；本页不写数值。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（芳香族氨基酸分解）" },
+      "physiology": "肝内把 Phe 转为 Tyr，是 Phe 分解的唯一出口；Tyr 可进一步生糖兼生酮。",
+      "organDifference": "肝：PAH 主要表达部位；其他组织表达低，PKU 的表型以肝为主。",
+      "sharedWith": [
+        { "pathwayId": "tca", "stepId": "tca-6", "entityId": "fum", "note": "Tyr 分解产生延胡索酸，进入 TCA。" },
+        { "pathwayId": "tca", "stepId": "tca-1", "entityId": "accoa", "note": "Tyr 分解同时产生乙酰乙酰-CoA → 乙酰-CoA。" }
+      ],
+      "pdbCandidates": [
+        { "pdbId": "1J8U", "title": "Phenylalanine-4-hydroxylase catalytic domain", "species": "Homo sapiens", "method": "X-ray", "resolution": 1.5, "chains": "A", "ligands": "FE2, H4B", "mutation": "无", "status": "verified", "note": "人 PAH 催化域，Fe(II) 与 BH₄（H4B）均在坐标中；无 Phe / Tyr 底物建模。" },
+        { "pdbId": "6HYC", "title": "Full-length phenylalanine hydroxylase", "species": "Homo sapiens", "method": "X-ray", "resolution": 3.18, "chains": "A,B,C,D", "ligands": "H4B", "mutation": "无", "status": "verified", "note": "人全长 PAH 与 BH₄（H4B）复合物；3.18 Å，仅登记，不用于 3D。" }
+      ]
+    },
+    {
+      "id": "aa-7",
+      "index": 7,
+      "name": "胱硫醚 β-合酶（CBS）",
+      "short": "CBS 转硫",
+      "gate": "secondary",
+      "compartment": "cytosol",
+      "organs": ["liver", "kidney"],
+      "equation": "L-高半胱氨酸 + L-丝氨酸 → L-胱硫醚 + H₂O",
+      "reaction": { "substrates": ["hcy", "ser"], "products": ["cystathionine", "h2o"], "cofactors": ["PLP（磷酸吡哆醛）", "血红素（heme）"] },
+      "enzyme": { "name": "胱硫醚 β-合酶", "gene": "CBS", "ec": "4.2.1.22", "isozyme": "单一基因产物（四聚体）", "organelle": "胞质", "note": "4COO 为人 CBS Δ516–525 构建体，含 PLP 与血红素；缺失片段是构建体设计，不是点突变。" },
+      "direction": "forward",
+      "deltaG": { "value": null, "qualitative": "缩合反应不可逆，ΔG°′ 明显负；本页不写数值。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（含硫氨基酸代谢）" },
+      "physiology": "把高半胱氨酸的硫转移给丝氨酸，生成胱硫醚；下游可生成半胱氨酸与 α-酮丁酸，前者生糖。",
+      "organDifference": "肝：CBS 是转硫通路主场所；肾：表达亦高，参与同型半胱氨酸清除。",
+      "sharedWith": [
+        { "pathwayId": "glycolysis", "stepId": "gk-10", "entityId": "pyr", "note": "半胱氨酸碳骨架可经丙酮酸进入糖异生（生糖）。" },
+        { "pathwayId": "tca", "stepId": "tca-6", "entityId": "fum", "note": "含硫氨基酸分解的碳骨架最终可进入 TCA。" }
+      ],
+      "pdbCandidates": [
+        { "pdbId": "4COO", "title": "Cystathionine beta-synthase", "species": "Homo sapiens", "method": "X-ray", "resolution": 2.0, "chains": "A,B", "ligands": "PLP, HEM, ACT, EDO, PE4", "mutation": "构建体缺失 516–525（非点突变）", "status": "verified", "note": "人 CBS 的 PLP + 血红素双辅因子结构；无 Hcy / Ser 底物建模。" }
+      ]
+    }
+  ],
+  "fates": [
+    { "id": "fate-pyr", "name": "丙酮酸", "en": "PYRUVATE", "entityId": "pyr", "status": "linked", "sharedWith": [
+      { "pathwayId": "glycolysis", "stepId": "gk-10", "entityId": "pyr", "note": "糖酵解终产物" },
+      { "pathwayId": "gluconeogenesis", "stepId": "gn-1", "entityId": "pyr", "note": "糖异生起点" }
+    ], "sources": ["ala", "cys", "gly", "ser", "thr", "trp"], "note": "生糖；来自 Ala、Cys、Gly、Ser、Thr、Trp 等。" },
+    { "id": "fate-accoa", "name": "乙酰-CoA", "en": "ACETYL-COA", "entityId": "accoa", "status": "linked", "sharedWith": [
+      { "pathwayId": "tca", "stepId": "tca-1", "entityId": "accoa", "note": "进入 TCA 第 1 步" }
+    ], "sources": ["leu", "lys", "ile", "phe", "tyr", "trp", "thr"], "note": "生酮；Leu、Lys 只走这一侧，Ile / Phe / Trp / Tyr 兼生糖。" },
+    { "id": "fate-acacoa", "name": "乙酰乙酰-CoA", "en": "ACETOACETYL-COA", "entityId": null, "status": "unbuilt", "sharedWith": [], "sources": ["leu", "lys", "phe", "tyr", "trp"], "note": "生酮去路；本平台尚未建立生酮通路，故不指向任何 id，不编造接口。" },
+    { "id": "fate-akg", "name": "α-酮戊二酸", "en": "ALPHA-KETOGLUTARATE", "entityId": "akg", "status": "linked", "sharedWith": [
+      { "pathwayId": "tca", "stepId": "tca-4", "entityId": "akg", "note": "TCA 第 4 步底物" }
+    ], "sources": ["glu", "gln", "arg", "pro", "his"], "note": "生糖；Glu / Gln / Arg / Pro / His 的碳骨架汇入 α-KG。" },
+    { "id": "fate-succoa", "name": "琥珀酰-CoA", "en": "SUCCINYL-COA", "entityId": "succoa", "status": "linked", "sharedWith": [
+      { "pathwayId": "tca", "stepId": "tca-5", "entityId": "succoa", "note": "TCA 第 5 步底物" }
+    ], "sources": ["ile", "met", "val", "thr"], "note": "生糖；Ile、Met、Val、Thr 经丙酰-CoA / 甲基丙二酰-CoA 进入琥珀酰-CoA。" },
+    { "id": "fate-fum", "name": "延胡索酸", "en": "FUMARATE", "entityId": "fum", "status": "linked", "sharedWith": [
+      { "pathwayId": "tca", "stepId": "tca-6", "entityId": "fum", "note": "TCA 第 6 步产物" },
+      { "pathwayId": "urea-cycle", "stepId": "urea-4", "entityId": "fumarate", "note": "尿素循环第 4 步产物，同一分子的另一套 id" }
+    ], "sources": ["asp", "phe", "tyr"], "note": "生糖；Asp、Phe、Tyr 的碳骨架经延胡索酸进入 TCA。" },
+    { "id": "fate-oaa", "name": "草酰乙酸", "en": "OXALOACETATE", "entityId": "oaa", "status": "linked", "sharedWith": [
+      { "pathwayId": "tca", "stepId": "tca-8", "entityId": "oaa", "note": "TCA 第 8 步底物" },
+      { "pathwayId": "gluconeogenesis", "stepId": "gn-1", "entityId": "oaa", "note": "糖异生中间物" }
+    ], "sources": ["asp"], "note": "生糖；Asp 直接转氨生成 OAA。" }
+  ],
+  "organs": [
+    { "id": "liver", "name": "肝", "en": "LIVER", "role": "转氨 + 尿素循环主场所", "detail": "ALT / AST 活性高；GLDH 释放的 NH₄⁺ 进入尿素循环；PAH、CBS 主要在此表达。" },
+    { "id": "muscle", "name": "肌", "en": "MUSCLE", "role": "BCAA 供能", "detail": "BCAT2 高表达，支链氨基酸转氨后经 BCKDH 氧化供能；肌缺乏完整尿素循环，氮以丙氨酸 / 谷氨酰胺送回肝。" },
+    { "id": "kidney", "name": "肾", "en": "KIDNEY", "role": "谷氨酰胺酶生 NH₄⁺", "detail": "GLS1 高表达，以谷氨酰胺生成 NH₄⁺ 排酸；GLDH 可释放第二个氨，参与酸碱平衡。" }
+  ],
+  "clinical": [
+    { "id": "pku", "name": "PAH 缺陷", "disease": "苯丙酮尿症（PKU）", "omim": "261600", "enzyme": "苯丙氨酸羟化酶", "gene": "PAH", "defect": "Phe → Tyr 受阻，Phe 蓄积并经转氨生成苯丙酮酸。", "note": "BH₄ 合成 / 再生缺陷（GCH1、PTPS、DHPR、QDPR）也可致高苯丙氨酸血症，需另行鉴别；本页不画蝶呤通路。", "stepId": "aa-6", "evidence": "1J8U（人 PAH 催化域，1.5 Å，Fe(II) + BH₄）" },
+    { "id": "msud", "name": "BCAT2 / BCKDH 缺陷", "disease": "枫糖尿病（MSUD）", "omim": "248600", "enzyme": "支链 α-酮酸脱氢酶复合体（BCKDH）", "gene": "BCKDHA / BCKDHB / DBT / DLD", "defect": "支链 α-酮酸（KIC 等）蓄积；BCAT2 是支链代谢入口，BCKDH 是氧化脱羧闸门。", "note": "经典型 MSUD 由 BCKDH 复合体缺陷引起，不是 BCAT2 缺陷；本页把两者并列，是因为转氨与脱羧是同一支路的连续两步。", "stepId": "aa-5", "evidence": "1KT8（人 BCAT2，1.9 Å，ILP = PLP–Ile 外部醛亚胺）；1OLS（人 BCKDH E1，1.85 Å，TPP）" },
+    { "id": "homocystinuria", "name": "CBS 缺陷", "disease": "同型半胱氨酸尿症", "omim": "236200", "enzyme": "胱硫醚 β-合酶", "gene": "CBS", "defect": "Hcy → 胱硫醚受阻，同型半胱氨酸蓄积。", "note": "MTHFR 或钴胺素代谢缺陷也可致同型半胱氨酸升高；本页只画 CBS 这一步。", "stepId": "aa-7", "evidence": "4COO（人 CBS Δ516–525，2.0 Å，PLP + HEM）" }
+  ],
+  "regulation": [
+    { "id": "reg-gldh", "target": "GLDH（GLUD1）", "signal": "ADP / GDP 与 Leu 激活；ATP / GTP 抑制", "effect": "能量不足时促进谷氨酸脱氨、回补 TCA；能量充足时保留谷氨酸用于合成。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18" },
+    { "id": "reg-bckdh", "target": "BCKDH 复合体", "signal": "BCKDK 磷酸化失活；PDP1 去磷酸激活；胰岛素促进去磷酸", "effect": "进食后胰岛素促进支链 α-酮酸氧化；饥饿时 BCKDH 活性下降，保留 BCAA。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18" }
+  ],
+  "interfaces": [
+    { "id": "if-urea", "target": "尿素循环 PLATE 09", "route": "NH₄⁺ → 尿素", "note": "血氨处置见尿素循环 PLATE 09；本页不重复画五步。", "link": "/pathway/urea-cycle?step=urea-1" },
+    { "id": "if-gly", "target": "糖酵解 PLATE 01", "route": "丙酮酸 ↔ 糖酵解", "note": "丙酮酸既是糖酵解终产物，也是糖异生起点。", "link": "/pathway/glycolysis?step=gk-10" },
+    { "id": "if-tca", "target": "TCA 循环 PLATE 02", "route": "α-KG / 琥珀酰-CoA / 延胡索酸 / OAA → TCA", "note": "五条生糖去路经 TCA 中间物回补循环。", "link": "/pathway/tca?step=tca-4" },
+    { "id": "if-gng", "target": "糖异生 PLATE 03", "route": "丙酮酸 / OAA → 糖异生", "note": "生糖氨基酸的碳骨架最终进入糖异生。", "link": "/pathway/gluconeogenesis?step=gn-1" },
+    { "id": "if-ketone", "target": "生酮通路（未建）", "route": "乙酰乙酰-CoA → 生酮", "note": "本平台尚未建立生酮通路，因此该去路不指向任何 id，不编造接口。" }
+  ],
+  "energyLedger": {
+    "title": "能量账",
+    "basis": "转氨与氧化脱氨本身不水解 ATP；GLDH / BCKDH 产生的 NAD(P)H 进入呼吸链，不在本通路记 ATP。",
+    "unit": "ATP",
+    "entries": [],
+    "note": "无净收支：本页七步不产生也不消耗 ATP；GLDH 与支链氧化产生的 NAD(P)H 归属呼吸链账本，不在此处硬凑数字。"
+  },
+  "threeD": {
+    "status": "pending",
+    "note": "酶 3D 面板默认关闭；本轮不生成酶 3D 资产，只登记已向 RCSB 核验的 PDB 候选。小分子 3D 沿用既有资产（GLU 取自 3CZD，正是 GLS 本酶口袋）；新增 8 个氨基酸相关分子只做 2D。"
+  },
+  "notes": [
+    { "id": "n-alt", "level": "pending", "text": "ALT1（GPT1）人源未见 ≤2.5 Å 的 Ala 复合物；3IHJ 为人 ALT2（GPT2），仅 PLP，无底物。" },
+    { "id": "n-ast", "level": "verified", "text": "3II0 为人 GOT1，含 PLP；TAR 为酒石酸竞争性抑制剂，不能当生理底物。" },
+    { "id": "n-gldh", "level": "pending", "text": "人 GLDH 无配体复合物（1L1F 为 apo，2.7 Å），本步 3D 不建，只做 2D。" },
+    { "id": "n-gls", "level": "verified", "text": "3CZD 为人肾型 GLS1 本酶口袋，GLU 为产物结合态；底物 Gln 未建模。GLU 的 3D 实验坐标即取自该条目。" },
+    { "id": "n-bcat", "level": "verified", "text": "1KT8 配体 ILP 是 PLP–异亮氨酸外部醛亚胺，不是亮氨酸；只能证明 PLP 机制，不能冒充 Leu 口袋。" },
+    { "id": "n-pah", "level": "verified", "text": "1J8U 为人 PAH 催化域，Fe(II) 与 BH₄（H4B）均在坐标中；无 Phe / Tyr 底物建模。" },
+    { "id": "n-cbs", "level": "verified", "text": "4COO 为人 CBS Δ516–525 构建体，含 PLP 与血红素；缺失片段是构建体设计，不是点突变。" },
+    { "id": "n-ketone", "level": "unbuilt", "text": "乙酰乙酰-CoA 去路无对应通路数据；不指向幽灵 id，不编造接口。" },
+    { "id": "n-thr", "level": "disputed", "text": "Thr 归属教材有分歧：Lehninger 8e 列生糖；部分教材按乙酰-CoA 生成列生糖兼生酮。本页按 Lehninger 8e 并注明分歧。" },
+    { "id": "n-deltag", "level": "pending", "text": "全部 ΔG 为 null + 定性 + 出处；未编造数值。" }
+  ],
+  "references": [
+    { "id": "ref-leh", "text": "Lehninger Principles of Biochemistry, 8e, Ch.18（Amino Acid Oxidation and the Production of Urea）" },
+    { "id": "ref-3ihj", "text": "RCSB PDB 3IHJ（人 ALT2 / GPT2，X-ray 2.30 Å，链 A，PLP）" },
+    { "id": "ref-3ii0", "text": "RCSB PDB 3II0（人 GOT1，X-ray 2.05 Å，链 A–D，PLP + TAR）" },
+    { "id": "ref-1l1f", "text": "RCSB PDB 1L1F（人 GLUD1 apo，X-ray 2.70 Å，链 A–F）" },
+    { "id": "ref-3czd", "text": "RCSB PDB 3CZD（人 GLS1，X-ray 2.40 Å，链 A，GLU + SO4）" },
+    { "id": "ref-1kt8", "text": "RCSB PDB 1KT8（人 BCAT2，X-ray 1.90 Å，链 A–B，ILP + ACY）" },
+    { "id": "ref-1ols", "text": "RCSB PDB 1OLS（人 BCKDH E1，X-ray 1.85 Å，链 A，TPP + K + MN + GOL）" },
+    { "id": "ref-1j8u", "text": "RCSB PDB 1J8U（人 PAH 催化域，X-ray 1.50 Å，链 A，FE2 + H4B）" },
+    { "id": "ref-4coo", "text": "RCSB PDB 4COO（人 CBS Δ516–525，X-ray 2.00 Å，链 A–B，PLP + HEM）" },
+    { "id": "ref-uniprot", "text": "UniProt：GPT1 P24298 / GPT2 Q8TD30 / GOT1 P17174 / GOT2 P00505 / GLUD1 P00367 / BCAT2 O15382 / PAH P00439 / CBS P35520 / GLS O94925 / BCKDHA P12694" }
+  ]
+}

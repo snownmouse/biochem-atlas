@@ -199,10 +199,10 @@ await page.waitForTimeout(120);
 const organNote = await page.locator("[data-organ-note]").innerText();
 check("乳腺下 KS 如实写「本步无差异」", organNote.includes("本步无") && organNote.includes("乳腺（泌乳期）"), organNote);
 
-// ===== 10) 1440 首页展开档：十条通路标题全见 =====
-// 政策（2026-11-05）：无参数默认改为「收起辅助栏 + 等比铺满」，首屏完整可见 8/10。
-// 本条原判定口径是展开档，用同一套 ?fold=open 还原；断言与阈值未改。
-// 默认档 8/10 的新口径在 smoke-home 第 15 节按四视口逐档实测。
+// ===== 10) 1440 首页展开档：十条既有标题全见（第 11 条氨基酸代谢允许出屏） =====
+// 政策（2026-11-05）：无参数默认改为「收起辅助栏 + 等比铺满」，首屏完整可见 8/11。
+// 本条原判定口径是展开档，用同一套 ?fold=open 还原；断言与阈值未改，仅按用户口径
+// 把第 11 条（氨基酸代谢，y=650）排除在「必须可见」之外（不许压其它标题坐标）。
 await page.setViewportSize({ width: 1440, height: 900 });
 await page.goto(`${BASE}/?fold=open`, { waitUntil: "networkidle" });
 const homeTitles = await page.locator("[data-pathway-title]").evaluateAll((els) => {
@@ -220,13 +220,18 @@ const homeTitles = await page.locator("[data-pathway-title]").evaluateAll((els) 
     };
   });
 });
-check("首页十条通路标题（八区块 + 糖原 + Cori 连接带）", homeTitles.length === 10, String(homeTitles.length));
+check("首页十一条通路标题（八区块 + 糖原 + Cori 连接带 + 氨基酸）", homeTitles.length === 11, String(homeTitles.length));
 check("首页出现「脂肪酸从头合成」标题", homeTitles.some((t) => t.id === "fatty-acid-synthesis" && t.text.includes("脂肪酸从头合成")));
 check("首页出现「尿素循环」标题", homeTitles.some((t) => t.id === "urea-cycle" && t.text.includes("尿素循环")));
 check("首页出现「糖原代谢」标题", homeTitles.some((t) => t.id === "glycogen" && t.text.includes("糖原代谢")));
-check("首页十条标题都在 1440×900 首屏内", homeTitles.every((t) => t.x >= 0 && t.right <= 1440 && t.y >= 0 && t.bottom <= 900), JSON.stringify(homeTitles.map((t) => [t.id, t.y, t.bottom])));
-const lowest = Math.max(...homeTitles.map((t) => t.bottom));
-check("十条标题最低底边 ≤ 900", lowest <= 900, String(Math.round(lowest)));
+check(
+  "1440×900 展开档：仅氨基酸代谢出屏，其余十条全在屏内",
+  homeTitles.every((t) => t.id === "amino-acids" || (t.x >= 0 && t.right <= 1440 && t.y >= 0 && t.bottom <= 900)) &&
+    homeTitles.filter((t) => t.id !== "amino-acids").length === 10,
+  JSON.stringify(homeTitles.map((t) => [t.id, t.y, t.bottom])),
+);
+const lowest = Math.max(...homeTitles.filter((t) => t.id !== "amino-acids").map((t) => t.bottom));
+check("除氨基酸代谢外，十条标题最低底边 ≤ 900", lowest <= 900, String(Math.round(lowest)));
 const fasTitle = homeTitles.find((t) => t.id === "fatty-acid-synthesis");
 const faoTitle = homeTitles.find((t) => t.id === "fatty-acid-oxidation");
 check("FAS 标题在 β-氧化标题上方（胞质侧镜像）", Boolean(fasTitle && faoTitle) && fasTitle.bottom < faoTitle.y, JSON.stringify([fasTitle?.bottom, faoTitle?.y]));

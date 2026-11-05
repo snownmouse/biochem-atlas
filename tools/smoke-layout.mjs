@@ -2,7 +2,7 @@
 // 用法：node tools/audit-layout.mjs --tag after && node tools/smoke-layout.mjs
 //
 // 断言（任一失败即非零退出）：
-//   ① 图框：首页 / 10 张挂图 / 9 张结构页 / 3 张单步页，凡出现图框元素者，四边均为 1px 细边框、
+//   ① 图框：首页 / 11 张挂图 / 10 张结构页 / 3 张单步页，凡出现图框元素者，四边均为 1px 细边框、
 //      四边内边距 ≥ 24px（`.plate-scroll`、`.e3d-stage`、`.mol3d-stage`、`.s-viewer`、`.film-stage .stage-canvas`）。
 //   ② 横向：页面级横向溢出必须为 0；挂在 overflow:hidden/clip 内且不可滚的溢出必须为 0；
 //      被祖先裁切 ≥1px 的元素必须为 0。允许（且只允许）容器级 `overflow-x:auto` 的可滚横向。
@@ -42,6 +42,8 @@ const urea = read("src/data/urea-cycle/urea.json");
 const ureaSkel = read("src/data/urea-cycle/skeleton.json");
 const glycogen = read("src/data/glycogen/glycogen.json");
 const glycogenSkel = read("src/data/glycogen/skeleton.json");
+const amino = read("src/data/amino-acid/amino.json");
+const aminoSkel = read("src/data/amino-acid/skeleton.json");
 
 const COMPLEX_NODE_IDS = ["complex-i", "complex-ii", "complex-iii", "cytc", "complex-iv", "atp-synthase"];
 const EXPECT = {
@@ -62,6 +64,7 @@ const EXPECT = {
   cori: { steps: cori.arms.reduce((n, a) => n + a.steps.length, 0), nodes: coriSkel.nodes.length },
   "urea-cycle": { steps: urea.steps.length, nodes: ureaSkel.nodes.length },
   glycogen: { steps: glycogen.steps.length, nodes: glycogenSkel.nodes.length },
+  "amino-acids": { steps: amino.steps.length, nodes: aminoSkel.nodes.length },
 };
 
 const ROUTE_IDS = [
@@ -76,6 +79,7 @@ const ROUTE_IDS = [
   "fas",
   "urea-cycle",
   "glycogen",
+  "amino-acids",
   "structures-glycolysis",
   "structures-tca",
   "structures-gluconeogenesis",
@@ -84,6 +88,7 @@ const ROUTE_IDS = [
   "structures-fas",
   "structures-urea-cycle",
   "structures-glycogen",
+  "structures-amino-acids",
   "structures-oxphos",
   "step-gk-1",
   "step-gk-6",
@@ -191,6 +196,7 @@ const STRUCT_ROUTE_KEY = {
   "structures-fas": "fatty-acid-synthesis",
   "structures-urea-cycle": "urea-cycle",
   "structures-glycogen": "glycogen",
+  "structures-amino-acids": "amino-acids",
   "structures-oxphos": "oxphos",
 };
 const cmpSrc = readFileSync(resolve(ROOT, "src/data/comparisonConfig.ts"), "utf8");
@@ -204,6 +210,7 @@ const dataSf = new Map();
 if (fas.structurePlateNo) dataSf.set("fatty-acid-synthesis", fas.structurePlateNo.replace("SF-", ""));
 if (urea.structureNo) dataSf.set("urea-cycle", urea.structureNo.replace("SF-", ""));
 if (ox.structurePlateNo) dataSf.set("oxphos", ox.structurePlateNo.replace("SF-", ""));
+if (amino.structureNo) dataSf.set("amino-acids", amino.structureNo.replace("SF-", ""));
 const shownSf = [];
 for (const p of report.pages.filter((x) => x.viewport === 1440)) {
   const key = STRUCT_ROUTE_KEY[p.page];
@@ -217,8 +224,8 @@ for (const p of report.pages.filter((x) => x.viewport === 1440)) {
   if (shown) shownSf.push(Number(shown));
 }
 shownSf.sort((a, b) => a - b);
-if (shownSf.length !== 9 || shownSf.join(",") !== "1,2,3,4,5,6,8,9,10") {
-  fail(`⑥ 结构页编号集合不符：页面 ${shownSf.join(",")} ≠ {01,02,03,04,05,06,08,09,10}`);
+if (shownSf.length !== 10 || shownSf.join(",") !== "1,2,3,4,5,6,8,9,10,11") {
+  fail(`⑥ 结构页编号集合不符：页面 ${shownSf.join(",")} ≠ {01,02,03,04,05,06,08,09,10,11}`);
 }
 
 // 汇总
@@ -230,5 +237,5 @@ if (failures.length) {
 console.log(
   `smoke-layout PASS：${report.pages.length} 页（${ROUTE_IDS.length} 路由 × ${VIEWPORTS.length} 视口）｜` +
     `图框 1px/≥24px ✓｜横向溢出 0 ✓｜有效文本重叠 0 ✓｜节点/步骤/模块与数据源一致 ✓｜无缩放控件 ✓｜` +
-    `结构页编号三方一致（9 页 = {01–06,08,09,10}）✓（共 ${totalChecks} 组断言 + 编号交叉核对）`
+    `结构页编号三方一致（10 页 = {01–06,08,09,10,11}）✓（共 ${totalChecks} 组断言 + 编号交叉核对）`
 );

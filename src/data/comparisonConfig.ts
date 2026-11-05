@@ -2849,6 +2849,294 @@ const GLYCOGEN_CONFIG: ComparisonConfig = {
   steps: GLYCOGEN_COMPARISON,
 };
 
+// ============================================================
+// 氨基酸代谢（PLATE 11 · 结构对照 SF-11）
+// 七块：ALT → AST → GLDH → GLS → BCAT2 → PAH → CBS。
+// 只做小分子对照，不渲染酶 3D（enzymePanel=false）；酶 PDB 身份在挂图页实时核验。
+// 新补的 8 个分子只有 2D 资产（RDKit 由 pH 7.4 两性离子 SMILES 生成），不建 3D、不写 PDB 坐标。
+// 等级由 evidenceGrade.ts 从 pocketRole + species + coordSource 推导，不手写。
+// ============================================================
+const AMINO_LEU = {
+  id: "leu",
+  name: "L-亮氨酸（Leu）",
+  formula: "C₆H₁₃NO₂",
+  asset2d: D2("leu"),
+  caveat: "只做 2D：本轮仅由 RDKit 生成结构式，无本步 BCAT2 口袋的人源实验配体坐标，不建 3D。",
+  sourceNote: "无实验坐标：仅 2D 结构式（RDKit，pH 7.4 两性离子），不建 3D。",
+};
+const AMINO_KIC = {
+  id: "kic",
+  name: "α-酮异己酸（KIC）",
+  formula: "C₆H₉O₃",
+  asset2d: D2("kic"),
+  caveat: "只做 2D：BCAT2 产物，无本酶口袋实验坐标，不建 3D。",
+  sourceNote: "无实验坐标：仅 2D 结构式（RDKit），不建 3D。",
+};
+const AMINO_PHE = {
+  id: "phe",
+  name: "L-苯丙氨酸（Phe）",
+  formula: "C₉H₁₁NO₂",
+  asset2d: D2("phe"),
+  caveat: "只做 2D：PAH 底物；人 PAH 结构 1J8U / 6HYC 均未建模 Phe，不借其他酶坐标冒充。",
+  sourceNote: "无本酶底物坐标：1J8U（人 PAH 催化域）只含 Fe(II) + BH₄，Phe 未建模；仅 2D 结构式。",
+};
+const AMINO_TYR = {
+  id: "tyr",
+  name: "L-酪氨酸（Tyr）",
+  formula: "C₉H₁₁NO₃",
+  asset2d: D2("tyr"),
+  caveat: "只做 2D：PAH 产物；人 PAH 结构未建模 Tyr，不借其他酶坐标冒充。",
+  sourceNote: "无本酶产物坐标：1J8U / 6HYC 均未建模 Tyr；仅 2D 结构式。",
+};
+const AMINO_HCY = {
+  id: "hcy",
+  name: "L-高半胱氨酸（Hcy）",
+  formula: "C₄H₉NO₂S",
+  asset2d: D2("hcy"),
+  caveat: "只做 2D：CBS 底物；本轮未提取 CBS 本酶口袋的同分子坐标，不建 3D。",
+  sourceNote: "无本酶配体坐标：4COO 含 PLP + 血红素，但未建模 Hcy；仅 2D 结构式。",
+};
+const AMINO_SER = {
+  id: "ser",
+  name: "L-丝氨酸（Ser）",
+  formula: "C₃H₇NO₃",
+  asset2d: D2("ser"),
+  caveat: "只做 2D：CBS 另一底物；无本酶口袋坐标，不建 3D。",
+  sourceNote: "无本酶配体坐标：仅 2D 结构式（RDKit）。",
+};
+const AMINO_CYSTATHIONINE = {
+  id: "cystathionine",
+  name: "L-胱硫醚（Cystathionine）",
+  formula: "C₇H₁₄N₂O₄S",
+  asset2d: D2("cystathionine"),
+  caveat: "只做 2D：CBS 产物；4COO 未建模胱硫醚，不建 3D。",
+  sourceNote: "无本酶产物坐标：仅 2D 结构式（RDKit）。",
+};
+const AMINO_GLN = {
+  id: "gln",
+  name: "L-谷氨酰胺（Gln）",
+  formula: "C₅H₁₀N₂O₃",
+  asset2d: D2("gln"),
+  caveat: "只做 2D：GLS1 底物；3CZD（人 GLS1）只建模产物 Glu，未建模 Gln，不借坐标冒充。",
+  sourceNote: "无本酶底物坐标：3CZD 只含产物 GLU + SO4；仅 2D 结构式。",
+};
+
+const AMINO_COMPARISON: StepComparison[] = [
+  {
+    stepId: "aa-1",
+    index: 1,
+    enzyme: "丙氨酸氨基转移酶（ALT）",
+    isozyme: "GPT1 / GPT2 · PLP 依赖",
+    equation: "L-丙氨酸 + α-酮戊二酸 ⇌ 丙酮酸 + L-谷氨酸",
+    substrate: {
+      name: "L-丙氨酸 + α-酮戊二酸",
+      formula: "C₃H₇NO₂ + C₅H₄O₅²⁻",
+      parts: [ALA_MOL, AKG],
+      cofactorNote: "PLP 不入画：辅因子在酶内完成氨基传递，本块只对照底物 / 产物碳骨架。",
+    },
+    product: {
+      name: "丙酮酸 + L-谷氨酸",
+      formula: "C₃H₃O₃⁻ + C₅H₈NO₄⁻",
+      parts: [PYR, GLU_MOL],
+      cofactorNote: "氨基转移到 α-KG 上；两个产物各自独立入画，不拼成一个分子。",
+    },
+    arrowLabel: "ALT · 氨基从 Ala 转到 α-KG",
+    change: "Ala 的 α-氨基转移给 α-KG，生成 Glu；Ala 失去氨基后成为 Pyr。碳骨架未被氧化，只换了氨基归属。",
+    physiology: "ALT 是肝细胞胞质最主要的转氨酶；血清 ALT 升高是肝细胞损伤的常用指标。",
+    evidence: {
+      substrate: [evOtherHuman("ala"), evOtherHuman("akg")],
+      product: [evComputed("pyr"), evOtherHuman("glu")],
+    },
+    defaultMode: "3d",
+    defaultModeRule: "两侧 3D 均可读出：Ala 8JDW、α-KG 5I95、Glu 3CZD 为实验坐标，Pyr 为计算构象；重原子数与体积改变，按 3D。",
+  },
+  {
+    stepId: "aa-2",
+    index: 2,
+    enzyme: "天冬氨酸氨基转移酶（AST）",
+    isozyme: "GOT1（胞质）/ GOT2（线粒体）· PLP 依赖",
+    equation: "L-天冬氨酸 + α-酮戊二酸 ⇌ 草酰乙酸 + L-谷氨酸",
+    substrate: {
+      name: "L-天冬氨酸 + α-酮戊二酸",
+      formula: "C₄H₆NO₄⁻ + C₅H₄O₅²⁻",
+      parts: [UREA_ASP, AKG],
+      cofactorNote: "PLP 不入画；Asp 的 β-羧基保留在草酰乙酸上。",
+    },
+    product: {
+      name: "草酰乙酸 + L-谷氨酸",
+      formula: "C₄H₂O₅²⁻ + C₅H₈NO₄⁻",
+      parts: [OAA, GLU_MOL],
+      cofactorNote: "OAA 与 Glu 分别入画；OAA 是 TCA 与糖异生的共用节点。",
+    },
+    arrowLabel: "AST · 氨基从 Asp 转到 α-KG",
+    change: "Asp 的 α-氨基转移给 α-KG，生成 Glu；Asp 碳骨架成为 OAA。氨基位置不变，只是换了载体。",
+    physiology: "AST 在肝、心肌、骨骼肌均有表达；GOT1 / GOT2 分别位于胞质与线粒体，参与苹果酸–天冬氨酸穿梭。",
+    evidence: {
+      substrate: [evOtherHuman("urea-asp"), evOtherHuman("akg")],
+      product: [evOtherHuman("oaa"), evOtherHuman("glu")],
+    },
+    defaultMode: "3d",
+    defaultModeRule: "两侧均有实验 3D（Asp 2NZ2、α-KG 5I95、OAA 8ZVW、Glu 3CZD）；均为非本步酶口袋，按 3D 对照碳骨架。",
+  },
+  {
+    stepId: "aa-3",
+    index: 3,
+    enzyme: "谷氨酸脱氢酶（GLDH）",
+    isozyme: "GLUD1（线粒体）· NAD(P)⁺ 依赖",
+    equation: "L-谷氨酸 + NAD(P)⁺ + H₂O → α-酮戊二酸 + NH₄⁺ + NAD(P)H + H⁺",
+    substrate: {
+      name: "L-谷氨酸",
+      formula: "C₅H₈NO₄⁻",
+      parts: [GLU_MOL],
+      cofactorNote: "NAD(P)⁺ 与 H₂O 不入画；辅酶在酶内传递电子。",
+    },
+    product: {
+      name: "α-酮戊二酸（＋ NH₄⁺）",
+      formula: "C₅H₄O₅²⁻",
+      parts: [AKG],
+      cofactorNote: "NH₄⁺ 只做文字：1 个重原子无可读三维形状，且其去向由 PLATE 09 处理，不在此画成尿素循环。",
+    },
+    arrowLabel: "GLDH · 氧化脱氨",
+    change: "Glu 的 α-氨基被氧化并以 NH₄⁺ 释放，碳骨架成为 α-KG。这是氨基酸氮进入尿素循环的主要闸门。",
+    physiology: "GLDH 在线粒体基质高表达；ADP / GDP 与 Leu 激活，ATP / GTP 抑制。释放的 NH₄⁺ 交由尿素循环处置。",
+    evidence: {
+      substrate: [evOtherHuman("glu")],
+      product: [evOtherHuman("akg")],
+    },
+    defaultMode: "3d",
+    defaultModeRule: "两侧均有实验 3D（Glu 3CZD、α-KG 5I95）；NH₄⁺ 不建 3D、只做文字，不参与模式判定。",
+  },
+  {
+    stepId: "aa-4",
+    index: 4,
+    enzyme: "谷氨酰胺酶（GLS1）",
+    isozyme: "肾型 · 线粒体",
+    equation: "L-谷氨酰胺 + H₂O → L-谷氨酸 + NH₄⁺",
+    substrate: {
+      name: "L-谷氨酰胺",
+      formula: "C₅H₁₀N₂O₃",
+      parts: [AMINO_GLN],
+      cofactorNote: "H₂O 不入画；Gln 的酰胺氮以 NH₄⁺ 释放。",
+    },
+    product: {
+      name: "L-谷氨酸（＋ NH₄⁺）",
+      formula: "C₅H₈NO₄⁻",
+      parts: [GLU_MOL],
+      cofactorNote: "NH₄⁺ 只做文字，去向见 PLATE 09。",
+    },
+    arrowLabel: "GLS1 · 酰胺水解",
+    change: "Gln 的侧链酰胺被水解为 Glu 与 NH₄⁺；碳骨架从 5C 酰胺变成 5C 酸，净减少一个氮。",
+    physiology: "肾 GLS1 以谷氨酰胺生成 NH₄⁺ 排酸；3CZD 正是人 GLS1 与本步产物 Glu 的复合物。",
+    evidence: {
+      substrate: [evOnly2d("gln")],
+      product: [evOwnHuman("glu")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "Gln 只有 2D（3CZD 未建模底物），单侧 3D 不足以做两侧对照；保持 2D。",
+  },
+  {
+    stepId: "aa-5",
+    index: 5,
+    enzyme: "支链氨基转移酶 2（BCAT2）",
+    isozyme: "线粒体 · PLP 依赖",
+    equation: "L-亮氨酸 + α-酮戊二酸 ⇌ α-酮异己酸 + L-谷氨酸",
+    substrate: {
+      name: "L-亮氨酸 + α-酮戊二酸",
+      formula: "C₆H₁₃NO₂ + C₅H₄O₅²⁻",
+      parts: [AMINO_LEU, AKG],
+      cofactorNote: "PLP 不入画；BCAT2 是可逆转氨酶，把 BCAA 的氨基交给 α-KG。",
+    },
+    product: {
+      name: "α-酮异己酸 + L-谷氨酸",
+      formula: "C₆H₉O₃ + C₅H₈NO₄⁻",
+      parts: [AMINO_KIC, GLU_MOL],
+      cofactorNote: "KIC 是 Leu 对应的 α-酮酸，随后由 BCKDH 氧化脱羧。",
+    },
+    arrowLabel: "BCAT2 · 支链氨基酸转氨",
+    change: "Leu 的 α-氨基转到 α-KG，生成 Glu 与 KIC；支链碳骨架保留，等待 BCKDH 脱羧。",
+    physiology: "BCAT2 在肌、肝、肾表达；肌内 BCAA 转氨后经 BCKDH 氧化供能。BCKDH 缺陷导致枫糖尿病。",
+    evidence: {
+      substrate: [evOnly2d("leu"), evOtherHuman("akg")],
+      product: [evOnly2d("kic"), evOtherHuman("glu")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "Leu / KIC 只有 2D；α-KG / Glu 虽有 3D，但两侧不齐，保持 2D。",
+  },
+  {
+    stepId: "aa-6",
+    index: 6,
+    enzyme: "苯丙氨酸羟化酶（PAH）",
+    isozyme: "BH₄ + Fe(II) 依赖 · 肝",
+    equation: "L-苯丙氨酸 + O₂ + BH₄ → L-酪氨酸 + H₂O + BH₃",
+    substrate: {
+      name: "L-苯丙氨酸",
+      formula: "C₉H₁₁NO₂",
+      parts: [AMINO_PHE],
+      cofactorNote: "O₂ 与 BH₄ 不入画：BH₄ 在反应中再生，O₂ 只有 2 个重原子。",
+    },
+    product: {
+      name: "L-酪氨酸",
+      formula: "C₉H₁₁NO₃",
+      parts: [AMINO_TYR],
+      cofactorNote: "H₂O 与 BH₃ 不入画；本块只对照 Phe → Tyr 的苯环羟化。",
+    },
+    arrowLabel: "PAH · 苯环对位羟化",
+    change: "Phe 的苯环对位加一个 OH，成为 Tyr；碳骨架与氨基不变，只多一个氧。",
+    physiology: "PAH 主要在肝表达；缺陷导致苯丙酮尿症（PKU）。1J8U / 6HYC 为人 PAH 的 Fe(II) + BH₄ 结构。",
+    evidence: {
+      substrate: [evOnly2d("phe")],
+      product: [evOnly2d("tyr")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "两侧只有 2D；人 PAH 结构均未建模底物 / 产物，不拿酶坐标冒充配体。",
+  },
+  {
+    stepId: "aa-7",
+    index: 7,
+    enzyme: "胱硫醚 β-合酶（CBS）",
+    isozyme: "PLP + 血红素依赖 · 转硫途径",
+    equation: "L-高半胱氨酸 + L-丝氨酸 → L-胱硫醚 + H₂O",
+    substrate: {
+      name: "L-高半胱氨酸 + L-丝氨酸",
+      formula: "C₄H₉NO₂S + C₃H₇NO₃",
+      parts: [AMINO_HCY, AMINO_SER],
+      cofactorNote: "PLP 与血红素不入画；两者在酶内参与 β-取代反应。",
+    },
+    product: {
+      name: "L-胱硫醚",
+      formula: "C₇H₁₄N₂O₄S",
+      parts: [AMINO_CYSTATHIONINE],
+      cofactorNote: "H₂O 不入画；胱硫醚随后被 CBS 下游酶裂解为 Cys 与 α-KG。",
+    },
+    arrowLabel: "CBS · Hcy 与 Ser 缩合",
+    change: "Hcy 的硫与 Ser 的侧链缩合，生成胱硫醚；这是同型半胱氨酸进入转硫途径的入口。",
+    physiology: "CBS 在肝、肾表达；缺陷导致同型半胱氨酸尿症。4COO 为人 CBS（Δ516–525）与 PLP + 血红素复合物。",
+    evidence: {
+      substrate: [evOnly2d("hcy"), evOnly2d("ser")],
+      product: [evOnly2d("cystathionine")],
+    },
+    defaultMode: "2d",
+    defaultModeRule: "三端均只有 2D；4COO 未建模底物 / 产物，不拿酶坐标冒充配体。",
+  },
+];
+
+const AMINO_CONFIG: ComparisonConfig = {
+  pathwayId: "amino-acids",
+  title: "氨基酸代谢 · 结构对照",
+  summary:
+    "七块逐步对照：ALT、AST、GLDH、GLS1、BCAT2、PAH、CBS。只做小分子 2D/3D，不渲染酶三维；8 个新分子（Leu、KIC、Phe、Tyr、Hcy、Ser、胱硫醚、Gln）只有 2D 结构式，逐条在首屏写原因。所有 PDB 身份已在挂图页向 RCSB 实时核验；ΔG 一律 null，只写定性方向与 Lehninger 8e 出处。",
+  plateNo: "PLATE SF-11 · 结构对照 · 氨基酸代谢 · 2026",
+  back: { to: "/pathway/amino-acids", label: "← 返回挂图" },
+  backCaption: "氨基酸代谢 · 结构对照（挂图页 /pathway/amino-acids）",
+  enzymePanel: false,
+  enzymePanelOffNote: "本通路不渲染酶三维：ALT / AST / GLDH / GLS1 / BCAT2 / PAH / CBS 只做 PDB 身份核验，不截取酶结构冒充全酶。",
+  footerNote:
+    "氨基酸代谢 7 块：ALT、AST、GLDH、GLS1、BCAT2、PAH、CBS。3D 只用于已有实验坐标的 Ala / α-KG / Glu / Pyr / OAA / Asp（Ala 8JDW、α-KG 5I95、Glu 3CZD、OAA 8ZVW、Asp 2NZ2；Pyr 为计算构象），且多数不是本步酶口袋，块内 sourceNote 已逐条写明。8 个新分子与 4COO / 1J8U / 6HYC 等酶结构只做 2D 或只做身份核验：PAH 的 1J8U（1.5 Å，Fe(II) + BH₄）与 6HYC（3.18 Å，BH₄）均未建模 Phe / Tyr；CBS 的 4COO（2.0 Å，PLP + 血红素）未建模 Hcy / 丝氨酸 / 胱硫醚；BCKDH 的 1OLS（1.85 Å，TPP + K + MN + GOL）标题为 His291 / His146 机制研究，突变状态未核实。全部 ΔG 为 null，只写定性方向与 Lehninger 8e Ch.18，不编数字。NH₄⁺ 的去向见尿素循环 PLATE 09，本页不重复画。",
+  defaultModePolicy:
+    "默认模式逐块决定：两侧都有可比 3D 资产且重原子数 / 体积改变 → 3D；任一侧只有 2D → 2D。?mode=2d|3d 为显式覆盖，优先级高于默认值。",
+  steps: AMINO_COMPARISON,
+};
+
 export const COMPARISON_CONFIGS: Record<string, ComparisonConfig> = {
   glycolysis: GLYCOLYSIS_CONFIG,
   tca: TCA_CONFIG,
@@ -2858,6 +3146,7 @@ export const COMPARISON_CONFIGS: Record<string, ComparisonConfig> = {
   "fatty-acid-synthesis": FAS_CONFIG,
   "urea-cycle": UREA_CONFIG,
   glycogen: GLYCOGEN_CONFIG,
+  "amino-acids": AMINO_CONFIG,
 };
 
 export const comparisonConfigFor = (pathwayId?: string): ComparisonConfig | null =>

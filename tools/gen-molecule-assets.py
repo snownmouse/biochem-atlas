@@ -615,6 +615,51 @@ GLYCOGEN_2D_MOLS = [
 ]
 GLYCOGEN_2D_IDS = {m["id"] for m in GLYCOGEN_2D_MOLS}
 
+# 氨基酸代谢（PLATE 11）：仅补 2D，不生成 3D。SMILES 统一按 pH 7.4 电离态书写。
+AMINO_2D_MOLS = [
+    dict(id="leu", name="L-亮氨酸（Leu）", formula="C6H13NO2",
+         smiles="[NH3+][C@@H](CC(C)C)C(=O)[O-]",
+         no3d=True,
+         form="L-亮氨酸两性离子（α-NH₃⁺ / α-COO⁻，净电荷 0）",
+         caveat="本轮仅补 2D；无本步酶口袋的人源实验配体坐标，不生成 3D。"),
+    dict(id="kic", name="α-酮异己酸（KIC）", formula="C6H9O3",
+         smiles="CC(C)CC(=O)C(=O)[O-]",
+         no3d=True,
+         form="α-酮异己酸（α-酮酸阴离子，pH 7.4 羧基电离）",
+         caveat="本轮仅补 2D；无实验配体坐标，不生成 3D。"),
+    dict(id="phe", name="L-苯丙氨酸（Phe）", formula="C9H11NO2",
+         smiles="[NH3+][C@@H](Cc1ccccc1)C(=O)[O-]",
+         no3d=True,
+         form="L-苯丙氨酸两性离子（净电荷 0）",
+         caveat="本轮仅补 2D；无本步酶口袋的人源实验配体坐标，不生成 3D。"),
+    dict(id="tyr", name="L-酪氨酸（Tyr）", formula="C9H11NO3",
+         smiles="[NH3+][C@@H](Cc1ccc(O)cc1)C(=O)[O-]",
+         no3d=True,
+         form="L-酪氨酸两性离子（酚羟基 pKa≈10，pH 7.4 不电离；净电荷 0）",
+         caveat="本轮仅补 2D；无本步酶口袋的人源实验配体坐标，不生成 3D。"),
+    dict(id="hcy", name="L-高半胱氨酸（Hcy）", formula="C4H9NO2S",
+         smiles="[NH3+][C@@H](CCS)C(=O)[O-]",
+         no3d=True,
+         form="L-高半胱氨酸两性离子（巯基 pKa≈10.4，pH 7.4 不电离；净电荷 0）",
+         caveat="本轮仅补 2D；无本步酶口袋的人源实验配体坐标，不生成 3D。"),
+    dict(id="ser", name="L-丝氨酸（Ser）", formula="C3H7NO3",
+         smiles="[NH3+][C@@H](CO)C(=O)[O-]",
+         no3d=True,
+         form="L-丝氨酸两性离子（净电荷 0）",
+         caveat="本轮仅补 2D；无本步酶口袋的人源实验配体坐标，不生成 3D。"),
+    dict(id="cystathionine", name="L-胱硫醚（Cystathionine）", formula="C7H14N2O4S",
+         smiles="[NH3+][C@@H](CCSC[C@H]([NH3+])C(=O)[O-])C(=O)[O-]",
+         no3d=True,
+         form="L-胱硫醚两性离子（两个 α-羧基 −2、两个 α-氨基 +2，净电荷 0）",
+         caveat="本轮仅补 2D；无实验配体坐标，不生成 3D。"),
+    dict(id="gln", name="L-谷氨酰胺（Gln）", formula="C5H10N2O3",
+         smiles="[NH3+][C@@H](CCC(N)=O)C(=O)[O-]",
+         no3d=True,
+         form="L-谷氨酰胺两性离子（侧链酰胺不电离，净电荷 0）",
+         caveat="本轮仅补 2D；无本步酶口袋的人源实验配体坐标，不生成 3D。"),
+]
+AMINO_2D_IDS = {m["id"] for m in AMINO_2D_MOLS}
+
 
 def copytemp(src_rel, sdf_name):
     src = os.path.join(ROOT, src_rel)
@@ -1218,7 +1263,7 @@ def svg_only():
 
 def main():
     ap = argparse.ArgumentParser(description="离线生成分子 2D/3D 资产")
-    ap.add_argument("--pathway", choices=["glycolysis", "tca", "ppp", "gluconeogenesis", "fao", "urea", "fas", "glycogen"], default="glycolysis",
+    ap.add_argument("--pathway", choices=["glycolysis", "tca", "ppp", "gluconeogenesis", "fao", "urea", "fas", "glycogen", "amino"], default="glycolysis",
                     help="默认 glycolysis（保持原报告路径与行为）；tca/ppp/gluconeogenesis/fao/urea/fas 写独立报告")
     ap.add_argument("--svg-only", action="store_true",
                     help="只按现有 2D JSON 重绘 SVG（配色专用，幂等）")
@@ -1254,6 +1299,10 @@ def main():
         generate(GLYCOGEN_2D_MOLS, GLYCOGEN_2D_IDS,
                  os.path.join(ROOT, "preview", "glycogen-2d-assets-report.json"),
                  "2026-11-05 · 糖原（仅 2D）")
+    elif args.pathway == "amino":
+        generate(AMINO_2D_MOLS, AMINO_2D_IDS,
+                 os.path.join(ROOT, "preview", "amino-2d-assets-report.json"),
+                 "2026-11-05 · 氨基酸代谢（仅 2D）")
     else:
         generate(MOLS, TWO_D_IDS, REPORT, "2026-11-03")
 

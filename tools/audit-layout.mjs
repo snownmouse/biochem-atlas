@@ -34,6 +34,8 @@ const urea = read("src/data/urea-cycle/urea.json");
 const ureaSkel = read("src/data/urea-cycle/skeleton.json");
 const glycogen = read("src/data/glycogen/glycogen.json");
 const glycogenSkel = read("src/data/glycogen/skeleton.json");
+const amino = read("src/data/amino-acid/amino.json");
+const aminoSkel = read("src/data/amino-acid/skeleton.json");
 
 const EXPECT = {
   glycolysis: {
@@ -99,6 +101,13 @@ const EXPECT = {
     sources: ["glycogen/glycogen.json", "glycogen/skeleton.json"],
     plate: glycogen.plateNo,
   },
+  "amino-acids": {
+    // 七个步骤：aa-1…aa-5 以主链步骤标签呈现；aa-6 / aa-7 只走临床支路节点（仍带 data-step-id）
+    steps: amino.steps.length,
+    nodes: aminoSkel.nodes.length,
+    sources: ["amino-acid/amino.json", "amino-acid/skeleton.json"],
+    plate: amino.plateNo,
+  },
 };
 
 const ROUTES = [
@@ -113,6 +122,7 @@ const ROUTES = [
   { id: "fas", path: "/pathway/fas", kind: "poster", pathway: "fatty-acid-synthesis" },
   { id: "urea-cycle", path: "/pathway/urea-cycle", kind: "poster", pathway: "urea-cycle" },
   { id: "glycogen", path: "/pathway/glycogen", kind: "poster", pathway: "glycogen" },
+  { id: "amino-acids", path: "/pathway/amino-acids", kind: "poster", pathway: "amino-acids" },
   { id: "structures-glycolysis", path: "/structures/glycolysis", kind: "structures" },
   { id: "structures-tca", path: "/structures/tca", kind: "structures" },
   { id: "structures-gluconeogenesis", path: "/structures/gluconeogenesis", kind: "structures" },
@@ -121,6 +131,7 @@ const ROUTES = [
   { id: "structures-fas", path: "/structures/fatty-acid-synthesis", kind: "structures" },
   { id: "structures-urea-cycle", path: "/structures/urea-cycle", kind: "structures" },
   { id: "structures-glycogen", path: "/structures/glycogen", kind: "structures" },
+  { id: "structures-amino-acids", path: "/structures/amino-acids", kind: "structures" },
   { id: "structures-oxphos", path: "/structures/oxphos", kind: "structures" },
   { id: "step-gk-1", path: "/step/gk-1", kind: "step" },
   { id: "step-gk-6", path: "/step/gk-6", kind: "step" },
