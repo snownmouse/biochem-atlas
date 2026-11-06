@@ -35,7 +35,7 @@ const NAV = [
   { id: "cholesterol", name: "胆固醇合成", route: "/pathway/cholesterol" },
 ];
 
-/** 全页口径：11 张挂图 + 结构对照页（本脚本额外覆盖全部 10 张结构页与首页） */
+/** 全页口径：11 张挂图 + 结构对照页（本脚本额外覆盖全部 12 张结构页与首页） */
 const PAGES = [
   { route: "/", current: "home" },
   { route: "/pathway/glycolysis", current: "glycolysis" },
@@ -61,6 +61,7 @@ const PAGES = [
   { route: "/structures/glycogen", current: "glycogen" },
   { route: "/structures/amino-acids", current: "amino-acids" },
   { route: "/structures/cholesterol", current: "cholesterol" },
+  { route: "/structures/cori", current: "cori" },
 ];
 
 async function launch() {
@@ -156,6 +157,25 @@ check("从 TCA 页点 Cori 落到 /pathway/cori", page.url().endsWith("/pathway/
 check("Cori 页切换器高亮切到 Cori 循环", (await page.locator('[data-testid="pathway-switcher"] [data-nav-id="cori"] a[aria-current="page"]').count()) === 1);
 await page.screenshot({ path: join(ROOT, "preview", "nav-tca-to-cori.png"), fullPage: false });
 console.log("✓ 截图 preview/nav-tca-to-cori.png（1440 实测路径：TCA → Cori）");
+
+/* ===== 3b) Cori 三停檐：结构对照停已是可用链接，结构页可返回挂图 ===== */
+{
+  const stop = page.locator('[data-rail-stop="structure"]');
+  const tag = await stop.evaluate((el) => el.tagName);
+  const href = await stop.getAttribute("href");
+  const disabled = await stop.getAttribute("data-rail-disabled");
+  check(
+    "Cori 挂图三停檐「结构对照」为可用链接（不再是灰态）",
+    tag === "A" && href === "/structures/cori" && disabled === null,
+    `${tag} ${href} disabled=${disabled}`,
+  );
+  await page.goto(`${BASE}/structures/cori`, { waitUntil: "networkidle" });
+  await page.waitForSelector('[data-testid="pathway-rail"]');
+  const posterHref = await page.locator('[data-rail-stop="poster"]').getAttribute("href");
+  const structureCurrent = await page.locator('[data-rail-stop="structure"][aria-current="page"]').count();
+  check("结构页三停檐「Cori 循环」回 /pathway/cori", posterHref === "/pathway/cori", posterHref ?? "null");
+  check("结构页三停檐当前停为「结构对照」", structureCurrent === 1, String(structureCurrent));
+}
 
 /* ===== 4) 同一通路内切换保留 ?step= / ?organ=（自链 + 结构页回挂图） ===== */
 await page.goto(`${BASE}/pathway/glycolysis?organ=rbc&step=gk-3`, { waitUntil: "networkidle" });

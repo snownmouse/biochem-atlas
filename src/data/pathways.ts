@@ -40,7 +40,7 @@ const NAV_ENTRIES: PathwayNavEntry[] = [
     id: "cori",
     name: cori.name,
     route: "/pathway/cori",
-    structureRoute: null,
+    structureRoute: "/structures/cori",
     plateNo: plateDigits(cori.plateNo),
   },
 ];

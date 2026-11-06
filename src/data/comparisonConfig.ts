@@ -345,7 +345,7 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     substrate: {
       name: "3-磷酸甘油酸（3PG）",
       formula: "C₃H₄O₇P",
-      parts: [{ ...PG3, sourceNote: "取自人磷酸甘油酸激酶 PGK1 PDB 9FDN（1.58 Å · X-ray · Homo sapiens · 链 A · 配体 3PG）——人源但非本步 PGAM 口袋；实验坐标。", marks: [{ name: "C3", kind: "newbond", note: "磷酸离开 C3" }, { name: "P3", kind: "newbond" }] }],
+      parts: [{ ...PG3, sourceNote: "取自人磷酸甘油酸激酶 PGK1 PDB 9FDN（1.58 Å · X-ray · Homo sapiens · 链 A · 配体 3PG）——人源但非本步 PGAM 口袋；实验坐标。", caveat: "键级来自模板，坐标为实验结构原值；键长偏长未做几何纠正。", marks: [{ name: "C3", kind: "newbond", note: "磷酸离开 C3" }, { name: "P3", kind: "newbond" }] }],
     },
     product: {
       name: "2-磷酸甘油酸（2PG）",
@@ -989,7 +989,7 @@ const CO2 = {
   formula: "CO₂",
   asset2d: D2("co2"),
   no3dReason: "CO₂ 仅 3 个原子，球棍模型没有形状信息量；2D 结构式已足以表示，3D 不建，不用假球填充。",
-  caveat: "只做 2D；不建 3D（数据层 co2/no3d 记录原因），不拿假球冒充实验结构。",
+  caveat: "按口径只做 2D：CO₂ 仅 3 个原子，球棍模型没有形状信息量；3D 不建，不承诺后续。",
   sourceNote: "无实验配体坐标：CO₂ 仅 3 原子，PDB 无可用络合物；本页只做 2D 结构式，3D 不建（原因见分子说明）。",
 };
 
@@ -1053,7 +1053,7 @@ const HCO3 = {
   formula: "CHO₃⁻",
   asset2d: D2("hco3"),
   no3dReason: "HCO₃⁻ 仅 4 个原子，球棍模型没有形状信息量；2D 结构式已足以表示，3D 不建，不用假球填充。",
-  caveat: "只做 2D；不建 3D（数据层 hco3/no3d 记录原因），不拿假球冒充实验结构。",
+  caveat: "按口径只做 2D：HCO₃⁻ 仅 4 个原子，球棍模型没有形状信息量；3D 不建，不承诺后续。",
   sourceNote: "无实验配体坐标：HCO₃⁻ 仅 4 原子，PDB 无可用络合物；本页只做 2D 结构式，3D 不建（原因见分子说明）。",
 };
 
@@ -2079,7 +2079,7 @@ const FAS_MALONYL_FRAG = {
   name: "丙二酰-CoA（反应端片段）",
   formula: "C₃H₃O₃S（片段）",
   asset2d: D2("fas-malonyl"),
-  caveat: "游离羧酸 −1、硫酯 0；羧基碳在缩合时以 CO₂ 离去，不进入碳链。",
+  caveat: "游离羧酸 −1、硫酯 0；羧基碳在缩合时以 CO₂ 离去，不进入碳链。键级来自模板，坐标为实验结构原值；键长偏长未做几何纠正。",
   sourceNote:
     "实验坐标：PDB 8H6C · 链 C · 配体 MLC（X-ray，2.5 Å，Homo sapiens）· 来源蛋白是人 GCN5 组蛋白乙酰转移酶，不是本步 ACC、也不是 FASN；本酶口袋内同分子高分辨结构未获。只取丙二酰基 + 硫酯 S 的实测几何，CoA 长链省略。",
 };
@@ -2187,7 +2187,7 @@ const FAS_COMPARISON: StepComparison[] = [
       name: "乙酰-ACP（C2 引物） + 丙二酰-ACP",
       formula: "C₂H₃OS + C₃H₃O₃S（反应端片段）",
       parts: [{ ...FAS_C2_ACP, marks: [{ name: "C2", kind: "newbond", note: "成键位点（C2–C3）" }] }],
-      cofactorNote: "丙二酰-ACP 由 ACC 产物经 MAT 转到 ACP；ACP 不作独立分子入画。",
+      cofactorNote: "丙二酰-ACP 由 ACC 产物经 MAT 转到 ACP；ACP 不作独立分子入画。丙二酰单元的键级来自模板，坐标为实验结构原值（1HNJ · 链 A · MLC A350），键长偏长未做几何纠正。",
     },
     product: {
       name: "3-酮丁酰-ACP（C4）",
@@ -2351,7 +2351,7 @@ const UREA_NH3 = {
   formula: "NH₃",
   asset2d: D2("urea-nh3"),
   no3dReason: "NH₃ 仅 1 个重原子，球棍模型没有可读的三维形状；沿用项目 CO₂ / HCO₃⁻ 口径只做 2D，不伪造 3D。",
-  caveat: "只做 2D；不建 3D。",
+  caveat: "按口径只做 2D：NH₃ 仅 1 个重原子，没有可读的三维形状；3D 不建，不承诺后续。",
   sourceNote: "无实验配体坐标：NH₃ 仅 1 个重原子，无可读三维形状；本页只做 2D 结构式，3D 不建。",
 };
 const UREA_CAP = {
@@ -2361,7 +2361,7 @@ const UREA_CAP = {
   asset2d: D2("urea-cap"),
   no3dReason:
     "氨甲酰磷酸在水溶液中不稳定（易水解为氨甲酸 / 磷酸），且本轮未获本酶 CPS1 口袋内同分子高分辨络合物；按项目「不稳定中间体只做 2D」的口径，3D 留缺并如实说明。",
-  caveat: "2D 为 RDKit 由 SMILES 生成的结构式，不是三维构象。",
+  caveat: "按口径只做 2D：氨甲酰磷酸易水解，未获本酶 CPS1 口袋内同分子高分辨结构；3D 不建，不承诺后续。",
   sourceNote: "无实验坐标、无计算 3D：本酶 CPS1 口袋内同分子高分辨结构未获，且 CAP 易水解；只做 2D 结构式。",
 };
 const UREA_ORN = {
@@ -3433,6 +3433,42 @@ const CHOLESTEROL_CONFIG: ComparisonConfig = {
   steps: CHOLESTEROL_COMPARISON,
 };
 
+/** Cori 循环没有自己的酶：9 块全部按 stepId 引用既有对照块，不新建分子、不新建 3D 资产。 */
+const coriStep = (stepId: string, stageLabel: string): StepComparison => {
+  const block = [...GLYCOLYSIS_COMPARISON, ...GLUCONEOGENESIS_COMPARISON].find((s) => s.stepId === stepId);
+  if (!block) throw new Error(`Cori 结构对照引用了不存在的步骤 ${stepId}`);
+  return { ...block, stageLabel };
+};
+
+const CORI_COMPARISON: StepComparison[] = [
+  coriStep("gk-1", "肌肉侧 · 糖酵解第 1 步"),
+  coriStep("gk-3", "肌肉侧 · 糖酵解第 3 步"),
+  coriStep("gk-6", "肌肉侧 · 糖酵解第 6 步"),
+  coriStep("gk-10", "肌肉侧 · 糖酵解第 10 步"),
+  coriStep("gn-cori", "乳酸 ⇄ 丙酮酸 · LDH（肌肉侧逆向 / 肝侧正向）"),
+  coriStep("gn-1", "肝侧 · 糖异生第 1 步"),
+  coriStep("gn-2", "肝侧 · 糖异生第 2 步"),
+  coriStep("gn-9", "肝侧 · 糖异生第 9 步"),
+  coriStep("gn-11", "肝侧 · 糖异生第 11 步"),
+];
+
+const CORI_CONFIG: ComparisonConfig = {
+  pathwayId: "cori",
+  title: "Cori 循环 · 结构对照",
+  summary:
+    "九块逐步对照：肌肉侧引用糖酵解 gk-1 / gk-3 / gk-6 / gk-10，乳酸 ⇄ 丙酮酸引用 gn-cori；肝侧引用糖异生 gn-1 / gn-2 / gn-9 / gn-11。Cori 循环没有自己的酶，本页不重画任何反应，也不新建任何分子或 3D 资产：九块的结构、2D / 3D 资产、证据等级与来源说明全部按 stepId 取自既有通路的结构对照页。MCT / MPC 等连接件不是酶促步骤，不入块。",
+  plateNo: "PLATE SF-07 · 结构对照 · Cori 循环 · 2026",
+  back: { to: "/pathway/cori", label: "← 返回挂图" },
+  backCaption: "Cori 循环 · 结构对照",
+  enzymePanel: false,
+  enzymePanelOffNote: "Cori 循环不渲染酶三维：两个臂都是对既有通路的引用，本页不新建酶结构资产。",
+  footerNote:
+    "本页 9 块全部按全局唯一的 stepId 引用既有对照块（糖酵解 4 块 + LDH 双向 1 块 + 糖异生 4 块），分子几何、证据等级、配体来源逐条沿用原块，不在本页另造数据。2D / 3D 资产与 /pathway/glycolysis、/pathway/gluconeogenesis 的结构对照页完全一致。缺少 2D 资产、因而未建块的只有转运连接件（MCT4 / MCT1 / MPC）：它们本来就不是酶促步骤。",
+  defaultModePolicy:
+    "默认模式按数据判据逐块决定：重原子数不变 + 拓扑改变（原子命名下的连接/键级/环大小变化）+ |ΔV| ≤ 2.5% → 该块默认 2D，其余默认 3D。?mode=2d|3d 为显式覆盖，优先级高于默认值。",
+  steps: CORI_COMPARISON,
+};
+
 export const COMPARISON_CONFIGS: Record<string, ComparisonConfig> = {
   glycolysis: GLYCOLYSIS_CONFIG,
   tca: TCA_CONFIG,
@@ -3444,6 +3480,7 @@ export const COMPARISON_CONFIGS: Record<string, ComparisonConfig> = {
   glycogen: GLYCOGEN_CONFIG,
   "amino-acids": AMINO_CONFIG,
   cholesterol: CHOLESTEROL_CONFIG,
+  cori: CORI_CONFIG,
 };
 
 export const comparisonConfigFor = (pathwayId?: string): ComparisonConfig | null =>

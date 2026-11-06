@@ -408,7 +408,28 @@ await page.screenshot({ path: join(ROOT, "preview", "cori-1280.png"), fullPage: 
 await page.setViewportSize({ width: 1440, height: 900 });
 console.log("✓ 截图 preview/cori-plate-full.png（1440 整张画布）/ cori-1280.png（1280 全页）");
 
-/* ===== 12) 无页面错误（全流程结束后再确认一次） ===== */
+/* ===== 12) Cori 结构对照页 SF-07 ===== */
+await page.goto(`${BASE}/structures/cori`, { waitUntil: "networkidle" });
+const sf = await page.evaluate(() => {
+  const blocks = Array.from(document.querySelectorAll("[data-step-id]"));
+  return {
+    plate: document.querySelector(".plate-no")?.textContent ?? "",
+    blocks: blocks.length,
+    ids: blocks.map((el) => el.getAttribute("data-step-id")),
+    back: document.querySelector('[data-testid="structures-back"]')?.getAttribute("href") ?? null,
+  };
+});
+check("结构对照页 /structures/cori 可达", page.url().endsWith("/structures/cori"));
+check("结构页报头 PLATE SF-07", /PLATE SF-07/.test(sf.plate), sf.plate);
+check(
+  "结构页对照块精确 = 9（gk-1/3/6/10 · gn-cori · gn-1/2/9/11）",
+  sf.blocks === 9 && sf.ids.join(",") === "gk-1,gk-3,gk-6,gk-10,gn-cori,gn-1,gn-2,gn-9,gn-11",
+  `${sf.blocks}：${sf.ids.join(",")}`
+);
+check("结构页底部返回 /pathway/cori", sf.back === "/pathway/cori", String(sf.back));
+console.log("✓ 截图 preview/cori-structures.png");
+
+/* ===== 13) 无页面错误（全流程结束后再确认一次） ===== */
 check("全流程无页面错误", errors.length === 0, errors.slice(0, 3).join(" | "));
 
 await browser.close();

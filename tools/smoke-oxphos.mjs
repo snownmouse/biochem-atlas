@@ -3,7 +3,7 @@
 // 覆盖：
 //   · 数据层：7 个模块、质子回路单独建档、P/O 2.5 / 1.5、复合体 II 与 TCA 共享、
 //     ΔG 全部 null + 定性、3D 只给两个可溶结构域；
-//   · 路由、编号 PLATE 06 / 12 与 SF-06，首页主挂图与结构页编号精确等于 {01–06,08,09,10}（07 空缺属 Cori）；
+//   · 路由、编号 PLATE 06 / 12 与 SF-06，首页主挂图编号精确等于 {01–06,08,09,10,11,12}（07 属 Cori 回路，不占标题块），结构页编号精确等于 {01–12}；
 //   · 内膜带构图：I / II / Q / III / IV / ATP 合酶嵌在带上，cyt c 在膜间腔一侧，
 //     ATP 在基质侧产出；
 //   · 电子流（实线实心箭头）与质子流（青色虚线开放式箭头）两套线型严格分开；
@@ -170,12 +170,12 @@ check(
   mainNos.join(","),
 );
 const cmpSrc = fs.readFileSync(join(ROOT, "src/data/comparisonConfig.ts"), "utf8");
-// SF 号对齐 PLATE 号：结构页 01–06 + 08 + 09 + 10 + 11 + 12（07 空缺留给 Cori；06 为氧化磷酸化专页，存在 oxphos.json）
+// SF 号对齐 PLATE 号：结构页 01–12（07 为 Cori 结构对照，已接入 /structures/cori；06 为氧化磷酸化专页，存在 oxphos.json）
 const sfNos = [...cmpSrc.matchAll(/^  plateNo: "PLATE SF-(\d{2})/gm)].map((m) => Number(m[1]));
 const sfAll = [...new Set([...sfNos, Number(ox.structurePlateNo.slice(3))])].sort((a, b) => a - b);
 check(
-  "结构页编号精确等于 {01,02,03,04,05,06,08,09,10,11,12}，无重复、无跳号（07 空缺留给 Cori）",
-  new Set(sfNos).size === sfNos.length && sfAll.join(",") === "1,2,3,4,5,6,8,9,10,11,12",
+  "结构页编号精确等于 {01,02,03,04,05,06,07,08,09,10,11,12}，无重复、无跳号（07 已由 Cori 补齐）",
+  new Set(sfNos).size === sfNos.length && sfAll.join(",") === "1,2,3,4,5,6,7,8,9,10,11,12",
   sfAll.join(","),
 );
 

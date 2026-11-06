@@ -2,7 +2,7 @@
 // 用法：node tools/audit-layout.mjs --tag after && node tools/smoke-layout.mjs
 //
 // 断言（任一失败即非零退出）：
-//   ① 图框：首页 / 12 张挂图 / 11 张结构页 / 3 张单步页，凡出现图框元素者，四边均为 1px 细边框、
+//   ① 图框：首页 / 12 张挂图 / 12 张结构页 / 3 张单步页，凡出现图框元素者，四边均为 1px 细边框、
 //      四边内边距 ≥ 24px（`.plate-scroll`、`.e3d-stage`、`.mol3d-stage`、`.s-viewer`、`.film-stage .stage-canvas`）。
 //   ② 横向：页面级横向溢出必须为 0；挂在 overflow:hidden/clip 内且不可滚的溢出必须为 0；
 //      被祖先裁切 ≥1px 的元素必须为 0。允许（且只允许）容器级 `overflow-x:auto` 的可滚横向。
@@ -94,6 +94,7 @@ const ROUTE_IDS = [
   "structures-glycogen",
   "structures-amino-acids",
   "structures-cholesterol",
+  "structures-cori",
   "structures-oxphos",
   "step-gk-1",
   "step-gk-6",
@@ -204,6 +205,7 @@ const STRUCT_ROUTE_KEY = {
   "structures-amino-acids": "amino-acids",
   "structures-oxphos": "oxphos",
   "structures-cholesterol": "cholesterol",
+  "structures-cori": "cori",
 };
 const cmpSrc = readFileSync(resolve(ROOT, "src/data/comparisonConfig.ts"), "utf8");
 const cfgSf = new Map();
@@ -230,8 +232,8 @@ for (const p of report.pages.filter((x) => x.viewport === 1440)) {
   if (shown) shownSf.push(Number(shown));
 }
 shownSf.sort((a, b) => a - b);
-if (shownSf.length !== 11 || shownSf.join(",") !== "1,2,3,4,5,6,8,9,10,11,12") {
-  fail(`⑥ 结构页编号集合不符：页面 ${shownSf.join(",")} ≠ {01,02,03,04,05,06,08,09,10,11,12}`);
+if (shownSf.length !== 12 || shownSf.join(",") !== "1,2,3,4,5,6,7,8,9,10,11,12") {
+  fail(`⑥ 结构页编号集合不符：页面 ${shownSf.join(",")} ≠ {01,02,03,04,05,06,07,08,09,10,11,12}`);
 }
 
 // 汇总
@@ -243,5 +245,5 @@ if (failures.length) {
 console.log(
   `smoke-layout PASS：${report.pages.length} 页（${ROUTE_IDS.length} 路由 × ${VIEWPORTS.length} 视口）｜` +
     `图框 1px/≥24px ✓｜横向溢出 0 ✓｜有效文本重叠 0 ✓｜节点/步骤/模块与数据源一致 ✓｜无缩放控件 ✓｜` +
-    `结构页编号三方一致（11 页 = {01–06,08–12}）✓（共 ${totalChecks} 组断言 + 编号交叉核对）`
+    `结构页编号三方一致（12 页 = {01–12}）✓（共 ${totalChecks} 组断言 + 编号交叉核对）`
 );

@@ -143,6 +143,7 @@ const ROUTES = [
   { id: "structures-glycogen", path: "/structures/glycogen", kind: "structures" },
   { id: "structures-amino-acids", path: "/structures/amino-acids", kind: "structures" },
   { id: "structures-cholesterol", path: "/structures/cholesterol", kind: "structures" },
+  { id: "structures-cori", path: "/structures/cori", kind: "structures" },
   { id: "structures-oxphos", path: "/structures/oxphos", kind: "structures" },
   { id: "step-gk-1", path: "/step/gk-1", kind: "step" },
   { id: "step-gk-6", path: "/step/gk-6", kind: "step" },
