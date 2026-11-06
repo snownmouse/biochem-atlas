@@ -1,5 +1,7 @@
-import { useEffect, useState, type RefObject } from "react";
+import { useCallback, useEffect, useState, type RefObject } from "react";
 import { createPortal } from "react-dom";
+import ContentBubble from "./ContentBubble";
+import { posterBubbleModel } from "../lib/bubbleModel";
 
 /**
  * 挂图页共享交互层。
@@ -65,9 +67,22 @@ function targetIdOf(el: Element): string {
   );
 }
 
-export default function PlateInteraction({ svgRef }: { svgRef: RefObject<SVGSVGElement | null> }) {
+export default function PlateInteraction({
+  svgRef,
+  pathwayId,
+}: {
+  svgRef: RefObject<SVGSVGElement | null>;
+  /** 当前挂图的通路 id，用于内容气泡按通路取步骤字段 */
+  pathwayId: string;
+}) {
   const [on, setOn] = useState(true);
   const [tip, setTip] = useState<TipState | null>(null);
+
+  // 有内容模型 → 交给 ContentBubble；没有 → 保留原有去向浮签。
+  const resolveBubble = useCallback(
+    (target: Element) => posterBubbleModel(target, pathwayId),
+    [pathwayId]
+  );
 
   useEffect(() => {
     if (!on) return;
@@ -206,6 +221,7 @@ export default function PlateInteraction({ svgRef }: { svgRef: RefObject<SVGSVGE
       clearHover();
       hovered = el;
       el.setAttribute("data-plate-hover", "1");
+      if (resolveBubble(el)) return;
       showTip(el);
     };
 
@@ -229,7 +245,9 @@ export default function PlateInteraction({ svgRef }: { svgRef: RefObject<SVGSVGE
         positionFocus(el);
       }
       // 长按松手后浏览器会把焦点落到目标上；此刻不要再 showTip，否则会清掉自动收起计时器
-      if (performance.now() >= suppressClickUntil) showTip(el);
+      if (performance.now() < suppressClickUntil) return;
+      if (resolveBubble(el)) return;
+      showTip(el);
     };
 
     const onFocusOut = (e: FocusEvent) => {
@@ -254,6 +272,9 @@ export default function PlateInteraction({ svgRef }: { svgRef: RefObject<SVGSVGE
       if (e.pointerType === "mouse") return;
       const el = targetOf(e.target);
       if (!el) return;
+      // 有内容模型时由 ContentBubble 接管 450ms 长按并抑制合成点击；
+      // 这里不再重复计时，避免浮签与气泡互相清计时器。
+      if (resolveBubble(el)) return;
       pressPoint = { x: e.clientX, y: e.clientY };
       window.clearTimeout(pressTimer);
       pressTimer = window.setTimeout(() => {
@@ -345,7 +366,7 @@ export default function PlateInteraction({ svgRef }: { svgRef: RefObject<SVGSVGE
       canvas.style.position = prevPosition;
       setTip(null);
     };
-  }, [on, svgRef]);
+  }, [on, svgRef, resolveBubble]);
 
   // 关闭后目标不再响应鼠标点击：图回到纯静态，控件本身不受影响。
   useEffect(() => {
@@ -391,6 +412,7 @@ export default function PlateInteraction({ svgRef }: { svgRef: RefObject<SVGSVGE
             document.body,
           )
         : null}
+      <ContentBubble enabled={on} resolve={resolveBubble} />
     </>
   );
 }

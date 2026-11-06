@@ -256,7 +256,7 @@ export function UreaCycleOverviewPage() {
           <div className="plate-wrap" data-urea-plate="1">
             <div className="plate-head">
               <span className="t">图 1 · 双区室闭合环：线粒体两步、胞质三步；双氮源用两支线分别标注，不写「2 NH₃」</span>
-              <PlateInteraction svgRef={plateSvgRef} />
+              <PlateInteraction svgRef={plateSvgRef} pathwayId="urea-cycle" />
               <span className="legend-hint num">{data.plateNo} · {data.structureNo}</span>
             </div>
 

@@ -262,7 +262,7 @@ export default function CoriOverviewPage() {
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">图 1 · 器官两列 + 血流带：引用步只给“本循环里的角色”，不重绘反应</span>
-            <PlateInteraction svgRef={plateSvgRef} />
+            <PlateInteraction svgRef={plateSvgRef} pathwayId="cori" />
             <span className="organ-switch">
               <button
                 type="button"

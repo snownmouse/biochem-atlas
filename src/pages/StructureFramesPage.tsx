@@ -42,6 +42,8 @@ import {
 } from "../data/evidenceGrade";
 import { loadStepManifest, resolveStepAsset, stepAssets, type StepAssetCfg } from "../data/stepAssets";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import ContentBubble from "../components/ContentBubble";
+import { structureBubbleModel } from "../lib/bubbleModel";
 import type { NavItemId } from "../data/pathways";
 import "../styles/frames-entry.css";
 
@@ -1148,6 +1150,7 @@ export default function StructureFramesPage() {
 
   return (
     <div className="poster film-poster cmp-poster structures-page" data-page="comparison" data-mode={modeChoice}>
+      <ContentBubble enabled resolve={structureBubbleModel} />
       <div className="structures-backbar-slot">
         <nav className={`film-back structures-backbar${barFixed ? " is-fixed" : ""}`} data-testid="film-back">
           <Link to={backTo} className="structures-back-btn" data-testid="structures-back">

@@ -346,7 +346,7 @@ export default function FaoOverviewPage() {
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">图 1 · β-氧化主链：胞质 → 外膜 → 膜间腔 → 内膜 → 基质；跨膜段只放机器</span>
-            <PlateInteraction svgRef={plateSvgRef} />
+            <PlateInteraction svgRef={plateSvgRef} pathwayId="fatty-acid-oxidation" />
             <span className="organ-switch" role="tablist" aria-label="器官视图">
               {organTabs.map((o) => (
                 <button

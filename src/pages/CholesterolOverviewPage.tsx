@@ -346,7 +346,7 @@ export default function CholesterolOverviewPage() {
               <Link className="plate-3d-link" to="/structures/cholesterol" data-3d-link="cholesterol">
                 结构对照 SF-12
               </Link>
-              <PlateInteraction svgRef={plateSvgRef} />
+              <PlateInteraction svgRef={plateSvgRef} pathwayId="cholesterol" />
             </div>
           </div>
 

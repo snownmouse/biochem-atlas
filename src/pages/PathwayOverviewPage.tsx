@@ -451,7 +451,7 @@ export default function PathwayOverviewPage() {
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">图 1 · 主链与能量转移</span>
-            <PlateInteraction svgRef={plateSvgRef} />
+            <PlateInteraction svgRef={plateSvgRef} pathwayId="glycolysis" />
             <span className="organ-switch" role="tablist" aria-label="器官视图切换">
               视图
               {pathway.organs.map((o) => (

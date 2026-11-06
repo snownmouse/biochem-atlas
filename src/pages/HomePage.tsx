@@ -8,6 +8,8 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import ContentBubble from "../components/ContentBubble";
+import { homeBubbleModel } from "../lib/bubbleModel";
 import {
   HOME_EDGES,
   HOME_JUNCTIONS,
@@ -337,6 +339,8 @@ export function HomePage() {
   function beginTip(event: ReactPointerEvent<Element>, text: string) {
     longPressedRef.current = false;
     if (event.pointerType !== "touch") return;
+    // 有内容模型的目标由 ContentBubble 接管长按（出完整气泡），不再出旧浮签。
+    if (homeBubbleModel(event.currentTarget)) return;
     const { clientX, clientY } = event;
     clearTipTimer();
     tipTimerRef.current = window.setTimeout(() => {
@@ -521,6 +525,7 @@ export function HomePage() {
 
   return (
     <div className="poster home-poster" data-page="home">
+      <ContentBubble enabled resolve={homeBubbleModel} />
       <PathwaySwitcher current="home" variant="home" context="代谢总图 · MASTER MAP" />
 
       <header className="masthead">

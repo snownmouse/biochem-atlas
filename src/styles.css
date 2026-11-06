@@ -6129,3 +6129,86 @@ svg .branch { transition: opacity 0.2s ease; }
   letter-spacing: 0.02em;
   pointer-events: none;
 }
+
+/* ============================================================
+   内容气泡（ContentBubble）：单例，portal 到 body，fixed 定位。
+   纸白底 + 1px 墨线 + 直角，无阴影/渐变；字号沿用既有 11px 层级。
+   未固定态 pointer-events:none，不拦截目标点击；固定态才可点入口。
+   ============================================================ */
+.content-bubble {
+  position: fixed;
+  z-index: 91;
+  box-sizing: border-box;
+  max-height: 180px;
+  padding: 9px 11px;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: var(--paper, #f6f3ec);
+  color: var(--ink);
+  font-size: 11px;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  box-shadow: none;
+  background-image: none;
+  overflow: hidden;
+  pointer-events: none;
+}
+.content-bubble.is-pinned {
+  pointer-events: auto;
+}
+.content-bubble .cb-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 17px;
+}
+.content-bubble .cb-title {
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.content-bubble .cb-close {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  padding: 0;
+  border: 1px solid var(--ink);
+  border-radius: 0;
+  background: none;
+  color: var(--ink);
+  font-size: 11px;
+  line-height: 14px;
+  text-align: center;
+  cursor: pointer;
+}
+.content-bubble .cb-close:hover {
+  color: var(--brick);
+  border-color: var(--brick);
+}
+.content-bubble .cb-close:focus-visible {
+  outline: 1px solid var(--brick);
+  outline-offset: 1px;
+}
+.content-bubble .cb-line {
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.content-bubble .cb-entry {
+  display: block;
+  margin-top: 2px;
+  color: var(--brick);
+  text-decoration: none;
+}
+.content-bubble.is-pinned .cb-entry:hover {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.content-bubble .cb-entry:focus-visible {
+  outline: 1px solid var(--brick);
+  outline-offset: 1px;
+}
+

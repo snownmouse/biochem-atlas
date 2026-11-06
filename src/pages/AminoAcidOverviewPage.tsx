@@ -242,7 +242,7 @@ export default function AminoAcidOverviewPage() {
                 图 1 · 三分类簇 → 两闸 → 七去路；NH₄⁺ 只做接口芯片，不重复画尿素循环
               </span>
               <span className="plate-head-tools">
-                <PlateInteraction svgRef={plateSvgRef} />
+                <PlateInteraction svgRef={plateSvgRef} pathwayId="amino-acids" />
                 <button
                   type="button"
                   className="plate-tool-link"

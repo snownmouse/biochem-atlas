@@ -498,7 +498,7 @@ export default function PppOverviewPage() {
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">图 1 · 氧化相 3 步 + 非氧化相 5 步 · 与糖酵解三处接口</span>
-            <PlateInteraction svgRef={plateSvgRef} />
+            <PlateInteraction svgRef={plateSvgRef} pathwayId="ppp" />
             <span className="organ-switch" role="tablist" aria-label="器官视图切换">
               视图
               {ORGANS.map((o) => (

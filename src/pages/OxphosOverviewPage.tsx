@@ -230,7 +230,7 @@ export default function OxphosOverviewPage() {
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">图 1 · 呼吸链嵌在内膜带：电子从 NADH / FADH₂ 流向 O₂，质子另走一条回路</span>
-            <PlateInteraction svgRef={plateRef} />
+            <PlateInteraction svgRef={plateRef} pathwayId="oxphos" />
             <span className="organ-switch" role="tablist" aria-label="模块视图">
               <button
                 type="button"

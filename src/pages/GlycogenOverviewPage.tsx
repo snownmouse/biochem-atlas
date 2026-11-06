@@ -322,7 +322,7 @@ export default function GlycogenOverviewPage() {
           <div className="plate-head">
             <h2 id="plate-title">糖原颗粒 · 分解 / 合成双臂</h2>
             <div className="plate-tools">
-              <PlateInteraction svgRef={plateSvgRef} />
+              <PlateInteraction svgRef={plateSvgRef} pathwayId="glycogen" />
               <div className="organ-tabs" role="group" aria-label="器官视图">
                 {DATA.organs.map((o) => (
                   <button
