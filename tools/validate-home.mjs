@@ -64,6 +64,12 @@ const rawPathways = {
   oxphos: JSON.parse(fs.readFileSync("src/data/oxphos/oxphos.json", "utf8")),
 };
 
+// 跨通路接口：FAS（PLATE 08）的柠檬酸穿梭只用于边来源解析。
+// 它不并入 SOURCES，因此不参与「六条通路的每个主步骤都有连线」口径。
+const interfacePathways = {
+  "fatty-acid-synthesis": JSON.parse(fs.readFileSync("src/data/fatty-acid-synthesis/fas.json", "utf8")),
+};
+
 const skeletonPathways = {
   glycolysis: JSON.parse(fs.readFileSync("src/data/skeleton.json", "utf8")),
   tca: JSON.parse(fs.readFileSync("src/data/skeleton-tca.json", "utf8")),
@@ -87,6 +93,13 @@ for (const [pathwayId, data] of Object.entries(rawPathways)) {
   const transports = new Set((skeletonPathways[pathwayId].transportSteps ?? []).map((item) => item.id));
   transportIdsByPathway.set(pathwayId, transports);
   for (const entity of data.entities) entityIds.add(entity.id);
+}
+
+for (const [pathwayId, data] of Object.entries(interfacePathways)) {
+  stepIdsByPathway.set(
+    pathwayId,
+    new Set([...data.steps, ...(data.sideBranchSteps ?? [])].map((step) => step.id)),
+  );
 }
 
 // 1) 节点唯一
@@ -265,6 +278,22 @@ check(
   "版面坐标表没有多余键（不会出现第二份同名节点）",
   Object.keys(positions).length === nodeIds.length,
   `${Object.keys(positions).length} vs ${nodeIds.length}`,
+);
+
+// 8) 计数口径：必须与实测精确相等（不是「至少」）。
+// PLATE 08 柠檬酸穿梭接入后：节点不变 38（cit / accoa 原本就在图上），
+// cit 由 TCA 单通路变为 TCA / FAS 共用，共用节点 16→17，边 62→63。
+check("节点数精确为 38", nodeIds.length === 38, String(nodeIds.length));
+check("共用节点数精确为 17", junctions.length === 17, String(junctions.length));
+check("边数精确为 63", home.HOME_EDGES.length === 63, String(home.HOME_EDGES.length));
+check("资产别名数精确为 14", aliases.length === 14, String(aliases.length));
+check(
+  "FAS 接口边存在（cit → accoa，来源 fas-shuttle）",
+  home.HOME_EDGES.some(
+    (edge) =>
+      edge.id === "fatty-acid-synthesis:cit->accoa" &&
+      edge.sources.some((source) => source.pathwayId === "fatty-acid-synthesis" && source.stepId === "fas-shuttle"),
+  ),
 );
 
 for (const item of checks) {

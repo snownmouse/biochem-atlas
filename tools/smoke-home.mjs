@@ -15,6 +15,10 @@
 // 不并入 SOURCES，因此节点 38 / 共用节点 16 / 边 62 的口径保持不变；
 // 通路区块与标题 6→7，右栏去向 12→14。同样是计数同步，不是放宽断言。
 //
+// 【PLATE 08 柠檬酸穿梭接入后的计数更新】FAS 的 fas-shuttle（cit → accoa，ACLY 裂解）作为显式跨通路接口接入，
+// 不新增节点（cit / accoa 原本已在图上）；cit 由 TCA 单通路变成 TCA / FAS 共用，共用节点 16→17，
+// 边 62→63。节点仍为 38。这些仍是计数同步，不是放宽断言。
+//
 // 【版式政策更新 2026-11-05】横向滚动口径由「图版单屏零溢出」改为
 // 「页面级零横向滚动 + 图版容器按档位可拖」：1440 展开 0、1280 展开 ≤ 200px、收起 0。
 // 这是按新政策替换过期断言，不是放宽阈值；页面级溢出仍要求严格为 0。
@@ -188,7 +192,7 @@ const nodeIds = nodeInfo.map((node) => node.id);
 check("图上节点总数 38", nodeIds.length === 38, String(nodeIds.length));
 check("同一实体 id 不重复出现", new Set(nodeIds).size === nodeIds.length, `${nodeIds.length} → ${new Set(nodeIds).size}`);
 const junctions = nodeInfo.filter((node) => node.junction === "1");
-check("共用节点 16 个", junctions.length === 16, String(junctions.length));
+check("共用节点 17 个", junctions.length === 17, String(junctions.length));
 check(
   "每个共用节点至少连接两条通路",
   junctions.every((node) => node.pathways.length >= 2),
@@ -199,7 +203,17 @@ check("G6P 只画一次且为三通路共用", g6p.length === 1 && g6p[0].pathwa
 const pyr = nodeInfo.filter((node) => node.id === "pyr");
 check("丙酮酸只画一次且为三通路共用", pyr.length === 1 && pyr[0].pathways.length === 3, JSON.stringify(pyr));
 const accoa = nodeInfo.filter((node) => node.id === "accoa");
-check("乙酰-CoA 只画一次（TCA + β-氧化）", accoa.length === 1 && accoa[0].pathways.length === 2, JSON.stringify(accoa));
+check(
+  "乙酰-CoA 只画一次（TCA + β-氧化 + FAS）",
+  accoa.length === 1 && accoa[0].pathways.length === 3,
+  JSON.stringify(accoa),
+);
+check(
+  "柠檬酸只画一次且为 TCA / FAS 共用",
+  nodeInfo.filter((node) => node.id === "cit").length === 1 &&
+    nodeInfo.find((node) => node.id === "cit")?.pathways.length === 2,
+  JSON.stringify(nodeInfo.filter((node) => node.id === "cit")),
+);
 const oaa = nodeInfo.filter((node) => node.id === "oaa");
 check("草酰乙酸只画一次（TCA + 糖异生）", oaa.length === 1 && oaa[0].pathways.length === 2, JSON.stringify(oaa));
 const nadh = nodeInfo.filter((node) => node.id === "nadh");
@@ -233,7 +247,7 @@ const edgeInfo = await page.locator("svg [data-edge-id]").evaluateAll((els) =>
     pathway: el.getAttribute("data-pathway-id"),
   }))
 );
-check("图上连线数量 62", edgeInfo.length === 62, String(edgeInfo.length));
+check("图上连线数量 63", edgeInfo.length === 63, String(edgeInfo.length));
 check(
   "每条连线都带非空数据来源",
   edgeInfo.every((edge) => edge.sources.trim().length > 0),
@@ -246,10 +260,24 @@ check(
   ),
 );
 const edgeSourcesText = edgeInfo.map((edge) => edge.sources).join(" ");
-// FAS / 尿素循环 / 糖原 / 氨基酸 / 胆固醇本轮只登记标题块与导航，不并入 SOURCES（节点 38 / 共用 16 / 边 62 口径不变），
-// 因此不参与「连线来源」这条断言；其余六条仍逐条核对。
-for (const [id] of PATHWAYS.filter(([pid]) => pid !== "fatty-acid-synthesis" && pid !== "urea-cycle" && pid !== "glycogen" && pid !== "amino-acids" && pid !== "cholesterol"))
+// 尿素循环 / 糖原 / 氨基酸 / 胆固醇只登记标题块与导航，没有可连的跨通路边；
+// FAS 本轮通过 fas-shuttle 接入一条接口线，加入来源核对。其余六条仍逐条核对。
+for (const [id] of PATHWAYS.filter(
+  ([pid]) => pid !== "urea-cycle" && pid !== "glycogen" && pid !== "amino-acids" && pid !== "cholesterol",
+))
   check(`连线来源含 ${id} 步骤`, edgeSourcesText.includes(`${id}:`));
+check(
+  "FAS 柠檬酸穿梭接口线（cit → accoa，来源 fas-shuttle）",
+  edgeInfo.some(
+    (edge) => edge.id === "fatty-acid-synthesis:cit->accoa" && edge.sources.includes("fatty-acid-synthesis:fas-shuttle"),
+  ),
+  JSON.stringify(edgeInfo.filter((edge) => edge.pathway === "fatty-acid-synthesis")),
+);
+check(
+  "尿素循环不硬拉线（本轮无两端都有节点的数据边）",
+  edgeInfo.every((edge) => edge.pathway !== "urea-cycle"),
+  JSON.stringify(edgeInfo.filter((edge) => edge.pathway === "urea-cycle")),
+);
 check(
   "NADH / FADH₂ 各有两条来自 TCA 与 β-氧化的接口线",
   edgeInfo.filter((edge) => edge.id.endsWith("->nadh")).length === 2 &&

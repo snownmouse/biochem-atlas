@@ -4,6 +4,7 @@ import pppJson from "./ppp/ppp.json";
 import gluconeogenesisJson from "./gluconeogenesis/gluconeogenesis.json";
 import faoJson from "./fatty-acid-oxidation/fao.json";
 import oxphosJson from "./oxphos/oxphos.json";
+import fasJson from "./fatty-acid-synthesis/fas.json";
 import glycolysisSkeleton from "./skeleton.json";
 import tcaSkeleton from "./skeleton-tca.json";
 import pppSkeleton from "./ppp/skeleton.json";
@@ -424,6 +425,9 @@ const ENZYME_LABEL_OVERRIDES: Record<string, string> = {
   // 内酯酶的标准缩写 6PGL 与代谢物 6-磷酸葡糖酸内酯的缩写 6PGL 完全相同，
   // 同一张图上会读成两个 6PGL；此处按酶的中文名显示。
   "ppp-o2": "内酯酶",
+  // fas-shuttle 的 enzyme.name 是「CS → CIC → ACLY」三段串联的长句，
+  // 总图上只留真正执行裂解的 ACLY，避免酶名压过节点。
+  "fas-shuttle": "ACLY",
 };
 
 function enzymeShort(pathwayId: HomePathwayId, step?: RawStep): string {
@@ -614,6 +618,53 @@ for (const item of COFACTOR_INTERFACES) {
   }
 }
 
+/**
+ * 跨通路接口：FAS（PLATE 08）与尿素循环（PLATE 09）里，
+ * 两端都已经存在于首页总图的真实数据边。这里只登记已核验的
+ * pathway + step id，不把这两条通路整体并入 SOURCES——它们独有的
+ * 分子（malonyl-CoA、ACP 中间体、palmitate、鸟氨酸、瓜氨酸、精氨酸、尿素、
+ * 天冬氨酸）在总图上没有节点，按「不造新节点」的口径一律不连。
+ *
+ * 尿素循环本轮没有可登记项：urea.json 的每一步都至少有一端
+ * （carbamoylP / citrulline / argininosuccinate / arginine / urea / asp）没有首页节点，
+ * 仅 fumarate 能对上 TCA 的 fum，但 urea-4 的另一端 argininosuccinate 不在图上，
+ * 单端对不上就不能成边。
+ */
+const CROSS_PATHWAY_INTERFACES: {
+  pathwayId: HomePathwayId;
+  from: string;
+  to: string;
+  stepId: string;
+}[] = [
+  {
+    // fas-shuttle（柠檬酸穿梭）：CIC 把柠檬酸运到胞质，ACLY 裂解回乙酰-CoA + OAA。
+    // 方向 cit → accoa 与代谢流一致：TCA 产柠檬酸，FAS 在胞质把 C2 单元取走。
+    pathwayId: "fatty-acid-synthesis",
+    from: "cit",
+    to: "accoa",
+    stepId: "fas-shuttle",
+  },
+];
+
+const INTERFACE_PATHWAYS = new Map<HomePathwayId, RawPathway>([
+  ["fatty-acid-synthesis", fasJson as unknown as RawPathway],
+]);
+
+for (const item of CROSS_PATHWAY_INTERFACES) {
+  const pathway = INTERFACE_PATHWAYS.get(item.pathwayId);
+  if (!pathway) continue;
+  const step = stepById(pathway, item.stepId);
+  if (!step) continue;
+  pushDraft(
+    item.pathwayId,
+    item.from,
+    item.to,
+    { pathwayId: item.pathwayId, stepId: step.id, linkType: "interface" },
+    step,
+    "interface",
+  );
+}
+
 const merged = new Map<string, HomeEdge>();
 
 for (const draft of drafts) {
@@ -759,6 +810,25 @@ for (const item of COFACTOR_INTERFACES) {
       stepName: step.name,
       enzyme: enzymeShort(ref.pathwayId, step),
       via: "main",
+    });
+  }
+}
+
+/** 跨通路接口同样写进右栏：cit 因此从 TCA 单通路变成 TCA / FAS 共用节点。 */
+for (const item of CROSS_PATHWAY_INTERFACES) {
+  const pathway = INTERFACE_PATHWAYS.get(item.pathwayId);
+  if (!pathway) continue;
+  const step = stepById(pathway, item.stepId);
+  if (!step) continue;
+  for (const entityId of [item.from, item.to]) {
+    if (!drawnEntityIds.has(entityId)) continue;
+    noteUsage(entityId, item.pathwayId);
+    noteOccurrence(entityId, {
+      pathwayId: item.pathwayId,
+      stepId: step.id,
+      stepName: step.name,
+      enzyme: enzymeShort(item.pathwayId, step),
+      via: "transport",
     });
   }
 }
