@@ -180,13 +180,31 @@ node tools/validate-urea.mjs
 
 见上文「怎么跑」的表格：默认 fitwidth、`?fold=center`、`?fold=open`。三档共用同一套 URL 参数与同一份版面数据，切换只改变右栏开合与画布缩放，不改节点与连线。
 
-## 数据来源与免责
+## 数据来源与许可
 
-- 结构坐标以 PDB 实验结构为准，选用前逐个在 RCSB 核验（物种、方法、分辨率、配体）；计算构象（RDKit）与「没有坐标、只做 2D」的分子都在页面上明示来源与缺口，不做静默替代。
-- 实验坐标**未做几何纠正**：不理想化、不最小化、不重嵌入，原子位置是结构文件里的原始坐标；因此键长 / 键角的视觉偏差属数据本身，而不是渲染误差。
-- 定量的能量与平衡常数只写有出处的定性方向或文献值，缺数字就留空，不估算填空。
+许可按内容分三层，各自指向独立文件：
+
+| 内容 | 许可 | 文件 |
+| --- | --- | --- |
+| 本项目原创代码与原创文档 | MIT | [LICENSE](LICENSE) |
+| 自写的讲解文字与整理后的数据 | CC BY 4.0 | [LICENSE-CC-BY-4.0.md](LICENSE-CC-BY-4.0.md) |
+| 第三方库、字体与随包分发的外部数据 | 各自条款 | [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) |
+
+教材内容只作事实出处标注，不对其图表、段落或表格编排授予任何许可。
+
+- 化学事实、EC 编号与能量数据：教材 `Lehninger Principles of Biochemistry, 8e`（章/表级引用）；EC 编号经 IUBMB Enzyme Nomenclature（EBI OLS4 标 CC BY 4.0）。
+- 结构坐标以 wwPDB / RCSB PDB 实验结构为准（PDB 归档数据为 CC0 1.0），选用前逐个在 RCSB 核验物种、方法、分辨率、配体；UniProt（CC BY 4.0）仅用于条目核对与 amino 数据的 accession 注释。
+- 数值性质：18 个数值 ΔG 来自教材表（糖酵解 10、TCA 8）；67 个 ΔG 只有定性结论、没有数字；43 个分子 3D 资产为实验坐标，18 个为 RDKit 计算构象（ETKDGv3 + MMFF94）；2D 布局主要由 RDKit 生成（4 个为脚本手写坐标）。查不到的数字留空或标「未核实」，不估算。
+- 实验坐标**未做几何纠正**：不理想化、不最小化、不重嵌入，原子位置是结构文件里的原始坐标；键长 / 键角的视觉偏差属数据本身，不是渲染误差。
+- 第三方库与字体：React、Vite、react-router-dom 为 MIT；RDKit、3Dmol.js 为 BSD-3-Clause；Noto Sans SC / Noto Serif SC 为 SIL OFL 1.1。逐项版本、版权行与仓库内位置见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)；字体目录内许可全文为 `public/assets/fonts/OFL.txt`。
+- KEGG、BRENDA、MetaCyc、SABIO-RK、eQuilibrator 当前未用于数据生产；KEGG 仅在首页致谢文字中被提及。
+- 遇到争议口径时只采用一个口径，另一口径只进注记；非人源/非本酶结构必须标明物种与来源蛋白，实验坐标与计算构象不得混用。完整清单与处理规则见下。
+- 来源登记表、引用完整度审计、缺口清单、争议清单与待确认项见 [docs/data-provenance.md](docs/data-provenance.md)。
 - 本项目**仅用于教学与演示**，不构成科研结论、不做临床或药物决策依据。
 
 ## 许可
 
-许可证尚未确定，两种候选（MIT 与私有版权）的取舍见 [docs/repo-permissions.md](docs/repo-permissions.md)。
+- 原创代码与原创文档：MIT，见 [LICENSE](LICENSE)。
+- 自写的讲解文字与整理后的数据：CC BY 4.0，官方全文与建议署名格式见 [LICENSE-CC-BY-4.0.md](LICENSE-CC-BY-4.0.md)。
+- 第三方库、字体与外部数据：按各自条款使用，逐项清单见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+- 教材内容只作事实出处，不授予任何许可；更细的来源与争议记录见 [docs/data-provenance.md](docs/data-provenance.md)。

@@ -19,3 +19,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
+---------------------------------------------------------------------------
+适用范围（Scope）
+
+上面这份 MIT 许可只覆盖本项目的原创代码与原创文档（如 README、docs/ 下的说明文字）。
+
+- 第三方库、字体与随包分发的第三方内容不在 MIT 范围内，按其各自条款使用，清单见 THIRD_PARTY_NOTICES.md。
+- 本项目自写的讲解文字与整理后的数据按 CC BY 4.0 发布，全文与建议署名格式见 LICENSE-CC-BY-4.0.md。
+- 引用自教材（Lehninger Principles of Biochemistry, 8e）的内容只作为事实出处标注；不对教材的图表、段落或表格编排授予任何许可，也未复制这些图表与编排。
+---------------------------------------------------------------------------
