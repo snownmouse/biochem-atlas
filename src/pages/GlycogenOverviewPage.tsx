@@ -1,9 +1,10 @@
 // 糖原代谢挂图页（PLATE 10 / 12）。
 // 体例与 FAO / 尿素循环挂图一致：纸白底、1px 直角图框、24px 内边距、无圆角/投影/渐变。
 // 两条臂：分解在上、合成在下；肝臂与肌臂分开成带，不把两个器官压成一条线。
-import { useMemo, useState, type MouseEvent } from "react";
+import { useMemo, useRef, useState, type MouseEvent } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import PlateInteraction from "../components/PlateInteraction";
 import glycogenData from "../data/glycogen/glycogen.json";
 import glycogenSkeleton from "../data/glycogen/skeleton.json";
 import type {
@@ -197,6 +198,7 @@ function StepDetail({ step }: { step: GlycogenStep }) {
 }
 
 export default function GlycogenOverviewPage() {
+  const plateSvgRef = useRef<SVGSVGElement>(null);
   const [params, setParams] = useSearchParams();
   const organ = params.get("organ") === "muscle" ? "muscle" : "liver";
   const stepParam = params.get("step");
@@ -319,6 +321,7 @@ export default function GlycogenOverviewPage() {
           <div className="plate-head">
             <h2 id="plate-title">糖原颗粒 · 分解 / 合成双臂</h2>
             <div className="plate-tools">
+              <PlateInteraction svgRef={plateSvgRef} />
               <div className="organ-tabs" role="group" aria-label="器官视图">
                 {DATA.organs.map((o) => (
                   <button
@@ -341,6 +344,7 @@ export default function GlycogenOverviewPage() {
 
           <div className="plate-scroll">
             <svg
+              ref={plateSvgRef}
               className="plate-canvas"
               width={CANVAS.width}
               height={CANVAS.height}

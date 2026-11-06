@@ -16,6 +16,7 @@ import type {
 } from "../data/gluconeogenesis/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import PlateInteraction from "../components/PlateInteraction";
 import "../styles/frames-entry.css";
 
 const data = gnJson as unknown as GluconeogenesisData;
@@ -521,6 +522,7 @@ export default function GluconeogenesisOverviewPage() {
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">图 1 · 糖异生主链：四泳道 · 三次跨膜（基质 → 内膜转运带 → 胞质 → ER 腔）</span>
+            <PlateInteraction svgRef={plateSvgRef} />
             <span className="organ-switch" role="tablist" aria-label="器官视图切换">
               视图
               {data.organs.map((o) => (
@@ -685,6 +687,7 @@ export default function GluconeogenesisOverviewPage() {
                 {diffRows.map(({ step, label }) => (
                   <tr
                     key={step.id}
+                    data-plate-row={step.id}
                     style={{ cursor: "pointer" }}
                     onClick={() => selectStep(step.id === selectedStepId ? null : step.id)}
                   >
@@ -733,6 +736,7 @@ export default function GluconeogenesisOverviewPage() {
                   return (
                     <tr
                       key={p.glycolysisStepId}
+                      data-plate-row={p.gluconeogenesisStepIds[0] ?? p.glycolysisStepId}
                       style={{ cursor: "pointer" }}
                       onClick={() => selectStep(p.gluconeogenesisStepIds[0] ?? null)}
                     >

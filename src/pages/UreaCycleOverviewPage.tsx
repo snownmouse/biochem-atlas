@@ -1,6 +1,7 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import PlateInteraction from "../components/PlateInteraction";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import ureaRaw from "../data/urea-cycle/urea.json";
@@ -118,6 +119,7 @@ function linkStyle(type: LinkType) {
 }
 
 export function UreaCycleOverviewPage() {
+  const plateSvgRef = useRef<SVGSVGElement>(null);
   const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
@@ -253,12 +255,14 @@ export function UreaCycleOverviewPage() {
           <div className="plate-wrap" data-urea-plate="1">
             <div className="plate-head">
               <span className="t">图 1 · 双区室闭合环：线粒体两步、胞质三步；双氮源用两支线分别标注，不写「2 NH₃」</span>
+              <PlateInteraction svgRef={plateSvgRef} />
               <span className="legend-hint num">{data.plateNo} · {data.structureNo}</span>
             </div>
 
             <div className="plate-scroll" data-plate-scroll="1">
               <div className="plate-canvas">
                 <svg
+                  ref={plateSvgRef}
                   width={W}
                   height={H}
                   viewBox={`0 0 ${W} ${H}`}

@@ -2,9 +2,10 @@
 // 体例与前十一张一致：纸白底、1px 直角图框、24px 内边距、无圆角/投影/渐变/emoji。
 // 分区带：胞质（甲羟戊酸上游）与内质网（甾醇环化 / 去甲基化修饰）分开表达。
 // 下游 9 个酶的修饰链压缩成一个“簇”，但每个酶的 EC 都在详情栏写清。
-import { useMemo, useState, type MouseEvent } from "react";
+import { useMemo, useRef, useState, type MouseEvent } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import PlateInteraction from "../components/PlateInteraction";
 import cholesterolData from "../data/cholesterol/cholesterol.json";
 import cholesterolSkeleton from "../data/cholesterol/skeleton.json";
 import type {
@@ -222,6 +223,7 @@ function StepDetail({ step }: { step: CholesterolStep }) {
 }
 
 export default function CholesterolOverviewPage() {
+  const plateSvgRef = useRef<SVGSVGElement>(null);
   const [params, setParams] = useSearchParams();
   const stepParam = params.get("step");
   const selected = useMemo<CholesterolStep>(() => {
@@ -343,11 +345,13 @@ export default function CholesterolOverviewPage() {
               <Link className="plate-3d-link" to="/structures/cholesterol" data-3d-link="cholesterol">
                 结构对照 SF-12
               </Link>
+              <PlateInteraction svgRef={plateSvgRef} />
             </div>
           </div>
 
           <div className="plate-scroll">
             <svg
+              ref={plateSvgRef}
               className="plate-canvas"
               width={CANVAS.width}
               height={CANVAS.height}

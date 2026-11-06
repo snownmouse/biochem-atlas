@@ -19,6 +19,7 @@ import type { OxphosData, OxphosModule, OxphosSkeleton } from "../data/oxphos/ty
 import { GRADE_LABEL, gradeOfPart } from "../data/evidenceGrade";
 import SolubleDomain3D from "../components/SolubleDomain3D";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import PlateInteraction from "../components/PlateInteraction";
 
 const DATA = dataJson as unknown as OxphosData;
 const SKEL = skeletonJson as unknown as OxphosSkeleton;
@@ -228,6 +229,7 @@ export default function OxphosOverviewPage() {
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">图 1 · 呼吸链嵌在内膜带：电子从 NADH / FADH₂ 流向 O₂，质子另走一条回路</span>
+            <PlateInteraction svgRef={plateRef} />
             <span className="organ-switch" role="tablist" aria-label="模块视图">
               <button
                 type="button"

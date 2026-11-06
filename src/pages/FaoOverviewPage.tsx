@@ -10,6 +10,7 @@ import type { FaoData, FaoSkeleton } from "../data/fatty-acid-oxidation/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import PlateInteraction from "../components/PlateInteraction";
 
 const data = faoJson as unknown as FaoData;
 const skel = skeletonJson as unknown as FaoSkeleton;
@@ -344,6 +345,7 @@ export default function FaoOverviewPage() {
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">图 1 · β-氧化主链：胞质 → 外膜 → 膜间腔 → 内膜 → 基质；跨膜段只放机器</span>
+            <PlateInteraction svgRef={plateSvgRef} />
             <span className="organ-switch" role="tablist" aria-label="器官视图">
               {organTabs.map((o) => (
                 <button

@@ -167,12 +167,14 @@ const filterState = () =>
 // 数据面：源文件全部块都写了 evidence
 // 2026-11 改动：β-氧化接入后配置从 40 块增至 46 块（glycolysis 10 + tca 9 + ppp 8 +
 // gluconeogenesis 13 + fatty-acid-oxidation 6）；脂肪酸从头合成接入后再增至 52 块（+ FAS 6 块）；
-// 尿素循环接入后再增至 57 块（+ 尿素 5 块）；糖原代谢接入后再增至 63 块（+ 糖原 6 块），
-// 断言随之调整；语义不变——仍是「每块都有结构化 evidence」。
+// 尿素循环接入后再增至 57 块（+ 尿素 5 块）；糖原代谢接入后再增至 63 块（+ 糖原 6 块）；
+// 氨基酸代谢接入后再增至 70 块（+ 氨基酸 7 块）；胆固醇合成接入后再增至 77 块（+ 胆固醇 7 块）。
+// 现为 77 块 = 糖酵解 10 + TCA 9 + PPP 8 + 糖异生 13 + β-氧化 6 + FAS 6 + 尿素 5 + 糖原 6
+// + 氨基酸 7 + 胆固醇 7；断言随之调整；语义不变——仍是「每块都有结构化 evidence」。
 const cfgSrc = readFileSync(join(ROOT, "src", "data", "comparisonConfig.ts"), "utf8");
 const stepCount = [...cfgSrc.matchAll(/^    stepId: "/gm)].length;
 const evidenceCount = [...cfgSrc.matchAll(/^    evidence: {/gm)].length;
-check(`配置源共 ${stepCount} 块，${evidenceCount} 块有结构化 evidence 字段`, stepCount === 63 && evidenceCount === 63);
+check(`配置源共 ${stepCount} 块，${evidenceCount} 块有结构化 evidence 字段`, stepCount === 77 && evidenceCount === 77);
 check(
   "配置里没有手写 A/B/C/D 等级字段（等级只由 evidenceGrade.ts 推导）",
   !/^    grade: "[ABCD]",/m.test(cfgSrc)

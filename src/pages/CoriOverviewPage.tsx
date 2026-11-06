@@ -9,6 +9,7 @@ import coriJson from "../data/cori/cori.json";
 import skelJson from "../data/cori/skeleton.json";
 import type { ArmStep, CoriData, CoriSkeleton } from "../data/cori/types";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import PlateInteraction from "../components/PlateInteraction";
 import glyJson from "../data/glycolysis.json";
 import gluJson from "../data/gluconeogenesis/gluconeogenesis.json";
 import gluSkelJson from "../data/gluconeogenesis/skeleton.json";
@@ -260,6 +261,7 @@ export default function CoriOverviewPage() {
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">图 1 · 器官两列 + 血流带：引用步只给“本循环里的角色”，不重绘反应</span>
+            <PlateInteraction svgRef={plateSvgRef} />
             <span className="organ-switch">
               <button
                 type="button"
@@ -758,6 +760,7 @@ export default function CoriOverviewPage() {
                     <tr
                       key={s.id}
                       data-ref-row={s.id}
+                      data-plate-row={s.id}
                       style={{ cursor: "pointer" }}
                       onClick={() => selectStep(s.id === selectedId ? null : s.id)}
                     >

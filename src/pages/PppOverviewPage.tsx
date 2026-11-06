@@ -11,6 +11,7 @@ import type { PppData, PppSkeleton, PppStep } from "../data/ppp/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import PlateInteraction from "../components/PlateInteraction";
 import "../styles/frames-entry.css";
 
 const data = pppJson as unknown as PppData;
@@ -496,6 +497,7 @@ export default function PppOverviewPage() {
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">图 1 · 氧化相 3 步 + 非氧化相 5 步 · 与糖酵解三处接口</span>
+            <PlateInteraction svgRef={plateSvgRef} />
             <span className="organ-switch" role="tablist" aria-label="器官视图切换">
               视图
               {ORGANS.map((o) => (
@@ -773,6 +775,7 @@ export default function PppOverviewPage() {
                 {diffRows.map(({ step, label }) => (
                   <tr
                     key={step.id}
+                    data-plate-row={step.id}
                     style={{ cursor: "pointer" }}
                     onClick={() => selectStep(step.id === selectedStepId ? null : step.id)}
                   >

@@ -8,6 +8,7 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { entitiesTca, organNoteTca, pathwayTca, TODO_NOTES_TCA } from "../data/tca";
 import type { OrganId, Step } from "../data/types";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import PlateInteraction from "../components/PlateInteraction";
 import "../styles/frames-entry.css";
 
 /* ---------- 挂图配色（与糖酵解挂图同款封顶） ---------- */
@@ -345,6 +346,7 @@ export default function TcaOverviewPage() {
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">图 1 · 三羧酸循环主环（闭环）与能量转移</span>
+            <PlateInteraction svgRef={plateSvgRef} />
             <span className="organ-switch" role="tablist" aria-label="器官视图切换">
               视图
               {pathwayTca.organs.map((o) => (
@@ -544,6 +546,7 @@ export default function TcaOverviewPage() {
                 {diffRows.map(({ step, label }) => (
                   <tr
                     key={step.id}
+                    data-plate-row={step.id}
                     style={{ cursor: "pointer" }}
                     onClick={() => selectStep(step.id === selectedStepId ? null : step.id)}
                   >

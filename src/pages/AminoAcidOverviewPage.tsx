@@ -6,9 +6,10 @@
 // NH₄⁺ 不重复画尿素循环，只做接口芯片指向 PLATE 09；三条临床支路虚线降权、可收起。
 // 本页只做 2D：threeD.status=pending，不引用任何酶 3D 资产。
 // ============================================================
-import { useEffect, useMemo, useState, type MouseEvent } from "react";
+import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import PlateInteraction from "../components/PlateInteraction";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import raw from "../data/amino-acid/amino.json";
@@ -91,6 +92,7 @@ function classifyOf(entityId: string): { name: string; count: number; key: strin
 }
 
 export default function AminoAcidOverviewPage() {
+  const plateSvgRef = useRef<SVGSVGElement>(null);
   const [params, setParams] = useSearchParams();
   const [selected, setSelected] = useState<string>("");
   const [clinicalOpen, setClinicalOpen] = useState(true);
@@ -239,6 +241,7 @@ export default function AminoAcidOverviewPage() {
                 图 1 · 三分类簇 → 两闸 → 七去路；NH₄⁺ 只做接口芯片，不重复画尿素循环
               </span>
               <span className="plate-head-tools">
+                <PlateInteraction svgRef={plateSvgRef} />
                 <button
                   type="button"
                   className="plate-tool-link"
@@ -257,6 +260,7 @@ export default function AminoAcidOverviewPage() {
             <div className="plate-scroll" data-plate-scroll="1">
               <div className="plate-canvas">
                 <svg
+                  ref={plateSvgRef}
                   width={SKEL.canvas.width}
                   height={SKEL.canvas.height}
                   viewBox={`0 0 ${SKEL.canvas.width} ${SKEL.canvas.height}`}

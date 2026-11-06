@@ -10,6 +10,7 @@ import type { FasData, FasSkeleton } from "../data/fatty-acid-synthesis/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import PlateInteraction from "../components/PlateInteraction";
 
 const data = fasJson as unknown as FasData;
 const skel = skeletonJson as unknown as FasSkeleton;
@@ -324,6 +325,7 @@ export default function FasOverviewPage() {
         <div className="plate-wrap">
           <div className="plate-head">
             <span className="t">图 1 · 合成在胞质、原料在线粒体：区室靠标签与带位区分，不靠颜色</span>
+            <PlateInteraction svgRef={plateSvgRef} />
             <span className="organ-switch" role="tablist" aria-label="器官视图">
               {data.organs.map((o) => (
                 <button

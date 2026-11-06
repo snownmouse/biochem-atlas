@@ -5891,6 +5891,128 @@ svg .branch { transition: opacity 0.2s ease; }
   color: var(--teal);
   border-color: var(--teal);
 }
+
+/* ===== 挂图页共享交互层（折角 / hover / focus / 浮签）=====
+   仅作用于 .poster 挂图作用域，不改 .plate-canvas、.structures-page、.home-poster 基类。 */
+.poster .plate-head-tools {
+  margin-left: auto;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 14px;
+}
+.poster .plate-aff {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 1px 5px;
+  border: 1px solid var(--ink);
+  font-size: 9.5px;
+  line-height: 1.25;
+  letter-spacing: 0.04em;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.poster .plate-head > .plate-aff { margin-left: auto; margin-right: 14px; }
+.poster .plate-aff.is-off {
+  border-color: rgba(34, 40, 42, 0.45);
+  color: rgba(34, 40, 42, 0.62);
+}
+.poster .plate-aff-glyph {
+  display: block;
+  width: 7px;
+  height: 7px;
+  border-top: 1px solid rgba(34, 40, 42, 0.55);
+  border-right: 1px solid rgba(34, 40, 42, 0.55);
+}
+.poster .plate-aff-toggle {
+  margin: 0;
+  padding: 0 0 0 6px;
+  border: 0;
+  border-left: 1px solid rgba(34, 40, 42, 0.28);
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  cursor: pointer;
+}
+.poster .plate-aff-toggle:focus-visible {
+  outline: 1px solid var(--brick);
+  outline-offset: 2px;
+}
+
+/* 静止折角：1px 墨线，无圆角无阴影 */
+.poster .plate-aff-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.poster .plate-aff-layer > i {
+  position: absolute;
+  display: block;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+.poster .plate-aff-layer > i.plate-aff-corner {
+  width: 8px;
+  height: 8px;
+  border-top: 1px solid rgba(34, 40, 42, 0.4);
+  border-right: 1px solid rgba(34, 40, 42, 0.4);
+}
+.poster .plate-aff-layer > i.plate-aff-focus {
+  display: none;
+  border: 2px solid var(--brick);
+}
+.poster .plate-aff-layer > i.plate-aff-focus[data-on="1"] { display: block; }
+
+/* hover：墨线 1.6px → 2.6px（可实测差值） */
+.poster .plate-canvas [data-plate-aff][data-plate-hover] path,
+.poster .plate-canvas [data-plate-aff][data-plate-hover] line,
+.poster .plate-canvas [data-plate-aff][data-plate-hover] rect,
+.poster .plate-canvas [data-plate-aff][data-plate-hover] circle,
+.poster .plate-canvas [data-plate-aff][data-plate-hover] polyline {
+  stroke-width: 2.6px !important;
+}
+
+/* 表行：点线下划线 = 可点；hover 加粗到 2px；focus 1.5px 砖红 */
+.poster table.organs tbody tr[data-plate-aff] { cursor: pointer; }
+.poster table.organs tbody tr[data-plate-aff] td:first-child {
+  text-decoration: underline dotted rgba(34, 40, 42, 0.4);
+  text-underline-offset: 3px;
+}
+.poster table.organs tbody tr[data-plate-aff][data-plate-hover] td:first-child {
+  text-decoration-color: var(--ink);
+  text-decoration-thickness: 2px;
+}
+.poster table.organs tbody tr[data-plate-aff]:focus-visible {
+  outline: 2px solid var(--brick);
+  outline-offset: -2px;
+}
+
+/* 总开关关闭：目标恢复默认指针，键盘与浮层已在层内撤走 */
+.poster[data-plate-aff-off="1"] svg [data-step-id],
+.poster[data-plate-aff-off="1"] svg [data-node-id],
+.poster[data-plate-aff-off="1"] svg [data-step-block],
+.poster[data-plate-aff-off="1"] svg [data-link-step],
+.poster[data-plate-aff-off="1"] svg [data-module-id],
+.poster[data-plate-aff-off="1"] svg [data-transport-id] {
+  cursor: default !important;
+}
+
+/* 去向浮签：纸白底 + 1px 墨线，fixed 定位于目标上方 */
+.plate-tip {
+  position: fixed;
+  z-index: 90;
+  padding: 3px 8px;
+  border: 1px solid var(--ink);
+  background: var(--paper, #f6f3ec);
+  color: var(--ink);
+  font-size: 10.5px;
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  white-space: nowrap;
+  pointer-events: none;
+}
 .mol3d-stage .mol3d-reset:focus-visible {
   outline: 2px solid var(--brick);
   outline-offset: 2px;
