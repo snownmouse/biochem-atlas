@@ -53,6 +53,7 @@ export default function SolubleDomain3D({ asset }: { asset: "cytc" | "f1" }) {
   const hostRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<any>(null);
   const modelRef = useRef<any>(null);
+  const initViewRef = useRef<any>(null);
   const readyRef = useRef(false);
   const attemptRef = useRef(0);
 
@@ -144,6 +145,25 @@ export default function SolubleDomain3D({ asset }: { asset: "cytc" | "f1" }) {
       viewer.zoomTo({ resn, hetflag: true }, 120);
       viewer.spin("y", 0.6);
       viewer.render();
+      if (wrapRef.current) {
+        initViewRef.current = viewer.getView();
+        wrapRef.current.dataset.viewInit = JSON.stringify(initViewRef.current);
+        wrapRef.current.dataset.view = wrapRef.current.dataset.viewInit;
+      }
+      if (!host.dataset.viewCapture) {
+        host.dataset.viewCapture = "1";
+        const capture = () => {
+          try {
+            if (wrapRef.current) wrapRef.current.dataset.view = JSON.stringify(viewer.getView());
+          } catch {
+            /* viewer 已失效 */
+          }
+        };
+        host.addEventListener("pointerup", capture);
+        host.addEventListener("mouseup", capture);
+        host.addEventListener("mousemove", capture);
+        host.addEventListener("wheel", capture, { passive: true });
+      }
       readyRef.current = true;
       window.clearTimeout(timer);
       setPhase("ready");
@@ -164,6 +184,21 @@ export default function SolubleDomain3D({ asset }: { asset: "cytc" | "f1" }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [meta, phase]);
 
+  /** 回到初始相机：停转并原样还原初始化记录的 view，不刷新页面 */
+  const resetView = () => {
+    const v = viewerRef.current;
+    if (!v) return;
+    try {
+      v.spin(false);
+      if (initViewRef.current) v.setView(initViewRef.current);
+      else v.zoomTo({ resn: LIGAND_RES[asset], hetflag: true }, 120);
+      v.render();
+      if (wrapRef.current) wrapRef.current.dataset.view = JSON.stringify(v.getView());
+    } catch {
+      /* viewer 已失效 */
+    }
+  };
+
   useEffect(() => {
     const viewer = viewerRef.current;
     const model = modelRef.current;
@@ -178,6 +213,7 @@ export default function SolubleDomain3D({ asset }: { asset: "cytc" | "f1" }) {
       attemptRef.current++;
       viewerRef.current = null;
       modelRef.current = null;
+      initViewRef.current = null;
     };
   }, []);
 
@@ -204,6 +240,17 @@ export default function SolubleDomain3D({ asset }: { asset: "cytc" | "f1" }) {
         )}
         <div ref={hostRef} className={`e3d-host${phase === "ready" ? "" : " hidden"}`} />
         {phase === "ready" && <span className="e3d-hint">拖动旋转 · 滚轮缩放</span>}
+        {phase === "ready" && (
+          <button
+            type="button"
+            className="structures-reset"
+            data-testid="soluble-reset"
+            onClick={resetView}
+            title="回到初始相机位置与缩放"
+          >
+            重置视角
+          </button>
+        )}
       </div>
       <div className="e3d-bar">
         <span className="e3d-src num" data-testid="soluble-3d-source">{source}</span>

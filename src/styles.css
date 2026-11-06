@@ -5793,3 +5793,132 @@ svg .branch { transition: opacity 0.2s ease; }
 .poster-cholesterol svg [data-node-id] { cursor: pointer; }
 .poster-cholesterol svg [data-step-block] { cursor: pointer; }
 .poster-cholesterol svg [data-zone] { pointer-events: none; }
+
+/* ============================================================
+   结构对照页控件显式化（2026-11-05，只追加）
+   作用域：.structures-* / .mol3d-reset / .mol3d-hint-left
+   ============================================================ */
+.structures-page { padding-bottom: 64px; }
+
+/* 模式按钮：1px 直角方框；当前态换墨边 + 加粗 + 砖红方块。
+   不用圆角、阴影、渐变、胶囊。 */
+.structures-page .cmp-mode .organ-tab.structures-mode-btn {
+  border: 1px solid var(--hair-soft);
+  border-bottom-color: var(--hair-soft);
+  padding: 3px 9px;
+  margin-left: 8px;
+  opacity: 0.78;
+}
+.structures-page .cmp-mode .organ-tab.structures-mode-btn:hover {
+  opacity: 1;
+  border-color: var(--hair);
+}
+.structures-page .cmp-mode .organ-tab.structures-mode-btn.active {
+  border-color: var(--ink);
+  border-bottom-color: var(--ink);
+  background: rgba(34, 40, 42, 0.06);
+  color: var(--ink);
+  opacity: 1;
+  font-weight: 700;
+}
+.structures-page .cmp-mode .organ-tab.structures-mode-btn.active::before {
+  content: "";
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-right: 6px;
+  vertical-align: 1px;
+  background: var(--brick);
+}
+
+/* 返回栏：页面顶部原位（不遮正文）；滚过阈值后吸底，滚动到哪都在视口底部。
+   外层 slot 始终保留高度，吸底时正文不跳动。 */
+.structures-page .structures-backbar-slot { min-height: 44px; }
+.structures-page .film-back.structures-backbar {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 28px 0;
+}
+.structures-page .film-back.structures-backbar.is-fixed {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 40;
+  padding: 8px 28px;
+  background: var(--paper);
+  border-top: 1px solid var(--ink);
+}
+.structures-page .film-back.structures-backbar .structures-back-btn {
+  border: 1px solid var(--ink);
+  padding: 3px 11px;
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 12px;
+}
+.structures-page .film-back.structures-backbar .structures-back-btn:hover {
+  color: var(--teal);
+  border-color: var(--teal);
+}
+.structures-page .film-back.structures-backbar .structures-back-btn:focus-visible,
+.structures-page .film-back.structures-backbar .film-home:focus-visible {
+  outline: 2px solid var(--brick);
+  outline-offset: 2px;
+}
+.structures-page .film-back.structures-backbar .film-back-step { opacity: 0.55; }
+.structures-page .structures-backbar .film-home {
+  margin-left: 14px;
+  color: var(--ink);
+  opacity: 0.72;
+}
+
+/* 3D stage 常驻「重置视角」：右下角 1px 方框；原提示左移避让 */
+.mol3d-stage .mol3d-reset {
+  position: absolute;
+  right: calc(var(--plate-frame-pad, 24px) + 6px);
+  bottom: calc(var(--plate-frame-pad, 24px) + 4px);
+  z-index: 3;
+  padding: 2px 8px;
+  border: 1px solid var(--ink);
+  background: var(--paper, #f6f3ec);
+  color: var(--ink);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.mol3d-stage .mol3d-reset:hover {
+  color: var(--teal);
+  border-color: var(--teal);
+}
+.mol3d-stage .mol3d-reset:focus-visible {
+  outline: 2px solid var(--brick);
+  outline-offset: 2px;
+}
+.mol3d-stage .mol3d-hint-left {
+  right: auto;
+  left: calc(var(--plate-frame-pad, 24px) + 6px);
+}
+
+/* 氧化磷酸化结构页的可溶 3D 面板：同款右下角重置按钮 */
+.e3d-stage .structures-reset {
+  position: absolute;
+  right: calc(var(--plate-frame-pad, 24px) + 6px);
+  bottom: calc(var(--plate-frame-pad, 24px) + 4px);
+  z-index: 3;
+  padding: 2px 8px;
+  border: 1px solid var(--ink);
+  background: var(--paper, #f6f3ec);
+  color: var(--ink);
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  cursor: pointer;
+}
+.e3d-stage .structures-reset:hover {
+  color: var(--teal);
+  border-color: var(--teal);
+}
+.e3d-stage .structures-reset:focus-visible {
+  outline: 2px solid var(--brick);
+  outline-offset: 2px;
+}

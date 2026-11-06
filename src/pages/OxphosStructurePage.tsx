@@ -7,6 +7,7 @@
 //   1) 给出两个可溶结构域的真实 3D（cyt c、F1）；
 //   2) 把膜复合体的已核验 PDB 候选、原子数与「不做 3D」原因摊开。
 // ============================================================
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { GRADE_LABEL, gradeOfPart } from "../data/evidenceGrade";
 import dataJson from "../data/oxphos/oxphos.json";
@@ -77,8 +78,26 @@ function ModuleRow({ module }: { module: OxphosModule }) {
 }
 
 export default function OxphosStructurePage() {
+  // 返回栏：顶部时留在原位，滚过阈值后吸底
+  const [barFixed, setBarFixed] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setBarFixed(window.scrollY > 120);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
-    <div className="poster poster-oxphos" data-testid="oxphos-structure-page" data-plate-no={DATA.structurePlateNo}>
+    <div className="poster poster-oxphos structures-page" data-testid="oxphos-structure-page" data-plate-no={DATA.structurePlateNo}>
+      <div className="structures-backbar-slot">
+        <nav className={`film-back structures-backbar${barFixed ? " is-fixed" : ""}`} data-testid="film-back">
+          <Link to="/pathway/oxphos" className="structures-back-btn" data-testid="structures-back">
+            ← 返回挂图
+          </Link>
+          <Link to="/" className="film-home">首页</Link>
+          <span className="film-back-step">{DATA.structurePlateNo} · 氧化磷酸化结构页</span>
+        </nav>
+      </div>
       <PathwaySwitcher current="oxphos" variant="structure" context={`结构对照 ${DATA.structurePlateNo}`} />
       <header className="masthead">
         <div className="mast-top">

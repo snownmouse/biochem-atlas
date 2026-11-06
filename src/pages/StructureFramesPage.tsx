@@ -16,7 +16,7 @@
 //       分子 2D：/assets/structures/2d/<id>.json（RDKit 生成 + 既有手绘资产）
 // ============================================================
 import { useEffect, useMemo, useRef, useState } from "react";
-import { Link, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import Enzyme3DPanel from "../components/Enzyme3DPanel";
 import Molecule3D, { MARK_COLOR, MARK_LABEL, mol3dSourceText, type Mol3DAsset, type MolMark } from "../components/Molecule3D";
 import { atomColor } from "../data/atomColors";
@@ -905,7 +905,7 @@ function ModeSwitch({ mode, onChange }: { mode: ModeChoice; onChange: (m: ModeCh
       <span className="cmp-mode-lbl">显示模式</span>
       <button
         type="button"
-        className={`organ-tab${mode === "auto" ? " active" : ""}`}
+        className={`organ-tab structures-mode-btn${mode === "auto" ? " active" : ""}`}
         aria-pressed={mode === "auto"}
         data-testid="mode-auto"
         onClick={() => onChange("auto")}
@@ -915,7 +915,7 @@ function ModeSwitch({ mode, onChange }: { mode: ModeChoice; onChange: (m: ModeCh
       </button>
       <button
         type="button"
-        className={`organ-tab${mode === "3d" ? " active" : ""}`}
+        className={`organ-tab structures-mode-btn${mode === "3d" ? " active" : ""}`}
         aria-pressed={mode === "3d"}
         data-testid="mode-3d"
         onClick={() => onChange("3d")}
@@ -924,7 +924,7 @@ function ModeSwitch({ mode, onChange }: { mode: ModeChoice; onChange: (m: ModeCh
       </button>
       <button
         type="button"
-        className={`organ-tab${mode === "2d" ? " active" : ""}`}
+        className={`organ-tab structures-mode-btn${mode === "2d" ? " active" : ""}`}
         aria-pressed={mode === "2d"}
         data-testid="mode-2d"
         onClick={() => onChange("2d")}
@@ -1016,6 +1016,7 @@ export default function StructureFramesPage() {
   const { pathwayId = "glycolysis" } = useParams();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const location = useLocation();
   const [reg, setReg] = useState(stepAssets);
   const redirected = useRef(false);
 
@@ -1070,6 +1071,36 @@ export default function StructureFramesPage() {
   const complete3dCount = useMemo(() => steps.filter(hasBothSides3D).length, [steps]);
   const default2dCount = useMemo(() => steps.filter((s) => s.defaultMode === "2d").length, [steps]);
 
+  // 返回栏：顶部时留在原位，滚过阈值后吸底（始终可见且不遮首屏正文）
+  const [barFixed, setBarFixed] = useState(false);
+  useEffect(() => {
+    const onScroll = () => setBarFixed(window.scrollY > 120);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // 当前步：优先 ?step=，其次 URL 锚点（#gk-7，既有挂图入口形态）。只认本页真实存在的 stepId。
+  const stepParam = searchParams.get("step");
+  const hashStep = location.hash.replace(/^#/, "");
+  const currentStepId = useMemo(() => {
+    const candidate = stepParam ?? hashStep;
+    return candidate && steps.some((s) => s.stepId === candidate) ? candidate : null;
+  }, [stepParam, hashStep, steps]);
+  // 返回挂图的目标由当前步反推：带步就指向该步，否则回挂图页根（保持既有行为）。
+  const backTo =
+    currentStepId && config
+      ? `${config.back.to.split("?")[0]}?step=${currentStepId}`
+      : (config?.back.to.split("?")[0] ?? "/");
+
+  // 深链 ?step=gk-7：进入后直接落到对应结构块（挂图页本身支持 ?step= 选中该步）
+  useEffect(() => {
+    if (!stepParam || !steps.some((s) => s.stepId === stepParam)) return;
+    const id = stepParam;
+    requestAnimationFrame(() => document.getElementById(id)?.scrollIntoView({ block: "start" }));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [stepParam]);
+
   // 证据等级：一律由 gradesForStep 从结构化字段推导；页面只读结果
   const grades = useMemo(() => steps.map(gradesForStep), [steps]);
   const counts = useMemo<GradeCounts>(() => {
@@ -1116,12 +1147,16 @@ export default function StructureFramesPage() {
   }
 
   return (
-    <div className="poster film-poster cmp-poster" data-page="comparison" data-mode={modeChoice}>
-      <nav className="film-back" data-testid="film-back">
-        <Link to={config.back.to}>{config.back.label}</Link>
-        <Link to="/" className="film-home">首页</Link>
-        <span className="film-back-step">{config.backCaption}</span>
-      </nav>
+    <div className="poster film-poster cmp-poster structures-page" data-page="comparison" data-mode={modeChoice}>
+      <div className="structures-backbar-slot">
+        <nav className={`film-back structures-backbar${barFixed ? " is-fixed" : ""}`} data-testid="film-back">
+          <Link to={backTo} className="structures-back-btn" data-testid="structures-back">
+            {config.back.label}
+          </Link>
+          <Link to="/" className="film-home">首页</Link>
+          <span className="film-back-step">{config.backCaption}</span>
+        </nav>
+      </div>
       <PathwaySwitcher current={pathwayId as NavItemId} variant="structure" />
 
       <header className="masthead">

@@ -856,7 +856,7 @@ const GLYCOLYSIS_CONFIG: ComparisonConfig = {
   summary:
     "十步逐步对照：左为酶的静态 3D 结构，只回答「这一步是哪个酶、口袋在哪、哪些残基在界面」；右为主角——底物与产物的结构并置。页头开关整页切换 3D 球棍 / 2D 结构式：3D 球棍拖动可旋转，2D 用同色圈注同一批原子；箭头下方始终给出范德华体积与主轴长度的变化。本页不播放动画：酶的构象变化、配体进入口袋的过程都不呈现。",
   plateNo: "PLATE SF-01 · 结构对照 · 第二版 · 2026",
-  back: { to: "/pathway/glycolysis?step=gk-1", label: "← 返回挂图" },
+  back: { to: "/pathway/glycolysis", label: "← 返回挂图" },
   backCaption: "糖酵解 · 结构对照",
   enzymePanel: true,
   enzymePanelOffNote: "本步酶结构资产未建立 · 待核验后接入",

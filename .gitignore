@@ -16,6 +16,7 @@ scripts/cache/
 # 临时文件
 *.tmp
 *.tmp*
+.trae/
 
 # 环境变量与本地覆盖配置（可能含凭据，一律不入库）
 .env

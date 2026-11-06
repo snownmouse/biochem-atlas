@@ -109,11 +109,16 @@ export default function Molecule3D({ asset, marks }: { asset: Mol3DAsset | null;
   const wrapRef = useRef<HTMLDivElement>(null);
   const hostRef = useRef<HTMLDivElement>(null);
   const viewerRef = useRef<any>(null);
+  /** 初始化完成时的完整相机 view，供「重置视角」原样还原 */
+  const initViewRef = useRef<any>(null);
   const [visible, setVisible] = useState(false);
   /** 实际落到 3D 上的高亮原子数（selector 命中才算；0 表示模型里找不到该原子名） */
   const [applied, setApplied] = useState(0);
+  /** 相机已就绪：ref 变化不触发渲染，重置按钮需要 state 才可靠出现 */
+  const [ready, setReady] = useState(false);
 
   const kill = () => {
+    setReady(false);
     const host = hostRef.current;
     const viewer = viewerRef.current;
     if (viewer) {
@@ -132,6 +137,7 @@ export default function Molecule3D({ asset, marks }: { asset: Mol3DAsset | null;
       }
     }
     viewerRef.current = null;
+    initViewRef.current = null;
     if (host) host.innerHTML = "";
   };
 
@@ -163,12 +169,15 @@ export default function Molecule3D({ asset, marks }: { asset: Mol3DAsset | null;
     if (!visible || !asset) return;
     let cancelled = false;
     let viewer: any = null;
+    let hostEl: HTMLDivElement | null = null;
+    let capture: (() => void) | null = null;
     (async () => {
       try {
         const $3Dmol: any = await import("3dmol");
         if (cancelled) return;
         const host = hostRef.current;
         if (!host) return;
+        hostEl = host;
         kill();
         host.innerHTML = "";
         viewer = $3Dmol.createViewer(host, { backgroundColor: "#f6f3ec", antialias: true });
@@ -221,12 +230,38 @@ export default function Molecule3D({ asset, marks }: { asset: Mol3DAsset | null;
         viewer.zoomTo();
         viewer.zoom(0.92);
         viewer.render();
+        // 初始相机写入 data-view-init；拖动后与重置后的当前相机写入 data-view，
+        // 供无头浏览器直接比对（不改业务、不挂 window 全局）。
+        if (wrapRef.current) {
+          initViewRef.current = viewer.getView();
+          wrapRef.current.dataset.viewInit = JSON.stringify(initViewRef.current);
+          wrapRef.current.dataset.view = wrapRef.current.dataset.viewInit;
+        }
+        const captureFn = () => {
+          try {
+            if (wrapRef.current) wrapRef.current.dataset.view = JSON.stringify(viewer.getView());
+          } catch {
+            /* viewer 已失效 */
+          }
+        };
+        host.addEventListener("pointerup", captureFn);
+        host.addEventListener("mouseup", captureFn);
+        host.addEventListener("mousemove", captureFn);
+        host.addEventListener("wheel", captureFn, { passive: true });
+        capture = captureFn;
+        setReady(true);
       } catch {
         /* 3D 不可用：保留来源行与体积数字，不阻塞页面 */
       }
     })();
     return () => {
       cancelled = true;
+      if (hostEl && capture) {
+        hostEl.removeEventListener("pointerup", capture);
+        hostEl.removeEventListener("mouseup", capture);
+        hostEl.removeEventListener("mousemove", capture);
+        hostEl.removeEventListener("wheel", capture);
+      }
       if (viewer) {
         try {
           viewer.clear();
@@ -236,6 +271,23 @@ export default function Molecule3D({ asset, marks }: { asset: Mol3DAsset | null;
       }
     };
   }, [visible, asset, marks]);
+
+  /** 回到初始相机：还原初始化时记录的完整 view（旋转 + 平移 + 缩放），不刷新页面 */
+  const resetView = () => {
+    const v = viewerRef.current;
+    if (!v) return;
+    try {
+      if (initViewRef.current) v.setView(initViewRef.current);
+      else {
+        v.zoomTo();
+        v.zoom(0.92);
+      }
+      v.render();
+      if (wrapRef.current) wrapRef.current.dataset.view = JSON.stringify(v.getView());
+    } catch {
+      /* viewer 已失效 */
+    }
+  };
 
   const prov = asset?.provenance;
   const nameSet = new Set((asset?.atoms ?? []).map((a) => a.name).filter(Boolean) as string[]);
@@ -258,7 +310,18 @@ export default function Molecule3D({ asset, marks }: { asset: Mol3DAsset | null;
         {!asset && <div className="mol3d-state">3D 资产加载中…</div>}
         {asset && !visible && <div className="mol3d-state">3D 待载入（滚动到此处自动加载）</div>}
         <div ref={hostRef} className="mol3d-host" data-testid="mol-3d-host" />
-        {asset && visible && <span className="mol3d-hint">拖动旋转</span>}
+        {asset && visible && <span className="mol3d-hint mol3d-hint-left">拖动旋转</span>}
+        {asset && visible && ready && (
+          <button
+            type="button"
+            className="mol3d-reset"
+            data-testid="mol3d-reset"
+            onClick={resetView}
+            title="回到初始相机位置与缩放"
+          >
+            重置视角
+          </button>
+        )}
       </div>
       {asset && prov && (
         <div className="mol3d-foot">
