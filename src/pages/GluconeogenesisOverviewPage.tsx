@@ -16,6 +16,7 @@ import type {
 } from "../data/gluconeogenesis/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import "../styles/frames-entry.css";
 
@@ -957,6 +958,7 @@ export default function GluconeogenesisOverviewPage() {
         </aside>
       </div>
 
+      <PathwayRailFoot current="gluconeogenesis" />
       <div className="poster-foot">
         <span>待确认：逐步 ΔG 的 Lehninger Ch.20 详表数值未核实，页面仅显示定性结论，不可作定量判读。<br /></span>
         <span>待确认：3D 结合视图整轮占位——PDB 候选（3BG3 / 1KHB / 1FTA / 9J7U 等）来自 outline 已核验表，资产未制作，无路径。<br /></span>

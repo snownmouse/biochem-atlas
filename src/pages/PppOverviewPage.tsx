@@ -11,6 +11,7 @@ import type { PppData, PppSkeleton, PppStep } from "../data/ppp/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import "../styles/frames-entry.css";
 
@@ -1041,6 +1042,7 @@ export default function PppOverviewPage() {
         </aside>
       </div>
 
+      <PathwayRailFoot current="ppp" />
       <div className="poster-foot">
         <span>待确认：逐步 ΔG 数值未核实——Lehninger 8e Ch.14 未列 PPP 逐步 ΔG°′ 表，页面仅给定性结论，不作定量判读。<br /></span>
         <span>待确认：3D 结合视图整轮占位——数据层 threeD.status=pending，仅登记 PDB 候选（G6PD 7SNI、RPE 3OVQ/3OVP 等），无资产路径。<br /></span>

@@ -4,6 +4,7 @@
 import { useMemo, useRef, useState, type MouseEvent } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import glycogenData from "../data/glycogen/glycogen.json";
 import glycogenSkeleton from "../data/glycogen/skeleton.json";
@@ -656,6 +657,7 @@ export default function GlycogenOverviewPage() {
         </aside>
       </div>
 
+      <PathwayRailFoot current="glycogen" />
       <div className="poster-foot">
         <span>
           待确认：逐步 ΔG 的 Lehninger 8e Ch.19 详表数值未核实，页面只给定性结论（ΔG = null），不可作定量判读。<br />

@@ -3247,6 +3247,8 @@
 
 * { box-sizing: border-box; }
 html, body, #root { margin: 0; padding: 0; }
+/* 顶部导航檐吸顶后，锚点跳转与 scrollIntoView 为 36px 檐留出让位 */
+html { scroll-padding-top: 44px; }
 body {
   background: var(--paper);
   color: var(--ink);

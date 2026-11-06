@@ -19,6 +19,7 @@ import type { OxphosData, OxphosModule, OxphosSkeleton } from "../data/oxphos/ty
 import { GRADE_LABEL, gradeOfPart } from "../data/evidenceGrade";
 import SolubleDomain3D from "../components/SolubleDomain3D";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 
 const DATA = dataJson as unknown as OxphosData;
@@ -712,6 +713,7 @@ export default function OxphosOverviewPage() {
         </table>
       </section>
 
+      <PathwayRailFoot current="oxphos" />
       <footer className="poster-foot">
         <span>
           编号：{DATA.plateNo} · 结构页 {DATA.structurePlateNo}。数据源：RCSB PDB 3ZCF / 1BMF / 5LDW / 7QSK / 1ZOY / 1BE3 / 5Z62；P/O 口径与 TCA、β-氧化页同版本。

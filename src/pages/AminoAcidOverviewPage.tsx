@@ -9,6 +9,7 @@
 import { useEffect, useMemo, useRef, useState, type MouseEvent } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
@@ -563,6 +564,7 @@ export default function AminoAcidOverviewPage() {
               </div>
             </div>
 
+            <PathwayRailFoot current="amino-acids" />
             <div className="poster-foot">
               <span>
                 分类出处：Lehninger 8e Ch.18 碳骨架去路表（生糖 14 / 生糖兼生酮 4 / 生酮 2）；Thr 归属分歧已在分类带注记并列，不单方面裁定。

@@ -5,6 +5,7 @@ import type { ReactNode } from "react";
 import { useId } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { PATHWAY_NAV, type NavItemId } from "../data/pathways";
+import PathwayRail from "./PathwayRail";
 import "../styles/pathway-nav.css";
 
 interface PathwaySwitcherProps {
@@ -48,6 +49,9 @@ export default function PathwaySwitcher({ current, variant = "poster", context }
       >
         跳到主要内容
       </a>
+      {variant !== "home" ? (
+        <PathwayRail current={current} layer={variant === "structure" ? "structure" : "poster"} />
+      ) : null}
       <nav
         className={`crumb pathway-switcher pathway-switcher--${variant}${variant === "home" ? " home-crumb" : ""}`}
         data-testid="pathway-switcher"

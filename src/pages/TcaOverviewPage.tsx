@@ -8,6 +8,7 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { entitiesTca, organNoteTca, pathwayTca, TODO_NOTES_TCA } from "../data/tca";
 import type { OrganId, Step } from "../data/types";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import "../styles/frames-entry.css";
 
@@ -738,6 +739,7 @@ export default function TcaOverviewPage() {
         </aside>
       </div>
 
+      <PathwayRailFoot current="tca" />
       <div className="poster-foot">
         {TODO_NOTES_TCA.map((n) => (
           <span key={n}>待确认：{n}<br /></span>

@@ -10,6 +10,7 @@ import type { FasData, FasSkeleton } from "../data/fatty-acid-synthesis/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 
 const data = fasJson as unknown as FasData;
@@ -915,6 +916,7 @@ export default function FasOverviewPage() {
         </aside>
       </div>
 
+      <PathwayRailFoot current="fatty-acid-synthesis" />
       <div className="poster-foot">
         <span>待确认：逐步 ΔG 的 Lehninger Ch.21 详表数值未核实，页面仅显示定性结论，不可作定量判读。<br /></span>
         <span>3D 缺口：FASN 约 540 kDa 巨型合酶，本轮不出任何 3D 视图，也未建 3D 资产；候选已核实为人源全长 8VM0（cryo-EM 3.30 Å，含 NADPH/NDP）与人源 TE 结构域 1XKT（X-ray 2.60 Å，无配体），页面不伪造资产路径。<br /></span>

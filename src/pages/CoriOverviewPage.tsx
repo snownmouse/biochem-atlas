@@ -9,6 +9,7 @@ import coriJson from "../data/cori/cori.json";
 import skelJson from "../data/cori/skeleton.json";
 import type { ArmStep, CoriData, CoriSkeleton } from "../data/cori/types";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import glyJson from "../data/glycolysis.json";
 import gluJson from "../data/gluconeogenesis/gluconeogenesis.json";
@@ -981,6 +982,7 @@ export default function CoriOverviewPage() {
         </aside>
       </div>
 
+      <PathwayRailFoot current="cori" />
       <div className="poster-foot">
         <span>
           口径：本页 13 条引用步全部来自 glycolysis.json / gluconeogenesis.json / 其 skeleton.json；

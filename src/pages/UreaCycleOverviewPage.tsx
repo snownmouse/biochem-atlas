@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
@@ -534,6 +535,7 @@ export function UreaCycleOverviewPage() {
               </div>
             </div>
 
+            <PathwayRailFoot current="urea-cycle" />
             <div className="poster-foot">
               <span>区室标签是硬约束：线粒体基质 / 内膜转运带 / 胞质三条带位必须可读；跨膜段只放 ORNT1 与 Asp 进入，不画成第六步。</span>
               <span>闭环是 2 → 3 → 4 → 5 → 2：ARG1 再生的鸟氨酸经 ORNT1 回到 OTC，不是回到 CPS1。</span>

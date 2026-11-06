@@ -27,6 +27,7 @@ import {
   type StepFlag,
 } from "../data/step3d";
 import { ATOM_PALETTE_JSON, atomColor, atomColorFunc } from "../data/atomColors";
+import PathwayRail from "../components/PathwayRail";
 
 type ViewState = "apo" | "holo";
 type Phase = "loading" | "ready" | "degraded" | "static";
@@ -94,6 +95,11 @@ export default function StepViewPage() {
 
   return (
     <div className="poster step-poster">
+      <PathwayRail
+        current="glycolysis"
+        layer="step"
+        structureHref={`/structures/glycolysis?step=${encodeURIComponent(step.id)}`}
+      />
       <header className="s-mast">
         <div className="mast-top">
           <span className="kicker">单步结构视图 · STEP STRUCTURE PLATE</span>

@@ -10,6 +10,7 @@ import { FRAME_SEQUENCES, framesForStep } from "../data/structureFrames";
 import type { OrganId, Step } from "../data/types";
 import EmbeddedStepViewer from "../components/EmbeddedStepViewer";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import "../styles/frames-entry.css";
 
@@ -876,6 +877,7 @@ export default function PathwayOverviewPage() {
         </aside>
       </div>
 
+      <PathwayRailFoot current="glycolysis" />
       <div className="poster-foot">
         {TODO_NOTES.map((n) => (
           <span key={n}>待确认：{n}<br /></span>

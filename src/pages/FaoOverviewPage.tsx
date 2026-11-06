@@ -10,6 +10,7 @@ import type { FaoData, FaoSkeleton } from "../data/fatty-acid-oxidation/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 
 const data = faoJson as unknown as FaoData;
@@ -940,6 +941,7 @@ export default function FaoOverviewPage() {
         </aside>
       </div>
 
+      <PathwayRailFoot current="fatty-acid-oxidation" />
       <div className="poster-foot">
         <span>待确认：逐步 ΔG 的 Lehninger Ch.17 详表数值未核实，页面仅显示定性结论，不可作定量判读。<br /></span>
         <span>已接入：分子 2D / 3D 资产已建（8 个新建 + 乙酰-CoA 共享），逐块对照见 <code>/structures/fatty-acid-oxidation</code>；酶 3D 仍未建立，右栏只给灰字占位，不伪造结构。<br /></span>
