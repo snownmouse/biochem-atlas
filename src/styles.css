@@ -5922,3 +5922,86 @@ svg .branch { transition: opacity 0.2s ease; }
   outline: 2px solid var(--brick);
   outline-offset: 2px;
 }
+
+/* ============================================================
+   首页可发现性：标题点线 / 可见焦点 / 连线键盘代理 / 触屏浮签
+   仅作用于 .home-poster，不覆盖 .plate-canvas 等基类。
+   ============================================================ */
+
+/* 通路标题：与 PathwaySwitcher 同款点线下划线，静止态即说明「可点」 */
+.home-poster .home-block a text {
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-decoration-thickness: 1px;
+  text-decoration-skip-ink: none;
+  text-underline-offset: 4px;
+}
+
+/* 首页画布内的可点目标：统一 1px 砖红可见焦点 */
+.home-poster .home-title-link:focus {
+  outline: none;
+}
+.home-poster .home-title-link:focus-visible {
+  outline: 1px solid var(--brick);
+  outline-offset: 3px;
+}
+
+.home-poster .home-cori-link:focus {
+  outline: none;
+}
+.home-poster .home-cori-link:focus-visible {
+  outline: 1px solid var(--brick);
+  outline-offset: 2px;
+}
+
+.home-poster .home-domain-label:focus {
+  outline: none;
+}
+.home-poster .home-domain-label:focus-visible {
+  outline: 1px solid var(--brick);
+  outline-offset: 2px;
+}
+
+.home-poster .home-node:focus {
+  outline: none;
+}
+.home-poster .home-node:focus-visible {
+  outline: 1px solid var(--brick);
+  outline-offset: 2px;
+}
+.home-poster .home-node.is-selected > circle:last-of-type {
+  stroke: var(--brick);
+  stroke-width: 2.4;
+}
+
+/* 连线键盘代理：默认透明、不拦指针；聚焦时在原线位置画出砖红实线 */
+.home-poster .home-edge-focus {
+  pointer-events: none;
+}
+.home-poster .home-edge-focus:focus {
+  outline: none;
+}
+.home-poster .home-edge-focus:focus-visible {
+  outline: 1px solid var(--brick);
+  outline-offset: 2px;
+}
+.home-poster .home-edge-focus:focus-visible line,
+.home-poster .home-edge-focus:focus-visible path {
+  stroke: var(--brick);
+  stroke-width: 2.8;
+}
+
+/* 触屏浮签：1px 墨线直角、纸白底，固定定位不参与版式 */
+.home-tip {
+  position: fixed;
+  z-index: 60;
+  max-width: 268px;
+  padding: 4px 8px;
+  border: 1px solid var(--ink);
+  background: var(--paper, #f6f3ec);
+  color: var(--ink);
+  font-size: 11px;
+  line-height: 1.55;
+  letter-spacing: 0.02em;
+  pointer-events: none;
+}

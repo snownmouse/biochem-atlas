@@ -1,4 +1,5 @@
 import {
+  useEffect,
   useMemo,
   useRef,
   useState,
@@ -60,6 +61,9 @@ const PATH_COLOR: Record<HomePathwayId, string> = {
 };
 
 const JUNCTION_IDS = new Set(HOME_NODES.filter((node) => node.junction).map((node) => node.id));
+
+/** Cori 回路带的固定文案：SVG <title> 与触屏浮签共用同一句。 */
+const CORI_TITLE = "Cori 循环 · PLATE 07：乳酸肌→肝、葡萄糖肝→肌";
 
 /** 双向走廊实体：同一条线正反两向都画时，用上下两条固定车道（糖异生在下）。 */
 const CHAIN_IDS = new Set([
@@ -310,6 +314,48 @@ export function HomePage() {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const panRef = useRef({ active: false, startX: 0, startScroll: 0, moved: false, endAt: 0 });
 
+  /** 触屏浮签：SVG 原生 <title> 在触屏不可读，长按目标时以 HTML 浮签显示同一句文案。 */
+  const [tip, setTip] = useState<{ left: number; top: number; text: string } | null>(null);
+  const tipTimerRef = useRef<number | null>(null);
+  /** 长按已出浮签：紧随其后的 click 只关闭浮签语义、不导航（正常轻点不受影响）。 */
+  const longPressedRef = useRef(false);
+
+  function clearTipTimer() {
+    if (tipTimerRef.current !== null) {
+      window.clearTimeout(tipTimerRef.current);
+      tipTimerRef.current = null;
+    }
+  }
+
+  function showTip(clientX: number, clientY: number, text: string) {
+    const width = 268;
+    const left = Math.max(8, Math.min(clientX + 14, window.innerWidth - width - 8));
+    const top = Math.max(8, Math.min(clientY - 58, window.innerHeight - 64));
+    setTip({ left, top, text });
+  }
+
+  function beginTip(event: ReactPointerEvent<Element>, text: string) {
+    longPressedRef.current = false;
+    if (event.pointerType !== "touch") return;
+    const { clientX, clientY } = event;
+    clearTipTimer();
+    tipTimerRef.current = window.setTimeout(() => {
+      tipTimerRef.current = null;
+      longPressedRef.current = true;
+      showTip(clientX, clientY, text);
+    }, 450);
+  }
+
+  function cancelTipOnMove(event: ReactPointerEvent<Element>) {
+    if (event.pointerType === "touch") clearTipTimer();
+  }
+
+  useEffect(() => {
+    if (!tip) return;
+    const timer = window.setTimeout(() => setTip(null), 2400);
+    return () => window.clearTimeout(timer);
+  }, [tip]);
+
   function handlePanDown(event: ReactPointerEvent<HTMLDivElement>) {
     if (event.button !== 0) return;
     const el = scrollRef.current;
@@ -435,8 +481,14 @@ export function HomePage() {
   const selected = selectedJunction ? junctionById(selectedJunction) : undefined;
 
   function handleNode(node: HomeNode) {
+    if (longPressedRef.current) {
+      longPressedRef.current = false;
+      return;
+    }
     if (node.junction) {
       setSelectedJunction(node.id);
+      // 首屏反馈：右栏默认收起时自动展开，所选共用的通路清单就在同一屏内
+      setAsideOpen(true);
       return;
     }
     const pathwayId = node.pathwayIds[0];
@@ -444,6 +496,10 @@ export function HomePage() {
   }
 
   function handleEdge(edge: HomeEdge) {
+    if (longPressedRef.current) {
+      longPressedRef.current = false;
+      return;
+    }
     const route = homePathwayMeta(edge.pathwayId).route;
     if (edge.primaryStepId) navigate(`${route}?step=${edge.primaryStepId}`);
     else navigate(route);
@@ -454,6 +510,14 @@ export function HomePage() {
   }
 
   const focusedLabel = domainFocus === "all" ? "全图 · 02 域" : domainFocus === "cytosol" ? "当前域 · 胞质" : "当前域 · 基质";
+
+  const nodeTipText = (node: HomeNode) =>
+    `${node.fullName} · ${node.pathwayIds.map((id) => homePathwayMeta(id).name).join(" / ")}`;
+  const edgeTipText = (edge: HomeEdge) => {
+    const name = homePathwayMeta(edge.pathwayId).name;
+    const steps = edge.stepIds.length ? edge.stepIds.join(" / ") : edge.kind;
+    return `${edge.enzyme !== "—" ? `${edge.enzyme} · ` : ""}${steps} → ${name}`;
+  };
 
   return (
     <div className="poster home-poster" data-page="home">
@@ -598,8 +662,24 @@ export function HomePage() {
                   </marker>
                 </defs>
                 {/* Cori 回路：不新增标题块，只加一条细胞外血液带（负 y 区） */}
-                <a href="/pathway/cori" data-cori-loop="1">
-                  <title>Cori 循环 · PLATE 07：乳酸肌→肝、葡萄糖肝→肌</title>
+                <a
+                  href="/pathway/cori"
+                  data-cori-loop="1"
+                  className="home-cori-link"
+                  onPointerDown={(event) => beginTip(event, CORI_TITLE)}
+                  onPointerMove={cancelTipOnMove}
+                  onPointerUp={clearTipTimer}
+                  onPointerLeave={clearTipTimer}
+                  onContextMenu={(event) => event.preventDefault()}
+                  onClick={(event) => {
+                    if (longPressedRef.current) {
+                      longPressedRef.current = false;
+                      event.preventDefault();
+                      event.stopPropagation();
+                    }
+                  }}
+                >
+                  <title>{CORI_TITLE}</title>
                   <rect
                     x={0}
                     y={HOME_CORI_LOOP.band.minY}
@@ -706,10 +786,21 @@ export function HomePage() {
                   return (
                     <g
                       key={label.band}
+                      className={label.band === "membrane" ? undefined : "home-domain-label"}
                       opacity={domainFocus === "all" || focused ? 1 : 0.45}
-                      style={{ cursor: "pointer" }}
+                      style={{ cursor: label.band === "membrane" ? "default" : "pointer" }}
+                      role={label.band === "membrane" ? undefined : "button"}
+                      tabIndex={label.band === "membrane" ? undefined : 0}
+                      aria-label={label.band === "membrane" ? undefined : `高亮${label.label}域`}
                       onClick={() => {
                         if (label.band === "cytosol" || label.band === "matrix") toggleDomain(label.band);
+                      }}
+                      onKeyDown={(event) => {
+                        if (label.band === "membrane") return;
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          toggleDomain(label.band as Exclude<DomainFocus, "all">);
+                        }
                       }}
                     >
                       {svgText(label.label, label.x, label.y, 10, "start", {
@@ -747,7 +838,7 @@ export function HomePage() {
                   const meta = homePathwayMeta(label.pathwayId);
                   return (
                     <g key={meta.id} className="home-block">
-                      <a href={meta.route} data-pathway-block={meta.id}>
+                      <a href={meta.route} data-pathway-block={meta.id} className="home-title-link">
                         <text
                           x={label.x}
                           y={label.y}
@@ -786,6 +877,11 @@ export function HomePage() {
                         data-edge-sources={edge.sources.map((s) => `${s.pathwayId}:${s.stepId ?? s.linkType}`).join(" ")}
                         data-pathway-id={edge.pathwayId}
                         onClick={() => handleEdge(edge)}
+                        onPointerDown={(event) => beginTip(event, edgeTipText(edge))}
+                        onPointerMove={cancelTipOnMove}
+                        onPointerUp={clearTipTimer}
+                        onPointerLeave={clearTipTimer}
+                        onContextMenu={(event) => event.preventDefault()}
                       >
                         <path
                           d={`M${pos.x + 11},${pos.y - 13} a11,11 0 1,1 9,15`}
@@ -833,6 +929,11 @@ export function HomePage() {
                       data-pathway-id={edge.pathwayId}
                       data-edge-kind={edge.kind}
                       onClick={() => handleEdge(edge)}
+                      onPointerDown={(event) => beginTip(event, edgeTipText(edge))}
+                      onPointerMove={cancelTipOnMove}
+                      onPointerUp={clearTipTimer}
+                      onPointerLeave={clearTipTimer}
+                      onContextMenu={(event) => event.preventDefault()}
                     >
                       <line
                         x1={geom.x1}
@@ -919,17 +1020,28 @@ export function HomePage() {
                   return (
                     <g
                       key={node.id}
-                      className={`home-node${node.junction ? " is-junction" : ""}`}
+                      className={`home-node${node.junction ? " is-junction" : ""}${
+                        selectedJunction === node.id ? " is-selected" : ""
+                      }`}
                       data-node-id={node.id}
                       data-entity-id={node.id}
                       data-junction={node.junction ? "1" : "0"}
                       data-pathway-ids={node.pathwayIds.join(",")}
+                      aria-label={nodeTipText(node)}
                       onClick={() => handleNode(node)}
                       role="button"
                       tabIndex={0}
                       onKeyDown={(event) => {
-                        if (event.key === "Enter" || event.key === " ") handleNode(node);
+                        if (event.key === "Enter" || event.key === " ") {
+                          event.preventDefault();
+                          handleNode(node);
+                        }
                       }}
+                      onPointerDown={(event) => beginTip(event, nodeTipText(node))}
+                      onPointerMove={cancelTipOnMove}
+                      onPointerUp={clearTipTimer}
+                      onPointerLeave={clearTipTimer}
+                      onContextMenu={(event) => event.preventDefault()}
                     >
                       <circle cx={pos.x} cy={pos.y} r={node.junction ? 14 : 10} fill="transparent" />
                       {node.junction && <circle cx={pos.x} cy={pos.y} r={9.5} fill="none" stroke={C.brick} strokeWidth={1.3} />}
@@ -959,7 +1071,49 @@ export function HomePage() {
                           ×{node.pathwayIds.length}
                         </text>
                       )}
-                      <title>{`${node.fullName} · ${node.pathwayIds.map((id) => homePathwayMeta(id).name).join(" / ")}`}</title>
+                      <title>{nodeTipText(node)}</title>
+                    </g>
+                  );
+                })}
+
+                {/* 连线键盘代理：视觉层仍是节点压在连线之上，Tab 顺序排在节点之后 */}
+                {geometries.map(({ edge, geom }) => {
+                  const keyProps = {
+                    role: "button" as const,
+                    tabIndex: 0,
+                    "aria-label": `连线 · ${edgeTipText(edge)}`,
+                    onKeyDown: (event: ReactKeyboardEvent<SVGGElement>) => {
+                      if (event.key === "Enter" || event.key === " ") {
+                        event.preventDefault();
+                        handleEdge(edge);
+                      }
+                    },
+                  };
+                  if (edge.from === edge.to) {
+                    const pos = HOME_POS[edge.from];
+                    return (
+                      <g key={`kbd-${edge.id}`} className="home-edge-focus" data-edge-key={edge.id} {...keyProps}>
+                        <path
+                          d={`M${pos.x + 11},${pos.y - 13} a11,11 0 1,1 9,15`}
+                          fill="none"
+                          stroke="transparent"
+                          strokeWidth={3}
+                          strokeDasharray="3 2"
+                        />
+                      </g>
+                    );
+                  }
+                  if (!geom) return null;
+                  return (
+                    <g key={`kbd-${edge.id}`} className="home-edge-focus" data-edge-key={edge.id} {...keyProps}>
+                      <line
+                        x1={geom.x1}
+                        y1={geom.y1}
+                        x2={geom.x2}
+                        y2={geom.y2}
+                        stroke="transparent"
+                        strokeWidth={3}
+                      />
                     </g>
                   );
                 })}
@@ -1106,6 +1260,17 @@ export function HomePage() {
           </div>
         </aside>
       </div>
+
+      {tip && (
+        <div
+          className="home-tip"
+          data-testid="home-tip"
+          role="tooltip"
+          style={{ left: tip.left, top: tip.top }}
+        >
+          {tip.text}
+        </div>
+      )}
 
       <footer className="home-tribute">
         体例致敬：Donald Nicholson 的代谢通路挂图（1960 年首印，后为 IUBMB–Nicholson 系列）与 KEGG（京都大学 Kanehisa 实验室，1995 年首发）的路径图编排。
