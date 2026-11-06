@@ -727,7 +727,7 @@ function StepDetail({ step, cmpGrade, gradeLabel }: { step: AminoStep; cmpGrade:
       {step.reaction.cofactors.length ? <div className="d-cof">辅因子：{step.reaction.cofactors.join(" / ")}</div> : null}
       {step.deltaG.qualitative ? (
         <div className="d-cof">
-          ΔG：{step.deltaG.value === null ? "未给数值" : step.deltaG.value} · {step.deltaG.qualitative}（{step.deltaG.source}）
+          ΔG：{step.deltaG.qualitative}（{step.deltaG.source}）
         </div>
       ) : null}
       <div className="d-sig">{step.physiology}</div>

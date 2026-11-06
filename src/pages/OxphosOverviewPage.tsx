@@ -513,7 +513,7 @@ export default function OxphosOverviewPage() {
 
               <div className="d-cof" data-testid="oxphos-dg">
                 <b>ΔG</b>
-                <span style={{ opacity: 0.55 }}> {selected.deltaG.qualitative ?? "—"}（数值未核实）</span>
+                <span style={{ opacity: 0.55 }}> {selected.deltaG.qualitative ?? "—"}</span>
               </div>
 
               {selected.sharedWith && (
@@ -718,7 +718,7 @@ export default function OxphosOverviewPage() {
         <span>
           编号：{DATA.plateNo} · 结构页 {DATA.structurePlateNo}。数据源：RCSB PDB 3ZCF / 1BMF / 5LDW / 7QSK / 1ZOY / 1BE3 / 5Z62；P/O 口径与 TCA、β-氧化页同版本。
         </span>
-        <span>ΔG 全部定性 +「数值未核实」；不把膜蛋白片段或计算构象冒充完整复合体。未 git 提交。</span>
+        <span>ΔG 只作定性标注，不展示数值；不把膜蛋白片段或计算构象冒充完整复合体。未 git 提交。</span>
       </footer>
     </div>
   );

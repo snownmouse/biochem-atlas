@@ -97,8 +97,8 @@ check("切回肝：环上不再置灰", await page.evaluate(() => {
 
 // ===== 3) 右栏详情 + 3D 占位 =====
 await page.goto(`${BASE}/pathway/tca?step=tca-5`, { waitUntil: "networkidle" });
-check("详情栏显示 ΔG 两个口径", (await page.locator('.d-cof.num', { hasText: "标准态" }).innerText()).includes("生理态"));
-check("ΔG 口径含『未核实』标注", (await page.locator(".d-dgnote").innerText()).includes("未核实"));
+check("详情栏不再展示 ΔG 数值", (await page.locator('.d-cof.num', { hasText: "标准态" }).count()) === 0);
+check("ΔG 生理态口径说明已撤下", (await page.locator(".d-dgnote").count()) === 0);
 check("3D 占位说明核验原因", (await page.locator("aside .d-none").last().innerText()).includes("待结构核验"));
 check("能量结算 ×2 口径", (await page.locator(".settle-net").innerText()).includes("两轮 ×2"));
 

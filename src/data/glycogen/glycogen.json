@@ -84,7 +84,11 @@
       "physiology": "磷酸解直接把 Pi 插进糖苷键，不消耗 ATP；每释放 1 个 G1P 相当于省下 1 个 ATP。PLP 是活性位点必需的共价辅因子。",
       "organDifference": "肝 PYGL 受葡萄糖变构抑制；肌 PYGM 受 AMP 变构激活、受 ATP/G6P 抑制。",
       "sharedWith": [],
-      "pdbCandidates": ["1EM6", "1FA9", "1Z8D"]
+      "pdbCandidates": [
+        {"pdbId":"1EM6","status":"verified","enzyme":"糖原磷酸化酶（肝 PYGL a）","entityId":"glycogen-phosphorylase","role":"inhibitor-complex","organism":"Homo sapiens（PYGL，taxid 9606）","expressionSystem":"Spodoptera frugiperda（昆虫细胞宿主；RCSB 未注明株系）","mutations":"PDB mutation 字段为空，无工程点突变","method":"X-RAY DIFFRACTION","resolution":2.2,"chains":"A, B","ligands":["PLP（吡哆醛-5′-磷酸，共价辅因子）","NBG（N-乙酰-β-D-葡糖胺，活性位点类似物）","CP4（CP-526423 抑制剂）","MPD（结晶添加剂）"],"ligandCodes":["PLP","NBG","CP4","MPD"],"entryTitle":"HUMAN LIVER GLYCOGEN PHOSPHORYLASE A COMPLEXED WITH GLCNAC AND CP-526,423","note":"PLP 与活性位点葡萄糖类似物 NBG 同时可见；NBG 不是天然底物 G1P。","verifiedOn":"2026-11-06"},
+        {"pdbId":"1FA9","status":"verified","enzyme":"糖原磷酸化酶（肝 PYGL a）","entityId":"glycogen-phosphorylase","role":"allosteric","organism":"Homo sapiens（PYGL，taxid 9606）","expressionSystem":"Escherichia coli（宿主菌；RCSB 未注明株系）","mutations":"PDB mutation 字段为空，无工程点突变","method":"X-RAY DIFFRACTION","resolution":2.4,"chains":"A","ligands":["GLC（α-D-葡萄糖）","AMP","PLP（共价 / 活性位点）"],"ligandCodes":["GLC","AMP","PLP"],"entryTitle":"HUMAN LIVER GLYCOGEN PHOSPHORYLASE A COMPLEXED WITH AMP","note":"AMP 变构位点 + 葡萄糖；PLP 以共价形式存在。","verifiedOn":"2026-11-06"},
+        {"pdbId":"1Z8D","status":"verified","enzyme":"糖原磷酸化酶（肌 PYGM a）","entityId":"glycogen-phosphorylase","role":"allosteric","organism":"Homo sapiens（PYGM，taxid 9606）","expressionSystem":"Spodoptera frugiperda（昆虫细胞宿主；RCSB 未注明株系）","mutations":"无工程点突变；PDB mutation 字段列出 S14(SEP) 与 K680(LLP)，实为修饰残基（磷酸化 Ser14 / PLP-赖氨酸），非致病突变","method":"X-RAY DIFFRACTION","resolution":2.3,"chains":"A","ligands":["GLC（α-D-葡萄糖）","AMP","ADE（腺嘌呤，结晶配体）"],"ligandCodes":["GLC","AMP","ADE"],"entryTitle":"Crystal Structure of Human Muscle Glycogen Phosphorylase a with AMP and Glucose","note":"肌 PYGM a；PLP 以共价修饰残基 LLP 出现在聚合物实体，不是游离配体。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "gly-2",
@@ -114,7 +118,9 @@
       "physiology": "磷酸化酶在距分支点 4 个残基处停下；AGL 先把 3 个残基转到主链，再水解 α-1,6 键，每分支释放 1 个游离葡萄糖。",
       "organDifference": "肝：游离葡萄糖可直接经 GLUT2 释出；肌：游离葡萄糖需己糖激酶再磷酸化（耗 1 ATP）后进糖酵解。",
       "sharedWith": [],
-      "pdbCandidates": ["8ZEQ"]
+      "pdbCandidates": [
+        {"pdbId":"8ZEQ","status":"verified","enzyme":"糖原脱支酶（AGL）","entityId":"debranching-enzyme","role":"apo","organism":"Homo sapiens","method":"ELECTRON MICROSCOPY","resolution":3.36,"chains":"A","ligands":[],"ligandCodes":[],"entryTitle":"Molecular Architecture of Human Glycogen Debranching Enzyme: Insights into Glycogen Storage Disease III Pathogenesis","note":"整体架构，无糖原或寡糖配体；不能当作底物复合物。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "gly-3",
@@ -148,7 +154,9 @@
         { "pathwayId": "glycolysis", "stepId": "gk-2", "entityId": "g6p", "note": "G6P 进糖酵解" },
         { "pathwayId": "gluconeogenesis", "stepId": "gn-11", "entityId": "g6p", "note": "糖异生最后一步的底物" }
       ],
-      "pdbCandidates": ["6UIQ"]
+      "pdbCandidates": [
+        {"pdbId":"6UIQ","status":"verified","enzyme":"磷酸葡萄糖变位酶 1（PGM1）","entityId":"pgm1","role":"substrate-state","organism":"Homo sapiens","method":"X-RAY DIFFRACTION","resolution":2.3,"chains":"A, B","ligands":["G6P（天然底物）","MG（Mg²⁺）"],"ligandCodes":["G6P","MG"],"entryTitle":"Crystal structure of wild-type human phosphoglucomutase 1 in complex with Glucose-6-Phosphate","note":"G6P 是合成向（G6P → G1P）的底物；分解向 G1P → G6P 则是其逆反应。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "gly-4",
@@ -182,7 +190,11 @@
       "sharedWith": [
         { "pathwayId": "gluconeogenesis", "stepId": "gn-11", "entityId": "glc", "note": "同酶同反应：G6P → 葡萄糖" }
       ],
-      "pdbCandidates": ["9JTM", "9JTN", "9JTO"]
+      "pdbCandidates": [
+        {"pdbId":"9JTM","status":"verified","enzyme":"葡萄糖-6-磷酸酶催化亚基 1（G6PC1）","entityId":"g6pc1","role":"substrate-state","organism":"Homo sapiens","method":"ELECTRON MICROSCOPY","resolution":2.9,"chains":"A","ligands":["G6P（天然底物）"],"ligandCodes":["G6P"],"entryTitle":"Human glucose 6 phosphate catalytic subunit 1 (hG6PC1) bound with G6P","note":"真人源 G6PC1–G6P 复合物；标题声明 G6P，另有脂质环境组分 P5S。","verifiedOn":"2026-11-06"},
+        {"pdbId":"9JTN","status":"verified","enzyme":"葡萄糖-6-磷酸酶催化亚基 1（G6PC1）","entityId":"g6pc1","role":"product-state","organism":"Homo sapiens","method":"ELECTRON MICROSCOPY","resolution":3.1,"chains":"A","ligands":["PO₄（标题声明的产物磷酸）"],"ligandCodes":["PO4"],"entryTitle":"Human glucose 6 phosphate catalytic subunit 1 (hG6PC1) bound with phosphate.","note":"与 9JTM 配对看水解前后；磷酸在坐标内以离子 / 修饰形式出现。","verifiedOn":"2026-11-06"},
+        {"pdbId":"9JTO","status":"verified","enzyme":"葡萄糖-6-磷酸酶催化亚基 1（G6PC1）","entityId":"g6pc1","role":"inhibitor-complex","organism":"Homo sapiens","method":"ELECTRON MICROSCOPY","resolution":3.3,"chains":"A","ligands":["F6P（标题声明的结合配体）"],"ligandCodes":["F6P"],"entryTitle":"Human glucose 6 phosphate catalytic subunit 1 (hG6PC1) bound with F6P.","note":"F6P 是 G6P 的异构体，不是本步底物；只作口袋对照，不当作底物复合物。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "gly-5",
@@ -249,7 +261,9 @@
         { "pathwayId": "glycolysis", "stepId": "gk-2", "entityId": "g6p", "note": "G6P 进糖酵解" },
         { "pathwayId": "gluconeogenesis", "stepId": "gn-11", "entityId": "g6p", "note": "糖异生最后一步的底物" }
       ],
-      "pdbCandidates": ["6UIQ"]
+      "pdbCandidates": [
+        {"pdbId":"6UIQ","status":"verified","enzyme":"磷酸葡萄糖变位酶 1（PGM1）","entityId":"pgm1","role":"substrate-state","organism":"Homo sapiens","method":"X-RAY DIFFRACTION","resolution":2.3,"chains":"A, B","ligands":["G6P（天然底物）","MG（Mg²⁺）"],"ligandCodes":["G6P","MG"],"entryTitle":"Crystal structure of wild-type human phosphoglucomutase 1 in complex with Glucose-6-Phosphate","note":"G6P 是合成向（G6P → G1P）的底物；分解向 G1P → G6P 则是其逆反应。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "gly-7",
@@ -279,7 +293,9 @@
       "physiology": "把 G1P 活化成 UDP-葡萄糖；UTP 的 β/γ 磷酸以 PPi 形式释出，PPi 水解再耗 1 个酐键，合计每个残基 2 个高能磷酸键。",
       "organDifference": "肝、肌同酶；UTP 由嘧啶核苷酸合成供给（本平台未建该通路，仅注记，不伪造接口）。",
       "sharedWith": [],
-      "pdbCandidates": ["4R7P"]
+      "pdbCandidates": [
+        {"pdbId":"4R7P","status":"verified","enzyme":"UDP-葡萄糖焦磷酸化酶（UGP2 isoform 1）","entityId":"ugp2","role":"product-state","organism":"Homo sapiens","method":"X-RAY DIFFRACTION","resolution":3.35,"chains":"A–D","ligands":["UPG（UDP-葡萄糖，天然产物）","ZN / SO4 / ACT / EDO（结晶添加剂）"],"ligandCodes":["UPG","ZN","SO4","ACT","EDO"],"entryTitle":"Human UDP-glucose pyrophosphorylase isoform 1 in complex with UDP-glucose","note":"真人源 UGP2–UDP-葡萄糖复合物；UDP-葡萄糖是天然产物。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "gly-8",
@@ -311,7 +327,10 @@
       "physiology": "糖原合酶只延长 α-1,4 链；起始需要 glycogenin 自糖基化引物。",
       "organDifference": "肝 GYS2 受 G6P 与胰岛素/PP1 调控；肌 GYS1 受收缩/AMPK 与胰岛素调控。",
       "sharedWith": [],
-      "pdbCandidates": ["7Q13", "7Q0S"]
+      "pdbCandidates": [
+        {"pdbId":"7Q13","status":"verified","enzyme":"糖原合酶（GYS1–GYG1 复合物）","entityId":"gys","role":"substrate-state","organism":"Homo sapiens","method":"ELECTRON MICROSCOPY","resolution":3,"chains":"A–D","ligands":["G6P","UDP（合酶反应产物）"],"ligandCodes":["G6P","UDP"],"entryTitle":"Human GYS1-GYG1 complex activated state bound to glucose-6-phosphate, uridine diphosphate, and glucose","note":"GYS1–GYG1 活化态；UDP 是糖基转移后的产物，不是 UDP-葡萄糖底物本身。","verifiedOn":"2026-11-06"},
+        {"pdbId":"7Q0S","status":"verified","enzyme":"糖原合酶（GYS1–GYG1 复合物）","entityId":"gys","role":"inhibitor-complex","organism":"Homo sapiens","method":"ELECTRON MICROSCOPY","resolution":4,"chains":"A–D","ligands":["G6P"],"ligandCodes":["G6P"],"entryTitle":"Human GYS1-GYG1 complex inhibited-like state bound to glucose-6-phosphate","note":"抑制样态，只有 G6P；与 7Q13 配对看活化态差异。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "gly-9",
@@ -341,7 +360,10 @@
       "physiology": "分支增加非还原端数量，使磷酸化酶与合酶能同时作用更多末端；分支点也是脱支酶的底物。",
       "organDifference": "肝、肌同酶；分支密度影响两器官的动员速度。",
       "sharedWith": [],
-      "pdbCandidates": ["5CLW", "4BZY"]
+      "pdbCandidates": [
+        {"pdbId":"5CLW","status":"verified","enzyme":"糖原分支酶（GBE1）","entityId":"gbe1","role":"substrate-state","organism":"Homo sapiens","method":"X-RAY DIFFRACTION","resolution":2.8,"chains":"A, B, C","ligands":["maltoheptaose（α-1,4 七糖）"],"ligandCodes":[],"entryTitle":"Crystal structure of human glycogen branching enzyme (GBE1) in complex with maltoheptaose","note":"maltoheptaose 是 α-1,4 糖链底物类似物；分支反应的 α-1,6 产物未在此结构中建模。","verifiedOn":"2026-11-06"},
+        {"pdbId":"4BZY","status":"verified","enzyme":"糖原分支酶（GBE1）","entityId":"gbe1","role":"apo","organism":"Homo sapiens","method":"X-RAY DIFFRACTION","resolution":2.75,"chains":"A, B, C","ligands":[],"ligandCodes":[],"entryTitle":"Crystal structure of human glycogen branching enzyme (GBE1)","note":"apo 结构；无糖链配体。","verifiedOn":"2026-11-06"}
+      ]
     }
   ],
   "regulation": [

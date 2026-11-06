@@ -224,7 +224,7 @@
       "direction": "reversible",
       "deltaG": {
         "value": null,
-        "qualitative": "硫酯键交换，近平衡；体内由 HMGCS1 持续消耗乙酰乙酰-CoA 拉动",
+        "qualitative": "硫酯键交换，近平衡；体内由 HMGCS1 持续消耗乙酰乙酰-CoA 拉动。",
         "source": "Lehninger 8e Ch.21"
       },
       "physiology": "把两个 C2 单位接成 C4 硫酯，为 HMG-CoA 合酶准备底物；不消耗 ATP 或 NADPH。",
@@ -248,7 +248,7 @@
       "direction": "forward",
       "deltaG": {
         "value": null,
-        "qualitative": "硫酯水解驱动，体内偏正向；具体 ΔG 未核实",
+        "qualitative": "硫酯水解驱动，体内偏正向。",
         "source": "Lehninger 8e Ch.21"
       },
       "physiology": "生成 HMG-CoA——甲羟戊酸通路的最后一个非限速中间体，也是 HMGCR 的底物。",
@@ -273,13 +273,17 @@
       "direction": "forward",
       "deltaG": {
         "value": null,
-        "qualitative": "强放能（两个 NADPH 参与的还原 + 硫酯水解）；数值未核实",
+        "qualitative": "强放能（两个 NADPH 参与的还原 + 硫酯水解）。",
         "source": "Lehninger 8e Ch.21"
       },
       "physiology": "全通路限速步：把 HMG-CoA 的硫酯还原为伯醇，生成甲羟戊酸。消耗 2 个 NADPH。",
       "clinical": "他汀类与该步 HMG-CoA 位点竞争性结合，降低胆固醇合成并上调 LDL 受体。药物作用于该节点，不是反应步骤。",
       "sharedWith": [],
-      "pdbCandidates": ["1HWK", "1HW9", "1DQA"]
+      "pdbCandidates": [
+        {"pdbId":"1HWK","status":"verified","enzyme":"HMG-CoA 还原酶","entityId":"hmgcr","role":"inhibitor-complex","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"M485I（晶体构建体）","method":"X-ray","resolution":2.22,"chains":"A–D","ligands":["ADP","阿托伐他汀（117）"],"ligandCodes":["ADP","117"],"entryTitle":"COMPLEX OF THE CATALYTIC PORTION OF HUMAN HMG-COA REDUCTASE WITH ATORVASTATIN","note":"人源催化域 + 阿托伐他汀；他汀是 HMG-CoA 位点竞争性抑制剂，不是底物。","verifiedOn":"2026-11-06"},
+        {"pdbId":"1HW9","status":"verified","enzyme":"HMG-CoA 还原酶","entityId":"hmgcr","role":"inhibitor-complex","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"M485I（晶体构建体）","method":"X-ray","resolution":2.33,"chains":"A–D","ligands":["ADP","辛伐他汀酸（SIM）"],"ligandCodes":["ADP","SIM"],"entryTitle":"COMPLEX OF THE CATALYTIC PORTION OF HUMAN HMG-COA REDUCTASE WITH SIMVASTATIN","note":"辛伐他汀酸复合物；与 1HWK 同属 M485I 晶体构建体。","verifiedOn":"2026-11-06"},
+        {"pdbId":"1DQA","status":"verified","enzyme":"HMG-CoA 还原酶","entityId":"hmgcr","role":"substrate-state","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"构建体突变（条目未列位点）","method":"X-ray","resolution":2,"chains":"A–D","ligands":["HMG 酸（MAH）","CoA","NADP⁺（NAP）"],"ligandCodes":["MAH","COA","NAP"],"entryTitle":"COMPLEX OF THE CATALYTIC PORTION OF HUMAN HMG-COA REDUCTASE WITH HMG, COA, AND NADP+","note":"HMG-CoA 被拆成 HMG 酸 + CoA + NADP⁺；不是完整 HMG-CoA 构象，配体状态需中性标注。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "ch-4",
@@ -298,13 +302,15 @@
       "direction": "forward",
       "deltaG": {
         "value": null,
-        "qualitative": "ATP 水解驱动，体内偏正向；数值未核实",
+        "qualitative": "ATP 水解驱动，体内偏正向。",
         "source": "Lehninger 8e Ch.21"
       },
       "physiology": "只磷酸化 C5 伯羟基；C3 叔羟基不被磷酸化。消耗 1 ATP。",
       "clinical": "MVK 缺陷导致高 IgD 综合征 / 甲羟戊酸尿症。",
       "sharedWith": [],
-      "pdbCandidates": ["2R3V"]
+      "pdbCandidates": [
+        {"pdbId":"2R3V","status":"verified","enzyme":"甲羟戊酸激酶","entityId":"mvk","role":"apo","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"无","method":"X-ray","resolution":2.5,"chains":"A–D","ligands":["无（apo，未建模底物 / ATP）"],"ligandCodes":[],"entryTitle":"The Biochemical and Structural Basis for Feedback Inhibition of Mevalonate Kinase and Isoprenoid Metabolism","note":"唯一人源 MVK 条目；apo，未建模底物 / ATP。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "ch-5",
@@ -323,12 +329,14 @@
       "direction": "forward",
       "deltaG": {
         "value": null,
-        "qualitative": "ATP 水解驱动；体外近平衡偏正向，数值未核实",
+        "qualitative": "ATP 水解驱动；体外近平衡偏正向。",
         "source": "Lehninger 8e Ch.21"
       },
       "physiology": "把 3-羟基磷酸化，生成 3-磷酸-5-二磷酸中间体，为 MVD 的脱羧-消除反应准备离去基团。消耗 1 ATP。",
       "sharedWith": [],
-      "pdbCandidates": ["3CH4"]
+      "pdbCandidates": [
+        {"pdbId":"3CH4","status":"verified","enzyme":"磷酸甲羟戊酸激酶","entityId":"pmvk","role":"apo","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"无","method":"X-ray","resolution":1.76,"chains":"B","ligands":["硫酸根（SO4）","MPD"],"ligandCodes":["SO4","MPD"],"entryTitle":"The Crystal Structure of Human Phosphomavelonate Kinase At 1.8 A Resolution","note":"唯一人源 PMVK 条目；仅硫酸根与 MPD，无底物共晶。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "ch-6",
@@ -347,12 +355,14 @@
       "direction": "forward",
       "deltaG": {
         "value": null,
-        "qualitative": "ATP 依赖的脱羧，放能；数值未核实",
+        "qualitative": "ATP 依赖的脱羧，放能。",
         "source": "Lehninger 8e Ch.21"
       },
       "physiology": "MVD 先用 ATP 磷酸化 3-OH，再经 β-消除脱去 CO₂ 与磷酸，生成 C5 的 IPP。消耗 1 ATP。",
       "sharedWith": [],
-      "pdbCandidates": ["3D4J"]
+      "pdbCandidates": [
+        {"pdbId":"3D4J","status":"verified","enzyme":"甲羟戊酸二磷酸脱羧酶","entityId":"mvd","role":"apo","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"无","method":"X-ray","resolution":2.4,"chains":"A,B","ligands":["硫酸根（SO4）"],"ligandCodes":["SO4"],"entryTitle":"Crystal structure of Human mevalonate diphosphate decarboxylase","note":"唯一人源 MVD 条目；仅硫酸根，无底物。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "ch-7",
@@ -371,12 +381,14 @@
       "direction": "reversible",
       "deltaG": {
         "value": null,
-        "qualitative": "近平衡（ΔG°′ ≈ 0，可逆）；数值未核实",
+        "qualitative": "近平衡（ΔG°′ ≈ 0，可逆）。",
         "source": "Lehninger 8e Ch.21"
       },
       "physiology": "把 IPP 的双键移到末端，生成烯丙基型 DMAPP——缩合反应的亲核供体。无净能量收支。",
       "sharedWith": [],
-      "pdbCandidates": ["2ICK"]
+      "pdbCandidates": [
+        {"pdbId":"2ICK","status":"verified","enzyme":"异戊烯基二磷酸异构酶 1","entityId":"idi1","role":"product-state","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"无","method":"X-ray","resolution":1.93,"chains":"A","ligands":["Mn²⁺","DMAPP（DMA）"],"ligandCodes":["MN","DMA"],"entryTitle":"Human isopentenyl diphophate isomerase complexed with substrate analog","note":"DMAPP（DMA）结合，是 IDI1 的产物态；条目称 substrate analog，按产物态使用。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "ch-8",
@@ -395,12 +407,14 @@
       "direction": "forward",
       "deltaG": {
         "value": null,
-        "qualitative": "烯丙基二磷酸离去 + PPi 水解拉动，放能；数值未核实",
+        "qualitative": "烯丙基二磷酸离去 + PPi 水解拉动，放能。",
         "source": "Lehninger 8e Ch.21"
       },
       "physiology": "DMAPP 的烯丙基进攻 IPP，形成 C10 的 GPP；焦磷酸是离去基团。无 ATP / NADPH 支出。",
       "sharedWith": [],
-      "pdbCandidates": ["5CG6"]
+      "pdbCandidates": [
+        {"pdbId":"5CG6","status":"verified","enzyme":"法尼基二磷酸合酶","entityId":"fdps","role":"inhibitor-complex","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"无","method":"X-ray / 中子","resolution":1.7,"chains":"A","ligands":["Mg²⁺","利塞膦酸（RIS）","IPP（IPE）"],"ligandCodes":["MG","RIS","IPE"],"entryTitle":"Neutron crystal structure of human farnesyl pyrophosphate synthase in complex with risedronate and isopentenyl pyrophosphate","note":"活性位点 IPP（IPE）+ 利塞膦酸（RIS）三元复合物；中子/X-ray 联合，X-ray 分辨率 1.7 Å。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "ch-9",
@@ -419,12 +433,14 @@
       "direction": "forward",
       "deltaG": {
         "value": null,
-        "qualitative": "第二次缩合同样由 PPi 水解拉动；数值未核实",
+        "qualitative": "第二次缩合同样由 PPi 水解拉动。",
         "source": "Lehninger 8e Ch.21"
       },
       "physiology": "GPP 再接受一个 IPP，生成 C15 的 FPP——甾醇合成与非甾醇类异戊二烯的共同分支点。",
       "sharedWith": [],
-      "pdbCandidates": ["5JA0"]
+      "pdbCandidates": [
+        {"pdbId":"5JA0","status":"verified","enzyme":"法尼基二磷酸合酶","entityId":"fdps","role":"substrate-state","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"无","method":"X-ray","resolution":1.9,"chains":"F","ligands":["磷酸根（PO4）","FPP"],"ligandCodes":["PO4","FPP"],"entryTitle":"Crystal structure of human FPPS with allosterically bound FPP","note":"FPP 结合于别构位点，不是活性中心底物态；页面必须中性标注。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "ch-10",
@@ -443,12 +459,15 @@
       "direction": "forward",
       "deltaG": {
         "value": null,
-        "qualitative": "双缩合 + NADPH 还原，强放能；数值未核实",
+        "qualitative": "双缩合 + NADPH 还原，强放能。",
         "source": "Lehninger 8e Ch.21"
       },
       "physiology": "两个 FPP 头对头缩合为 C30 的角鲨烯；先形成环丙基中间体，再由 NADPH 还原。消耗 1 NADPH。",
       "sharedWith": [],
-      "pdbCandidates": ["3WEG", "3VJC"]
+      "pdbCandidates": [
+        {"pdbId":"3WEG","status":"verified","enzyme":"角鲨烯合酶","entityId":"fdft1","role":"substrate-state","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"无","method":"X-ray","resolution":1.75,"chains":"A","ligands":["Mg²⁺","FPP 硫代类似物（FPS）"],"ligandCodes":["MG","FPS"],"entryTitle":"Crystal structure of the human squalene synthase in complex with farnesyl thiopyrophosphate and magnesium ion","note":"FPS 是 FPP 的硫代类似物，不是天然底物；只作底物口袋参考。","verifiedOn":"2026-11-06"},
+        {"pdbId":"3VJC","status":"verified","enzyme":"角鲨烯合酶","entityId":"fdft1","role":"inhibitor-complex","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"无","method":"X-ray","resolution":1.89,"chains":"A–F","ligands":["zaragozic acid A（ZGA）","磷酸根","Mg²⁺"],"ligandCodes":["ZGA","PO4","MG"],"entryTitle":"Crystal structure of the human squalene synthase in complex with zaragozic acid A","note":"天然产物抑制剂复合物；六聚体。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "ch-11",
@@ -473,7 +492,9 @@
       "physiology": "在角鲨烯末端双键上加一个氧，生成 2,3-环氧角鲨烯——LSS 环化的起爆点。消耗 1 NADPH + 1 O₂。",
       "clinical": "SQLE 过表达与多种肿瘤相关；也是抗真菌 / 抗寄生虫药物的潜在靶点。",
       "sharedWith": [],
-      "pdbCandidates": ["6C6P"]
+      "pdbCandidates": [
+        {"pdbId":"6C6P","status":"verified","enzyme":"角鲨烯单加氧酶","entityId":"sqle","role":"inhibitor-complex","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"无","method":"X-ray","resolution":2.5,"chains":"A,B","ligands":["FAD","NB-598（EMV）","CHAPS（CPS）"],"ligandCodes":["FAD","EMV","CPS"],"entryTitle":"Human squalene epoxidase (SQLE, squalene monooxygenase) structure with FAD and NB-598","note":"FAD + 真实抑制剂 NB-598；去污剂 CPS 不是配体。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "ch-12",
@@ -497,7 +518,10 @@
       },
       "physiology": "一个质子引发环氧开环，C30 链经多轮 1,2-迁移环化成四环羊毛甾醇骨架。无 ATP / NADPH 净支出。",
       "sharedWith": [],
-      "pdbCandidates": ["1W6K", "1W6J"]
+      "pdbCandidates": [
+        {"pdbId":"1W6K","status":"verified","enzyme":"羊毛甾醇合酶","entityId":"lss","role":"product-state","organism":"Homo sapiens","expressionSystem":"Pichia pastoris","mutations":"无","method":"X-ray","resolution":2.1,"chains":"A","ligands":["羊毛甾醇（LAN）","BOG（去污剂）"],"ligandCodes":["LAN","BOG"],"entryTitle":"Structure of human OSC in complex with Lanosterol","note":"羊毛甾醇是 LSS 的真实产物，结合态可用；BOG 为去污剂。","verifiedOn":"2026-11-06"},
+        {"pdbId":"1W6J","status":"verified","enzyme":"羊毛甾醇合酶","entityId":"lss","role":"inhibitor-complex","organism":"Homo sapiens","expressionSystem":"Pichia pastoris","mutations":"无","method":"X-ray","resolution":2.2,"chains":"A","ligands":["Ro 48-8071（R71）","BOG","C14"],"ligandCodes":["R71","BOG","C14"],"entryTitle":"Structure of human OSC in complex with Ro 48-8071","note":"抑制剂 Ro 48-8071 复合物；BOG / C14 为去污剂与烷烃。","verifiedOn":"2026-11-06"}
+      ]
     },
     {
       "id": "ch-13",
@@ -536,7 +560,12 @@
         "note": "任务口径中的 MSDHL 按标准基因名 MSMO1（SC4MOL）处理；DHCR24 与 DHCR7 是两条并行终段路线，页面用簇表达压缩，不逐步画箭头。"
       },
       "sharedWith": [],
-      "pdbCandidates": ["4UHI", "6UEZ", "6JKH", "6OHT"]
+      "pdbCandidates": [
+        {"pdbId":"4UHI","status":"verified","enzyme":"羊毛甾醇 14α-去甲基酶","entityId":"cyp51a1","role":"inhibitor-complex","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"无","method":"X-ray","resolution":2.04,"chains":"A–D","ligands":["血红素（HEM）","VFV（咪唑类抑制剂）"],"ligandCodes":["HEM","VFV"],"entryTitle":"HUMAN STEROL 14-ALPHA DEMETHYLASE (CYP51) IN COMPLEX WITH VFV IN C121 SPACE GROUP","note":"野生型 CYP51 + 咪唑类抑制剂 + 血红素；不是底物态。","verifiedOn":"2026-11-06"},
+        {"pdbId":"6UEZ","status":"verified","enzyme":"羊毛甾醇 14α-去甲基酶","entityId":"cyp51a1","role":"substrate-state","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"D231A / H314A（条目注释）","method":"X-ray","resolution":1.98,"chains":"A,B","ligands":["血红素（HEM）","羊毛甾醇（LAN）"],"ligandCodes":["HEM","LAN"],"entryTitle":"Human sterol 14a-demethylase (CYP51) in complex with the substrate lanosterol","note":"真实底物羊毛甾醇共晶，但为双突变体；引用时必须标注突变，不当作野生型口袋。","verifiedOn":"2026-11-06"},
+        {"pdbId":"6JKH","status":"verified","enzyme":"甾醇-4α-羧酸 3-脱氢酶","entityId":"nsdhl","role":"architecture","organism":"Homo sapiens","expressionSystem":"Escherichia coli","mutations":"无","method":"X-ray","resolution":3,"chains":"A,B","ligands":["NAD⁺（NAD）"],"ligandCodes":["NAD"],"entryTitle":"The NAD+-bound form of human NSDHL","note":"NAD⁺ 结合型；只有辅因子，无甾醇底物。","verifiedOn":"2026-11-06"},
+        {"pdbId":"6OHT","status":"verified","enzyme":"Δ8-Δ7 甾醇异构酶","entityId":"ebp","role":"inhibitor-complex","organism":"Homo sapiens","expressionSystem":"Homo sapiens 细胞","mutations":"无","method":"X-ray","resolution":3.2,"chains":"A–C","ligands":["U18666A（MKM）"],"ligandCodes":["MKM"],"entryTitle":"Structure of EBP and U18666A","note":"经典 EBP 抑制剂 U18666A 复合物；人源细胞表达。","verifiedOn":"2026-11-06"}
+      ]
     }
   ],
   "regulation": [

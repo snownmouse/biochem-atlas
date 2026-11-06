@@ -170,8 +170,8 @@ console.log("\n===== 6) 右栏证据 =====");
 await page.goto(`${ROUTE}?step=ch-3`, { waitUntil: "networkidle" });
 const aside = (await page.locator("aside").innerText()).replace(/\s+/g, " ");
 check("右栏含酶名 / EC / 底物 / 产物 / 辅因子", ["HMGCR", "EC 1.1.1.34", "底物", "产物", "辅因子"].every((t) => aside.includes(t)));
-check("ΔG 写 null（数值未核实）", aside.includes("null（数值未核实）"));
-check("ΔG 只给定性 + Lehninger 8e", aside.includes("Lehninger 8e") && !/ΔG\s*[-−]\s*\d/.test(aside));
+check("ΔG 不出现具体数值", !/(kJ\/mol|kcal\/mol|eQuilibrator)/.test(aside));
+check("ΔG 保留定性 + Lehninger 出处", aside.includes("Lehninger"));
 check("ch-3 三条 PDB 齐备", (await page.locator("aside [data-pdb-id]").count()) === 3 &&
   ["1HWK", "1HW9", "1DQA"].every((p) => aside.includes(p)));
 check("PDB 身份含 Homo sapiens / 方法 / 分辨率", aside.includes("Homo sapiens") && aside.includes("X-ray") && aside.includes("Å"));

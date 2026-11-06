@@ -58,7 +58,7 @@
       ],
       "bindingProfile": null,
       "ecNumber": "1.1.1.49",
-      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "生理不可逆；G6PD 步强放能。Lehninger 8e Ch.14 未列 PPP 逐步 ΔG°′ 表，不编数。", "source": "Lehninger 8e Ch.14" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "生理不可逆；G6PD 步强放能。", "source": "Lehninger 8e Ch.14" },
       "stereochemistry": ["底物 C1 为氧化位点；产物为 δ-内酯（六元环）"],
       "misconceptions": [
         "「G6PD 也接受 NAD⁺」——错，专一性刻在结合口袋：G6PD 拒收 NAD⁺（NADP⁺ 的 2′-磷酸基是识别标记），GAPDH 则拒收 NADP⁺；分解代谢用 NAD⁺、合成与抗氧化用 NADPH 是两套互不串账的货币。",
@@ -96,7 +96,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "3.1.1.31",
-      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "水解强放能，与 o1 的内酯生成共同把氧化相拉成不可逆。Lehninger 8e Ch.14 未列数值，不编数。", "source": "Lehninger 8e Ch.14" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "水解强放能，与 o1 的内酯生成共同把氧化相拉成不可逆。", "source": "Lehninger 8e Ch.14" },
       "stereochemistry": ["开环后为线性 D-葡糖酸 6-磷酸"],
       "misconceptions": [
         "「内酯只是中间体随便跳过」——内酯水解是把『环状半缩醛氧化』变成『线性羧酸 β-脱羧』的化学必要铺垫，跳过它 6PGD 的脱羧逻辑讲不通。"
@@ -130,7 +130,7 @@
       ],
       "bindingProfile": null,
       "ecNumber": "1.1.1.44",
-      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "生理不可逆（脱羧放 CO₂ 不可逆拉动）。Lehninger 8e Ch.14 未列数值，不编数。", "source": "Lehninger 8e Ch.14" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "生理不可逆（脱羧放 CO₂ 不可逆拉动）。", "source": "Lehninger 8e Ch.14" },
       "stereochemistry": ["脱羧丢失底物 C1；产物核酮糖-5-磷酸为酮糖"],
       "misconceptions": [
         "「CO₂ 从 C6 释放」——错，丢的是 G6P 的 C1。可以用同位素示踪讲：[1-¹⁴C] 葡萄糖走 PPP 出 ¹⁴CO₂，走糖酵解则 ¹⁴C 留在丙酮酸/乙酰-CoA。",
@@ -164,7 +164,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "5.3.1.6",
-      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆，流向由 R5P 消耗速率决定。不编数。", "source": "Lehninger 8e Ch.14" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆，流向由 R5P 消耗速率决定。", "source": "Lehninger 8e Ch.14" },
       "stereochemistry": ["酮糖↔醛糖异构（C2 羰基 ↔ C1 醛基）"],
       "misconceptions": [
         "「非氧化相是垃圾处理环节」——R5P 出口正在这一步：没有 N1，核酸合成的原料就断供。"
@@ -195,7 +195,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "5.1.3.1",
-      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆。不编数。", "source": "Lehninger 8e Ch.14" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆。", "source": "Lehninger 8e Ch.14" },
       "stereochemistry": ["C3 差向异构（3-位羟基手性翻转），金属离子稳定烯二醇中间体"],
       "misconceptions": [
         "「差向异构和异构差不多」——N1 换的是羰基位置（酮↔醛），N2 换的是羟基手性（差向），化学操作完全不同。"
@@ -227,7 +227,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "2.2.1.1",
-      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆。不编数。", "source": "Lehninger 8e Ch.14" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆。", "source": "Lehninger 8e Ch.14" },
       "stereochemistry": ["羟乙酰基以 TPP 烯胺中间体转移；受体 C1 获新 C–C 键"],
       "misconceptions": [
         "「转酮醇酶搬的是整个五碳」——错，它只搬 C1–C2 两个碳（羟乙酰基），残下三碳。搬几碳是 TK/TA 的全部区别：TK 搬 2C、TA 搬 3C。",
@@ -269,7 +269,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "2.2.1.2",
-      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆。不编数。", "source": "Lehninger 8e Ch.14" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆。", "source": "Lehninger 8e Ch.14" },
       "stereochemistry": ["二羟丙酮基以 Lys 席夫碱（质子化 Schiff 碱）中间体转移；人源 1F05 中该 Lys 不可见"],
       "misconceptions": [
         "「TA 和 TK 反正都是转移酶」——搬的碳数不同（3C vs 2C）、化学不同（席夫碱 vs TPP 卡宾）、辅因子需求不同（无 vs TPP+Mg²⁺）。",
@@ -311,7 +311,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "2.2.1.1",
-      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆。不编数。", "source": "Lehninger 8e Ch.14" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "qualitative": "近平衡可逆。", "source": "Lehninger 8e Ch.14" },
       "stereochemistry": ["与 ppp-n3 同款 TPP 烯胺化学，受体换为 E4P"],
       "misconceptions": [
         "「转酮醇酶只出现一次」——TK 在接力中出现两次（N3、N5），两次都搬 2C；中间夹一次 TA 搬 3C。2C–3C–2C 的节拍是碳骨架重组的全部秘密。"

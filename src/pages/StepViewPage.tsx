@@ -36,7 +36,7 @@ const ROMANS = ["Ⅰ","Ⅱ","Ⅲ","Ⅳ","Ⅴ","Ⅵ","Ⅶ","Ⅷ","Ⅸ","Ⅹ"];
 const roman = (idx: number | null) => (idx === null ? "支" : ROMANS[idx - 1]);
 
 /** 自由能排版：负号用全角减号，固定一位小数 */
-const fmtDG = (v: number) => v.toFixed(1).replace("-", "−");
+const fmtDG = (v: number | null) => (v === null ? "—" : v.toFixed(1).replace("-", "−"));
 
 function safeGetView(viewer: any): number[] | null {
   try {
@@ -612,7 +612,7 @@ function StepView({
             <p className="s-kv"><b>产物</b>{step.products.map(nameOf).join(" + ")}</p>
             <p className="s-kv"><b>辅因子</b>{step.cofactors.length ? step.cofactors.join("、") : "—"}</p>
             {step.ecNumber && <p className="s-kv num"><b>EC</b>{step.ecNumber}</p>}
-            {step.deltaG && (
+            {step.deltaG && step.deltaG.standard !== null && step.deltaG.physiological !== null && (
               <p className="s-kv num">
                 <b>ΔG</b>标准态 {fmtDG(step.deltaG.standard)} · 生理态 {fmtDG(step.deltaG.physiological)} {step.deltaG.unit}
               </p>

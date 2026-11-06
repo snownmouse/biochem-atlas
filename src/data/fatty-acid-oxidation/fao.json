@@ -65,8 +65,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "强放能（PPi 水解把平衡拉到底，细胞内视为不可逆）",
-        "source": "Lehninger 8e Ch.17（定性结论）",
-        "note": "活化总代价按 2 个高能磷酸键计（教学锚点）；未核实到唯一 ΔG°′ 数值，不编数。"
+        "source": "Lehninger 8e Ch.17（定性结论）"
       },
       "stereochemistry": [
         "两步反应：脂肪酸先腺苷酰化生成酰基-AMP 中间体，再由 CoA-SH 置换出 AMP 成硫酯；3EQ6 捕获的是第二步之后的产物态（中间体已离去），解读时注意"
@@ -122,8 +121,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "电中性交换，净耗能 ≈ 0",
-        "source": "Lehninger 8e Ch.17（定性结论）",
-        "note": "无化学键变化，ΔG 意义有限，只记定性；管控在 CPT1 闸门而非能耗。"
+        "source": "Lehninger 8e Ch.17（定性结论）"
       },
       "stereochemistry": [
         "CACT 电中性交换：一分子脂酰肉碱进、一分子肉碱出，不依赖膜电位"
@@ -191,8 +189,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "近平衡",
-        "source": "Lehninger 8e Ch.17（定性结论）",
-        "note": "四步循环 β1–β3 近平衡；未核实到唯一 ΔG°′ 数值，不编数。"
+        "source": "Lehninger 8e Ch.17（定性结论）"
       },
       "stereochemistry": [
         "FAD 从底物取走 2H，双键专一为反式（trans）-Δ²，位于 C2–C3"
@@ -268,8 +265,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "近平衡",
-        "source": "Lehninger 8e Ch.17（定性结论）",
-        "note": "未核实到唯一 ΔG°′ 数值，不编数。"
+        "source": "Lehninger 8e Ch.17（定性结论）"
       },
       "stereochemistry": [
         "水加在 C2–C3 双键上，C3 羟基为 L-构型（与脂肪酸合成走 D 型相反，两通路立体化学互为镜像）"
@@ -344,8 +340,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "近平衡",
-        "source": "Lehninger 8e Ch.17（定性结论）",
-        "note": "未核实到唯一 ΔG°′ 数值，不编数。"
+        "source": "Lehninger 8e Ch.17（定性结论）"
       },
       "stereochemistry": [
         "L-3-羟脂酰-CoA 的 C3 羟基被 NAD⁺ 专一氧化为 3-酮基（前一步已锁定 L-构型）"
@@ -402,8 +397,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "强放能（把反应拉向断键方向）",
-        "source": "Lehninger 8e Ch.17（定性结论）",
-        "note": "具体 ΔG°′ 数值 Lehninger 未单列，不编数。"
+        "source": "Lehninger 8e Ch.17（定性结论）"
       },
       "stereochemistry": [
         "Cys 硫酯中间体 + CoA-SH 亲核进攻 C3 羰基，C2–C3 断键（Claisen 型裂解，乙酰-CoA 带走 C1–C2）"

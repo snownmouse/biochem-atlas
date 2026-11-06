@@ -74,15 +74,38 @@ export interface ComparisonConfig {
 
 const D2 = (id: string) => `/assets/structures/2d/${id}.json`;
 
-const GLC = { id: "glc", name: "α-D-葡萄糖（GLC）", formula: "C₆H₁₂O₆", asset2d: D2("glc") };
-const G6P = { id: "g6p", name: "6-磷酸葡萄糖（G6P）", formula: "C₆H₁₁O₉P", asset2d: D2("g6p") };
+const GLC = {
+  id: "glc",
+  name: "α-D-葡萄糖（GLC）",
+  formula: "C₆H₁₂O₆",
+  asset2d: D2("glc"),
+  sourceNote:
+    "取自人己糖激酶 HK1 PDB 1CZA（1.90 Å · X-ray · Homo sapiens · 链 N · 配体 GLC）——本步本酶、人源；实验坐标。1CZA 为重组人 HK1 突变单体，仅含催化半段。",
+};
+const G6P = {
+  id: "g6p",
+  name: "6-磷酸葡萄糖（G6P）",
+  formula: "C₆H₁₁O₉P",
+  asset2d: D2("g6p"),
+  sourceNote:
+    "取自人己糖激酶 HK1 PDB 1CZA（1.90 Å · X-ray · Homo sapiens · 链 N · 配体 G6P）——本步本酶、人源；实验坐标；G6P 与 GLC 同链、相距 9.3 Å。",
+};
 const F6P = { id: "f6p", name: "6-磷酸果糖（F6P）", formula: "C₆H₁₁O₉P", asset2d: D2("f6p") };
-const FBP = { id: "fbp", name: "果糖-1,6-二磷酸（呋喃型）", formula: "C₆H₁₀O₁₂P₂", asset2d: D2("fbp") };
+const FBP = {
+  id: "fbp",
+  name: "果糖-1,6-二磷酸（呋喃型）",
+  formula: "C₆H₁₀O₁₂P₂",
+  asset2d: D2("fbp"),
+  sourceNote:
+    "取自人肝磷酸果糖激酶-1 PFK-1 PDB 8W2G（3.00 Å · 冷冻电镜 · Homo sapiens · 链 A · 配体 FBP）——本步本酶、人源；实验坐标。注意：该 FBP 实例距活性位点 42.1 Å，非活性口袋结合态。",
+};
 const FBP_LINEAR = {
   id: "fbp-linear",
   name: "果糖-1,6-二磷酸（线形，4ALD 结合态）",
   formula: "C₆H₁₀O₁₂P₂",
   asset2d: D2("fbp-linear"),
+  sourceNote:
+    "取自人肌醛缩酶 ALDOA PDB 4ALD（2.80 Å · X-ray · Homo sapiens · 链 A · 配体 2FP＝线形 F1,6BP）——本步本酶、人源；实验坐标，线形为晶体结合构象。",
   caveat:
     "4ALD 晶体里结合的是线形构象（2FP），此处按结合态呈现，不是自由态呋喃环。键级来自模板，坐标为实验结构原值，键长偏长系晶体构象，未做几何纠正。",
 };
@@ -98,6 +121,8 @@ const GAP = {
   name: "甘油醛-3-磷酸（GAP）",
   formula: "C₃H₅O₆P",
   asset2d: D2("gap"),
+  sourceNote:
+    "RDKit ETKDGv3 + MMFF94 计算构象（30 个起点取最低能量，种子 20261103；自由态）——GAP 无实验配体坐标，计算值不是观测值。",
   caveat: "GAP 无实验配体坐标（1U8F 只结合 NAD），此形状为计算构象（自由态）。",
 };
 const BPG13 = {
@@ -105,12 +130,35 @@ const BPG13 = {
   name: "1,3-二磷酸甘油酸（1,3-BPG）",
   formula: "C₃H₄O₁₀P₂",
   asset2d: D2("bpg13"),
+  sourceNote:
+    "RDKit ETKDGv3 + MMFF94 计算构象（30 个起点取最低能量，种子 20261103；自由态）——1,3-BPG 无实验配体坐标，计算值不是观测值。",
   caveat:
     "展示形式：C1 羧基与磷酸成 mixed anhydride（酰基磷酸），按普通 C–O–P 单键绘制——高能键是热力学性质，不是另一种键型，画成特殊键型反而错。3D 为计算构象（无实验配体坐标），自由态下多磷酸链可能折叠，不冒充口袋里的伸展结合态。",
 };
-const PG3 = { id: "3pg", name: "3-磷酸甘油酸（3PG）", formula: "C₃H₄O₇P", asset2d: D2("3pg") };
-const PG2 = { id: "2pg", name: "2-磷酸甘油酸（2PG）", formula: "C₃H₄O₇P", asset2d: D2("2pg") };
-const PEP = { id: "pep", name: "磷酸烯醇式丙酮酸（PEP）", formula: "C₃H₂O₆P", asset2d: D2("pep") };
+const PG3 = {
+  id: "3pg",
+  name: "3-磷酸甘油酸（3PG）",
+  formula: "C₃H₄O₇P",
+  asset2d: D2("3pg"),
+  sourceNote:
+    "取自人磷酸甘油酸激酶 PGK1 PDB 9FDN（1.58 Å · X-ray · Homo sapiens · 链 A · 配体 3PG）——本步本酶、人源；实验坐标。",
+};
+const PG2 = {
+  id: "2pg",
+  name: "2-磷酸甘油酸（2PG）",
+  formula: "C₃H₄O₇P",
+  asset2d: D2("2pg"),
+  sourceNote:
+    "取自人神经元特异烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 A · 配体 2PG）——人源但为 ENO2 同工酶（非 ENO1）；实验坐标。",
+};
+const PEP = {
+  id: "pep",
+  name: "磷酸烯醇式丙酮酸（PEP）",
+  formula: "C₃H₂O₆P",
+  asset2d: D2("pep"),
+  sourceNote:
+    "取自人神经元特异烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 B · 配体 PEP）——人源但为 ENO2 同工酶；PEP 位于另一亚基，实验坐标。",
+};
 // 丙酮酸的 2D 沿用既有手绘资产 pyruvate.json（id 与 3D 的 pyr 不同：老资产被结构帧页 gk-10-f3 直接引用，
 // 改名会打断单步页；此处只做显式映射，不复制一份同内容文件）。
 const PYR = {
@@ -118,6 +166,8 @@ const PYR = {
   name: "丙酮酸",
   formula: "C₃H₃O₃",
   asset2d: "/assets/structures/2d/pyruvate.json",
+  sourceNote:
+    "RDKit ETKDGv3 + MMFF94 计算构象（30 个起点取最低能量，种子 20261103；自由态）——丙酮酸无实验配体坐标，计算值不是观测值。",
   caveat: "丙酮酸无实验配体坐标（3UCD 只结合 2PG/PEP），此形状为计算构象（自由态），不是观测值。",
 };
 
@@ -169,7 +219,7 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     substrate: {
       name: "6-磷酸葡萄糖（G6P）",
       formula: "C₆H₁₁O₉P",
-      parts: [{ ...G6P, sourceNote: "取自人己糖激酶 HK1 PDB 1CZA（1.90 Å · X-ray · Homo sapiens · 链 A · 配体 G6P）——人源但非本步 GPI 口袋（且 1CZA 中 G6P 位于抑制位点）；实验坐标。", marks: [{ name: "C1", kind: "newbond", note: "醛基" }, { name: "C2", kind: "newbond", note: "醇" }] }],
+      parts: [{ ...G6P, sourceNote: "取自人己糖激酶 HK1 PDB 1CZA（1.90 Å · X-ray · Homo sapiens · 链 N · 配体 G6P）——人源但非本步 GPI 口袋（且 1CZA 中 G6P 位于抑制位点）；实验坐标。", marks: [{ name: "C1", kind: "newbond", note: "醛基" }, { name: "C2", kind: "newbond", note: "醇" }] }],
     },
     product: {
       name: "6-磷酸果糖（F6P）",
@@ -396,7 +446,7 @@ export const GLYCOLYSIS_COMPARISON: StepComparison[] = [
     substrate: {
       name: "磷酸烯醇式丙酮酸（PEP）",
       formula: "C₃H₂O₆P",
-      parts: [{ ...PEP, sourceNote: "取自人烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 A · 配体 PEP）——人源但非本步丙酮酸激酶口袋；实验坐标。", marks: [{ name: "P2", kind: "leaving", note: "磷酰基转移给 ADP" }, { name: "C2", kind: "newbond", note: "C2=C3 消失" }, { name: "C3", kind: "newbond" }] }],
+      parts: [{ ...PEP, sourceNote: "取自人烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 B · 配体 PEP）——人源但非本步丙酮酸激酶口袋；实验坐标。", marks: [{ name: "P2", kind: "leaving", note: "磷酰基转移给 ADP" }, { name: "C2", kind: "newbond", note: "C2=C3 消失" }, { name: "C3", kind: "newbond" }] }],
     },
     product: {
       name: "丙酮酸",
@@ -1406,7 +1456,7 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     product: {
       name: "磷酸烯醇式丙酮酸（PEP）",
       formula: "C₃H₂O₆P",
-      parts: [{ ...PEP, sourceNote: "取自人烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 A · 配体 PEP）——人源但非本步 PEPCK 口袋；实验坐标。", marks: [{ name: "C2", kind: "newbond", note: "C2=C3" }, { name: "C3", kind: "newbond" }] }],
+      parts: [{ ...PEP, sourceNote: "取自人烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 B · 配体 PEP）——人源但非本步 PEPCK 口袋；实验坐标。", marks: [{ name: "C2", kind: "newbond", note: "C2=C3" }, { name: "C3", kind: "newbond" }] }],
     },
     arrowLabel: "PEPCK · 脱羧 + 磷酸化（GTP 供能）",
     change: "OAA 的 C1 脱羧放出 CO₂，同时 C2 被 GTP 磷酰化生成高能烯醇磷酸 PEP；碳骨架从四碳回到三碳，去掉一个羧基、加上一个磷酸。",
@@ -1425,7 +1475,7 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     substrate: {
       name: "磷酸烯醇式丙酮酸（PEP）",
       formula: "C₃H₂O₆P",
-      parts: [{ ...PEP, sourceNote: "取自人烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 A · 配体 PEP）——本步本酶口袋、人源（糖酵解页共享资产）；实验坐标。", marks: [{ name: "C2", kind: "newbond", note: "C2=C3 水合" }, { name: "C3", kind: "newbond" }] }],
+      parts: [{ ...PEP, sourceNote: "取自人烯醇化酶 ENO2 PDB 3UCD（1.41 Å · X-ray · Homo sapiens · 链 B · 配体 PEP）——本步本酶口袋、人源（糖酵解页共享资产）；实验坐标。", marks: [{ name: "C2", kind: "newbond", note: "C2=C3 水合" }, { name: "C3", kind: "newbond" }] }],
     },
     product: {
       name: "2-磷酸甘油酸（2PG）",
@@ -1616,7 +1666,7 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     product: {
       name: "葡萄糖-6-磷酸（G6P）",
       formula: "C₆H₁₁O₉P",
-      parts: [{ ...G6P, sourceNote: "取自人己糖激酶 HK1 PDB 1CZA（1.90 Å · X-ray · Homo sapiens · 链 A · 配体 G6P）——人源但非本步 GPI 口袋；实验坐标（糖酵解页共享资产）。", marks: [{ name: "C1", kind: "newbond", note: "C1 醛糖" }] }],
+      parts: [{ ...G6P, sourceNote: "取自人己糖激酶 HK1 PDB 1CZA（1.90 Å · X-ray · Homo sapiens · 链 N · 配体 G6P）——人源但非本步 GPI 口袋；实验坐标（糖酵解页共享资产）。", marks: [{ name: "C1", kind: "newbond", note: "C1 醛糖" }] }],
     },
     arrowLabel: "GPI · 酮糖→醛糖异构",
     change: "羰基从 C2 移到 C1：F6P 的酮糖（五元环）变回 G6P 的醛糖（六元环）；原子组成不变，环大小与构型随之改变。按规则该块默认 2D。",
@@ -1638,12 +1688,12 @@ const GLUCONEOGENESIS_COMPARISON: StepComparison[] = [
     substrate: {
       name: "葡萄糖-6-磷酸（G6P）",
       formula: "C₆H₁₁O₉P",
-      parts: [{ ...G6P, sourceNote: "取自人己糖激酶 HK1 PDB 1CZA（1.90 Å · X-ray · Homo sapiens · 链 A · 配体 G6P）——人源但非本步 G6PC1 口袋；实验坐标（糖酵解页共享资产）。", marks: [{ name: "C6", kind: "leaving", note: "C6 磷酸水解" }] }],
+      parts: [{ ...G6P, sourceNote: "取自人己糖激酶 HK1 PDB 1CZA（1.90 Å · X-ray · Homo sapiens · 链 N · 配体 G6P）——人源但非本步 G6PC1 口袋；实验坐标（糖酵解页共享资产）。", marks: [{ name: "C6", kind: "leaving", note: "C6 磷酸水解" }] }],
     },
     product: {
       name: "葡萄糖（GLC）",
       formula: "C₆H₁₂O₆",
-      parts: [{ ...GLC, sourceNote: "取自人己糖激酶 HK1 PDB 1CZA（1.90 Å · X-ray · Homo sapiens · 链 A · 配体 GLC）——人源但非本步 G6PC1 口袋；实验坐标（糖酵解页共享资产）。", marks: [{ name: "C6", kind: "newbond", note: "C6–OH" }] }],
+      parts: [{ ...GLC, sourceNote: "取自人己糖激酶 HK1 PDB 1CZA（1.90 Å · X-ray · Homo sapiens · 链 N · 配体 GLC）——人源但非本步 G6PC1 口袋；实验坐标（糖酵解页共享资产）。", marks: [{ name: "C6", kind: "newbond", note: "C6–OH" }] }],
     },
     arrowLabel: "G6PC1 · C6 磷酸水解，释出游离葡萄糖",
     change: "C6 的磷酸酯被水解，G6P 变回葡萄糖：重原子 16→12，去掉整个磷酸，分子缩小。游离葡萄糖可离开肝细胞进入血液。",

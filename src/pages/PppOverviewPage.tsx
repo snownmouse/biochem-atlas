@@ -842,12 +842,10 @@ export default function PppOverviewPage() {
                 {selectedStep.ecNumber && (
                   <div className="d-cof num"><b>EC</b>　{selectedStep.ecNumber}</div>
                 )}
-                {/* ΔG：数据层全部为 null，只给灰字定性，不编数 */}
+                {/* ΔG：数值不作页面展示，只保留定性判断 */}
                 <div className="d-cof" data-dg="1">
                   <b>ΔG</b>
-                  <span style={{ opacity: 0.55 }}>
-                    {" "}定性：{selectedStep.deltaG.qualitative ?? "—"}（数值未核实，Lehninger 8e Ch.14 未列 PPP 逐步表）
-                  </span>
+                  <span style={{ opacity: 0.55 }}>　定性：{selectedStep.deltaG.qualitative ?? "—"}</span>
                 </div>
                 {selectedStep.carbonBookkeeping && (
                   <div className="d-cof num">
@@ -975,7 +973,7 @@ export default function PppOverviewPage() {
               <div className="d-body">
                 <div className="d-placeholder">
                   点击图上的步骤箭头、酶名、碳单位转移弧或代谢物节点，此处显示该步的反应式、酶与 EC、
-                  ΔG（未核实时灰字定性）、意义、碳账、证据等级与结构对照入口。
+                  ΔG（仅保留定性标注，不展示数值）、意义、碳账、证据等级与结构对照入口。
                   左右虚线圆是糖酵解接口投影（G6P 入、F6P / GAP 出）。
                 </div>
               </div>
@@ -1036,7 +1034,7 @@ export default function PppOverviewPage() {
               {data.nonOxidativeBalance.output.g3p} GAP
             </div>
             <div className="d-none" style={{ borderTop: "none", paddingTop: 0 }}>
-              两相净账由 ppp.json 的 oxidativeBalance / nonOxidativeBalance 直接读取；ΔG 与 3D 一律按数据层缺口如实标注。
+              两相净账由 ppp.json 的 oxidativeBalance / nonOxidativeBalance 直接读取；ΔG 数值不作页面展示，只保留定性标注，3D 按缺口如实标注。
             </div>
           </div>
         </aside>
@@ -1044,7 +1042,7 @@ export default function PppOverviewPage() {
 
       <PathwayRailFoot current="ppp" />
       <div className="poster-foot">
-        <span>待确认：逐步 ΔG 数值未核实——Lehninger 8e Ch.14 未列 PPP 逐步 ΔG°′ 表，页面仅给定性结论，不作定量判读。<br /></span>
+        <span>待确认：ΔG 数值不作页面展示，仅保留 Lehninger 8e Ch.14 定性结论。<br /></span>
         <span>待确认：3D 结合视图整轮占位——数据层 threeD.status=pending，仅登记 PDB 候选（G6PD 7SNI、RPE 3OVQ/3OVP 等），无资产路径。<br /></span>
         <span>待确认：人源缺口——6PGL 无结构、RPIA 人源未检索到结构（2VVP 为结核 RpiB，跨种且跨家族）；照实标注，不硬凑。<br /></span>
         <span>待确认：organDiffs 仅登记肝与红细胞；肌肉等其它器官未登记，页面不提供该视图。<br /></span>

@@ -242,7 +242,7 @@ function check(data, skel, ctx) {
     if (!pool.length) warn(`步骤 ${s.id} 缺少底物 / 产物`);
     for (const id of pool) if (!entById.has(id)) warn(`步骤 ${s.id} 引用了不存在的实体 ${id}`);
     if (!/→|⇌/.test(String(s.reaction?.equation ?? ""))) warn(`步骤 ${s.id} 的反应式缺少方向箭头`);
-    if (s.deltaG?.value !== null) warn(`步骤 ${s.id} 的 ΔG 数值必须为 null（不得编造）`);
+    if (s.deltaG?.value !== null) warn(`步骤 ${s.id} 的 ΔG 数值必须为 null（页面不展示数值）`);
     if (!String(s.deltaG?.qualitative ?? "").trim()) warn(`步骤 ${s.id} 缺少 ΔG 定性说明`);
     if (!/Lehninger/.test(s.deltaG?.source ?? "")) warn(`步骤 ${s.id} 的 ΔG 出处必须写 Lehninger`);
     if (!/8e/.test(s.deltaG?.source ?? "")) warn(`步骤 ${s.id} 的 ΔG 出处必须写 8e`);
@@ -379,9 +379,28 @@ function check(data, skel, ctx) {
     if (!String(p.note ?? "").trim()) warn(`PDB ${p.pdbId} 缺少核验说明`);
     if (p.verifiedOn !== data.threeD?.verifiedOn) warn(`PDB ${p.pdbId} 的 verifiedOn 与 threeD.verifiedOn 不一致`);
   }
+  const byPdb = new Map(cands.map((p) => [p.pdbId, p]));
   for (const s of steps) {
-    for (const id of s.pdbCandidates ?? []) {
-      if (!seen.has(id)) warn(`步骤 ${s.id} 的 pdbCandidate ${id} 不在 threeD.candidates 里`);
+    for (const p of s.pdbCandidates ?? []) {
+      if (!seen.has(p.pdbId)) warn(`步骤 ${s.id} 的 pdbCandidate ${p.pdbId} 不在 threeD.candidates 里`);
+      if (p.status !== "verified") warn(`步骤 ${s.id} 的 pdbCandidate ${p.pdbId} 缺少 status=verified`);
+      if (!String(p.organism ?? "").trim() || !String(p.method ?? "").trim()) {
+        warn(`步骤 ${s.id} 的 pdbCandidate ${p.pdbId} 缺物种 / 方法`);
+      }
+      if (!Number.isFinite(p.resolution) || p.resolution <= 0) warn(`步骤 ${s.id} 的 pdbCandidate ${p.pdbId} 缺分辨率`);
+      if (!Array.isArray(p.ligands) || (!p.ligands.length && p.role !== "apo")) {
+        warn(`步骤 ${s.id} 的 pdbCandidate ${p.pdbId} 缺配体`);
+      }
+      const ref = byPdb.get(p.pdbId);
+      if (
+        ref &&
+        (ref.organism !== p.organism ||
+          ref.method !== p.method ||
+          ref.resolution !== p.resolution ||
+          JSON.stringify(ref.ligandCodes) !== JSON.stringify(p.ligandCodes))
+      ) {
+        warn(`步骤 ${s.id} 的 pdbCandidate ${p.pdbId} 与 threeD.candidates 的核验字段不一致`);
+      }
     }
   }
   if (data.threeD?.status !== "pending") warn("threeD.status 必须是 pending");

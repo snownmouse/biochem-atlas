@@ -46,7 +46,7 @@ export interface GlycogenReaction {
 }
 
 export interface GlycogenDeltaG {
-  value: null;
+  value: number | null;
   qualitative: string;
   source: string;
 }
@@ -80,8 +80,8 @@ export interface GlycogenStep {
   organDifference?: string;
   /** 跨通路接口：必须指向真实存在的步骤与实体 id */
   sharedWith: SharedWith[];
-  /** 结构候选的 PDB id 列表；只登记已核验条目 */
-  pdbCandidates?: string[];
+  /** 结构候选的核验记录；只登记已核验条目（status=verified） */
+  pdbCandidates?: VerifiedPdbCandidate[];
 }
 
 export interface GlycogenRegulation {
@@ -174,6 +174,11 @@ export interface PdbCandidate {
   entryTitle: string;
   note: string;
   verifiedOn: string;
+}
+
+/** 步骤页逐条登记的核验记录（与 threeD.candidates 同字段，另带核验状态） */
+export interface VerifiedPdbCandidate extends PdbCandidate {
+  status: "verified";
 }
 
 export interface ThreeDRecord {

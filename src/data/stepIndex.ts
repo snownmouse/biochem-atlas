@@ -4,7 +4,7 @@
 // 目的：把 12 份通路 json 里的 Step 归一成同一个只读结构，供内容气泡按
 // 「pathwayId + stepId」取字段。这里不做任何计算、不补缺省值：
 //   - EC 只在 step.ecNumber 或 step.enzyme.ec 存在时返回；
-//   - ΔG 只按 json 已有的三种形态读出文本，null 就报「数值未核实」；
+//   - ΔG 只按 json 已有的定性字段读出文本；数值一律 null，不显示数字；
 //   - 器官差异只取当前 organ 的原文。
 // 字段缺失一律返回 null，由气泡决定整行不显示。
 // ============================================================
@@ -146,8 +146,8 @@ export function stepDeltaGText(step: StepLike): string | null {
     if (typeof dg.physiological === "number") parts.push(`生理 ${dg.physiological}`);
     return `${parts.join(" / ")} ${unit}${dg.note ? `（${dg.note}）` : ""}`;
   }
-  if (dg.qualitative) return `数值未核实 · ${dg.qualitative}`;
-  return "数值未核实";
+  if (dg.qualitative) return dg.qualitative;
+  return null;
 }
 
 export function stepEquationText(step: StepLike, entityNames: Map<string, string>): string | null {

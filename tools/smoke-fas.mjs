@@ -139,7 +139,7 @@ await page.locator('[data-step-id="fas-acc"] text.q-hide').first().click();
 await page.waitForTimeout(120);
 check("点击 ACC 步骤写入 ?step=", page.url().includes("step=fas-acc"));
 check("详情显示 ACC 方程", (await page.locator(".d-eq").innerText()).includes("丙二酰-CoA"));
-check("详情显示 ΔG 为 null 定性", (await page.locator("[data-dg]").innerText()).includes("数值未核实"));
+check("详情 ΔG 不出现具体数值", !/(kcal\/mol|kJ\/mol|eQuilibrator)/.test(await page.locator("[data-dg]").innerText()));
 const grade = await page.locator('[data-testid="fas-grade"]').evaluate((el) => ({
   attr: el.getAttribute("data-grade"),
   text: el.innerText,

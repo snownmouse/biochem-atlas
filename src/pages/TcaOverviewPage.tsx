@@ -89,7 +89,7 @@ const STEP_TAGS: Record<string, string> = {
   "tca-8": "闭环 · +NADH",
 };
 
-const fmtDG = (v: number) => v.toFixed(1).replace("-", "−");
+const fmtDG = (v: number | null) => (v === null ? "—" : v.toFixed(1).replace("-", "−"));
 const hasDiff = (step: Step, organ: OrganId) => step.organDiffs.some((d) => d.organ === organ);
 
 const entityMap = new Map(entitiesTca.map((e) => [e.id, { name: e.name, abbr: e.abbr ?? e.id }]));
@@ -625,7 +625,7 @@ export default function TcaOverviewPage() {
                 {selectedStep.ecNumber && (
                   <div className="d-cof num"><b>EC</b>　{selectedStep.ecNumber}</div>
                 )}
-                {selectedStep.deltaG && (
+                {selectedStep.deltaG && selectedStep.deltaG.standard !== null && selectedStep.deltaG.physiological !== null && (
                   <div className="d-cof num">
                     <b>ΔG</b>　标准态 {fmtDG(selectedStep.deltaG.standard)} · 生理态 {fmtDG(selectedStep.deltaG.physiological)} {selectedStep.deltaG.unit}
                   </div>

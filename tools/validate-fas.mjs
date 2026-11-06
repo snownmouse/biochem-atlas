@@ -1,6 +1,6 @@
 // 脂肪酸从头合成（FAS）数据校验器。
 // 只做两件事：把 fas.json + skeleton.json 的化学/几何约束机械复核一遍，
-// 再用 11 条负例自检，确认校验器本身不是「只会说 OK」。
+// 再用 12 条负例自检，确认校验器本身不是「只会说 OK」。
 //
 // 复核项：
 //   1) 实体 / 节点 / 步骤三个命名空间各自查重（实体 id 与节点 id 刻意允许同名）
@@ -229,8 +229,10 @@ function check(data, skel) {
   for (const s of steps) {
     if (!s.deltaG) warn(`${s.id} 缺少 deltaG（未核实也要写 null + 定性 + 来源）`);
     else {
-      if (s.deltaG.valueKcal !== null) warn(`${s.id} 的 ΔG 数值必须为 null（本轮不做定量）`);
-      if (!s.deltaG.source) warn(`${s.id} 的 ΔG 缺少来源`);
+      const src = String(s.deltaG.source ?? "");
+      if (s.deltaG.valueKcal !== null) warn(`${s.id} 的 ΔG 数值必须为 null（页面不展示热力学数值）`);
+      if (!/Lehninger/.test(src)) warn(`${s.id} 的 ΔG 来源必须写明 Lehninger`);
+      if (!String(s.deltaG.qualitative ?? "").trim()) warn(`${s.id} 缺少 ΔG 定性说明`);
     }
     if (!s.enzyme?.entityId || !entById.has(s.enzyme.entityId)) warn(`${s.id} 的 enzyme.entityId 不存在`);
     for (const e of [...s.substrates, ...s.products]) {
@@ -390,6 +392,14 @@ const cases = [
         ligands: [],
         note: "酵母 FAS 候选",
       };
+      return check(d, clone(baseSkel));
+    },
+  },
+  {
+    name: "负例 12：把 fas-acc 的 ΔG 填成数字",
+    run: () => {
+      const d = clone(baseData);
+      d.steps.find((s) => s.id === "fas-acc").deltaG.valueKcal = -2.18;
       return check(d, clone(baseSkel));
     },
   },

@@ -61,9 +61,8 @@
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
-        "qualitative": "强放能（ATP 水解驱动羧化）",
-        "source": "Lehninger 8e Ch.20（定性结论，可追溯）",
-        "note": "Ch.20 详表逐列数值未逐字核实到唯一数字，按档案纪律不冒充事实，只记定性结论。"
+        "qualitative": "强放能（ATP 水解驱动羧化）。",
+        "source": "Lehninger 8e Ch.20（定性结论，可追溯）"
       },
       "stereochemistry": [
         "生物素臂在 BC（生物素羧化）域与 CT（羧基转移）域两活性位点间摆动（~60 Å）：HCO₃⁻ 先在 BC 域被 ATP 活化接到生物素上，再由 CT 域转移给丙酮酸，产物为 L-构型草酰乙酸"
@@ -115,9 +114,8 @@
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
-        "qualitative": "放能（脱羧驱动 + GTP 水解）",
-        "source": "Lehninger 8e Ch.20（定性结论）；PEP 水解 ΔG°′ ≈ −61.9 kJ/mol 见 Lehninger Ch.13 表系",
-        "note": "详表数值未核实到唯一数字，不冒充事实。"
+        "qualitative": "放能（脱羧驱动 + GTP 水解）。",
+        "source": "Lehninger 8e Ch.20（定性结论）"
       },
       "stereochemistry": [
         "脱羧与磷酰化协同完成：OAA 的 C4 羧基以 CO₂ 形式离去，磷酸基上到 C2 烯醇氧，生成 trans-烯醇式 PEP（烯醇磷酸酯）"
@@ -168,8 +166,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "近平衡（同酶可逆步，方向由浓度商决定）",
-        "source": "热力学上为糖酵解 gk-9 同反应之逆（标准 ΔG′ 取反）；本档案不重复引用数值，口径见 glycolysis.json gk-9（Lehninger 8e Table 15-1）",
-        "note": "同酶可逆步不独立引数：数值引用糖酵解条目，避免两处数字漂移。"
+        "source": "Lehninger 8e Table 15-1"
       },
       "stereochemistry": [
         "糖酵解向为 C2=C3 消去水；逆向为对双键的立体专一水合，回到 (2R)-2-磷酸甘油酸"
@@ -202,8 +199,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "近平衡（同酶可逆步）",
-        "source": "热力学上为糖酵解 gk-8 同反应之逆；数值口径见 glycolysis.json gk-8（Lehninger 8e Table 15-1）",
-        "note": "同酶可逆步不独立引数。"
+        "source": "Lehninger 8e Table 15-1"
       },
       "stereochemistry": [
         "(R) 构型不变；磷酸基 C2→C3 经酶-磷酰中间体换位（糖酵解向为 C3→C2）"
@@ -235,9 +231,8 @@
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
-        "qualitative": "近平衡（同酶可逆步；ATP 投入在化学计量里已含于 4 ATP 总账）",
-        "source": "热力学上为糖酵解 gk-7 同反应之逆；数值口径见 glycolysis.json gk-7（Lehninger 8e Table 15-1）",
-        "note": "同酶可逆步不独立引数；ATP 代价在 energyLedger 里按 gn-5 记。"
+        "qualitative": "近平衡（同酶可逆步；ATP 投入在化学计量里已含于 4 ATP 总账）。",
+        "source": "Lehninger 8e Table 15-1"
       },
       "stereochemistry": [
         "磷酰基转移到 C1 羧基形成酰基磷酸；C2 手性中心不参与"
@@ -273,8 +268,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "近平衡（同酶可逆步；NADH 供给是流量瓶颈而非热力学瓶颈）",
-        "source": "热力学上为糖酵解 gk-6 同反应之逆；数值口径见 glycolysis.json gk-6（Lehninger 8e Table 15-1）",
-        "note": "同酶可逆步不独立引数；NADH 代价在 energyLedger 里按 gn-6 记。"
+        "source": "Lehninger 8e Table 15-1"
       },
       "stereochemistry": [
         "半缩硫醛中间体的立体电子编排与糖酵解向相同，氢负离子 transfer 方向反转：NADH → 底物 C1"
@@ -307,8 +301,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "近平衡（同酶可逆步）",
-        "source": "热力学上为糖酵解 gk-5 同反应之逆；数值口径见 glycolysis.json gk-5（Lehninger 8e Table 15-1）",
-        "note": "同酶可逆步不独立引数。"
+        "source": "Lehninger 8e Table 15-1"
       },
       "stereochemistry": [
         "经烯二醇中间体；酮糖/醛糖互变异构，无手性碳增减"
@@ -341,9 +334,8 @@
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
-        "qualitative": "近平衡（同酶可逆步；缩合方向靠下游拉动）",
-        "source": "热力学上为糖酵解 gk-4 同反应之逆（标准 ΔG′ 取反）；裂解向数值口径见 glycolysis.json gk-4（Lehninger 8e Table 15-1）",
-        "note": "同酶可逆步不独立引数；『标准态最吸能、生理态被拉负』的教训在逆向同理反向成立。"
+        "qualitative": "近平衡（同酶可逆步；缩合方向靠下游拉动）。",
+        "source": "Lehninger 8e Table 15-1"
       },
       "stereochemistry": [
         "I 型醛缩酶经 Lys 席夫碱电子工程完成醛醇缩合；产物为 β-D-果糖-1,6-二磷酸"
@@ -379,8 +371,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "放能（水解驱动）",
-        "source": "Lehninger 8e Ch.20（定性结论）",
-        "note": "禁止把 glycolysis.json gk-3 的 ΔG 取反当本步数据：PFK 的 −14.2 kJ/mol 是 F6P+ATP→FBP+ADP 的标准态，FBPase-1 走水解路径，两者不是同一条自由能曲线的正反两读（outline §3 纪律）。"
+        "source": "Lehninger 8e Ch.20（定性结论）"
       },
       "stereochemistry": [
         "只切 C1 磷酸酯键；呋喃/吡喃环型平衡中酶取其一为底物（细节未核实到唯一口径）"
@@ -432,8 +423,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "近平衡（同酶可逆步）",
-        "source": "热力学上为糖酵解 gk-2 同反应之逆；数值口径见 glycolysis.json gk-2（Lehninger 8e Table 15-1）",
-        "note": "同酶可逆步不独立引数。"
+        "source": "Lehninger 8e Table 15-1"
       },
       "stereochemistry": [
         "β-D-果糖-6-磷酸 ⇌ α-D-葡糖-6-磷酸：经顺-烯二醇中间体，构型变化限于 C1/C2"
@@ -467,8 +457,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "强放能（水解驱动）",
-        "source": "Lehninger 8e Ch.20（定性结论）",
-        "note": "与 gk-1 不同路径：HK/GCK 走 ATP 磷酸化、G6PC1 走水解，两者不是同一条自由能曲线的正反两读；不把 gk-1 的 ΔG 取反当本步数据。"
+        "source": "Lehninger 8e Ch.20（定性结论）"
       },
       "stereochemistry": [
         "底物为 α-D-葡糖-6-磷酸（BG6 = 6-O-磷酸-β-D-葡萄糖为已核验配体口径）；切 C6 磷酸酯键"
@@ -520,6 +509,13 @@
       ],
       "bindingProfile": null,
       "mirrorOf": null,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "标准态吸能（乳酸氧化为丙酮酸、NAD⁺ 还原）；生理方向由胞质 NADH/NAD⁺ 比与丙酮酸移除决定",
+        "source": "Lehninger 8e Ch.20"
+      },
       "threeD": null
     },
     {
@@ -541,6 +537,13 @@
       ],
       "bindingProfile": null,
       "mirrorOf": null,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "转氨反应近平衡，方向由丙酮酸与谷氨酸的浓度比决定",
+        "source": "Lehninger 8e Ch.20"
+      },
       "threeD": null
     }
   ],

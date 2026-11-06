@@ -773,9 +773,7 @@ export default function FaoOverviewPage() {
                 {selected.deltaG && (
                   <div className="d-cof" data-dg="1">
                     <b>ΔG</b>
-                    <span style={{ opacity: 0.55 }}>
-                      {" "}定性：{selected.deltaG.qualitative ?? "—"}（数值未核实，仅定性结论）
-                    </span>
+                    <span style={{ opacity: 0.55 }}>　定性：{selected.deltaG.qualitative ?? "—"}</span>
                   </div>
                 )}
                 {selected.stereochemistry?.length ? (
@@ -857,7 +855,7 @@ export default function FaoOverviewPage() {
             ) : (
               <div className="d-body">
                 <div className="d-placeholder">
-                  点击图上的步骤箭头、酶名或代谢物节点，此处显示该步的反应式、酶、ΔG（未核实时灰字定性）、
+                  点击图上的步骤箭头、酶名或代谢物节点，此处显示该步的反应式、酶、ΔG（仅保留定性标注，不展示数值）、
                   辅因子、证据等级与结构对照入口。四步环之外，活化（ACSL）与肉碱穿梭（CPT1/CACT/CPT2）也可点击。
                   右侧「能量账本」把 106 的推导拆到每轮与每币种，避免只看到一个结果数。
                 </div>
@@ -943,7 +941,7 @@ export default function FaoOverviewPage() {
 
       <PathwayRailFoot current="fatty-acid-oxidation" />
       <div className="poster-foot">
-        <span>待确认：逐步 ΔG 的 Lehninger Ch.17 详表数值未核实，页面仅显示定性结论，不可作定量判读。<br /></span>
+        <span>待确认：ΔG 数值不作页面展示，仅保留 Lehninger Ch.17 定性结论；能量账见右侧 ATP/NADPH 化学计量。<br /></span>
         <span>已接入：分子 2D / 3D 资产已建（8 个新建 + 乙酰-CoA 共享），逐块对照见 <code>/structures/fatty-acid-oxidation</code>；酶 3D 仍未建立，右栏只给灰字占位，不伪造结构。<br /></span>
         <span>待确认：HADH/SCHAD 缺乏表型、ACSL 缺陷、LCHAD-HELLP 细节、硫解酶缺乏 OMIM、心肌脂肪酸供能占比未核实，页面如实标注。<br /></span>
         <span>数据冲突（已修正）：数据层 skeleton.json 与 fao.json 原先把硫解断键写成「C3–C4」，化学正确的是 C2–C3（乙酰-CoA 带走 C1–C2）；本轮已在数据层改正，并在报告中列明。</span>

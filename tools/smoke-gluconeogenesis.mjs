@@ -102,7 +102,7 @@ check("镜像对照显示能量代价差", mirrorText.includes("能量代价差"
 check("镜像对照显示调控差异", mirrorText.includes("调控差异"));
 const gkLink = page.locator("aside a[data-gk-link='gk-3']");
 check("跳转链接指向 /pathway/glycolysis?step=gk-3", (await gkLink.getAttribute("href"))?.includes("/pathway/glycolysis?step=gk-3") === true);
-check("右栏 ΔG 灰字标注未核实（不留空）", (await page.locator("aside [data-dg]").innerText()).includes("未核实"));
+check("右栏 ΔG 不出现具体数值", !/(kJ\/mol|eQuilibrator)/.test(await page.locator("aside [data-dg]").innerText()));
 
 // 表 2 镜像对照总表：10 对齐全
 check("表 2 镜像对照 10 对齐全", (await page.locator("table[data-mirror-table] tbody tr").count()) === 11); // 10 对 + 合计行

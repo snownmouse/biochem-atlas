@@ -715,9 +715,7 @@ export default function FasOverviewPage() {
                 {selected.deltaG && (
                   <div className="d-cof" data-dg="1">
                     <b>ΔG</b>
-                    <span style={{ opacity: 0.55 }}>
-                      {" "}定性：{selected.deltaG.qualitative ?? "—"}（数值未核实，仅定性结论）
-                    </span>
+                    <span style={{ opacity: 0.55 }}>　定性：{selected.deltaG.qualitative ?? "—"}</span>
                   </div>
                 )}
                 {selected.perRoundYield && (
@@ -812,7 +810,7 @@ export default function FasOverviewPage() {
             ) : (
               <div className="d-body">
                 <div className="d-placeholder">
-                  点击图上的步骤箭头、酶名或代谢物节点，此处显示该步的反应式、酶、ΔG（未核实时灰字定性）、
+                  点击图上的步骤箭头、酶名或代谢物节点，此处显示该步的反应式、酶、ΔG（仅保留定性标注，不展示数值）、
                   辅因子、证据等级与结构对照入口。三泳道里基质与胞质各有乙酰-CoA 节点；四步环的四个结构域、
                   贯通两条泳道的柠檬酸穿梭、以及出环的 TE 都可点击。
                 </div>
@@ -918,7 +916,7 @@ export default function FasOverviewPage() {
 
       <PathwayRailFoot current="fatty-acid-synthesis" />
       <div className="poster-foot">
-        <span>待确认：逐步 ΔG 的 Lehninger Ch.21 详表数值未核实，页面仅显示定性结论，不可作定量判读。<br /></span>
+        <span>待确认：ΔG 数值不作页面展示，仅保留 Lehninger Ch.21 定性结论；能量账见本页 ATP/NADPH 化学计量。<br /></span>
         <span>3D 缺口：FASN 约 540 kDa 巨型合酶，本轮不出任何 3D 视图，也未建 3D 资产；候选已核实为人源全长 8VM0（cryo-EM 3.30 Å，含 NADPH/NDP）与人源 TE 结构域 1XKT（X-ray 2.60 Å，无配体），页面不伪造资产路径。<br /></span>
         <span>分子资产：本轮不做 2D / 3D 分子图；结构对照页以文字 + 计算坐标占位说明，默认 2D，不伪造口袋。<br /></span>
         <span>{data.threeD.note}</span>

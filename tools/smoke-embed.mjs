@@ -222,7 +222,7 @@ await page.waitForSelector(".embed3d .embed-host canvas", { timeout: 25000 });
   const body = await page.locator(".poster .d-body").innerText();
   check("gk-7 辅因子补 Mg²⁺", body.includes("Mg²⁺"));
   check("右栏显示 EC 编号（2.7.2.3）", body.includes("EC") && body.includes("2.7.2.3"));
-  check("右栏显示 ΔG 标准态/生理态（−18.8 / 1.1 kJ/mol）", body.includes("标准态 −18.8") && body.includes("生理态 1.1"));
+  check("右栏不出现具体 ΔG 数值", !/(标准态|生理态)\s*[-−+]?\d/.test(body));
   check("右栏显示立体化学", body.includes("立体化学"));
   check("右栏显示常见误解（≥1 条）", (await page.locator(".poster .d-mis li").count()) >= 1);
   await page.screenshot({ path: join(ROOT, "preview", "poster-evidence-gk7.png"), fullPage: true });
@@ -235,7 +235,7 @@ await page.waitForSelector(".s-viewer canvas", { timeout: 25000 });
 await page.waitForTimeout(800);
 {
   const side = await page.locator(".s-side").innerText();
-  check("单步页反应块显示 EC / ΔG / 立体化学", side.includes("2.7.2.3") && side.includes("标准态 −18.8") && side.includes("立体化学"));
+  check("单步页反应块显示 EC / 立体化学，不出现具体 ΔG 数值", side.includes("2.7.2.3") && side.includes("立体化学") && !/(标准态|生理态)\s*[-−+]?\d/.test(side));
   check("单步页有「辨析与临床」模块（误解 + 临床各 ≥1 条）", (await page.locator(".s-mis li").count()) >= 1 && (await page.locator(".s-clin li").count()) >= 1);
   // 氢键默认不画：无选中、开关默认关
   check("初始无残基选中（selnote 不出现）", (await page.locator(".s-selnote").count()) === 0);

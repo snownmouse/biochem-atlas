@@ -168,7 +168,7 @@ console.log("\n===== 6) 右栏证据 =====");
 await page.goto(`${ROUTE}?step=gly-1`, { waitUntil: "networkidle" });
 const aside = (await page.locator("aside").innerText()).replace(/\s+/g, " ");
 check("右栏含酶名 / EC / 底物 / 产物 / 辅因子", ["糖原磷酸化酶", "EC", "底物", "产物", "辅因子"].every((t) => aside.includes(t)));
-check("ΔG 写 null（数值未核实）", aside.includes("null（数值未核实）"));
+check("ΔG 不出现具体数值", !/(kJ\/mol|kcal\/mol|eQuilibrator)/.test(aside));
 check("ΔG 只给定性 + Lehninger 8e", aside.includes("Lehninger 8e") && !/ΔG\s*[-−]\s*\d/.test(aside));
 check("gly-1 肝/肌差异句可见", aside.includes("肝") && aside.includes("肌"));
 check("PDB 1EM6 身份齐备（人 PYGL / 2.2 Å / PLP + NBG）", aside.includes("1EM6") && aside.includes("2.2") && aside.includes("PLP") && aside.includes("NBG"));

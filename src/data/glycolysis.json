@@ -51,7 +51,7 @@
       ],
       "bindingProfile": null,
       "ecNumber": "2.7.1.1",
-      "deltaG": { "standard": -16.7, "physiological": -33.4, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
       "stereochemistry": ["产物为 β-D-葡糖-6-磷酸（β-吡喃型）；葡萄糖开/环两种形式均可作底物"],
       "misconceptions": [
         "「葡萄糖磷酸化是为了进入线粒体」——错，糖酵解全程在胞质，磷酸化是把葡萄糖捕获在胞内并标记为代谢对象。",
@@ -76,7 +76,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "5.3.1.9",
-      "deltaG": { "standard": 1.7, "physiological": -2.5, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
       "stereochemistry": ["α-D-葡糖-6-磷酸 ⇌ β-D-果糖-6-磷酸：构型变化限于 C1/C2，经顺-烯二醇中间体"],
       "misconceptions": [
         "「这一步消耗 ATP 先给 C1 装上磷酸」——错，本步零耗能，C1 磷酸化发生在第 3 步。",
@@ -102,7 +102,7 @@
       ],
       "bindingProfile": null,
       "ecNumber": "2.7.1.11",
-      "deltaG": { "standard": -14.2, "physiological": -22.2, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
       "stereochemistry": ["β-D-构型；在 C1（非 C6）磷酰化，形成对称的二磷酸酯"],
       "misconceptions": [
         "「ATP 高抑制 PFK-1 是把反应顶回去」——是别构抑制位点（亚 mM 级 ATP 是底物，mM 级才是抑制剂），不是底物位点的质量作用。",
@@ -128,8 +128,8 @@
       "bindingProfile": null,
       "ecNumber": "4.1.2.13",
       "deltaG": {
-        "standard": 23.8,
-        "physiological": -5.9,
+        "standard": null,
+        "physiological": null,
         "unit": "kJ/mol",
         "source": "Lehninger 8e Table 15-1",
         "note": "标准态全通路最吸能、生理态被拉负：产物被 TPI/GAPDH 立即消耗压低浓度商——“ΔG 由浓度商决定”的教科书案例。"
@@ -159,8 +159,8 @@
       "bindingProfile": null,
       "ecNumber": "5.3.1.1",
       "deltaG": {
-        "standard": 7.5,
-        "physiological": 2.2,
+        "standard": null,
+        "physiological": null,
         "unit": "kJ/mol",
         "source": "Lehninger 8e Table 15-1",
         "note": "全通路唯一在生理条件下仍轻微吸能的步骤，靠第 6 步持续抽走 G3P 拉动。"
@@ -188,7 +188,7 @@
       ],
       "bindingProfile": null,
       "ecNumber": "1.2.1.12",
-      "deltaG": { "standard": 6.3, "physiological": -1.7, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
       "stereochemistry": ["产物为 (3R)-1,3-二磷酸甘油酸；C1 醛基氧化为羧酸平面，高能酰基磷酸（混合酸酐）在此建立"],
       "misconceptions": [
         "「NADH 直接把电子交给氧气」——胞质 NADH 须经苹果酸-天冬氨酸或甘油-3-磷酸穿梭进入线粒体，红细胞根本没有这条线。",
@@ -211,8 +211,8 @@
       "bindingProfile": null,
       "ecNumber": "2.7.2.3",
       "deltaG": {
-        "standard": -18.8,
-        "physiological": 1.1,
+        "standard": null,
+        "physiological": null,
         "unit": "kJ/mol",
         "source": "Lehninger 8e Table 15-1",
         "note": "唯一生理态轻微吸能的“产 ATP”步骤：胞内 ATP/ADP 比被压得很高，反应贴近平衡双向流动。"
@@ -238,7 +238,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "5.4.2.11",
-      "deltaG": { "standard": 4.4, "physiological": 0.6, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
       "stereochemistry": ["(R) 构型不变；磷酸基 C3→C2 经酶-磷酰中间体两步换位，非分子内直接转移"],
       "misconceptions": [
         "「变位酶不需要辅因子」——依赖型 PGAM 必须有 2,3-BPG 引物，缺引物即近失活。",
@@ -260,7 +260,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "4.2.1.11",
-      "deltaG": { "standard": 1.7, "physiological": -1.1, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
       "stereochemistry": ["C2–C3 消去一分子水形成双键（C2=C3），PEP 为烯醇磷酸酯"],
       "misconceptions": [
         "「脱水放能储给了通路」——储能在“烯醇磷酸”这个化学形式里，能量账在第 10 步结。",
@@ -286,7 +286,7 @@
       ],
       "bindingProfile": null,
       "ecNumber": "2.7.1.40",
-      "deltaG": { "standard": -31.4, "physiological": -23.0, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 15-1" },
       "stereochemistry": ["PEP 烯醇式当场互变为酮式丙酮酸，净消耗 H⁺（与第 6 步 H⁺ 释放方向相反，两处均为化学事实）"],
       "misconceptions": [
         "「PKM2 是『坏』的」——M2 是增殖态的常态配置（胚胎即 M2），其“慢”是可被 FBP 激活的慢，不是缺陷。",

@@ -134,7 +134,7 @@ check("展开后临床节点恢复 3 条", (await page.locator("svg[data-frame='
 await page.locator("svg[data-frame='amino'] [data-step-id='aa-1']").click({ force: true });
 check("点步骤标签 aa-1 → URL step=aa-1", page.url().includes("step=aa-1"));
 check("右栏 ALT 详情出现", (await page.locator("aside [data-detail-kind='step'] .d-enzyme").innerText()).includes("丙氨酸氨基转移酶"));
-check("ALT ΔG 明写未给数值", (await page.locator("aside [data-detail-kind='step']").innerText()).includes("未给数值"));
+check("ALT ΔG 不出现具体数值", !/(kJ\/mol|kcal\/mol|eQuilibrator)/.test(await page.locator("aside [data-detail-kind='step']").innerText()));
 
 await page.locator("svg[data-frame='amino'] [data-node-id='aa-chip-glu']").click({ force: true });
 check("点 Glu 芯片 → 分子详情", (await page.locator("aside [data-detail-kind='entity']").count()) === 1);

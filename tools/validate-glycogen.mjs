@@ -150,7 +150,7 @@ function check(d) {
     for (const e of [...s.reaction.substrates, ...s.reaction.products]) {
       if (!entities.has(e)) push(`${id} 反应引用未知实体 ${e}`);
     }
-    if (!s.deltaG || s.deltaG.value !== null) push(`${id} ΔG 必须为 null（不编数字）`);
+    if (!s.deltaG || s.deltaG.value !== null) push(`${id} ΔG 必须为 null（页面不展示数值）`);
     if (!s.deltaG?.qualitative) push(`${id} 缺 ΔG 定性描述`);
     if (!/Lehninger 8e/.test(s.deltaG?.source ?? "")) push(`${id} ΔG 出处须为 Lehninger 8e`);
     if (!s.physiology) push(`${id} 缺 physiology`);
@@ -366,8 +366,29 @@ function check(d) {
     if (!c.mutations) push(`PLP ${id} 缺突变状态口径`);
   }
   for (const s of d.data.steps) {
-    for (const id of s.pdbCandidates ?? []) {
-      if (!cand.has(id)) push(`${s.id} 引用未核验 PDB ${id}`);
+    for (const p of s.pdbCandidates ?? []) {
+      if (!cand.has(p.pdbId)) push(`${s.id} 引用未核验 PDB ${p.pdbId}`);
+      if (p.status !== "verified") push(`${s.id} 的 PDB ${p.pdbId} 缺 status=verified`);
+      if (
+        !p.organism ||
+        !p.method ||
+        !(p.resolution > 0) ||
+        !Array.isArray(p.ligands) ||
+        (!p.ligands.length && p.role !== "apo")
+      ) {
+        push(`${s.id} 的 PDB ${p.pdbId} 缺物种 / 方法 / 分辨率 / 配体`);
+      }
+      const ref = cand.get(p.pdbId);
+      if (
+        ref &&
+        (ref.organism !== p.organism ||
+          ref.method !== p.method ||
+          ref.resolution !== p.resolution ||
+          ref.entryTitle !== p.entryTitle ||
+          JSON.stringify(ref.ligandCodes) !== JSON.stringify(p.ligandCodes))
+      ) {
+        push(`${s.id} 的 PDB ${p.pdbId} 与 threeD.candidates 的核验字段不一致`);
+      }
     }
   }
   for (const id of td?.assets?.moleculeAssets ?? []) {

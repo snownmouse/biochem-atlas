@@ -1,0 +1,558 @@
+{
+  "_archiveNote": "数值仅供存档，未在页面展示。当前站点是通路流程图，不展示热力学数值；如需启用，必须同步修改页面渲染与 validate-* / smoke-* 断言。",
+  "conditions": {
+    "tool": "equilibrator-api 0.8.1",
+    "componentContribution": "component-contribution 0.8.0",
+    "compoundCache": "equilibrator-cache 0.8.1",
+    "pH": 7.4,
+    "ionicStrength": "0.25 M",
+    "temperature": "298.15 K",
+    "pMg": 14,
+    "date": "2026-11-06",
+    "redoxCouples": {
+      "NAD+/NADH": {
+        "ePrimeMv": -342.95
+      },
+      "NADP+/NADPH": {
+        "ePrimeMv": -342.96
+      },
+      "FAD/FADH2": {
+        "ePrimeMv": -262.6
+      }
+    }
+  },
+  "results": {
+    "gn-1": {
+      "reaction": "KEGG:C00022 + KEGG:C00288 + KEGG:C00002 <=> KEGG:C00036 + KEGG:C00008 + KEGG:C00009",
+      "balanced": true,
+      "dgKJ": -7.19,
+      "uncertaintyKJ": 0.72,
+      "nCompounds": 6,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gn-2": {
+      "reaction": "KEGG:C00036 + KEGG:C00044 <=> KEGG:C00074 + KEGG:C00035 + KEGG:C00011",
+      "balanced": true,
+      "dgKJ": 13.3,
+      "uncertaintyKJ": 3.37,
+      "nCompounds": 5,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gn-3": {
+      "reaction": "KEGG:C00074 + KEGG:C00001 <=> KEGG:C00631",
+      "balanced": true,
+      "dgKJ": 3.81,
+      "uncertaintyKJ": 0.3,
+      "nCompounds": 3,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gn-4": {
+      "reaction": "KEGG:C00631 <=> KEGG:C00197",
+      "balanced": true,
+      "dgKJ": -4.47,
+      "uncertaintyKJ": 0.36,
+      "nCompounds": 2,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gn-5": {
+      "reaction": "KEGG:C00197 + KEGG:C00002 <=> KEGG:C00236 + KEGG:C00008",
+      "balanced": true,
+      "dgKJ": 19.55,
+      "uncertaintyKJ": 0.44,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gn-6": {
+      "reaction": "KEGG:C00236 + KEGG:C00004 + KEGG:C00080 <=> KEGG:C00118 + KEGG:C00003 + KEGG:C00009",
+      "balanced": true,
+      "dgKJ": -1.16,
+      "uncertaintyKJ": 0.41,
+      "nCompounds": 6,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gn-7": {
+      "reaction": "KEGG:C00118 <=> KEGG:C00111",
+      "balanced": true,
+      "dgKJ": -5.62,
+      "uncertaintyKJ": 0.55,
+      "nCompounds": 2,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gn-8": {
+      "reaction": "KEGG:C00118 + KEGG:C00111 <=> KEGG:C00354",
+      "balanced": true,
+      "dgKJ": -23.16,
+      "uncertaintyKJ": 0.53,
+      "nCompounds": 3,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gn-9": {
+      "reaction": "KEGG:C00354 + KEGG:C00001 <=> KEGG:C05345 + KEGG:C00009",
+      "balanced": true,
+      "dgKJ": -7.48,
+      "uncertaintyKJ": 1.54,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gn-10": {
+      "reaction": "KEGG:C05345 <=> KEGG:C00092",
+      "balanced": true,
+      "dgKJ": -6.99,
+      "uncertaintyKJ": 1.43,
+      "nCompounds": 2,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gn-11": {
+      "reaction": "KEGG:C00092 + KEGG:C00001 <=> KEGG:C00031 + KEGG:C00009",
+      "balanced": true,
+      "dgKJ": -9.24,
+      "uncertaintyKJ": 0.47,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gn-cori": {
+      "reaction": "KEGG:C00186 + KEGG:C00003 <=> KEGG:C00022 + KEGG:C00004 + KEGG:C00080",
+      "balanced": true,
+      "dgKJ": 23.71,
+      "uncertaintyKJ": 0.46,
+      "nCompounds": 5,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gn-ala": {
+      "reaction": "KEGG:C00041 + KEGG:C00026 <=> KEGG:C00022 + KEGG:C00025",
+      "balanced": true,
+      "dgKJ": 0.16,
+      "uncertaintyKJ": 0.53,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "fao-act": {
+      "reaction": "KEGG:C00249 + KEGG:C00010 + KEGG:C00002 <=> KEGG:C00154 + KEGG:C00020 + KEGG:C00013",
+      "balanced": true,
+      "dgKJ": -13.53,
+      "uncertaintyKJ": 6.42,
+      "nCompounds": 6,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "fao-1": {
+      "reaction": "KEGG:C00154 + KEGG:C00016 <=> KEGG:C05272 + KEGG:C01352",
+      "balanced": true,
+      "dgKJ": 43.45,
+      "uncertaintyKJ": 3.55,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "fao-2": {
+      "reaction": "KEGG:C05272 + KEGG:C00001 <=> KEGG:C05258",
+      "balanced": true,
+      "dgKJ": 0.43,
+      "uncertaintyKJ": 1.49,
+      "nCompounds": 3,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "fao-3": {
+      "reaction": "KEGG:C05258 + KEGG:C00003 <=> KEGG:C05259 + KEGG:C00004 + KEGG:C00080",
+      "balanced": true,
+      "dgKJ": 15.62,
+      "uncertaintyKJ": 0.99,
+      "nCompounds": 5,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "fao-4": {
+      "reaction": "KEGG:C05259 + KEGG:C00010 <=> KEGG:C00024 + KEGG:C02593",
+      "balanced": true,
+      "dgKJ": -30.17,
+      "uncertaintyKJ": 1.34,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "fas-pdh": {
+      "reaction": "KEGG:C00022 + KEGG:C00010 + KEGG:C00003 <=> KEGG:C00024 + KEGG:C00011 + KEGG:C00004 + KEGG:C00080",
+      "balanced": true,
+      "dgKJ": -34.23,
+      "uncertaintyKJ": 3.22,
+      "nCompounds": 7,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "fas-acc": {
+      "reaction": "KEGG:C00024 + KEGG:C00288 + KEGG:C00002 <=> KEGG:C00083 + KEGG:C00008 + KEGG:C00009",
+      "balanced": true,
+      "dgKJ": -9.1,
+      "uncertaintyKJ": 1.49,
+      "nCompounds": 6,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ch-1": {
+      "reaction": "2 KEGG:C00024 <=> KEGG:C00332 + KEGG:C00010",
+      "balanced": true,
+      "dgKJ": 24.97,
+      "uncertaintyKJ": 0.86,
+      "nCompounds": 3,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ch-2": {
+      "reaction": "KEGG:C00332 + KEGG:C00024 + KEGG:C00001 <=> KEGG:C00356 + KEGG:C00010",
+      "balanced": true,
+      "dgKJ": -19.81,
+      "uncertaintyKJ": 2.4,
+      "nCompounds": 5,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ch-3": {
+      "reaction": "KEGG:C00356 + 2 KEGG:C00005 + 2 KEGG:C00080 <=> KEGG:C00418 + KEGG:C00010 + 2 KEGG:C00006",
+      "balanced": true,
+      "dgKJ": 3.04,
+      "uncertaintyKJ": 1.76,
+      "nCompounds": 6,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ch-4": {
+      "reaction": "KEGG:C00418 + KEGG:C00002 <=> KEGG:C01107 + KEGG:C00008",
+      "balanced": true,
+      "dgKJ": -17.2,
+      "uncertaintyKJ": 2.11,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ch-5": {
+      "reaction": "KEGG:C01107 + KEGG:C00002 <=> KEGG:C01143 + KEGG:C00008",
+      "balanced": true,
+      "dgKJ": 0.63,
+      "uncertaintyKJ": 2.07,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ch-6": {
+      "reaction": "KEGG:C01143 + KEGG:C00002 <=> KEGG:C00129 + KEGG:C00011 + KEGG:C00008 + KEGG:C00009",
+      "balanced": true,
+      "dgKJ": -33.73,
+      "uncertaintyKJ": 4.0,
+      "nCompounds": 6,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ch-7": {
+      "reaction": "KEGG:C00129 <=> KEGG:C00235",
+      "balanced": true,
+      "dgKJ": -4.84,
+      "uncertaintyKJ": 2.93,
+      "nCompounds": 2,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ch-8": {
+      "reaction": "KEGG:C00129 + KEGG:C00235 <=> KEGG:C00341 + KEGG:C00013",
+      "balanced": true,
+      "dgKJ": -79.85,
+      "uncertaintyKJ": 2.79,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ch-9": {
+      "reaction": "KEGG:C00341 + KEGG:C00129 <=> KEGG:C00448 + KEGG:C00013",
+      "balanced": true,
+      "dgKJ": -81.25,
+      "uncertaintyKJ": 2.94,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ch-10": {
+      "reaction": "2 KEGG:C00448 + KEGG:C00005 + KEGG:C00080 <=> KEGG:C00751 + 2 KEGG:C00013 + KEGG:C00006",
+      "balanced": true,
+      "dgKJ": -171.65,
+      "uncertaintyKJ": 4.74,
+      "nCompounds": 6,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ch-11": {
+      "reaction": "KEGG:C00751 + KEGG:C00007 + KEGG:C00005 + KEGG:C00080 <=> KEGG:C01054 + KEGG:C00001 + KEGG:C00006",
+      "balanced": true,
+      "dgKJ": -413.06,
+      "uncertaintyKJ": 4.66,
+      "nCompounds": 7,
+      "status": "rejected",
+      "rejectReason": "eQuilibrator 对 2,3-氧化角鲨烯的基团贡献明显失真：同一模型下 NADPH+O₂→H₂O₂ 参考反应为 −129 kJ/mol，本步却给出 −413 kJ/mol，不采用。"
+    },
+    "ch-12": {
+      "reaction": "KEGG:C01054 + KEGG:C00080 <=> KEGG:C01724",
+      "balanced": true,
+      "dgKJ": -836.85,
+      "uncertaintyKJ": 314460.92,
+      "nCompounds": 3,
+      "status": "rejected",
+      "rejectReason": "eQuilibrator 对羊毛固醇的基团贡献估算发散（±3.1×10⁵ kJ/mol），不采用。"
+    },
+    "ppp-o1": {
+      "reaction": "KEGG:C00092 + KEGG:C00006 <=> KEGG:C01236 + KEGG:C00005 + KEGG:C00080",
+      "balanced": true,
+      "dgKJ": -6.82,
+      "uncertaintyKJ": 1.32,
+      "nCompounds": 5,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ppp-o2": {
+      "reaction": "KEGG:C01236 + KEGG:C00001 <=> KEGG:C00345 + KEGG:C00080",
+      "balanced": true,
+      "dgKJ": -25.38,
+      "uncertaintyKJ": 1.66,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ppp-o3": {
+      "reaction": "KEGG:C00345 + KEGG:C00006 <=> KEGG:C00199 + KEGG:C00011 + KEGG:C00005 + KEGG:C00080",
+      "balanced": true,
+      "dgKJ": 10.31,
+      "uncertaintyKJ": 3.18,
+      "nCompounds": 6,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ppp-n1": {
+      "reaction": "KEGG:C00199 <=> KEGG:C00117",
+      "balanced": true,
+      "dgKJ": -2.14,
+      "uncertaintyKJ": 0.76,
+      "nCompounds": 2,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ppp-n2": {
+      "reaction": "KEGG:C00199 <=> KEGG:C00231",
+      "balanced": true,
+      "dgKJ": -3.39,
+      "uncertaintyKJ": 1.15,
+      "nCompounds": 2,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ppp-n3": {
+      "reaction": "KEGG:C00231 + KEGG:C00117 <=> KEGG:C00118 + KEGG:C05382",
+      "balanced": true,
+      "dgKJ": -3.83,
+      "uncertaintyKJ": 1.92,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ppp-n4": {
+      "reaction": "KEGG:C05382 + KEGG:C00118 <=> KEGG:C00279 + KEGG:C05345",
+      "balanced": true,
+      "dgKJ": 3.42,
+      "uncertaintyKJ": 1.99,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "ppp-n5": {
+      "reaction": "KEGG:C00231 + KEGG:C00279 <=> KEGG:C05345 + KEGG:C00118",
+      "balanced": true,
+      "dgKJ": -5.95,
+      "uncertaintyKJ": 2.36,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "urea-1": {
+      "reaction": "KEGG:C00014 + KEGG:C00288 + 2 KEGG:C00002 <=> KEGG:C00169 + 2 KEGG:C00008 + KEGG:C00009",
+      "balanced": true,
+      "dgKJ": -0.69,
+      "uncertaintyKJ": 2.47,
+      "nCompounds": 6,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "urea-2": {
+      "reaction": "KEGG:C00169 + KEGG:C00077 <=> KEGG:C00327 + KEGG:C00009",
+      "balanced": true,
+      "dgKJ": -30.31,
+      "uncertaintyKJ": 2.93,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "urea-3": {
+      "reaction": "KEGG:C00327 + KEGG:C00049 + KEGG:C00002 <=> KEGG:C03406 + KEGG:C00020 + KEGG:C00013",
+      "balanced": true,
+      "dgKJ": -4.32,
+      "uncertaintyKJ": 1.47,
+      "nCompounds": 6,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "urea-4": {
+      "reaction": "KEGG:C03406 <=> KEGG:C00062 + KEGG:C00122",
+      "balanced": true,
+      "dgKJ": 11.57,
+      "uncertaintyKJ": 2.93,
+      "nCompounds": 3,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "urea-5": {
+      "reaction": "KEGG:C00062 + KEGG:C00001 <=> KEGG:C00086 + KEGG:C00077",
+      "balanced": true,
+      "dgKJ": -33.91,
+      "uncertaintyKJ": 6.31,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gly-3": {
+      "reaction": "KEGG:C00103 <=> KEGG:C00092",
+      "balanced": true,
+      "dgKJ": -7.37,
+      "uncertaintyKJ": 0.74,
+      "nCompounds": 2,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gly-4": {
+      "reaction": "KEGG:C00092 + KEGG:C00001 <=> KEGG:C00031 + KEGG:C00009",
+      "balanced": true,
+      "dgKJ": -9.24,
+      "uncertaintyKJ": 0.47,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gly-5": {
+      "reaction": "KEGG:C00092 <=> KEGG:C05345",
+      "balanced": true,
+      "dgKJ": 6.99,
+      "uncertaintyKJ": 1.43,
+      "nCompounds": 2,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gly-6": {
+      "reaction": "KEGG:C00092 <=> KEGG:C00103",
+      "balanced": true,
+      "dgKJ": 7.37,
+      "uncertaintyKJ": 0.74,
+      "nCompounds": 2,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "gly-7": {
+      "reaction": "KEGG:C00103 + KEGG:C00075 <=> KEGG:C00029 + KEGG:C00013",
+      "balanced": true,
+      "dgKJ": -1.16,
+      "uncertaintyKJ": 0.55,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "aa-1": {
+      "reaction": "KEGG:C00041 + KEGG:C00026 <=> KEGG:C00022 + KEGG:C00025",
+      "balanced": true,
+      "dgKJ": 0.16,
+      "uncertaintyKJ": 0.53,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "aa-2": {
+      "reaction": "KEGG:C00049 + KEGG:C00026 <=> KEGG:C00036 + KEGG:C00025",
+      "balanced": true,
+      "dgKJ": 2.84,
+      "uncertaintyKJ": 0.54,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "aa-3": {
+      "reaction": "KEGG:C00025 + KEGG:C00003 + KEGG:C00001 <=> KEGG:C00026 + KEGG:C00014 + KEGG:C00004 + KEGG:C00080",
+      "balanced": true,
+      "dgKJ": 33.42,
+      "uncertaintyKJ": 0.28,
+      "nCompounds": 7,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "aa-4": {
+      "reaction": "KEGG:C00064 + KEGG:C00001 <=> KEGG:C00025 + KEGG:C00014",
+      "balanced": true,
+      "dgKJ": -14.35,
+      "uncertaintyKJ": 0.86,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "aa-5": {
+      "reaction": "KEGG:C00123 + KEGG:C00026 <=> KEGG:C00233 + KEGG:C00025",
+      "balanced": true,
+      "dgKJ": 0.32,
+      "uncertaintyKJ": 1.58,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "aa-6": {
+      "reaction": "KEGG:C00079 + KEGG:C00272 + KEGG:C00007 <=> KEGG:C00082 + KEGG:C00268 + KEGG:C00001",
+      "balanced": true,
+      "dgKJ": -3.19,
+      "uncertaintyKJ": 100000.0,
+      "nCompounds": 6,
+      "status": "rejected",
+      "rejectReason": "eQuilibrator 对 BH₄/BH₂ 的基团贡献估算发散（±10⁵ kJ/mol 量级），不采用。"
+    },
+    "aa-7": {
+      "reaction": "KEGG:C05330 + KEGG:C00065 <=> KEGG:C02291 + KEGG:C00001",
+      "balanced": true,
+      "dgKJ": -32.6,
+      "uncertaintyKJ": 2.77,
+      "nCompounds": 4,
+      "status": "computed",
+      "rejectReason": null
+    },
+    "E0_NAD/NADH": -342.9508,
+    "E0_NADP/NADPH": -342.9619,
+    "E0_FAD/FADH2": -262.6034
+  },
+  "notApplicable": {
+    "fao-shuttle": "净反应为肉碱穿梭（无化学键变化，仅跨膜转运），eQuilibrator 不适用于转运步。",
+    "fas-shuttle": "该步为 CS + ACLY + 柠檬酸/草酰乙酸跨膜的两酶耦合过程，非单一反应式，保留 null。",
+    "fas-ks": "底物为 ACP（酰基载体蛋白）硫酯，eQuilibrator 化合物库无 ACP 结合态中间物，保留 null。",
+    "fas-kr": "底物为 ACP（酰基载体蛋白）硫酯，eQuilibrator 化合物库无 ACP 结合态中间物，保留 null。",
+    "fas-dh": "底物为 ACP（酰基载体蛋白）硫酯，eQuilibrator 化合物库无 ACP 结合态中间物，保留 null。",
+    "fas-er": "底物为 ACP（酰基载体蛋白）硫酯，eQuilibrator 化合物库无 ACP 结合态中间物，保留 null。",
+    "fas-te": "产物为 ACP 硫酯水解/释放，eQuilibrator 化合物库无 ACP 结合态中间物，保留 null。",
+    "gly-1": "底物为糖原高分子（(1→4) 葡聚糖链），非可枚举小分子，无法映射。",
+    "gly-2": "底物为极限糊精（支链糖原片段），非可枚举小分子，无法映射。",
+    "gly-8": "反应涉及糖原高分子链延伸，非可枚举小分子，无法映射。",
+    "gly-9": "反应涉及糖原高分子分支，非可枚举小分子，无法映射。",
+    "ch-13": "该步为多酶下游修饰簇（去甲基化/还原/脱氢等十余步），非单一反应式，保留 null。",
+    "oxphos-e": "电子传递链为多个氧化还原中心串联的膜蛋白过程，不满足单一化学方程式的 ΔG 定义，保留 null。",
+    "oxphos-f": "化学渗透与 ATP 合酶转动催化，驱动力为质子电化学梯度而非单一反应浓度商，保留 null。"
+  }
+}

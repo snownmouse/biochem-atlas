@@ -47,7 +47,7 @@
       ],
       "bindingProfile": null,
       "ecNumber": "2.3.3.1",
-      "deltaG": { "standard": -32.2, "physiological": -32.2, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "生理态数值未核实，暂按标准态口径显示；定性上强放能、细胞内不可逆（受柠檬酸/琥珀酰-CoA 产物抑制）。" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2" },
       "stereochemistry": ["柠檬酸无手性碳但是前手性（prochiral）分子：两个 −CH₂COO⁻ 臂在酶腔中被区分为 pro-R / pro-S 臂，后续乌头酸酶只对 pro-R 臂操作。"],
       "misconceptions": [
         "「柠檬酸是手性分子，所以酶能区分对映体」——柠檬酸无手性碳，是前手性分子，酶腔把两个相同的臂区分为 pro-R / pro-S。",
@@ -69,7 +69,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "4.2.1.3",
-      "deltaG": { "standard": 13.3, "physiological": 13.3, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "≈ 值：各教材差异可达 ±1–2 以上，未跨教材核实；细胞内近平衡（定性）。生理态数值未核实，暂按标准态显示。" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2" },
       "stereochemistry": ["经顺乌头酸中间体（脱水→再水合），不是 −OH 的直接搬移；柠檬酸只以 pro-R 臂进入反应。", "产物为 (2R,3S)-异柠檬酸。"],
       "misconceptions": [
         "「乌头酸酶是异构酶所以直接搬 −OH」——实际是脱水→顺乌头酸→再水合两步。",
@@ -91,7 +91,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "1.1.1.41",
-      "deltaG": { "standard": -20.9, "physiological": -20.9, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "生理态数值未核实，暂按标准态口径显示；定性上细胞内不可逆。" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2" },
       "stereochemistry": ["底物 (2R,3S)-异柠檬酸专一；氧化发生在 C2（β-羟基地位），脱羧后生成 α-酮戊二酸。"],
       "misconceptions": [
         "「本步放出的 CO₂ 来自乙酰-CoA」——第一轮放出的两个 CO₂ 均来自 OAA 的碳；乙酰-CoA 的两个碳要在后续轮次才以 CO₂ 离开。",
@@ -113,7 +113,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "1.2.4.2（E1）/ 2.3.1.61（E2）/ 1.8.1.4（E3）",
-      "deltaG": { "standard": -33.5, "physiological": -33.5, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "生理态数值未核实，暂按标准态口径显示；定性上细胞内不可逆。" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2" },
       "stereochemistry": ["E2 硫辛酰赖氨酸摆臂在三个活性位点间摆动传递，接力顺序 TPP→硫辛酸→FAD→NAD⁺，与 PDH 同型。"],
       "misconceptions": [
         "「琥珀酰-CoA 的『高能键』是类似 ATP 的磷酸键」——是硫酯键，能量形式不同，下一步才转成 GTP。",
@@ -135,7 +135,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "6.2.1.4（ADP 型）/ 6.2.1.5（GDP 型）",
-      "deltaG": { "standard": -2.9, "physiological": -2.9, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "≈ 值；近平衡步。生理态数值未核实，暂按标准态显示。" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2" },
       "stereochemistry": ["经磷酰-组氨酸酶中间体两步把硫酯键能转给 GTP（酶-磷酰中间体为教材标准表述）。"],
       "misconceptions": [
         "「GTP 不算产能」——GTP 经核苷二磷酸激酶与 ATP 方便互换，能量账里与 ATP 等价计。",
@@ -157,7 +157,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "1.3.5.1",
-      "deltaG": { "standard": 0, "physiological": 0, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "≈ 0（近平衡）。生理态数值未核实，暂按标准态显示。" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2" },
       "stereochemistry": ["延胡索酸为反式丁烯二酸（trans 双键）；脱氢的立体化学由酶腔锁定（细节未核实）。"],
       "misconceptions": [
         "「FADH₂ 和 NADH 一样进复合体 I」——FADH₂ 的电子从复合体 II / ETF 进入泛醌池，绕过复合体 I，产 ATP 更少。",
@@ -179,7 +179,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "4.2.1.2",
-      "deltaG": { "standard": -3.8, "physiological": -3.8, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2", "note": "近平衡步。生理态数值未核实，暂按标准态显示。" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2" },
       "stereochemistry": ["延胡索酸＝反式丁烯二酸；顺式异构体（马来酸）不是底物。H 与 OH 反式加成，只产 L-苹果酸（立体专一性的经典教材案例）。"],
       "misconceptions": [
         "「顺丁烯二酸也能被水合」——酶严格区分顺/反几何，马来酸不是底物。",
@@ -201,7 +201,7 @@
       "organDiffs": [],
       "bindingProfile": null,
       "ecNumber": "1.1.1.37",
-      "deltaG": { "standard": 29.7, "physiological": 0, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2；生理态口径见 note", "note": "标准态强吸能；细胞内因 OAA 浓度极低（被第 1 步快速抽走）实际近平衡。生理态数值未核实，此处按『近平衡』定性口径记为 ≈0。" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2" },
       "stereochemistry": ["底物 L-苹果酸 C2 羟基被氧化为羰基，产物 OAA 为酮式。"],
       "misconceptions": [
         "「+29.7 kJ/mol 说明这步在细胞里不走」——标准态≠生理态，OAA 被第 1 步快速抽走使本步实际近平衡。",
@@ -229,7 +229,7 @@
       ],
       "bindingProfile": null,
       "ecNumber": "1.2.4.1 / 2.3.1.12 / 1.8.1.4",
-      "deltaG": { "standard": -33.5, "physiological": -33.5, "unit": "kJ/mol", "source": "Lehninger 8e Ch.16（PDH 小节）", "note": "生理态数值未核实，暂按标准态口径显示；定性上不可逆。" },
+      "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Ch.16（PDH 小节）" },
       "stereochemistry": ["E2 硫辛酰摆臂『摆动传递』需完整复合物结构支撑；哺乳动物复合体 cryo-EM 条目未核实，3D 不在本轮范围。"],
       "misconceptions": [
         "「PDH 是 TCA 循环的一步」——它是独立的多酶复合体接驳反应，不计入环上 8 步。",

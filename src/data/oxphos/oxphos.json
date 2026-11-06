@@ -458,7 +458,16 @@
       "products": ["q"],
       "enzyme": { "entityId": "complex-i", "name": "复合体 I · NADH 脱氢酶" },
       "cofactors": ["FMN", "Fe-S 簇", "Q"],
-      "irreversible": true
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "电子入口模块，非独立催化步骤。",
+        "source": "Lehninger 8e Ch.19（定性）",
+        "note": "电子传递链为多个氧化还原中心串联的膜蛋白过程，不满足单一化学方程式的 ΔG 定义，保留 null。"
+      },
+      "source": "Lehninger 8e Ch.19 §19.1（电子传递链：复合体 I 将 NADH 的电子送入 Q 池）；教材未给该电子入口的单步 ΔG，故不写数值。"
     },
     {
       "id": "oxphos-f",
@@ -468,7 +477,16 @@
       "products": ["q"],
       "enzyme": { "entityId": "sdh", "name": "复合体 II · 琥珀酸脱氢酶" },
       "cofactors": ["FAD", "Fe-S 簇"],
-      "irreversible": true
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "电子入口模块，非独立催化步骤。",
+        "source": "Lehninger 8e Ch.19（定性）",
+        "note": "化学渗透与 ATP 合酶转动催化，驱动力为质子电化学梯度而非单一反应浓度商，保留 null。"
+      },
+      "source": "Lehninger 8e Ch.19 §19.1（电子传递链：复合体 II 将 FADH₂ 的电子送入 Q 池）；教材未给该电子入口的单步 ΔG，故不写数值。"
     }
   ],
   "protonFlux": [

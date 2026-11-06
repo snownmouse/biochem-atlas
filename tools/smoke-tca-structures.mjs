@@ -170,8 +170,8 @@ check(
   (await page.locator('[data-testid="ligand-sources"]').count()) === STEP_IDS.length
 );
 check(
-  "18 条分子来源说明直接出现在块内（pyr 无实验坐标，不硬凑）",
-  (await page.locator('[data-testid="ligand-source"]').count()) === 18
+  "19 条分子来源说明直接出现在块内（18 实验 + 计算构象丙酮酸 1 条）",
+  (await page.locator('[data-testid="ligand-source"]').count()) === 19
 );
 check(
   "来源说明都不在折叠层且实际渲染可见",
@@ -183,7 +183,7 @@ const srcTexts = await page
   .locator('[data-testid="ligand-source"]')
   .evaluateAll((els) => els.map((e) => ({ id: e.getAttribute("data-mol-id"), text: e.innerText })));
 const srcIds = new Set(srcTexts.map((s) => s.id));
-check("九个有机酸每个都有来源说明（同一块内按分子去重）", srcIds.size === 9);
+check("九个实验配体 + 计算构象丙酮酸都有来源说明（同一块内按分子去重）", srcIds.size === 10);
 const srcMiss = [];
 const needSrc = {
   accoa: ["PDB 8ZW1", "2.10", "X-ray", "Homo sapiens", "ACO", "51 重原子"],
@@ -200,8 +200,11 @@ for (const s of srcTexts) for (const t of needSrc[s.id] ?? []) if (!s.text.inclu
 check(`每条来源说明含 PDB/分辨率/方法/物种/蛋白角色（缺 ${srcMiss.length}）`, srcMiss.length === 0);
 if (srcMiss.length) console.log(srcMiss.join("\n"));
 check(
-  "每条来源说明都写清「取自…蛋白」与 Å 分辨率",
-  srcTexts.every((s) => s.text.includes("取自") && s.text.includes("Å"))
+  "实验来源说明写清「取自…蛋白」与 Å 分辨率；丙酮酸写明 RDKit 计算构象",
+  srcTexts
+    .filter((s) => s.id !== "pyr")
+    .every((s) => s.text.includes("取自") && s.text.includes("Å")) &&
+    srcTexts.filter((s) => s.id === "pyr").every((s) => s.text.includes("RDKit") && s.text.includes("计算构象"))
 );
 // 能换就换：四个替换后的分子必须用新 PDB，旧 PDB 不再出现在坐标来源行
 const swapMiss = [];

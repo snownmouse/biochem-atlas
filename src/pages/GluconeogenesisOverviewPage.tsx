@@ -794,14 +794,12 @@ export default function GluconeogenesisOverviewPage() {
                 {selectedGn.ecNumber && (
                   <div className="d-cof num"><b>EC</b>　{selectedGn.ecNumber}</div>
                 )}
-                {/* ΔG：数值未核实 → 灰字定性，不留空、不编数 */}
+                {/* ΔG：数值不作页面展示，只保留定性判断 */}
                 {selectedGn.deltaG && (
                   <>
                     <div className="d-cof" data-dg="1">
                       <b>ΔG</b>
-                      <span style={{ opacity: 0.55 }}>
-                        {" "}定性：{selectedGn.deltaG.qualitative ?? "—"}（数值未核实，仅定性结论）
-                      </span>
+                      <span style={{ opacity: 0.55 }}>　定性：{selectedGn.deltaG.qualitative ?? "—"}</span>
                     </div>
                     {selectedGn.deltaG.note && <div className="d-dgnote">{selectedGn.deltaG.note}</div>}
                   </>
@@ -910,7 +908,7 @@ export default function GluconeogenesisOverviewPage() {
             ) : (
               <div className="d-body">
                 <div className="d-placeholder">
-                  点击图上的步骤箭头、酶名或代谢物节点，此处显示该步的反应式、酶与 EC、ΔG（未核实时灰字定性）、
+                  点击图上的步骤箭头、酶名或代谢物节点，此处显示该步的反应式、酶与 EC、ΔG（仅保留定性标注，不展示数值）、
                   意义、误解、临床与<b>与糖酵解的对应关系</b>（含跳转糖酵解链接）。
                   三次跨膜（MPC 入基质 / 苹果酸穿梭出膜 / G6P 下潜 ER 腔）亦可点击。
                 </div>
@@ -960,7 +958,7 @@ export default function GluconeogenesisOverviewPage() {
 
       <PathwayRailFoot current="gluconeogenesis" />
       <div className="poster-foot">
-        <span>待确认：逐步 ΔG 的 Lehninger Ch.20 详表数值未核实，页面仅显示定性结论，不可作定量判读。<br /></span>
+        <span>待确认：ΔG 数值不作页面展示，仅保留 Lehninger Ch.20 定性结论；能量账见右侧 ATP/NADPH 化学计量。<br /></span>
         <span>待确认：3D 结合视图整轮占位——PDB 候选（3BG3 / 1KHB / 1FTA / 9J7U 等）来自 outline 已核验表，资产未制作，无路径。<br /></span>
         <span>待确认：PCK1 缺乏表型、肾糖异生占比、FBPase 抑制剂临床转化状态未核实，页面如实标注。<br /></span>
       </div>

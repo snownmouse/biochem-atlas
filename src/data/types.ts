@@ -31,10 +31,10 @@ export interface OrganDiff {
 
 /** 自由能数据：标准态与生理态并列，单位统一 kJ/mol；数值有教材年代差异时用 note 说明 */
 export interface DeltaG {
-  /** 标准态 ΔG°′（kJ/mol） */
-  standard: number;
-  /** 生理态 ΔG（kJ/mol，典型取红细胞胞内估算） */
-  physiological: number;
+  /** 标准态 ΔG°′（kJ/mol）；数值不作页面展示，统一为 null */
+  standard: number | null;
+  /** 生理态 ΔG（kJ/mol）；数值不作页面展示，统一为 null */
+  physiological: number | null;
   unit: string;
   /** 数据出处，如 "Lehninger 8e Table 15-1" */
   source?: string;

@@ -174,7 +174,7 @@
       "reaction": { "substrates": ["ala", "akg"], "products": ["pyr", "glu"], "cofactors": ["PLP（磷酸吡哆醛）"] },
       "enzyme": { "name": "丙氨酸氨基转移酶", "gene": "GPT1 / GPT2", "ec": "2.6.1.2", "isozyme": "ALT1（胞质，GPT1）/ ALT2（线粒体，GPT2）", "organelle": "胞质与线粒体", "note": "人 ALT1 未见 ≤2.5 Å 的 Ala 复合物；3IHJ 为人 ALT2。" },
       "direction": "reversible",
-      "deltaG": { "value": null, "qualitative": "转氨反应 ΔG°′ 近于 0，可逆；实际方向由 α-KG / 谷氨酸与丙氨酸 / 丙酮酸的浓度比决定。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（转氨反应）" },
+      "deltaG": { "value": null, "qualitative": "转氨反应 ΔG°′ 近于 0，可逆；实际方向由 α-KG / 谷氨酸与丙氨酸 / 丙酮酸的浓度比决定。", "source": "Lehninger 8e Ch.18" },
       "physiology": "把丙氨酸的氨基交给 α-KG，碳骨架成为丙酮酸；肝内丙酮酸可进入糖异生，是葡萄糖–丙氨酸循环的门户。",
       "organDifference": "肝：ALT 活性高，丙氨酸→丙酮酸→糖异生；肌：ALT 较低，丙氨酸主要由肌释放入血送到肝。",
       "sharedWith": [
@@ -198,7 +198,7 @@
       "reaction": { "substrates": ["asp", "akg"], "products": ["oaa", "glu"], "cofactors": ["PLP（磷酸吡哆醛）"] },
       "enzyme": { "name": "天冬氨酸氨基转移酶", "gene": "GOT1 / GOT2", "ec": "2.6.1.1", "isozyme": "GOT1（胞质）/ GOT2（线粒体）", "organelle": "胞质与线粒体", "note": "3II0 为人胞质 GOT1，含 PLP 与竞争性抑制剂酒石酸。" },
       "direction": "reversible",
-      "deltaG": { "value": null, "qualitative": "转氨近平衡，可逆；草酰乙酸与谷氨酸的后续去除推动正反应。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（转氨反应）" },
+      "deltaG": { "value": null, "qualitative": "转氨近平衡，可逆；草酰乙酸与谷氨酸的后续去除推动正反应。", "source": "Lehninger 8e Ch.18" },
       "physiology": "把 Asp 的氨基转入 Glu，生成的 OAA 可进入 TCA 或糖异生；Asp 同时是尿素循环的第二个氮供体。",
       "organDifference": "肝：AST 参与尿素循环与糖异生；肌：AST 与 ALT 共同处理运动产生的氨基。",
       "sharedWith": [
@@ -222,7 +222,7 @@
       "reaction": { "substrates": ["glu"], "products": ["akg", "nh4"], "cofactors": ["NAD⁺ / NADP⁺（氧化型）", "NADH / NADPH（还原型）"] },
       "enzyme": { "name": "谷氨酸脱氢酶 1", "gene": "GLUD1", "ec": "1.4.1.2", "isozyme": "GLUD1（线粒体基质）/ GLUD2（神经组织）", "organelle": "线粒体基质", "note": "人 GLUD1 无配体复合物（1L1F 为 apo，2.7 Å）；本步只做 2D。" },
       "direction": "reversible",
-      "deltaG": { "value": null, "qualitative": "正反应 ΔG°′ 略负，但在高 Glu、低 NH₄⁺ 条件下可逆；本页不写数值。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（氧化脱氨）" },
+      "deltaG": { "value": null, "qualitative": "正反应 ΔG°′ 略负，但在高 Glu、低 NH₄⁺ 条件下可逆。", "source": "Lehninger 8e Ch.18" },
       "physiology": "唯一以 NAD(P)⁺ 为辅酶的氧化脱氨反应；NH₄⁺ 直接进入尿素循环，α-KG 回补 TCA。",
       "organDifference": "肝：GLDH 与尿素循环偶联处置血氨；肾：GLDH 与谷氨酰胺酶协同生成 NH₄⁺ 排酸。",
       "sharedWith": [
@@ -245,7 +245,7 @@
       "reaction": { "substrates": ["gln", "h2o"], "products": ["glu", "nh4"], "cofactors": [] },
       "enzyme": { "name": "谷氨酰胺酶肾型", "gene": "GLS", "ec": "3.5.1.2", "isozyme": "GLS1（肾型，KGA）/ GLS2（肝型，GAB）", "organelle": "线粒体", "note": "3CZD 为人肾型 GLS1，2.4 Å，链 A，配体 GLU（产物结合态）；底物 Gln 未建模。" },
       "direction": "forward",
-      "deltaG": { "value": null, "qualitative": "谷氨酰胺水解 ΔG°′ 明显负（不可逆）；肾脏生氨的方向由底物供给与排酸需求推动。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（谷氨酰胺与肾氨生成）" },
+      "deltaG": { "value": null, "qualitative": "谷氨酰胺水解 ΔG°′ 明显负（不可逆）；肾脏生氨的方向由底物供给与排酸需求推动。", "source": "Lehninger 8e Ch.18" },
       "physiology": "肾近端小管以谷氨酰胺为氮源生成 NH₄⁺ 排酸；谷氨酸可再经 GLDH 释放第二个氨，构成肾氨生成的两步。",
       "organDifference": "肾：GLS1 高表达，是酸碱平衡核心；肝：表达较低，主要处理门静脉来源的谷氨酰胺。",
       "sharedWith": [
@@ -267,7 +267,7 @@
       "reaction": { "substrates": ["leu", "akg"], "products": ["kic", "glu"], "cofactors": ["PLP（磷酸吡哆醛）"] },
       "enzyme": { "name": "支链氨基转移酶 2", "gene": "BCAT2", "ec": "2.6.1.42", "isozyme": "BCAT2（线粒体）/ BCAT1（胞质）", "organelle": "线粒体", "note": "1KT8 为人 BCAT2 与 PLP–异亮氨酸外部醛亚胺，配体是 Ile 而非 Leu。" },
       "direction": "reversible",
-      "deltaG": { "value": null, "qualitative": "转氨近平衡，可逆；支链 α-酮酸的后续氧化推动通量。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（支链氨基酸分解）" },
+      "deltaG": { "value": null, "qualitative": "转氨近平衡，可逆；支链 α-酮酸的后续氧化推动通量。", "source": "Lehninger 8e Ch.18" },
       "physiology": "肌是 BCAA 转氨的主要场所；生成的 α-酮酸经 BCKDH 氧化脱羧，进入乙酰-CoA / 乙酰乙酰-CoA / 琥珀酰-CoA。",
       "organDifference": "肌：BCAT2 高，BCAA 用于供能；肝：BCAT2 较低，主要处理支链 α-酮酸。",
       "sharedWith": [
@@ -291,7 +291,7 @@
       "reaction": { "substrates": ["phe", "o2"], "products": ["tyr", "h2o"], "cofactors": ["BH₄（四氢生物蝶呤）", "Fe(II)"] },
       "enzyme": { "name": "苯丙氨酸羟化酶", "gene": "PAH", "ec": "1.14.16.1", "isozyme": "单一基因产物（肝细胞胞质）", "organelle": "胞质", "note": "1J8U 为人 PAH 催化域 1.5 Å，Fe(II) 与 BH₄（H4B）均在坐标中；无 Phe / Tyr 底物建模。" },
       "direction": "forward",
-      "deltaG": { "value": null, "qualitative": "BH₄ 依赖的羟化不可逆，ΔG°′ 明显负；本页不写数值。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（芳香族氨基酸分解）" },
+      "deltaG": { "value": null, "qualitative": "BH₄ 依赖的羟化不可逆，ΔG°′ 明显负。", "source": "Lehninger 8e Ch.18" },
       "physiology": "肝内把 Phe 转为 Tyr，是 Phe 分解的唯一出口；Tyr 可进一步生糖兼生酮。",
       "organDifference": "肝：PAH 主要表达部位；其他组织表达低，PKU 的表型以肝为主。",
       "sharedWith": [
@@ -315,7 +315,7 @@
       "reaction": { "substrates": ["hcy", "ser"], "products": ["cystathionine", "h2o"], "cofactors": ["PLP（磷酸吡哆醛）", "血红素（heme）"] },
       "enzyme": { "name": "胱硫醚 β-合酶", "gene": "CBS", "ec": "4.2.1.22", "isozyme": "单一基因产物（四聚体）", "organelle": "胞质", "note": "4COO 为人 CBS Δ516–525 构建体，含 PLP 与血红素；缺失片段是构建体设计，不是点突变。" },
       "direction": "forward",
-      "deltaG": { "value": null, "qualitative": "缩合反应不可逆，ΔG°′ 明显负；本页不写数值。", "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（含硫氨基酸代谢）" },
+      "deltaG": { "value": null, "qualitative": "缩合反应不可逆，ΔG°′ 明显负。", "source": "Lehninger 8e Ch.18" },
       "physiology": "把高半胱氨酸的硫转移给丝氨酸，生成胱硫醚；下游可生成半胱氨酸与 α-酮丁酸，前者生糖。",
       "organDifference": "肝：CBS 是转硫通路主场所；肾：表达亦高，参与同型半胱氨酸清除。",
       "sharedWith": [

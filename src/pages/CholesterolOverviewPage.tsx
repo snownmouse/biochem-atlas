@@ -13,7 +13,6 @@ import type {
   CholesterolData,
   CholesterolSkeleton,
   CholesterolStep,
-  PdbCandidate,
 } from "../data/cholesterol/types";
 
 const DATA = cholesterolData as unknown as CholesterolData;
@@ -104,14 +103,8 @@ function entityName(id: string) {
   return DATA.entities.find((e) => e.id === id)?.name ?? id;
 }
 
-function pdbById(id: string): PdbCandidate | undefined {
-  return DATA.threeD.candidates.find((c) => c.pdbId === id);
-}
-
 function StepDetail({ step }: { step: CholesterolStep }) {
-  const candidates = (step.pdbCandidates ?? [])
-    .map(pdbById)
-    .filter((c): c is PdbCandidate => Boolean(c));
+  const candidates = step.pdbCandidates ?? [];
 
   return (
     <div className="detail" data-detail-step={step.id}>
@@ -154,7 +147,6 @@ function StepDetail({ step }: { step: CholesterolStep }) {
 
       <div className="d-dg">
         <span className="d-dg-tag">ΔG</span>
-        <span className="d-dg-none">null（数值未核实）</span>
         <span className="d-dg-q">{step.deltaG.qualitative}</span>
         <span className="d-dg-src">{step.deltaG.source}</span>
       </div>
@@ -564,7 +556,7 @@ export default function CholesterolOverviewPage() {
           <div className="plate-foot">
             <span>实心粗箭头：生理主方向</span>
             <span>虚线：FPP 旁路、DHCR7 临床支路与药物抑制</span>
-            <span>所有 ΔG 为 null，只作定性描述；数值未核实</span>
+            <span>ΔG 数值不作页面展示，只保留定性判断</span>
             <span>他汀为药物节点，不是反应步骤；SREBP-2 只作注记</span>
           </div>
         </section>
@@ -706,7 +698,7 @@ export default function CholesterolOverviewPage() {
       <PathwayRailFoot current="cholesterol" />
       <div className="poster-foot">
         <span>
-          待确认：逐步 ΔG 的 Lehninger 8e Ch.21 详表数值未核实，页面只给定性结论（ΔG = null），不可作定量判读。<br />
+          待确认：ΔG 数值不作页面展示，仅保留 Lehninger 8e Ch.21 定性结论；能量账见右侧 ATP/NADPH 化学计量。<br />
         </span>
         <span>
           结构对照 SF-12：7 个块只做小分子 2D；HMGCR / SQLE / DHCR7 / CYP51A1 的 PDB 条目只用于右栏身份核对，

@@ -2,9 +2,9 @@
 // bubbleModel —— 内容气泡的唯一取数处
 //
 // 四类目标各自只读本层已有字段：
-//   首页节点 / 首页步骤边  → homeMap（无 EC、ΔG，故不显示这两行）
+//   首页节点 / 首页步骤边  → homeMap + stepIndex 联表取 EC / ΔG（联表失败则不显示这两行）
 //   挂图步骤 / 节点 / 表行 → 对应通路 json（ΔG / EC 有则显示）
-//   结构页 2D 分子         → stepComparison + evidenceGrade（无 EC、ΔG，故不显示）
+//   结构页 2D 分子         → stepComparison + evidenceGrade + stepIndex 的 EC（无则省略）
 // 任何字段缺失都返回 null，由 ContentBubble 整行不渲染；这里不补值、不估算。
 // ============================================================
 import {
@@ -202,6 +202,14 @@ function homeNodeModel(nodeId: string): BubbleModel | null {
   const names = node.pathwayIds.map((id) => PATHWAY_NAME.get(id) ?? id);
   const lines: string[] = [`涉及通路 ${names.join(" · ")}`];
 
+  const repStepId = representativeStepId(node);
+  const repEntry = repStepId ? stepEntryById(repStepId) : null;
+  const ec = repEntry ? stepEC(repEntry.step) : null;
+  const deltaG = repEntry ? stepDeltaGText(repEntry.step) : null;
+  const repEnzyme = repEntry?.step.enzyme?.name ?? null;
+  if (repStepId && ec) lines.push(`EC ${ec}${repEnzyme ? ` · ${repEnzyme}` : ""}（${repStepId}）`);
+  if (repStepId && deltaG) lines.push(`ΔG ${deltaG}（${repStepId}）`);
+
   if (junction) {
     lines.push(`共用节点 ${junction.occurrences.length} 处`);
     for (const occurrence of junction.occurrences.slice(0, 3)) {
@@ -220,6 +228,25 @@ function homeNodeModel(nodeId: string): BubbleModel | null {
     lines: lines.slice(0, 6),
     summary: `${node.fullName}，涉及 ${names.length} 条通路。`,
   };
+}
+
+/**
+ * 首页节点的代表步骤：按 node.pathwayIds 顺序，优先取该通路里生成此节点的边（to=node）；
+ * 源头节点没有入边时取消耗它的边（from=node）。只作 EC / ΔG 的联表入口，
+ * 联表失败（无 primaryStepId 或步骤不存在）由调用方整行不渲染。
+ */
+function representativeStepId(node: (typeof HOME_NODES)[number]): string | null {
+  for (const pathwayId of node.pathwayIds) {
+    const incoming = HOME_EDGES.find(
+      (edge) => edge.pathwayId === pathwayId && edge.to === node.id && edge.primaryStepId
+    );
+    if (incoming?.primaryStepId) return incoming.primaryStepId;
+    const outgoing = HOME_EDGES.find(
+      (edge) => edge.pathwayId === pathwayId && edge.from === node.id && edge.primaryStepId
+    );
+    if (outgoing?.primaryStepId) return outgoing.primaryStepId;
+  }
+  return null;
 }
 
 function homeEdgeModel(edgeId: string): BubbleModel | null {
@@ -283,9 +310,11 @@ export function structureBubbleModel(target: Element): BubbleModel | null {
 
   const evidence = side.evidence.find((item) => item.molId === molId) ?? null;
   const gradeText = partGradeText(evidence);
+  const entry = stepEntryById(stepId);
+  const ec = entry ? stepEC(entry.step) : null;
 
   const lines: string[] = stripUndefined([
-    `本步 ${comparison.enzyme}${comparison.isozyme ? `（${comparison.isozyme}）` : ""} 的${side.label}`,
+    `本步 ${comparison.enzyme}${comparison.isozyme ? `（${comparison.isozyme}）` : ""}${ec ? ` · EC ${ec}` : ""} 的${side.label}`,
     comparison.equation ? `反应 ${comparison.equation}` : comparison.change ? `变化 ${comparison.change}` : null,
     part.marks?.length ? `标注 ${part.marks.map((mark) => mark.name).join(" · ")}` : null,
     part.caveat ? `提醒 ${part.caveat}` : null,

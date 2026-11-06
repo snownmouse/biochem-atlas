@@ -564,8 +564,12 @@ export function UreaCycleOverviewPage() {
                   <div className="d-cof num"><b>EC</b>　{selectedStep.ecNumber}</div>
                   {selectedStep.cofactors.length ? <div className="d-cof"><b>辅因子</b>　{selectedStep.cofactors.join(" · ")}</div> : null}
                   <div className="d-cof" data-dg="1">
-                    <b>ΔG</b>　<span style={{ opacity: 0.62 }}>{selectedStep.deltaG.qualitative}</span>
-                    <span className="num" style={{ opacity: 0.5 }}> · 数值未核实 · {selectedStep.deltaG.source}</span>
+                    <b>ΔG</b>
+                    <span style={{ opacity: 0.62 }}> 定性：{selectedStep.deltaG.qualitative}</span>
+                    <span className="num" style={{ opacity: 0.5 }}>
+                      {" · "}
+                      {selectedStep.deltaG.source}
+                    </span>
                   </div>
                   <div className="d-cof" data-nitrogen-role={selectedStep.nitrogen.role}>
                     <b>氮</b>　{selectedStep.nitrogen.text}
@@ -653,7 +657,7 @@ export function UreaCycleOverviewPage() {
               ) : (
                 <div className="d-body">
                   <div className="d-placeholder">
-                    点击图上的步骤箭头、酶机器或代谢物节点，此处显示该步的反应式、酶、区室、ΔG（未核实值一律灰字定性）、
+                    点击图上的步骤箭头、酶机器或代谢物节点，此处显示该步的反应式、酶、区室、ΔG（仅保留定性标注，不展示数值）、
                     两个氮的归属与碳账。鸟氨酸在基质与胞质各有一个节点，瓜氨酸跨膜也有两个节点；同实体多节点都可点击。
                     跨内膜的 ORNT1 与 Asp 进入是转运，不计入五步。
                   </div>

@@ -36,7 +36,7 @@ export interface CholesterolReaction {
 }
 
 export interface CholesterolDeltaG {
-  value: null;
+  value: number | null;
   qualitative: string;
   source: string;
 }
@@ -78,8 +78,8 @@ export interface CholesterolStep {
     note: string;
   };
   sharedWith: SharedWith[];
-  /** 只登记已向 RCSB 实时核验的条目 */
-  pdbCandidates?: string[];
+  /** 只登记已向 RCSB 实时核验的条目（status=verified，字段与 threeD.candidates 一致） */
+  pdbCandidates?: VerifiedPdbCandidate[];
 }
 
 export interface CholesterolRegulation {
@@ -172,6 +172,11 @@ export interface PdbCandidate {
   entryTitle: string;
   note: string;
   verifiedOn: string;
+}
+
+/** 步骤页逐条登记的核验记录（与 threeD.candidates 同字段，另带核验状态） */
+export interface VerifiedPdbCandidate extends PdbCandidate {
+  status: "verified";
 }
 
 export interface ThreeDRecord {

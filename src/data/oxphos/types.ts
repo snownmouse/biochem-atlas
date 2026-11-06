@@ -145,6 +145,16 @@ export interface OxphosStep {
   enzyme: { entityId: string; name: string; isozyme?: string };
   cofactors: string[];
   irreversible: boolean;
+  /** 电子入口模块的出处与 ΔG 口径；无核验数值时 standard/physiological 保持 null */
+  deltaG?: {
+    standard: number | null;
+    physiological: number | null;
+    unit: string;
+    qualitative?: string;
+    source?: string;
+    note?: string;
+  };
+  source?: string;
 }
 
 export interface OxphosData {

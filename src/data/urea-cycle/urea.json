@@ -284,9 +284,8 @@
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
-        "qualitative": "强放能（两步 ATP 驱动，生理上不可逆）",
-        "source": "Lehninger 8e Ch.18",
-        "note": "标准态与生理态数值均未核实；只保留定性结论。"
+        "qualitative": "强放能（两步 ATP 驱动，生理上不可逆）。",
+        "source": "Lehninger 8e Ch.18"
       },
       "nitrogen": {
         "role": "fix",
@@ -336,8 +335,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "近平衡；被 CPS1 持续供给的氨甲酰磷酸拉动向前",
-        "source": "Lehninger 8e Ch.18",
-        "note": "数值未核实；只保留定性结论。"
+        "source": "Lehninger 8e Ch.18"
       },
       "nitrogen": {
         "role": "transfer",
@@ -409,9 +407,8 @@
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
-        "qualitative": "强放能（ATP → AMP + PPi，两个高能键驱动）",
-        "source": "Lehninger 8e Ch.18",
-        "note": "数值未核实；按 ATP→AMP+PPi 的两键消耗定性。"
+        "qualitative": "强放能（ATP → AMP + PPi，两个高能键驱动）。",
+        "source": "Lehninger 8e Ch.18"
       },
       "nitrogen": {
         "role": "fix",
@@ -461,8 +458,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "近平衡，随底物与产物浓度双向流动",
-        "source": "Lehninger 8e Ch.18",
-        "note": "数值未核实；只保留定性结论。"
+        "source": "Lehninger 8e Ch.18"
       },
       "nitrogen": {
         "role": "carry",
@@ -512,8 +508,7 @@
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "强放能（胍基水解，生理上不可逆）",
-        "source": "Lehninger 8e Ch.18",
-        "note": "数值未核实；只保留定性结论。"
+        "source": "Lehninger 8e Ch.18"
       },
       "nitrogen": {
         "role": "release",

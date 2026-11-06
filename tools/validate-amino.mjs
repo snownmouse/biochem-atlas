@@ -254,7 +254,7 @@ function check(data, skel, ctx) {
     if (!pool.length) warn(`步骤 ${s.id} 缺少底物 / 产物`);
     for (const id of pool) if (!entById.has(id)) warn(`步骤 ${s.id} 引用了不存在的实体 ${id}`);
     if (!/\u2192|\u21cc/.test(s.equation ?? "")) warn(`步骤 ${s.id} 的反应式缺少方向符号`);
-    if (s.deltaG?.value !== null) warn(`步骤 ${s.id} 的 ΔG 数值必须为 null（不得编造）`);
+    if (s.deltaG?.value !== null) warn(`步骤 ${s.id} 的 ΔG 数值必须为 null（页面不展示数值）`);
     if (!String(s.deltaG?.qualitative ?? "").trim()) warn(`步骤 ${s.id} 缺少 ΔG 定性说明`);
     if (!/Lehninger/.test(s.deltaG?.source ?? "")) warn(`步骤 ${s.id} 的 ΔG 出处必须写 Lehninger`);
     if (!(s.organs ?? []).length) warn(`步骤 ${s.id} 缺少器官标注`);
