@@ -73,8 +73,8 @@
       "carbonBookkeeping": { "substrateCarbons": 6, "productCarbons": 6, "mainChainProductCarbons": 6, "netDelta": 0, "note": "只脱氢不脱碳" },
       "groupTransfer": null,
       "threeD": {
-        "status": "pending",
-        "note": "7SNI 底物态（NAP+BG6 双配体同框）为帧带首选；人源 apo 缺格（所有 G6PD 结构都带结构性 NADP⁺），沿用声明式缺口体例。",
+        "status": "ready",
+        "note": "已接入 7SNI（人 G6PD，NAP + BG6 双配体，2.5 Å）与 7SNG（apo）；人源 apo 缺格已用 7SNG 补位。",
         "pdbCandidates": [
           { "pdbId": "7SNI", "organism": "人", "method": "cryo-EM", "resolution": 2.5, "ligands": ["NAP", "BG6"], "note": "NADP⁺+G6P 本体同框，教学价值最高；NADP⁺ 2′-磷酸基可见" },
           { "pdbId": "2BH9", "organism": "人", "method": "X-ray", "resolution": 2.5, "ligands": ["NAP", "GOL"], "note": "突变体截短构建，单亚基视角更清" }
@@ -106,7 +106,7 @@
       "groupTransfer": null,
       "threeD": {
         "status": "pending",
-        "note": "人源无结构（双缺口之一）：建议纯 2D 或用利什曼原虫 3CH7 / 海栖热袍菌 1VL1 替代并显著标注，不硬凑。",
+        "note": "原因：人源结构缺失；仅有跨物种替代（利什曼原虫 3CH7 / 海栖热袍菌 1VL1），不可冒充人源。保持 pending。",
         "pdbCandidates": [
           { "pdbId": "3CH7", "organism": "利什曼原虫 L. braziliensis", "method": "X-ray", "resolution": 2.29, "ligands": [], "note": "跨物种替代候选（apo）" },
           { "pdbId": "1VL1", "organism": "Thermotoga maritima", "method": "X-ray", "resolution": 1.55, "ligands": ["CIT"], "note": "分辨率最高但细菌源" }
@@ -140,8 +140,8 @@
       "carbonBookkeeping": { "substrateCarbons": 6, "productCarbons": 6, "mainChainProductCarbons": 5, "netDelta": 0, "note": "主链 C6 → C5，差额 1 碳以 CO₂（branchProduct，源自 G6P 的 C1）逸出；总碳仍守恒 6=5+1" },
       "groupTransfer": null,
       "threeD": {
-        "status": "pending",
-        "note": "人源无 6PG 底物复合物（搜索确认）；apo 用 4GWG（1.39 Å），辅酶态用 2JKV，底物态跨物种替代 2W90 并显著标注。",
+        "status": "ready",
+        "note": "已接入 2JKV（人 6PGD，NAP，1.9 Å）与 4GWG（apo，1.39 Å）；人源 6PG 底物复合物缺失，底物态不冒充。",
         "pdbCandidates": [
           { "pdbId": "4GWG", "organism": "人", "method": "X-ray", "resolution": 1.39, "ligands": ["MES"], "note": "apo，分辨率极佳" },
           { "pdbId": "2JKV", "organism": "人", "method": "X-ray", "resolution": 2.53, "ligands": ["NAP"], "note": "二聚体完整，NADP⁺ 在位" },
@@ -174,7 +174,7 @@
       "groupTransfer": null,
       "threeD": {
         "status": "pending",
-        "note": "人源未检索到任何结构（双缺口之二）：建议纯 2D，或用细菌 MtRpiB 2VVP（1.65 Å，R5P 在位）跨物种替代并显著标注。",
+        "note": "原因：人源结构缺失；仅有细菌 MtRpiB 2VVP（1.65 Å，R5P 在位）跨物种替代。保持 pending。",
         "pdbCandidates": [
           { "pdbId": "2VVP", "organism": "Mycobacterium tuberculosis", "method": "X-ray", "resolution": 1.65, "ligands": ["R5P"], "note": "跨物种替代候选，R5P 在位" }
         ]
@@ -204,8 +204,8 @@
       "carbonBookkeeping": { "substrateCarbons": 5, "productCarbons": 5, "mainChainProductCarbons": 5, "netDelta": 0, "note": "同分异构" },
       "groupTransfer": null,
       "threeD": {
-        "status": "pending",
-        "note": "全 PPP 唯一人源『apo + 真底物』双帧齐的酶（3OVP apo / 3OVQ 5RP 在位 + Fe²⁺），3D 第二顺位。",
+        "status": "ready",
+        "note": "已接入 3OVQ（人 RPE，5RP + Fe²⁺，1.97 Å）与 3OVP（apo）；全 PPP 唯一人源 apo + 真底物双帧齐的酶。",
         "pdbCandidates": [
           { "pdbId": "3OVQ", "organism": "人", "method": "X-ray", "resolution": 2.0, "ligands": ["5RP", "FE2"], "note": "真底物 5RP（核酮糖-5-磷酸本体）+ Fe²⁺ 在位" },
           { "pdbId": "3OVP", "organism": "人", "method": "X-ray", "resolution": 1.7, "ligands": ["FE2"], "note": "apo 帧现成" }
@@ -246,8 +246,8 @@
         "mechanism": "TPP 噻唑环 C2 卡宾进攻 Xu5P 羰基碳，C2–C3 键断开释放 GAP 残链，二碳基团以烯胺中间体转移至 R5P 的 C1"
       },
       "threeD": {
-        "status": "pending",
-        "note": "4KXV（0.97 Å，TPP + DX5 拟底物）为全 PPP 最高分辨率结构，单帧静态价值极高；但 TK/TA 教学重点是图逻辑（搬几碳、两两接力），建议 3D 单帧 + 2D 接力图组合，不做四格。",
+        "status": "ready",
+        "note": "已接入 4KXV（0.97 Å，TPP + DX5 拟底物）；单帧静态 + 2D 接力图组合，不做四格。",
         "pdbCandidates": [
           { "pdbId": "4KXV", "organism": "人", "method": "X-ray", "resolution": 0.97, "ligands": ["TPP", "DX5"], "note": "亚原子分辨率；DX5 为 Xu5P 拟底物" },
           { "pdbId": "3MOS", "organism": "人", "method": "X-ray", "resolution": 1.75, "ligands": ["TPP"], "note": "稳妥备用" }
@@ -289,7 +289,7 @@
       },
       "threeD": {
         "status": "pending",
-        "note": "人源唯一结构 1F05（apo，席夫碱 Lys 不可见）；备用 E. coli Transaldolase B 1ONR。建议 2D 接力图为主。",
+        "note": "原因：只有无配体 apo——人源唯一结构 1F05（apo，2.45 Å，席夫碱 Lys 不可见）；备用 E. coli 1ONR 亦为 apo。保持 pending。",
         "pdbCandidates": [
           { "pdbId": "1F05", "organism": "人", "method": "X-ray", "resolution": 2.45, "ligands": [], "note": "人源唯一结构（apo）" },
           { "pdbId": "1ONR", "organism": "E. coli", "method": "X-ray", "resolution": 1.87, "ligands": [], "note": "Transaldolase B 备用" }
@@ -329,8 +329,8 @@
         "mechanism": "与 ppp-n3 同款 TPP 化学：Xu5P 剪下二碳羟乙酰基转移至 E4P 的 C1"
       },
       "threeD": {
-        "status": "pending",
-        "note": "与 ppp-n3 共用 4KXV；不重复做四格。",
+        "status": "ready",
+        "note": "已接入 4KXV（与 ppp-n3 共用；0.97 Å，TPP + DX5）；不重复做四格。",
         "pdbCandidates": [
           { "pdbId": "4KXV", "organism": "人", "method": "X-ray", "resolution": 0.97, "ligands": ["TPP", "DX5"], "note": "同 ppp-n3" }
         ]
@@ -417,7 +417,7 @@
   },
   "threeD": {
     "status": "pending",
-    "note": "3D 本切片不做，仅登记 outline.md 已核验候选（RCSB API 2026-11-03）。最小可行范围：G6PD 7SNI 单帧 + RPE 3OVQ/3OVP 双帧。人源 6PGL 与 RPIA 无结构（双缺口），建议纯 2D；G6PD 人源 apo 缺格沿用声明式缺口体例。",
+    "note": "本通路 8 步中 5 步已接入 3D（ppp-o1 / o3 / n2 / n3 / n5）；ppp-o2 / n1 人源结构缺失（仅跨物种替代），ppp-n4 只有无配体 apo，三步保持 pending。已核验候选见 research/ppp/outline.md（RCSB API 2026-11-03）。",
     "verifiedPdbIds": ["7SNI", "7UAL", "2BH9", "2BHL", "3CH7", "1VL1", "4GWG", "2JKV", "2W90", "3OVQ", "3OVP", "4KXV", "3MOS", "1F05", "1ONR", "2VVP"]
   }
 }

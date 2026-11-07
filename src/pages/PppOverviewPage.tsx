@@ -1004,8 +1004,9 @@ export default function PppOverviewPage() {
                   <EmbeddedStepViewer stepId={selectedStep.id} cfg={selectedCfg} />
                 ) : (
                   <div className="d-none" data-3d-placeholder="1">
-                    3D 结合视图：待结构核验——
-                    {selectedStep.threeD?.note ?? "本步未登记 PDB 候选，资产未制作。"}
+                    {selectedStep.threeD?.status === "ready"
+                      ? "3D 结合视图：资产已接入，等待帧带加载…"
+                      : `3D 结合视图：待结构核验——${selectedStep.threeD?.note ?? "本步未登记 PDB 候选，资产未制作。"}`}
                   </div>
                 )}
               </div>
@@ -1083,7 +1084,7 @@ export default function PppOverviewPage() {
       <PathwayRailFoot current="ppp" />
       <div className="poster-foot">
         <span>待确认：ΔG 数值不作页面展示，仅保留 Lehninger 8e Ch.14 定性结论。<br /></span>
-        <span>待确认：3D 结合视图整轮占位——数据层 threeD.status=pending，仅登记 PDB 候选（G6PD 7SNI、RPE 3OVQ/3OVP 等），无资产路径。<br /></span>
+        <span>已接入：3D 结合视图 5 步已建（ppp-o1 / o3 / n2 / n3 / n5）；ppp-o2 与 ppp-n1 人源结构缺失（仅跨物种替代），ppp-n4 只有无配体 apo，三步保留待核验占位，不硬凑。<br /></span>
         <span>待确认：人源缺口——6PGL 无结构、RPIA 人源未检索到结构（2VVP 为结核 RpiB，跨种且跨家族）；照实标注，不硬凑。<br /></span>
         <span>待确认：organDiffs 仅登记肝与红细胞；肌肉等其它器官未登记，页面不提供该视图。<br /></span>
       </div>

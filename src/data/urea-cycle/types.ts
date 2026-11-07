@@ -57,7 +57,7 @@ export interface CarbonRole {
 }
 
 export interface Step3D {
-  status: "pending";
+  status: "pending" | "ready";
   note: string;
   candidates: ThreeDCandidate[];
 }
@@ -207,7 +207,7 @@ export interface UreaData {
     note: string;
   };
   clinical: { id: string; name: string; inheritance: string; mechanism: string }[];
-  threeD: { status: "pending"; note: string };
+  threeD: { status: "pending" | "ready"; note: string };
 }
 
 export type LinkType = "main" | "feed" | "shuttle" | "cycle-return" | "cycle-exit" | "branch" | "recycle";

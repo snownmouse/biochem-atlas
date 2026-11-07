@@ -307,8 +307,8 @@
       "subAt": { "x": 170, "y": 126, "anchor": "middle" },
       "subLabel": "NH₃ + HCO₃⁻ + 2 ATP → 氨甲酰磷酸",
       "threeD": {
-        "status": "pending",
-        "note": "CPS1 全酶约 165 kDa/单体，公开结构多为片段或复合体片段；本轮未核验可用的人源全酶-底物条目，不登记 PDB ID，也不建资产路径。",
+        "status": "ready",
+        "note": "已接入 5DOU（人 CPS1，ADP + NLG + MG，2.6 Å）与 5DOT（apo）；全酶约 165 kDa/单体，资产为可用结构片段口径。",
         "candidates": []
       }
     },
@@ -357,8 +357,8 @@
       "subAt": { "x": 590, "y": 205, "anchor": "start" },
       "subLabel": "氨甲酰磷酸 + Orn → Cit（线粒体）",
       "threeD": {
-        "status": "pending",
-        "note": "OTC 有人源结构：1EP9（X-ray 2.40 Å，结合氨甲酰磷酸，突变体 L101F/Q270R）与 1OTH（X-ray 1.85 Å，结合双底物类似物 PALO）；页面不出 3D。",
+        "status": "ready",
+        "note": "已接入 1C9Y（人 OTC，CP，1.9 Å）；同组 1FVO/1EP9 为 L101F/Q270R 突变体，仅作对照。",
         "candidates": [
           {
             "stepId": "urea-2",
@@ -430,8 +430,8 @@
       "subAt": { "x": 735, "y": 527, "anchor": "middle" },
       "subLabel": "Cit + Asp + ATP → 精氨酸琥珀酸",
       "threeD": {
-        "status": "pending",
-        "note": "ASS1 有人源结构，但本轮未逐条核验 PDB ID / 分辨率 / 物种 / 配体，因此不登记具体候选，也不建资产路径。",
+        "status": "ready",
+        "note": "已接入 2NZ2（人 ASS1，ASP + CIR 双真实底物，2.4 Å）；人源 apo 帧缺。",
         "candidates": []
       }
     },
@@ -481,7 +481,7 @@
       "subLabel": "精氨酸琥珀酸 → Arg + 延胡索酸",
       "threeD": {
         "status": "pending",
-        "note": "ASL 有人源结构，但本轮未逐条核验 PDB ID / 分辨率 / 物种 / 配体，因此不登记具体候选，也不建资产路径。",
+        "note": "原因：无本酶-底物复合物——人源 ASL 仅有低分辨率全长 apo（4.2 Å）与 Q286R 突变体 apo（2.65 Å）。保持 pending。",
         "candidates": []
       }
     },
@@ -531,7 +531,7 @@
       "subLabel": "Arg + H₂O → 尿素 + Orn",
       "threeD": {
         "status": "pending",
-        "note": "ARG1 有人源结构，但本轮未逐条核验 PDB ID / 分辨率 / 物种 / 配体，因此不登记具体候选，也不建资产路径。",
+        "note": "原因：无本酶-底物复合物——人源 ARG1 仅有优质 apo（2ZAV，1.7 Å），现有配体结构均为抑制剂。保持 pending。",
         "candidates": []
       }
     }
@@ -668,6 +668,6 @@
   ],
   "threeD": {
     "status": "pending",
-    "note": "本轮不出 3D：五步中仅 OTC 有已核实的人源结构候选（1EP9 结合氨甲酰磷酸但为突变体 L101F/Q270R，X-ray 2.40 Å；1OTH 结合双底物类似物 PALO，野生型，X-ray 1.85 Å）；其余四步未核验到可用的人源本酶-底物条目。页面不建 /assets/steps/urea-* 资产路径，也不以 2D 图冒充 3D。"
+    "note": "本通路五步中 urea-1 / urea-2 / urea-3 已接入 3D（CPS1 / OTC / ASS1）；urea-4（ASL）与 urea-5（ARG1）因无本酶-底物复合物（仅低分辨率 apo / 仅抑制剂配体），保持 pending。"
   }
 }

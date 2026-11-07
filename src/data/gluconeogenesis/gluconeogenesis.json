@@ -83,8 +83,8 @@
         "regulation": "PC 被乙酰-CoA 别构激活（必需激活剂）；PK 在肝被胰高血糖素/PKA 依赖的磷酸化钝化——两酶在激素状态上互为镜像。"
       },
       "threeD": {
-        "status": "pending",
-        "note": "单帧静态展示 OK；四聚体 ~2 万原子、双活性位点 + 摆动臂，帧带意义有限（生物素臂运动是『过程』不是『四格』）。资产未制作，无路径。",
+        "status": "ready",
+        "note": "已接入 7WTE（人 PC，cryo-EM 3.3 Å，全长四聚体）与 7WTA（对照）；四聚体 ~2 万原子，单帧静态展示，生物素臂运动用 2D 机理补充。",
         "pdbCandidates": [
           { "pdbId": "3BG3", "role": "substrate-state", "organism": "人（线粒体）", "method": "X-ray", "resolution": 2.8, "ligands": ["BTI 生物素", "PYR 丙酮酸", "MN"], "note": "全酶四聚体，双底物同框（稀有）" },
           { "pdbId": "3TW6", "role": "capture-state", "organism": "根瘤菌 R. etli", "method": "X-ray", "resolution": 2.4, "ligands": ["PAE 丙酮酸", "BTI", "COA", "ADP", "MG", "ZN"], "note": "生物素臂/ADP 同框；跨物种需标注" }
@@ -136,8 +136,8 @@
         "regulation": "人 PCK1（胞质）/PCK2（线粒体）两同工酶提供路线选择；PK 则是别构（FBP 激活）+ 磷酸化钝化的调控对象。"
       },
       "threeD": {
-        "status": "pending",
-        "note": "建议只做单帧 + 2D 机理图；OAA/PEP 真底物态人源未检索到（未核实→不写候选），apo 帧缺。资产未制作，无路径。",
+        "status": "ready",
+        "note": "已接入 1KHB（人 PCK1，GCP + MN，1.85 Å）与 1KHG（对照）；OAA/PEP 真底物态人源未检索到，不冒充。",
         "pdbCandidates": [
           { "pdbId": "1KHB", "role": "gtp-analog-bound", "organism": "人（胞质 PCK1）", "method": "X-ray", "resolution": 1.85, "ligands": ["GCP = GTP 不可水解类似物 GMPCP", "MN"], "note": "质量最高的 PEPCK 结构；GCP 不是 GTP 本体，展示需标注" },
           { "pdbId": "1KHE", "role": "gtp-analog-bound", "organism": "人", "method": "X-ray", "resolution": 2.4, "ligands": ["GCP", "MN"], "note": "同酶另一状态，对照" },
@@ -393,8 +393,8 @@
         "regulation": "F2,6BP 正调 PFK-1、负调 FBPase-1（单一信使双向裁决）；AMP 别构抑制 FBPase-1（位点与底物位点分离）；胰高血糖素/PKA → PFK-2/FBPase-2 磷酸化 → F2,6BP↓ → 糖异生↑。"
       },
       "threeD": {
-        "status": "pending",
-        "note": "最适合做帧带：能复用 gk-1 帧带的跨结构刚体对齐管线；人源 apo 帧缺（未检索到，明说）。资产未制作，无路径。",
+        "status": "ready",
+        "note": "已接入 1FTA（人 FBP1，AMP 别构位点，2.3 Å）与 5LDZ（对照）；人源真底物态缺，跨物种 1EYI 仅作对照并标注。",
         "pdbCandidates": [
           { "pdbId": "1FTA", "role": "allosteric", "organism": "人（肝）", "method": "X-ray", "resolution": 2.3, "ligands": ["AMP（别构抑制位点）"], "note": "★ 与 gk-3 PFK 对照的镜像主角" },
           { "pdbId": "1EYI", "role": "substrate-state", "organism": "猪（肾）", "method": "X-ray", "resolution": 2.32, "ligands": ["F6P", "MG", "PO4"], "note": "跨物种拼帧需标注；原子数为 ASU 单体含量" },
@@ -479,8 +479,8 @@
         "regulation": "G6PC1 靠组织表达分布（肝/肾/肠有、肌无）而非别构调控；HK 受 G6P 反馈抑制，G6PC1 无此机制。"
       },
       "threeD": {
-        "status": "pending",
-        "note": "不建议上 3D 四格：多跨膜 ER 蛋白 + 3.1–3.3 Å cryo-EM + GFP 融合构建体（9JTM），位点残基定位粗；降级为 2D 机理示意 + 一张 9J7U 静态单帧（标注『2024 新结构、分辨率有限』）。资产未制作，无路径。",
+        "status": "ready",
+        "note": "已接入 9JTM（人 G6PC1 H176N，G6P + P5S，cryo-EM 2.9 Å）与 9J7V（apo）；多跨膜 + 3.1–3.3 Å，位点定位粗，按 caveat 呈现。",
         "pdbCandidates": [
           { "pdbId": "9J7U", "role": "substrate-state", "organism": "人", "method": "cryo-EM", "resolution": 3.14, "ligands": ["BG6 = 6-O-磷酸-β-D-葡萄糖（G6P 本体）", "POV 磷脂"], "note": "2024 新结构，含磷脂共存" },
           { "pdbId": "9JTM", "role": "substrate-state", "organism": "人", "method": "cryo-EM", "resolution": 2.9, "ligands": ["G6P 本体", "P5S 磷脂酰丝氨酸"], "note": "构建体带 GFP-strep 标签，注意剔除" },
@@ -677,8 +677,8 @@
     "deltaGDiscipline": "逐步 ΔG 的 Lehninger Ch.20 详表数值未逐字核实到唯一数字，全部只记定性结论（B1/B4 强放能，B2 放能，B3 放能，同酶反向七步近平衡）；禁止把 glycolysis.json 的 ΔG 取反当糖异生数据（换酶步路径不同，见各步 deltaG.note）。"
   },
   "threeD": {
-    "status": "pending",
-    "note": "3D 资产本轮不做，全部占位；PDB 候选一律来自 research/gluconeogenesis/outline.md 已核验表（2026-11-03 RCSB API），未新增条目。各步 pdbCandidates 仅为登记，不含资产路径。",
+    "status": "ready",
+    "note": "本通路自有的 4 个步骤（gn-1 / gn-2 / gn-9 / gn-11）已接入 3D；其余 7 步共用糖酵解、无独立资产，结构证据见糖酵解挂图帧带。PDB 候选来自 research/gluconeogenesis/outline.md 已核验表（2026-11-03 RCSB API）。",
     "verifiedPdbIds": ["3BG3", "3TW6", "1KHB", "1KHE", "1M51", "1FTA", "1EYI", "2Y5K", "9J7U", "9J7V", "9JTM"]
   }
 }

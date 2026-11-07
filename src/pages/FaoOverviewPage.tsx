@@ -889,7 +889,11 @@ export default function FaoOverviewPage() {
                   <EmbeddedStepViewer stepId={selected.id} cfg={selectedCfg} />
                 ) : (
                   <div className="d-none" data-3d-placeholder="1">
-                    3D 结合视图：待结构核验——{selected.threeD?.status === "pending" ? selected.threeD.note : "本步骤无 3D 酶资产。"}
+                    {selected.threeD?.status === "pending"
+                      ? `3D 结合视图：待结构核验——${selected.threeD.note}`
+                      : selected.threeD?.status === "ready"
+                        ? "3D 结合视图：资产已接入，等待帧带加载…"
+                        : "3D 结合视图：本步骤无 3D 酶资产。"}
                   </div>
                 )}
               </div>
@@ -983,7 +987,7 @@ export default function FaoOverviewPage() {
       <PathwayRailFoot current="fatty-acid-oxidation" />
       <div className="poster-foot">
         <span>待确认：ΔG 数值不作页面展示，仅保留 Lehninger Ch.17 定性结论；能量账见右侧 ATP/NADPH 化学计量。<br /></span>
-        <span>已接入：分子 2D / 3D 资产已建（8 个新建 + 乙酰-CoA 共享），逐块对照见 <code>/structures/fatty-acid-oxidation</code>；酶 3D 仍未建立，右栏只给灰字占位，不伪造结构。<br /></span>
+        <span>已接入：分子 2D / 3D 资产已建（8 个新建 + 乙酰-CoA 共享），逐块对照见 <code>/structures/fatty-acid-oxidation</code>；酶 3D 已建 5 步（fao-act + fao-1–fao-4），fao-shuttle 因人源 CPT1/CPT2 无实验结构仍保留待核验占位，不伪造结构。<br /></span>
         <span>待确认：HADH/SCHAD 缺乏表型、ACSL 缺陷、LCHAD-HELLP 细节、硫解酶缺乏 OMIM、心肌脂肪酸供能占比未核实，页面如实标注。<br /></span>
         <span>数据冲突（已修正）：数据层 skeleton.json 与 fao.json 原先把硫解断键写成「C3–C4」，化学正确的是 C2–C3（乙酰-CoA 带走 C1–C2）；本轮已在数据层改正，并在报告中列明。</span>
       </div>

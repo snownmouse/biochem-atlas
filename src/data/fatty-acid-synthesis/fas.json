@@ -85,8 +85,8 @@
         { "organ": "mammary", "text": "泌乳期乳腺的 PDH 与 FASN 同步上调，为乳脂合成供碳。" }
       ],
       "threeD": {
-        "status": "pending",
-        "note": "PDH 是约 9 MDa 的多酶复合体；本轮只登记候选，不出 3D 视图。",
+        "status": "ready",
+        "note": "已接入 1NI4（人 PDH E1 α₂β₂，X-ray 1.95 Å；TPP + Mg²⁺，配体标于 C 链、配位 A 链活性位点）；PDH 全复合体约 9 MDa，本资产只呈现 E1 单帧。",
         "pdbCandidates": []
       }
     },
@@ -133,7 +133,7 @@
       ],
       "threeD": {
         "status": "pending",
-        "note": "穿梭段没有单一酶可画：CS、CIC、ACLY 三个实体各司其职；本轮只登记候选，不出 3D 视图。",
+        "note": "穿梭段没有单一酶可画：CS、CIC、ACLY 三个实体各司其职。原因：无本酶-底物复合物（ACLY 仅有截短/突变体/产物态结构）。保持 pending。",
         "pdbCandidates": []
       }
     },
@@ -176,8 +176,8 @@
       ],
       "perRoundYield": { "carbonDelta": 0, "nadph": 0, "malonylCoA": 1, "atp": 1, "note": "ACC 不直接增碳，只为每轮提供 1 个丙二酰单元" },
       "threeD": {
-        "status": "pending",
-        "note": "ACC 是多结构域生物素依赖羧化酶；人源完整结构本轮未核验，不出 3D 视图。",
+        "status": "ready",
+        "note": "已接入 2YL2（人 ACC1 BC 域 apo，X-ray 2.3 Å；无 HETATM 配体、无 BTN）；仅显示 BC 域，完整 ACC 与生物素羧基载体蛋白不在本资产内。",
         "pdbCandidates": []
       }
     },
@@ -220,7 +220,7 @@
       "perRoundYield": { "carbonDelta": 2, "nadph": 0, "malonylCoA": 1, "atp": 0, "note": "本轮唯一增碳步：+2C，CO₂ 离去" },
       "threeD": {
         "status": "pending",
-        "note": "FASN 约 540 kDa，结构过大，本版以 2D 分域呈现；人源全长结构 8VM0（cryo-EM 3.30 Å，含 NADPH/NDP）仅登记候选，未建资产。",
+        "note": "FASN 约 540 kDa，结构过大，本版以 2D 分域呈现。原因：无本酶-底物复合物——人源全长 8VM0（cryo-EM 3.30 Å）含 NDP 但无 KS 域特异配体。保持 pending。",
         "pdbCandidates": [
           { "pdbId": "8VM0", "role": "complex-state", "organism": "Homo sapiens", "method": "cryo-EM", "resolutionA": 3.3, "ligands": ["NDP"], "note": "人 FASN 全长同源二聚体 + NADPH 复合态；RCSB 8VM0，560.43 kDa，无突变" }
         ]
@@ -260,8 +260,8 @@
       "organDiffs": [],
       "perRoundYield": { "carbonDelta": 0, "nadph": 1, "malonylCoA": 0, "atp": 0, "note": "每轮第 1 个 NADPH" },
       "threeD": {
-        "status": "pending",
-        "note": "KR 结构域位于 FASN 全长内，候选随人源 8VM0（cryo-EM 3.30 Å，含 NDP）；本轮不出 3D 视图。",
+        "status": "ready",
+        "note": "已接入 8VM0 的 KR 域（残基 1896–2150）与 NDP 2602（距 KR 活性位点 2.57 Å）；仅显示目标域，背景为 3.3 Å 全酶。",
         "pdbCandidates": [
           { "pdbId": "8VM0", "role": "complex-state", "organism": "Homo sapiens", "method": "cryo-EM", "resolutionA": 3.3, "ligands": ["NDP"], "note": "人 FASN 全长复合态；KR 结构域在该链内，非单独结晶" }
         ]
@@ -302,7 +302,7 @@
       "perRoundYield": { "carbonDelta": 0, "nadph": 0, "malonylCoA": 0, "atp": 0, "note": "只脱水，不改碳数、不耗还原当量" },
       "threeD": {
         "status": "pending",
-        "note": "DH 结构域位于 FASN 全长内，候选随人源 8VM0；本轮不出 3D 视图。",
+        "note": "DH 结构域位于 FASN 全长内。原因：无本酶-底物复合物——8VM0 仅提供全酶上下文，无独立 DH 域结构/配体。保持 pending。",
         "pdbCandidates": []
       }
     },
@@ -341,8 +341,8 @@
       "organDiffs": [],
       "perRoundYield": { "carbonDelta": 0, "nadph": 1, "malonylCoA": 0, "atp": 0, "note": "每轮第 2 个 NADPH；碳数已在 KS 增加，这里只是还原收口" },
       "threeD": {
-        "status": "pending",
-        "note": "ER 结构域候选随酵母 FAS；本轮不出 3D 视图。",
+        "status": "ready",
+        "note": "已接入 8VM0 的 ER 域（残基 1667–1895）与 NDP 2601（距 ER 活性位点 2.33 Å）；仅显示目标域，背景为 3.3 Å 全酶，KR 域缺失段按 caveat 标注。",
         "pdbCandidates": []
       }
     },
@@ -385,7 +385,7 @@
       ],
       "threeD": {
         "status": "pending",
-        "note": "TE 结构域有人源单独结晶结构 1XKT（X-ray 2.60 Å，无配体）；棕榈酸分子资产本轮未建，不出 3D 视图。",
+        "note": "TE 结构域有人源单独结晶结构 1XKT（X-ray 2.60 Å）。原因：只有无配体 apo，无棕榈酸/酰基-ACP 复合物。保持 pending。",
         "pdbCandidates": [
           { "pdbId": "1XKT", "role": "domain-fragment", "organism": "Homo sapiens", "method": "X-ray", "resolutionA": 2.6, "ligands": [], "note": "人 FASN 硫酯酶（TE）结构域单独结晶；无配体，非全长复合态" }
         ]
@@ -442,7 +442,7 @@
   },
   "threeD": {
     "status": "pending",
-    "note": "FASN 约 540 kDa（同源二聚体），结构过大；本版以 2D 分域呈现，页面不出任何 3D 视图，也不伪造资产路径。候选结构为人源全长 8VM0（cryo-EM 3.30 Å，含 NDP）与人源 TE 结构域 1XKT（X-ray 2.60 Å，无配体），均已核验，未建资产。",
+    "note": "本通路 8 步中 4 步已接入 3D（fas-pdh、fas-acc、fas-er、fas-kr）；其余 4 步（柠檬酸穿梭、KS、DH、TE）分别因无本酶-底物复合物、仅有跨物种替代或无配体 apo，保持 pending。已核验候选：人源全长 8VM0（cryo-EM 3.30 Å，含 NDP）与人源 TE 域 1XKT（X-ray 2.60 Å，无配体）。",
     "pdbCandidates": [
       { "pdbId": "8VM0", "role": "complex-state", "organism": "Homo sapiens", "method": "cryo-EM", "resolutionA": 3.3, "ligands": ["NDP"], "note": "人 FASN 全长同源二聚体 + NADPH 复合态，560.43 kDa，无突变" },
       { "pdbId": "1XKT", "role": "domain-fragment", "organism": "Homo sapiens", "method": "X-ray", "resolutionA": 2.6, "ligands": [], "note": "人 FASN 硫酯酶（TE）结构域单独结晶，无配体" }

@@ -197,11 +197,15 @@ for (const [id, g] of Object.entries(EXPECT)) {
 }
 await page.goto(`${ROUTE}?step=fao-3`, { waitUntil: "domcontentloaded" });
 check("fao-3（两侧都无实验坐标）显式标「计算构象（无实验坐标）」", (await page.locator('[data-testid="fao-grade"]').innerText()).includes("计算构象"));
-check("右栏 3D 结合视图为灰字占位，不伪造酶结构", (await page.locator("aside [data-3d-placeholder]").count()) === 1);
+const faoViewerReady = await page.waitForSelector("aside .embed-host:not(.hidden)", { timeout: 12000 }).then(() => true).catch(() => false);
+check("fao-3 有 3D 资产 → 视口就绪", faoViewerReady);
+check("fao-3 有资产时不显示占位", (await page.locator("aside [data-3d-placeholder]").count()) === 0);
 check("穿梭步右栏带跨膜机器说明", await (async () => {
   await page.goto(`${ROUTE}?step=fao-shuttle`, { waitUntil: "domcontentloaded" });
   return (await page.locator("aside [data-transport-note]").count()) === 1;
 })());
+check("fao-shuttle 无资产 → 显示待结构核验", (await page.locator("aside [data-3d-placeholder]").innerText()).includes("待结构核验"));
+check("fao-shuttle 无资产 → 无 3D 视口", (await page.locator("aside .embed3d").count()) === 0);
 
 // ===== 8) 点击语义 =====
 console.log("\n===== 8) 点击语义 =====");

@@ -844,7 +844,11 @@ export default function FasOverviewPage() {
                   <EmbeddedStepViewer stepId={selected.id} cfg={selectedCfg} />
                 ) : (
                   <div className="d-none" data-3d-placeholder="1">
-                    3D 结合视图：待结构核验——{selected.threeD?.status === "pending" ? selected.threeD.note : "本步骤无 3D 酶资产。"}
+                    {selected.threeD?.status === "pending"
+                      ? `3D 结合视图：待结构核验——${selected.threeD.note}`
+                      : selected.threeD?.status === "ready"
+                        ? "3D 结合视图：资产已接入，等待帧带加载…"
+                        : "3D 结合视图：本步骤无 3D 酶资产。"}
                   </div>
                 )}
               </div>
@@ -958,7 +962,7 @@ export default function FasOverviewPage() {
       <PathwayRailFoot current="fatty-acid-synthesis" />
       <div className="poster-foot">
         <span>待确认：ΔG 数值不作页面展示，仅保留 Lehninger Ch.21 定性结论；能量账见本页 ATP/NADPH 化学计量。<br /></span>
-        <span>3D 缺口：FASN 约 540 kDa 巨型合酶，本页只为 fas-pdh（PDH E1 人源 α₂β₂）与 fas-acc（ACC1 BC 域）接入 3D；FASN 四步环、柠檬酸穿梭与 TE 仍未建资产。候选已核实为人源全长 8VM0（cryo-EM 3.30 Å，含 NADPH/NDP）与人源 TE 结构域 1XKT（X-ray 2.60 Å，无配体），页面不伪造资产路径。<br /></span>
+        <span>3D 现状：FASN 约 540 kDa 巨型合酶，本页已为 fas-pdh（PDH E1 人源 α₂β₂）、fas-acc（ACC1 BC 域）、fas-er 与 fas-kr（8VM0 的 ER/KR 域，仅显示目标域）接入 3D；四步环中的 KS/DH/TE 与柠檬酸穿梭仍无可用结构或仅有 apo/跨物种候选，保持待核验。页面不伪造资产路径。<br /></span>
         <span>分子资产：本轮不做 2D / 3D 分子图；结构对照页以文字 + 计算坐标占位说明，默认 2D，不伪造口袋。<br /></span>
         <span>{data.threeD.note}</span>
       </div>

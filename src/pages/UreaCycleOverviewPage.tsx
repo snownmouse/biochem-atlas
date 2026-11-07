@@ -675,7 +675,9 @@ export function UreaCycleOverviewPage() {
                     <EmbeddedStepViewer stepId={selectedStep.id} cfg={selectedCfg} />
                   ) : (
                     <div className="d-none" data-3d-placeholder="1">
-                      3D 结合视图：待结构核验——{selectedStep.threeD.note}
+                      {selectedStep.threeD.status === "ready"
+                        ? "3D 结合视图：资产已接入，等待帧带加载…"
+                        : `3D 结合视图：待结构核验——${selectedStep.threeD.note}`}
                     </div>
                   )}
                 </div>
@@ -691,7 +693,7 @@ export function UreaCycleOverviewPage() {
                     <b>路线</b>　{selectedTransport.from} → {selectedTransport.via} → {selectedTransport.to}
                   </div>
                   <div className="d-none" data-3d-placeholder="1">
-                    3D 结合视图：待结构核验——转运体结构本轮未核验，不建资产。
+                    3D 结合视图：不适用——转运体无酶催化结构，不建资产。
                   </div>
                 </div>
               ) : (

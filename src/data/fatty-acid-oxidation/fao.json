@@ -78,8 +78,8 @@
         "ACSL 缺陷罕见且表型未核实到唯一口径，此处不写具体综合征；临床上活化与转运缺陷常并称脂肪酸氧化代谢障碍，共同表现为空腹不耐受。"
       ],
       "threeD": {
-        "status": "pending",
-        "note": "单帧静态展示即可；两步反应中间态无全捕获结构。",
+        "status": "ready",
+        "note": "已接入 3EQ6（人 ACSM2A L64P，X-ray 2.4 Å；BCO + AMP）；单帧静态展示，两步反应中间态无全捕获结构。",
         "pdbCandidates": [
           {
             "pdbId": "3EQ6",
@@ -137,7 +137,7 @@
       ],
       "threeD": {
         "status": "pending",
-        "note": "CPT1 人源无结构（跨膜蛋白），穿梭段骨架走 2D 示意；CPT2 可用大鼠结构做单帧，须标注跨物种。",
+        "note": "CPT1 人源无结构（跨膜蛋白），穿梭段骨架走 2D 示意；CPT2 可用大鼠结构做单帧，须标注跨物种。原因：人源结构缺失，仅有大鼠 CPT2 跨物种替代。",
         "pdbCandidates": [
           {
             "pdbId": "2RCU",
@@ -204,8 +204,8 @@
       ],
       "perRoundYield": { "fadh2": 1, "nadh": 0, "acetylCoA": 0 },
       "threeD": {
-        "status": "pending",
-        "note": "主线帧带可行度最高的酶：人源真底物在位 + 近 apo 帧齐备；链长缺口（底物 C8 vs 后三步 C4）需跨结构对齐并标注。",
+        "status": "ready",
+        "note": "已接入 1EGC（人 MCAD，C8 底物 + FAD，2.6 Å）与 8SGP（apo）；链长缺口（底物 C8 vs 后三步 C4）需跨结构对齐并标注。",
         "pdbCandidates": [
           {
             "pdbId": "1EGC",
@@ -279,8 +279,8 @@
       ],
       "perRoundYield": { "fadh2": 0, "nadh": 0, "acetylCoA": 0 },
       "threeD": {
-        "status": "pending",
-        "note": "人源底物态 + apo 帧齐备。",
+        "status": "ready",
+        "note": "已接入 2HW5（人 ECHS1，COO + MG，2.55 Å）与 8ZRU（apo）；人源底物态 + apo 帧齐备。",
         "pdbCandidates": [
           {
             "pdbId": "2HW5",
@@ -354,8 +354,8 @@
       ],
       "perRoundYield": { "fadh2": 0, "nadh": 1, "acetylCoA": 0 },
       "threeD": {
-        "status": "pending",
-        "note": "双配体同框（NAD + 底物类似物），稀有。",
+        "status": "ready",
+        "note": "已接入 1F0Y（人 SCHAD/HADH，NAD + CAA，1.8 Å）；双配体同框（NAD + 底物类似物），稀有。",
         "pdbCandidates": [
           {
             "pdbId": "1F0Y",
@@ -411,8 +411,8 @@
       ],
       "perRoundYield": { "fadh2": 0, "nadh": 0, "acetylCoA": 1 },
       "threeD": {
-        "status": "pending",
-        "note": "CoA 在位的产物态近似帧；底物态无捕获。",
+        "status": "ready",
+        "note": "已接入 4C2J（人 ACAA2，COA，2.0 Å）；CoA 在位的产物态近似帧，底物态无捕获。",
         "pdbCandidates": [
           {
             "pdbId": "4C2J",
@@ -501,7 +501,7 @@
   },
   "threeD": {
     "status": "pending",
-    "note": "本切片仅登记 PDB 候选，未做任何资产。三个已核验缺口：① 链长统一（MCAD 底物 C8 vs β2–β4 的 C4）需跨结构对齐 + 标注；② CPT1 人源无结构，穿梭段降级 2D；③ 活化步 3EQ6 属中链 ACSM2A，同工酶归属须标注。",
+    "note": "本通路 6 步中 5 步已接入 3D（fao-act、fao-1–fao-4）；fao-shuttle 因人源 CPT1/CPT2 无实验结构，仅有大鼠 CPT2 跨物种替代，保持 pending。已核验缺口：① 链长统一（MCAD 底物 C8 vs β2–β4 的 C4）需跨结构对齐 + 标注；② CPT1 人源无结构，穿梭段降级 2D；③ 活化步 3EQ6 属中链 ACSM2A，同工酶归属须标注。",
     "verifiedPdbIds": ["3EQ6", "2RCU", "2H4T", "1EGC", "4P13", "2UXW", "2HW5", "1HZD", "1DUB", "1F0Y", "4C2J", "2IIK"]
   }
 }

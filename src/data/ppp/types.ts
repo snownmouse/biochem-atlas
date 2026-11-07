@@ -39,7 +39,7 @@ export interface PdbCandidate {
 }
 
 export interface ThreeDPlaceholder {
-  status: "pending";
+  status: "pending" | "ready";
   note: string;
   pdbCandidates?: PdbCandidate[];
 }
@@ -195,7 +195,7 @@ export interface PppData {
   nonOxidativeBalance: PhaseBalance;
   modes: PppMode[];
   glycolysisInterfaces: GlycolysisInterfaces;
-  threeD: { status: "pending"; note: string; verifiedPdbIds: string[] };
+  threeD: { status: "pending" | "ready"; note: string; verifiedPdbIds: string[] };
 }
 
 // ---------- 骨架（单泳道几何） ----------

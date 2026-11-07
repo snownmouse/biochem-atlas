@@ -13,7 +13,8 @@
 //      gn-11 牵涉 er-lumen；苹果酸穿梭必须 膜节点=mito-inner-membrane / 起点=mito-matrix / 终点=cytosol；
 //      MPC 穿梭必须 胞质→线粒体基质
 //   ⑤ 能量账本：ATP=4、GTP=2、NADH=2；entry.stepId 必须存在
-//   ⑥ 3D 纪律：threeD.status 只能是 "pending"；全文件禁止出现 "assets/" 资产路径；
+//   ⑥ 3D 纪律：步骤级 threeD.status 必须与资产事实一致（gn-1/2/9/11 = ready，其余非 null = pending）；
+//      顶层 status = ready（4 个自有步骤均已接入）；全文件禁止出现 "assets/" 资产路径；
 //      PDB id ⊆ outline 已核验白名单
 // 任何一条失败 → exit 1。
 import { readFileSync } from "node:fs";
@@ -259,16 +260,18 @@ export function validateGluconeogenesis({ gn, skel, glyk }) {
   }
 
   // ---------- ⑥ 3D 纪律 ----------
+  const READY_3D = new Set(["gn-1", "gn-2", "gn-9", "gn-11"]);
   for (const s of allSteps) {
     if (s.threeD === null) continue;
-    if (!s.threeD || s.threeD.status !== "pending") err("R6-3d", `${s.id}.threeD.status 必须是 "pending"（3D 未制作，只许占位）`);
+    const expected = READY_3D.has(s.id) ? "ready" : "pending";
+    if (!s.threeD || s.threeD.status !== expected) err("R6-3d", `${s.id}.threeD.status 必须是 "${expected}"（与已接资产事实一致）`);
     for (const c of s.threeD?.pdbCandidates ?? []) {
       if (!VERIFIED_PDB.has(c.pdbId)) err("R6-3d", `${s.id} 出现 outline 白名单之外的 PDB：${c.pdbId}`);
     }
   }
   const raw = JSON.stringify(gn) + JSON.stringify(skel);
-  if (raw.includes("assets/")) err("R6-3d", "数据中出现 assets/ 资产路径——3D 未制作，禁止伪造路径");
-  if (gn.threeD.status !== "pending") err("R6-3d", "顶层 threeD.status 必须是 pending");
+  if (raw.includes("assets/")) err("R6-3d", "数据中出现 assets/ 资产路径——资产路径只登记在 manifest，禁止写进通路数据");
+  if (gn.threeD.status !== "ready") err("R6-3d", "顶层 threeD.status 必须是 ready（4 个自有步骤均已接入资产）");
   for (const id of gn.threeD.verifiedPdbIds) {
     if (!VERIFIED_PDB.has(id)) err("R6-3d", `verifiedPdbIds 含白名单之外条目：${id}`);
   }

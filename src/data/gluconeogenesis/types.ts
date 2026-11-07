@@ -45,7 +45,7 @@ export interface PdbCandidate {
 }
 
 export interface ThreeDPlaceholder {
-  status: "pending";
+  status: "pending" | "ready";
   note: string;
   pdbCandidates?: PdbCandidate[];
 }
@@ -143,7 +143,7 @@ export interface GluconeogenesisData {
   sideBranchSteps: GnStep[];
   mirrorMap: MirrorMap;
   energyLedger: EnergyLedger;
-  threeD: { status: "pending"; note: string; verifiedPdbIds: string[] };
+  threeD: { status: "pending" | "ready"; note: string; verifiedPdbIds: string[] };
 }
 
 // ---------- 骨架（器官无关几何） ----------

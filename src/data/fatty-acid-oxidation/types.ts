@@ -45,7 +45,7 @@ export interface PdbCandidate {
 }
 
 export interface ThreeDPlaceholder {
-  status: "pending";
+  status: "pending" | "ready";
   note: string;
   pdbCandidates?: PdbCandidate[];
 }
@@ -150,7 +150,7 @@ export interface FaoData {
   entities: Entity[];
   steps: FaoStep[];
   energyLedger: FaoEnergyLedger;
-  threeD: { status: "pending"; note: string; verifiedPdbIds: string[] };
+  threeD: { status: "pending" | "ready"; note: string; verifiedPdbIds: string[] };
 }
 
 // ---------- 骨架（器官无关几何） ----------

@@ -909,10 +909,11 @@ export default function GluconeogenesisOverviewPage() {
                   <EmbeddedStepViewer stepId={selectedGn.id} cfg={selectedCfg} />
                 ) : (
                   <div className="d-none" data-3d-placeholder="1">
-                    3D 结合视图：待结构核验——
                     {selectedGn.threeD?.status === "pending"
-                      ? selectedGn.threeD.note
-                      : "本步与糖酵解共用同一酶，结构证据见糖酵解挂图帧带；本通路 3D 资产未制作，无资产路径。"}
+                      ? `3D 结合视图：待结构核验——${selectedGn.threeD.note}`
+                      : selectedGn.threeD?.status === "ready"
+                        ? "3D 结合视图：资产已接入，等待帧带加载…"
+                        : "3D 结合视图：本步与糖酵解共用同一酶，结构证据见糖酵解挂图帧带；本通路无独立资产。"}
                   </div>
                 )}
               </div>
@@ -942,7 +943,7 @@ export default function GluconeogenesisOverviewPage() {
                   </button>
                 </div>
                 <div className="d-none" data-3d-placeholder="1">
-                  3D 结合视图：待结构核验——转运体结构未列入本通路资产计划（膜蛋白展示口径与 FAO 切片一致：降 2D / 图上注记）。
+                  3D 结合视图：不适用——转运体无酶催化结构，按 2D / 图上注记呈现（口径与 FAO 切片一致）。
                 </div>
               </div>
             ) : (
@@ -999,7 +1000,7 @@ export default function GluconeogenesisOverviewPage() {
       <PathwayRailFoot current="gluconeogenesis" />
       <div className="poster-foot">
         <span>待确认：ΔG 数值不作页面展示，仅保留 Lehninger Ch.20 定性结论；能量账见右侧 ATP/NADPH 化学计量。<br /></span>
-        <span>待确认：3D 结合视图整轮占位——PDB 候选（3BG3 / 1KHB / 1FTA / 9J7U 等）来自 outline 已核验表，资产未制作，无路径。<br /></span>
+        <span>已接入：3D 结合视图已为 gn-1 / gn-2 / gn-9 / gn-11（PC / PCK1 / FBP1 / G6PC1）接入；其余 7 步共用糖酵解、无独立资产，结构证据见糖酵解挂图帧带。<br /></span>
         <span>待确认：PCK1 缺乏表型、肾糖异生占比、FBPase 抑制剂临床转化状态未核实，页面如实标注。<br /></span>
       </div>
     </div>

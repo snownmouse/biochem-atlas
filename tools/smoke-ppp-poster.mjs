@@ -93,7 +93,9 @@ const asideText = await page.locator("aside").innerText();
 check("右栏显示证据等级", asideText.includes("证据等级"));
 check("右栏显示反应式与辅因子", asideText.includes("辅因子") && asideText.includes("EC"));
 check("右栏结构对照入口 href 带 #ppp-n3", (await page.locator('[data-testid="ppp-structure-cmp-entry"]').getAttribute("href")) === "/structures/ppp#ppp-n3");
-check("右栏 3D 占位为灰字（不伪造资产）", (await page.locator("aside [data-3d-placeholder]").count()) === 1);
+const pppViewerReady = await page.waitForSelector("aside .embed-host:not(.hidden)", { timeout: 12000 }).then(() => true).catch(() => false);
+check("ppp-n3 有 3D 资产 → 视口就绪", pppViewerReady);
+check("ppp-n3 有资产时不显示占位", (await page.locator("aside [data-3d-placeholder]").count()) === 0);
 
 await page.locator('svg g[data-node-id="g6p"] text.q-hide').first().click();
 check("点节点 g6p → 选中 ppp-o1", page.url().includes("step=ppp-o1"));
@@ -102,6 +104,8 @@ check("点节点 s7p → 选中其产出步 ppp-n3", page.url().includes("step=p
 
 await page.locator('svg [data-carbon-transfer="3"] path').dispatchEvent("click");
 check("点 C3 转移弧 → 选中 ppp-n4", page.url().includes("step=ppp-n4"));
+check("ppp-n4 无资产 → 显示待结构核验", (await page.locator("aside [data-3d-placeholder]").innerText()).includes("待结构核验"));
+check("ppp-n4 无资产 → 无 3D 视口", (await page.locator("aside .embed3d").count()) === 0);
 
 // ===== 5) 自测模式：揭晓而非选中 =====
 await page.goto(`${BASE}/pathway/ppp`, { waitUntil: "networkidle" });

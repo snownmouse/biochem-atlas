@@ -111,7 +111,7 @@ check("表 2 合计含不对称锚点", (await page.locator("table[data-mirror-t
 // ===== 4) ?step= 还原 + 上一步/下一步 =====
 await page.goto(`${BASE}/pathway/gluconeogenesis?step=gn-2`, { waitUntil: "networkidle" });
 check("URL 还原：gn-2 处于选中态", (await page.locator('svg .stepg.sel[data-step-id="gn-2"]').count()) === 1);
-const nextBtn = page.locator(".d-variant .d-variant-tab").last();
+const nextBtn = page.locator('aside .d-variant[aria-label="上一步 / 下一步"] .d-variant-tab').last();
 check("gn-2 下一步指向第 Ⅲ 步", (await nextBtn.innerText()).includes("Ⅲ"));
 await nextBtn.click();
 check("点击下一步后 URL 为 gn-3", page.url().includes("step=gn-3"));
@@ -142,9 +142,13 @@ await page.locator(".organ-switch .quiz-toggle").click();
 await page.locator('svg g[data-node-id="f6p"] text').first().click();
 check("非自测下点节点是选中语义（f6p→gn-9）", page.url().includes("step=gn-9"));
 
-// ===== 7) 3D 占位（不伪造资产路径） =====
-check("右栏 3D 占位文案存在", (await page.locator("aside [data-3d-placeholder]").innerText()).includes("待结构核验"));
-check("全页无伪造的糖异生 3D 资产路径", !(await page.content()).includes("/assets/steps/gn-"));
+// ===== 7) 3D：有资产则视口就绪；共用糖酵解步骤显示共用说明 =====
+const gnReady = await page.waitForSelector("aside .embed-host:not(.hidden)", { timeout: 12000 }).then(() => true).catch(() => false);
+check("gn-9 有 3D 资产 → 视口就绪", gnReady);
+check("gn-9 有资产时不显示占位", (await page.locator("aside [data-3d-placeholder]").count()) === 0);
+await page.goto(`${BASE}/pathway/gluconeogenesis?step=gn-3`, { waitUntil: "networkidle" });
+check("gn-3 共用糖酵解 → 显示共用说明", (await page.locator("aside [data-3d-placeholder]").innerText()).includes("共用同一酶"));
+check("gn-3 无独立资产 → 无 3D 视口", (await page.locator("aside .embed3d").count()) === 0);
 
 // ===== 8) 器官切换 + 组织差异表 =====
 await page.locator('.organ-tab[data-organ="kidney"]').click();
