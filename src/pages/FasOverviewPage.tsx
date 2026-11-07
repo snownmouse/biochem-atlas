@@ -12,6 +12,7 @@ import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
+import ReadingGuide from "../components/ReadingGuide";
 
 const data = fasJson as unknown as FasData;
 const skel = skeletonJson as unknown as FasSkeleton;
@@ -352,6 +353,16 @@ export default function FasOverviewPage() {
               </button>
             </span>
           </div>
+
+          <ReadingGuide
+            label="脂肪酸从头合成导读"
+            summary="胞质合成：乙酰-CoA 起，丙二酰-CoA 每轮供 2 碳，7 轮后 TE 释放 C16 棕榈酸"
+            paragraphs={[
+              "脂肪酸从头合成在胞质把乙酰-CoA 的 C2 单元逐个接到延长链上，最后由 TE 释放棕榈酸；与 β-氧化在区室、载体、辅因子和成键方向上逐项镜像。",
+              "原料：丙酮酸经 PDH 变乙酰-CoA，经柠檬酸穿梭出内膜，胞质 ACLY 裂解回乙酰-CoA。ACC 用 ATP 与生物素把乙酰-CoA 羧化成丙二酰-CoA，HCO₃⁻ 的碳在缩合时以 CO₂ 放掉。FASN 四步为 KS 缩合（+2C）、KR 还原、DH 脱水、ER 还原；乙酰-CoA 只作引物，丙二酰-CoA 才是每轮的二碳供体。酰基载体是 ACP，氧化侧用 CoA-SH，还原力用 NADPH，KR 与 ER 各消耗 1 个 NADPH。缩合新键在 C2–C3 之间，丙二酰的游离羧基以 CO₂ 离去；7 轮把 C2 推到 C16，整条耗 8 乙酰-CoA、7 ATP、14 NADPH。",
+              "ACC 是限速步：肝 ACC1 受胰岛素上调、AMPK 磷酸化失活；丙二酰-CoA 抑制 CPT1，把合成开启与 β-氧化关闭连在一起。链长由 TE 在 C16 时水解释放决定。交接：乙酰-CoA 与 TCA 共用池；柠檬酸穿梭搬碳进胞质；肝、脂肪与泌乳期乳腺同酶。",
+            ]}
+          />
 
           <div className="plate-scroll" ref={scrollRef}>
             <div className="plate-canvas">

@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
+import ReadingGuide from "../components/ReadingGuide";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import ureaRaw from "../data/urea-cycle/urea.json";
@@ -259,6 +260,16 @@ export function UreaCycleOverviewPage() {
               <PlateInteraction svgRef={plateSvgRef} pathwayId="urea-cycle" />
               <span className="legend-hint num">{data.plateNo} · {data.structureNo}</span>
             </div>
+
+            <ReadingGuide
+              label="尿素循环导读"
+              summary="肝：2 个氮（NH₃ + 天冬氨酸）→ 1 个尿素；线粒体 2 步、胞质 3 步"
+              paragraphs={[
+                "尿素循环在肝把两个氮装成一个尿素排出，同时把碳骨架退回 TCA；它是血氨的终处置通路，两个氮来源不同。前两步在线粒体基质、后三步在胞质，瓜氨酸与鸟氨酸经 ORNT1 跨内膜往返。",
+                "前两步在线粒体：CPS1 用 NH₃、HCO₃⁻ 与 2 ATP 造氨甲酰磷酸，N-乙酰谷氨酸为必需变构激活剂；OTC 把它交给鸟氨酸生成瓜氨酸。瓜氨酸经 ORNT1 出内膜，后三步在胞质：ASS 接入天冬氨酸 α-氨基（ATP→AMP+PPi），ASL 释放延胡索酸与精氨酸，ARG1 水解释放尿素并再生鸟氨酸。氮账为 NH₃ 1 + 天冬氨酸 α-NH₂ 1 = 尿素 2。",
+                "调控入口是 CPS1 的 NAG 变构激活。CPS1 是进环供料步，闭环是 2→3→4→5→2，不是回到 CPS1。延胡索酸走 TCA 第 7、8 步成草酰乙酸，再经 AST 转氨变回天冬氨酸，碳骨架回流使循环不必净耗天冬氨酸。能量名义 3 ATP、折算 4 个高能键。交接：延胡索酸 ↔ TCA 的 fum，天冬氨酸来自草酰乙酸转氨，NH₄⁺ 从氨基酸代谢汇入。",
+              ]}
+            />
 
             <div className="plate-scroll" data-plate-scroll="1">
               <div className="plate-canvas">

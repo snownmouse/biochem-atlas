@@ -3654,6 +3654,56 @@ svg .branch { transition: opacity 0.2s ease; }
   border-bottom-color: var(--brick);
 }
 
+/* ---------- 通路导读（共享组件 ReadingGuide） ----------
+   沿用既有正文 13px / 1.9 行高，不引入新字号；
+   1px 淡墨分隔线、纸白底，无圆角、无阴影、无渐变。 */
+.reading-guide {
+  padding: 4px 18px 5px;
+  border-bottom: 1px solid var(--hair-faint);
+}
+.reading-guide .rg-line {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  min-height: 22px;
+}
+.reading-guide .rg-summary {
+  font-size: 13px;
+  line-height: 1.5;
+}
+.reading-guide .rg-toggle {
+  flex: none;
+  padding: 2px 8px 1px;
+  border: 1px solid var(--hair-soft);
+  border-radius: 0;
+  background: transparent;
+  color: var(--ink);
+  font-family: inherit;
+  font-size: 10.5px;
+  line-height: 1.4;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+}
+.reading-guide .rg-toggle:hover {
+  color: var(--brick);
+  border-color: var(--brick);
+}
+.reading-guide .rg-toggle:active { background: var(--hair-faint); }
+.reading-guide .rg-toggle:focus-visible {
+  outline: 2px solid var(--brick);
+  outline-offset: 2px;
+}
+.reading-guide .rg-body { padding-top: 6px; }
+.reading-guide .rg-body p {
+  margin: 0 0 8px;
+  max-width: 980px;
+  font-size: 13px;
+  line-height: 1.9;
+  text-align: justify;
+}
+.reading-guide .rg-body p:last-child { margin-bottom: 0; }
+
 /* 挂图画布：比视口宽，横向漫游；纵向不裁切，页面自然滚动 */
 .poster .plate-scroll { overflow: auto; }
 .poster .plate-canvas {

@@ -16,6 +16,7 @@ import type {
 } from "../data/gluconeogenesis/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import ReadingGuide from "../components/ReadingGuide";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import "../styles/frames-entry.css";
@@ -549,6 +550,16 @@ export default function GluconeogenesisOverviewPage() {
               </button>
             </span>
           </div>
+
+          <ReadingGuide
+            label="糖异生导读"
+            summary="乳酸/丙酮酸 → 葡萄糖：净耗 4 ATP + 2 GTP + 2 NADH"
+            paragraphs={[
+              "糖异生从非糖前体（乳酸、丙氨酸、丙酮酸等）合成葡萄糖，主要在肝与肾皮质进行；它是空腹时维持血糖的反向通路，并非糖酵解的简单倒放。",
+              "起点是丙酮酸：第 1 步丙酮酸羧化酶用 ATP 把它装成草酰乙酸，第 2 步 PEPCK 脱羧并耗 GTP 得到磷酸烯醇式丙酮酸；此后 7 步共用糖酵解酶逆向运行，两个三碳缩合成六碳的果糖-1,6-二磷酸，再脱磷酸为果糖-6-磷酸、葡糖-6-磷酸，最后在内质网膜由葡萄糖-6-磷酸酶水解成葡萄糖。每生成 1 分子葡萄糖净耗 4 ATP + 2 GTP，另耗 2 NADH。",
+              "四个绕道点就是调控闸门：丙酮酸羧化酶受乙酰-CoA 别构激活；PEPCK 用 GTP 买回高能键；果糖-1,6-二磷酸酶-1 在果糖-2,6-二磷酸低、胰高血糖素高时开闸；葡萄糖-6-磷酸酶只在肝、肾、肠表达，肌不表达，故肌糖原不能补血糖。接驳：乳酸经乳酸脱氢酶氧化回收，丙氨酸转氨后进入糖异生、氨基走尿素循环；葡萄糖经 GLUT2 出肝入血。",
+            ]}
+          />
 
           <div className="plate-scroll" ref={scrollRef}>
             <div className="plate-canvas">

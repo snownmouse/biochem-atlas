@@ -28,7 +28,7 @@ function PathwayRoute() {
     <GluconeogenesisOverviewPage />
   ) : pathwayId === "ppp" ? (
     <PppOverviewPage />
-  ) : pathwayId === "fatty-acid-oxidation" ? (
+  ) : pathwayId === "fatty-acid-oxidation" || pathwayId === "fao" ? (
     <FaoOverviewPage />
   ) : pathwayId === "fatty-acid-synthesis" || pathwayId === "fas" ? (
     <FasOverviewPage />

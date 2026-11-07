@@ -12,6 +12,7 @@ import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
+import ReadingGuide from "../components/ReadingGuide";
 
 const data = faoJson as unknown as FaoData;
 const skel = skeletonJson as unknown as FaoSkeleton;
@@ -372,6 +373,16 @@ export default function FaoOverviewPage() {
               </button>
             </span>
           </div>
+
+          <ReadingGuide
+            label="β-氧化导读"
+            summary="线粒体基质：碳链每轮减 2 个碳，产 1 FADH₂ + 1 NADH + 1 乙酰-CoA"
+            paragraphs={[
+              "β-氧化在线粒体基质把脂酰-CoA 从羧基端逐轮切下二碳单位，产物是乙酰-CoA、FADH₂ 与 NADH；循环本身不产 ATP，能量交给呼吸链兑现。肝、心肌与骨骼肌都走这条流水线；红细胞无线粒体，只能糖酵解。",
+              "起点在胞质：脂酰-CoA 合成酶用 ATP→AMP+PPi 活化脂肪酸，代价 2 个高能键；焦磷酸副产物把反应推向脂酰-CoA 一侧，使活化不可逆；长链脂酰-CoA 经 CPT1→CACT→CPT2 肉碱穿梭进基质。四步为脱氢（FAD→FADH₂）、水化、脱氢（NAD⁺→NADH）、硫解，每轮减 2 个碳、释出 1 个乙酰-CoA；FADH₂ 与 NADH 分别记 1.5 与 2.5 ATP 当量。C16 棕榈酸跑 7 轮，得 8 乙酰-CoA、7 FADH₂、7 NADH。",
+              "闸门是 CPT1，被丙二酰-CoA 抑制，合成开启即关闭分解；四步环近平衡，无单一限速步。肝 CPT1A 空腹开闸供酮体原料，肌 CPT1B/CPT2 支撑运动耐力。交接：乙酰-CoA 进 TCA；FADH₂ 经 ETF→ETF-QO 绕过复合体 I 进 Q 池，NADH 经复合体 I；红细胞无线粒体不能运行；肝乙酰-CoA 过载转酮体，酮体经血供脑与心。",
+            ]}
+          />
 
           <div className="plate-scroll" ref={scrollRef}>
             <div className="plate-canvas">

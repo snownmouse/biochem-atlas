@@ -11,6 +11,7 @@ import type { ArmStep, CoriData, CoriSkeleton } from "../data/cori/types";
 import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
+import ReadingGuide from "../components/ReadingGuide";
 import glyJson from "../data/glycolysis.json";
 import gluJson from "../data/gluconeogenesis/gluconeogenesis.json";
 import gluSkelJson from "../data/gluconeogenesis/skeleton.json";
@@ -275,6 +276,16 @@ export default function CoriOverviewPage() {
               </button>
             </span>
           </div>
+
+          <ReadingGuide
+            label="Cori 循环导读"
+            summary="肌肉产乳酸 → 肝糖异生 → 葡萄糖回肌肉；每轮净耗 4 个高能键"
+            paragraphs={[
+              "Cori 循环没有自己的酶：它把糖酵解与糖异生两个臂按器官方向接起来，肌肉把糖酵解跑到乳酸，肝把乳酸收回重建成葡萄糖，再送回肌肉。",
+              "肌肉侧：1 葡萄糖 → 2 丙酮酸 → 2 乳酸；肌肉不回收葡萄糖，只把碳以乳酸送走，肌肉侧只产不还。LDH 用丙酮酸作电子受体，消耗 2 NADH、再生 NAD⁺，把糖酵解收在乳酸并让 GAPDH 继续。乳酸经 MCT4 出肌入血。肝侧：MCT1 收乳酸，LDH 氧化回丙酮酸并产 2 NADH，经 MPC 入线粒体；丙酮酸羧化酶耗 ATP、PEPCK 耗 GTP，再经 FBPase-1 与 G6PC1 绕开三个不可逆点，把 2 乳酸重建成 1 葡萄糖经 GLUT2 入血。红细胞无线粒体，糖酵解终点恒为乳酸。",
+              "肌肉侧闸门是 PFK-1，肝侧是 FBPase-1，正对糖酵解与糖异生的不可逆投入。能量账：肌肉净得 2 ATP，肝耗 6 个高能键（4 ATP + 2 GTP），全身每轮净耗 4 个；NADH 净变化为 0。交接：两臂全部引用糖酵解与糖异生既有步骤。",
+            ]}
+          />
 
           <div className="plate-scroll" ref={scrollRef}>
             <div className="plate-canvas">

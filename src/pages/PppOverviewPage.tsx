@@ -11,6 +11,7 @@ import type { PppData, PppSkeleton, PppStep } from "../data/ppp/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import ReadingGuide from "../components/ReadingGuide";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import "../styles/frames-entry.css";
@@ -524,6 +525,16 @@ export default function PppOverviewPage() {
               </button>
             </span>
           </div>
+
+          <ReadingGuide
+            label="戊糖磷酸途径导读"
+            summary="G6P 并联出口：氧化相产 2 NADPH + 1 CO₂，非氧化相回糖酵解"
+            paragraphs={[
+              "戊糖磷酸途径是糖酵解之外的并联出口：葡糖-6-磷酸不走向丙酮酸，氧化相烧掉 C1，产出 2 NADPH 与 1 CO₂；它不产 ATP，产还原力与核酸原料。",
+              "通路从葡糖-6-磷酸开始：葡糖-6-磷酸脱氢酶在 C1 位脱氢生成内酯，内酯酶开环，6-磷酸葡糖酸脱氢酶再氧化脱羧丢掉 C1，碳骨架缩为核酮糖-5-磷酸。非氧化相可逆：核酮糖-5-磷酸可异构为核糖-5-磷酸或差向异构为木酮糖-5-磷酸；转酮醇酶两次搬二碳、转醛醇酶一次搬三碳，把 3 个五碳糖重排成 2 个果糖-6-磷酸与 1 个甘油醛-3-磷酸。",
+              "唯一入口与限速步是葡糖-6-磷酸脱氢酶：NADP⁺/NADPH 比值是节流阀，NADPH 堆积即断流，把葡糖-6-磷酸让给糖酵解；红细胞没有线粒体，PPP 是它唯一的 NADPH 来源，撑起谷胱甘肽抗氧化。交接点：葡糖-6-磷酸由糖酵解分流而来；非氧化相产出的果糖-6-磷酸与甘油醛-3-磷酸回糖酵解，核糖-5-磷酸是核苷酸合成的糖骨架出口。",
+            ]}
+          />
 
           <div className="plate-scroll" ref={scrollRef}>
             <div className="plate-canvas">

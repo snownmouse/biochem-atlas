@@ -47,7 +47,7 @@
 
 ## 技术栈
 
-- **Vite 5** + **React 18** + **TypeScript 5（`strict` 全开，含 `noUnusedLocals` / `noUnusedParameters`）**
+- **Vite 6.4.5** + **React 18** + **TypeScript 5（`strict` 全开，含 `noUnusedLocals` / `noUnusedParameters`）**
 - **react-router-dom 6**：`/`、`/pathway/:pathwayId`、`/step/:stepId`、`/structures/:pathwayId`
 - **3dmol.js**：结构 3D 演示，按需懒加载（不进首屏 chunk）
 - 离线侧只有 Node 内置能力 + Python/RDKit（生成 2D/3D 分子资产、补 SDF 键级、统一电离态）

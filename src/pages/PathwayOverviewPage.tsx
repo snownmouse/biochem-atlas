@@ -9,6 +9,7 @@ import { loadStepManifest, resolveStepAsset, stepAssets } from "../data/stepAsse
 import { FRAME_SEQUENCES, framesForStep } from "../data/structureFrames";
 import type { OrganId, Step } from "../data/types";
 import EmbeddedStepViewer from "../components/EmbeddedStepViewer";
+import ReadingGuide from "../components/ReadingGuide";
 import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
@@ -476,6 +477,16 @@ export default function PathwayOverviewPage() {
               </button>
             </span>
           </div>
+
+          <ReadingGuide
+            label="糖酵解导读"
+            summary="胞质十步：1 葡萄糖 → 2 丙酮酸，净得 2 ATP + 2 NADH"
+            paragraphs={[
+              "糖酵解在细胞质溶胶中经十步反应把一分子葡萄糖转成两分子丙酮酸，为细胞提供 ATP 与 NADH，全程不依赖线粒体。",
+              "自葡萄糖开始：第 1、3 步各耗 1 个 ATP 完成磷酸化；第 4 步把六碳骨架裂成两个三碳磷酸酯，第 5 步再把磷酸二羟丙酮异构为甘油醛-3-磷酸，此后按 ×2 计。第 6 步氧化生成 NADH，第 7 步底物水平磷酸化回收 ATP，第 8、9 步变位、脱水得到磷酸烯醇式丙酮酸，第 10 步把磷酸交给 ADP，终点为两分子丙酮酸，净得 2 ATP 与 2 NADH。",
+              "第 1、3、10 步不可逆，主要限速点是第 3 步 PFK-1：肝 PFK-L 受果糖-2,6-二磷酸强烈激活，胰岛素升高时开闸、胰高血糖素升高时关闸；肌 PFK-M 随局部 ATP/AMP 变化，ATP 高时抑制。肌/红细胞己糖激酶受 G6P 反馈抑制；肝 PK-L 被胰高血糖素依赖的磷酸化钝化。G6P 可进戊糖磷酸途径或转成 G1P 入糖原；丙酮酸入线粒体经氧化脱羧接 TCA，红细胞经 LDH 还原再生 NAD⁺。",
+            ]}
+          />
 
           <div className="plate-scroll" ref={scrollRef}>
             <div className="plate-canvas">

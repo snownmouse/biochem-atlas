@@ -8,6 +8,7 @@ import { Link, useParams, useSearchParams } from "react-router-dom";
 import { entitiesTca, organNoteTca, pathwayTca, TODO_NOTES_TCA } from "../data/tca";
 import type { OrganId, Step } from "../data/types";
 import PathwaySwitcher from "../components/PathwaySwitcher";
+import ReadingGuide from "../components/ReadingGuide";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import "../styles/frames-entry.css";
@@ -372,6 +373,16 @@ export default function TcaOverviewPage() {
               </button>
             </span>
           </div>
+
+          <ReadingGuide
+            label="三羧酸循环导读"
+            summary="线粒体闭环：1 乙酰-CoA → 2 CO₂ + 3 NADH + 1 FADH₂ + 1 GTP"
+            paragraphs={[
+              "三羧酸循环发生在线粒体基质，把乙酰-CoA 的乙酰基彻底氧化成 2 分子 CO₂，并把释放的化学能存进 NADH、FADH₂ 与 GTP；每分子葡萄糖对应两轮循环，它是细胞呼吸的中央氧化炉。",
+              "每轮从乙酰-CoA 与草酰乙酸缩合成柠檬酸（C6）开始，两次氧化脱羧各丢 1 个 CO₂，碳骨架缩到 C4 的琥珀酰-CoA，再经琥珀酸、延胡索酸、苹果酸再生草酰乙酸（C4），闭环交给下一轮；净账是 2 个乙酰碳以 CO₂ 离开。每轮产 3 NADH、1 FADH₂、1 GTP。",
+              "第 1、3、4 步不可逆，第 3 步异柠檬酸脱氢酶是限速与主要调控点：ADP/Ca²⁺ 激活，ATP/NADH 抑制。第 1 步受草酰乙酸浓度限制；柠檬酸可外运作脂肪酸合成碳源并抑制 PFK-1；琥珀酰-CoA 是血红素合成碳出口。接驳：丙酮酸经 PDH 入环，丙酮酸羧化酶把丙酮酸补成草酰乙酸并兼作糖异生第一步；α-KG 与谷氨酸、草酰乙酸与天冬氨酸双向转氨，奇数碳脂肪酸经琥珀酰-CoA 补碳。",
+            ]}
+          />
 
           <div className="plate-scroll" ref={scrollRef}>
             <div className="plate-canvas">

@@ -21,6 +21,7 @@ import SolubleDomain3D from "../components/SolubleDomain3D";
 import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
+import ReadingGuide from "../components/ReadingGuide";
 
 const DATA = dataJson as unknown as OxphosData;
 const SKEL = skeletonJson as unknown as OxphosSkeleton;
@@ -244,6 +245,16 @@ export default function OxphosOverviewPage() {
               </button>
             </span>
           </div>
+
+          <ReadingGuide
+            label="氧化磷酸化导读"
+            summary="内膜呼吸链：NADH 泵 10 H⁺、FADH₂ 泵 6 H⁺；P/O 2.5 / 1.5，ATP 合酶约 3.67 H⁺/ATP"
+            paragraphs={[
+              "氧化磷酸化在内膜把 NADH 与 FADH₂ 的电子交给 O₂，自由能存成质子梯度，再由 ATP 合酶合成 ATP；电子传递不直接产 ATP。呼吸链由复合体 I、II、III、IV 与 Q、cyt c 两个移动载体组成；复合体 I 由 45 个亚基组成。",
+              "NADH 在复合体 I 进入、泵 4 H⁺；FADH₂ 经复合体 II 进入、不泵质子——复合体 II 即 TCA 第 6 步的琥珀酸脱氢酶。两入口汇入 Q 池，Q 是可在膜内扩散的小分子池；复合体 III 泵 4 H⁺，cyt c 在膜间腔一次搬 1 个电子到复合体 IV；复合体 IV 每 O₂ 取 8 H⁺，4 个成水、4 个泵出；它把 4 个电子交给 1 个 O₂，生成 2 个 H₂O。合计 NADH 10 H⁺、FADH₂ 6 H⁺。",
+              "ATP 合酶 c8 环 8 H⁺ 合成 3 ATP（2.67 H⁺/ATP），加 ANT 与磷酸载体取 3.67；10/3.67≈2.72、6/3.67≈1.63，取 P/O 2.5/1.5。F₀ 的 c 环每转一圈泵 8 个质子，γ 轴带动 F₁ 三个 β 亚基按开放—松弛—紧绷循环，每 120° 释放 1 个 ATP；ANT 运出 ATP、运入 ADP，磷酸载体输入 Pi。解偶联剂打漏梯度时电子链照跑、ATP 归零；棕色脂肪 UCP1 把梯度转成热。ATP 合酶只认质子回流，不认电子。交接：复合体 II 与 TCA 共享，NADH 来自 TCA 与 β-氧化。",
+            ]}
+          />
 
           <div className="plate-scroll">
             <div className="plate-canvas">

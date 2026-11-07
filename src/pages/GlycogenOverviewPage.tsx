@@ -6,6 +6,7 @@ import { Link, useSearchParams } from "react-router-dom";
 import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
+import ReadingGuide from "../components/ReadingGuide";
 import glycogenData from "../data/glycogen/glycogen.json";
 import glycogenSkeleton from "../data/glycogen/skeleton.json";
 import type {
@@ -334,6 +335,16 @@ export default function GlycogenOverviewPage() {
               </Link>
             </div>
           </div>
+
+          <ReadingGuide
+            label="糖原代谢导读"
+            summary="肝/肌双器官：肝有 G6PC1 可补血糖，肌无 G6PC1 只能自用"
+            paragraphs={[
+              "糖原代谢是颗粒池上的分解与合成两臂：分解用磷酸解把残基切成 G1P，合成用 UDP-葡萄糖接回链上；两臂都经 G6P 池与糖酵解相接。肝糖原供全身、作血糖缓冲；肌糖原只供自身收缩。",
+              "分解：糖原磷酸化酶以 PLP 为辅因子，用 Pi 裂解 α-1,4 键生成 G1P；脱支酶转移 3 个残基、水解 α-1,6 键，每分支释放 1 个游离葡萄糖，肌内再磷酸化需 1 ATP。肝表达 G6PC1，把 G6P 水解成葡萄糖经 GLUT2 入血；肌不表达 G6PC1，G6P 只经 PGI 进糖酵解自用。合成：G6P ⇌ G1P，UGP2 用 UTP 生成 UDP-葡萄糖并释出 PPi，合酶与分支酶延长并造分支。",
+              "主开关是共价修饰：磷酸化酶激酶使磷酸化酶 b→a（开）、合酶 a→b（关）。胰岛素激活 PP1 促合成；胰高血糖素与肾上腺素经 cAMP–PKA 促分解；AMP 只激活肌磷酸化酶 b，ATP/G6P 抑制。糖原磷酸解每残基省 1 ATP；合成每残基耗 2 个酐键，不能相抵成净赚 1。交接：G6P 经 gk-2 进糖酵解，肝 G6PC1 与糖异生 gn-11 同酶。",
+            ]}
+          />
 
           <div className="plate-scroll">
             <svg
