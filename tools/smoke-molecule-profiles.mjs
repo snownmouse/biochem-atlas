@@ -318,11 +318,37 @@ check("气泡 [G6P] 只放两行（长文进简介页）", bubbleLines.length ==
 check("气泡 [G6P] 不再列相关步骤", !bubbleLines.some((l) => /相关步骤|gk-|第 .* 步/.test(l ?? "")), bubbleLines.join(" / "));
 check("气泡 [G6P] 每行 ≤ 21 字", bubbleLines.every((l) => [...(l ?? "")].length <= 21));
 check("气泡 [G6P] 底行出现「→ 物质简介」", (await bubble.locator(".cb-entry").innerText()).includes("物质简介"));
+const hoverEntry = bubble.locator(".cb-entry");
+check("悬停态底行即为链接（无需先 Shift 固定）", (await hoverEntry.evaluate((el) => el.tagName)) === "A");
+check("悬停态底行 href = /molecule/g6p", (await hoverEntry.getAttribute("href")) === "/molecule/g6p");
+// 不固定气泡，直接单击入口：必须进入简介页
+await hoverEntry.click();
+await page.waitForTimeout(300);
+check("单击悬停气泡入口即进入简介页（未固定）", page.url().endsWith("/molecule/g6p"), page.url());
+
+// Shift 固定仍保留，且固定后入口仍是链接
+await page.goto(`${BASE}/pathway/glycolysis`, { waitUntil: "networkidle" });
+await page.locator('svg g[data-node-id="g6p"] circle').first().hover({ force: true });
+await page.waitForTimeout(500);
 await page.locator('svg g[data-node-id="g6p"] circle').first().click({ force: true, modifiers: ["Shift"] });
 await page.waitForTimeout(150);
-check("气泡 [G6P] Shift 固定后底行变链接", (await bubble.getAttribute("data-bubble-pinned")) === "1");
-check("气泡 [G6P] 底行 href = /molecule/g6p", (await bubble.locator("a.cb-entry").getAttribute("href")) === "/molecule/g6p");
+check("Shift 固定后气泡保持固定态", (await page.locator(".content-bubble").getAttribute("data-bubble-pinned")) === "1");
+check("固定态底行 href = /molecule/g6p", (await page.locator(".content-bubble a.cb-entry").getAttribute("href")) === "/molecule/g6p");
 await page.keyboard.press("Escape");
+await page.waitForTimeout(150);
+check("Esc 关闭固定气泡", (await page.locator(".content-bubble").count()) === 0);
+
+// 首页总图节点：悬停气泡入口同样单击可进
+await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+await page.locator('.home-node[data-node-id="glc"] circle').first().hover({ force: true });
+await page.waitForTimeout(600);
+check("首页节点 [Glc] 气泡弹出", (await page.locator(".content-bubble").count()) === 1);
+const homeEntry = page.locator(".content-bubble .cb-entry");
+check("首页节点悬停入口即为链接", (await homeEntry.evaluate((el) => el.tagName)) === "A");
+check("首页节点入口 href = /molecule/glc", (await homeEntry.getAttribute("href")) === "/molecule/glc");
+await homeEntry.click();
+await page.waitForTimeout(300);
+check("单击首页节点气泡入口进入简介页", page.url().endsWith("/molecule/glc"), page.url());
 
 // 尿素：node id "urea" → 规范键 urea-ure 的映射实测
 await page.goto(`${BASE}/pathway/urea-cycle`, { waitUntil: "networkidle" });
@@ -392,6 +418,69 @@ await page.setViewportSize({ width: 900, height: 900 });
 await page.goto(`${BASE}/molecule/g6p`, { waitUntil: "networkidle" });
 const cols = await page.locator(".mp-grid").evaluate((el) => getComputedStyle(el).gridTemplateColumns);
 check("900 宽响应式：主栏单列", cols.split(" ").length === 1, cols);
+
+// ===== 7) /molecules 全量索引 + 固定入口 =====
+await page.setViewportSize({ width: 1440, height: 900 });
+const indexResp = await page.goto(`${BASE}/molecules`, { waitUntil: "networkidle" });
+check("/molecules 索引页可达（200）", indexResp?.status() === 200);
+check('索引页有 data-testid="molecules-index"', (await page.locator('[data-testid="molecules-index"]').count()) === 1);
+const indexItems = page.locator('[data-testid="molecules-index-item"]');
+check(`索引列出全量 ${PROFILE_IDS.length} 条`, (await indexItems.count()) === PROFILE_IDS.length, (await indexItems.count()).toString());
+const indexHrefs = await indexItems.evaluateAll((els) => els.map((el) => el.getAttribute("href") ?? ""));
+check("每条索引链接都指向 /molecule/<id>", indexHrefs.every((href) => href.startsWith("/molecule/")) && new Set(indexHrefs).size === PROFILE_IDS.length, `unique=${new Set(indexHrefs).size}`);
+const indexGroupCount = await page.locator(".mol-group").count();
+check("索引按通路分组", indexGroupCount >= 11, `${indexGroupCount} 组`);
+
+// 固定入口 A：首页报头
+await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+const homeIndexEntry = page.locator("[data-home-molecules]");
+check("首页固定入口「物质索引」存在", (await homeIndexEntry.count()) === 1);
+check("首页固定入口 href = /molecules", (await homeIndexEntry.getAttribute("href")) === "/molecules");
+await homeIndexEntry.click();
+await page.waitForTimeout(300);
+check("首页固定入口可进入索引页", page.url().endsWith("/molecules"), page.url());
+
+// 固定入口 B：非首页顶栏
+await page.goto(`${BASE}/pathway/glycolysis`, { waitUntil: "networkidle" });
+const railIndexEntry = page.locator('[data-rail-action="molecules"]');
+check("挂图顶栏固定入口「物质索引」存在", (await railIndexEntry.count()) === 1);
+check("顶栏固定入口 href = /molecules", (await railIndexEntry.getAttribute("href")) === "/molecules");
+await railIndexEntry.click();
+await page.waitForTimeout(300);
+check("顶栏固定入口可进入索引页", page.url().endsWith("/molecules"), page.url());
+
+// 搜索：按名称 / 别名 / id 过滤
+await page.goto(`${BASE}/molecules`, { waitUntil: "networkidle" });
+const search = page.locator('[data-testid="molecules-search"]');
+await search.fill("pyr");
+await page.waitForTimeout(150);
+const filteredIds = await indexItems.evaluateAll((els) => els.map((el) => el.getAttribute("data-mol-id")));
+check("搜索 pyr 命中丙酮酸档案", filteredIds.includes("pyr"), filteredIds.join(","));
+check("搜索 pyr 过滤掉不相关档案（g6p）", !filteredIds.includes("g6p"), filteredIds.join(","));
+check("搜索后条数同步到计数行", (await page.locator('[data-testid="molecules-count"]').innerText()).includes(`显示 ${filteredIds.length} / ${PROFILE_IDS.length}`));
+await search.fill("葡萄糖-6-磷酸");
+await page.waitForTimeout(150);
+const aliasIds = await indexItems.evaluateAll((els) => els.map((el) => el.getAttribute("data-mol-id")));
+check("按别名「葡萄糖-6-磷酸」命中 g6p", aliasIds.includes("g6p"), aliasIds.join(","));
+await search.fill("no-such-molecule-xyz");
+await page.waitForTimeout(150);
+check("无匹配时给出空态", (await page.locator('[data-testid="molecules-empty"]').count()) === 1);
+check("无匹配时列表清空", (await indexItems.count()) === 0);
+await search.fill("");
+await page.waitForTimeout(150);
+check("清空搜索恢复全量", (await indexItems.count()) === PROFILE_IDS.length);
+
+// 两个视口：索引页无页面级横向溢出
+for (const width of [1440, 1280]) {
+  await page.setViewportSize({ width, height: 900 });
+  await page.goto(`${BASE}/molecules`, { waitUntil: "networkidle" });
+  await page.waitForTimeout(200);
+  const fit = await page.evaluate(() => ({
+    client: document.documentElement.clientWidth,
+    scroll: document.documentElement.scrollWidth,
+  }));
+  check(`${width} 索引页无页面级横向溢出`, fit.scroll <= fit.client + 2, JSON.stringify(fit));
+}
 
 check("全程无控制台报错", errors.length === 0, errors.slice(0, 3).join(" | "));
 

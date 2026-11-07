@@ -147,6 +147,9 @@ export default function PathwayRail({ current, layer = "poster", structureHref }
             结构对照 ↗
           </span>
         )}
+        <Link className="rr-act" to="/molecules" data-rail-action="molecules" aria-label="物质索引">
+          物质索引 ↘
+        </Link>
         <Link className="rr-act" to="/" data-rail-action="home">
           ← 回总图
         </Link>

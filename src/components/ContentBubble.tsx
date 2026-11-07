@@ -382,15 +382,25 @@ export default function ContentBubble({ enabled, resolve }: ContentBubbleProps) 
     };
 
     const onPointerMove = (event: PointerEvent) => {
-      if (stateRef.current && !stateRef.current.pinned) {
-        const { left, top, width: bubbleWidth, height: bubbleHeight } = stateRef.current;
-        if (
+      const state = stateRef.current;
+      if (state && !state.pinned) {
+        const { left, top, width: bubbleWidth, height: bubbleHeight } = state;
+        const insideBubble =
           event.clientX >= left &&
           event.clientX <= left + bubbleWidth &&
           event.clientY >= top &&
-          event.clientY <= top + bubbleHeight
-        ) {
+          event.clientY <= top + bubbleHeight;
+        if (insideBubble) {
           clearHideTimer();
+        } else if (state.source === "hover" && hideTimer.current === null) {
+          // 指针从目标移开后若既不在气泡内、也不在目标上，按常规 220ms 收起；
+          // 否则进入气泡正文会永远停留。
+          const raw = event.target;
+          const overTarget =
+            raw instanceof Element &&
+            state.target instanceof Element &&
+            state.target.contains(raw);
+          if (!overTarget) hideTimer.current = window.setTimeout(close, CLOSE_DELAY);
         }
       }
       if (pressStart.current) {
@@ -452,7 +462,7 @@ export default function ContentBubble({ enabled, resolve }: ContentBubbleProps) 
     root.addEventListener("pointerover", onPointerOver);
     root.addEventListener("pointerout", onPointerOut);
     root.addEventListener("pointerdown", onPointerDown);
-    root.addEventListener("pointermove", onPointerMove);
+    document.addEventListener("pointermove", onPointerMove);
     root.addEventListener("pointerup", onPointerUp);
     root.addEventListener("focusin", onFocusIn);
     root.addEventListener("focusout", onFocusOut);
@@ -466,7 +476,7 @@ export default function ContentBubble({ enabled, resolve }: ContentBubbleProps) 
       root.removeEventListener("pointerover", onPointerOver);
       root.removeEventListener("pointerout", onPointerOut);
       root.removeEventListener("pointerdown", onPointerDown);
-      root.removeEventListener("pointermove", onPointerMove);
+      document.removeEventListener("pointermove", onPointerMove);
       root.removeEventListener("pointerup", onPointerUp);
       root.removeEventListener("focusin", onFocusIn);
       root.removeEventListener("focusout", onFocusOut);
@@ -512,13 +522,9 @@ export default function ContentBubble({ enabled, resolve }: ContentBubbleProps) 
         </p>
       ))}
       {model.entry ? (
-        pinned ? (
-          <a className="cb-entry" href={model.entry.href}>
-            {model.entry.label}
-          </a>
-        ) : (
-          <span className="cb-entry">{model.entry.label}</span>
-        )
+        <a className="cb-entry" href={model.entry.href}>
+          {model.entry.label}
+        </a>
       ) : null}
     </div>,
     document.body

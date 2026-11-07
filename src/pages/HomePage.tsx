@@ -531,7 +531,12 @@ export function HomePage() {
       <header className="masthead">
         <div className="mast-top">
           <span className="kicker">代谢通路挂图 · METABOLIC WALL CHART</span>
-          <span className="plate-no num">PLATE 00 / 12 · 总图 · 2026</span>
+          <span className="mast-meta">
+            <Link className="mast-molecules" to="/molecules" data-home-molecules="1">
+              物质索引 →
+            </Link>
+            <span className="plate-no num">PLATE 00 / 12 · 总图 · 2026</span>
+          </span>
         </div>
         <div className="mast-main">
           <h1>
