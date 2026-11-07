@@ -21,6 +21,7 @@ import Enzyme3DPanel from "../components/Enzyme3DPanel";
 import Molecule3D, { MARK_COLOR, MARK_LABEL, mol3dSourceText, type Mol3DAsset, type MolMark } from "../components/Molecule3D";
 import { atomColor } from "../data/atomColors";
 import { canonicalMoleculeId, moleculeName, noteForMolecule } from "../data/moleculeNotes";
+import { profileForMolecule } from "../data/moleculeProfiles";
 import {
   comparisonConfigFor,
   hasBothSides,
@@ -648,6 +649,7 @@ function MoleculeNoteCard({ noteKey }: { noteKey: string }) {
   const note = noteForMolecule(noteKey);
   if (!note) return null;
   const name = moleculeName(noteKey) ?? noteKey;
+  const profile = profileForMolecule(noteKey);
   return (
     <div className="cmp-ligsrc" data-testid="molecule-note" data-mol-key={noteKey}>
       <span className="cmp-ligsrc-label">分子档案</span>
@@ -668,6 +670,16 @@ function MoleculeNoteCard({ noteKey }: { noteKey: string }) {
         <span className="cmp-ligsrc-note" data-testid="molecule-note-sources">
           出处：{note.sources.join("；")}
         </span>
+        {profile && (
+          <Link
+            className="cmp-ligsrc-note"
+            data-testid="molecule-profile-entry"
+            to={`/molecule/${profile.id}`}
+            style={{ display: "inline-block", marginTop: 4, textDecoration: "underline", textUnderlineOffset: 2 }}
+          >
+            物质简介 →
+          </Link>
+        )}
       </div>
     </div>
   );

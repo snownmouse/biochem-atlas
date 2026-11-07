@@ -17,6 +17,7 @@ import CholesterolOverviewPage from "./pages/CholesterolOverviewPage";
 import OxphosStructurePage from "./pages/OxphosStructurePage";
 import StepViewPage from "./pages/StepViewPage";
 import StructureFramesPage from "./pages/StructureFramesPage";
+import MoleculeProfilePage from "./pages/MoleculeProfilePage";
 import "./styles.css";
 
 /** 通路路由分发：pathwayId 驱动，糖酵解渲染路径保持原样 */
@@ -60,6 +61,7 @@ const router = createBrowserRouter([
   { path: "/pathway/:pathwayId", element: <PathwayRoute /> },
   { path: "/step/:stepId", element: <StepViewPage /> },
   { path: "/structures/:pathwayId", element: <StructureRoute /> },
+  { path: "/molecule/:id", element: <MoleculeProfilePage /> },
 ]);
 
 createRoot(document.getElementById("root")!).render(

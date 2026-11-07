@@ -16,6 +16,7 @@ import {
 } from "../data/homeMap";
 import { COMPARISON_CONFIGS } from "../data/comparisonConfig";
 import { moleculeName, noteForMolecule } from "../data/moleculeNotes";
+import { profileForMolecule } from "../data/moleculeProfiles";
 import { GRADE_LABEL, gradeOfPart } from "../data/evidenceGrade";
 import {
   allStepEntries,
@@ -207,10 +208,24 @@ function nodeModel(nodeId: string, pathwayId: string): BubbleModel | null {
   const entityId = pageNodeEntity(nodeId);
   const related = NODE_STEPS.get(`${pathwayId}:${entityId}`) ?? [];
   const note = noteForMolecule(nodeId) ?? noteForMolecule(entityId);
+  const profile = profileForMolecule(nodeId) ?? profileForMolecule(entityId);
   // 节点没登记进该通路步骤时（如 FAO 的脂酰肉碱、Cori 的 OAA），退回规范分子名，
   // 仍可给出角色/brief 两行；没有档案又没名字才整块不弹。
-  const nodeName = related[0]?.entityNames.get(entityId) ?? (note ? moleculeName(nodeId) ?? moleculeName(entityId) : null);
+  const nodeName =
+    related[0]?.entityNames.get(entityId) ??
+    (profile ? profile.name : note ? moleculeName(nodeId) ?? moleculeName(entityId) : null);
   if (!nodeName) return null;
+
+  // 样板物质只放「是什么 + 一个最关键的性质/角色」两行，通路位置等长文一律进简介页。
+  if (profile) {
+    return {
+      key: stepKey("node", `${pathwayId}:${nodeId}`),
+      title: nodeName,
+      lines: [profile.bubble.what, profile.bubble.highlight],
+      entry: { label: "→ 物质简介", href: `/molecule/${profile.id}` },
+      summary: `${nodeName}。${profile.classification}${related.length ? `相关步骤 ${related.length} 处。` : ""}`,
+    };
+  }
 
   const lines: string[] = [];
   if (note) lines.push(note.role, note.brief);
@@ -232,6 +247,7 @@ function nodeModel(nodeId: string, pathwayId: string): BubbleModel | null {
     key: stepKey("node", `${pathwayId}:${nodeId}`),
     title: nodeName,
     lines: lines.slice(0, note ? 5 : 6),
+    entry: undefined,
     summary: note
       ? `${nodeName}。${note.role}。${related.length ? `相关步骤 ${related.length} 处。` : ""}`
       : `${nodeName}，相关步骤 ${related.length} 处。`,
@@ -269,6 +285,18 @@ function homeNodeModel(nodeId: string): BubbleModel | null {
   const junction = JUNCTION_BY_ENTITY.get(nodeId) ?? null;
   const names = node.pathwayIds.map((id) => PATHWAY_NAME.get(id) ?? id);
   const note = noteForMolecule(nodeId);
+  const profile = profileForMolecule(nodeId);
+
+  // 样板物质只放「是什么 + 一个最关键的性质/角色」两行；涉及通路与 EC/ΔG 进简介页。
+  if (profile) {
+    return {
+      key: stepKey("home-node", nodeId),
+      title: node.abbr ? `${node.fullName}（${node.abbr}）` : node.fullName,
+      lines: [profile.bubble.what, profile.bubble.highlight],
+      entry: { label: "→ 物质简介", href: `/molecule/${profile.id}` },
+      summary: `${node.fullName}。${profile.classification}涉及 ${names.length} 条通路。`,
+    };
+  }
 
   const lines: string[] = [];
   if (note) lines.push(note.role, note.brief);
@@ -317,6 +345,7 @@ function homeNodeModel(nodeId: string): BubbleModel | null {
     key: stepKey("home-node", nodeId),
     title: node.abbr ? `${node.fullName}（${node.abbr}）` : node.fullName,
     lines: (note ? lines.map((line) => fitLine(line, LINE_MAX)) : lines).slice(0, keep),
+    entry: undefined,
     summary: note
       ? `${node.fullName}。${note.role}。涉及 ${names.length} 条通路。`
       : `${node.fullName}，涉及 ${names.length} 条通路。`,
@@ -405,6 +434,18 @@ export function structureBubbleModel(target: Element): BubbleModel | null {
   const gradeText = partGradeText(evidence);
   const entry = stepEntryById(stepId);
   const ec = entry ? stepEC(entry.step) : null;
+  const profile = profileForMolecule(molId);
+
+  // 样板物质只放「是什么 + 一个最关键的性质/角色」两行；步骤上下文与证据等级进简介页。
+  if (profile) {
+    return {
+      key: stepKey("mol", `${stepId}:${molId}`),
+      title: `${part.name} · ${part.formula}`,
+      lines: [profile.bubble.what, profile.bubble.highlight],
+      entry: { label: "→ 物质简介", href: `/molecule/${profile.id}` },
+      summary: `${part.name}。${profile.claim}。`,
+    };
+  }
 
   const lines: string[] = stripUndefined([
     `本步 ${comparison.enzyme}${comparison.isozyme ? `（${comparison.isozyme}）` : ""}${ec ? ` · EC ${ec}` : ""} 的${side.label}`,
@@ -420,6 +461,7 @@ export function structureBubbleModel(target: Element): BubbleModel | null {
     key: stepKey("mol", `${stepId}:${molId}`),
     title: `${part.name} · ${part.formula}`,
     lines,
+    entry: undefined,
     summary: `${part.name}，${comparison.enzyme} 的${side.label}，${gradeText}。`,
   };
 }

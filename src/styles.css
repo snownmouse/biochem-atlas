@@ -6262,3 +6262,233 @@ svg .branch { transition: opacity 0.2s ease; }
   outline-offset: 1px;
 }
 
+/* ============================================================
+   物质简介页 /molecule/:id —— 仅本页使用（.mp- 作用域）
+   ============================================================ */
+.mp-page {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 26px 20px 72px;
+}
+.mp-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--edge);
+  margin-bottom: 22px;
+}
+.mp-crumb {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: var(--line);
+}
+.mp-crumb a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+.mp-crumb a:hover {
+  border-color: var(--line);
+}
+.mp-crumb span[aria-current="page"] {
+  color: var(--ink);
+}
+.mp-back {
+  font-family: var(--sans);
+  font-size: 12px;
+  line-height: 1.4;
+  padding: 6px 10px;
+  border: 1px solid var(--edge);
+  background: var(--card);
+  color: var(--ink);
+  cursor: pointer;
+}
+.mp-back:hover {
+  border-color: var(--line);
+}
+.mp-back:focus-visible {
+  outline: 1px solid var(--brick, #9c4a3c);
+  outline-offset: 1px;
+}
+.mp-head {
+  margin-bottom: 24px;
+}
+.mp-kicker {
+  margin: 0 0 6px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--line);
+  text-transform: uppercase;
+}
+.mp-head h1 {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: 42px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  line-height: 1.15;
+}
+.mp-alias {
+  margin: 0;
+  font-size: 13px;
+  color: var(--line);
+}
+.mp-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(280px, 0.7fr);
+  gap: 28px;
+  align-items: start;
+}
+.mp-main {
+  min-width: 0;
+}
+.mp-sec {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 14px;
+  padding: 20px 0;
+  border-top: 1px solid var(--edge);
+}
+.mp-sec-no {
+  font-family: var(--serif);
+  font-size: 13px;
+  color: var(--line);
+  padding-top: 2px;
+}
+.mp-sec h2 {
+  margin: 0 0 8px;
+  font-family: var(--serif);
+  font-size: 17px;
+  font-weight: 600;
+}
+.mp-sec p {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.85;
+}
+.mp-sec p.mp-class {
+  margin-bottom: 4px;
+  font-size: 12px;
+  color: var(--line);
+}
+.mp-props {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13.5px;
+  line-height: 1.85;
+}
+.mp-props li + li {
+  margin-top: 4px;
+}
+.mp-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.mp-links a {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 12px;
+  border: 1px solid var(--edge);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 13px;
+  line-height: 1.5;
+  text-decoration: none;
+}
+.mp-links a:hover {
+  border-color: var(--line);
+}
+.mp-links a:focus-visible {
+  outline: 1px solid var(--brick, #9c4a3c);
+  outline-offset: 1px;
+}
+.mp-links-wide {
+  max-width: 520px;
+}
+.mp-arrow {
+  flex: none;
+  color: var(--brick, #9c4a3c);
+}
+.mp-side {
+  position: sticky;
+  top: 60px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-width: 0;
+}
+.mp-card {
+  border: 1px solid var(--edge);
+  background: var(--card);
+  padding: 16px;
+}
+.mp-card h2 {
+  margin: 0 0 10px;
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 600;
+}
+.mp-card .mol3d-stage {
+  height: 272px;
+}
+.mp-card ul {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--line);
+}
+.mp-structure-text {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: var(--line);
+}
+.mp-muted {
+  display: block;
+  margin-top: 8px;
+  font-size: 12px;
+  color: var(--line);
+}
+.mp-foot {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  flex-wrap: wrap;
+  margin-top: 34px;
+  padding-top: 16px;
+  border-top: 1px solid var(--edge);
+  font-size: 12px;
+}
+.mp-foot a {
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--line);
+}
+.mp-foot a:hover {
+  color: var(--brick, #9c4a3c);
+}
+@media (max-width: 900px) {
+  .mp-grid {
+    grid-template-columns: 1fr;
+  }
+  .mp-side {
+    position: static;
+  }
+  .mp-head h1 {
+    font-size: 32px;
+  }
+}
+
