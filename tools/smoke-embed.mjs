@@ -184,8 +184,9 @@ check("单步页降级面板出现（2D 缩略 + 重试）", (await page.locator
 await page.goto(`${BASE}/pathway/glycolysis?organ=liver`, { waitUntil: "networkidle" });
 await page.waitForSelector("svg .stepg", { timeout: 15000 });
 const before = await page.evaluate(() => document.querySelector(".plate-scroll").scrollLeft);
+const frameBox = await page.locator(".plate-scroll").boundingBox();
 await page.keyboard.down("Shift");
-await page.mouse.move(700, 400);
+await page.mouse.move(frameBox.x + 200, frameBox.y + 60);
 await page.mouse.wheel(0, 400);
 await page.keyboard.up("Shift");
 await page.waitForTimeout(300);

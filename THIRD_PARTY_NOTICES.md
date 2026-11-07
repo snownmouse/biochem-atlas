@@ -5,7 +5,7 @@
 - 本项目原创代码与原创文档：MIT，见 [LICENSE](LICENSE)。
 - 本项目自写的讲解文字与整理后的数据：CC BY 4.0，见 [LICENSE-CC-BY-4.0.md](LICENSE-CC-BY-4.0.md)。
 - 本文件所列第三方内容**不在上述 MIT / CC BY 4.0 授权范围内**，按其各自条款使用。
-- 核对日期：2026-11-06。版本以仓库内 `package.json` 声明与本地已安装包为准；标「待确认」的项表示当前仓库与已查位置无法确定，未作猜测。
+- 核对日期：2026-11-07。版本以仓库内 `package.json` 声明、本地已安装包与构建产物文件头为准；标「查不到」的项表示已查位置均无法确定，未作猜测。
 
 ## 1. 运行时随包分发（进入浏览器构建产物）
 
@@ -20,11 +20,11 @@
 | 仓库内位置 | `node_modules/3dmol/`；由 `src/components/` 引用，构建后进入 `dist/` 产物 |
 | 许可全文 | `node_modules/3dmol/LICENSE` |
 
-3Dmol.js 的 `LICENSE` 同时声明其内含以下组件：
+3Dmol.js 的 `LICENSE` 声明其代码取自 GLmol、Three.js 与 jQuery，但 2.5.5 的构建产物并不是把三个库整体打包：
 
-- **GLmol**：版本 0.47，双许可 MIT 或 LGPL-3，版权行 `(C) Copyright 2011-2012, biochem_fan`。
-- **Three.js**：MIT，版权行 `Copyright (c) 2010-2012 three.js Authors. All rights reserved.`；具体版本**待确认**（已查 `node_modules/3dmol/LICENSE`、`README.md`、`package.json`，均未记录所捆绑的具体版本号）。
-- **jQuery**：MIT，版权行 `Copyright (c) 2011 John Resig`；具体版本**待确认**（已查同上位置，均未记录所捆绑的具体版本号）。
+- **GLmol**：版本 0.47（`node_modules/3dmol/LICENSE` 明写「GLmol - Molecular Viewer on WebGL/Javascript (0.47)」），双许可 MIT 或 LGPL-3，版权行 `(C) Copyright 2011-2012, biochem_fan`。主构建 `build/3Dmol.js` 含 GLmol 派生代码（第 21614 行注释「a molecular viewer based on GLMol」）。
+- **jQuery**：版本 **3.7.1**。依据是构建产物文件头：`build/3Dmol.ui.js` 第 26 行、`build/3Dmol.ui-min.js.LICENSE.txt` 第 8 行均含 `jQuery JavaScript Library v3.7.1`，版权行 `Copyright OpenJS Foundation and other contributors`。注意：该 jQuery 只出现在 UI 构建中；主构建 `build/3Dmol.js` 不含 jQuery 库（检索 `jQuery.fn` / `window.jQuery` 均为 0 命中），本项目经 `package.json` 的 `main: build/3Dmol.js` 引用的是主构建。3Dmol 自身 `package.json` 的 `devDependencies.jquery: "^3.6.3"` 是其开发/测试声明，不是捆绑版本。
+- **Three.js**：具体版本**查不到**。`LICENSE` 只写 `Copyright (c) 2010-2012 three.js Authors. All rights reserved.`；`build/3Dmol.js`、`build/3Dmol.es6.js`、`build/3Dmol-min.js`、`build/3Dmol.es6-min.js` 均无 `THREE.REVISION` / `three.js rNNN` 版本常量；3Dmol 的 `package.json` 无 `three` 依赖；本地 `node_modules/three` 不存在。只能确认 MIT 版权行与 2010-2012 的时间范围，无法确认版次。
 
 ### 1.2 React / React DOM
 
@@ -109,12 +109,14 @@
 
 两个字体族的许可全文统一放在 [`public/assets/fonts/OFL.txt`](public/assets/fonts/OFL.txt)，该文件收录 SIL OFL 1.1 官方全文与两个字体各自的版权行。
 
+字体已全部自托管：`public/assets/fonts/` 下有 **404 个 woff2**，直接随仓库分发。`package.json` 与 `package-lock.json` 均无字体打包依赖，因此本声明只列字体文件本身。
+
 ### 3.1 Noto Sans SC
 
 | 项 | 内容 |
 | --- | --- |
 | 名称 | Noto Sans SC |
-| 版本 | 字体二进制 `Version 2.004-H2`（读自 woff2 名称表）；打包来源 `@fontsource` 的包版本**待确认**（`package-lock.json` 未记录该依赖） |
+| 版本 | 字体二进制 `Version 2.004-H2`（读自 woff2 名称表）；自托管文件，不经过打包器引入 |
 | 许可 | SIL Open Font License 1.1 |
 | 版权行 | Copyright 2014-2021 Adobe (http://www.adobe.com/), with Reserved Font Name 'Source' |
 | 仓库内位置 | `public/assets/fonts/noto-sans-sc-*.woff2`，构建后复制到 `dist/assets/fonts/` |
@@ -125,7 +127,7 @@
 | 项 | 内容 |
 | --- | --- |
 | 名称 | Noto Serif SC |
-| 版本 | 字体二进制 `Version 2.003-H1`（读自 woff2 名称表）；打包来源 `@fontsource` 的包版本**待确认**（`package-lock.json` 未记录该依赖） |
+| 版本 | 字体二进制 `Version 2.003-H1`（读自 woff2 名称表）；自托管文件，不经过打包器引入 |
 | 许可 | SIL Open Font License 1.1 |
 | 版权行 | Copyright 2012 Google Inc. All Rights Reserved. |
 | 仓库内位置 | `public/assets/fonts/noto-serif-sc-*.woff2`，构建后复制到 `dist/assets/fonts/` |
@@ -167,23 +169,21 @@
 | 名称 | Lehninger Principles of Biochemistry, 8e |
 | 许可 | 无开放许可（版权归原出版方） |
 | 仓库内位置 | 仅出现在数据层的章 / 表级出处标注与文档说明中 |
-| 说明 | 只作为**事实出处**引用；未复制教材的图表、段落或表格编排，不对其授予任何许可 |
+| 说明 | 只作为**事实出处**引用；未复制教材的图表、段落或表格编排，不对其授予任何许可。引用粒度一律为「书名 + 版次 + 章/表号」，不写未核实页码 |
 
 ### 4.5 OMIM
 
 | 项 | 内容 |
 | --- | --- |
 | 名称 | OMIM 条目引用（数据层注记中的 OMIM 编号） |
-| 许可 | **待确认**（官网条款页被反机器人验证拦截，未能取得一手文本；已查 `omim.org/help/agreement`、`/about`、`/help/copyright`） |
-| 仓库内位置 | 数据层注记（共 21 处） |
-| 说明 | 未复制 OMIM 正文；在许可确认前不再扩大使用范围 |
+| 许可 | **条款全文查不到**：官网 `omim.org/help/agreement`、`/about`、`/help/copyright` 仍返回反机器人验证页；Wayback、archive.today、r.jina.ai、Google 翻译代理入口均无可读内容。可确认的事实：① OMIM 数据版权归 Johns Hopkins University，镜像数据文件头为 `Copyright (c) 1966-2016 Johns Hopkins University. Use of this file adheres to the terms specified at http://omim.org/help/agreement.`（来源：`http://data.biostarhandbook.com/omim/mim2gene.txt`）；② NCBI 的 OMIM 说明页称其「freely available」、由 JHU 编写，官方主页为 omim.org（来源：`https://www.ncbi.nlm.nih.gov/omim`）；③ 第三方 EULA 均写明 OMIM 数据由 JHU 控制，商业使用与再分发需 JHU 许可：NeDRex EULA（`https://nedrex.net/about.html`）、PanelApp Terms of Use（`https://prod-media-panelapp.genomicsengland.co.uk/media/files/GEL_-_PanelApp_Terms_of_Use_December_2019.pdf`）、Illumina DRAGEN 附加条款（`https://support.illumina.com/content/dam/illumina-support/documents/documentation/software_documentation/dragen-bio-it/Software%20Subscription%20Agreement%20-%20DRAGEN.pdf`）；④ reusabledata.org 把 OMIM 许可标为 `custom`（`https://reusabledata.org/omim.html`） |
+| 仓库内位置 | 数据层注记（共 21 处，只出现 MIM 编号与病名） |
+| 说明 | 标注方式：`OMIM #<MIM>（<病名>），OMIM / Johns Hopkins University，https://omim.org`；只引登记号与病名，不复制条目正文、表格或描述；不把 OMIM 内容纳入 CC BY 4.0；条款全文取得前不扩大使用范围 |
 
-## 5. 待确认项汇总
+## 5. 版本与条款核查结果
 
-| 项 | 状态 | 已查位置 |
+| 项 | 结果 | 已查位置 |
 | --- | --- | --- |
-| Three.js 具体版本（3Dmol.js 内含） | 待确认 | `node_modules/3dmol/LICENSE`、`README.md`、`package.json` |
-| jQuery 具体版本（3Dmol.js 内含） | 待确认 | 同上 |
-| @fontsource Noto Sans SC 包版本 | 待确认（字体二进制为 2.004） | `package-lock.json`、`package.json`、`src/styles.css` 注释 |
-| @fontsource Noto Serif SC 包版本 | 待确认（字体二进制为 2.003） | 同上 |
-| OMIM 使用条款 | 待确认 | `omim.org/help/agreement`、`/about`、`/help/copyright`（均被拦截） |
+| Three.js 具体版本（3Dmol.js 内含） | **查不到** | `node_modules/3dmol/LICENSE`、`package.json`、`build/3Dmol.js`、`build/3Dmol.es6.js`、`build/3Dmol-min.js`、`build/3Dmol.es6-min.js`（无 `THREE.REVISION` / `three.js rNNN`）；本地无 `node_modules/three` |
+| jQuery 具体版本（3Dmol.js 内含） | **已确认 3.7.1** | `build/3Dmol.ui.js` L26、`build/3Dmol.ui-min.js.LICENSE.txt` L8（均为 `jQuery JavaScript Library v3.7.1`） |
+| OMIM 使用条款 | **条款全文查不到**；已确认版权归 JHU、商业/再分发需 JHU 许可 | 官网三页（拦截）、Wayback / archive.today / r.jina.ai / Google 翻译（空）、镜像数据文件头、NeDRex / PanelApp / Illumina EULA、reusabledata.org |

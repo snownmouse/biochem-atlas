@@ -5,6 +5,7 @@ import gluconeogenesisJson from "./gluconeogenesis/gluconeogenesis.json";
 import faoJson from "./fatty-acid-oxidation/fao.json";
 import oxphosJson from "./oxphos/oxphos.json";
 import fasJson from "./fatty-acid-synthesis/fas.json";
+import ureaJson from "./urea-cycle/urea.json";
 import glycolysisSkeleton from "./skeleton.json";
 import tcaSkeleton from "./skeleton-tca.json";
 import pppSkeleton from "./ppp/skeleton.json";
@@ -344,6 +345,8 @@ const SHORT_LABELS: Record<string, string> = {
   nadh: "NADH",
   fadh2: "FADH₂",
   q: "Q",
+  asp: "天冬氨酸",
+  argininosuccinate: "精氨酸琥珀酸",
 };
 
 export interface HomeNode {
@@ -621,20 +624,22 @@ for (const item of COFACTOR_INTERFACES) {
 /**
  * 跨通路接口：FAS（PLATE 08）与尿素循环（PLATE 09）里，
  * 两端都已经存在于首页总图的真实数据边。这里只登记已核验的
- * pathway + step id，不把这两条通路整体并入 SOURCES——它们独有的
- * 分子（malonyl-CoA、ACP 中间体、palmitate、鸟氨酸、瓜氨酸、精氨酸、尿素、
- * 天冬氨酸）在总图上没有节点，按「不造新节点」的口径一律不连。
+ * pathway + step id，不把这两条通路整体并入 SOURCES。
  *
- * 尿素循环本轮没有可登记项：urea.json 的每一步都至少有一端
- * （carbamoylP / citrulline / argininosuccinate / arginine / urea / asp）没有首页节点，
- * 仅 fumarate 能对上 TCA 的 fum，但 urea-4 的另一端 argininosuccinate 不在图上，
- * 单端对不上就不能成边。
+ * 尿素循环只接 TCA 的天冬氨酸—延胡索酸臂：urea-3（ASS1，Asp 的氨基进入）
+ * 与 urea-4（ASL，延胡索酸离开）的两端都在图上——asp / argininosuccinate
+ * 按 urea.json 的实体登记为节点，fum 沿用 TCA 的既有节点。
+ * 其余分子（nh3 / carbamoylP / citrulline / arginine / urea / ornithine）
+ * 没有可对上的既有节点，仍在 PLATE 09 的标题块与注记里，不另造节点。
+ * 另有一条无 step id 的 recycle 链接（urea skeleton：fum → asp，经 AST 转氨再生），
+ * 作为结构接口单独接入，不伪造成某个步骤。
  */
 const CROSS_PATHWAY_INTERFACES: {
   pathwayId: HomePathwayId;
   from: string;
   to: string;
   stepId: string;
+  via?: "main" | "transport";
 }[] = [
   {
     // fas-shuttle（柠檬酸穿梭）：CIC 把柠檬酸运到胞质，ACLY 裂解回乙酰-CoA + OAA。
@@ -644,11 +649,45 @@ const CROSS_PATHWAY_INTERFACES: {
     to: "accoa",
     stepId: "fas-shuttle",
   },
+  {
+    // urea-3：ASS1 把瓜氨酸与天冬氨酸缩合成精氨酸琥珀酸；Asp 是尿素的第二个氮。
+    pathwayId: "urea-cycle",
+    from: "asp",
+    to: "argininosuccinate",
+    stepId: "urea-3",
+    via: "main",
+  },
+  {
+    // urea-4：ASL 裂解精氨酸琥珀酸，延胡索酸作为支路产物离开循环、回到 TCA。
+    pathwayId: "urea-cycle",
+    from: "argininosuccinate",
+    to: "fum",
+    stepId: "urea-4",
+    via: "main",
+  },
 ];
 
 const INTERFACE_PATHWAYS = new Map<HomePathwayId, RawPathway>([
   ["fatty-acid-synthesis", fasJson as unknown as RawPathway],
+  ["urea-cycle", ureaJson as unknown as RawPathway],
 ]);
+
+/**
+ * 接口通路只把参与接口的实体登记进全局表：urea-cycle 的 asp / argininosuccinate
+ * 成为节点，ass / asl 只用于解析边上的酶名；其余分子仍不上图。
+ */
+const INTERFACE_ENTITY_IDS: Record<string, string[]> = {
+  "urea-cycle": ["asp", "argininosuccinate", "ass", "asl"],
+};
+
+for (const [pathwayId, entityIds] of Object.entries(INTERFACE_ENTITY_IDS)) {
+  const pathway = INTERFACE_PATHWAYS.get(pathwayId as HomePathwayId);
+  if (!pathway) continue;
+  for (const entityId of entityIds) {
+    const entity = pathway.entities.find((entry) => entry.id === entityId);
+    if (entity && !globalEntities.has(entityId)) globalEntities.set(entityId, entity);
+  }
+}
 
 for (const item of CROSS_PATHWAY_INTERFACES) {
   const pathway = INTERFACE_PATHWAYS.get(item.pathwayId);
@@ -664,6 +703,17 @@ for (const item of CROSS_PATHWAY_INTERFACES) {
     "interface",
   );
 }
+
+// 尿素循环的回收边：urea skeleton 的 recycle 链接（refPathway tca）没有 step id，
+// fum → asp 表示延胡索酸经 TCA 回到草酰乙酸、再经 AST 转氨生成天冬氨酸。
+pushDraft(
+  "urea-cycle",
+  "fum",
+  "asp",
+  { pathwayId: "urea-cycle", stepId: null, linkType: "recycle" },
+  undefined,
+  "interface",
+);
 
 const merged = new Map<string, HomeEdge>();
 
@@ -828,9 +878,14 @@ for (const item of CROSS_PATHWAY_INTERFACES) {
       stepId: step.id,
       stepName: step.name,
       enzyme: enzymeShort(item.pathwayId, step),
-      via: "transport",
+      via: item.via ?? "transport",
     });
   }
+}
+
+/** recycle 链接没有 step id：只登记共用关系，不给右栏伪造步骤。 */
+for (const entityId of ["fum", "asp"]) {
+  if (drawnEntityIds.has(entityId)) noteUsage(entityId, "urea-cycle");
 }
 
 export const HOME_NODES: HomeNode[] = [...drawnEntityIds]

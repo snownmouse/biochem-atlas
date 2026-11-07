@@ -6,6 +6,8 @@
 - 证据：`preview/ux-audit-*.png`（50 张）、`preview/ux-audit-overlay-*.png`（4 张红框标注）、`preview/ux-audit.json`、`preview/ux-audit-probe2.json`
 - 复现：`node tools/.tmp-ux-audit.mjs`、`node tools/.tmp-ux-probe2.mjs`、`node tools/.tmp-ux-overlay.mjs`（均被 `.gitignore` 的 `tools/.tmp-*` 忽略）
 
+> 更新（2026-11-07）：尿素循环的天冬氨酸—延胡索酸臂接入总图后，总图节点 40、共用节点 18、连线 66、画布内 Tab 目标 120（原为 38 / 17 / 63 / 115）。这三组与代码直接绑定的总量已在第 2.1 节清单、第 3.2 节表格与第 4.1 节证据同步；其余逐项实测数（可点目标与静默处数、六类合计、P0 行里的 61 连线 / 38 节点的旧口径）是 2026-11-05 快照，且该日之后首页又加了连线键盘代理层与内容气泡，重算需重跑整套审计，本轮不逐项改写。
+
 ---
 
 ## 0. 一句话结论
@@ -39,8 +41,8 @@
 |---|---|---|---|
 | 顶部 `PathwaySwitcher` 12 项（00 首页 + 11 通路） | 点击 / Tab | 有：点线下划线；当前项实线加粗 | 对应挂图页 |
 | 11 个通路标题块 `a[data-pathway-block]`（SVG） | 点击 / Tab | **无**（`text-decoration: none`，hover 仅把文字透明度降到 0.72） | 对应挂图页 |
-| 61 条通路连线 `g.home-edge`（含 `<title>`） | 点击 / hover | **无**；hover 线宽 1.2→2.8 才出现 | `/pathway/{id}?step={step}` |
-| 38 个共用节点 `g.home-node`（`role=button`、`tabindex=0`、含 `<title>`） | 点击 / hover / Tab | **无**；hover 仅换填充，focus-visible 仅换 1px 描边颜色 | 选中该共用节点，详情进右栏 |
+| 66 条通路连线 `g.home-edge`（含 `<title>`；2026-11-07 复测） | 点击 / hover | **无**；hover 线宽 1.2→2.8 才出现 | `/pathway/{id}?step={step}` |
+| 40 个节点 `g.home-node`（`role=button`、`tabindex=0`、含 `<title>`；其中 18 个共用；2026-11-07 复测） | 点击 / hover / Tab | **无**；hover 仅换填充，focus-visible 仅换 1px 描边颜色 | 选中该共用节点，详情进右栏 |
 | Cori 回路带（整幅 SVG `a`，101 处内的 1 处） | 点击 | **无** | `/pathway/cori` |
 | 2 个上下域切换 `.dn-seg` | 点击 | **无**（仅 `on` 态有变化） | 高亮域内实体 |
 | 「展开/收起辅助栏」`.aside-toggle` | 点击 | 有 1px 边框（`data-aside-toggle=1`） | 展开/收起右栏 |
@@ -125,7 +127,7 @@
 
 | 页面组 | 显式「返回总图」 | 上一条/下一条 | 结构对照入口 | 首屏"怎么看/能点什么" | 画布键盘可达 | 3D 提示 / 复位 |
 |---|---|---|---|---|---|---|
-| 总图 | 仅顶部「00 首页」 | 无 | **无入口** | 有（masthead 一句：点通路名/连线/共用节点） | 是（38 节点 Tab 可达，第 29 站才到第一个） | — |
+| 总图 | 仅顶部「00 首页」 | 无 | **无入口** | 有（masthead 一句：点通路名/连线/共用节点） | 是（40 节点 Tab 可达，第 31 站才到第一个） | — |
 | 挂图 ×11 | 仅顶部「00 首页」（11px，无「←」） | 无 | **选步后才出现**（8/11 页）；oxphos/amino/glycogen 常驻 | 8/11 页有（右栏 y≈307 的 11px 灰字） | **0**（glycogen 例外，39 个） | — |
 | 结构 ×10 | 有「← 返回挂图」（顶部，非吸顶；glycolysis 固定回 `?step=gk-1`） | 无 | 本页 | **0/10** | 块不可聚焦（模式/筛选可） | 有提示 / **无复位**（0/28 画布） |
 | 单步 ×3 | 有 crumb（顶部）+ 底部「↩ 返回挂图」 | 底部有（y≈2097） | 无 | 3D 提示有 | 画布不可聚焦 | 有提示 / **有复位** |

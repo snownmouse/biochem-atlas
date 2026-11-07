@@ -19,6 +19,12 @@
 // 不新增节点（cit / accoa 原本已在图上）；cit 由 TCA 单通路变成 TCA / FAS 共用，共用节点 16→17，
 // 边 62→63。节点仍为 38。这些仍是计数同步，不是放宽断言。
 //
+// 【PLATE 09 尿素循环接入后的计数更新】尿素循环的天冬氨酸—延胡索酸臂（urea-3 / urea-4 + recycle）
+// 作为显式跨通路接口接入，新增 asp / argininosuccinate 两个节点（38→40）；fum 由 TCA 单通路
+// 变成 TCA / 尿素循环共用（17→18），边 63→66。原先「尿素循环不硬拉线」的断言随功能实现
+// 改为「三条尿素接口边存在且来源可反查」，并非放宽。其余尿素分子（nh3 / carbamoylP /
+// citrulline / arginine / urea / ornithine）没有可对上的既有节点，仍只在 PLATE 09 标题块中。
+//
 // 【版式政策更新 2026-11-05】横向滚动口径由「图版单屏零溢出」改为
 // 「页面级零横向滚动 + 图版容器按档位可拖」：1440 展开 0、1280 展开 ≤ 200px、收起 0。
 // 这是按新政策替换过期断言，不是放宽阈值；页面级溢出仍要求严格为 0。
@@ -189,10 +195,10 @@ const nodeInfo = await page.locator("svg [data-entity-id]").evaluateAll((els) =>
   }))
 );
 const nodeIds = nodeInfo.map((node) => node.id);
-check("图上节点总数 38", nodeIds.length === 38, String(nodeIds.length));
+check("图上节点总数 40", nodeIds.length === 40, String(nodeIds.length));
 check("同一实体 id 不重复出现", new Set(nodeIds).size === nodeIds.length, `${nodeIds.length} → ${new Set(nodeIds).size}`);
 const junctions = nodeInfo.filter((node) => node.junction === "1");
-check("共用节点 17 个", junctions.length === 17, String(junctions.length));
+check("共用节点 18 个", junctions.length === 18, String(junctions.length));
 check(
   "每个共用节点至少连接两条通路",
   junctions.every((node) => node.pathways.length >= 2),
@@ -228,6 +234,18 @@ check(
   fadh2.length === 1 && fadh2[0].pathways.length === 3,
   JSON.stringify(fadh2),
 );
+const fum = nodeInfo.filter((node) => node.id === "fum");
+check(
+  "延胡索酸只画一次且连接 TCA / 尿素循环",
+  fum.length === 1 && fum[0].junction === "1" && fum[0].pathways.includes("tca") && fum[0].pathways.includes("urea-cycle"),
+  JSON.stringify(fum),
+);
+const ureaNodes = nodeInfo.filter((node) => ["asp", "argininosuccinate"].includes(node.id));
+check(
+  "尿素循环新增 asp / argininosuccinate 两个节点",
+  ureaNodes.length === 2 && ureaNodes.every((node) => node.pathways.length === 1 && node.pathways[0] === "urea-cycle"),
+  JSON.stringify(ureaNodes),
+);
 
 // ===== 5) 三条跨域共用标注存在 =====
 for (const [id, keyword] of [
@@ -247,7 +265,7 @@ const edgeInfo = await page.locator("svg [data-edge-id]").evaluateAll((els) =>
     pathway: el.getAttribute("data-pathway-id"),
   }))
 );
-check("图上连线数量 63", edgeInfo.length === 63, String(edgeInfo.length));
+check("图上连线数量 66", edgeInfo.length === 66, String(edgeInfo.length));
 check(
   "每条连线都带非空数据来源",
   edgeInfo.every((edge) => edge.sources.trim().length > 0),
@@ -260,10 +278,10 @@ check(
   ),
 );
 const edgeSourcesText = edgeInfo.map((edge) => edge.sources).join(" ");
-// 尿素循环 / 糖原 / 氨基酸 / 胆固醇只登记标题块与导航，没有可连的跨通路边；
-// FAS 本轮通过 fas-shuttle 接入一条接口线，加入来源核对。其余六条仍逐条核对。
+// 糖原 / 氨基酸 / 胆固醇只登记标题块与导航，没有可连的跨通路边；
+// FAS 通过 fas-shuttle、尿素循环通过 urea-3 / urea-4 / recycle 接入，加入来源核对。
 for (const [id] of PATHWAYS.filter(
-  ([pid]) => pid !== "urea-cycle" && pid !== "glycogen" && pid !== "amino-acids" && pid !== "cholesterol",
+  ([pid]) => pid !== "glycogen" && pid !== "amino-acids" && pid !== "cholesterol",
 ))
   check(`连线来源含 ${id} 步骤`, edgeSourcesText.includes(`${id}:`));
 check(
@@ -274,9 +292,19 @@ check(
   JSON.stringify(edgeInfo.filter((edge) => edge.pathway === "fatty-acid-synthesis")),
 );
 check(
-  "尿素循环不硬拉线（本轮无两端都有节点的数据边）",
-  edgeInfo.every((edge) => edge.pathway !== "urea-cycle"),
+  "尿素循环三条接口线存在（urea-3 / urea-4 / recycle）",
+  ["urea-cycle:asp->argininosuccinate", "urea-cycle:argininosuccinate->fum", "urea-cycle:fum->asp"].every((id) =>
+    edgeInfo.some((edge) => edge.id === id),
+  ),
   JSON.stringify(edgeInfo.filter((edge) => edge.pathway === "urea-cycle")),
+);
+check(
+  "尿素接口线来源可反查（urea-3 / urea-4 / urea-cycle:recycle）",
+  ["urea-cycle:asp->argininosuccinate", "urea-cycle:argininosuccinate->fum"].every((id) => {
+    const edge = edgeInfo.find((item) => item.id === id);
+    return Boolean(edge) && ["urea-cycle:urea-3", "urea-cycle:urea-4"].some((source) => edge.sources.includes(source));
+  }),
+  JSON.stringify(edgeInfo.filter((edge) => edge.pathway === "urea-cycle").map((edge) => edge.sources)),
 );
 check(
   "NADH / FADH₂ 各有两条来自 TCA 与 β-氧化的接口线",
@@ -323,11 +351,35 @@ check(
   accoaPanel.replace(/\s+/g, " ").slice(0, 140),
 );
 
+// 点延胡索酸：右栏必须列出 TCA + 尿素循环（PLATE 09 的天冬氨酸—延胡索酸臂）
+await page.locator('svg [data-node-id="fum"] circle').first().click({ force: true });
+await page.waitForTimeout(250);
+const fumPanel = await page.locator('[data-testid="junction-panel"]').innerText();
+check(
+  "延胡索酸共用节点列出 TCA 与尿素循环",
+  fumPanel.includes("三羧酸循环") && fumPanel.includes("尿素循环"),
+  fumPanel.replace(/\s+/g, " ").slice(0, 160),
+);
+const fumLinks = await page.locator('[data-testid="junction-panel"] a').evaluateAll((els) =>
+  els.map((el) => el.getAttribute("href")),
+);
+check(
+  "尿素循环共用节点提供步骤级链接（urea-4）",
+  fumLinks.some((href) => href?.includes("/pathway/urea-cycle?step=urea-4")),
+  JSON.stringify(fumLinks),
+);
+
 // ===== 8) 点普通节点进入挂图 =====
 await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
 await page.locator('svg [data-node-id="6pg"] circle').first().click({ force: true });
 await page.waitForURL("**/pathway/ppp", { timeout: 5000 }).catch(() => {});
 check("点普通节点进入对应挂图", page.url().includes("/pathway/ppp"), page.url());
+
+// 尿素循环独有节点：点 asp 进入 PLATE 09
+await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+await page.locator('svg [data-node-id="asp"] circle').first().click({ force: true });
+await page.waitForURL("**/pathway/urea-cycle", { timeout: 5000 }).catch(() => {});
+check("点尿素循环节点 asp 进入 PLATE 09", page.url().includes("/pathway/urea-cycle"), page.url());
 
 // ===== 9) 点步骤连线带 ?step= =====
 await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
@@ -337,6 +389,16 @@ const glycoLine = await page.locator('[data-edge-id="glycolysis:g6p->f6p"] line'
 await page.mouse.click(glycoLine.x + glycoLine.width / 2, glycoLine.y + glycoLine.height / 2);
 await page.waitForURL("**/pathway/glycolysis?step=gk-2", { timeout: 5000 }).catch(() => {});
 check("点步骤连线带 ?step=", page.url().includes("/pathway/glycolysis?step=gk-2"), page.url());
+
+// 尿素循环接口线：ASL 裂解精氨酸琥珀酸、延胡索酸回到 TCA（urea-4）
+// 这条线在下域基质带，1440×900 首屏之外；先把页面滚到线所在位置，再取线自身包围盒中心点击。
+await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+const ureaEdgeLocator = page.locator('[data-edge-id="urea-cycle:argininosuccinate->fum"] line');
+await ureaEdgeLocator.scrollIntoViewIfNeeded();
+const ureaLine = await ureaEdgeLocator.boundingBox();
+await page.mouse.click(ureaLine.x + ureaLine.width / 2, ureaLine.y + ureaLine.height / 2);
+await page.waitForURL("**/pathway/urea-cycle?step=urea-4", { timeout: 5000 }).catch(() => {});
+check("点尿素接口线带 ?step=urea-4", page.url().includes("/pathway/urea-cycle?step=urea-4"), page.url());
 
 // ===== 10) 区室与域标签 =====
 // 后续第 11 节按「1440 展开」测容器横向政策，这里起就固定在展开档（默认档已改为收起）。

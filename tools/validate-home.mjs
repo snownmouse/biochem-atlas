@@ -5,12 +5,12 @@
  *  1. 节点唯一（同一实体 id 不能出现两次）且每个节点至少被一条通路引用；
  *  2. junction 至少被两条通路引用；
  *  3. 任意一条边都能解析到某条通路的 step / transport / skeleton link；
- *  4. 五条通路的每一个主步骤都至少产生一条可见边；
+ *  4. 六条通路的每一个主步骤都至少产生一条可见边；
  *  5. 资产别名全部指向真实存在的数据实体；
  *  6. 版面坐标覆盖全部节点且落在画布内；自环只允许出现在 cycle-return；
  *  7. 上下两域构图：三条域带连续覆盖画布、三条膜线都在膜带内、跨域共用节点
  *     （丙酮酸 / 乙酰-CoA / 草酰乙酸）贴着膜带（±40 px）、节点之间不重叠、
- *     七个通路标签都在画布内；共用分子仍只出现一次（第 1 节）。
+ *     十一个通路标签都在画布内；共用分子仍只出现一次（第 1 节）。
  *
  * 若 homeMap.ts 改动，本脚本用 esbuild 重新打包后读取，避免维护第二份推导逻辑。
  */
@@ -64,10 +64,11 @@ const rawPathways = {
   oxphos: JSON.parse(fs.readFileSync("src/data/oxphos/oxphos.json", "utf8")),
 };
 
-// 跨通路接口：FAS（PLATE 08）的柠檬酸穿梭只用于边来源解析。
-// 它不并入 SOURCES，因此不参与「六条通路的每个主步骤都有连线」口径。
+// 跨通路接口：FAS（PLATE 08）的柠檬酸穿梭、尿素循环（PLATE 09）的天冬氨酸臂
+// 只用于边来源解析；它们不并入 SOURCES，因此不参与「六条通路的每个主步骤都有连线」口径。
 const interfacePathways = {
   "fatty-acid-synthesis": JSON.parse(fs.readFileSync("src/data/fatty-acid-synthesis/fas.json", "utf8")),
+  "urea-cycle": JSON.parse(fs.readFileSync("src/data/urea-cycle/urea.json", "utf8")),
 };
 
 const skeletonPathways = {
@@ -152,7 +153,12 @@ for (const edge of home.HOME_EDGES) {
       if (!isStep && !isTransport) {
         edgeFailures.push(`边来源无法解析: ${edge.id} ← ${source.pathwayId}:${source.stepId}`);
       }
-    } else if (source.linkType !== "cycle-return" && source.linkType !== "cycle-exit") {
+    } else if (
+      source.linkType !== "cycle-return" &&
+      source.linkType !== "cycle-exit" &&
+      // urea skeleton 的 recycle 链接（fum → asp）没有 step id，按结构接口放行。
+      source.linkType !== "recycle"
+    ) {
       edgeFailures.push(`边来源缺少 stepId 且不是结构性环路/出环边: ${edge.id} (${source.linkType})`);
     }
   }
@@ -283,9 +289,12 @@ check(
 // 8) 计数口径：必须与实测精确相等（不是「至少」）。
 // PLATE 08 柠檬酸穿梭接入后：节点不变 38（cit / accoa 原本就在图上），
 // cit 由 TCA 单通路变为 TCA / FAS 共用，共用节点 16→17，边 62→63。
-check("节点数精确为 38", nodeIds.length === 38, String(nodeIds.length));
-check("共用节点数精确为 17", junctions.length === 17, String(junctions.length));
-check("边数精确为 63", home.HOME_EDGES.length === 63, String(home.HOME_EDGES.length));
+// PLATE 09 尿素循环接入天冬氨酸—延胡索酸臂后：新增 asp / argininosuccinate
+// 两个节点（38→40），fum 由 TCA 单通路变为 TCA / 尿素循环共用（17→18），
+// 新增 urea-3、urea-4 与 recycle 三条边（63→66）。
+check("节点数精确为 40", nodeIds.length === 40, String(nodeIds.length));
+check("共用节点数精确为 18", junctions.length === 18, String(junctions.length));
+check("边数精确为 66", home.HOME_EDGES.length === 66, String(home.HOME_EDGES.length));
 check("资产别名数精确为 14", aliases.length === 14, String(aliases.length));
 check(
   "FAS 接口边存在（cit → accoa，来源 fas-shuttle）",
@@ -294,6 +303,29 @@ check(
       edge.id === "fatty-acid-synthesis:cit->accoa" &&
       edge.sources.some((source) => source.pathwayId === "fatty-acid-synthesis" && source.stepId === "fas-shuttle"),
   ),
+);
+check(
+  "尿素循环天冬氨酸臂三条边存在（urea-3 / urea-4 / recycle）",
+  ["urea-cycle:asp->argininosuccinate", "urea-cycle:argininosuccinate->fum", "urea-cycle:fum->asp"].every((id) =>
+    home.HOME_EDGES.some((edge) => edge.id === id),
+  ),
+  home.HOME_EDGES.filter((edge) => edge.pathwayId === "urea-cycle").map((edge) => edge.id).join(","),
+);
+check(
+  "fum 为 TCA / 尿素循环共用节点",
+  home.HOME_JUNCTIONS.some(
+    (junction) =>
+      junction.entityId === "fum" &&
+      junction.pathwayIds.includes("tca") &&
+      junction.pathwayIds.includes("urea-cycle"),
+  ),
+);
+check(
+  "asp / argininosuccinate 只挂在尿素循环（不误并入其他通路）",
+  ["asp", "argininosuccinate"].every((id) => {
+    const node = home.HOME_NODES.find((item) => item.id === id);
+    return Boolean(node) && node.pathwayIds.length === 1 && node.pathwayIds[0] === "urea-cycle";
+  }),
 );
 
 for (const item of checks) {
