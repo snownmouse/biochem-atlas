@@ -125,7 +125,8 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       title: "考点是分岔、酶和第一步不可逆",
       items: [
         "G6P 不是 F6P：第 2 步磷酸葡萄糖异构酶才把醛糖转成酮糖。",
-        "第 1 步不可逆，限速由己糖激酶或葡萄糖激酶承担；肝的葡萄糖激酶 Km 高，餐后血糖升高才大量工作。",
+        "第 1 步是不可逆起点，关键酶是己糖激酶或葡萄糖激酶；糖酵解的限速步是 PFK-1（gk-3）。",
+        "肝的葡萄糖激酶 Km 高，餐后血糖升高才大量工作。",
         "糖酵解唯一的氧化步骤在第 6 步（GAPDH，生成 NADH），不是第 1 步。",
       ],
     },
@@ -174,7 +175,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       title: "考点是终点位置、PDH 辅因子和乳酸去向",
       items: [
         "丙酮酸是糖酵解的终产物，不是起点；糖异生的起点反应是丙酮酸羧化，先成草酰乙酸。",
-        "PDH 复合体需要 TPP、硫辛酸、辅酶 A、FAD、NAD⁺ 五种辅因子，缺 TPP 时丙酮酸堆积。",
+        "PDH 复合体需要 TPP、硫辛酸、辅酶 A、FAD、NAD⁺ 五种辅酶，外加 Mg²⁺；缺 TPP 时丙酮酸堆积。",
         "乳酸脱氢酶把丙酮酸还原成乳酸，同时把 NADH 氧化成 NAD⁺，这一步不产 ATP。",
       ],
     },
@@ -213,7 +214,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
         "来路：PDH 把丙酮酸氧化脱羧成乙酰-CoA；脂肪酸 β-氧化末步硫解也生成乙酰-CoA；部分氨基酸分解同样产生乙酰-CoA。去向：① 进 TCA 氧化供能；② 在胞质羧化成丙二酰-CoA，进入脂肪酸合成；③ 两分子缩合启动胆固醇合成；④ 在肝生成酮体。",
     },
     significance: {
-      title: "它不能自己过线粒体内膜，只能搭柠檬酸穿梭",
+      title: "它不能自己过线粒体内膜，主要搭柠檬酸穿梭",
       body:
         "线粒体基质里生成的乙酰-CoA 不能自由穿过线粒体内膜；它先与草酰乙酸缩合成柠檬酸，柠檬酸出线粒体后在胞质裂解回乙酰-CoA，供脂肪酸合成使用。这条柠檬酸穿梭把线粒体的碳输出与胞质的脂合成接在一起。",
     },
@@ -223,7 +224,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
         "辅酶 A 由泛酸（维生素 B5）构成，活性基团是巯基；乙酰-CoA 的高能键是硫酯键，不是普通酯键。",
         "乙酰-CoA 不能直接穿过线粒体内膜，脂肪酸合成在胞质、β-氧化在线粒体，靠柠檬酸穿梭衔接。",
         "PDH 把丙酮酸变成乙酰-CoA，释放 CO₂ 并生成 NADH；不是转氨，也不直接产 ATP。",
-        "脂肪酸合成的直接底物是丙二酰-CoA，不是乙酰-CoA。",
+        "脂肪酸合成以乙酰-CoA 为引物、丙二酰-CoA 为增碳单元；直接缩合底物是乙酰-ACP 或脂酰-ACP 加丙二酰-ACP，不是游离的乙酰-CoA 与丙二酰-CoA。",
       ],
     },
     pathways: [
@@ -253,14 +254,14 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     classification: "中性极性 α-氨基酸：侧链带羟基。",
     structure: "含羟基侧链的 α-氨基酸；侧链羟基能形成氢键，也能被磷酸化或糖基化，是许多酶活性中心的亲核基团。",
     position: {
-      title: "它由 3-磷酸甘油酸生成，脱氨后进丙酮酸",
+      title: "它由 3-磷酸甘油酸生成，碳骨架可归入丙酮酸",
       body:
-        "氨基酸分解中，丝氨酸经丝氨酸脱水酶脱氨生成丙酮酸；在合成方向，糖酵解中间产物 3-磷酸甘油酸经氧化、转氨生成丝氨酸。丝氨酸是甘氨酸、半胱氨酸与磷脂酰丝氨酸的原料。",
+        "合成方向，糖酵解中间产物 3-磷酸甘油酸经氧化、转氨生成丝氨酸。分解方向，数据层 fates[fate-pyr] 把丝氨酸列为丙酮酸来源；本平台没有为丝氨酸脱氨单列步骤，aa-7 是胱硫醚 β-合酶，不是这条反应。丝氨酸还是甘氨酸、半胱氨酸与磷脂酰丝氨酸的原料。",
     },
     flow: {
       title: "它从糖酵解中间物来，往丙酮酸、甘氨酸与磷脂去",
       body:
-        "来路：糖酵解中间产物 3-磷酸甘油酸经氧化、转氨生成丝氨酸。去向：① 经丝氨酸脱水酶脱氨生成丙酮酸，进入糖异生或 TCA；② 经丝氨酸羟甲基转移酶（SHMT）转成甘氨酸，同时把一碳单位交给四氢叶酸（这是 SHMT 的常规方向；反向需要一碳单位供给，不作默认来路）；③ 合成磷脂酰丝氨酸与鞘脂；④ 侧链羟基被磷酸化或糖基化，参与信号与识别。",
+        "来路：糖酵解中间产物 3-磷酸甘油酸经氧化、转氨生成丝氨酸。去向：① 脱氨后碳骨架归入丙酮酸（amino.json fates[fate-pyr] 口径；数据层未单列该步骤）；② 经丝氨酸羟甲基转移酶（SHMT）转成甘氨酸，同时把一碳单位交给四氢叶酸（这是 SHMT 的常规方向；反向需要一碳单位供给，不作默认来路）；③ 合成磷脂酰丝氨酸与鞘脂；④ 侧链羟基被磷酸化或糖基化，参与信号与识别。",
     },
     significance: {
       title: "它把碳骨架、一碳单位和磷脂三条线接在一起",
@@ -277,10 +278,11 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       ],
     },
     pathways: [
-      { label: "氨基酸分解：丝氨酸脱氨进入丙酮酸", href: "/pathway/amino-acids?step=aa-7" },
+      { label: "氨基酸代谢 · fate-pyr：丝氨酸碳骨架归丙酮酸", href: "/pathway/amino-acids" },
     ],
     sources: [
-      "amino.json · steps[aa-7].reaction / physiology",
+      "amino.json · fates[fate-pyr] · sources 含 ser",
+      "amino.json · entities[ser]",
       "Lehninger Principles of Biochemistry, 8e, Ch.18（氨基酸氧化） / Ch.22（氨基酸合成）",
     ],
     bubble: { what: "含羟基的中性氨基酸，一碳单位原料", highlight: "脱氨进丙酮酸，也能供磷脂" },
@@ -340,12 +342,12 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     position: {
       title: "它不在糖酵解主线，而是红细胞里的旁支",
       body:
-        "数据层把它登记为糖酵解挂图节点，不参与主线步骤。糖酵解第 6 步生成的 1,3-二磷酸甘油酸在红细胞中经二磷酸甘油酸变位酶转成 2,3-BPG；主线第 7 步仍由磷酸甘油酸激酶把 1,3-BPG 变成 3-磷酸甘油酸。",
+        "数据层把它登记为糖酵解挂图节点，不参与主线步骤。糖酵解第 6 步生成的 1,3-二磷酸甘油酸在红细胞中经 BPGM 的变位酶活性转成 2,3-BPG；主线第 7 步仍由磷酸甘油酸激酶把 1,3-BPG 变成 3-磷酸甘油酸。",
     },
     flow: {
-      title: "它从 1,3-BPG 来，水解后回到 3PG",
+      title: "它从 1,3-BPG 来，由 BPGM 的磷酸酶活性水解回 3PG",
       body:
-        "来路：1,3-BPG 在红细胞中经二磷酸甘油酸变位酶生成。去向：经 2,3-BPG 磷酸酶水解回 3-磷酸甘油酸，进入糖酵解后半段。",
+        "来路：1,3-BPG 在红细胞中经 BPGM 的变位酶活性（EC 5.4.2.4）生成。去向：BPGM 自身的磷酸酶活性（EC 3.1.3.13）把它水解回 3-磷酸甘油酸；BPGM 是双功能酶，两种活性在同一条多肽链上，不是另一个独立的磷酸酶。",
     },
     significance: {
       title: "它决定血红蛋白在组织放不放氧",
@@ -356,7 +358,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       title: "考点是旁支身份与氧亲和力",
       items: [
         "2,3-BPG 不是糖酵解主线的中间产物，不进入净 ATP 账；它的碳骨架来自 1,3-BPG。",
-        "它由二磷酸甘油酸变位酶生成、由 2,3-BPG 磷酸酶水解，构成 Rapoport-Luebering 旁路。",
+        "它由 BPGM 生成，也由 BPGM 自身的磷酸酶活性水解，构成 Rapoport-Luebering 旁路；BPGM 是双功能酶（EC 5.4.2.4 兼 EC 3.1.3.13）。",
         "2,3-BPG 升高使血红蛋白氧亲和力下降、氧解离曲线右移，不是升高氧亲和力。",
       ],
     },
@@ -366,6 +368,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     sources: [
       "glycolysis.json · skeleton nodes[23bpg]",
       "glycolysis.json · steps[gk-6].significance / steps[gk-7].equation",
+      "BRENDA · EC 5.4.2.4 / EC 3.1.3.13（BPGM 双功能：变位酶 + 磷酸酶）",
       "Lehninger Principles of Biochemistry, 8e, Ch.14（Glycolysis, Gluconeogenesis, and the Pentose Phosphate Pathway）",
     ],
     bubble: { what: "三碳糖磷酸，红细胞的旁支产物", highlight: "压低血红蛋白的氧亲和力" },
@@ -698,7 +701,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       title: "考点是三次换手与限速闸",
       items: [
         "穿梭是三次换手：CPT1 → CACT → CPT2，不是一次转运。",
-        "CPT1 在内膜外侧，CPT2 在基质侧；限速的是 CPT1。",
+        "CPT1 在线粒体外膜胞质侧，CPT2 在内膜基质侧；限速的是 CPT1。",
         "丙二酰-CoA 抑制 CPT1，脂合成开启时关闭 β-氧化入口。",
       ],
     },
@@ -734,7 +737,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     significance: {
       title: "活化先付两个高能键，β-氧化才谈得上产能",
       body:
-        "活化是把疏水脂肪酸变成可被酶识别的硫酯通货；ATP→AMP+PPi 直接拆两个高能键，是脂肪能量账要先扣 2 的原因。",
+        "活化是把疏水脂肪酸变成可被酶识别的硫酯通货；ATP→AMP+PPi 直接拆 1 个高能键，PPi 水解再补 1 个，合计 2 个，是脂肪能量账要先扣 2 的原因。",
     },
     exam: {
       title: "考点是活化产物与穿梭限制",
@@ -1162,20 +1165,20 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
         "胆固醇合成 ch-13 产物，内质网。羊毛甾醇经 CYP51A1、TM7SF2、MSMO1/NSDHL、HSD17B7、EBP、SC5D、DHCR7 一串反应生成胆固醇；DHCR24 可从 desmosterol 平行进入。",
     },
     flow: {
-      title: "它从乙酰-CoA 经甲羟戊酸与角鲨烯来，往膜、胆汁酸与激素去",
+      title: "它从乙酰-CoA 经甲羟戊酸与角鲨烯来，往膜、胆汁酸、激素与维生素 D 去",
       body:
-        "来路：乙酰-CoA → 甲羟戊酸 → 异戊烯基焦磷酸 → 角鲨烯 → 羊毛甾醇 → 胆固醇。去向：膜脂、胆汁酸、甾体激素与脂蛋白运输。",
+        "来路：乙酰-CoA → 甲羟戊酸 → 异戊烯基焦磷酸 → 角鲨烯 → 羊毛甾醇 → 胆固醇。去向：膜脂、胆汁酸、甾体激素与脂蛋白运输；其末端中间物 7-脱氢胆固醇在皮肤经 UV 照射生成维生素 D3。",
     },
     significance: {
-      title: "它既是膜的调节器，也是激素的原料",
+      title: "它既是膜的调节器，也是激素与维生素 D 的原料",
       body:
-        "胆固醇是膜流动性的调节器，也是胆汁酸与类固醇激素的前体；合成受 HMG-CoA 还原酶与 LDL 受体双重调控。",
+        "胆固醇是膜流动性的调节器，也是胆汁酸与类固醇激素的前体；7-脱氢胆固醇经 UV 生成维生素 D3。合成受 HMG-CoA 还原酶与 LDL 受体双重调控。数据层 interfaces 只建了胆汁酸与甾体激素两条去向，维生素 D3 未建通路接口。",
     },
     exam: {
       title: "考点是限速酶、去向与碳源",
       items: [
         "胆固醇合成的限速酶是 HMG-CoA 还原酶。",
-        "胆固醇不能彻底分解，只能转成胆汁酸或甾体激素。",
+        "胆固醇不能彻底分解；去向包括胆汁酸、甾体激素与膜脂，7-脱氢胆固醇经 UV 生成维生素 D3。",
         "胆固醇合成的碳源是乙酰-CoA，不是脂肪酸。",
       ],
     },
@@ -1185,8 +1188,8 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     ],
     sources: [
       "cholesterol.json · steps[ch-13].equation / enzyme",
-      "cholesterol.json · entities[cholesterol].note",
-      "Lehninger Principles of Biochemistry, 8e, Ch.21",
+      "cholesterol.json · interfaces[int-bile-acid / int-steroid]（仅两条去向接口）",
+      "Lehninger Principles of Biochemistry, 8e, Ch.21（7-脱氢胆固醇经 UV 生成维生素 D3）",
     ],
     bubble: { what: "四环甾醇，膜与激素的原料", highlight: "HMG-CoA 还原酶决定它的产量" },
   },
@@ -1307,7 +1310,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       items: [
         "CoA 的活性基团是末端巯基，结合形式是硫酯。",
         "泛酸是 CoA 的必需成分，缺乏会影响糖与脂代谢。",
-        "CoA 不是酶，是辅因子；它不携带能量，只携带酰基。",
+        "游离 CoA 本身不携带能量；酰基-CoA 的硫酯键携带酰基转移势能。",
       ],
     },
     pathways: [
@@ -1386,7 +1389,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     significance: {
       title: "它把甲硫氨酸的硫转给丝氨酸的碳骨架",
       body:
-        "它把甲硫氨酸的硫转给丝氨酸的碳骨架；胱硫醚 β-合酶缺陷时它堆积、同型半胱氨酸升高。",
+        "它把甲硫氨酸的硫转给丝氨酸的碳骨架；胱硫醚 β-合酶缺陷时同型半胱氨酸升高，胱硫醚生成减少，不会堆积。",
     },
     exam: {
       title: "考点是缩合原料与裂解产物",
@@ -1454,14 +1457,14 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     classification: "甾醇：C24 位带双键的胆固醇前体。",
     structure: "甾核与胆固醇相同，C24 位多一个双键；DHCR24 还原这个双键后成为胆固醇。",
     position: {
-      title: "它在 7-DHC 处分叉，走 DHCR24 的平行路线",
+      title: "它在末段与 7-DHC 路线并行，由 DHCR24 还原成胆固醇",
       body:
-        "胆固醇合成页把它登记为实体，没有逐步步骤。DHCR24 可从 desmosterol 平行进入胆固醇合成终点，与 DHCR7 的 7-DHC 路线在末段分叉。",
+        "胆固醇合成页把它登记为实体，没有逐步步骤。desmosterol 由羊毛甾醇下游的甾醇中间物经去甲基与还原生成，DHCR24 在其 C24 位还原双键后成为胆固醇，与 DHCR7 的 7-DHC 路线在末段并行。",
     },
     flow: {
-      title: "它从 7-DHC 平行路线来，被 DHCR24 还原成胆固醇",
+      title: "它从羊毛甾醇下游中间物来，被 DHCR24 还原成胆固醇",
       body:
-        "来路：7-DHC 经 DHCR24 作用生成，与 DHCR7 路线并行。去向：DHCR24 还原 C24 双键生成胆固醇。",
+        "来路：羊毛甾醇下游的甾醇中间物经去甲基与还原生成 desmosterol（数据层未逐步列出）。去向：DHCR24 还原 C24 双键生成胆固醇。",
     },
     significance: {
       title: "两条平行末路让胆固醇合成末段既有冗余也有分工",
@@ -1592,9 +1595,9 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
         "来路：S7P + GAP 经转醛醇酶生成 E4P + F6P。去向：与 Xu5P 经转酮醇酶生成 F6P + GAP。",
     },
     significance: {
-      title: "它是碳重排的临时接头",
+      title: "它是 S7P 失去三碳后剩下的 C4 残段",
       body:
-        "E4P 是碳重排的临时接头：它先接住转醛醇酶切下的三碳，再接受转酮醇酶的二碳，最终把 3 个 C5 拼回 2 个 C6。",
+        "转醛醇酶把 S7P 的三碳交给 GAP，生成 F6P，同时留下 E4P；转酮醇酶再把 Xu5P 的二碳交给 E4P，生成 F6P + GAP。非氧化相整体把 3 个 C5 重排成 2 个 C6 加 1 个 C3（15C = 12C + 3C）。",
     },
     exam: {
       title: "考点是碳数与两种切分酶",
@@ -2010,42 +2013,43 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     id: "fas-malonyl",
     name: "丙二酰-CoA",
     aliases: ["malonyl-CoA", "malonylcoa"],
-    claim: "丙二酰-CoA 是脂肪酸合成的增碳单元",
+    claim: "丙二酰-CoA 是脂肪酸合成的 C2 增碳单元，每轮净增 2 碳",
     classification: "二羧酸单酰-CoA：丙二酸的 C3 羧基与 CoA 成硫酯。",
-    structure: "三碳二羧酸，只有一端与 CoA 成硫酯；另一端羧基在缩合时以 CO₂ 离去。",
+    structure: "三碳二羧酸，只有一端与 CoA 成硫酯；游离羧基碳在缩合时以 CO₂ 离去，剩下 C2 单元整体进链。",
     position: {
-      title: "它是 fas-acc 产物、fas-ks 底物",
+      title: "它是 fas-acc 产物；经 MAT 转成丙二酰-ACP 后才是 fas-ks 底物",
       body:
-        "fas-acc 由乙酰-CoA 羧化酶把乙酰-CoA、HCO₃⁻ 与 ATP 装成丙二酰-CoA；fas-ks 由 KS 把它的二碳单元交给脂酰-ACP，释放 CO₂ 与 ACP。",
+        "fas-acc 由乙酰-CoA 羧化酶把乙酰-CoA、HCO₃⁻ 与 ATP 装成丙二酰-CoA。数据层 fas-ks 的底物是 acylacp + malonylacp，丙二酰-CoA 本身不能直接缩合；它先由 FASN 的丙二酰/乙酰转移酶（MAT）结构域转到 ACP 上生成丙二酰-ACP。数据层未为 MAT 单列步骤。",
     },
     flow: {
-      title: "它从乙酰-CoA 羧化来，缩合时丢掉一个碳",
+      title: "它从乙酰-CoA 羧化来，经 MAT 上 ACP 后每轮净增 2 碳",
       body:
-        "来路：乙酰-CoA + HCO₃⁻ + ATP 经 ACC 羧化生成。去向：在 KS 步把二碳单元交给脂酰-ACP，释放 CO₂ 与 ACP。",
+        "来路：乙酰-CoA + HCO₃⁻ + ATP 经 ACC 羧化生成。去向：MAT 把丙二酰基转到 ACP，生成丙二酰-ACP；KS 缩合时游离羧基碳以 CO₂ 离去，C2 单元整体接到脂酰-ACP 上，每轮净增 2 碳。",
     },
     significance: {
-      title: "ACC 是通路的第一道承诺步",
+      title: "ACC 是通路的第一道承诺步，MAT 是进环前的转手",
       body:
-        "只有羧化成丙二酰-CoA 的 C2 单元才能进四步环；ACC 是通路的第一道承诺步，也被 AMPK 磷酸化抑制。",
+        "只有羧化成丙二酰-CoA 的 C2 单元才能进四步环；它还须经 MAT 转到 ACP 上。ACC 是通路的第一道承诺步，也被 AMPK 磷酸化抑制；丙二酰-CoA 同时抑制 CPT1，脂合成与 β-氧化互相排斥。",
     },
     exam: {
-      title: "考点是净增碳与 CPT1 抑制",
+      title: "考点是净增碳、MAT 转手与 CPT1 抑制",
       items: [
-        "丙二酰-CoA 是三碳，但只有一个碳净进链，另一个成 CO₂。",
+        "丙二酰-CoA 是三碳，但每轮净增 2 碳：游离羧基碳以 CO₂ 离去，C2 单元整体进链。",
+        "丙二酰-CoA 不是 KS 的直接底物；它先经 FASN 的 MAT 结构域转成丙二酰-ACP。",
         "ACC 需要生物素，ATP 供能。",
         "丙二酰-CoA 抑制 CPT1，脂合成与 β-氧化互相排斥。",
       ],
     },
     pathways: [
       { label: "脂肪酸合成 fas-acc 产物", href: "/pathway/fatty-acid-synthesis?step=fas-acc" },
-      { label: "fas-ks 底物", href: "/pathway/fatty-acid-synthesis?step=fas-ks" },
+      { label: "fas-ks 底物：丙二酰-ACP（经 MAT 转手）", href: "/pathway/fatty-acid-synthesis?step=fas-ks" },
     ],
     sources: [
       "fatty-acid-synthesis/fas.json · steps[fas-acc].equation / significance",
-      "fatty-acid-synthesis/fas.json · steps[fas-ks].equation",
-      "Lehninger Principles of Biochemistry, 8e, Ch.21",
+      "fatty-acid-synthesis/fas.json · steps[fas-ks].substrates / equation",
+      "Lehninger Principles of Biochemistry, 8e, Ch.21（FASN 的 MAT 结构域把丙二酰基转到 ACP）",
     ],
-    bubble: { what: "三碳二羧酸单酰-CoA，增碳单元", highlight: "缩合时丢掉一个碳给 CO₂" },
+    bubble: { what: "三碳二羧酸单酰-CoA，增碳单元", highlight: "每轮整体进链，净增 2 碳" },
     asset3d: "fas-malonyl",
   },
 
@@ -2076,7 +2080,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       items: [
         "FBP 的磷酸在 C1 与 C6，不是 C2。",
         "醛缩酶裂解产物是 GAP + DHAP。",
-        "FBPase-1 是糖异生限速酶，被 F2,6BP 抑制。",
+        "FBPase-1 是糖异生四个关键酶之一（PC、PEPCK、FBPase-1、G6Pase），受 F2,6BP 抑制。",
       ],
     },
     pathways: [
@@ -2099,7 +2103,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     aliases: ["FPP", "farnesyl pyrophosphate", "法尼基焦磷酸"],
     claim: "法尼基二磷酸是 C15 的分支点",
     classification: "异戊二烯焦磷酸：三个异戊二烯单元组成的 C15 焦磷酸。",
-    structure: "C15 焦磷酸，疏水尾加焦磷酸头；两个 FPP 尾对尾缩合就是角鲨烯。",
+    structure: "C15 焦磷酸，疏水尾加焦磷酸头；两个 FPP 头对头缩合就是角鲨烯。",
     position: {
       title: "它是 ch-9 产物、ch-10 底物，也是多种异戊二烯产物的前体",
       body:
@@ -2248,7 +2252,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     exam: {
       title: "考点是三碳糖计数、唯一脱氢步与砷酸盐",
       items: [
-        "GAP 与 DHAP 是同分异构体，磷酸丙糖异构酶把 DHAP 转成 GAP；DHAP 不是另一条通路的起点。",
+        "GAP 与 DHAP 是同分异构体，磷酸丙糖异构酶把 DHAP 转成 GAP；在本挂图里 DHAP 只经这一步进糖酵解，它也可流向甘油磷脂合成，不在本通路范围。",
         "一分子 FBP 裂成两分子三碳糖，所以从 GAP 起每一步都按「每葡萄糖 ×2」计。",
         "GAPDH 是糖酵解唯一生成 NADH 的步骤；砷酸盐使该步只生成 1,3-BPG 类似物而不产 ATP。",
       ],
@@ -2286,9 +2290,9 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
         "来路：肠道吸收的葡萄糖经 GLUT2 进入肝；糖异生末步在 ER 腔水解 G6P 生成葡萄糖；糖原脱支酶处理极限糊精时放出游离葡萄糖。去向：经己糖激酶或葡萄糖激酶磷酸化成 G6P，进入糖酵解、磷酸戊糖途径或糖原合成；肝再把 G6P 水解成葡萄糖输出到血。",
     },
     significance: {
-      title: "磷酸化把葡萄糖锁在胞内，肝还能把它放回血液",
+      title: "磷酸化把葡萄糖留在胞内，肝还能把它放回血液",
       body:
-        "葡萄糖一进细胞就被磷酸化成 G6P，带上负电不能再漏出去。肝、肾有葡萄糖-6-磷酸酶，能把 G6P 水解成葡萄糖并输出到血；肌肉没有这个酶，肌糖原分解只能停在 G6P，就地进糖酵解。",
+        "在多数细胞，葡萄糖进胞后由己糖激酶磷酸化成 G6P，带上负电不易漏出。肝的葡萄糖激酶 Km 高，低血糖时磷酸化少，GLUT2 又可双向转运，所以肝能把葡萄糖放回血液；肌肉没有葡萄糖-6-磷酸酶，肌糖原分解只能停在 G6P，就地进糖酵解。",
     },
     exam: {
       title: "考点是两步不可逆、两种激酶与肌糖原",
@@ -2310,7 +2314,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       "glycogen.json · steps[gly-2].equation / steps[gly-4].equation",
       "Lehninger Principles of Biochemistry, 8e, Ch.14",
     ],
-    bubble: { what: "六碳醛糖，血糖的主体", highlight: "进胞即被磷酸化锁住" },
+    bubble: { what: "六碳醛糖，血糖的主体", highlight: "进胞后多被磷酸化留住" },
   },
 
   gln: {
@@ -2359,7 +2363,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     id: "glu",
     name: "谷氨酸",
     aliases: ["Glu", "glutamate", "L-谷氨酸"],
-    claim: "谷氨酸是转氨反应的中央受体，也是氨的集散点",
+    claim: "谷氨酸是转氨反应的中央载体，也是氨的集散点",
     classification: "酸性 α-氨基酸：侧链带羧基，属于极性带电氨基酸。",
     structure: "侧链多一个羧基，生理 pH 下带负电；α-氨基是转氨酶搬运氨基的落点。",
     position: {
@@ -2399,7 +2403,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       "tca.json · steps[tca-3].equation",
       "Lehninger Principles of Biochemistry, 8e, Ch.18",
     ],
-    bubble: { what: "酸性氨基酸，转氨的中央受体", highlight: "把氨基收进 α-酮戊二酸" },
+    bubble: { what: "酸性氨基酸，转氨的中央载体", highlight: "把氨基收进 α-酮戊二酸" },
   },
 
   gly: {
@@ -2469,7 +2473,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       title: "考点是 Pi、脱支酶与肌糖原",
       items: [
         "糖原磷酸化酶用 Pi，不消耗 ATP；产物是 G1P，不是游离葡萄糖。",
-        "脱支酶是糖原分解里唯一能放出游离葡萄糖的酶，游离葡萄糖可直接出细胞。",
+        "脱支酶是糖原分解里唯一能放出游离葡萄糖的酶；肝的游离葡萄糖可经 GLUT2 出细胞，肌内则需己糖激酶再磷酸化，不补血糖。",
         "糖原合酶只延长 α-1,4 链，α-1,6 分支由分支酶另造。",
         "肌糖原不能补血糖，因为肌肉没有葡萄糖-6-磷酸酶。",
       ],
@@ -2577,8 +2581,8 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     id: "h2o",
     name: "水",
     aliases: ["H₂O", "water", "水分子"],
-    claim: "水在代谢图里常被省略，但它参与的每一步都是水解或水合",
-    classification: "无机小分子：既是溶剂，也是多步水解、水合与脱水反应的直接反应物。",
+    claim: "水既参与水解与水合，也在脱水与缩合中作为产物出现",
+    classification: "无机小分子：既是溶剂，也是水解、水合、脱水与缩合反应的直接参与者。",
     structure: "极性小分子，两个 O–H 键；作为反应物时提供羟基或质子，作为溶剂时参与氢键网络。",
     position: {
       title: "它散在多个通路的底物或产物栏里，不集中在单一节点",
@@ -2619,7 +2623,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       "fas.json · steps[fas-shuttle] / steps[fas-dh] / steps[fas-te]",
       "Lehninger Principles of Biochemistry, 8e, Ch.14 / Ch.18",
     ],
-    bubble: { what: "无机小分子，也是反应物", highlight: "水解与水合步的直接参与者" },
+    bubble: { what: "无机小分子，反应物与产物", highlight: "水解、水合、脱水都见它" },
   },
 
   hco3: {
@@ -2711,8 +2715,8 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     name: "L-组氨酸",
     aliases: ["His", "histidine", "组氨酸"],
     claim: "组氨酸是组胺与肌肽的前体，分解时还要借四氢叶酸",
-    classification: "碱性 α-氨基酸：侧链为咪唑环，属于极性带电氨基酸。",
-    structure: "侧链咪唑环，生理 pH 下可质子化；这个环也是组胺与肌肽的功能基团。",
+    classification: "碱性 α-氨基酸：侧链为咪唑环，生理 pH 以中性为主（pKa≈6.0）。",
+    structure: "侧链咪唑环，生理 pH 下仅小部分质子化；酸性环境或酶活性中心里可质子化，这个环也是组胺与肌肽的功能基团。",
     position: {
       title: "挂图上它只作为氨基酸实体出现，没有独立步骤",
       body:
@@ -2766,14 +2770,14 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     significance: {
       title: "HMGCR 是限速酶，也是他汀的作用位点",
       body:
-        "HMG-CoA 还原成甲羟戊酸是胆固醇合成的限速步，他汀类在这一步竞争性抑制 HMGCR。肝内 HMG-CoA 还可流向酮体合成，生成乙酰乙酰-CoA。",
+        "HMG-CoA 还原成甲羟戊酸是胆固醇合成的限速步，他汀类在这一步竞争性抑制 HMGCR。酮体方向在肝线粒体：HMG-CoA 由 HMG-CoA 裂解酶（EC 4.1.3.4）裂解成乙酰乙酸 + 乙酰-CoA；乙酰乙酰-CoA 是它的上游原料，不是裂解产物。",
     },
     exam: {
-      title: "考点是限速步、NADPH 与他汀",
+      title: "考点是限速步、NADPH、他汀与酮体方向",
       items: [
         "HMG-CoA 还原酶是胆固醇合成的限速酶，消耗 2 NADPH。",
         "他汀类抑制 HMGCR，作用位点在 HMG-CoA → 甲羟戊酸这一步。",
-        "乙酰-CoA 是 HMG-CoA 的原料；HMG-CoA 也是酮体合成的中间物。",
+        "乙酰-CoA 是 HMG-CoA 的原料；酮体方向由 HMG-CoA 裂解酶裂解成乙酰乙酸 + 乙酰-CoA。",
       ],
     },
     pathways: [
@@ -2783,7 +2787,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     sources: [
       "cholesterol.json · steps[ch-2].equation / enzyme",
       "cholesterol.json · steps[ch-3].equation / significance",
-      "Lehninger Principles of Biochemistry, 8e, Ch.21",
+      "Lehninger Principles of Biochemistry, 8e, Ch.21 / Ch.17（酮体生成：HMG-CoA 裂解酶 EC 4.1.3.4）",
     ],
     bubble: { what: "C6 的 HMG-CoA 硫酯", highlight: "他汀的作用位点上游" },
   },
@@ -3011,9 +3015,9 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
         "aa-5 在线粒体把 L-亮氨酸（/ Ile / Val）+ α-酮戊二酸转成 α-酮异己酸（/ 相应 α-酮酸）+ 谷氨酸；α-酮异己酸是亮氨酸对应的产物。",
     },
     flow: {
-      title: "它从亮氨酸转氨来，往支链 α-酮酸脱氢酶与乙酰-CoA 去",
+      title: "它从亮氨酸转氨来，往乙酰乙酸与乙酰-CoA 去",
       body:
-        "来路：亮氨酸经支链氨基转移酶脱氨生成 α-酮异己酸（aa-5）。去向：经支链 α-酮酸脱氢酶氧化脱羧，进入亮氨酸分解的后续步骤，最终产生乙酰-CoA 与乙酰乙酰-CoA。",
+        "来路：亮氨酸经支链氨基转移酶脱氨生成 α-酮异己酸（aa-5）。去向：经支链 α-酮酸脱氢酶氧化脱羧，进入亮氨酸分解的后续步骤，最终产生乙酰乙酸与乙酰-CoA。",
     },
     significance: {
       title: "支链 α-酮酸脱氢酶缺陷时它会堆积",
@@ -3026,6 +3030,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
         "α-酮异己酸是亮氨酸的对应 α-酮酸，不是异亮氨酸的。",
         "支链氨基转移酶把氨基交给 α-酮戊二酸，生成谷氨酸。",
         "支链 α-酮酸脱氢酶缺陷导致枫糖尿症，支链氨基酸与 α-酮酸堆积。",
+        "亮氨酸的终产物是乙酰乙酸 + 乙酰-CoA，不是乙酰乙酰-CoA（后者是上游中间物）。",
       ],
     },
     pathways: [
@@ -3087,7 +3092,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     aliases: ["lanosterol", "羊毛甾醇"],
     claim: "羊毛甾醇是第一个甾醇骨架，离胆固醇还差一串修饰酶",
     classification: "四环三萜醇：C30 的甾醇骨架，由 2,3-环氧角鲨烯环化而成。",
-    structure: "C30 四环骨架，带两个甲基；需经去甲基与还原才缩成 C27 胆固醇。",
+    structure: "C30 四环骨架，带三个甲基（4α、4β、14α）；需经去甲基与还原才缩成 C27 胆固醇。",
     position: {
       title: "它在胆固醇合成 ch-12 生成、ch-13 被修饰",
       body:
@@ -3138,19 +3143,19 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     flow: {
       title: "它从蛋白质分解来，往 α-酮异己酸与乙酰-CoA 去",
       body:
-        "来路：蛋白质分解释放。去向：经支链氨基转移酶脱氨生成 α-酮异己酸（aa-5），再由支链 α-酮酸脱氢酶氧化脱羧，最终生成乙酰-CoA 与乙酰乙酰-CoA，只能生酮。",
+        "来路：蛋白质分解释放。去向：经支链氨基转移酶脱氨生成 α-酮异己酸（aa-5），再由支链 α-酮酸脱氢酶氧化脱羧，最终生成乙酰乙酸与乙酰-CoA，只能生酮。",
     },
     significance: {
       title: "亮氨酸只生酮，不能净生糖",
       body:
-        "亮氨酸的碳骨架最终进入乙酰-CoA 与乙酰乙酰-CoA，没有净生糖的出口；饥饿时支链氨基酸在肌肉先转氨供能。",
+        "亮氨酸的碳骨架最终进入乙酰乙酸与乙酰-CoA，没有净生糖的出口；饥饿时支链氨基酸在肌肉先转氨供能。",
     },
     exam: {
       title: "考点是生糖生酮分类与共用第一步",
       items: [
         "亮氨酸只生酮，异亮氨酸生糖兼生酮，缬氨酸只生糖。",
         "三种支链氨基酸第一步都由支链氨基转移酶脱氨，辅酶是磷酸吡哆醛。",
-        "亮氨酸分解终产物是乙酰-CoA 与乙酰乙酰-CoA，不净生糖。",
+        "亮氨酸分解终产物是乙酰乙酸与乙酰-CoA，不净生糖。",
       ],
     },
     pathways: [
@@ -3173,12 +3178,12 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     position: {
       title: "挂图上它只作为氨基酸实体出现，没有独立步骤",
       body:
-        "氨基酸代谢数据层的 7 个步骤里没有以赖氨酸为底物或产物的反应，它只在实体表中出现。教材章级定位：赖氨酸分解先经酵母氨酸途径与 α-酮戊二酸缩合，最终生成乙酰-CoA 与乙酰乙酰-CoA，纯生酮。",
+        "氨基酸代谢数据层的 7 个步骤里没有以赖氨酸为底物或产物的反应，它只在实体表中出现。教材章级定位：赖氨酸分解先经酵母氨酸途径与 α-酮戊二酸缩合，最终生成乙酰-CoA 与乙酰乙酸，纯生酮。",
     },
     flow: {
       title: "它从蛋白质分解来，往酵母氨酸与乙酰-CoA 去",
       body:
-        "来路：蛋白质分解释放。去向：先与 α-酮戊二酸缩合成酵母氨酸，再裂解成 α-氨基己二酸半醛与谷氨酸，后续氧化成乙酰-CoA 与乙酰乙酰-CoA，只生酮。",
+        "来路：蛋白质分解释放。去向：先与 α-酮戊二酸缩合成酵母氨酸，再裂解成 α-氨基己二酸半醛与谷氨酸，后续氧化成乙酰-CoA 与乙酰乙酸，只生酮。",
     },
     significance: {
       title: "它是必需氨基酸，也参与胶原交联",
@@ -3332,9 +3337,9 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     id: "mev5p",
     name: "甲羟戊酸-5-磷酸",
     aliases: ["mevalonate-5-phosphate", "甲羟戊酸-5-磷酸"],
-    claim: "甲羟戊酸-5-磷酸是甲羟戊酸激酶的产物，C3 叔醇不被磷酸化",
+    claim: "甲羟戊酸-5-磷酸是甲羟戊酸激酶的产物，C3 叔醇留给 MVD 下一步磷酸化",
     classification: "糖酸磷酸酯：甲羟戊酸的 C5 羟基被磷酸化。",
-    structure: "C3 是叔醇，不能磷酸化；只有 C5 羟基被 MVK 装上磷酸。",
+    structure: "C3 是叔醇，MVK 这一步不动它；C3 的磷酸化由 MVD 在脱羧前完成，作为消除的离去基团。",
     position: {
       title: "它在胆固醇合成 ch-4 生成、ch-5 被再磷酸化",
       body:
@@ -3348,12 +3353,12 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     significance: {
       title: "这两步连续消耗 ATP，是通路的能量投入段",
       body:
-        "甲羟戊酸经 MVK、PMVK 两次磷酸化，再由 MVD 脱羧；C3 叔醇不被磷酸化是这条通路固定的化学路线。",
+        "甲羟戊酸经 MVK 磷酸化 C5、PMVK 转成 5-二磷酸，再由 MVD 磷酸化 C3 并脱羧；C3 不是不磷酸化，而是留给 MVD。",
     },
     exam: {
       title: "考点是磷酸化位点与 ATP 计数",
       items: [
-        "MVK 磷酸化的是 C5 羟基，C3 叔醇不被磷酸化。",
+        "MVK 只磷酸化 C5；C3 叔醇由 MVD 用 ATP 磷酸化后脱羧。",
         "甲羟戊酸到 IPP 需要 3 个 ATP：MVK、PMVK 各 1 个，MVD 再用 1 个。",
         "HMGCR 在 mev5p 上游，是通路限速酶。",
       ],
@@ -3655,7 +3660,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       title: "考点是脱氨酶与尿素循环的分工",
       items: [
         "转氨酶不产生游离氨；谷氨酸脱氢酶才直接释放 NH₄⁺。",
-        "尿素循环在肝进行，肾排铵不经过尿素循环。",
+        "尿素循环主要在肝进行，肾皮质也能少量进行；肾排铵走的是直接排铵途径，不经过尿素循环。",
         "血氨升高时氨进入脑，消耗 α-酮戊二酸，影响 TCA。",
       ],
     },
@@ -4164,8 +4169,8 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       title: "考点是酮糖身份与两种异构酶",
       items: [
         "Ru5P 是酮糖，R5P 是醛糖；ppp-n1 是异构酶，ppp-n2 是差向异构酶。",
-        "PPP 氧化相每生成 1 Ru5P 同时产 1 NADPH 与 1 CO₂。",
-        "Xu5P 是转酮醇酶唯一认的酮糖供体形态。",
+        "PPP 氧化相每生成 1 Ru5P 伴 2 NADPH 与 1 CO₂（G6PD 与 6PGD 各产 1 NADPH）。",
+        "在 PPP 的两条转酮反应里，Xu5P 是转酮醇酶使用的酮糖供体。",
       ],
     },
     pathways: [
@@ -4229,7 +4234,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     name: "角鲨烯",
     aliases: ["squalene", "角鲨烯"],
     claim: "角鲨烯是 C30 的线性三萜，甾醇四环骨架从它开始收",
-    classification: "三萜烯：六个异戊二烯单位首尾相连的 C30 烃。",
+    classification: "三萜烯：由两个 FPP 头对头连接成的 C30 烃。",
     structure: "C30 线性烯链，两端各有一个双键；环氧化后才有环化的起点。",
     position: {
       title: "它在胆固醇合成 ch-10 生成、ch-11 被环氧化，两步都在 ER",
@@ -4239,7 +4244,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     flow: {
       title: "它从两分子 FPP 缩合来，往 2,3-环氧角鲨烯与羊毛甾醇去",
       body:
-        "来路：ch-9 FPP 生成后，ch-10 角鲨烯合酶把两分子 FPP 尾对尾缩合成 C30 角鲨烯。去向：ch-11 环氧化成 2,3-环氧角鲨烯，再经 ch-12 环化成羊毛甾醇。",
+        "来路：ch-9 FPP 生成后，ch-10 角鲨烯合酶把两分子 FPP 头对头缩合成 C30 角鲨烯。去向：ch-11 环氧化成 2,3-环氧角鲨烯，再经 ch-12 环化成羊毛甾醇。",
     },
     significance: {
       title: "角鲨烯是甾醇合成的 C30 骨架起点",
@@ -4360,12 +4365,12 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     position: {
       title: "挂图上它只作为氨基酸实体出现，没有独立步骤",
       body:
-        "氨基酸代谢数据层的 7 个步骤里没有以苏氨酸为底物或产物的反应，它只在实体表中出现。教材章级定位：苏氨酸经苏氨酸脱氢酶脱氨生成 α-酮丁酸，再氧化脱羧成丙酰-CoA，进入 TCA 或糖异生。",
+        "氨基酸代谢数据层的 7 个步骤里没有以苏氨酸为底物或产物的反应，它只在实体表中出现。教材章级定位：苏氨酸经苏氨酸脱水酶（EC 4.3.1.19）脱氨生成 α-酮丁酸，再氧化脱羧成丙酰-CoA，进入 TCA 或糖异生。",
     },
     flow: {
       title: "它从蛋白质分解来，往 α-酮丁酸与丙酰-CoA 去",
       body:
-        "来路：蛋白质分解释放。去向：经苏氨酸脱氢酶脱氨生成 α-酮丁酸，再经氧化脱羧生成丙酰-CoA；丙酰-CoA 可经甲基丙二酰-CoA 变位酶转成琥珀酰-CoA，进入 TCA。",
+        "来路：蛋白质分解释放。去向：经苏氨酸脱水酶（EC 4.3.1.19）脱氨生成 α-酮丁酸，再经氧化脱羧生成丙酰-CoA；丙酰-CoA 可经甲基丙二酰-CoA 变位酶转成琥珀酰-CoA，进入 TCA。",
     },
     significance: {
       title: "苏氨酸的分解把丙酰-CoA 接入 TCA",
@@ -4601,7 +4606,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     name: "精氨酸琥珀酸",
     aliases: ["argininosuccinate", "精氨酸琥珀酸", "精氨酸代琥珀酸"],
     claim: "精氨酸琥珀酸是尿素循环第二个氮的接入点，裂解后分出延胡索酸",
-    classification: "精氨酸与天冬氨酸的缩合产物：带琥珀酸骨架的碱性氨基酸衍生物。",
+    classification: "瓜氨酸与天冬氨酸的缩合产物：带琥珀酸骨架的氨基酸衍生物。",
     structure: "瓜氨酸的脲基与天冬氨酸的氨基缩合成精氨酸琥珀酸；分子同时带精氨酸端与琥珀酸端。",
     position: {
       title: "它在 urea-3 生成、urea-4 被裂解",
@@ -4635,7 +4640,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       "urea.json · steps[urea-4].equation / significance",
       "Lehninger Principles of Biochemistry, 8e, Ch.18",
     ],
-    bubble: { what: "精氨酸与天冬氨酸的缩合物", highlight: "第二个氮的接入点" },
+    bubble: { what: "瓜氨酸与天冬氨酸的缩合物", highlight: "第二个氮的接入点" },
   },
 
   "urea-asp": {
@@ -4727,8 +4732,8 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     name: "瓜氨酸",
     aliases: ["citrulline", "瓜氨酸"],
     claim: "瓜氨酸是尿素循环的跨膜载体，把氨甲酰基带出线粒体",
-    classification: "尿素循环的 α-氨基酸中间物：带脲基的五碳氨基酸。",
-    structure: "瓜氨酸的脲基带一个氮；它把线粒体内装好的氨甲酰基带到胞质。",
+    classification: "尿素循环的 α-氨基酸中间物：带脲基的六碳氨基酸。",
+    structure: "瓜氨酸的脲基含 2 个氮；它把线粒体内装好的氨甲酰基带到胞质。",
     position: {
       title: "它在 urea-2 生成、urea-3 被 ASS 消耗",
       body:
@@ -4748,7 +4753,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
       title: "考点是两个隔室与载体氮",
       items: [
         "OTC 在线粒体，ASS 在胞质；瓜氨酸是两者之间的载体。",
-        "瓜氨酸的脲基氮来自鸟氨酸的 δ-氨基，不是尿素的净氮来源。",
+        "瓜氨酸的脲基两个氮：一个来自鸟氨酸的 δ-氨基（载体），一个来自 CPS1 固定的 NH₃（净氮输入）。",
         "瓜氨酸 + 天冬氨酸 + ATP 生成精氨酸琥珀酸，消耗 ATP。",
       ],
     },
@@ -4854,7 +4859,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     aliases: ["UTP", "uridine triphosphate", "尿苷三磷酸"],
     claim: "UTP 是糖原合成的活化能源，把葡萄糖装成 UDP-葡萄糖",
     classification: "尿苷三磷酸：尿苷与三个磷酸相连的核苷三磷酸。",
-    structure: "三磷酸链带负电；UTP 把两个磷酸交给 G1P，生成 UDP-葡萄糖并释放 PPi。",
+    structure: "三磷酸链带负电；UTP 的 β、γ 磷酸以 PPi 离去，只有 α-磷酸随尿苷进入 UDP-葡萄糖。",
     position: {
       title: "它在糖原合成 gly-7 作为底物",
       body:

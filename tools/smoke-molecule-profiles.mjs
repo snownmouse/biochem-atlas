@@ -76,7 +76,7 @@ const SAMPLES = [
     titles: [
       "它是 TCA 第 1 步的底物，也是脂肪酸合成的起点",
       "它从丙酮酸、脂肪酸和氨基酸来，往 TCA、脂合成与酮体去",
-      "它不能自己过线粒体内膜，只能搭柠檬酸穿梭",
+      "它不能自己过线粒体内膜，主要搭柠檬酸穿梭",
       "考点是硫酯、辅酶 A 与柠檬酸穿梭",
     ],
     flowKeys: ["来路：", "去向：", "PDH", "丙二酰-CoA"],
@@ -92,14 +92,16 @@ const SAMPLES = [
     alias: "别名：丝氨酸 / Ser / L-serine",
     classKey: "中性极性 α-氨基酸",
     titles: [
-      "它由 3-磷酸甘油酸生成，脱氨后进丙酮酸",
+      "它由 3-磷酸甘油酸生成，碳骨架可归入丙酮酸",
       "它从糖酵解中间物来，往丙酮酸、甘氨酸与磷脂去",
       "它把碳骨架、一碳单位和磷脂三条线接在一起",
       "考点是脱氨产物、一碳载体和侧链羟基",
     ],
-    flowKeys: ["来路：", "去向：", "丝氨酸脱水酶", "四氢叶酸"],
+    flowKeys: ["来路：", "去向：", "SHMT", "四氢叶酸"],
     bubble: ["含羟基的中性氨基酸，一碳单位原料", "脱氨进丙酮酸，也能供磷脂"],
     pathways: 1,
+    // ser 的去路只按数据层 fate 口径说明，不深链到具体步骤（aa-7 是胱硫醚 β-合酶，不是丝氨酸脱氨）
+    pathwayStep: false,
     href: "/molecule/ser",
     asset3d: null,
   },
@@ -167,8 +169,8 @@ for (const s of SAMPLES) {
   );
   check(`[${s.id}] 通路深链 ${s.pathways} 条`, links.length === s.pathways, links.map((l) => l.href).join(","));
   check(
-    `[${s.id}] 深链都指回挂图（带 step=）`,
-    links.every((l) => l.href.startsWith("/pathway/") && l.href.includes("?step=")),
+    `[${s.id}] 深链都指回挂图${s.pathwayStep === false ? "" : "（带 step=）"}`,
+    links.every((l) => l.href.startsWith("/pathway/") && (s.pathwayStep === false || l.href.includes("?step="))),
     links.map((l) => l.href).join(","),
   );
 

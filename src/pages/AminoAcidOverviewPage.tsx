@@ -265,7 +265,7 @@ export default function AminoAcidOverviewPage() {
               summary="20 种氨基酸：14 生糖 / 4 生糖兼生酮 / 2 生酮；氮走转氨 + 尿素"
               paragraphs={[
                 "氨基酸代谢把 20 种氨基酸的碳骨架汇流：上层按生糖、生糖兼生酮、生酮三类成簇，中层经转氨与氧化脱氨两道闸，下层落到七条去路。",
-                "按 Lehninger 8e：14 种生糖、4 种生糖兼生酮（Ile、Phe、Trp、Tyr）、2 种生酮（Leu、Lys）。七条去路是丙酮酸、乙酰-CoA、乙酰乙酰-CoA、α-酮戊二酸、琥珀酰-CoA、延胡索酸、草酰乙酸。生糖组经这些中间物进糖异生，生酮组只走乙酰-CoA 与乙酰乙酰-CoA。ALT、AST、BCAT2 用 PLP 把氨基交给 α-KG 生成谷氨酸；GLDH 氧化脱氨释放 NH₄⁺ 并回补 α-KG。",
+                "按 Lehninger 8e：14 种生糖、4 种生糖兼生酮（Ile、Phe、Trp、Tyr）、2 种生酮（Leu、Lys）。七条去路是丙酮酸、乙酰-CoA、乙酰乙酸 + 乙酰-CoA、α-酮戊二酸、琥珀酰-CoA、延胡索酸、草酰乙酸。生糖组经这些中间物进糖异生，生酮组只走乙酰-CoA 与乙酰乙酸 + 乙酰-CoA（经乙酰乙酰-CoA）。ALT、AST、BCAT2 用 PLP 把氨基交给 α-KG 生成谷氨酸；GLDH 氧化脱氨释放 NH₄⁺ 并回补 α-KG。",
                 "调控：GLDH 受 ADP/GDP 与 Leu 激活、ATP/GTP 抑制；BCKDH 受磷酸化调控，胰岛素促进去磷酸，饥饿时活性下降、保留支链氨基酸。氮的两条出口是转氨与尿素：转氨不释放游离氨，只把氨基集中到谷氨酸，GLDH 才释放 NH₄⁺ 进尿素循环。交接：丙酮酸 ↔ 糖酵解与糖异生；α-KG、琥珀酰-CoA、延胡索酸、草酰乙酸回 TCA；天冬氨酸是尿素循环第二个氮供体。",
               ]}
             />
@@ -582,7 +582,7 @@ export default function AminoAcidOverviewPage() {
                 分类出处：Lehninger 8e Ch.18 碳骨架去路表（生糖 14 / 生糖兼生酮 4 / 生酮 2）；Thr 归属分歧已在分类带注记并列，不单方面裁定。
               </span>
               <span>
-                七去路只接真实 id（糖酵解 / TCA / 尿素循环）；乙酰乙酰-CoA 未建生酮通路，明确留空不编接口；NH₄⁺ 只做接口芯片，血氨处置见尿素循环 PLATE 09。
+                七去路只接真实 id（糖酵解 / TCA / 尿素循环）；乙酰乙酸 + 乙酰-CoA 的生酮通路未建，明确留空不编接口；NH₄⁺ 只做接口芯片，血氨处置见尿素循环 PLATE 09。
               </span>
             </div>
           </div>
@@ -646,7 +646,7 @@ export default function AminoAcidOverviewPage() {
                 </div>
               ))}
               <p className="ao-note">
-                去路指向已存在步骤 id；乙酰乙酰-CoA 的生酮通路未建，明确置 unbuilt，不以幽灵 id 占位。
+                去路指向已存在步骤 id；乙酰乙酸 + 乙酰-CoA 的生酮通路未建，明确置 unbuilt，不以幽灵 id 占位。
               </p>
             </div>
 

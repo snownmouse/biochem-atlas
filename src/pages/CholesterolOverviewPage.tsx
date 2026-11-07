@@ -355,7 +355,7 @@ export default function CholesterolOverviewPage() {
             summary="胞质 → 内质网：乙酰-CoA → 甲羟戊酸 → 角鲨烯 → 胆固醇，HMGCR 限速"
             paragraphs={[
               "胆固醇合成从乙酰-CoA 出发，经胞质甲羟戊酸、内质网环化与修饰，把 36 碳装成 C27 胆固醇，释放 9 个 CO₂。全链 13 步：胞质 9 步、内质网 4 步；甲羟戊酸在胞质生成。",
-              "胞质：ACAT2 缩 2 个乙酰-CoA 成乙酰乙酰-CoA，HMGCS1 再加 1 个成 HMG-CoA；HMGCR 用 2 NADPH 还原成甲羟戊酸。MVK/PMVK/MVD 各耗 1 ATP，脱羧生成 C5 的 IPP；IPP 与 DMAPP 互为异构体，6 个 IPP 头尾缩合成 C30 角鲨烯。SQLE 环氧化每分子角鲨烯耗 1 NADPH 与 1 O₂；LSS 再环化成羊毛甾醇，羊毛甾醇 C30 去掉 3 个碳成 C27。",
+              "胞质：ACAT2 缩 2 个乙酰-CoA 成乙酰乙酰-CoA，HMGCS1 再加 1 个成 HMG-CoA；HMGCR 用 2 NADPH 还原成甲羟戊酸。MVK/PMVK/MVD 各耗 1 ATP，脱羧生成 C5 的 IPP；IPP 与 DMAPP 互为异构体，6 个 IPP 先头尾缩合成 2 个 FPP，两个 FPP 头对头缩合成 C30 角鲨烯。SQLE 环氧化每分子角鲨烯耗 1 NADPH 与 1 O₂；LSS 再环化成羊毛甾醇，羊毛甾醇 C30 去掉 3 个碳成 C27。",
               "HMGCR 在内质网膜上是限速步，也是他汀的竞争性抑制位点；他汀与 HMG-CoA 竞争 HMGCR 催化位点。胆固醇升高时 INSIG 结合 SCAP、阻止 SREBP-2 入核；胆固醇耗竭时反馈解除，HMGCR 转录与蛋白稳定性上升。整条通路耗 18 ATP、14 NADPH，簇内还原当量与 O₂ 不合并成单一总数。交接：乙酰-CoA 与 TCA 共用池；FPP 是非甾醇类异戊二烯分支点；胆固醇去向本平台未建，仅注记。",
             ]}
           />

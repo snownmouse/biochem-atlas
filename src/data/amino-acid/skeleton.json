@@ -54,7 +54,7 @@
 
     { "id": "fate-pyr", "entityId": "pyr", "kind": "fate", "x": 160, "y": 770, "w": 244, "h": 84, "label": "丙酮酸", "sub": "→ 糖酵解 / 糖异生", "status": "linked" },
     { "id": "fate-accoa", "entityId": "accoa", "kind": "fate", "x": 430, "y": 770, "w": 244, "h": 84, "label": "乙酰-CoA", "sub": "→ TCA（乙酰-CoA）", "status": "linked" },
-    { "id": "fate-acacoa", "kind": "fate", "x": 700, "y": 770, "w": 244, "h": 84, "label": "乙酰乙酰-CoA", "sub": "→ 生酮（本平台未建）", "status": "unbuilt" },
+    { "id": "fate-acacoa", "kind": "fate", "x": 700, "y": 770, "w": 244, "h": 84, "label": "乙酰乙酸 + 乙酰-CoA", "sub": "→ 生酮（本平台未建）", "status": "unbuilt" },
     { "id": "fate-akg", "entityId": "akg", "kind": "fate", "x": 970, "y": 770, "w": 244, "h": 84, "label": "α-酮戊二酸", "sub": "→ TCA（α-KG）", "status": "linked" },
     { "id": "fate-succoa", "entityId": "succoa", "kind": "fate", "x": 1240, "y": 770, "w": 244, "h": 84, "label": "琥珀酰-CoA", "sub": "→ TCA（琥珀酰-CoA）", "status": "linked" },
     { "id": "fate-fum", "entityId": "fum", "kind": "fate", "x": 1510, "y": 770, "w": 244, "h": 84, "label": "延胡索酸", "sub": "→ TCA / 尿素循环", "status": "linked" },
@@ -117,7 +117,7 @@
     { "x": 1640, "y": 576, "text": "3D 面板 pending：已核验 PDB 见右栏与 SF-11", "size": 8.8, "anchor": "middle" },
     { "x": 1640, "y": 594, "text": "本页不渲染酶 3D，只做 2D", "size": 8.8, "anchor": "middle" },
 
-    { "x": 40, "y": 668, "text": "去路 id 均指向真实步骤；乙酰乙酰-CoA 对应通路未建，置 unbuilt，不编造接口", "size": 9.2 },
+    { "x": 40, "y": 668, "text": "去路 id 均指向真实步骤；乙酰乙酸 + 乙酰-CoA 的生酮通路未建，置 unbuilt，不编造接口", "size": 9.2 },
     { "x": 160, "y": 828, "text": "来自 Ala · Cys · Gly · Ser · Thr · Trp", "size": 8.4, "anchor": "middle" },
     { "x": 430, "y": 828, "text": "来自 Leu · Lys · Ile · Phe · Tyr · Trp", "size": 8.4, "anchor": "middle" },
     { "x": 700, "y": 828, "text": "来自 Leu · Lys · Phe · Tyr · Trp", "size": 8.4, "anchor": "middle" },

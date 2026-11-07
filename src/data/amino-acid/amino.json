@@ -5,7 +5,7 @@
   "plateNo": "PLATE 11 / 12",
   "structureNo": "SF-11",
   "structurePlateNo": "SF-11",
-  "summary": "以谷氨酸 / α-酮戊二酸为枢纽的氨基酸汇流图：上层 20 种氨基酸按生糖 / 生糖兼生酮 / 生酮三类成簇汇入，中层经转氨（ALT / AST / BCAT2）与氧化脱氨（GLDH）两道闸，下层落到丙酮酸、乙酰-CoA、乙酰乙酰-CoA、α-酮戊二酸、琥珀酰-CoA、延胡索酸、草酰乙酸七条去路。NH₄⁺ 不在本页重复画，统一指向尿素循环 PLATE 09。",
+  "summary": "以谷氨酸 / α-酮戊二酸为枢纽的氨基酸汇流图：上层 20 种氨基酸按生糖 / 生糖兼生酮 / 生酮三类成簇汇入，中层经转氨（ALT / AST / BCAT2）与氧化脱氨（GLDH）两道闸，下层落到丙酮酸、乙酰-CoA、乙酰乙酸 + 乙酰-CoA、α-酮戊二酸、琥珀酰-CoA、延胡索酸、草酰乙酸七条去路。NH₄⁺ 不在本页重复画，统一指向尿素循环 PLATE 09。",
   "classification": {
     "source": "Lehninger Principles of Biochemistry, 8e, Ch.18（Amino Acid Oxidation and the Production of Urea）碳骨架去路分组表",
     "groups": [
@@ -335,7 +335,7 @@
     { "id": "fate-accoa", "name": "乙酰-CoA", "en": "ACETYL-COA", "entityId": "accoa", "status": "linked", "sharedWith": [
       { "pathwayId": "tca", "stepId": "tca-1", "entityId": "accoa", "note": "进入 TCA 第 1 步" }
     ], "sources": ["leu", "lys", "ile", "phe", "tyr", "trp", "thr"], "note": "生酮；Leu、Lys 只走这一侧，Ile / Phe / Trp / Tyr 兼生糖。" },
-    { "id": "fate-acacoa", "name": "乙酰乙酰-CoA", "en": "ACETOACETYL-COA", "entityId": null, "status": "unbuilt", "sharedWith": [], "sources": ["leu", "lys", "phe", "tyr", "trp"], "note": "生酮去路；本平台尚未建立生酮通路，故不指向任何 id，不编造接口。" },
+    { "id": "fate-acacoa", "name": "乙酰乙酸 + 乙酰-CoA", "en": "ACETOACETATE + ACETYL-COA", "entityId": null, "status": "unbuilt", "sharedWith": [], "sources": ["leu", "lys", "phe", "tyr", "trp"], "note": "生酮终产物：乙酰乙酸 + 乙酰-CoA；乙酰乙酰-CoA 是上游中间物。本平台尚未建立生酮通路，故不指向任何 id，不编造接口。" },
     { "id": "fate-akg", "name": "α-酮戊二酸", "en": "ALPHA-KETOGLUTARATE", "entityId": "akg", "status": "linked", "sharedWith": [
       { "pathwayId": "tca", "stepId": "tca-4", "entityId": "akg", "note": "TCA 第 4 步底物" }
     ], "sources": ["glu", "gln", "arg", "pro", "his"], "note": "生糖；Glu / Gln / Arg / Pro / His 的碳骨架汇入 α-KG。" },

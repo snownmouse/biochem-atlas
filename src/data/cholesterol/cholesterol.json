@@ -125,7 +125,7 @@
       "charge": 0,
       "chargeBasis": "全烃，无 pKa 相关基团；pH 7.4 中性。",
       "ionizableGroups": [],
-      "note": "两个 FPP 头尾缩合的 C30 产物。"
+      "note": "两个 FPP 头对头缩合的 C30 产物：两个 C15 的焦磷酸端相接，失去 2 个 PPi，NADPH 参与还原。"
     },
     {
       "id": "oxidosqualene",
@@ -668,7 +668,7 @@
       "ippUnits": 6,
       "squaleneCarbons": 30,
       "fppUnitsPerSqualene": 2,
-      "note": "6 个 IPP（C5）→ 角鲨烯 C30；角鲨烯由 2 个 FPP（C15）头尾缩合。"
+      "note": "6 个 IPP（C5）→ 角鲨烯 C30；角鲨烯由 2 个 FPP（C15）头对头缩合，两个焦磷酸端相接并失去 2 个 PPi。"
     },
     "redox": {
       "nadphBeforeCluster": 14,
