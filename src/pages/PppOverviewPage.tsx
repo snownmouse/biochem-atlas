@@ -14,6 +14,8 @@ import PathwaySwitcher from "../components/PathwaySwitcher";
 import ReadingGuide from "../components/ReadingGuide";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
+import EmbeddedStepViewer from "../components/EmbeddedStepViewer";
+import { loadStepManifest, resolveStepAsset, stepAssets } from "../data/stepAssets";
 import "../styles/frames-entry.css";
 
 const data = pppJson as unknown as PppData;
@@ -235,6 +237,23 @@ export default function PppOverviewPage() {
   const selectedStep = useMemo(
     () => (selectedStepId ? stepById(selectedStepId) ?? null : null),
     [selectedStepId]
+  );
+
+  /* 资产注册表：manifest.json 异步合并，按当前步解析 3D 资产；缺失步骤保持原占位 */
+  const [assetReg, setAssetReg] = useState(stepAssets);
+  useEffect(() => {
+    let cancelled = false;
+    void loadStepManifest().then((manifest) => {
+      if (cancelled || Object.keys(manifest).length === 0) return;
+      setAssetReg({ ...stepAssets, ...manifest });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  const selectedCfg = useMemo(
+    () => (selectedStep ? resolveStepAsset(selectedStep.id, assetReg)?.cfg ?? null : null),
+    [selectedStep, assetReg]
   );
 
   /* 证据等级：唯一推导处是 evidenceGrade.ts，这里只读配置结果 */
@@ -974,11 +993,15 @@ export default function PppOverviewPage() {
                   <button role="tab" className="d-variant-tab" onClick={() => selectStep(nav.next)}>{nav.nextLabel} →</button>
                 </div>
 
-                {/* 3D 一律占位：数据层 threeD.status === pending，不伪造资产路径 */}
-                <div className="d-none" data-3d-placeholder="1">
-                  3D 结合视图：待结构核验——
-                  {selectedStep.threeD?.note ?? "本步未登记 PDB 候选，资产未制作。"}
-                </div>
+                {/* 3D：manifest 有资产就渲染，否则保持原占位，不伪造路径 */}
+                {selectedCfg ? (
+                  <EmbeddedStepViewer stepId={selectedStep.id} cfg={selectedCfg} />
+                ) : (
+                  <div className="d-none" data-3d-placeholder="1">
+                    3D 结合视图：待结构核验——
+                    {selectedStep.threeD?.note ?? "本步未登记 PDB 候选，资产未制作。"}
+                  </div>
+                )}
               </div>
             ) : (
               <div className="d-body">

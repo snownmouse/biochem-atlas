@@ -1,0 +1,197 @@
+{
+  "stepId": "gn-2",
+  "stepName": "磷酸烯醇式丙酮酸羧激酶 1（PEPCK1，糖异生限速步）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "1KHB",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 1.85,
+  "resolutionPerState": {
+    "holo": 1.85,
+    "apo": 2.34
+  },
+  "atomCount": 4755,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：口袋接触残基最多（85 个）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "MN",
+      "name": "Mn²⁺（催化金属）",
+      "role": "cofactor",
+      "rationale": "GTP 水解与草酰乙酸羧化必需的双价金属",
+      "instances": 2,
+      "instanceChains": [
+        "A/701",
+        "A/702"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 7.3,
+      "atomCount": 2,
+      "sdfFile": "ligand-MN.sdf"
+    },
+    {
+      "id": "GCP",
+      "name": "GTP 不可水解类似物（GMP-PCP）",
+      "role": "analog",
+      "rationale": "真实 GTP 的不可水解替身，占据核苷酸结合位点",
+      "instances": 1,
+      "instanceChains": [
+        "A/704"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 32,
+      "sdfFile": "ligand-GCP.sdf"
+    }
+  ],
+  "caveats": [
+    "holo 1KHB 含 GCP（GMP-PCP），为 GTP 的不可水解类似物，不是真实 GTP；无草酰乙酸/CO₂ 坐标。",
+    "1KHB/1KHG 相对 UniProt P35558 有 V267I/D586E/V597E 序列差异（SEQADV VARIANT，非工程催化突变）。",
+    "每链含 2 个 Mn²⁺（催化位点 + 结构位点），视图只画口袋相关实例；apo 仍含催化 Mn²⁺，为核苷酸-free 而非完全脱金属态。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 382811,
+      "gzipBytes": 94840
+    },
+    "apo.pdb": {
+      "bytes": 377990,
+      "gzipBytes": 93518
+    },
+    "ligand-MN.sdf": {
+      "bytes": 201,
+      "gzipBytes": 150
+    },
+    "ligand-GCP.sdf": {
+      "bytes": 3018,
+      "gzipBytes": 661
+    },
+    "pocket.json": {
+      "bytes": 7421,
+      "gzipBytes": 900
+    }
+  },
+  "holo": {
+    "pdbId": "1KHB",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.85,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：口袋接触残基最多（85 个）"
+      }
+    },
+    "atomCount": 4755,
+    "proteinAtomCount": 4721,
+    "ligands": [
+      {
+        "id": "MN",
+        "name": "Mn²⁺（催化金属）",
+        "role": "cofactor",
+        "rationale": "GTP 水解与草酰乙酸羧化必需的双价金属",
+        "instances": 2,
+        "instanceChains": [
+          "A/701",
+          "A/702"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 7.3,
+        "atomCount": 2,
+        "sdfFile": "ligand-MN.sdf"
+      },
+      {
+        "id": "GCP",
+        "name": "GTP 不可水解类似物（GMP-PCP）",
+        "role": "analog",
+        "rationale": "真实 GTP 的不可水解替身，占据核苷酸结合位点",
+        "instances": 1,
+        "instanceChains": [
+          "A/704"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 32,
+        "sdfFile": "ligand-GCP.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "ACT",
+        "role": "artifact",
+        "rationale": "乙酸根",
+        "instances": 4,
+        "minDistToPrimaryLigand": 4.52
+      },
+      {
+        "id": "EDO",
+        "role": "artifact",
+        "rationale": "乙二醇，结晶添加剂",
+        "instances": 8,
+        "minDistToPrimaryLigand": 14.03
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "MN",
+      "ACT",
+      "GCP",
+      "EDO"
+    ]
+  },
+  "apo": {
+    "pdbId": "1KHG",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.34,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序"
+      }
+    },
+    "atomCount": 4722,
+    "proteinAtomCount": 4721,
+    "ligands": [
+      {
+        "id": "MN",
+        "role": "cofactor",
+        "rationale": "apo 中保留的必需辅基"
+      }
+    ],
+    "presentLigands": [
+      {
+        "id": "MN",
+        "role": "cofactor",
+        "rationale": "apo 中保留的必需辅基"
+      },
+      {
+        "id": "EDO",
+        "role": "artifact",
+        "rationale": "乙二醇，结晶添加剂"
+      }
+    ],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

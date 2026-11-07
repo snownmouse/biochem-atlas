@@ -1,0 +1,138 @@
+{
+  "stepId": "fas-kr",
+  "stepName": "FASN 酮脂酰还原酶域（KR，脂肪酸合酶第四步）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "static",
+  "domain": {
+    "name": "KR",
+    "start": 1896,
+    "end": 2150,
+    "numbering": "8VM0 entity（UniProt P49327 1864–2118）"
+  },
+  "focusResidues": [
+    [
+      1896,
+      2150
+    ]
+  ],
+  "focusLigandInstance": {
+    "chain": "A",
+    "resSeq": 2602
+  },
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "8VM0",
+  "species": "Homo sapiens",
+  "method": "ELECTRON MICROSCOPY",
+  "resolution": 3.3,
+  "resolutionPerState": {
+    "holo": 3.3,
+    "apo": null
+  },
+  "atomCount": 1611,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：focusLigandInstance 指定 A"
+    }
+  },
+  "ligands": [
+    {
+      "id": "NDP",
+      "name": "NADPH（还原型辅酶Ⅱ）",
+      "role": "cofactor",
+      "rationale": "真实辅酶；KR 域β-酮脂酰还原的氢负离子供体",
+      "instances": 1,
+      "instanceChains": [
+        "A/2602"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 48,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "8VM0 为 3.3 Å 人源 FASN 全酶 cryo-EM 结构；本视图只显示 KR（酮脂酰还原酶）域，8VM0 entity 残基 1896–2150（UniProt P49327 1864–2118），不是独立域结构。",
+    "视野中不含 ER、DH、KS、AT、TE 域及 ACP（载体蛋白）域；这些域仍在同一全酶中，只是未显示。",
+    "KR 域在 8VM0 中不完整：链 A 止于 2112，2067–2080（gap 2066→2081）与 2113–2150（38 aa）缺失；KR 催化活性位点 1918–1933 与 NADPH 结合位点 1886–1901 均完整存在，核心活性位点可用，但 C 端结构不完整。",
+    "NADPH（NDP 2602）距 KR 活性位点 1918–1933 约 2.57 Å，归属明确；配体为 NADPH，不是酰基-ACP 底物。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 153696,
+      "gzipBytes": 38509
+    },
+    "ligand.sdf": {
+      "bytes": 4480,
+      "gzipBytes": 916
+    },
+    "pocket.json": {
+      "bytes": 6208,
+      "gzipBytes": 758
+    }
+  },
+  "holo": {
+    "pdbId": "8VM0",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 3.3,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：focusLigandInstance 指定 A"
+      }
+    },
+    "atomCount": 1611,
+    "domain": {
+      "name": "KR",
+      "start": 1896,
+      "end": 2150,
+      "numbering": "8VM0 entity（UniProt P49327 1864–2118）"
+    },
+    "focusResidues": [
+      [
+        1896,
+        2150
+      ]
+    ],
+    "focusLigandInstance": {
+      "chain": "A",
+      "resSeq": 2602
+    },
+    "proteinAtomCount": 1563,
+    "ligands": [
+      {
+        "id": "NDP",
+        "name": "NADPH（还原型辅酶Ⅱ）",
+        "role": "cofactor",
+        "rationale": "真实辅酶；KR 域β-酮脂酰还原的氢负离子供体",
+        "instances": 1,
+        "instanceChains": [
+          "A/2602"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 48,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "NDP"
+    ]
+  },
+  "apo": null
+}

@@ -1,0 +1,155 @@
+{
+  "stepId": "ppp-n2",
+  "stepName": "核糖磷酸异构酶（RPE，PPP 非氧化支路）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "3OVQ",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2,
+  "resolutionPerState": {
+    "holo": 2,
+    "apo": 1.7
+  },
+  "atomCount": 1672,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：口袋接触残基最多（52 个）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "5RP",
+      "name": "核酮糖-5-磷酸（Ru5P）",
+      "role": "product",
+      "rationale": "真实代谢物；该反应可逆，晶体中为产物侧",
+      "instances": 1,
+      "instanceChains": [
+        "A/230"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 14,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "3OVQ 含 Ru5P（产物侧），不含 R5P 底物侧；反应可逆，异构化方向以页面文案为准。",
+    "3OVQ/3OVP 中的 Fe(II) 与 PEG 链按结晶离子/添加剂滤除。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 135883,
+      "gzipBytes": 34589
+    },
+    "apo.pdb": {
+      "bytes": 136906,
+      "gzipBytes": 34059
+    },
+    "ligand.sdf": {
+      "bytes": 1359,
+      "gzipBytes": 372
+    },
+    "pocket.json": {
+      "bytes": 7882,
+      "gzipBytes": 858
+    }
+  },
+  "holo": {
+    "pdbId": "3OVQ",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：口袋接触残基最多（52 个）"
+      }
+    },
+    "atomCount": 1672,
+    "proteinAtomCount": 1658,
+    "ligands": [
+      {
+        "id": "5RP",
+        "name": "核酮糖-5-磷酸（Ru5P）",
+        "role": "product",
+        "rationale": "真实代谢物；该反应可逆，晶体中为产物侧",
+        "instances": 1,
+        "instanceChains": [
+          "A/230"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 14,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "FE2",
+        "role": "artifact",
+        "rationale": "Fe(II)，非该酶催化金属，按结晶离子滤除",
+        "instances": 2,
+        "minDistToPrimaryLigand": 2.19
+      },
+      {
+        "id": "XPE",
+        "role": "artifact",
+        "rationale": "PEG 链，结晶添加剂",
+        "instances": 69,
+        "minDistToPrimaryLigand": 15.58
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "FE2",
+      "5RP",
+      "XPE"
+    ]
+  },
+  "apo": {
+    "pdbId": "3OVP",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.7,
+    "chainSelection": {
+      "chains": [
+        "B"
+      ],
+      "rule": {
+        "B": "R4 apo：与 holo 链数一致，按蛋白原子数降序"
+      }
+    },
+    "atomCount": 1693,
+    "proteinAtomCount": 1693,
+    "ligands": [],
+    "presentLigands": [
+      {
+        "id": "FE2",
+        "role": "artifact",
+        "rationale": "Fe(II)，非该酶催化金属，按结晶离子滤除"
+      },
+      {
+        "id": "XPE",
+        "role": "artifact",
+        "rationale": "PEG 链，结晶添加剂"
+      }
+    ],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

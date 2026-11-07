@@ -1,0 +1,120 @@
+{
+  "stepId": "fao-4",
+  "stepName": "β-酮脂酰-CoA 硫解酶（ACAA2，β 氧化第四步）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "static",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "4C2J",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2,
+  "resolutionPerState": {
+    "holo": 2,
+    "apo": null
+  },
+  "atomCount": 2973,
+  "chainSelection": {
+    "chains": [
+      "D"
+    ],
+    "rule": {
+      "D": "R2 主链：口袋接触残基最多（56 个）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "COA",
+      "name": "辅酶 A（CoA-SH，硫解产物）",
+      "role": "product",
+      "rationale": "真实产物；硫解反应释放 CoA 并生成乙酰-CoA",
+      "instances": 1,
+      "instanceChains": [
+        "D/1400"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 48,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "4C2J 为人源线粒体 ACAA2（EC 2.3.1.16），不是 ACAT1，也不是过氧化物酶体 ACAA1/ACAA5。",
+    "晶体仅含游离 CoA，无 3-酮脂酰-CoA 底物或乙酰-CoA 产物；属辅因子/产物侧结合态。",
+    "Cys126 为 S-羟基半胱氨酸（CSO）修饰残基，按蛋白保留；乙二醇（EDO）按添加剂滤除。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 248679,
+      "gzipBytes": 60689
+    },
+    "ligand.sdf": {
+      "bytes": 4442,
+      "gzipBytes": 914
+    },
+    "pocket.json": {
+      "bytes": 5309,
+      "gzipBytes": 688
+    }
+  },
+  "holo": {
+    "pdbId": "4C2J",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2,
+    "chainSelection": {
+      "chains": [
+        "D"
+      ],
+      "rule": {
+        "D": "R2 主链：口袋接触残基最多（56 个）"
+      }
+    },
+    "atomCount": 2973,
+    "proteinAtomCount": 2925,
+    "ligands": [
+      {
+        "id": "COA",
+        "name": "辅酶 A（CoA-SH，硫解产物）",
+        "role": "product",
+        "rationale": "真实产物；硫解反应释放 CoA 并生成乙酰-CoA",
+        "instances": 1,
+        "instanceChains": [
+          "D/1400"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 48,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "EDO",
+        "role": "artifact",
+        "rationale": "乙二醇，结晶添加剂",
+        "instances": 64,
+        "minDistToPrimaryLigand": 5.76
+      }
+    ],
+    "residueModifications": [
+      {
+        "id": "CSO",
+        "note": "共价修饰残基，按蛋白保留"
+      }
+    ],
+    "presentLigandsRaw": [
+      "CSO",
+      "EDO",
+      "COA"
+    ]
+  },
+  "apo": null
+}

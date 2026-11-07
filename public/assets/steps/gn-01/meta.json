@@ -1,0 +1,178 @@
+{
+  "stepId": "gn-1",
+  "stepName": "丙酮酸羧化酶（PC，糖异生第一步限速）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "7WTE",
+  "species": "Homo sapiens",
+  "method": "ELECTRON MICROSCOPY",
+  "resolution": 3.3,
+  "resolutionPerState": {
+    "holo": 3.3,
+    "apo": 3.9
+  },
+  "atomCount": 8959,
+  "chainSelection": {
+    "chains": [
+      "D"
+    ],
+    "rule": {
+      "D": "R2 主链：口袋接触残基最多（123 个）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "ACO",
+      "name": "乙酰辅酶 A（变构激活剂）",
+      "role": "cofactor",
+      "rationale": "真实代谢物，变构激活位点",
+      "instances": 1,
+      "instanceChains": [
+        "D/2001"
+      ],
+      "pocketRelevant": false,
+      "minDistToPrimaryA": 41.1,
+      "atomCount": 51,
+      "sdfFile": "ligand-ACO.sdf"
+    },
+    {
+      "id": "ATP",
+      "name": "ATP（磷酸供体）",
+      "role": "substrate",
+      "rationale": "真实底物之一，生物素羧化后转羧基",
+      "instances": 1,
+      "instanceChains": [
+        "D/2002"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 31,
+      "sdfFile": "ligand-ATP.sdf"
+    }
+  ],
+  "caveats": [
+    "7WTE/7WTA 均为 cryo-EM（3.3 Å / 3.9 Å），分辨率低于 X 射线步骤。",
+    "两个结构均缺少丙酮酸与碳酸氢根坐标；holo 只呈现 ATP 与乙酰辅酶 A。",
+    "7WTA（apo）解析的链明显短于 7WTE（holo）（5270 vs 8877 原子），两态形态不可直接叠加。",
+    "BTI 为生物素化赖氨酸修饰残基（BCCP 域共价生物素），按蛋白保留而非配体。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 725577,
+      "gzipBytes": 164094
+    },
+    "apo.pdb": {
+      "bytes": 430339,
+      "gzipBytes": 98754
+    },
+    "ligand-ACO.sdf": {
+      "bytes": 4709,
+      "gzipBytes": 960
+    },
+    "ligand-ATP.sdf": {
+      "bytes": 2929,
+      "gzipBytes": 643
+    },
+    "pocket.json": {
+      "bytes": 6182,
+      "gzipBytes": 743
+    }
+  },
+  "holo": {
+    "pdbId": "7WTE",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 3.3,
+    "chainSelection": {
+      "chains": [
+        "D"
+      ],
+      "rule": {
+        "D": "R2 主链：口袋接触残基最多（123 个）"
+      }
+    },
+    "atomCount": 8959,
+    "proteinAtomCount": 8877,
+    "ligands": [
+      {
+        "id": "ACO",
+        "name": "乙酰辅酶 A（变构激活剂）",
+        "role": "cofactor",
+        "rationale": "真实代谢物，变构激活位点",
+        "instances": 1,
+        "instanceChains": [
+          "D/2001"
+        ],
+        "pocketRelevant": false,
+        "minDistToPrimaryA": 41.1,
+        "atomCount": 51,
+        "sdfFile": "ligand-ACO.sdf"
+      },
+      {
+        "id": "ATP",
+        "name": "ATP（磷酸供体）",
+        "role": "substrate",
+        "rationale": "真实底物之一，生物素羧化后转羧基",
+        "instances": 1,
+        "instanceChains": [
+          "D/2002"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 31,
+        "sdfFile": "ligand-ATP.sdf"
+      }
+    ],
+    "filteredLigands": [],
+    "residueModifications": [
+      {
+        "id": "BTI",
+        "note": "共价修饰残基，按蛋白保留"
+      }
+    ],
+    "presentLigandsRaw": [
+      "ATP",
+      "ACO"
+    ]
+  },
+  "apo": {
+    "pdbId": "7WTA",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 3.9,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序"
+      }
+    },
+    "atomCount": 5270,
+    "proteinAtomCount": 5270,
+    "ligands": [],
+    "presentLigands": [
+      {
+        "id": "BTI",
+        "role": "modified",
+        "rationale": "共价修饰残基，按蛋白保留"
+      }
+    ],
+    "residueModifications": [
+      {
+        "id": "BTI",
+        "note": "共价修饰残基，按蛋白保留"
+      }
+    ],
+    "note": "游离态（apo）视图。"
+  }
+}

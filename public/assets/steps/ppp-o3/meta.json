@@ -1,0 +1,155 @@
+{
+  "stepId": "ppp-o3",
+  "stepName": "6-磷酸葡萄糖酸脱氢酶（6PGD，PPP 氧化支路）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "2JKV",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2.53,
+  "resolutionPerState": {
+    "holo": 2.53,
+    "apo": 1.39
+  },
+  "atomCount": 7439,
+  "chainSelection": {
+    "chains": [
+      "A",
+      "B"
+    ],
+    "rule": {
+      "A": "R2 主链：口袋接触残基最多（21 个）",
+      "B": "R3(b)：界面贡献 22 个口袋残基"
+    }
+  },
+  "ligands": [
+    {
+      "id": "NAP",
+      "name": "NADP⁺（辅酶）",
+      "role": "cofactor",
+      "rationale": "真实辅酶，氧化脱羧的电子受体",
+      "instances": 1,
+      "instanceChains": [
+        "A/500"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 48,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "holo 2JKV 仅含 NADP⁺、无 6-磷酸葡萄糖酸底物坐标，属辅因子结合态。",
+    "2JKV 为六聚体（6 条链），4GWG 为单链 1.39 Å 无配体结构；仅取单链视图，两态装配体不一致。",
+    "2JKV 的 Cl⁻/SO₄²⁻ 与 4GWG 的 MES 均按结晶添加剂滤除。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 605223,
+      "gzipBytes": 151752
+    },
+    "apo.pdb": {
+      "bytes": 288727,
+      "gzipBytes": 71523
+    },
+    "ligand.sdf": {
+      "bytes": 4480,
+      "gzipBytes": 915
+    },
+    "pocket.json": {
+      "bytes": 10448,
+      "gzipBytes": 1167
+    }
+  },
+  "holo": {
+    "pdbId": "2JKV",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.53,
+    "chainSelection": {
+      "chains": [
+        "A",
+        "B"
+      ],
+      "rule": {
+        "A": "R2 主链：口袋接触残基最多（21 个）",
+        "B": "R3(b)：界面贡献 22 个口袋残基"
+      }
+    },
+    "atomCount": 7439,
+    "proteinAtomCount": 7391,
+    "ligands": [
+      {
+        "id": "NAP",
+        "name": "NADP⁺（辅酶）",
+        "role": "cofactor",
+        "rationale": "真实辅酶，氧化脱羧的电子受体",
+        "instances": 1,
+        "instanceChains": [
+          "A/500"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 48,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "CL",
+        "role": "artifact",
+        "rationale": "氯离子",
+        "instances": 11,
+        "minDistToPrimaryLigand": 3.58
+      },
+      {
+        "id": "SO4",
+        "role": "artifact",
+        "rationale": "硫酸根，结晶添加剂",
+        "instances": 60,
+        "minDistToPrimaryLigand": 6.95
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "NAP",
+      "CL",
+      "SO4"
+    ]
+  },
+  "apo": {
+    "pdbId": "4GWG",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.39,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序"
+      }
+    },
+    "atomCount": 3624,
+    "proteinAtomCount": 3624,
+    "ligands": [],
+    "presentLigands": [
+      {
+        "id": "MES",
+        "role": "artifact",
+        "rationale": "MES 缓冲液"
+      }
+    ],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

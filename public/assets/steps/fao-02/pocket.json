@@ -1,0 +1,221 @@
+{
+  "residues": [
+    {
+      "resi": 56,
+      "resn": "LYS",
+      "chain": "C",
+      "minDist": 3.36,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 57,
+      "resn": "ALA",
+      "chain": "C",
+      "minDist": 3.3,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 58,
+      "resn": "LEU",
+      "chain": "C",
+      "minDist": 3.73,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 60,
+      "resn": "ALA",
+      "chain": "C",
+      "minDist": 3.58,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 92,
+      "resn": "LYS",
+      "chain": "C",
+      "minDist": 3.49,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 96,
+      "resn": "ALA",
+      "chain": "C",
+      "minDist": 3.97,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 97,
+      "resn": "GLY",
+      "chain": "C",
+      "minDist": 4.41,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 98,
+      "resn": "ALA",
+      "chain": "C",
+      "minDist": 3.19,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 99,
+      "resn": "ASP",
+      "chain": "C",
+      "minDist": 3.58,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 100,
+      "resn": "ILE",
+      "chain": "C",
+      "minDist": 3.06,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 101,
+      "resn": "LYS",
+      "chain": "C",
+      "minDist": 2.93,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 137,
+      "resn": "TYR",
+      "chain": "C",
+      "minDist": 3.7,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 139,
+      "resn": "PHE",
+      "chain": "C",
+      "minDist": 3.57,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    }
+  ],
+  "hbonds": [
+    {
+      "dist": 3.4,
+      "prot": {
+        "name": "O",
+        "resi": 56,
+        "resn": "LYS",
+        "chain": "C",
+        "x": -21.244,
+        "y": 35.519,
+        "z": 43.759
+      },
+      "lig": {
+        "id": "COO",
+        "resi": 2,
+        "chain": "C",
+        "name": "O4X",
+        "x": -18.926,
+        "y": 35.276,
+        "z": 46.197
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.5,
+      "prot": {
+        "name": "NZ",
+        "resi": 92,
+        "resn": "LYS",
+        "chain": "C",
+        "x": -22.056,
+        "y": 28.396,
+        "z": 47.276
+      },
+      "lig": {
+        "id": "COO",
+        "resi": 2,
+        "chain": "C",
+        "name": "O5A",
+        "x": -19.142,
+        "y": 28.718,
+        "z": 49.163
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.2,
+      "prot": {
+        "name": "O",
+        "resi": 98,
+        "resn": "ALA",
+        "chain": "C",
+        "x": -16.927,
+        "y": 42.007,
+        "z": 52.561
+      },
+      "lig": {
+        "id": "COO",
+        "resi": 2,
+        "chain": "C",
+        "name": "N6A",
+        "x": -16.723,
+        "y": 39.014,
+        "z": 51.487
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.1,
+      "prot": {
+        "name": "N",
+        "resi": 100,
+        "resn": "ILE",
+        "chain": "C",
+        "x": -15.145,
+        "y": 42.63,
+        "z": 50.289
+      },
+      "lig": {
+        "id": "COO",
+        "resi": 2,
+        "chain": "C",
+        "name": "N1A",
+        "x": -16.614,
+        "y": 40.071,
+        "z": 49.465
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.9,
+      "prot": {
+        "name": "NZ",
+        "resi": 101,
+        "resn": "LYS",
+        "chain": "C",
+        "x": -14.822,
+        "y": 39.093,
+        "z": 43.065
+      },
+      "lig": {
+        "id": "COO",
+        "resi": 2,
+        "chain": "C",
+        "name": "O8A",
+        "x": -15.526,
+        "y": 36.367,
+        "z": 42.255
+      },
+      "provenance": "computed"
+    }
+  ],
+  "waters": []
+}

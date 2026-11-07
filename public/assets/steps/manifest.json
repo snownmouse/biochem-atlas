@@ -422,5 +422,620 @@
       "3BJF 中 OXL（草酸，PEP 类似物）已按替身配体滤除。",
       "PKM2 为肌肉型同工酶，与主图 PKL 不同同工酶。"
     ]
+  },
+  "ppp-o1": {
+    "stepId": "ppp-o1",
+    "assetDir": "ppp-01",
+    "mode": "two-state",
+    "urlAlias": "ppp-o1",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 2.5,
+    "holo": "holo.pdb",
+    "apo": "apo.pdb",
+    "ligands": [
+      {
+        "id": "NAP",
+        "name": "NADP⁺（辅酶，每链 2 个：催化位点 + 结构位点）",
+        "role": "cofactor",
+        "sdf": "ligand-NAP.sdf"
+      },
+      {
+        "id": "BG6",
+        "name": "6-磷酸-D-葡萄糖（G6P）",
+        "role": "substrate",
+        "sdf": "ligand-BG6.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "holo 7SNI 为 D200N 突变体（cryo-EM 2.5 Å），apo 7SNG 为野生型（cryo-EM 2.8 Å），两态构建不一致。",
+      "每链含 2 个 NADP⁺ 位点（催化位点 + 结构位点），口袋只计 G6P 附近 12 Å 内实例。"
+    ]
+  },
+  "fao-1": {
+    "stepId": "fao-1",
+    "assetDir": "fao-01",
+    "mode": "two-state",
+    "urlAlias": "fao-1",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.6,
+    "holo": "holo.pdb",
+    "apo": "apo.pdb",
+    "ligands": [
+      {
+        "id": "CO8",
+        "name": "辛酰辅酶 A（C8 acyl-CoA）",
+        "role": "substrate",
+        "sdf": "ligand-CO8.sdf"
+      },
+      {
+        "id": "FAD",
+        "name": "FAD（黄素腺嘌呤二核苷酸）",
+        "role": "cofactor",
+        "sdf": "ligand-FAD.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "holo 1EGC 为 T255E/E376G 突变体（X-ray 2.6 Å），apo 8SGP 为野生型肝 MCAD（cryo-EM 2.69 Å），两态构建不一致。",
+      "apo 8SGP 仍含 FAD 辅基（实验结构无完全脱辅基的人源 MCAD），游离态并非严格无配体。",
+      "底物为 C8 辛酰辅酶 A；更长/更短链由不同链长特异性脱氢酶处理。"
+    ]
+  },
+  "urea-2": {
+    "stepId": "urea-2",
+    "assetDir": "urea-02",
+    "mode": "static",
+    "urlAlias": "urea-2",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.9,
+    "holo": "holo.pdb",
+    "apo": null,
+    "ligands": [
+      {
+        "id": "CP",
+        "name": "氨甲酰磷酸（carbamoyl phosphate）",
+        "role": "substrate",
+        "sdf": "ligand.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "1C9Y 为人源野生型 OTC（X-ray 1.9 Å，SEQADV 无变异记录）；同组 1FVO/1EP9 才携带 L101F/Q270R。",
+      "1C9Y 仅含氨甲酰磷酸（CP）与正缬氨酸（NVA）；NVA 为鸟氨酸类似物，已按替身滤除，故第二底物位点无真实配体。",
+      "鸟氨酸结合位点由相邻亚基提供，单链视图不呈现完整双底物口袋。",
+      "人源 OTC 无实验 apo 结构，本步仅提供 static 结合态视图。"
+    ]
+  },
+  "gn-1": {
+    "stepId": "gn-1",
+    "assetDir": "gn-01",
+    "mode": "two-state",
+    "urlAlias": "gn-1",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 3.3,
+    "holo": "holo.pdb",
+    "apo": "apo.pdb",
+    "ligands": [
+      {
+        "id": "ACO",
+        "name": "乙酰辅酶 A（变构激活剂）",
+        "role": "cofactor",
+        "sdf": "ligand-ACO.sdf"
+      },
+      {
+        "id": "ATP",
+        "name": "ATP（磷酸供体）",
+        "role": "substrate",
+        "sdf": "ligand-ATP.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "7WTE/7WTA 均为 cryo-EM（3.3 Å / 3.9 Å），分辨率低于 X 射线步骤。",
+      "两个结构均缺少丙酮酸与碳酸氢根坐标；holo 只呈现 ATP 与乙酰辅酶 A。",
+      "7WTA（apo）解析的链明显短于 7WTE（holo）（5270 vs 8877 原子），两态形态不可直接叠加。",
+      "BTI 为生物素化赖氨酸修饰残基（BCCP 域共价生物素），按蛋白保留而非配体。"
+    ]
+  },
+  "ppp-n2": {
+    "stepId": "ppp-n2",
+    "assetDir": "ppp-n2",
+    "mode": "two-state",
+    "urlAlias": "ppp-n2",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2,
+    "holo": "holo.pdb",
+    "apo": "apo.pdb",
+    "ligands": [
+      {
+        "id": "5RP",
+        "name": "核酮糖-5-磷酸（Ru5P）",
+        "role": "product",
+        "sdf": "ligand.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "3OVQ 含 Ru5P（产物侧），不含 R5P 底物侧；反应可逆，异构化方向以页面文案为准。",
+      "3OVQ/3OVP 中的 Fe(II) 与 PEG 链按结晶离子/添加剂滤除。"
+    ]
+  },
+  "fao-2": {
+    "stepId": "fao-2",
+    "assetDir": "fao-02",
+    "mode": "two-state",
+    "urlAlias": "fao-2",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.55,
+    "holo": "holo.pdb",
+    "apo": "apo.pdb",
+    "ligands": [
+      {
+        "id": "COO",
+        "name": "巴豆酰辅酶 A（crotonyl-CoA）",
+        "role": "product",
+        "sdf": "ligand.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "holo 2HW5 为 X-ray 2.55 Å，apo 8ZRU 为 cryo-EM 2.18 Å，两态方法不同。",
+      "2HW5 的 Mg²⁺ 与 8ZRU 的 Mg²⁺ 均按结晶离子滤除（ECHS1 不需金属）。",
+      "2HW5 配体为巴豆酰-CoA（产物侧），非上游的烯酰-CoA 底物侧。"
+    ]
+  },
+  "gn-11": {
+    "stepId": "gn-11",
+    "assetDir": "gn-11",
+    "mode": "two-state",
+    "urlAlias": "gn-11",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 2.9,
+    "holo": "holo.pdb",
+    "apo": "apo.pdb",
+    "ligands": [
+      {
+        "id": "G6P",
+        "name": "6-磷酸-D-葡萄糖（G6P）",
+        "role": "substrate",
+        "sdf": "ligand.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "holo 9JTM 为 H176N 催化失活突变体（cryo-EM 2.9 Å）；apo 9J7V 为野生型（3.3 Å），两态构建不一致。",
+      "apo 9J7V 含共结晶磷脂 POV，已按添加剂滤除；并非严格脱辅基结构。",
+      "9JTM 不含磷酸根离去基团坐标；反应方向与 ER 腔侧拓扑以页面文案为准。"
+    ]
+  },
+  "urea-3": {
+    "stepId": "urea-3",
+    "assetDir": "urea-03",
+    "mode": "static",
+    "urlAlias": "urea-3",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.4,
+    "holo": "holo.pdb",
+    "apo": null,
+    "ligands": [
+      {
+        "id": "ASP",
+        "name": "天冬氨酸（aspartate）",
+        "role": "substrate",
+        "sdf": "ligand-ASP.sdf"
+      },
+      {
+        "id": "CIR",
+        "name": "瓜氨酸（citrulline）",
+        "role": "substrate",
+        "sdf": "ligand-CIR.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "2NZ2 为人源 ASS1 唯一实验结构（X-ray 2.4 Å），无 apo 对照，本步为 static。",
+      "同一位点同时呈现天冬氨酸与瓜氨酸，二者均为真实底物；Na⁺ 已滤除。"
+    ]
+  },
+  "ppp-o3": {
+    "stepId": "ppp-o3",
+    "assetDir": "ppp-o3",
+    "mode": "two-state",
+    "urlAlias": "ppp-o3",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.53,
+    "holo": "holo.pdb",
+    "apo": "apo.pdb",
+    "ligands": [
+      {
+        "id": "NAP",
+        "name": "NADP⁺（辅酶）",
+        "role": "cofactor",
+        "sdf": "ligand.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "holo 2JKV 仅含 NADP⁺、无 6-磷酸葡萄糖酸底物坐标，属辅因子结合态。",
+      "2JKV 为六聚体（6 条链），4GWG 为单链 1.39 Å 无配体结构；仅取单链视图，两态装配体不一致。",
+      "2JKV 的 Cl⁻/SO₄²⁻ 与 4GWG 的 MES 均按结晶添加剂滤除。"
+    ]
+  },
+  "fao-3": {
+    "stepId": "fao-3",
+    "assetDir": "fao-03",
+    "mode": "static",
+    "urlAlias": "fao-3",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.8,
+    "holo": "holo.pdb",
+    "apo": null,
+    "ligands": [
+      {
+        "id": "CAA",
+        "name": "乙酰乙酰辅酶 A（acetoacetyl-CoA）",
+        "role": "product",
+        "sdf": "ligand-CAA.sdf"
+      },
+      {
+        "id": "NAD",
+        "name": "NAD⁺（辅酶）",
+        "role": "cofactor",
+        "sdf": "ligand-NAD.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "1F0Y 的 CAA 为产物侧乙酰乙酰-CoA，非上游 3-羟酰基-CoA 底物侧。",
+      "人源 HADH 无野生型 apo 结构；同源脱辅基结构（1F14/2HDH）均带工程突变，本步为 static。"
+    ]
+  },
+  "fao-act": {
+    "stepId": "fao-act",
+    "assetDir": "fao-act",
+    "mode": "static",
+    "urlAlias": "fao-act",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.4,
+    "holo": "holo.pdb",
+    "apo": null,
+    "ligands": [
+      {
+        "id": "AMP",
+        "name": "腺苷一磷酸（AMP）",
+        "role": "product",
+        "sdf": "ligand-AMP.sdf"
+      },
+      {
+        "id": "BCO",
+        "name": "丁酰辅酶 A（butyryl-CoA）",
+        "role": "product",
+        "sdf": "ligand-BCO.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "3EQ6 为 ACSM2A L64P 工程突变体（X-ray 2.4 Å，SEQADV 明确记录）；人源 ACSM2A 无野生型结构。",
+      "结构为产物侧（AMP + 丁酰-CoA），不含脂酰底物、ATP 或焦磷酸；反应方向以页面文案为准。",
+      "本步同工酶为 ACSM2A（非 ACSL1）；其底物偏好以中短链脂肪酸为主。"
+    ]
+  },
+  "fao-4": {
+    "stepId": "fao-4",
+    "assetDir": "fao-04",
+    "mode": "static",
+    "urlAlias": "fao-4",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2,
+    "holo": "holo.pdb",
+    "apo": null,
+    "ligands": [
+      {
+        "id": "COA",
+        "name": "辅酶 A（CoA-SH，硫解产物）",
+        "role": "product",
+        "sdf": "ligand.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "4C2J 为人源线粒体 ACAA2（EC 2.3.1.16），不是 ACAT1，也不是过氧化物酶体 ACAA1/ACAA5。",
+      "晶体仅含游离 CoA，无 3-酮脂酰-CoA 底物或乙酰-CoA 产物；属辅因子/产物侧结合态。",
+      "Cys126 为 S-羟基半胱氨酸（CSO）修饰残基，按蛋白保留；乙二醇（EDO）按添加剂滤除。"
+    ]
+  },
+  "ppp-n3": {
+    "stepId": "ppp-n3",
+    "assetDir": "ppp-n3",
+    "mode": "static",
+    "urlAlias": "ppp-n3",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 0.97,
+    "holo": "holo.pdb",
+    "apo": null,
+    "ligands": [
+      {
+        "id": "TPP",
+        "name": "焦磷酸硫胺素（TPP）",
+        "role": "cofactor",
+        "sdf": "ligand-TPP.sdf"
+      },
+      {
+        "id": "DX5",
+        "name": "D-木糖醇-5-磷酸（还原型木酮糖-5-磷酸类似物）",
+        "role": "analog",
+        "sdf": "ligand-DX5.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "4KXV 为 0.97 Å 人源 TKT，晶体不对称单元仅 1 条链；功能性二聚体由晶体对称性补全。",
+      "DX5 为 D-木糖醇-5-磷酸（xylitol-5-phosphate），是 D-木酮糖-5-磷酸的还原类似物，非真实酮糖底物；晶体为共价中间体捕获态。",
+      "Ca²⁺ 与乙二醇按结晶离子/添加剂滤除。"
+    ]
+  },
+  "gn-2": {
+    "stepId": "gn-2",
+    "assetDir": "gn-02",
+    "mode": "two-state",
+    "urlAlias": "gn-2",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.85,
+    "holo": "holo.pdb",
+    "apo": "apo.pdb",
+    "ligands": [
+      {
+        "id": "MN",
+        "name": "Mn²⁺（催化金属）",
+        "role": "cofactor",
+        "sdf": "ligand-MN.sdf"
+      },
+      {
+        "id": "GCP",
+        "name": "GTP 不可水解类似物（GMP-PCP）",
+        "role": "analog",
+        "sdf": "ligand-GCP.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "holo 1KHB 含 GCP（GMP-PCP），为 GTP 的不可水解类似物，不是真实 GTP；无草酰乙酸/CO₂ 坐标。",
+      "1KHB/1KHG 相对 UniProt P35558 有 V267I/D586E/V597E 序列差异（SEQADV VARIANT，非工程催化突变）。",
+      "每链含 2 个 Mn²⁺（催化位点 + 结构位点），视图只画口袋相关实例；apo 仍含催化 Mn²⁺，为核苷酸-free 而非完全脱金属态。"
+    ]
+  },
+  "gn-9": {
+    "stepId": "gn-9",
+    "assetDir": "gn-09",
+    "mode": "two-state",
+    "urlAlias": "gn-9",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.3,
+    "holo": "holo.pdb",
+    "apo": "apo.pdb",
+    "ligands": [
+      {
+        "id": "AMP",
+        "name": "AMP（变构抑制剂）",
+        "role": "cofactor",
+        "sdf": "ligand.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "holo 1FTA 仅含变构抑制剂 AMP，不含底物 FBP/F6P 或 Mg²⁺；口袋为 AMP 变构位点，非催化中心。",
+      "人源 FBP1 无底物结合态实验结构；5LDZ 为无 AMP 的 apo 对照（2.2 Å，6 链晶体）。",
+      "1FTA 有 V11/A214/I316 三处序列冲突（SEQADV CONFLICT），非工程突变；两态来自不同晶体形式。"
+    ]
+  },
+  "urea-1": {
+    "stepId": "urea-1",
+    "assetDir": "urea-01",
+    "mode": "two-state",
+    "urlAlias": "urea-1",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.6,
+    "holo": "holo.pdb",
+    "apo": "apo.pdb",
+    "ligands": [
+      {
+        "id": "MG",
+        "name": "Mg²⁺（催化金属）",
+        "role": "cofactor",
+        "sdf": "ligand-MG.sdf"
+      },
+      {
+        "id": "ADP",
+        "name": "腺苷二磷酸（ADP）",
+        "role": "product",
+        "sdf": "ligand-ADP.sdf"
+      },
+      {
+        "id": "NLG",
+        "name": "N-乙酰-L-谷氨酸（NAG）",
+        "role": "cofactor",
+        "sdf": "ligand-NLG.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "holo 5DOU 为产物侧（ADP + 无机磷酸），无 ATP、氨或碳酸氢根底物坐标；每链 2 个 ADP 位点、3 个 Mg²⁺，视图只画口袋相关实例，NAG 变构位点在 40 Å 外仅记录不绘制。",
+      "5DOU 为 4 链装配体、5DOT 为 2 链 apo（2.4 Å），两态装配体与链数不一致；apo 的 Ni²⁺/甘油/乙二醇均滤除。",
+      "CPS1 为多域全酶，本视图为单体/局部二聚体上下文，不呈现完整氨甲酰磷酸合成循环。"
+    ]
+  },
+  "fas-pdh": {
+    "stepId": "fas-pdh",
+    "assetDir": "fas-pdh",
+    "mode": "static",
+    "urlAlias": "fas-pdh",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.95,
+    "holo": "holo.pdb",
+    "apo": null,
+    "ligands": [
+      {
+        "id": "MG",
+        "name": "Mg²⁺（E1 活性位点金属）",
+        "role": "cofactor",
+        "sdf": "ligand-MG.sdf"
+      },
+      {
+        "id": "TPP",
+        "name": "焦磷酸硫胺素（TPP）",
+        "role": "cofactor",
+        "sdf": "ligand-TPP.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "1NI4 只含 PDH 复合体的 E1 组分，不含 E2（二氢硫辛酰胺转乙酰酶）与 E3（二氢硫辛酰胺脱氢酶）。",
+      "1NI4 为 α₂β₂ 四聚体（α 链 A/C、β 链 B/D）；本视图取 1 个 αβ 异二聚体（A+D），活性位点位于 α/β 界面，另一对 C+B 由晶体对称性补全。",
+      "E1 只负责丙酮酸脱羧并把乙酰基转移到 E2 的硫辛酰胺；本视图不能代表 E2/E3 的硫辛酸臂摆动与乙酰-CoA 最终生成。",
+      "1NI4 含大量 MSE（硒代甲硫氨酸）修饰残基，按蛋白保留，不是突变；仅 N 端有克隆标签残留（CLONING ARTIFACT）。",
+      "晶体为 TPP + Mg²⁺ 结合态，无丙酮酸或辅酶 A 坐标；Mg²⁺ 的 PDB 链标注为 C，但配位 A 链活性位点残基与 TPP，故按跨链配体保留。K⁺ 与结晶水滤除。"
+    ]
+  },
+  "fas-acc": {
+    "stepId": "fas-acc",
+    "assetDir": "fas-acc",
+    "mode": "static",
+    "urlAlias": "fas-acc",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.3,
+    "holo": "holo.pdb",
+    "apo": null,
+    "ligands": [],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "2YL2 只含人源 ACC1 的生物素羧化酶（BC）域（observed residues 139–654；COMPND 片段 78–617），不含 CT（羧基转移酶）域与 BCCP（生物素羧基载体蛋白）域。",
+      "2YL2 为无配体 apo 结构：晶体中无 ATP、HCO₃⁻、生物素（BTN）或丙二酰-CoA；生物素是 BCCP 域上共价连接的辅基，不在 BC 域内。",
+      "BC 域催化 ATP + HCO₃⁻ 生成碳-磷键中间体并向 BCCP 上的生物素转移羧基；本视图只呈现 BC 域本身，不能代表 ACC 全酶的域间协同。",
+      "本步为无口袋域视图：pocket 为空，残基表与氢键均为 0，仅呈现蛋白折叠与 A/B 二聚体界面，不代表配体结合口袋。"
+    ]
+  },
+  "ppp-n5": {
+    "stepId": "ppp-n5",
+    "assetDir": "ppp-n5",
+    "mode": "static",
+    "urlAlias": "ppp-n5",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 0.97,
+    "holo": "holo.pdb",
+    "apo": null,
+    "ligands": [
+      {
+        "id": "TPP",
+        "name": "焦磷酸硫胺素（TPP）",
+        "role": "cofactor",
+        "sdf": "ligand-TPP.sdf"
+      },
+      {
+        "id": "DX5",
+        "name": "D-木糖醇-5-磷酸（还原型木酮糖-5-磷酸类似物）",
+        "role": "analog",
+        "sdf": "ligand-DX5.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "4KXV 与 ppp-n3 为同一实验结构（0.97 Å 人源 TKT）；本步复用该结构，但使用独立资产目录 ppp-n5，与 ppp-n3 互不覆盖。",
+      "TKT 在 PPP 非氧化支路催化两段化学相同的转酮醇反应（ppp-n3 / ppp-n5）；结构本身不区分接力次序，两段共用同一活性位点。",
+      "DX5 为 D-木糖醇-5-磷酸（还原型木酮糖-5-磷酸类似物），非真实酮糖底物；晶体为 TPP-底物共价中间体捕获态。",
+      "4KXV 不对称单元仅 1 条链；功能性二聚体由晶体对称性补全。Ca²⁺ 与乙二醇按结晶离子/添加剂滤除。"
+    ]
+  },
+  "fas-er": {
+    "stepId": "fas-er",
+    "assetDir": "fas-er",
+    "mode": "static",
+    "urlAlias": "fas-er",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 3.3,
+    "holo": "holo.pdb",
+    "apo": null,
+    "ligands": [
+      {
+        "id": "NDP",
+        "name": "NADPH（还原型辅酶Ⅱ）",
+        "role": "cofactor",
+        "sdf": "ligand.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "8VM0 为 3.3 Å 人源 FASN 全酶 cryo-EM 结构；本视图只显示 ER（烯酰还原酶）域，8VM0 entity 残基 1667–1895（UniProt P49327 1635–1863），不是独立域结构。",
+      "视野中不含 KR、DH、KS、AT、TE 域及 ACP（载体蛋白）域；这些域仍在同一全酶中，只是未显示。",
+      "ER 域在 8VM0 中覆盖完整、无 gap；NADPH（NDP 2601）距 ER 活性位点 1703–1720 约 2.33 Å，归属明确。",
+      "配体为 NADPH（NDP），不是酰基-ACP 底物；8VM0 无底物坐标，反应方向以页面文案为准。"
+    ]
+  },
+  "fas-kr": {
+    "stepId": "fas-kr",
+    "assetDir": "fas-kr",
+    "mode": "static",
+    "urlAlias": "fas-kr",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 3.3,
+    "holo": "holo.pdb",
+    "apo": null,
+    "ligands": [
+      {
+        "id": "NDP",
+        "name": "NADPH（还原型辅酶Ⅱ）",
+        "role": "cofactor",
+        "sdf": "ligand.sdf"
+      }
+    ],
+    "pocket": "pocket.json",
+    "meta": "meta.json",
+    "caveats": [
+      "8VM0 为 3.3 Å 人源 FASN 全酶 cryo-EM 结构；本视图只显示 KR（酮脂酰还原酶）域，8VM0 entity 残基 1896–2150（UniProt P49327 1864–2118），不是独立域结构。",
+      "视野中不含 ER、DH、KS、AT、TE 域及 ACP（载体蛋白）域；这些域仍在同一全酶中，只是未显示。",
+      "KR 域在 8VM0 中不完整：链 A 止于 2112，2067–2080（gap 2066→2081）与 2113–2150（38 aa）缺失；KR 催化活性位点 1918–1933 与 NADPH 结合位点 1886–1901 均完整存在，核心活性位点可用，但 C 端结构不完整。",
+      "NADPH（NDP 2602）距 KR 活性位点 1918–1933 约 2.57 Å，归属明确；配体为 NADPH，不是酰基-ACP 底物。"
+    ]
   }
 }

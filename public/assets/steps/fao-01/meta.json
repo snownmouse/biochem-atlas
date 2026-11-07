@@ -1,0 +1,179 @@
+{
+  "stepId": "fao-1",
+  "stepName": "中链酰基辅酶 A 脱氢酶（MCAD，β 氧化首步）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "1EGC",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2.6,
+  "resolutionPerState": {
+    "holo": 2.6,
+    "apo": 2.69
+  },
+  "atomCount": 6090,
+  "chainSelection": {
+    "chains": [
+      "C",
+      "D"
+    ],
+    "rule": {
+      "C": "R2 主链：口袋接触残基最多（140 个）",
+      "D": "R3(b)：界面贡献 12 个口袋残基"
+    }
+  },
+  "ligands": [
+    {
+      "id": "CO8",
+      "name": "辛酰辅酶 A（C8 acyl-CoA）",
+      "role": "substrate",
+      "rationale": "真实底物，代表中链长度",
+      "instances": 1,
+      "instanceChains": [
+        "C/400"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 57,
+      "sdfFile": "ligand-CO8.sdf"
+    },
+    {
+      "id": "FAD",
+      "name": "FAD（黄素腺嘌呤二核苷酸）",
+      "role": "cofactor",
+      "rationale": "酶共价结合的必需辅基，脱氢反应电子受体",
+      "instances": 1,
+      "instanceChains": [
+        "C/399"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 12.1,
+      "atomCount": 53,
+      "sdfFile": "ligand-FAD.sdf"
+    }
+  ],
+  "caveats": [
+    "holo 1EGC 为 T255E/E376G 突变体（X-ray 2.6 Å），apo 8SGP 为野生型肝 MCAD（cryo-EM 2.69 Å），两态构建不一致。",
+    "apo 8SGP 仍含 FAD 辅基（实验结构无完全脱辅基的人源 MCAD），游离态并非严格无配体。",
+    "底物为 C8 辛酰辅酶 A；更长/更短链由不同链长特异性脱氢酶处理。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 489093,
+      "gzipBytes": 121814
+    },
+    "apo.pdb": {
+      "bytes": 485145,
+      "gzipBytes": 105661
+    },
+    "ligand-CO8.sdf": {
+      "bytes": 5243,
+      "gzipBytes": 1043
+    },
+    "ligand-FAD.sdf": {
+      "bytes": 4944,
+      "gzipBytes": 994
+    },
+    "pocket.json": {
+      "bytes": 16091,
+      "gzipBytes": 1552
+    }
+  },
+  "holo": {
+    "pdbId": "1EGC",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.6,
+    "chainSelection": {
+      "chains": [
+        "C",
+        "D"
+      ],
+      "rule": {
+        "C": "R2 主链：口袋接触残基最多（140 个）",
+        "D": "R3(b)：界面贡献 12 个口袋残基"
+      }
+    },
+    "atomCount": 6090,
+    "proteinAtomCount": 5980,
+    "ligands": [
+      {
+        "id": "CO8",
+        "name": "辛酰辅酶 A（C8 acyl-CoA）",
+        "role": "substrate",
+        "rationale": "真实底物，代表中链长度",
+        "instances": 1,
+        "instanceChains": [
+          "C/400"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 57,
+        "sdfFile": "ligand-CO8.sdf"
+      },
+      {
+        "id": "FAD",
+        "name": "FAD（黄素腺嘌呤二核苷酸）",
+        "role": "cofactor",
+        "rationale": "酶共价结合的必需辅基，脱氢反应电子受体",
+        "instances": 1,
+        "instanceChains": [
+          "C/399"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 12.1,
+        "atomCount": 53,
+        "sdfFile": "ligand-FAD.sdf"
+      }
+    ],
+    "filteredLigands": [],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "CO8",
+      "FAD"
+    ]
+  },
+  "apo": {
+    "pdbId": "8SGP",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 2.69,
+    "chainSelection": {
+      "chains": [
+        "A",
+        "B"
+      ],
+      "rule": {
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序",
+        "B": "R4 apo：与 holo 链数一致，按蛋白原子数降序"
+      }
+    },
+    "atomCount": 6050,
+    "proteinAtomCount": 5944,
+    "ligands": [
+      {
+        "id": "FAD",
+        "role": "cofactor",
+        "rationale": "apo 中保留的必需辅基"
+      }
+    ],
+    "presentLigands": [
+      {
+        "id": "FAD",
+        "role": "cofactor",
+        "rationale": "apo 中保留的必需辅基"
+      }
+    ],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

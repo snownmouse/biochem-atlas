@@ -1,0 +1,138 @@
+{
+  "stepId": "fas-er",
+  "stepName": "FASN 烯酰还原酶域（ER，脂肪酸合酶第三步）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "static",
+  "domain": {
+    "name": "ER",
+    "start": 1667,
+    "end": 1895,
+    "numbering": "8VM0 entity（UniProt P49327 1635–1863）"
+  },
+  "focusResidues": [
+    [
+      1667,
+      1895
+    ]
+  ],
+  "focusLigandInstance": {
+    "chain": "A",
+    "resSeq": 2601
+  },
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "8VM0",
+  "species": "Homo sapiens",
+  "method": "ELECTRON MICROSCOPY",
+  "resolution": 3.3,
+  "resolutionPerState": {
+    "holo": 3.3,
+    "apo": null
+  },
+  "atomCount": 1784,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：focusLigandInstance 指定 A"
+    }
+  },
+  "ligands": [
+    {
+      "id": "NDP",
+      "name": "NADPH（还原型辅酶Ⅱ）",
+      "role": "cofactor",
+      "rationale": "真实辅酶；ER 域烯酰还原的氢负离子供体",
+      "instances": 1,
+      "instanceChains": [
+        "A/2601"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 48,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "8VM0 为 3.3 Å 人源 FASN 全酶 cryo-EM 结构；本视图只显示 ER（烯酰还原酶）域，8VM0 entity 残基 1667–1895（UniProt P49327 1635–1863），不是独立域结构。",
+    "视野中不含 KR、DH、KS、AT、TE 域及 ACP（载体蛋白）域；这些域仍在同一全酶中，只是未显示。",
+    "ER 域在 8VM0 中覆盖完整、无 gap；NADPH（NDP 2601）距 ER 活性位点 1703–1720 约 2.33 Å，归属明确。",
+    "配体为 NADPH（NDP），不是酰基-ACP 底物；8VM0 无底物坐标，反应方向以页面文案为准。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 167363,
+      "gzipBytes": 42115
+    },
+    "ligand.sdf": {
+      "bytes": 4480,
+      "gzipBytes": 906
+    },
+    "pocket.json": {
+      "bytes": 6782,
+      "gzipBytes": 773
+    }
+  },
+  "holo": {
+    "pdbId": "8VM0",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 3.3,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：focusLigandInstance 指定 A"
+      }
+    },
+    "atomCount": 1784,
+    "domain": {
+      "name": "ER",
+      "start": 1667,
+      "end": 1895,
+      "numbering": "8VM0 entity（UniProt P49327 1635–1863）"
+    },
+    "focusResidues": [
+      [
+        1667,
+        1895
+      ]
+    ],
+    "focusLigandInstance": {
+      "chain": "A",
+      "resSeq": 2601
+    },
+    "proteinAtomCount": 1736,
+    "ligands": [
+      {
+        "id": "NDP",
+        "name": "NADPH（还原型辅酶Ⅱ）",
+        "role": "cofactor",
+        "rationale": "真实辅酶；ER 域烯酰还原的氢负离子供体",
+        "instances": 1,
+        "instanceChains": [
+          "A/2601"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 48,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "NDP"
+    ]
+  },
+  "apo": null
+}

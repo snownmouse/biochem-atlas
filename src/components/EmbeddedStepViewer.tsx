@@ -36,12 +36,33 @@ function safeGetView(viewer: any): number[] | null {
   }
 }
 
+/** 结构坐标系/尺度粗判：中心 + 最远原子半径。用于判断两态能否直接沿用同一相机。 */
+function frameStats(text: string): { c: [number, number, number]; r: number } | null {
+  const pts: number[][] = [];
+  let sx = 0, sy = 0, sz = 0;
+  for (const l of text.split("\n")) {
+    if (!l.startsWith("ATOM") && !l.startsWith("HETATM")) continue;
+    const x = parseFloat(l.slice(30, 38));
+    const y = parseFloat(l.slice(38, 46));
+    const z = parseFloat(l.slice(46, 54));
+    if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(z)) continue;
+    pts.push([x, y, z]);
+    sx += x; sy += y; sz += z;
+  }
+  if (!pts.length) return null;
+  const c: [number, number, number] = [sx / pts.length, sy / pts.length, sz / pts.length];
+  let r = 0;
+  for (const p of pts) r = Math.max(r, Math.hypot(p[0] - c[0], p[1] - c[1], p[2] - c[2]));
+  return { c, r };
+}
+
 export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cfg: StepAssetCfg }) {
   const base = `/assets/steps/${cfg.assetDir}`;
   const [meta, setMeta] = useState<NormMeta | null>(null);
   const [pocket, setPocket] = useState<Pocket | null>(null);
   const [phase, setPhase] = useState<Phase>("loading");
   const [msg, setMsg] = useState("");
+  const [view, setView] = useState<"holo" | "apo">("holo");
   const [selResi, setSelResi] = useState<number | null>(null);
   const [showAllHb, setShowAllHb] = useState(false); // 氢键默认不画，点残基才显对应虚线；此开关强制全显
   const [drawerOpen, setDrawerOpen] = useState(false);
@@ -55,12 +76,14 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
   const zoomedRef = useRef(false); // 已做过初始取景；其后切步一律保相机
   const gatedRef = useRef(lowPowerDevice());
   const pdbCache = useRef<Map<string, string>>(new Map());
+  const frameRef = useRef<Map<string, { c: [number, number, number]; r: number }>>(new Map());
   const hbLineRefs = useRef<any[]>([]);
   const selResiRef = useRef<number | null>(null); // 3D 点击回调经 start3D 闭包捕获，须避免读到过期 state
 
   const flags: StepFlag[] = meta
     ? [...flagsFromMeta(meta), ...(MUTANT_FLAGS[stepId] ? [MUTANT_FLAGS[stepId]] : [])]
     : [];
+  const twoState = cfg.mode === "two-state" && meta?.apo != null;
 
   const pickResidue = useCallback((resi: number) => {
     const deselect = selResiRef.current === resi;
@@ -92,7 +115,8 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
       try { viewer.removeShape(s); } catch { /* 旧 viewer 已销毁时忽略 */ }
     }
     hbLineRefs.current = [];
-    if (phase === "ready") {
+    // apo 无配体坐标，氢键虚线会指向空白，故只在结合态绘制
+    if (phase === "ready" && view === "holo") {
       const hbs = pocket.hbonds.filter((hb) => showAllHb || hb.prot.resi === selResi);
       for (const hb of hbs) {
         const partner = hbondLigandAtom(hb);
@@ -109,7 +133,7 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
       }
     }
     viewer.render();
-  }, [pocket, phase, selResi, showAllHb]);
+  }, [pocket, phase, selResi, showAllHb, view]);
 
   // ready 后与交互态变化时重画氢键
   useEffect(() => {
@@ -137,10 +161,12 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
       const $3Dmol: any = await import("3dmol");
       if (cancelledFor(attempt)) return;
 
-      let pdbText = pdbCache.current.get(base);
+      if (view === "apo" && !meta.apo) return;
+      const cacheKey = `${base}/${view}`;
+      let pdbText = pdbCache.current.get(cacheKey);
       if (!pdbText) {
-        pdbText = await fetchText(`${base}/holo.pdb`);
-        pdbCache.current.set(base, pdbText);
+        pdbText = await fetchText(`${base}/${view}.pdb`);
+        pdbCache.current.set(cacheKey, pdbText);
       }
       if (cancelledFor(attempt)) return;
 
@@ -157,6 +183,13 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
       }
       // 切步保相机：先取当前视角，clear 后恢复
       const savedView = zoomedRef.current ? safeGetView(viewer) : null;
+      // 两态是否处于同一坐标系/量级：不同则不能沿用相机，必须对新状态重新取景
+      const frame = frameStats(pdbText);
+      if (frame) frameRef.current.set(cacheKey, frame);
+      const otherFrame = frameRef.current.get(`${base}/${view === "holo" ? "apo" : "holo"}`);
+      const sameFrame = !!(frame && otherFrame &&
+        Math.hypot(frame.c[0] - otherFrame.c[0], frame.c[1] - otherFrame.c[1], frame.c[2] - otherFrame.c[2]) < 12 &&
+        Math.max(frame.r, otherFrame.r) / Math.min(frame.r, otherFrame.r) < 1.35);
       viewer.clear();
       const model = viewer.addModel(pdbText, "pdb");
       modelRef.current = model;
@@ -168,32 +201,38 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
         },
       });
       const pocketResis = pocket.residues.map((r) => r.resi);
+      const focusSel = pocketResis.length ? { resi: pocketResis } : {}; // 无配体域视图：取景全部蛋白
       model.setStyle(
         { resi: pocketResis },
         { cartoon: { color: "#c17a4a" }, stick: { radius: 0.14, colorfunc: atomColorFunc } }
       );
       const waters = pocket.waters ?? [];
-      if (waters.length) {
+      if (view === "holo" && waters.length) {
         // 水分子也是氧原子：取统一 O 色；靠小球半径与位置区分，不再另立蓝色
         model.setStyle({ resn: "HOH", resi: waters }, { sphere: { radius: 0.28, color: atomColor("O") } });
       }
       // 配体：v2 多配体（各带 sdf）；v1 单 ligand.sdf。只绘制 pocketRelevant 的配体实例，
       // 第二位点的非口袋拷贝（2CXS、3UCD 等）与远处配体（如 1CZA 的 ADP）不画，避免误导。
-      for (const lg of meta.ligands) {
-        if (!lg.sdf || !lg.pocketRelevant) continue;
-        const lig = viewer.addModel(await fetchText(`${base}/${lg.sdf}`), "sdf");
-        // 与结构对照页 / 单步页同一张原子配色表
-        lig.setStyle({}, { stick: { radius: 0.25, colorfunc: atomColorFunc } });
+      if (view === "holo") {
+        for (const lg of meta.ligands) {
+          if (!lg.sdf || !lg.pocketRelevant) continue;
+          const lig = viewer.addModel(await fetchText(`${base}/${lg.sdf}`), "sdf");
+          // 与结构对照页 / 单步页同一张原子配色表
+          lig.setStyle({}, { stick: { radius: 0.25, colorfunc: atomColorFunc } });
+        }
       }
       // 氢键虚线不在此处画：由 syncHbonds 按"点残基才显"的规则统一管理
       viewer.setClickable({ resi: pocketResis }, true, (atom: any) => {
         if (atom?.resi) pickResidue(atom.resi as number);
       });
 
-      if (savedView && typeof viewer.setView === "function") {
+      if (savedView && sameFrame && typeof viewer.setView === "function") {
+        // 同一坐标系的两态：保留相机，切换时只换模型，便于直接比较
         viewer.setView(savedView);
-      } else if (!zoomedRef.current) {
-        viewer.zoomTo({ resi: pocketResis }, 0);
+      } else if (!zoomedRef.current || savedView) {
+        // 首次取景，或两态坐标系/尺度不一致：按当前状态重新取景
+        if (view === "apo") viewer.zoomTo({}, 0);
+        else viewer.zoomTo(focusSel, 0);
         zoomedRef.current = true;
       }
       if (cancelledFor(attempt)) return;
@@ -207,7 +246,7 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
       setMsg(e instanceof Error ? e.message : String(e));
       setPhase("degraded");
     }
-  }, [base, meta, pocket, pickResidue]);
+  }, [base, meta, pocket, pickResidue, view]);
 
   /* ---------- 步骤切换：拉 meta + pocket，随后按需起 3D ---------- */
   useEffect(() => {
@@ -215,6 +254,7 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
     setMeta(null);
     setPocket(null);
     setSelResi(null);
+    setView("holo");
     setMsg("");
     setPhase(gatedRef.current ? "gated" : "loading");
     Promise.all([
@@ -241,7 +281,7 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
     if (!meta || !pocket) return;
     if (phase === "gated" || phase === "degraded") return;
     void start3D();
-  }, [meta, pocket]); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [meta, pocket, view]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // 卸载清理
   useEffect(() => {
@@ -257,6 +297,30 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
 
   return (
     <div className="embed3d">
+      {/* 状态切换：只在有实验 apo 的 two-state 步出现；static 步不渲染死按钮 */}
+      {twoState && (
+        <div className="d-variant" role="tablist" aria-label="结构状态切换" data-testid="embed-state-tabs">
+          <button
+            role="tab"
+            aria-selected={view === "apo"}
+            className={`d-variant-tab${view === "apo" ? " active" : ""}`}
+            data-testid="embed-view-apo"
+            onClick={() => setView("apo")}
+          >
+            游离态 apo · {meta!.apo!.pdbId}
+          </button>
+          <button
+            role="tab"
+            aria-selected={view === "holo"}
+            className={`d-variant-tab${view === "holo" ? " active" : ""}`}
+            data-testid="embed-view-holo"
+            onClick={() => setView("holo")}
+          >
+            结合态 holo · {meta!.holo.pdbId}
+          </button>
+        </div>
+      )}
+
       {/* 砖红旗标：物种 / 突变体 / cryo-EM / 仅辅因子 + caveats 逐条 —— 一句一条，默认可见不折叠 */}
       {(flags.length > 0 || meta?.caveats.length) && (
         <ul className="d-flags">
@@ -326,8 +390,8 @@ export default function EmbeddedStepViewer({ stepId, cfg }: { stepId: string; cf
         )}
       </div>
 
-      {/* 界面残基：可展开抽屉 */}
-      {pocket && (
+      {/* 界面残基：可展开抽屉；无配体域视图（空口袋）不渲染 */}
+      {pocket && pocket.residues.length > 0 && (
         <div className="d-drawer">
           <button
             className="d-drawer-head"

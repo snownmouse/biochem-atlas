@@ -13,6 +13,8 @@ import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import ReadingGuide from "../components/ReadingGuide";
+import EmbeddedStepViewer from "../components/EmbeddedStepViewer";
+import { loadStepManifest, resolveStepAsset, stepAssets } from "../data/stepAssets";
 
 const data = faoJson as unknown as FaoData;
 const skel = skeletonJson as unknown as FaoSkeleton;
@@ -119,6 +121,24 @@ export default function FaoOverviewPage() {
   const organParam = search.get("organ");
 
   const selected = useMemo(() => stepById(stepParam), [stepParam]);
+
+  /* 资产注册表：manifest.json 异步合并，按当前步解析 3D 资产；缺失步骤保持原占位 */
+  const [assetReg, setAssetReg] = useState(stepAssets);
+  useEffect(() => {
+    let cancelled = false;
+    void loadStepManifest().then((manifest) => {
+      if (cancelled || Object.keys(manifest).length === 0) return;
+      setAssetReg({ ...stepAssets, ...manifest });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  const selectedCfg = useMemo(
+    () => (selected ? resolveStepAsset(selected.id, assetReg)?.cfg ?? null : null),
+    [selected, assetReg]
+  );
+
   const organId = organParam || data.organs[0]?.id || "liver";
   const organName =
     data.organs.find((o) => o.id === organId)?.name ??
@@ -859,9 +879,13 @@ export default function FaoOverviewPage() {
                   </button>
                 </div>
 
-                <div className="d-none" data-3d-placeholder="1">
-                  3D 结合视图：待结构核验——{selected.threeD?.status === "pending" ? selected.threeD.note : "本步骤无 3D 酶资产。"}
-                </div>
+                {selectedCfg ? (
+                  <EmbeddedStepViewer stepId={selected.id} cfg={selectedCfg} />
+                ) : (
+                  <div className="d-none" data-3d-placeholder="1">
+                    3D 结合视图：待结构核验——{selected.threeD?.status === "pending" ? selected.threeD.note : "本步骤无 3D 酶资产。"}
+                  </div>
+                )}
               </div>
             ) : (
               <div className="d-body">

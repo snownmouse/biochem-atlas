@@ -19,6 +19,8 @@ import PathwaySwitcher from "../components/PathwaySwitcher";
 import ReadingGuide from "../components/ReadingGuide";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
+import EmbeddedStepViewer from "../components/EmbeddedStepViewer";
+import { loadStepManifest, resolveStepAsset, stepAssets } from "../data/stepAssets";
 import "../styles/frames-entry.css";
 
 const data = gnJson as unknown as GluconeogenesisData;
@@ -217,6 +219,23 @@ export default function GluconeogenesisOverviewPage() {
   const selectedTransport = useMemo(
     () => (selectedStepId && !selectedGn ? transportById(selectedStepId) ?? null : null),
     [selectedStepId, selectedGn]
+  );
+
+  /* 资产注册表：manifest.json 异步合并，按当前步解析 3D 资产；转运步与缺失步骤保持原占位 */
+  const [assetReg, setAssetReg] = useState(stepAssets);
+  useEffect(() => {
+    let cancelled = false;
+    void loadStepManifest().then((manifest) => {
+      if (cancelled || Object.keys(manifest).length === 0) return;
+      setAssetReg({ ...stepAssets, ...manifest });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  const selectedCfg = useMemo(
+    () => (selectedGn ? resolveStepAsset(selectedGn.id, assetReg)?.cfg ?? null : null),
+    [selectedGn, assetReg]
   );
 
   const selectStep = useCallback(
@@ -879,13 +898,17 @@ export default function GluconeogenesisOverviewPage() {
                   )}
                   <button role="tab" className="d-variant-tab" onClick={() => selectStep(nav.next)}>{nav.nextLabel} →</button>
                 </div>
-                {/* 3D 占位：数据里 threeD.status === "pending"，不伪造资产路径 */}
-                <div className="d-none" data-3d-placeholder="1">
-                  3D 结合视图：待结构核验——
-                  {selectedGn.threeD?.status === "pending"
-                    ? selectedGn.threeD.note
-                    : "本步与糖酵解共用同一酶，结构证据见糖酵解挂图帧带；本通路 3D 资产未制作，无资产路径。"}
-                </div>
+                {/* 3D：manifest 有资产就渲染，否则保持原占位，不伪造路径 */}
+                {selectedCfg ? (
+                  <EmbeddedStepViewer stepId={selectedGn.id} cfg={selectedCfg} />
+                ) : (
+                  <div className="d-none" data-3d-placeholder="1">
+                    3D 结合视图：待结构核验——
+                    {selectedGn.threeD?.status === "pending"
+                      ? selectedGn.threeD.note
+                      : "本步与糖酵解共用同一酶，结构证据见糖酵解挂图帧带；本通路 3D 资产未制作，无资产路径。"}
+                  </div>
+                )}
               </div>
             ) : selectedTransport ? (
               <div className="d-body">

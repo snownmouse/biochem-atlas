@@ -1,0 +1,144 @@
+{
+  "stepId": "gn-9",
+  "stepName": "果糖-1,6-二磷酸酶 1（FBP1，糖异生关键调控步）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "1FTA",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2.3,
+  "resolutionPerState": {
+    "holo": 2.3,
+    "apo": 2.2
+  },
+  "atomCount": 2449,
+  "chainSelection": {
+    "chains": [
+      "C"
+    ],
+    "rule": {
+      "C": "R2 主链：口袋接触残基最多（58 个）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "AMP",
+      "name": "AMP（变构抑制剂）",
+      "role": "cofactor",
+      "rationale": "真实变构配体；占据 AMP 变构位点并抑制 FBP1",
+      "instances": 1,
+      "instanceChains": [
+        "C/338"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 23,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "holo 1FTA 仅含变构抑制剂 AMP，不含底物 FBP/F6P 或 Mg²⁺；口袋为 AMP 变构位点，非催化中心。",
+    "人源 FBP1 无底物结合态实验结构；5LDZ 为无 AMP 的 apo 对照（2.2 Å，6 链晶体）。",
+    "1FTA 有 V11/A214/I316 三处序列冲突（SEQADV CONFLICT），非工程突变；两态来自不同晶体形式。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 198944,
+      "gzipBytes": 50129
+    },
+    "apo.pdb": {
+      "bytes": 201208,
+      "gzipBytes": 50704
+    },
+    "ligand.sdf": {
+      "bytes": 2217,
+      "gzipBytes": 528
+    },
+    "pocket.json": {
+      "bytes": 6451,
+      "gzipBytes": 764
+    }
+  },
+  "holo": {
+    "pdbId": "1FTA",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.3,
+    "chainSelection": {
+      "chains": [
+        "C"
+      ],
+      "rule": {
+        "C": "R2 主链：口袋接触残基最多（58 个）"
+      }
+    },
+    "atomCount": 2449,
+    "proteinAtomCount": 2426,
+    "ligands": [
+      {
+        "id": "AMP",
+        "name": "AMP（变构抑制剂）",
+        "role": "cofactor",
+        "rationale": "真实变构配体；占据 AMP 变构位点并抑制 FBP1",
+        "instances": 1,
+        "instanceChains": [
+          "C/338"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 23,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "AMP"
+    ]
+  },
+  "apo": {
+    "pdbId": "5LDZ",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.2,
+    "chainSelection": {
+      "chains": [
+        "F"
+      ],
+      "rule": {
+        "F": "R4 apo：与 holo 链数一致，按蛋白原子数降序"
+      }
+    },
+    "atomCount": 2405,
+    "proteinAtomCount": 2405,
+    "ligands": [],
+    "presentLigands": [
+      {
+        "id": "ZN",
+        "role": "artifact",
+        "rationale": "Zn²⁺，结晶离子"
+      },
+      {
+        "id": "SO4",
+        "role": "artifact",
+        "rationale": "硫酸根，结晶添加剂"
+      },
+      {
+        "id": "CL",
+        "role": "artifact",
+        "rationale": "氯离子"
+      }
+    ],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

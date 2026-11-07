@@ -1,0 +1,155 @@
+{
+  "stepId": "ppp-n3",
+  "stepName": "转酮醇酶（TKT，PPP 非氧化支路第一接力）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "static",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "4KXV",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 0.97,
+  "resolutionPerState": {
+    "holo": 0.97,
+    "apo": null
+  },
+  "atomCount": 4787,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：口袋接触残基最多（72 个）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "TPP",
+      "name": "焦磷酸硫胺素（TPP）",
+      "role": "cofactor",
+      "rationale": "真实辅酶；转酮醇反应的必需辅基",
+      "instances": 1,
+      "instanceChains": [
+        "A/1011"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 7.2,
+      "atomCount": 26,
+      "sdfFile": "ligand-TPP.sdf"
+    },
+    {
+      "id": "DX5",
+      "name": "D-木糖醇-5-磷酸（还原型木酮糖-5-磷酸类似物）",
+      "role": "analog",
+      "rationale": "供体底物的还原类似物；晶体捕获 TPP-底物共价中间体",
+      "instances": 1,
+      "instanceChains": [
+        "A/1012"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 14,
+      "sdfFile": "ligand-DX5.sdf"
+    }
+  ],
+  "caveats": [
+    "4KXV 为 0.97 Å 人源 TKT，晶体不对称单元仅 1 条链；功能性二聚体由晶体对称性补全。",
+    "DX5 为 D-木糖醇-5-磷酸（xylitol-5-phosphate），是 D-木酮糖-5-磷酸的还原类似物，非真实酮糖底物；晶体为共价中间体捕获态。",
+    "Ca²⁺ 与乙二醇按结晶离子/添加剂滤除。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 383613,
+      "gzipBytes": 95412
+    },
+    "ligand-TPP.sdf": {
+      "bytes": 2465,
+      "gzipBytes": 567
+    },
+    "ligand-DX5.sdf": {
+      "bytes": 1359,
+      "gzipBytes": 378
+    },
+    "pocket.json": {
+      "bytes": 9616,
+      "gzipBytes": 1080
+    }
+  },
+  "holo": {
+    "pdbId": "4KXV",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 0.97,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：口袋接触残基最多（72 个）"
+      }
+    },
+    "atomCount": 4787,
+    "proteinAtomCount": 4747,
+    "ligands": [
+      {
+        "id": "TPP",
+        "name": "焦磷酸硫胺素（TPP）",
+        "role": "cofactor",
+        "rationale": "真实辅酶；转酮醇反应的必需辅基",
+        "instances": 1,
+        "instanceChains": [
+          "A/1011"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 7.2,
+        "atomCount": 26,
+        "sdfFile": "ligand-TPP.sdf"
+      },
+      {
+        "id": "DX5",
+        "name": "D-木糖醇-5-磷酸（还原型木酮糖-5-磷酸类似物）",
+        "role": "analog",
+        "rationale": "供体底物的还原类似物；晶体捕获 TPP-底物共价中间体",
+        "instances": 1,
+        "instanceChains": [
+          "A/1012"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 14,
+        "sdfFile": "ligand-DX5.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "CA",
+        "role": "artifact",
+        "rationale": "Ca²⁺，结晶离子",
+        "instances": 1,
+        "minDistToPrimaryLigand": 10.62
+      },
+      {
+        "id": "EDO",
+        "role": "artifact",
+        "rationale": "乙二醇，结晶添加剂",
+        "instances": 36,
+        "minDistToPrimaryLigand": 12.18
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "CA",
+      "EDO",
+      "TPP",
+      "DX5"
+    ]
+  },
+  "apo": null
+}

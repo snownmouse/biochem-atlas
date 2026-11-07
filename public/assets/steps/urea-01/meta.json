@@ -1,0 +1,265 @@
+{
+  "stepId": "urea-1",
+  "stepName": "氨甲酰磷酸合成酶 I（CPS1，尿素循环首步限速）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "5DOU",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2.6,
+  "resolutionPerState": {
+    "holo": 2.6,
+    "apo": 2.4
+  },
+  "atomCount": 11037,
+  "chainSelection": {
+    "chains": [
+      "C"
+    ],
+    "rule": {
+      "C": "R2 主链：口袋接触残基最多（223 个）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "MG",
+      "name": "Mg²⁺（催化金属）",
+      "role": "cofactor",
+      "rationale": "ATP 水解与氨甲酰磷酸合成必需",
+      "instances": 3,
+      "instanceChains": [
+        "C/2002",
+        "C/2003",
+        "C/2011"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 5.5,
+      "atomCount": 3,
+      "sdfFile": "ligand-MG.sdf"
+    },
+    {
+      "id": "ADP",
+      "name": "腺苷二磷酸（ADP）",
+      "role": "product",
+      "rationale": "真实产物；ATP 水解后留在核苷酸位点",
+      "instances": 2,
+      "instanceChains": [
+        "C/2008",
+        "C/2009"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 54,
+      "sdfFile": "ligand-ADP.sdf"
+    },
+    {
+      "id": "NLG",
+      "name": "N-乙酰-L-谷氨酸（NAG）",
+      "role": "cofactor",
+      "rationale": "真实变构激活剂；CPS1 活性必需",
+      "instances": 1,
+      "instanceChains": [
+        "C/2010"
+      ],
+      "pocketRelevant": false,
+      "minDistToPrimaryA": 40.4,
+      "atomCount": 13,
+      "sdfFile": "ligand-NLG.sdf"
+    }
+  ],
+  "caveats": [
+    "holo 5DOU 为产物侧（ADP + 无机磷酸），无 ATP、氨或碳酸氢根底物坐标；每链 2 个 ADP 位点、3 个 Mg²⁺，视图只画口袋相关实例，NAG 变构位点在 40 Å 外仅记录不绘制。",
+    "5DOU 为 4 链装配体、5DOT 为 2 链 apo（2.4 Å），两态装配体与链数不一致；apo 的 Ni²⁺/甘油/乙二醇均滤除。",
+    "CPS1 为多域全酶，本视图为单体/局部二聚体上下文，不呈现完整氨甲酰磷酸合成循环。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 904672,
+      "gzipBytes": 227375
+    },
+    "apo.pdb": {
+      "bytes": 842813,
+      "gzipBytes": 212323
+    },
+    "ligand-MG.sdf": {
+      "bytes": 201,
+      "gzipBytes": 150
+    },
+    "ligand-ADP.sdf": {
+      "bytes": 2573,
+      "gzipBytes": 586
+    },
+    "ligand-NLG.sdf": {
+      "bytes": 1270,
+      "gzipBytes": 362
+    },
+    "pocket.json": {
+      "bytes": 10129,
+      "gzipBytes": 1054
+    }
+  },
+  "holo": {
+    "pdbId": "5DOU",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.6,
+    "chainSelection": {
+      "chains": [
+        "C"
+      ],
+      "rule": {
+        "C": "R2 主链：口袋接触残基最多（223 个）"
+      }
+    },
+    "atomCount": 11037,
+    "proteinAtomCount": 10967,
+    "ligands": [
+      {
+        "id": "MG",
+        "name": "Mg²⁺（催化金属）",
+        "role": "cofactor",
+        "rationale": "ATP 水解与氨甲酰磷酸合成必需",
+        "instances": 3,
+        "instanceChains": [
+          "C/2002",
+          "C/2003",
+          "C/2011"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 5.5,
+        "atomCount": 3,
+        "sdfFile": "ligand-MG.sdf"
+      },
+      {
+        "id": "ADP",
+        "name": "腺苷二磷酸（ADP）",
+        "role": "product",
+        "rationale": "真实产物；ATP 水解后留在核苷酸位点",
+        "instances": 2,
+        "instanceChains": [
+          "C/2008",
+          "C/2009"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 54,
+        "sdfFile": "ligand-ADP.sdf"
+      },
+      {
+        "id": "NLG",
+        "name": "N-乙酰-L-谷氨酸（NAG）",
+        "role": "cofactor",
+        "rationale": "真实变构激活剂；CPS1 活性必需",
+        "instances": 1,
+        "instanceChains": [
+          "C/2010"
+        ],
+        "pocketRelevant": false,
+        "minDistToPrimaryA": 40.4,
+        "atomCount": 13,
+        "sdfFile": "ligand-NLG.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "NI",
+        "role": "artifact",
+        "rationale": "Ni²⁺，结晶离子",
+        "instances": 4,
+        "minDistToPrimaryLigand": 38.91
+      },
+      {
+        "id": "K",
+        "role": "artifact",
+        "rationale": "钾离子（非本步必需时可滤）",
+        "instances": 18,
+        "minDistToPrimaryLigand": 4.2
+      },
+      {
+        "id": "PO4",
+        "role": "artifact",
+        "rationale": "无机磷酸，结晶添加剂",
+        "instances": 20,
+        "minDistToPrimaryLigand": 2.85
+      },
+      {
+        "id": "CL",
+        "role": "artifact",
+        "rationale": "氯离子",
+        "instances": 3,
+        "minDistToPrimaryLigand": 69.33
+      },
+      {
+        "id": "GOL",
+        "role": "artifact",
+        "rationale": "甘油，结晶添加剂",
+        "instances": 12,
+        "minDistToPrimaryLigand": 111.66
+      },
+      {
+        "id": "EDO",
+        "role": "artifact",
+        "rationale": "乙二醇，结晶添加剂",
+        "instances": 4,
+        "minDistToPrimaryLigand": 152.5
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "NI",
+      "MG",
+      "K",
+      "PO4",
+      "ADP",
+      "NLG",
+      "CL",
+      "GOL",
+      "EDO"
+    ]
+  },
+  "apo": {
+    "pdbId": "5DOT",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.4,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序"
+      }
+    },
+    "atomCount": 10476,
+    "proteinAtomCount": 10476,
+    "ligands": [],
+    "presentLigands": [
+      {
+        "id": "NI",
+        "role": "artifact",
+        "rationale": "Ni²⁺，结晶离子"
+      },
+      {
+        "id": "EDO",
+        "role": "artifact",
+        "rationale": "乙二醇，结晶添加剂"
+      },
+      {
+        "id": "GOL",
+        "role": "artifact",
+        "rationale": "甘油，结晶添加剂"
+      }
+    ],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

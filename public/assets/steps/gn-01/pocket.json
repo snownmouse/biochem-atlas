@@ -1,0 +1,329 @@
+{
+  "residues": [
+    {
+      "resi": 152,
+      "resn": "LYS",
+      "chain": "D",
+      "minDist": 3.43,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 167,
+      "resn": "VAL",
+      "chain": "D",
+      "minDist": 4.41,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 194,
+      "resn": "LYS",
+      "chain": "D",
+      "minDist": 3.58,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 198,
+      "resn": "GLY",
+      "chain": "D",
+      "minDist": 4.27,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 199,
+      "resn": "GLY",
+      "chain": "D",
+      "minDist": 2.8,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 200,
+      "resn": "GLY",
+      "chain": "D",
+      "minDist": 3.42,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 201,
+      "resn": "GLY",
+      "chain": "D",
+      "minDist": 3.48,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 204,
+      "resn": "MET",
+      "chain": "D",
+      "minDist": 3.58,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 236,
+      "resn": "GLU",
+      "chain": "D",
+      "minDist": 3.46,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 237,
+      "resn": "LYS",
+      "chain": "D",
+      "minDist": 3.23,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 238,
+      "resn": "PHE",
+      "chain": "D",
+      "minDist": 3.83,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 239,
+      "resn": "ILE",
+      "chain": "D",
+      "minDist": 3.32,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 242,
+      "resn": "PRO",
+      "chain": "D",
+      "minDist": 4.09,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 244,
+      "resn": "HIS",
+      "chain": "D",
+      "minDist": 3.26,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 268,
+      "resn": "GLN",
+      "chain": "D",
+      "minDist": 3,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 271,
+      "resn": "HIS",
+      "chain": "D",
+      "minDist": 3.53,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 311,
+      "resn": "GLU",
+      "chain": "D",
+      "minDist": 4.16,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 313,
+      "resn": "LEU",
+      "chain": "D",
+      "minDist": 4.18,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 323,
+      "resn": "ILE",
+      "chain": "D",
+      "minDist": 3.34,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 324,
+      "resn": "GLU",
+      "chain": "D",
+      "minDist": 3.47,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 478,
+      "resn": "THR",
+      "chain": "D",
+      "minDist": 4.29,
+      "type": "contact",
+      "provenance": "computed"
+    }
+  ],
+  "hbonds": [
+    {
+      "dist": 3.4,
+      "prot": {
+        "name": "NZ",
+        "resi": 152,
+        "resn": "LYS",
+        "chain": "D",
+        "x": 201.442,
+        "y": 117.273,
+        "z": 202.676
+      },
+      "lig": {
+        "id": "ATP",
+        "resi": 2002,
+        "chain": "D",
+        "name": "O2A",
+        "x": 203.663,
+        "y": 119.025,
+        "z": 200.743
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.8,
+      "prot": {
+        "name": "O",
+        "resi": 199,
+        "resn": "GLY",
+        "chain": "D",
+        "x": 197.311,
+        "y": 125.153,
+        "z": 200.737
+      },
+      "lig": {
+        "id": "ATP",
+        "resi": 2002,
+        "chain": "D",
+        "name": "O3G",
+        "x": 199.41,
+        "y": 123.609,
+        "z": 201.772
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.4,
+      "prot": {
+        "name": "O",
+        "resi": 200,
+        "resn": "GLY",
+        "chain": "D",
+        "x": 198.016,
+        "y": 125.761,
+        "z": 204.04
+      },
+      "lig": {
+        "id": "ATP",
+        "resi": 2002,
+        "chain": "D",
+        "name": "O3G",
+        "x": 199.41,
+        "y": 123.609,
+        "z": 201.772
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.5,
+      "prot": {
+        "name": "OE2",
+        "resi": 236,
+        "resn": "GLU",
+        "chain": "D",
+        "x": 205.927,
+        "y": 118.755,
+        "z": 207.282
+      },
+      "lig": {
+        "id": "ATP",
+        "resi": 2002,
+        "chain": "D",
+        "name": "N7",
+        "x": 207.719,
+        "y": 119.574,
+        "z": 204.432
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.2,
+      "prot": {
+        "name": "O",
+        "resi": 237,
+        "resn": "LYS",
+        "chain": "D",
+        "x": 211.477,
+        "y": 117.727,
+        "z": 208.982
+      },
+      "lig": {
+        "id": "ATP",
+        "resi": 2002,
+        "chain": "D",
+        "name": "N6",
+        "x": 209.906,
+        "y": 118.348,
+        "z": 206.233
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3,
+      "prot": {
+        "name": "OE1",
+        "resi": 268,
+        "resn": "GLN",
+        "chain": "D",
+        "x": 210.191,
+        "y": 124.709,
+        "z": 197.912
+      },
+      "lig": {
+        "id": "ATP",
+        "resi": 2002,
+        "chain": "D",
+        "name": "O2'",
+        "x": 209.09,
+        "y": 123.804,
+        "z": 200.553
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.5,
+      "prot": {
+        "name": "OE2",
+        "resi": 324,
+        "resn": "GLU",
+        "chain": "D",
+        "x": 201.735,
+        "y": 118.137,
+        "z": 197.3
+      },
+      "lig": {
+        "id": "ATP",
+        "resi": 2002,
+        "chain": "D",
+        "name": "O3A",
+        "x": 202.202,
+        "y": 120.703,
+        "z": 199.592
+      },
+      "provenance": "computed"
+    }
+  ],
+  "waters": []
+}

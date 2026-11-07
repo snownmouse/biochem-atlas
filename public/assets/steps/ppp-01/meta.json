@@ -1,0 +1,162 @@
+{
+  "stepId": "ppp-o1",
+  "stepName": "6-磷酸葡萄糖脱氢酶（G6PD，PPP 限速步）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "7SNI",
+  "species": "Homo sapiens",
+  "method": "ELECTRON MICROSCOPY",
+  "resolution": 2.5,
+  "resolutionPerState": {
+    "holo": 2.5,
+    "apo": 2.8
+  },
+  "atomCount": 4075,
+  "chainSelection": {
+    "chains": [
+      "B"
+    ],
+    "rule": {
+      "B": "R2 主链：口袋接触残基最多（181 个）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "NAP",
+      "name": "NADP⁺（辅酶，每链 2 个：催化位点 + 结构位点）",
+      "role": "cofactor",
+      "rationale": "真实辅酶，氧化还原当量受体",
+      "instances": 2,
+      "instanceChains": [
+        "B/601",
+        "B/602"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 15.4,
+      "atomCount": 96,
+      "sdfFile": "ligand-NAP.sdf"
+    },
+    {
+      "id": "BG6",
+      "name": "6-磷酸-D-葡萄糖（G6P）",
+      "role": "substrate",
+      "rationale": "真实底物，活性位点",
+      "instances": 1,
+      "instanceChains": [
+        "B/603"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 16,
+      "sdfFile": "ligand-BG6.sdf"
+    }
+  ],
+  "caveats": [
+    "holo 7SNI 为 D200N 突变体（cryo-EM 2.5 Å），apo 7SNG 为野生型（cryo-EM 2.8 Å），两态构建不一致。",
+    "每链含 2 个 NADP⁺ 位点（催化位点 + 结构位点），口袋只计 G6P 附近 12 Å 内实例。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 332231,
+      "gzipBytes": 74788
+    },
+    "apo.pdb": {
+      "bytes": 308299,
+      "gzipBytes": 70467
+    },
+    "ligand-NAP.sdf": {
+      "bytes": 4480,
+      "gzipBytes": 923
+    },
+    "ligand-BG6.sdf": {
+      "bytes": 1556,
+      "gzipBytes": 419
+    },
+    "pocket.json": {
+      "bytes": 11620,
+      "gzipBytes": 1208
+    }
+  },
+  "holo": {
+    "pdbId": "7SNI",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 2.5,
+    "chainSelection": {
+      "chains": [
+        "B"
+      ],
+      "rule": {
+        "B": "R2 主链：口袋接触残基最多（181 个）"
+      }
+    },
+    "atomCount": 4075,
+    "proteinAtomCount": 3963,
+    "ligands": [
+      {
+        "id": "NAP",
+        "name": "NADP⁺（辅酶，每链 2 个：催化位点 + 结构位点）",
+        "role": "cofactor",
+        "rationale": "真实辅酶，氧化还原当量受体",
+        "instances": 2,
+        "instanceChains": [
+          "B/601",
+          "B/602"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 15.4,
+        "atomCount": 96,
+        "sdfFile": "ligand-NAP.sdf"
+      },
+      {
+        "id": "BG6",
+        "name": "6-磷酸-D-葡萄糖（G6P）",
+        "role": "substrate",
+        "rationale": "真实底物，活性位点",
+        "instances": 1,
+        "instanceChains": [
+          "B/603"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 16,
+        "sdfFile": "ligand-BG6.sdf"
+      }
+    ],
+    "filteredLigands": [],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "NAP",
+      "BG6"
+    ]
+  },
+  "apo": {
+    "pdbId": "7SNG",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 2.8,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序"
+      }
+    },
+    "atomCount": 3775,
+    "proteinAtomCount": 3775,
+    "ligands": [],
+    "presentLigands": [],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

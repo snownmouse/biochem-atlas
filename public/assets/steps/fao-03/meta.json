@@ -1,0 +1,141 @@
+{
+  "stepId": "fao-3",
+  "stepName": "L-3-羟酰基辅酶 A 脱氢酶（HADH，β 氧化第三步）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "static",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "1F0Y",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 1.8,
+  "resolutionPerState": {
+    "holo": 1.8,
+    "apo": null
+  },
+  "atomCount": 4576,
+  "chainSelection": {
+    "chains": [
+      "A",
+      "B"
+    ],
+    "rule": {
+      "B": "R2 主链：口袋接触残基最多（145 个）",
+      "A": "R3(b)：界面贡献 3 个口袋残基"
+    }
+  },
+  "ligands": [
+    {
+      "id": "CAA",
+      "name": "乙酰乙酰辅酶 A（acetoacetyl-CoA）",
+      "role": "product",
+      "rationale": "真实代谢物；晶体中为产物侧",
+      "instances": 1,
+      "instanceChains": [
+        "B/751"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 54,
+      "sdfFile": "ligand-CAA.sdf"
+    },
+    {
+      "id": "NAD",
+      "name": "NAD⁺（辅酶）",
+      "role": "cofactor",
+      "rationale": "真实辅酶，脱氢反应电子受体",
+      "instances": 1,
+      "instanceChains": [
+        "B/750"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 18.1,
+      "atomCount": 44,
+      "sdfFile": "ligand-NAD.sdf"
+    }
+  ],
+  "caveats": [
+    "1F0Y 的 CAA 为产物侧乙酰乙酰-CoA，非上游 3-羟酰基-CoA 底物侧。",
+    "人源 HADH 无野生型 apo 结构；同源脱辅基结构（1F14/2HDH）均带工程突变，本步为 static。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 369632,
+      "gzipBytes": 91761
+    },
+    "ligand-CAA.sdf": {
+      "bytes": 4976,
+      "gzipBytes": 1004
+    },
+    "ligand-NAD.sdf": {
+      "bytes": 4124,
+      "gzipBytes": 861
+    },
+    "pocket.json": {
+      "bytes": 13645,
+      "gzipBytes": 1432
+    }
+  },
+  "holo": {
+    "pdbId": "1F0Y",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.8,
+    "chainSelection": {
+      "chains": [
+        "A",
+        "B"
+      ],
+      "rule": {
+        "B": "R2 主链：口袋接触残基最多（145 个）",
+        "A": "R3(b)：界面贡献 3 个口袋残基"
+      }
+    },
+    "atomCount": 4576,
+    "proteinAtomCount": 4478,
+    "ligands": [
+      {
+        "id": "CAA",
+        "name": "乙酰乙酰辅酶 A（acetoacetyl-CoA）",
+        "role": "product",
+        "rationale": "真实代谢物；晶体中为产物侧",
+        "instances": 1,
+        "instanceChains": [
+          "B/751"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 54,
+        "sdfFile": "ligand-CAA.sdf"
+      },
+      {
+        "id": "NAD",
+        "name": "NAD⁺（辅酶）",
+        "role": "cofactor",
+        "rationale": "真实辅酶，脱氢反应电子受体",
+        "instances": 1,
+        "instanceChains": [
+          "B/750"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 18.1,
+        "atomCount": 44,
+        "sdfFile": "ligand-NAD.sdf"
+      }
+    ],
+    "filteredLigands": [],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "CAA",
+      "NAD"
+    ]
+  },
+  "apo": null
+}

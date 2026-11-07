@@ -1,0 +1,143 @@
+{
+  "stepId": "gn-11",
+  "stepName": "葡萄糖-6-磷酸酶催化亚基 1（G6PC1，糖异生末步）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "9JTM",
+  "species": "Homo sapiens",
+  "method": "ELECTRON MICROSCOPY",
+  "resolution": 2.9,
+  "resolutionPerState": {
+    "holo": 2.9,
+    "apo": 3.3
+  },
+  "atomCount": 2792,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：口袋接触残基最多（39 个）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "G6P",
+      "name": "6-磷酸-D-葡萄糖（G6P）",
+      "role": "substrate",
+      "rationale": "真实底物，活性位点",
+      "instances": 1,
+      "instanceChains": [
+        "A/701"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 16,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "holo 9JTM 为 H176N 催化失活突变体（cryo-EM 2.9 Å）；apo 9J7V 为野生型（3.3 Å），两态构建不一致。",
+    "apo 9J7V 含共结晶磷脂 POV，已按添加剂滤除；并非严格脱辅基结构。",
+    "9JTM 不含磷酸根离去基团坐标；反应方向与 ER 腔侧拓扑以页面文案为准。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 222286,
+      "gzipBytes": 49900
+    },
+    "apo.pdb": {
+      "bytes": 224816,
+      "gzipBytes": 50580
+    },
+    "ligand.sdf": {
+      "bytes": 1556,
+      "gzipBytes": 397
+    },
+    "pocket.json": {
+      "bytes": 6192,
+      "gzipBytes": 744
+    }
+  },
+  "holo": {
+    "pdbId": "9JTM",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 2.9,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：口袋接触残基最多（39 个）"
+      }
+    },
+    "atomCount": 2792,
+    "proteinAtomCount": 2776,
+    "ligands": [
+      {
+        "id": "G6P",
+        "name": "6-磷酸-D-葡萄糖（G6P）",
+        "role": "substrate",
+        "rationale": "真实底物，活性位点",
+        "instances": 1,
+        "instanceChains": [
+          "A/701"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 16,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "P5S",
+        "role": "artifact",
+        "rationale": "共结晶磷脂（去污剂），按添加剂滤除",
+        "instances": 25,
+        "minDistToPrimaryLigand": 7.69
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "G6P",
+      "P5S"
+    ]
+  },
+  "apo": {
+    "pdbId": "9J7V",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 3.3,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序"
+      }
+    },
+    "atomCount": 2828,
+    "proteinAtomCount": 2828,
+    "ligands": [],
+    "presentLigands": [
+      {
+        "id": "POV",
+        "role": "artifact",
+        "rationale": "共结晶磷脂（去污剂/脂质），按添加剂滤除"
+      }
+    ],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

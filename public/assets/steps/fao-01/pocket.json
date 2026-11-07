@@ -1,0 +1,859 @@
+{
+  "residues": [
+    {
+      "resi": 96,
+      "resn": "THR",
+      "chain": "C",
+      "minDist": 3.84,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 99,
+      "resn": "GLU",
+      "chain": "C",
+      "minDist": 3.43,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 100,
+      "resn": "GLY",
+      "chain": "C",
+      "minDist": 3.69,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 103,
+      "resn": "LEU",
+      "chain": "C",
+      "minDist": 3.42,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 133,
+      "resn": "TYR",
+      "chain": "C",
+      "minDist": 2.9,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 134,
+      "resn": "CYS",
+      "chain": "C",
+      "minDist": 4.13,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 135,
+      "resn": "VAL",
+      "chain": "C",
+      "minDist": 3.16,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 136,
+      "resn": "THR",
+      "chain": "C",
+      "minDist": 2.9,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 140,
+      "resn": "ALA",
+      "chain": "C",
+      "minDist": 4.19,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 141,
+      "resn": "GLY",
+      "chain": "C",
+      "minDist": 3.23,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 142,
+      "resn": "SER",
+      "chain": "C",
+      "minDist": 2.81,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 143,
+      "resn": "ASP",
+      "chain": "C",
+      "minDist": 3.78,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 144,
+      "resn": "VAL",
+      "chain": "C",
+      "minDist": 3.12,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 145,
+      "resn": "ALA",
+      "chain": "C",
+      "minDist": 4.13,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 165,
+      "resn": "MET",
+      "chain": "C",
+      "minDist": 4.06,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 166,
+      "resn": "TRP",
+      "chain": "C",
+      "minDist": 2.92,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 167,
+      "resn": "ILE",
+      "chain": "C",
+      "minDist": 3.48,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 168,
+      "resn": "THR",
+      "chain": "C",
+      "minDist": 2.74,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 190,
+      "resn": "ALA",
+      "chain": "C",
+      "minDist": 4.45,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 191,
+      "resn": "ASN",
+      "chain": "C",
+      "minDist": 3.08,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 214,
+      "resn": "ASN",
+      "chain": "C",
+      "minDist": 3.67,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 222,
+      "resn": "THR",
+      "chain": "C",
+      "minDist": 3.83,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 245,
+      "resn": "PHE",
+      "chain": "C",
+      "minDist": 3.11,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 249,
+      "resn": "MET",
+      "chain": "C",
+      "minDist": 3.25,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 252,
+      "resn": "PHE",
+      "chain": "C",
+      "minDist": 3.14,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 253,
+      "resn": "ASP",
+      "chain": "C",
+      "minDist": 3.12,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 255,
+      "resn": "GLU",
+      "chain": "C",
+      "minDist": 4.31,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 259,
+      "resn": "VAL",
+      "chain": "C",
+      "minDist": 3.6,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 324,
+      "resn": "ARG",
+      "chain": "C",
+      "minDist": 4.09,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 326,
+      "resn": "THR",
+      "chain": "C",
+      "minDist": 3.36,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 371,
+      "resn": "ILE",
+      "chain": "C",
+      "minDist": 3.74,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 374,
+      "resn": "ILE",
+      "chain": "C",
+      "minDist": 3.32,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 375,
+      "resn": "TYR",
+      "chain": "C",
+      "minDist": 3.03,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 376,
+      "resn": "GLY",
+      "chain": "C",
+      "minDist": 3.08,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 377,
+      "resn": "GLY",
+      "chain": "C",
+      "minDist": 3.21,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 378,
+      "resn": "THR",
+      "chain": "C",
+      "minDist": 2.9,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 380,
+      "resn": "GLN",
+      "chain": "C",
+      "minDist": 3.31,
+      "type": "contact",
+      "provenance": "computed"
+    },
+    {
+      "resi": 381,
+      "resn": "ILE",
+      "chain": "C",
+      "minDist": 4.02,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 384,
+      "resn": "LEU",
+      "chain": "C",
+      "minDist": 3.8,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 385,
+      "resn": "ILE",
+      "chain": "C",
+      "minDist": 4.14,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 388,
+      "resn": "ARG",
+      "chain": "C",
+      "minDist": 3.16,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 281,
+      "resn": "ARG",
+      "chain": "D",
+      "minDist": 2.91,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 283,
+      "resn": "THR",
+      "chain": "D",
+      "minDist": 3.1,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 284,
+      "resn": "PHE",
+      "chain": "D",
+      "minDist": 3.7,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 288,
+      "resn": "LEU",
+      "chain": "D",
+      "minDist": 3.69,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 291,
+      "resn": "HIS",
+      "chain": "D",
+      "minDist": 3.16,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 293,
+      "resn": "ALA",
+      "chain": "D",
+      "minDist": 4.01,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 294,
+      "resn": "ILE",
+      "chain": "D",
+      "minDist": 3.3,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 349,
+      "resn": "GLN",
+      "chain": "D",
+      "minDist": 2.65,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 350,
+      "resn": "ILE",
+      "chain": "D",
+      "minDist": 3.34,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 352,
+      "resn": "GLY",
+      "chain": "D",
+      "minDist": 3.66,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    },
+    {
+      "resi": 353,
+      "resn": "GLY",
+      "chain": "D",
+      "minDist": 2.83,
+      "type": "hbond",
+      "provenance": "computed"
+    },
+    {
+      "resi": 356,
+      "resn": "PHE",
+      "chain": "D",
+      "minDist": 4.18,
+      "type": "hydrophobic",
+      "provenance": "computed"
+    }
+  ],
+  "hbonds": [
+    {
+      "dist": 2.9,
+      "prot": {
+        "name": "O",
+        "resi": 133,
+        "resn": "TYR",
+        "chain": "C",
+        "x": 146.654,
+        "y": 61.575,
+        "z": 102.431
+      },
+      "lig": {
+        "id": "FAD",
+        "resi": 399,
+        "chain": "C",
+        "name": "N3",
+        "x": 146.272,
+        "y": 59.375,
+        "z": 100.582
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.2,
+      "prot": {
+        "name": "N",
+        "resi": 135,
+        "resn": "VAL",
+        "chain": "C",
+        "x": 142.835,
+        "y": 62.316,
+        "z": 102.711
+      },
+      "lig": {
+        "id": "FAD",
+        "resi": 399,
+        "chain": "C",
+        "name": "O2",
+        "x": 144.116,
+        "y": 60.137,
+        "z": 100.821
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.9,
+      "prot": {
+        "name": "OG1",
+        "resi": 136,
+        "resn": "THR",
+        "chain": "C",
+        "x": 141.607,
+        "y": 58.362,
+        "z": 99.247
+      },
+      "lig": {
+        "id": "FAD",
+        "resi": 399,
+        "chain": "C",
+        "name": "N1",
+        "x": 144.42,
+        "y": 58.057,
+        "z": 99.862
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.3,
+      "prot": {
+        "name": "N",
+        "resi": 141,
+        "resn": "GLY",
+        "chain": "C",
+        "x": 136.328,
+        "y": 57.395,
+        "z": 98.181
+      },
+      "lig": {
+        "id": "FAD",
+        "resi": 399,
+        "chain": "C",
+        "name": "O2P",
+        "x": 137.336,
+        "y": 54.314,
+        "z": 97.366
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.8,
+      "prot": {
+        "name": "O",
+        "resi": 142,
+        "resn": "SER",
+        "chain": "C",
+        "x": 136.332,
+        "y": 60.682,
+        "z": 93.424
+      },
+      "lig": {
+        "id": "CO8",
+        "resi": 400,
+        "chain": "C",
+        "name": "OAP",
+        "x": 136.522,
+        "y": 63.394,
+        "z": 92.716
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.4,
+      "prot": {
+        "name": "N",
+        "resi": 144,
+        "resn": "VAL",
+        "chain": "C",
+        "x": 135.351,
+        "y": 62.413,
+        "z": 95.764
+      },
+      "lig": {
+        "id": "CO8",
+        "resi": 400,
+        "chain": "C",
+        "name": "OAP",
+        "x": 136.522,
+        "y": 63.394,
+        "z": 92.716
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.9,
+      "prot": {
+        "name": "O",
+        "resi": 166,
+        "resn": "TRP",
+        "chain": "C",
+        "x": 146.527,
+        "y": 55.203,
+        "z": 102.066
+      },
+      "lig": {
+        "id": "FAD",
+        "resi": 399,
+        "chain": "C",
+        "name": "N5",
+        "x": 147.586,
+        "y": 56.098,
+        "z": 99.492
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.7,
+      "prot": {
+        "name": "OG1",
+        "resi": 168,
+        "resn": "THR",
+        "chain": "C",
+        "x": 150.181,
+        "y": 56.148,
+        "z": 100.37
+      },
+      "lig": {
+        "id": "FAD",
+        "resi": 399,
+        "chain": "C",
+        "name": "N5",
+        "x": 147.586,
+        "y": 56.098,
+        "z": 99.492
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.1,
+      "prot": {
+        "name": "OD1",
+        "resi": 191,
+        "resn": "ASN",
+        "chain": "C",
+        "x": 130.793,
+        "y": 74.904,
+        "z": 94.097
+      },
+      "lig": {
+        "id": "CO8",
+        "resi": 400,
+        "chain": "C",
+        "name": "O8A",
+        "x": 131.795,
+        "y": 73.448,
+        "z": 91.573
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.1,
+      "prot": {
+        "name": "OD2",
+        "resi": 253,
+        "resn": "ASP",
+        "chain": "C",
+        "x": 143.384,
+        "y": 69.502,
+        "z": 88.587
+      },
+      "lig": {
+        "id": "CO8",
+        "resi": 400,
+        "chain": "C",
+        "name": "N1A",
+        "x": 140.731,
+        "y": 71.13,
+        "z": 88.349
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.1,
+      "prot": {
+        "name": "N",
+        "resi": 376,
+        "resn": "GLY",
+        "chain": "C",
+        "x": 145.404,
+        "y": 57.651,
+        "z": 93.372
+      },
+      "lig": {
+        "id": "CO8",
+        "resi": 400,
+        "chain": "C",
+        "name": "O1'",
+        "x": 146.083,
+        "y": 57.772,
+        "z": 96.378
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.2,
+      "prot": {
+        "name": "N",
+        "resi": 377,
+        "resn": "GLY",
+        "chain": "C",
+        "x": 143.572,
+        "y": 58.454,
+        "z": 91.606
+      },
+      "lig": {
+        "id": "CO8",
+        "resi": 400,
+        "chain": "C",
+        "name": "O5P",
+        "x": 142.707,
+        "y": 60.79,
+        "z": 93.624
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.9,
+      "prot": {
+        "name": "OG1",
+        "resi": 378,
+        "resn": "THR",
+        "chain": "C",
+        "x": 139.17,
+        "y": 55.131,
+        "z": 89.313
+      },
+      "lig": {
+        "id": "FAD",
+        "resi": 399,
+        "chain": "C",
+        "name": "O2B",
+        "x": 137.461,
+        "y": 52.876,
+        "z": 89.955
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.2,
+      "prot": {
+        "name": "NH1",
+        "resi": 388,
+        "resn": "ARG",
+        "chain": "C",
+        "x": 136.15,
+        "y": 68.053,
+        "z": 86.379
+      },
+      "lig": {
+        "id": "CO8",
+        "resi": 400,
+        "chain": "C",
+        "name": "N7A",
+        "x": 137.395,
+        "y": 69.503,
+        "z": 88.899
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.9,
+      "prot": {
+        "name": "NE",
+        "resi": 281,
+        "resn": "ARG",
+        "chain": "D",
+        "x": 133.046,
+        "y": 52.216,
+        "z": 98.125
+      },
+      "lig": {
+        "id": "FAD",
+        "resi": 399,
+        "chain": "C",
+        "name": "O2A",
+        "x": 135.124,
+        "y": 52.641,
+        "z": 96.126
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.1,
+      "prot": {
+        "name": "OG1",
+        "resi": 283,
+        "resn": "THR",
+        "chain": "D",
+        "x": 130.656,
+        "y": 55.315,
+        "z": 92.675
+      },
+      "lig": {
+        "id": "FAD",
+        "resi": 399,
+        "chain": "C",
+        "name": "N7A",
+        "x": 132.875,
+        "y": 55.477,
+        "z": 90.511
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 3.4,
+      "prot": {
+        "name": "NE2",
+        "resi": 291,
+        "resn": "HIS",
+        "chain": "D",
+        "x": 128.664,
+        "y": 55.902,
+        "z": 89.84
+      },
+      "lig": {
+        "id": "FAD",
+        "resi": 399,
+        "chain": "C",
+        "name": "N6A",
+        "x": 131.475,
+        "y": 56.973,
+        "z": 88.213
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.6,
+      "prot": {
+        "name": "O",
+        "resi": 349,
+        "resn": "GLN",
+        "chain": "D",
+        "x": 138.383,
+        "y": 48.485,
+        "z": 91.467
+      },
+      "lig": {
+        "id": "FAD",
+        "resi": 399,
+        "chain": "C",
+        "name": "O3B",
+        "x": 136.952,
+        "y": 50.445,
+        "z": 90.403
+      },
+      "provenance": "computed"
+    },
+    {
+      "dist": 2.8,
+      "prot": {
+        "name": "N",
+        "resi": 353,
+        "resn": "GLY",
+        "chain": "D",
+        "x": 140.575,
+        "y": 50.179,
+        "z": 96.686
+      },
+      "lig": {
+        "id": "FAD",
+        "resi": 399,
+        "chain": "C",
+        "name": "O1P",
+        "x": 139.181,
+        "y": 52.641,
+        "z": 96.863
+      },
+      "provenance": "computed"
+    }
+  ],
+  "waters": [
+    2008,
+    2010,
+    2027,
+    2040,
+    2052,
+    2055,
+    2068,
+    2073,
+    2128
+  ]
+}

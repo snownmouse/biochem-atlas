@@ -1,0 +1,146 @@
+{
+  "stepId": "urea-3",
+  "stepName": "精氨琥珀酸合成酶（ASS1，尿素循环第三步）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "static",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "2NZ2",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2.4,
+  "resolutionPerState": {
+    "holo": 2.4,
+    "apo": null
+  },
+  "atomCount": 3212,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：口袋接触残基最多（70 个）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "ASP",
+      "name": "天冬氨酸（aspartate）",
+      "role": "substrate",
+      "rationale": "真实底物之一，尿素循环第二氮供体",
+      "instances": 1,
+      "instanceChains": [
+        "A/501"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 9,
+      "sdfFile": "ligand-ASP.sdf"
+    },
+    {
+      "id": "CIR",
+      "name": "瓜氨酸（citrulline）",
+      "role": "substrate",
+      "rationale": "真实底物之一，与天冬氨酸缩合",
+      "instances": 1,
+      "instanceChains": [
+        "A/502"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 5.1,
+      "atomCount": 12,
+      "sdfFile": "ligand-CIR.sdf"
+    }
+  ],
+  "caveats": [
+    "2NZ2 为人源 ASS1 唯一实验结构（X-ray 2.4 Å），无 apo 对照，本步为 static。",
+    "同一位点同时呈现天冬氨酸与瓜氨酸，二者均为真实底物；Na⁺ 已滤除。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 257307,
+      "gzipBytes": 63889
+    },
+    "ligand-ASP.sdf": {
+      "bytes": 914,
+      "gzipBytes": 298
+    },
+    "ligand-CIR.sdf": {
+      "bytes": 1181,
+      "gzipBytes": 350
+    },
+    "pocket.json": {
+      "bytes": 6990,
+      "gzipBytes": 861
+    }
+  },
+  "holo": {
+    "pdbId": "2NZ2",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.4,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：口袋接触残基最多（70 个）"
+      }
+    },
+    "atomCount": 3212,
+    "proteinAtomCount": 3191,
+    "ligands": [
+      {
+        "id": "ASP",
+        "name": "天冬氨酸（aspartate）",
+        "role": "substrate",
+        "rationale": "真实底物之一，尿素循环第二氮供体",
+        "instances": 1,
+        "instanceChains": [
+          "A/501"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 9,
+        "sdfFile": "ligand-ASP.sdf"
+      },
+      {
+        "id": "CIR",
+        "name": "瓜氨酸（citrulline）",
+        "role": "substrate",
+        "rationale": "真实底物之一，与天冬氨酸缩合",
+        "instances": 1,
+        "instanceChains": [
+          "A/502"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 5.1,
+        "atomCount": 12,
+        "sdfFile": "ligand-CIR.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "NA",
+        "role": "artifact",
+        "rationale": "钠离子",
+        "instances": 1,
+        "minDistToPrimaryLigand": 23.85
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "NA",
+      "ASP",
+      "CIR"
+    ]
+  },
+  "apo": null
+}

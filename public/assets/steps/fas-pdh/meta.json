@@ -1,0 +1,161 @@
+{
+  "stepId": "fas-pdh",
+  "stepName": "丙酮酸脱氢酶复合体 E1（PDH，FAS 前体乙酰-CoA 供应）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "static",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "1NI4",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 1.95,
+  "resolutionPerState": {
+    "holo": 1.95,
+    "apo": null
+  },
+  "atomCount": 5377,
+  "chainSelection": {
+    "chains": [
+      "A",
+      "D"
+    ],
+    "rule": {
+      "A": "R2 主链：口袋接触残基最多（54 个）",
+      "D": "R3(b)：界面贡献 7 个口袋残基"
+    }
+  },
+  "ligands": [
+    {
+      "id": "MG",
+      "name": "Mg²⁺（E1 活性位点金属）",
+      "role": "cofactor",
+      "rationale": "与 TPP 焦磷酸共同构成活性位点；PDB 标注在 C 链，实际配位 A 链 Asp167/Asn196/Tyr198",
+      "instances": 2,
+      "instanceChains": [
+        "A/1331",
+        "C/2331"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 7.8,
+      "atomCount": 2,
+      "sdfFile": "ligand-MG.sdf"
+    },
+    {
+      "id": "TPP",
+      "name": "焦磷酸硫胺素（TPP）",
+      "role": "cofactor",
+      "rationale": "真实辅酶；E1 丙酮酸脱羧的必需辅基",
+      "instances": 1,
+      "instanceChains": [
+        "A/2330"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 26,
+      "sdfFile": "ligand-TPP.sdf"
+    }
+  ],
+  "caveats": [
+    "1NI4 只含 PDH 复合体的 E1 组分，不含 E2（二氢硫辛酰胺转乙酰酶）与 E3（二氢硫辛酰胺脱氢酶）。",
+    "1NI4 为 α₂β₂ 四聚体（α 链 A/C、β 链 B/D）；本视图取 1 个 αβ 异二聚体（A+D），活性位点位于 α/β 界面，另一对 C+B 由晶体对称性补全。",
+    "E1 只负责丙酮酸脱羧并把乙酰基转移到 E2 的硫辛酰胺；本视图不能代表 E2/E3 的硫辛酸臂摆动与乙酰-CoA 最终生成。",
+    "1NI4 含大量 MSE（硒代甲硫氨酸）修饰残基，按蛋白保留，不是突变；仅 N 端有克隆标签残留（CLONING ARTIFACT）。",
+    "晶体为 TPP + Mg²⁺ 结合态，无丙酮酸或辅酶 A 坐标；Mg²⁺ 的 PDB 链标注为 C，但配位 A 链活性位点残基与 TPP，故按跨链配体保留。K⁺ 与结晶水滤除。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 435258,
+      "gzipBytes": 109299
+    },
+    "ligand-MG.sdf": {
+      "bytes": 201,
+      "gzipBytes": 151
+    },
+    "ligand-TPP.sdf": {
+      "bytes": 2465,
+      "gzipBytes": 585
+    },
+    "pocket.json": {
+      "bytes": 8350,
+      "gzipBytes": 996
+    }
+  },
+  "holo": {
+    "pdbId": "1NI4",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.95,
+    "chainSelection": {
+      "chains": [
+        "A",
+        "D"
+      ],
+      "rule": {
+        "A": "R2 主链：口袋接触残基最多（54 个）",
+        "D": "R3(b)：界面贡献 7 个口袋残基"
+      }
+    },
+    "atomCount": 5377,
+    "proteinAtomCount": 5349,
+    "ligands": [
+      {
+        "id": "MG",
+        "name": "Mg²⁺（E1 活性位点金属）",
+        "role": "cofactor",
+        "rationale": "与 TPP 焦磷酸共同构成活性位点；PDB 标注在 C 链，实际配位 A 链 Asp167/Asn196/Tyr198",
+        "instances": 2,
+        "instanceChains": [
+          "A/1331",
+          "C/2331"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 7.8,
+        "atomCount": 2,
+        "sdfFile": "ligand-MG.sdf"
+      },
+      {
+        "id": "TPP",
+        "name": "焦磷酸硫胺素（TPP）",
+        "role": "cofactor",
+        "rationale": "真实辅酶；E1 丙酮酸脱羧的必需辅基",
+        "instances": 1,
+        "instanceChains": [
+          "A/2330"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 26,
+        "sdfFile": "ligand-TPP.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "K",
+        "role": "artifact",
+        "rationale": "钾离子（非本步必需时可滤）",
+        "instances": 2,
+        "minDistToPrimaryLigand": 22.64
+      }
+    ],
+    "residueModifications": [
+      {
+        "id": "MSE",
+        "note": "共价修饰残基，按蛋白保留"
+      }
+    ],
+    "presentLigandsRaw": [
+      "MSE",
+      "MG",
+      "TPP",
+      "K"
+    ]
+  },
+  "apo": null
+}

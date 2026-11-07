@@ -4,6 +4,8 @@ import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import ReadingGuide from "../components/ReadingGuide";
+import EmbeddedStepViewer from "../components/EmbeddedStepViewer";
+import { loadStepManifest, resolveStepAsset, stepAssets } from "../data/stepAssets";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import ureaRaw from "../data/urea-cycle/urea.json";
@@ -169,6 +171,23 @@ export function UreaCycleOverviewPage() {
   const selectedTransport = useMemo(
     () => skel.transportSteps.find((t) => t.id === selected) ?? null,
     [selected],
+  );
+
+  /* 资产注册表：manifest.json 异步合并，按当前步解析 3D 资产；缺失步骤与转运保持原占位 */
+  const [assetReg, setAssetReg] = useState(stepAssets);
+  useEffect(() => {
+    let cancelled = false;
+    void loadStepManifest().then((manifest) => {
+      if (cancelled || Object.keys(manifest).length === 0) return;
+      setAssetReg({ ...stepAssets, ...manifest });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  const selectedCfg = useMemo(
+    () => (selectedStep ? resolveStepAsset(selectedStep.id, assetReg)?.cfg ?? null : null),
+    [selectedStep, assetReg],
   );
 
   const cmpConfig = comparisonConfigFor("urea-cycle");
@@ -646,9 +665,13 @@ export function UreaCycleOverviewPage() {
                     </button>
                   </div>
 
-                  <div className="d-none" data-3d-placeholder="1">
-                    3D 结合视图：待结构核验——{selectedStep.threeD.note}
-                  </div>
+                  {selectedCfg ? (
+                    <EmbeddedStepViewer stepId={selectedStep.id} cfg={selectedCfg} />
+                  ) : (
+                    <div className="d-none" data-3d-placeholder="1">
+                      3D 结合视图：待结构核验——{selectedStep.threeD.note}
+                    </div>
+                  )}
                 </div>
               ) : selectedTransport ? (
                 <div className="d-body" data-transport-detail="1">

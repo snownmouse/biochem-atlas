@@ -1,0 +1,115 @@
+{
+  "stepId": "urea-2",
+  "stepName": "鸟氨酸转氨甲酰酶（OTC，尿素循环第二步）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "static",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "1C9Y",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 1.9,
+  "resolutionPerState": {
+    "holo": 1.9,
+    "apo": null
+  },
+  "atomCount": 2541,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：口袋接触残基最多（44 个）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "CP",
+      "name": "氨甲酰磷酸（carbamoyl phosphate）",
+      "role": "substrate",
+      "rationale": "真实底物，活性位点",
+      "instances": 1,
+      "instanceChains": [
+        "A/356"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 8,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "1C9Y 为人源野生型 OTC（X-ray 1.9 Å，SEQADV 无变异记录）；同组 1FVO/1EP9 才携带 L101F/Q270R。",
+    "1C9Y 仅含氨甲酰磷酸（CP）与正缬氨酸（NVA）；NVA 为鸟氨酸类似物，已按替身滤除，故第二底物位点无真实配体。",
+    "鸟氨酸结合位点由相邻亚基提供，单链视图不呈现完整双底物口袋。",
+    "人源 OTC 无实验 apo 结构，本步仅提供 static 结合态视图。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 203430,
+      "gzipBytes": 50724
+    },
+    "ligand.sdf": {
+      "bytes": 824,
+      "gzipBytes": 279
+    },
+    "pocket.json": {
+      "bytes": 6341,
+      "gzipBytes": 763
+    }
+  },
+  "holo": {
+    "pdbId": "1C9Y",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 1.9,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：口袋接触残基最多（44 个）"
+      }
+    },
+    "atomCount": 2541,
+    "proteinAtomCount": 2533,
+    "ligands": [
+      {
+        "id": "CP",
+        "name": "氨甲酰磷酸（carbamoyl phosphate）",
+        "role": "substrate",
+        "rationale": "真实底物，活性位点",
+        "instances": 1,
+        "instanceChains": [
+          "A/356"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 8,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "NVA",
+        "role": "analog",
+        "rationale": "正缬氨酸，鸟氨酸类似物（替身）",
+        "instances": 8,
+        "minDistToPrimaryLigand": 3.28
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "NVA",
+      "CP"
+    ]
+  },
+  "apo": null
+}

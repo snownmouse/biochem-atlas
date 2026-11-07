@@ -1,0 +1,143 @@
+{
+  "stepId": "fao-2",
+  "stepName": "短链烯酰辅酶 A 水合酶（ECHS1，β 氧化第二步）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "two-state",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "2HW5",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2.55,
+  "resolutionPerState": {
+    "holo": 2.55,
+    "apo": 2.18
+  },
+  "atomCount": 1951,
+  "chainSelection": {
+    "chains": [
+      "C"
+    ],
+    "rule": {
+      "C": "R2 主链：口袋接触残基最多（41 个）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "COO",
+      "name": "巴豆酰辅酶 A（crotonyl-CoA）",
+      "role": "product",
+      "rationale": "真实代谢物；水合反应的产物侧",
+      "instances": 1,
+      "instanceChains": [
+        "C/2"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 35,
+      "sdfFile": "ligand.sdf"
+    }
+  ],
+  "caveats": [
+    "holo 2HW5 为 X-ray 2.55 Å，apo 8ZRU 为 cryo-EM 2.18 Å，两态方法不同。",
+    "2HW5 的 Mg²⁺ 与 8ZRU 的 Mg²⁺ 均按结晶离子滤除（ECHS1 不需金属）。",
+    "2HW5 配体为巴豆酰-CoA（产物侧），非上游的烯酰-CoA 底物侧。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 165545,
+      "gzipBytes": 40435
+    },
+    "apo.pdb": {
+      "bytes": 166558,
+      "gzipBytes": 40992
+    },
+    "ligand.sdf": {
+      "bytes": 3285,
+      "gzipBytes": 721
+    },
+    "pocket.json": {
+      "bytes": 4083,
+      "gzipBytes": 593
+    }
+  },
+  "holo": {
+    "pdbId": "2HW5",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.55,
+    "chainSelection": {
+      "chains": [
+        "C"
+      ],
+      "rule": {
+        "C": "R2 主链：口袋接触残基最多（41 个）"
+      }
+    },
+    "atomCount": 1951,
+    "proteinAtomCount": 1916,
+    "ligands": [
+      {
+        "id": "COO",
+        "name": "巴豆酰辅酶 A（crotonyl-CoA）",
+        "role": "product",
+        "rationale": "真实代谢物；水合反应的产物侧",
+        "instances": 1,
+        "instanceChains": [
+          "C/2"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 35,
+        "sdfFile": "ligand.sdf"
+      }
+    ],
+    "filteredLigands": [
+      {
+        "id": "MG",
+        "role": "artifact",
+        "rationale": "Mg²⁺ 结晶/非必需离子（本步配置声明时滤除）",
+        "instances": 4,
+        "minDistToPrimaryLigand": 8.31
+      }
+    ],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "MG",
+      "COO"
+    ]
+  },
+  "apo": {
+    "pdbId": "8ZRU",
+    "species": "Homo sapiens",
+    "method": "ELECTRON MICROSCOPY",
+    "resolution": 2.18,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R4 apo：与 holo 链数一致，按蛋白原子数降序"
+      }
+    },
+    "atomCount": 1969,
+    "proteinAtomCount": 1969,
+    "ligands": [],
+    "presentLigands": [
+      {
+        "id": "MG",
+        "role": "artifact",
+        "rationale": "Mg²⁺ 结晶/非必需离子（本步配置声明时滤除）"
+      }
+    ],
+    "residueModifications": [],
+    "note": "游离态（apo）视图。"
+  }
+}

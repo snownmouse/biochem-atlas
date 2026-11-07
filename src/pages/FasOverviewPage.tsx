@@ -9,6 +9,8 @@ import skeletonJson from "../data/fatty-acid-synthesis/skeleton.json";
 import type { FasData, FasSkeleton } from "../data/fatty-acid-synthesis/types";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
+import { loadStepManifest, resolveStepAsset, stepAssets } from "../data/stepAssets";
+import EmbeddedStepViewer from "../components/EmbeddedStepViewer";
 import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
@@ -138,6 +140,23 @@ export default function FasOverviewPage() {
     [selected]
   );
   const grade = useMemo(() => (selectedCmp ? gradesForStep(selectedCmp) : null), [selectedCmp]);
+
+  /* 资产注册表：manifest.json 异步合并，按当前步解析 3D 资产；未落地步骤保持原占位 */
+  const [assetReg, setAssetReg] = useState(stepAssets);
+  useEffect(() => {
+    let cancelled = false;
+    void loadStepManifest().then((manifest) => {
+      if (cancelled || Object.keys(manifest).length === 0) return;
+      setAssetReg({ ...stepAssets, ...manifest });
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+  const selectedCfg = useMemo(
+    () => (selected ? resolveStepAsset(selected.id, assetReg)?.cfg ?? null : null),
+    [selected, assetReg]
+  );
 
   const selectStep = useCallback(
     (id: string | null) => {
@@ -419,7 +438,7 @@ export default function FasOverviewPage() {
                   <text x={48} y={330}>细胞质 · CYTOSOL（ACC + FASN 四步环）</text>
                 </g>
                 <text x={W - 52} y={84} fontSize={9.5} textAnchor="end" fill={INK} opacity={0.55} letterSpacing={1}>
-                  FASN 约 540 kDa · 本版以 2D 分域呈现 · 3D 未建
+                  FASN 约 540 kDa · 本版以 2D 分域呈现 · 部分 3D 已建（E1 / BC）
                 </text>
 
                 {/* ===== ① PDH ===== */}
@@ -814,9 +833,14 @@ export default function FasOverviewPage() {
                   </button>
                 </div>
 
-                <div className="d-none" data-3d-placeholder="1">
-                  3D 结合视图：待结构核验——{selected.threeD?.status === "pending" ? selected.threeD.note : "本步骤无 3D 酶资产。"}
-                </div>
+                {/* 3D：manifest 有资产就渲染，否则保持原占位，不伪造路径 */}
+                {selectedCfg ? (
+                  <EmbeddedStepViewer stepId={selected.id} cfg={selectedCfg} />
+                ) : (
+                  <div className="d-none" data-3d-placeholder="1">
+                    3D 结合视图：待结构核验——{selected.threeD?.status === "pending" ? selected.threeD.note : "本步骤无 3D 酶资产。"}
+                  </div>
+                )}
               </div>
             ) : (
               <div className="d-body">
@@ -928,7 +952,7 @@ export default function FasOverviewPage() {
       <PathwayRailFoot current="fatty-acid-synthesis" />
       <div className="poster-foot">
         <span>待确认：ΔG 数值不作页面展示，仅保留 Lehninger Ch.21 定性结论；能量账见本页 ATP/NADPH 化学计量。<br /></span>
-        <span>3D 缺口：FASN 约 540 kDa 巨型合酶，本轮不出任何 3D 视图，也未建 3D 资产；候选已核实为人源全长 8VM0（cryo-EM 3.30 Å，含 NADPH/NDP）与人源 TE 结构域 1XKT（X-ray 2.60 Å，无配体），页面不伪造资产路径。<br /></span>
+        <span>3D 缺口：FASN 约 540 kDa 巨型合酶，本页只为 fas-pdh（PDH E1 人源 α₂β₂）与 fas-acc（ACC1 BC 域）接入 3D；FASN 四步环、柠檬酸穿梭与 TE 仍未建资产。候选已核实为人源全长 8VM0（cryo-EM 3.30 Å，含 NADPH/NDP）与人源 TE 结构域 1XKT（X-ray 2.60 Å，无配体），页面不伪造资产路径。<br /></span>
         <span>分子资产：本轮不做 2D / 3D 分子图；结构对照页以文字 + 计算坐标占位说明，默认 2D，不伪造口袋。<br /></span>
         <span>{data.threeD.note}</span>
       </div>

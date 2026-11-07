@@ -1,0 +1,75 @@
+{
+  "stepId": "fas-acc",
+  "stepName": "乙酰-CoA 羧化酶 1（ACC1，BC 域；FAS 丙二酰-CoA 供应）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "static",
+  "noLigand": true,
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "2YL2",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2.3,
+  "resolutionPerState": {
+    "holo": 2.3,
+    "apo": null
+  },
+  "atomCount": 7384,
+  "chainSelection": {
+    "chains": [
+      "A",
+      "B"
+    ],
+    "rule": {
+      "A": "2YL2 不对称单元为 BC 域二聚体（A/B 两条链），按二聚体整体呈现",
+      "B": "2YL2 不对称单元为 BC 域二聚体（A/B 两条链），按二聚体整体呈现"
+    }
+  },
+  "ligands": [],
+  "caveats": [
+    "2YL2 只含人源 ACC1 的生物素羧化酶（BC）域（observed residues 139–654；COMPND 片段 78–617），不含 CT（羧基转移酶）域与 BCCP（生物素羧基载体蛋白）域。",
+    "2YL2 为无配体 apo 结构：晶体中无 ATP、HCO₃⁻、生物素（BTN）或丙二酰-CoA；生物素是 BCCP 域上共价连接的辅基，不在 BC 域内。",
+    "BC 域催化 ATP + HCO₃⁻ 生成碳-磷键中间体并向 BCCP 上的生物素转移羧基；本视图只呈现 BC 域本身，不能代表 ACC 全酶的域间协同。",
+    "本步为无口袋域视图：pocket 为空，残基表与氢键均为 0，仅呈现蛋白折叠与 A/B 二聚体界面，不代表配体结合口袋。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 588871,
+      "gzipBytes": 147399
+    },
+    "pocket.json": {
+      "bytes": 53,
+      "gzipBytes": 57
+    }
+  },
+  "holo": {
+    "pdbId": "2YL2",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.3,
+    "chainSelection": {
+      "chains": [
+        "A",
+        "B"
+      ],
+      "rule": {
+        "A": "2YL2 不对称单元为 BC 域二聚体（A/B 两条链），按二聚体整体呈现",
+        "B": "2YL2 不对称单元为 BC 域二聚体（A/B 两条链），按二聚体整体呈现"
+      }
+    },
+    "atomCount": 7384,
+    "proteinAtomCount": 7384,
+    "ligands": [],
+    "filteredLigands": [],
+    "residueModifications": [],
+    "presentLigandsRaw": []
+  },
+  "apo": null
+}

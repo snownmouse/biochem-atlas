@@ -1,0 +1,138 @@
+{
+  "stepId": "fao-act",
+  "stepName": "脂酰-CoA 合成酶（ACSM2A，β 氧化前的活化步）",
+  "assetVersion": "1.0.0",
+  "generatedAt": "2026-11-07",
+  "provenance": "computed",
+  "mode": "static",
+  "pocketCriteria": {
+    "distanceCutoffA": 4.5,
+    "hbondCutoffA": 3.5,
+    "waterCutoffA": 8,
+    "pocketRelevantRadiusA": 12,
+    "pocketRelevantContactA": 6
+  },
+  "pdbId": "3EQ6",
+  "species": "Homo sapiens",
+  "method": "X-RAY DIFFRACTION",
+  "resolution": 2.4,
+  "resolutionPerState": {
+    "holo": 2.4,
+    "apo": null
+  },
+  "atomCount": 4201,
+  "chainSelection": {
+    "chains": [
+      "A"
+    ],
+    "rule": {
+      "A": "R2 主链：口袋接触残基最多（136 个）"
+    }
+  },
+  "ligands": [
+    {
+      "id": "AMP",
+      "name": "腺苷一磷酸（AMP）",
+      "role": "product",
+      "rationale": "真实产物；脂肪酸活化释放 AMP",
+      "instances": 1,
+      "instanceChains": [
+        "A/901"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 15.6,
+      "atomCount": 23,
+      "sdfFile": "ligand-AMP.sdf"
+    },
+    {
+      "id": "BCO",
+      "name": "丁酰辅酶 A（butyryl-CoA）",
+      "role": "product",
+      "rationale": "真实产物；晶体为 AMP + 丁酰-CoA 产物复合物",
+      "instances": 1,
+      "instanceChains": [
+        "A/911"
+      ],
+      "pocketRelevant": true,
+      "minDistToPrimaryA": 0,
+      "atomCount": 53,
+      "sdfFile": "ligand-BCO.sdf"
+    }
+  ],
+  "caveats": [
+    "3EQ6 为 ACSM2A L64P 工程突变体（X-ray 2.4 Å，SEQADV 明确记录）；人源 ACSM2A 无野生型结构。",
+    "结构为产物侧（AMP + 丁酰-CoA），不含脂酰底物、ATP 或焦磷酸；反应方向以页面文案为准。",
+    "本步同工酶为 ACSM2A（非 ACSL1）；其底物偏好以中短链脂肪酸为主。"
+  ],
+  "files": {
+    "holo.pdb": {
+      "bytes": 341609,
+      "gzipBytes": 85381
+    },
+    "ligand-AMP.sdf": {
+      "bytes": 2217,
+      "gzipBytes": 530
+    },
+    "ligand-BCO.sdf": {
+      "bytes": 4887,
+      "gzipBytes": 1002
+    },
+    "pocket.json": {
+      "bytes": 14191,
+      "gzipBytes": 1421
+    }
+  },
+  "holo": {
+    "pdbId": "3EQ6",
+    "species": "Homo sapiens",
+    "method": "X-RAY DIFFRACTION",
+    "resolution": 2.4,
+    "chainSelection": {
+      "chains": [
+        "A"
+      ],
+      "rule": {
+        "A": "R2 主链：口袋接触残基最多（136 个）"
+      }
+    },
+    "atomCount": 4201,
+    "proteinAtomCount": 4125,
+    "ligands": [
+      {
+        "id": "AMP",
+        "name": "腺苷一磷酸（AMP）",
+        "role": "product",
+        "rationale": "真实产物；脂肪酸活化释放 AMP",
+        "instances": 1,
+        "instanceChains": [
+          "A/901"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 15.6,
+        "atomCount": 23,
+        "sdfFile": "ligand-AMP.sdf"
+      },
+      {
+        "id": "BCO",
+        "name": "丁酰辅酶 A（butyryl-CoA）",
+        "role": "product",
+        "rationale": "真实产物；晶体为 AMP + 丁酰-CoA 产物复合物",
+        "instances": 1,
+        "instanceChains": [
+          "A/911"
+        ],
+        "pocketRelevant": true,
+        "minDistToPrimaryA": 0,
+        "atomCount": 53,
+        "sdfFile": "ligand-BCO.sdf"
+      }
+    ],
+    "filteredLigands": [],
+    "residueModifications": [],
+    "presentLigandsRaw": [
+      "AMP",
+      "BCO"
+    ]
+  },
+  "apo": null
+}
