@@ -20,6 +20,7 @@ import ReadingGuide from "../components/ReadingGuide";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import EmbeddedStepViewer from "../components/EmbeddedStepViewer";
+import MoleculeArchiveEntry from "../components/MoleculeArchiveEntry";
 import { loadStepManifest, resolveStepAsset, stepAssets } from "../data/stepAssets";
 import "../styles/frames-entry.css";
 
@@ -853,6 +854,11 @@ export default function GluconeogenesisOverviewPage() {
                     结构对照尚未接入
                   </span>
                 )}
+                <MoleculeArchiveEntry
+                  pathwayId="gluconeogenesis"
+                  stepId={selectedGn.id}
+                  testId="gn-molecule-archive-entry"
+                />
                 {hasDiff(selectedGn) ? (
                   <div className="d-organ">
                     <span className="lbl">Δ {organName}差异</span>

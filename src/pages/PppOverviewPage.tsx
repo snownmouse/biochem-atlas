@@ -15,6 +15,7 @@ import ReadingGuide from "../components/ReadingGuide";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import EmbeddedStepViewer from "../components/EmbeddedStepViewer";
+import MoleculeArchiveEntry from "../components/MoleculeArchiveEntry";
 import { loadStepManifest, resolveStepAsset, stepAssets } from "../data/stepAssets";
 import "../styles/frames-entry.css";
 
@@ -944,6 +945,11 @@ export default function PppOverviewPage() {
                     结构对照尚未接入
                   </span>
                 )}
+                <MoleculeArchiveEntry
+                  pathwayId="ppp"
+                  stepId={selectedStep.id}
+                  testId="ppp-molecule-archive-entry"
+                />
 
                 {/* 器官差异：有则显示；无则灰字说明「本步无器官差异」 */}
                 {hasDiff(selectedStep, organ) ? (

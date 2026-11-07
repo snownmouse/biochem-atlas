@@ -8,6 +8,7 @@ import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import ReadingGuide from "../components/ReadingGuide";
+import MoleculeArchiveEntry from "../components/MoleculeArchiveEntry";
 import cholesterolData from "../data/cholesterol/cholesterol.json";
 import cholesterolSkeleton from "../data/cholesterol/skeleton.json";
 import type {
@@ -151,6 +152,12 @@ function StepDetail({ step }: { step: CholesterolStep }) {
         <span className="d-dg-q">{step.deltaG.qualitative}</span>
         <span className="d-dg-src">{step.deltaG.source}</span>
       </div>
+
+      <MoleculeArchiveEntry
+        pathwayId="cholesterol"
+        stepId={step.id}
+        testId="cholesterol-molecule-archive-entry"
+      />
 
       {step.cluster ? (
         <div data-cluster="1">

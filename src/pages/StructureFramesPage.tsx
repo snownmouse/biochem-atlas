@@ -20,6 +20,7 @@ import { Link, useLocation, useNavigate, useParams, useSearchParams } from "reac
 import Enzyme3DPanel from "../components/Enzyme3DPanel";
 import Molecule3D, { MARK_COLOR, MARK_LABEL, mol3dSourceText, type Mol3DAsset, type MolMark } from "../components/Molecule3D";
 import { atomColor } from "../data/atomColors";
+import { canonicalMoleculeId, moleculeName, noteForMolecule } from "../data/moleculeNotes";
 import {
   comparisonConfigFor,
   hasBothSides,
@@ -642,8 +643,46 @@ function ChemSideView({
   );
 }
 
+/** 分子档案卡：只排四段 + 出处，复用结构页既有说明块样式，不加新的标题层级 */
+function MoleculeNoteCard({ noteKey }: { noteKey: string }) {
+  const note = noteForMolecule(noteKey);
+  if (!note) return null;
+  const name = moleculeName(noteKey) ?? noteKey;
+  return (
+    <div className="cmp-ligsrc" data-testid="molecule-note" data-mol-key={noteKey}>
+      <span className="cmp-ligsrc-label">分子档案</span>
+      <div>
+        <b className="cmp-ligsrc-mol">{name}</b>
+        <p className="cmp-ligsrc-note">
+          <b>角色</b>　{note.role}
+        </p>
+        <p className="cmp-ligsrc-note">
+          <b>位置</b>　{note.position}
+        </p>
+        <p className="cmp-ligsrc-note">
+          <b>来源去路</b>　{note.flows}
+        </p>
+        <p className="cmp-ligsrc-note">
+          <b>为什么在这</b>　{note.whyHere}
+        </p>
+        <span className="cmp-ligsrc-note" data-testid="molecule-note-sources">
+          出处：{note.sources.join("；")}
+        </span>
+      </div>
+    </div>
+  );
+}
+
 /** 底物 → 产物：模式只换渲染方式，箭头/体积/主轴数字始终保留 */
-function ReactionStrip({ item, mode }: { item: StepComparison; mode: Mode }) {
+function ReactionStrip({
+  item,
+  mode,
+  noteKeys,
+}: {
+  item: StepComparison;
+  mode: Mode;
+  noteKeys: string[];
+}) {
   const urls3d = useMemo(
     () =>
       [...item.substrate.parts, ...item.product.parts]
@@ -740,6 +779,15 @@ function ReactionStrip({ item, mode }: { item: StepComparison; mode: Mode }) {
         </div>
       )}
 
+      {/* 分子档案：按规范分子键页面级去重后，挂在本块配体来源之后 */}
+      {noteKeys.length > 0 && (
+        <div className="cmp-moln-list" data-testid="molecule-notes">
+          {noteKeys.map((key) => (
+            <MoleculeNoteCard key={key} noteKey={key} />
+          ))}
+        </div>
+      )}
+
       <p className="cmp3d-legend" aria-label="变化原子图例">
         <span>
           <i style={{ background: MARK_COLOR.added }} />
@@ -783,6 +831,7 @@ function ComparisonBlock({
   modeSource,
   grade,
   hidden,
+  noteKeys,
 }: {
   item: StepComparison;
   cfg: StepAssetCfg | null;
@@ -791,6 +840,7 @@ function ComparisonBlock({
   modeSource: "url" | "data" | "fallback";
   grade: BlockGrade;
   hidden: boolean;
+  noteKeys: string[];
 }) {
   const showDefault = item.defaultMode === "2d";
   return (
@@ -885,7 +935,7 @@ function ComparisonBlock({
           <h3 className="cmp-label">
             {mode === "3d" ? "底物 → 产物（3D 形状对照）" : "底物 → 产物（2D 结构式对照）"}
           </h3>
-          <ReactionStrip item={item} mode={mode} />
+          <ReactionStrip item={item} mode={mode} noteKeys={noteKeys} />
           <p className="cmp-change" data-testid="change-line">
             <span className="lbl">这一步改了什么</span>
             {item.change}
@@ -1121,6 +1171,24 @@ export default function StructureFramesPage() {
     [grades, selectedGrades]
   );
 
+  // 分子档案卡：按规范分子键做页面级去重，同一分子只挂在该页首次出现的可见块
+  const noteKeysByStep = useMemo(() => {
+    const seen = new Set<string>();
+    const out: Record<string, string[]> = {};
+    steps.forEach((item, i) => {
+      if (!matchesGradeFilter(grades[i], selectedGrades)) return;
+      const keys: string[] = [];
+      for (const p of [...item.substrate.parts, ...item.product.parts]) {
+        const key = canonicalMoleculeId(p.id);
+        if (!key || seen.has(key) || !noteForMolecule(key)) continue;
+        seen.add(key);
+        keys.push(key);
+      }
+      out[item.stepId] = keys;
+    });
+    return out;
+  }, [steps, grades, selectedGrades]);
+
   const toggleGrade = (t: GradeFilterToken) => {
     const next = new Set(selectedGrades);
     if (next.has(t)) next.delete(t);
@@ -1202,6 +1270,7 @@ export default function StructureFramesPage() {
               modeSource={modeSource}
               grade={grades[i]}
               hidden={!matchesGradeFilter(grades[i], selectedGrades)}
+              noteKeys={noteKeysByStep[item.stepId] ?? []}
             />
           );
         })}

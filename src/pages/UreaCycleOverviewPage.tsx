@@ -5,6 +5,7 @@ import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import ReadingGuide from "../components/ReadingGuide";
 import EmbeddedStepViewer from "../components/EmbeddedStepViewer";
+import MoleculeArchiveEntry from "../components/MoleculeArchiveEntry";
 import { loadStepManifest, resolveStepAsset, stepAssets } from "../data/stepAssets";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
@@ -631,6 +632,11 @@ export function UreaCycleOverviewPage() {
                       本步未建分子对照——结构页 {data.structureNo} 覆盖 5 块（全部仅 2D 文字占位）。
                     </div>
                   )}
+                  <MoleculeArchiveEntry
+                    pathwayId="urea-cycle"
+                    stepId={selectedStep.id}
+                    testId="urea-molecule-archive-entry"
+                  />
 
                   {selectedStep.misconceptions.length ? (
                     <div className="d-mis">

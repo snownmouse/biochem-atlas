@@ -15,6 +15,7 @@ import {
   HOME_PATHWAYS,
 } from "../data/homeMap";
 import { COMPARISON_CONFIGS } from "../data/comparisonConfig";
+import { moleculeName, noteForMolecule } from "../data/moleculeNotes";
 import { GRADE_LABEL, gradeOfPart } from "../data/evidenceGrade";
 import {
   allStepEntries,
@@ -76,6 +77,39 @@ function stepKey(kind: string, id: string): string {
 
 function stripUndefined(values: (string | null | undefined)[]): string[] {
   return values.filter((value): value is string => Boolean(value));
+}
+
+/** 气泡内容行按 21 个字符显式收口，避免依赖 CSS 的 nowrap + ellipsis */
+const LINE_MAX = 21;
+function fitLine(text: string, max: number): string {
+  const chars = [...text];
+  return chars.length <= max ? text : `${chars.slice(0, max - 1).join("")}…`;
+}
+
+/** 步骤行：按信息量优先级挑一个能完整放进 21 字的写法，尽量不出现省略号 */
+function stepLine(item: StepEntry): string {
+  const id = item.step.id;
+  const name = item.step.name;
+  const enzyme = item.step.enzyme?.name ?? null;
+  const candidates = [
+    `${id} · ${name}`,
+    enzyme ? `${id} · ${enzyme}` : null,
+    name,
+    enzyme,
+    id,
+  ].filter((value): value is string => Boolean(value));
+  for (const candidate of candidates) {
+    if ([...candidate].length <= LINE_MAX) return candidate;
+  }
+  return fitLine(candidates[0], LINE_MAX);
+}
+
+/** 多候选行：取第一个能完整放下的，全都超长才收口 */
+function pickLine(candidates: string[]): string {
+  for (const candidate of candidates) {
+    if ([...candidate].length <= LINE_MAX) return candidate;
+  }
+  return fitLine(candidates[0], LINE_MAX);
 }
 
 function gradeLine(stepId: string): string {
@@ -148,25 +182,59 @@ function stepModel(stepId: string, stepEl: Element | null): BubbleModel | null {
   };
 }
 
+/** 挂图节点 id → 数据层 entity id（仅登记的差异项；未登记的原样返回） */
+const PAGE_NODE_ENTITY: Record<string, string> = {
+  hydroxy: "hydroxyacyl",
+  keto: "ketoacyl",
+  "acylcoa-short": "acylcoa",
+  oxy: "oxidosqualene",
+  "ipp-2": "ipp",
+  "dmapp-2": "dmapp",
+  ggpp: "fpp",
+  "accoa-mito": "accoa",
+  "accoa-cyt": "accoa",
+  "acylacp-next": "acylacp",
+};
+
+function pageNodeEntity(nodeId: string): string {
+  if (nodeId.startsWith("aa-chip-")) return nodeId.slice("aa-chip-".length);
+  return PAGE_NODE_ENTITY[nodeId] ?? nodeId;
+}
+
 function nodeModel(nodeId: string, pathwayId: string): BubbleModel | null {
-  const related = NODE_STEPS.get(`${pathwayId}:${nodeId}`) ?? [];
-  const nodeName = related[0]?.entityNames.get(nodeId);
+  // 挂图上的显示节点 id 与数据层 entity id 不总是一致（如 FAO 的 hydroxy→hydroxyacyl、
+  // 氨基酸页的 aa-chip-glu→glu）；先归一到 entity id 再查步骤，档案则先按显示 id 查、再退回 entity id。
+  const entityId = pageNodeEntity(nodeId);
+  const related = NODE_STEPS.get(`${pathwayId}:${entityId}`) ?? [];
+  const note = noteForMolecule(nodeId) ?? noteForMolecule(entityId);
+  // 节点没登记进该通路步骤时（如 FAO 的脂酰肉碱、Cori 的 OAA），退回规范分子名，
+  // 仍可给出角色/brief 两行；没有档案又没名字才整块不弹。
+  const nodeName = related[0]?.entityNames.get(entityId) ?? (note ? moleculeName(nodeId) ?? moleculeName(entityId) : null);
   if (!nodeName) return null;
 
-  const shown = related.slice(0, 3);
-  const lines: string[] = [`相关步骤 ${related.length} 处`];
-  for (const item of shown) {
-    lines.push(
-      `${item.step.id} · ${item.step.name}${item.step.enzyme?.name ? ` · ${item.step.enzyme.name}` : ""}`
-    );
+  const lines: string[] = [];
+  if (note) lines.push(note.role, note.brief);
+  if (related.length) lines.push(`相关步骤 ${related.length} 处`);
+
+  // 有档案时步骤清单压到 2 条以内，每行挑能完整放下的写法（不靠 CSS 溢出截断）
+  if (note) {
+    for (const item of related.slice(0, 2)) lines.push(stepLine(item));
+  } else {
+    for (const item of related.slice(0, 3)) {
+      lines.push(
+        `${item.step.id} · ${item.step.name}${item.step.enzyme?.name ? ` · ${item.step.enzyme.name}` : ""}`
+      );
+    }
+    if (related.length > 3) lines.push(`另 ${related.length - 3} 处`);
   }
-  if (related.length > shown.length) lines.push(`另 ${related.length - shown.length} 处`);
 
   return {
     key: stepKey("node", `${pathwayId}:${nodeId}`),
     title: nodeName,
-    lines: lines.slice(0, 6),
-    summary: `${nodeName}，相关步骤 ${related.length} 处。`,
+    lines: lines.slice(0, note ? 5 : 6),
+    summary: note
+      ? `${nodeName}。${note.role}。${related.length ? `相关步骤 ${related.length} 处。` : ""}`
+      : `${nodeName}，相关步骤 ${related.length} 处。`,
   };
 }
 
@@ -200,33 +268,58 @@ function homeNodeModel(nodeId: string): BubbleModel | null {
   if (!node) return null;
   const junction = JUNCTION_BY_ENTITY.get(nodeId) ?? null;
   const names = node.pathwayIds.map((id) => PATHWAY_NAME.get(id) ?? id);
-  const lines: string[] = [`涉及通路 ${names.join(" · ")}`];
+  const note = noteForMolecule(nodeId);
+
+  const lines: string[] = [];
+  if (note) lines.push(note.role, note.brief);
+  const firstPathway = names[0] ?? "";
+  lines.push(
+    note
+      ? `涉及通路：${firstPathway}${names.length > 1 ? ` 等 ${names.length} 条` : ""}`
+      : `涉及通路 ${names.join(" · ")}`
+  );
 
   const repStepId = representativeStepId(node);
   const repEntry = repStepId ? stepEntryById(repStepId) : null;
   const ec = repEntry ? stepEC(repEntry.step) : null;
   const deltaG = repEntry ? stepDeltaGText(repEntry.step) : null;
   const repEnzyme = repEntry?.step.enzyme?.name ?? null;
-  if (repStepId && ec) lines.push(`EC ${ec}${repEnzyme ? ` · ${repEnzyme}` : ""}（${repStepId}）`);
-  if (repStepId && deltaG) lines.push(`ΔG ${deltaG}（${repStepId}）`);
+  if (repStepId && ec) {
+    const withEnzyme = `EC ${ec}${repEnzyme ? ` · ${repEnzyme}` : ""}`;
+    const shortEc = ec.replace(/（[^）]*）/g, "").split(/[；;/]/)[0].trim();
+    lines.push(
+      note ? pickLine([withEnzyme, `EC ${ec}`, `EC ${shortEc}`]) : `${withEnzyme}（${repStepId}）`
+    );
+  }
+  if (repStepId && deltaG) {
+    const shortDelta = deltaG.replace(/（[^）]*）/g, "").split(/[，；]/)[0].trim();
+    lines.push(
+      note ? pickLine([`ΔG ${deltaG}`, `ΔG ${shortDelta}`]) : `ΔG ${deltaG}（${repStepId}）`
+    );
+  }
 
-  if (junction) {
-    lines.push(`共用节点 ${junction.occurrences.length} 处`);
+  // 有档案时角色/brief 优先，「共用节点」条数退到末行；总行数封顶 5 行
+  if (junction) lines.push(`共用节点 ${junction.occurrences.length} 处`);
+  else lines.push("本通路专用节点");
+
+  // 无档案时保留原有「共用节点」清单；有档案时让位给角色/brief，总行数封顶 5 行
+  if (!note && junction) {
     for (const occurrence of junction.occurrences.slice(0, 3)) {
       lines.push(
         `${occurrence.stepId} · ${occurrence.stepName} · ${occurrence.enzyme} · ${PATHWAY_NAME.get(occurrence.pathwayId) ?? occurrence.pathwayId} · ${occurrence.via}`
       );
     }
     if (junction.occurrences.length > 3) lines.push(`另 ${junction.occurrences.length - 3} 处`);
-  } else {
-    lines.push("本通路专用节点");
   }
 
+  const keep = note ? 5 : 6;
   return {
     key: stepKey("home-node", nodeId),
     title: node.abbr ? `${node.fullName}（${node.abbr}）` : node.fullName,
-    lines: lines.slice(0, 6),
-    summary: `${node.fullName}，涉及 ${names.length} 条通路。`,
+    lines: (note ? lines.map((line) => fitLine(line, LINE_MAX)) : lines).slice(0, keep),
+    summary: note
+      ? `${node.fullName}。${note.role}。涉及 ${names.length} 条通路。`
+      : `${node.fullName}，涉及 ${names.length} 条通路。`,
   };
 }
 

@@ -14,6 +14,7 @@ import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import ReadingGuide from "../components/ReadingGuide";
 import EmbeddedStepViewer from "../components/EmbeddedStepViewer";
+import MoleculeArchiveEntry from "../components/MoleculeArchiveEntry";
 import { loadStepManifest, resolveStepAsset, stepAssets } from "../data/stepAssets";
 
 const data = faoJson as unknown as FaoData;
@@ -830,6 +831,11 @@ export default function FaoOverviewPage() {
                 >
                   看这一步的结构对照 →
                 </Link>
+                <MoleculeArchiveEntry
+                  pathwayId="fatty-acid-oxidation"
+                  stepId={selected.id}
+                  testId="fao-molecule-archive-entry"
+                />
 
                 {transportNote && (
                   <div className="d-mirror" data-transport-note="1">

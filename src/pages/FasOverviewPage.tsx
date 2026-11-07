@@ -15,6 +15,7 @@ import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import ReadingGuide from "../components/ReadingGuide";
+import MoleculeArchiveEntry from "../components/MoleculeArchiveEntry";
 
 const data = fasJson as unknown as FasData;
 const skel = skeletonJson as unknown as FasSkeleton;
@@ -784,6 +785,11 @@ export default function FasOverviewPage() {
                     本步未建分子对照——结构页 6 块覆盖 ACC 羧化、四步环与 TE 释放。
                   </div>
                 )}
+                <MoleculeArchiveEntry
+                  pathwayId="fatty-acid-synthesis"
+                  stepId={selected.id}
+                  testId="fas-molecule-archive-entry"
+                />
 
                 {transportNote && (
                   <div className="d-mirror" data-transport-note="1">

@@ -12,6 +12,7 @@ import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import ReadingGuide from "../components/ReadingGuide";
+import MoleculeArchiveEntry from "../components/MoleculeArchiveEntry";
 import glyJson from "../data/glycolysis.json";
 import gluJson from "../data/gluconeogenesis/gluconeogenesis.json";
 import gluSkelJson from "../data/gluconeogenesis/skeleton.json";
@@ -886,6 +887,13 @@ export default function CoriOverviewPage() {
                       </Link>
                     ) : null;
                   })()
+                )}
+                {selectedResolved?.stepId && (
+                  <MoleculeArchiveEntry
+                    pathwayId="cori"
+                    stepId={selectedResolved.stepId}
+                    testId="cori-molecule-archive-entry"
+                  />
                 )}
                 <div className="d-none" data-cori-no-equation="1">
                   本页不复制反应式、酶学参数或 ΔG：以上只描述该步在 Cori 循环中的角色。原页面才是反应详情的事实源。

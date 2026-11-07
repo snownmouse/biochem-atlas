@@ -7,6 +7,7 @@ import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import ReadingGuide from "../components/ReadingGuide";
+import MoleculeArchiveEntry from "../components/MoleculeArchiveEntry";
 import glycogenData from "../data/glycogen/glycogen.json";
 import glycogenSkeleton from "../data/glycogen/skeleton.json";
 import type {
@@ -136,6 +137,12 @@ function StepDetail({ step }: { step: GlycogenStep }) {
         <span className="d-dg-q">{step.deltaG.qualitative}</span>
         <span className="d-dg-src">{step.deltaG.source}</span>
       </div>
+
+      <MoleculeArchiveEntry
+        pathwayId="glycogen"
+        stepId={step.id}
+        testId="glycogen-molecule-archive-entry"
+      />
 
       {step.sharedWith.length ? (
         <div className="d-links">

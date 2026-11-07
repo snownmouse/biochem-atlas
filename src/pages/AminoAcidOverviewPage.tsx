@@ -12,6 +12,7 @@ import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
 import ReadingGuide from "../components/ReadingGuide";
+import MoleculeArchiveEntry from "../components/MoleculeArchiveEntry";
 import { comparisonConfigFor } from "../data/comparisonConfig";
 import { GRADE_LABEL, gradesForStep } from "../data/evidenceGrade";
 import raw from "../data/amino-acid/amino.json";
@@ -775,6 +776,11 @@ function StepDetail({ step, cmpGrade, gradeLabel }: { step: AminoStep; cmpGrade:
           </Link>
         </div>
       ) : null}
+      <MoleculeArchiveEntry
+        pathwayId="amino-acids"
+        stepId={step.id}
+        testId="amino-molecule-archive-entry"
+      />
       <div className="d-none">酶 3D 面板 pending：本页只用 2D 结构式与核验过的 PDB 条目说明，不引用未核验资产。</div>
     </div>
   );

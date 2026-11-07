@@ -13,6 +13,7 @@ import ReadingGuide from "../components/ReadingGuide";
 import PathwaySwitcher from "../components/PathwaySwitcher";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
+import MoleculeArchiveEntry from "../components/MoleculeArchiveEntry";
 import "../styles/frames-entry.css";
 
 /* ---------- 挂图配色（封顶四色 + 砖红） ---------- */
@@ -763,6 +764,11 @@ export default function PathwayOverviewPage() {
                     结构帧尚未接入
                   </span>
                 )}
+                <MoleculeArchiveEntry
+                  pathwayId="glycolysis"
+                  stepId={selectedStep.id}
+                  testId="glycolysis-molecule-archive-entry"
+                />
                 <div className="d-cof">
                   <b>底物</b>　{selectedStep.substrates.map(nameOf).join(" + ")}
                   　　<b>产物</b>　{selectedStep.products.map(nameOf).join(" + ")}

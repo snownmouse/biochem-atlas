@@ -11,6 +11,7 @@ import PathwaySwitcher from "../components/PathwaySwitcher";
 import ReadingGuide from "../components/ReadingGuide";
 import { PathwayRailFoot } from "../components/PathwayRail";
 import PlateInteraction from "../components/PlateInteraction";
+import MoleculeArchiveEntry from "../components/MoleculeArchiveEntry";
 import "../styles/frames-entry.css";
 
 /* ---------- 挂图配色（与糖酵解挂图同款封顶） ---------- */
@@ -660,6 +661,11 @@ export default function TcaOverviewPage() {
                     结构对照尚未接入
                   </span>
                 )}
+                <MoleculeArchiveEntry
+                  pathwayId="tca"
+                  stepId={selectedStep.id}
+                  testId="tca-molecule-archive-entry"
+                />
                 {hasDiff(selectedStep, organ) ? (
                   <div className="d-organ">
                     <span className="lbl">Δ {organName}差异</span>
