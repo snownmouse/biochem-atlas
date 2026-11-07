@@ -21,6 +21,19 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const read = (p) => JSON.parse(readFileSync(resolve(ROOT, p), "utf8"));
 const report = read("preview/layout-audit.json");
 
+// 0) 审计新鲜度：必须先用本轮 audit 覆盖，避免拿旧报告跑绿（可用 AUDIT_MAX_AGE_MIN 覆盖默认 120 分钟）
+const MAX_AGE_MIN = Number(process.env.AUDIT_MAX_AGE_MIN ?? 120);
+const generatedMs = Date.parse(report.generatedAt ?? "");
+const ageMin = (Date.now() - generatedMs) / 60000;
+if (!report.generatedAt || !Number.isFinite(generatedMs) || ageMin > MAX_AGE_MIN || ageMin < -5) {
+  console.error(
+    `preview/layout-audit.json 不是本轮审计（generatedAt=${report.generatedAt ?? "缺失"}，` +
+      `年龄 ${Number.isFinite(ageMin) ? ageMin.toFixed(1) : "?"} 分钟 > ${MAX_AGE_MIN} 分钟）。` +
+      "请先运行 node tools/audit-layout.mjs --tag after"
+  );
+  process.exit(2);
+}
+
 // ---------- 数据源期望（与 audit-layout.mjs 的 EXPECT 同口径） ----------
 const gly = read("src/data/glycolysis.json");
 const glySkel = read("src/data/skeleton.json");

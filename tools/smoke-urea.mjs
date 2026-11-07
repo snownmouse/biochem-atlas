@@ -142,7 +142,7 @@ check("转运详情写明瓜氨酸出 / 鸟氨酸进", (await page.locator("asid
 // ===== 6) ?step= 还原 + 上一步 / 下一步 =====
 await page.goto(`${BASE}/pathway/urea-cycle?step=urea-1`, { waitUntil: "networkidle" });
 check("URL 还原：urea-1 唯一选中态", (await page.locator("svg g[data-step-id='urea-1'].sel").count()) === 1);
-await page.locator(".d-variant .d-variant-tab").last().click();
+await page.locator('aside .d-variant[aria-label="上一步 / 下一步"] .d-variant-tab').last().click();
 check("下一步指向 urea-2", page.url().includes("step=urea-2"));
 
 // ===== 7) 图框 / 横向滚动 / 无缩放 =====

@@ -1,11 +1,11 @@
 # 非糖酵解通路 3D 资产 · 清单与落地记录（第一至五轮）
 
-生成日期：2026-11-07 ｜ 范围：`src/data` 中 `threeD.status === "pending"` 的 **31 个步骤**（fao 6 + fas 8 + 糖异生 4 + ppp 8 + urea 5；不含 5 条通路级汇总条目）。第二轮新增落地 gn-11 / urea-3 / ppp-o3 / fao-3；第三轮新增落地 fao-act / fao-4 / ppp-n3 / gn-2 / gn-9 / urea-1；第四轮新增落地 fas-pdh / fas-acc / ppp-n5；第五轮给管线加 `domain` / `focusResidues` / `focusLigandInstance`，并用 8VM0 落地 fas-er / fas-kr。
+生成日期：2026-11-07 ｜ 范围：5 条通路的 **31 个步骤**（fao 6 + fas 8 + 糖异生 4 + ppp 8 + urea 5；不含 5 条通路级汇总条目）。当前账：**已落地 21 / 可做未做 0 / 暂不做 10**；步骤级 `threeD.status` 已按事实改为 `ready`（21）/ `pending`（10）。第二轮新增落地 gn-11 / urea-3 / ppp-o3 / fao-3；第三轮新增落地 fao-act / fao-4 / ppp-n3 / gn-2 / gn-9 / urea-1；第四轮新增落地 fas-pdh / fas-acc / ppp-n5；第五轮给管线加 `domain` / `focusResidues` / `focusLigandInstance`，并用 8VM0 落地 fas-er / fas-kr。
 核验方式：逐条请求 RCSB Data API（`/core/entry`、`/core/polymer_entity`、`/core/nonpolymer_entity`）确认条目存在、标题、实验方法、分辨率、物种、链、共配体；无候选的步骤用 UniProt REST 的 PDB 交叉引用补齐后再核验。所有登记候选均存在（无 404）；既有 **6 处身份/状态误标**见下表，第三至五轮新增问题见第二节对应小节。
 
 ---
 
-## 一、31 个 pending 步骤全貌
+## 一、31 个步骤全貌（21 已落地 / 10 暂不做）
 
 状态说明：`已落地` = 本轮已出 holo/apo/SDF/pocket/meta 并进 manifest；`可做未做` = 结构可用但本轮未选；`暂不做` = 结构缺失或质量/配体证据不足，理由列在第五节。
 

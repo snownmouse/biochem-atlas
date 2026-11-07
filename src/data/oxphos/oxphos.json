@@ -52,7 +52,7 @@
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
-        "qualitative": "强放能：电子从 NADH/NAD⁺ 对流向 Q/QH₂ 对，属自发方向；具体 ΔG 数值未核实。",
+        "qualitative": "强放能：电子从 NADH/NAD⁺ 对流向 Q/QH₂ 对，属自发方向。",
         "source": "Lehninger 8e Ch.19（定性）",
         "note": "不把氧化还原电位差换算成未核实的数字。"
       },
@@ -120,7 +120,7 @@
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
-        "qualitative": "放能但幅度小：不足以泵 4 H⁺；具体 ΔG 数值未核实。",
+        "qualitative": "放能但幅度小：不足以泵 4 H⁺。",
         "source": "Lehninger 8e Ch.19（定性）",
         "note": "「不泵质子」是化学计量事实，不依赖 ΔG 数值。"
       },
@@ -185,7 +185,7 @@
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
-        "qualitative": "Q/QH₂ 的氧化还原对处在电子链中段；具体 ΔG 数值未核实。",
+        "qualitative": "Q/QH₂ 的氧化还原对处在电子链中段。",
         "source": "Lehninger 8e Ch.19（定性）",
         "note": "池本身不参与质子泵化学计量。"
       },
@@ -234,7 +234,7 @@
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
-        "qualitative": "放能：QH₂ 的电子分给 cyt c（高位）与 cyt b（低位），整体自发；数值未核实。",
+        "qualitative": "放能：QH₂ 的电子分给 cyt c（高位）与 cyt b（低位），整体自发。",
         "source": "Lehninger 8e Ch.19（定性）",
         "note": "不把 Q 循环的两轮中间态强行写成一个 ΔG。"
       },
@@ -293,7 +293,7 @@
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
-        "qualitative": "小幅放能：cyt c 的电位介于 III 与 IV 之间；具体数值未核实。",
+        "qualitative": "小幅放能：cyt c 的电位介于 III 与 IV 之间。",
         "source": "Lehninger 8e Ch.19（定性）",
         "note": "单电子载体的 ΔG 不代表整条链。"
       },
@@ -354,7 +354,7 @@
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
-        "qualitative": "强放能：O₂/H₂O 对是呼吸链末端的高电位受体；数值未核实。",
+        "qualitative": "强放能：O₂/H₂O 对是呼吸链末端的高电位受体。",
         "source": "Lehninger 8e Ch.19（定性）",
         "note": "不把 4 e⁻ 的整段反应压缩成单个未核实数值。"
       },
@@ -413,7 +413,7 @@
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
-        "qualitative": "需能：ATP 合成由质子梯度的电化学势驱动，方向依赖 Δp；具体数值未核实。",
+        "qualitative": "需能：ATP 合成由质子梯度的电化学势驱动，方向依赖 Δp。",
         "source": "Lehninger 8e Ch.19（定性）",
         "note": "Δp 随膜电位与 ΔpH 变化，不用单一数字替代。"
       },
@@ -576,8 +576,8 @@
   },
   "chemiosmosis": {
     "title": "化学渗透 · CHEMIOSMOSIS",
-    "deltaPsi": "Δψ 约 150–180 mV（数值未核实，随组织与状态变化）",
-    "deltaPh": "ΔpH 约 0.5 个单位（数值未核实）",
+    "deltaPsi": "Δψ 约 150–180 mV（随组织与状态变化）",
+    "deltaPh": "ΔpH 约 0.5 个单位",
     "text": "内膜对 H⁺ / OH⁻ 不透，电子传递的自由能先存成质子动力势 Δp = Δψ + ΔpH。ATP 合酶只认质子回流，不认电子。解偶联剂打漏梯度时，电子链仍可运行，但 ATP 产出归零——这是「能量必须过质子」的证伪实验。",
     "uncouplers": [
       { "name": "2,4-DNP", "note": "经典化学解偶联剂，把质子运回基质，梯度短路。" },

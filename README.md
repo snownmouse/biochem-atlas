@@ -199,7 +199,7 @@ node tools/validate-urea.mjs
 - 第三方库与字体：React、Vite、react-router-dom 为 MIT；RDKit、3Dmol.js 为 BSD-3-Clause；Noto Sans SC / Noto Serif SC 为 SIL OFL 1.1。逐项版本、版权行与仓库内位置见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)；字体目录内许可全文为 `public/assets/fonts/OFL.txt`。
 - KEGG、BRENDA、MetaCyc、SABIO-RK、eQuilibrator 当前未用于页面或数据生产；KEGG 仅在首页致谢文字中被提及，eQuilibrator 仅有计算存档脚本。
 - 遇到争议口径时只采用一个口径，另一口径只进注记；非人源/非本酶结构必须标明物种与来源蛋白，实验坐标与计算构象不得混用。完整清单与处理规则见下。
-- 来源登记表、引用完整度审计、缺口清单、争议清单与待确认项见 [docs/data-provenance.md](docs/data-provenance.md)。
+- 来源登记表、引用完整度审计、缺口清单、争议清单、核实结果与未解决项见 [docs/data-provenance.md](docs/data-provenance.md)。
 - 本项目**仅用于教学与演示**，不构成科研结论、不做临床或药物决策依据。
 
 ## 许可

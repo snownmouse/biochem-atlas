@@ -486,7 +486,7 @@
       "direction": "forward",
       "deltaG": {
         "value": null,
-        "qualitative": "单加氧放能；数值未核实",
+        "qualitative": "单加氧放能",
         "source": "Lehninger 8e Ch.21"
       },
       "physiology": "在角鲨烯末端双键上加一个氧，生成 2,3-环氧角鲨烯——LSS 环化的起爆点。消耗 1 NADPH + 1 O₂。",
@@ -513,7 +513,7 @@
       "direction": "forward",
       "deltaG": {
         "value": null,
-        "qualitative": "环化重排强放能；数值未核实",
+        "qualitative": "环化重排强放能",
         "source": "Lehninger 8e Ch.21"
       },
       "physiology": "一个质子引发环氧开环，C30 链经多轮 1,2-迁移环化成四环羊毛甾醇骨架。无 ATP / NADPH 净支出。",
@@ -540,7 +540,7 @@
       "direction": "forward",
       "deltaG": {
         "value": null,
-        "qualitative": "多步氧化 / 还原，总体放能；各步数值未核实，不合并成单一数字",
+        "qualitative": "多步氧化 / 还原，总体放能；不合并成单一数字",
         "source": "Lehninger 8e Ch.21"
       },
       "physiology": "羊毛甾醇比胆固醇多 3 个碳（C30 → C27）。这一簇依次去掉 14α-甲基、两个 C4-甲基，还原 Δ14 / Δ8 双键，再引入 Δ5 并还原 Δ7（或经 desmosterol 由 DHCR24 还原 Δ24），最终得到胆固醇。",

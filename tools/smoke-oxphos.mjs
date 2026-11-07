@@ -107,12 +107,14 @@ check(
     ox.modules.find((m) => m.id === "complex-ii")?.sharedWith?.entityId === "sdh",
 );
 check(
-  "ΔG 全部 null + 定性 + 数值未核实，不编造数值",
+  "ΔG 全部 null + 定性且不再出现「数值未核实」，不编造数值",
   ox.modules.every(
     (m) =>
       m.deltaG?.standard === null &&
       m.deltaG?.physiological === null &&
-      m.deltaG?.qualitative?.includes("未核实"),
+      typeof m.deltaG?.qualitative === "string" &&
+      m.deltaG.qualitative.length > 0 &&
+      !/未核实|kJ\/mol|kcal\/mol/.test(m.deltaG.qualitative),
   ),
 );
 check(
@@ -398,7 +400,13 @@ check(
   norm(await page.locator('[data-testid="oxphos-grade"]').innerText()).includes("1BMF") &&
     norm(await page.locator('[data-testid="oxphos-grade"]').innerText()).includes("B 本酶跨种"),
 );
-check("所有模块 ΔG 写「数值未核实」", norm(await page.locator('[data-testid="oxphos-dg"]').innerText()).includes("数值未核实"));
+check(
+  "所有模块 ΔG 只显示定性方向，不再出现「数值未核实」",
+  await (async () => {
+    const t = norm(await page.locator('[data-testid="oxphos-dg"]').innerText());
+    return t.length > 0 && !t.includes("未核实");
+  })(),
+);
 
 // ===== 7) 点击语义 =====
 console.log("\n===== 7) 点击语义 =====");

@@ -11,7 +11,7 @@
 ## 1. 来源登记表
 
 说明：
-- 「许可」均为 2026-11-06 至 2026-11-07 从上游页面或仓库许可文件读到的原文结论；未能取得原文的标为「待确认」或「查不到」。
+- 「许可」均为 2026-11-06 至 2026-11-07 从上游页面或仓库许可文件读到的原文结论；未能取得原文的标为「外部不可得」或「查不到」。
 - 「提取-重组」指数据库权利层面的摘取与重新编排，不等同于版权层面的引用。
 - 「本项目如何遵守」只写当前仓库实际做到的事；未做到的列入第 5 节缺口清单。
 
@@ -21,14 +21,14 @@
 | PDB CCD（化学组分字典，配体定义） | 配体 atom/bond 名称与组分解读 | 作为 PDB 归档数据文件的一部分，按 wwPDB Usage Policy 的 CC0 处理；未检索到 CCD 单独许可页 | 不要求 | 不限制 | 允许 | 无 | 仅在资产生成与核对阶段使用；未把 CCD 条目文本作为页面文案 |
 | UniProt | `src/data/amino-acid/amino.json` 中 10 个 accession 的条目核对；研究文档中的酶身份核对 | CC BY 4.0，见 UniProt License & disclaimer | 要求署名（CC BY 4.0） | 不限制 | 允许，须保留署名与许可指向 | 允许，须署名（CC BY 4.0 覆盖版权与数据库权利） | 数据层保留 accession；页面/文档引用 UniProt 名称；未复制条目正文 |
 | IUBMB Enzyme Nomenclature（EC 编号，经 ExplorEnz / EBI OLS4 分发） | 85 个步骤的 EC 编号与酶分类 | EBI OLS4 的 Enzyme Nomenclature 条目声明 CC-BY-4.0；IUBMB 原站未提供统一许可页 | 要求署名（CC BY 4.0） | 不限制 | 允许，须署名 | 允许，须署名 | 每个步骤在 `ecNumber` 或 `enzyme.ec` 写 EC 编号；页面详情栏显示 EC；未复制酶学说明段落 |
-| OMIM | 21 处临床/疾病关联编号 | **条款全文查不到**：官网 omim.org/help/agreement、/about、/help/copyright 仍返回反机器人验证页；Wayback、archive.today、r.jina.ai、Google 翻译入口均无可读内容。可确认：版权归 Johns Hopkins University（镜像数据文件头 `Copyright (c) 1966-2016 Johns Hopkins University` 并指向 `http://omim.org/help/agreement`）；第三方 EULA（NeDRex、PanelApp、Illumina）写明商业使用/再分发需 JHU 许可；reusabledata.org 标为 custom | 待确认（仅取得第三方转述，不作一手依据） | 待确认 | 待确认 | 待确认 | 只引 MIM 编号与病名，不复制条目正文；标注「OMIM / Johns Hopkins University, https://omim.org」；不把 OMIM 内容纳入 CC BY 4.0 |
+| OMIM | 21 处临床/疾病关联编号 | **外部不可得（2026-11-07 穷尽入口）**：官网 omim.org/help/agreement、/about、/help/copyright 仍返回反机器人验证页；Wayback、archive.today、r.jina.ai、Google 翻译入口均无可读内容。可确认：版权归 Johns Hopkins University（镜像数据文件头 `Copyright (c) 1966-2016 Johns Hopkins University` 并指向 `http://omim.org/help/agreement`）；第三方 EULA（NeDRex、PanelApp、Illumina）写明商业使用/再分发需 JHU 许可；reusabledata.org 标为 custom | 不适用（仅引事实性标识） | 外部不可得（条款未取得） | 外部不可得（条款未取得） | 外部不可得（条款未取得） | 只引 MIM 编号与病名，不复制条目正文；标注「OMIM / Johns Hopkins University, https://omim.org」；不把 OMIM 内容纳入 CC BY 4.0 |
 | Lehninger Principles of Biochemistry, 8e | 85 个定性 ΔG（数值不作页面展示）、能量账与机制描述 | 无开放许可；教材文字、图表、表格编排受出版社版权保护。事实性数据在多数法域不受版权保护，但汇编/选择可能受保护 | 无许可意义上的署名要求；学术引用为惯例 | 未授予 | 未授予（事实可引用，表达不可复制） | 未授予（未复制原表结构与图表） | 只引用反应事实与自写中文释义，标注章节/表号；未复制教材图表、表格排版或整段文字；数值缺口留空 |
 | KEGG | **未使用**（代码与数据层无 KEGG 数据）；首页致谢文字提及名称与年份 | 未核查（未使用其数据） | 不适用 | 不适用 | 不适用 | 不适用 | 未复制 KEGG 通路图、KO 编号或数据库内容；如后续接入，须先核实其学术/商业条款 |
 | BRENDA | **未使用** | 未核查（未使用其数据） | 不适用 | 不适用 | 不适用 | 不适用 | 代码、数据、文档均未引用 |
 | MetaCyc | **未使用** | 未核查（未使用其数据） | 不适用 | 不适用 | 不适用 | 不适用 | 代码、数据、文档均未引用 |
 | SABIO-RK | **未使用** | 未核查（未使用其数据） | 不适用 | 不适用 | 不适用 | 不适用 | 代码、数据、文档均未引用 |
-| eQuilibrator | **页面未使用**；`tools/calc-deltag-equilibrator.py` 与 `tools/deltag-results.json` 仅作计算存档，数值不进入页面与数据层 | 若后续启用：`equilibrator-api` 的 PyPI 元数据为 MIT；eQuilibrator 3.0 论文称算法所需原始数据以 Creative Commons 4.0 存放于 Zenodo | 若启用：代码保留 MIT 声明；数据须署名（具体 CC 变体待确认） | 代码不限制；数据待确认 | 代码允许；数据须按 CC 条款 | 待确认 | 存档脚本仅供复现；如启用须先锁定数据集版本、CC 变体与署名方式，并同步改渲染与断言 |
-| PubChem | **未在代码/数据层检索到 PubChem 引用**；SMILES 的具体来源未标注 | 未核查（来源未确认） | 不适用 | 不适用 | 不适用 | 不适用 | 统一口径见第 5 节 #4：86 个分子的 SMILES 是项目内维护的输入表，未记录逐条来源；不归因于 PubChem、教材或任何单一数据库 |
+| eQuilibrator | **页面未使用**；`tools/calc-deltag-equilibrator.py` 与 `tools/deltag-results.json` 仅作计算存档，数值不进入页面与数据层 | 当前不适用（未使用）；若后续启用：`equilibrator-api` 的 PyPI 元数据为 MIT；eQuilibrator 3.0 论文称算法所需原始数据以 Creative Commons 4.0 存放于 Zenodo，但 BY 变体、数据集版本与署名格式未确认 | 不适用（未使用）；启用前需确认 | 不适用（未使用） | 不适用（未使用） | 不适用（未使用） | 存档脚本仅供复现；如启用须先锁定数据集版本、CC 变体与署名方式，并同步改渲染与断言 |
+| PubChem | **未在代码/数据层检索到 PubChem 引用**；SMILES 的具体来源未标注 | 不适用（未引用 PubChem 数据） | 不适用 | 不适用 | 不适用 | 不适用 | 统一口径见第 5 节 #4：86 个分子的 SMILES 是项目内维护的输入表，未记录逐条来源；不归因于 PubChem、教材或任何单一数据库 |
 | RDKit | 生成 2D 布局；18 个计算 3D 构象（ETKDGv3 + MMFF94）；离线生成资产 | BSD 3-Clause，见 rdkit/license.txt | 要求保留版权声明、条件与免责声明 | 不限制 | 允许再分发与衍生，须保留声明 | 不适用（软件许可） | 仅作为开发期工具；第三方声明见 `THIRD_PARTY_NOTICES.md` 第 2.5 节 |
 | 3Dmol.js | 页面 3D 球棍渲染 | BSD 3-Clause，见 3Dmol.js/LICENSE；其 LICENSE 声明含 GLmol（0.47，MIT 或 LGPL-3 双许可）、Three.js（MIT）、jQuery（MIT）代码 | 要求保留版权声明、条件与免责声明 | 不限制 | 允许再分发与衍生，须保留声明 | 不适用（软件许可） | 构建产物事实：jQuery 3.7.1 仅见于 UI 构建文件头；Three.js 具体版本查不到；逐项声明见 `THIRD_PARTY_NOTICES.md` 第 1.1 节 |
 | React / React DOM | 前端运行时 | MIT，见 facebook/react/LICENSE | 要求保留版权与许可声明 | 不限制 | 允许 | 不适用 | 运行时依赖；声明见 `THIRD_PARTY_NOTICES.md` 第 1.2 节 |
@@ -45,7 +45,7 @@
 - **可以安全再分发**：PDB 条目与 CCD（CC0）；RDKit、3Dmol.js、React、Vite、react-router-dom（BSD/MIT，保留声明）；Noto 字体（OFL 1.1，保留许可文本）。
 - **可以再分发但必须署名**：UniProt（CC BY 4.0）、IUBMB EC（CC BY 4.0）、Noto 字体（OFL 要求保留版权与许可）。
 - **未授予再分发权，需按事实性数据/合理引用处理**：Lehninger 教材内容。
-- **条款未核实，不应作为可再许可内容**：OMIM（条款全文仍未取得；只引 MIM 编号与病名，不引正文）。
+- **条款外部不可得，不作为可再许可内容**：OMIM（官网与替代入口均无法取得条款全文；只引 MIM 编号与病名，不引正文）。
 - **未使用，不产生许可义务**：KEGG、BRENDA、MetaCyc、SABIO-RK、eQuilibrator（eQuilibrator 仅有存档脚本，数值不进入页面与数据层）。
 - **许可文本已补齐**：`public/assets/fonts/OFL.txt`（SIL OFL 1.1 全文 + 两个 Noto 字体的版权行）；根目录 `THIRD_PARTY_NOTICES.md`（第三方逐项声明）；`LICENSE-CC-BY-4.0.md`（CC BY 4.0 官方全文 + 建议署名格式）。
 
@@ -123,7 +123,7 @@
 | 86 个 2D 布局坐标 | 计算/绘制（RDKit 为主，4 个为脚本手写坐标） | `structures/2d` |
 | 范德华体积、主轴长度、ΔV% | 由坐标计算 | 资产 `shape`；结构对照默认模式判据 |
 | 分子式、净电荷 | 由 SMILES + pH 7.4 电离口径推导 | 实体字段 + `validate-ionization` 校验 |
-| 31 个酶 3D | **待建**（`threeD.status = pending`） | 各通路步骤数据 |
+| 21 个酶 3D 已建 / 10 个无可用结构 | 21 步已接入 `public/assets/steps` 并在 manifest 解析；10 步 `threeD.status = pending`，原因分三类：人源结构缺失、无本酶-底物复合物、仅有跨物种替代或无配体 apo（清单见 `scripts/pathway-enzyme-inventory.md`） | 各通路步骤数据 |
 | 32 个 `pdbCandidates` | 本轮核验存在，但数据层未记录核验状态 | 胆固醇 18、糖原 14 |
 | 83 行「未核实/未核验」 | 未核实 | 各数据文件注释/note |
 
@@ -147,8 +147,8 @@
 | 12 | `public/assets/fonts/` | 目录 | **已完成（2026-11-06）**：已补 SIL OFL 1.1 全文与两个字体版权行 | 1 个目录 | 文件：`public/assets/fonts/OFL.txt`；字体文件本身未改 |
 | 13 | 仓库根目录 | 第三方声明 | **已完成（2026-11-06）**：已补第三方逐项声明 | 1 | 文件：`THIRD_PARTY_NOTICES.md`；覆盖 RDKit、3Dmol.js（含 GLmol / Three.js / jQuery）、React / React DOM、react-router-dom、Vite、TypeScript、@vitejs/plugin-react、playwright-core、Noto Sans SC / Noto Serif SC、PDB / UniProt / EC / 教材 / OMIM |
 | 14 | `README.md` | 结构块计数 / 进度表 | **已完成**：README 现为 77 块、结构页 12 页已建，与仓库实际一致；本轮按要求不改 README | 0 | 无（如后续再出现 63，按缺口处理） |
-| 15 | `src/data/**/*.json` | OMIM 编号 | **条款全文仍未取得**：官网与 4 个替代入口均无全文；已确认版权归 JHU、商业/再分发需 JHU 许可 | 21 处 | 保持「只引编号与病名、不引正文」；标注 `OMIM / Johns Hopkins University, https://omim.org` |
-| 16 | 各通路步骤数据 | `threeD.status` | 酶 3D 未建 | 31 步 | 维持页面灰字「待核验后接入」，不得用别酶结构冒充 |
+| 15 | `src/data/**/*.json` | OMIM 编号 | **外部不可得（2026-11-07 穷尽入口）**：官网三页被反机器人页拦截，Wayback / archive.today / r.jina.ai / Google 翻译 4 个替代入口均无可读副本；已确认版权归 JHU、商业/再分发需 JHU 许可。状态定为外部不可得，按既定方式引用 | 21 处 | 保持「只引编号与病名、不引正文」；标注 `OMIM / Johns Hopkins University, https://omim.org` |
+| 16 | 各通路步骤数据 | `threeD.status` | 21 个已建 / 10 个无可用结构 | 10 步 | 已建步骤显示 3D；10 个无资产步骤保留灰字「待核验」，不得用别酶结构冒充 |
 
 ---
 
@@ -157,10 +157,10 @@
 | # | 争议项 | 分歧 | 本项目采用 | 依据 | 页面如何标注 |
 |---|---|---|---|---|---|
 | 1 | FAS 的 ER 酶 EC 号 | `1.3.1.39`（NADPH 依赖的烯酰-ACP 还原酶）与 `1.3.1.9`（NADH 依赖的旧口径） | `1.3.1.39` | FASN 的还原步骤使用 NADPH（Lehninger Ch.21）；IUBMB EC 1.3.1.39 的名称与反应写明 NADPH | FAS 挂图/详情栏显示 `EC 1.3.1.39`，不出现 `1.3.1.9` |
-| 2 | FDPS 的区室归属 | 胞质 vs 过氧化物酶体 | 以胞质为主，注记「部分定位于过氧化物酶体」 | 数据层 `enzyme.note`；外部定位依据尚未写入 accession，列为待补 | 胆固醇页步骤详情显示区室与 `enzyme.note`，不把双重定位压成单一定位 |
-| 3 | MSDHL 与 MSMO1 基因名 | 旧称 `MSDHL` vs 现行 `MSMO1`（SC4MOL） | `MSMO1`，`MSDHL` 视为旧称 | 数据层注释与项目既定口径；外部基因命名核验尚未落库 | 胆固醇页显示 `MSMO1`，注释中保留旧称以便检索 |
+| 2 | FDPS 的区室归属 | 胞质 vs 过氧化物酶体 | 以胞质为主，注记「部分定位于过氧化物酶体」 | 数据层 `enzyme.note`；**未解决**：外部定位依据尚未写入 accession（尚未逐条核对可引用条目），在补齐前不把双重定位写成单一确定结论 | 胆固醇页步骤详情显示区室与 `enzyme.note`，不把双重定位压成单一定位 |
+| 3 | MSDHL 与 MSMO1 基因名 | 旧称 `MSDHL` vs 现行 `MSMO1`（SC4MOL） | `MSMO1`，`MSDHL` 视为旧称 | 数据层注释与项目既定口径；**未解决**：外部基因命名核验尚未落库，在写入核验记录前不把旧称作废 | 胆固醇页显示 `MSMO1`，注释中保留旧称以便检索 |
 | 4 | 胆固醇末端两条平行路线 | `DHCR7`（7-脱氢胆固醇 → 胆固醇）vs `DHCR24`（desmosterol → 胆固醇） | 两条都保留，画成并行终点 | 数据层分别登记两个酶与底物；临床关联各自成立 | 胆固醇页同时显示两条末端分支，不合并成单一路线 |
-| 5 | ΔG 的标准态 / 生理态 | `ΔG°′` 文献值 vs 细胞内实际 ΔG | **决定：数值全部不作页面展示** | 标准态与生理态口径打架、部分数值误差过大、覆盖率不齐；只保留「单向 / 可逆 / 限速」等定性标注与 ATP/NADPH 化学计量 | 页面不出现具体 ΔG 数值；`deltaG` 数值字段统一 `null`，只显示定性句与 Lehninger 级出处；计算存档见 `tools/calc-deltag-equilibrator.py` |
+| 5 | ΔG 的标准态 / 生理态 | `ΔG°′` 文献值 vs 细胞内实际 ΔG | **决定：数值全部不作页面展示** | 标准态与生理态口径打架、部分数值误差过大、覆盖率不齐；只保留「单向 / 可逆 / 限速」等定性标注与 ATP/NADPH 化学计量 | 页面不出现具体 ΔG 数值；`deltaG` 数值字段统一 `null`，只显示定性句与 Lehninger 级出处；ΔG 页面只呈现定性方向，不展示数值，也不展示「数值未核实」的提示；计算存档见 `tools/calc-deltag-equilibrator.py` |
 | 6 | 键级来自模板、坐标为实验值 | 模板键级 vs 实验几何键长偏长 | 保留模板键级，不改坐标；1.56–1.71 Å 的双键加统一注记 | `docs` 与结构对照块的 `caveat`：坐标为实验原值，键长偏长系晶体构象，未做几何纠正 | 分子对照首屏显示「键级来自模板，坐标为实验结构原值，键长偏长系晶体构象，未做几何纠正」 |
 | 7 | P/O 比口径 | 旧口径 NADH 3 / FADH₂ 2 vs 现行 2.5 / 1.5 | 2.5 / 1.5；C16 净 106 ATP | Lehninger Ch.17；旧 129 仅作 legacy 对照 | FAO 能量账本写 2.5/1.5 与 106；旧值只在注记中出现 |
 | 8 | 糖原能量账 | 分解省 1 ATP、合成耗 2 个酐键，是否可相抵为「净赚 1 ATP」 | 不相抵；分别列分解端与合成端 | 糖原磷酸解省 1 ATP/残基；UDP-葡萄糖合成消耗 2 个酐键；两侧方向不同 | 糖原页能量账本分别显示「省 1 ATP / 残基」与「耗 2 酐键 / 残基」，并注明不可相抵 |
@@ -189,19 +189,19 @@
 
 ---
 
-## 5. 待确认项与落实结果
+## 5. 核实结果与未解决项
 
 | # | 事项 | 查了哪里 | 缺什么 / 为什么不能下结论 |
 |---|---|---|---|
-| 1 | OMIM 使用条款 | `omim.org/help/agreement`、`/about`、`/help/copyright`；Wayback、archive.today、r.jina.ai、Google 翻译入口；镜像数据文件头；NeDRex / PanelApp / Illumina EULA；reusabledata.org | **条款全文查不到**（官网仍拦截，4 个替代入口无可读副本）。已确认：版权归 JHU；商业使用/再分发需 JHU 许可；`custom` 许可。只引编号与病名时的标注方式见第 1 节 OMIM 行与 `THIRD_PARTY_NOTICES.md` 第 4.5 节 |
-| 2 | Lehninger 数值再分发的法域风险 | 数据层 `source` 字符串；教材版权一般原则 | 未取得出版社书面许可；事实性数据与表格汇编的保护范围因法域而异，需法律意见 |
+| 1 | OMIM 使用条款 | `omim.org/help/agreement`、`/about`、`/help/copyright`；Wayback、archive.today、r.jina.ai、Google 翻译入口；镜像数据文件头；NeDRex / PanelApp / Illumina EULA；reusabledata.org | **外部不可得**（官网仍拦截，4 个替代入口无可读副本，已穷尽可查入口）。已确认：版权归 JHU；商业使用/再分发需 JHU 许可；`custom` 许可。实际采用：只引 MIM 编号与病名，标注 `OMIM / Johns Hopkins University, https://omim.org`，不复制正文；详见第 1 节 OMIM 行与 `THIRD_PARTY_NOTICES.md` 第 4.5 节 |
+| 2 | Lehninger 数值再分发的法域风险 | 数据层 `source` 字符串；教材版权一般原则 | **未解决**：未取得出版社书面许可；事实性数据与表格汇编的保护范围因法域而异，需法律意见。当前做法是不展示数值、不复制表格编排，仅引事实 |
 | 3 | Lehninger 章/表号与页码 | 24 个 `deltaG.source` 字符串；全量 `src/data/**/*.json` 页码检索 | **已决定并执行**：一律用书名 + 版次 + 章/表号，不写未核实页码；当前数据层无页码，无需转换。见第 4.1 节 |
 | 4 | 86 个分子的 SMILES 来源 | `tools/gen-molecule-assets.py`、`ligands3d/*.json`、全仓 `PubChem` 检索 | **统一口径**：SMILES 是项目内维护的输入表，未记录逐条来源；不归因于 PubChem、教材或任何单一数据库。只用于离线资产生成（2D 坐标、计算构象、分子式/电荷推导），属项目整理数据，按 CC BY 4.0。RDKit 往返与分子式断言只证明可解析/一致，不证明来源。若需对外声称来源，须逐分子补 `SMILES_SOURCE` |
-| 5 | 字体文件版本与取得路径 | `public/assets/fonts/` 的 404 个 woff2 名称表；`package.json`、`package-lock.json` | **已解决**：字体全部自托管，不依赖 `@fontsource` 包；字体二进制版本 2.004-H2（Sans）/ 2.003-H1（Serif）。`src/styles.css` 注释仍写「由 @fontsource 分片生成」，属历史生成说明，不构成依赖；本轮不动 `src/` |
-| 6 | PDB CCD 是否有单独条款 | wwPDB Usage Policy、RCSB Policies | 未检索到 CCD 单独许可页；按 PDB 归档 CC0 处理，但「无例外」尚未取得明文确认 |
-| 7 | eQuilibrator 存档数据的许可 | PyPI `equilibrator-api`、eQuilibrator 3.0 论文（arXiv:2103.00621） | 页面不展示数值，数据层不含计算值；`tools/` 仅保留复现脚本与结果存档 | 代码为 MIT；论文称原始数据为 CC 4.0，但未写明 BY 变体、数据集版本与署名格式；如启用须重新核实 |
-| 8 | `6PGL` / `6PGD` 类误命中 | RCSB 条目标题 | 已确认是酶缩写，不是错数据；但说明「PDB 编号自动抽取」不可靠，后续需人工核对 |
-| 9 | 32 个 `pdbCandidates` 的核验记录 | RCSB REST API（2026-11-06） | 本轮确认全部真实存在，但数据层没有逐条 `status` / 核验日期；需落库 |
+| 5 | 字体文件版本与取得路径 | `public/assets/fonts/` 的 404 个 woff2 名称表；`package.json`、`package-lock.json`；`src/styles.css` 首行注释 | **已解决**：字体全部自托管，不依赖 `@fontsource` 包；字体二进制版本 2.004-H2（Sans）/ 2.003-H1（Serif）；`src/styles.css` 首行注释已于 2026-11-07 改为「woff2 随仓库分发；来源与许可见 `public/assets/fonts/OFL.txt`」，不再提 `@fontsource` |
+| 6 | PDB CCD 是否有单独条款 | wwPDB Usage Policy、RCSB Policies | **未解决**：未检索到 CCD 单独许可页；按 PDB 归档 CC0 处理，但「无例外」尚未取得明文确认，故不据此对外声明 |
+| 7 | eQuilibrator 存档数据的许可 | PyPI `equilibrator-api`、eQuilibrator 3.0 论文（arXiv:2103.00621） | **当前不适用**：页面不展示数值，数据层不含计算值，`tools/` 仅保留复现脚本与结果存档，因此不构成当前合规阻塞。若启用：代码为 MIT；论文称原始数据为 CC 4.0，但未写明 BY 变体、数据集版本与署名格式，须重新核实 |
+| 8 | `6PGL` / `6PGD` 类误命中 | RCSB 条目标题 | **未解决**：已确认是酶缩写，不是错数据；但说明「PDB 编号自动抽取」不可靠，后续需人工核对 |
+| 9 | 32 个 `pdbCandidates` 的核验记录 | RCSB REST API（2026-11-06） | **未解决**：本轮确认全部真实存在，但数据层没有逐条 `status` / 核验日期；需落库 |
 | 10 | KEGG 等未使用数据库 | 全仓代码/数据检索 | 确认当前未使用；若后续接入，须重新核查条款，不能沿用本文件「未使用」结论 |
 
 ---
@@ -214,4 +214,4 @@
 - 2D 资产应补 `generatedBy` / `method`；手写坐标与 RDKit 输出必须可区分。
 - 实验坐标与计算构象不得混用；非人源/非本酶结构必须在首屏可见处说明。
 - 第三方代码、字体、数据库内容不得被仓库的 MIT 许可「再许可」；再分发时保留各自许可文本与署名。
-- 本文件中的「待确认」项在核实前不得写成确定结论，也不得据此对外声明合规。
+- 本文件标为「外部不可得」「查不到」或第 5 节「未解决」的项，在核实前不得写成确定结论，也不得据此对外声明合规。
