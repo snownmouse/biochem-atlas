@@ -6,11 +6,11 @@
 
 ## 当前进度
 
-全站共 12 条通路（PLATE 00–12；PLATE 00 为首页总图）。
+全站共 13 条通路（PLATE 00–13；PLATE 00 为首页总图）。
 
 | 编号 | 内容 | 状态 |
 | --- | --- | --- |
-| PLATE 00 | 首页总图（上下两域 · 代谢脊柱，九条通路标题块 + 预留槽 11–12） | 已完成 |
+| PLATE 00 | 首页总图（上下两域 · 代谢脊柱，十二条通路标题块 + 预留槽 14–18） | 已完成 |
 | PLATE 01 | 糖酵解（10 步，肝 / 肌 / 红细胞三张 SVG） | 已完成 |
 | PLATE 02 | 三羧酸循环（8 步闭环 + PDH 接驳步） | 已完成 |
 | PLATE 03 | 糖异生（11 步，三次跨膜） | 已完成 |
@@ -23,8 +23,9 @@
 | PLATE 10 | 糖原代谢（分解 / 合成双臂，肝 vs 肌） | 已完成 |
 | PLATE 11 | 氨基酸代谢（`src/data/amino-acid/`，挂图 + 7 个结构对照块） | 已完成 |
 | PLATE 12 | 胆固醇代谢（挂图 + 7 个结构对照块） | 已完成 |
+| PLATE 13 | 酮体代谢（生酮 5 步 + 肝外利用 1 段，肝线粒体 / 血液 / 肝外线粒体三区室，只做 2D） | 已完成 |
 
-结构对照页共 **77 块**（每块 = 一步的底物 / 产物分子对照）：
+结构对照页共 **83 块**（每块 = 一步的底物 / 产物分子对照；SF-07 的 9 块复用糖酵解 / 糖异生既有块，不重复计数）：
 
 | 结构页编号 | 通路 | 块数 |
 | --- | --- | --- |
@@ -40,10 +41,11 @@
 | SF-10 | 糖原代谢 | 6 |
 | SF-11 | 氨基酸代谢 | 7 |
 | SF-12 | 胆固醇合成 | 7 |
+| SF-13 | 酮体代谢 | 6 |
 
 `SF` 编号与 `PLATE` 编号一一对应（SF-07 即 PLATE 07），因此编号不会因为新增通路而重排。
 
-结构页现状：**12 页全部已建**（SF-01–12）；SF-07 的 Cori 页复用糖酵解 / 糖异生既有对照块（9 块），不新建分子或 3D。
+结构页现状：**13 页全部已建**（SF-01–13）；SF-07 的 Cori 页复用糖酵解 / 糖异生既有对照块（9 块），不新建分子或 3D。SF-13 与其余五张新图按同一口径只做 2D，不建 3D、不登记 PDB 候选。
 
 ## 技术栈
 
@@ -64,7 +66,7 @@ src/
     <pathway>/           多数通路：xxx.json + skeleton.json + types.ts
     glycolysis.json      糖酵解数据（与 skeleton.json 同在 data 根）
     tca.json             TCA 数据（skeleton-tca.json 同在 data 根）
-    comparisonConfig.ts  77 块结构对照配置（分子、标注、来源说明、默认模式判据）
+    comparisonConfig.ts  83 块结构对照配置（分子、标注、来源说明、默认模式判据）
     evidenceGrade.ts     证据等级的唯一推导处
     homeMap.ts           首页节点 / 连线 / 交汇点的数据推导
     homeLayout.ts        首页版面坐标与分域、预留槽
@@ -102,7 +104,7 @@ npm run preview   # 预览构建产物（默认 http://localhost:4173）
 
 两类脚本，全部是独立可执行文件，不挂在 `npm run build` 里。
 
-### 冒烟（19 个 `tools/smoke-*.mjs`）
+### 冒烟（23 个 `tools/smoke-*.mjs`）
 
 用 `playwright-core` 驱动本机 Edge / Chrome 做真实浏览器断言。运行前先 `npm run build` 并 `npm run preview`，默认连 `http://localhost:4173`（可用环境变量 `BASE_URL` 改）。
 
@@ -115,7 +117,7 @@ node tools/smoke-cori.mjs        # Cori 循环挂图
 | 脚本 | 管什么 |
 | --- | --- |
 | `smoke-home` | 首页两域构图、节点与连线、点击语义、预留槽 |
-| `smoke-nav` | 统一通路切换器（11 条 = 10 通路 + 首页、高亮唯一、跨页可达） |
+| `smoke-nav` | 统一通路切换器（14 条 = 13 通路 + 首页、高亮唯一、跨页可达） |
 | `smoke-embed` | 糖酵解海报 + 内嵌 3D 切片、缺资产降级、URL 还原 |
 | `smoke-frames` | 糖酵解结构对照页 |
 | `smoke-tca` / `smoke-tca-structures` | TCA 挂图 / TCA 结构对照页 |
@@ -126,12 +128,16 @@ node tools/smoke-cori.mjs        # Cori 循环挂图
 | `smoke-oxphos` | 氧化磷酸化挂图 + 结构模块页 |
 | `smoke-urea` | 尿素循环挂图 |
 | `smoke-glycogen` | 糖原代谢挂图 + 结构对照页 |
+| `smoke-amino` | 氨基酸代谢挂图 + 结构对照页 |
 | `smoke-cori` | Cori 循环挂图（方向、引用、账本加法、首页回路不改六标题） |
+| `smoke-cholesterol` | 胆固醇合成挂图 + 结构对照页 |
+| `smoke-ketone` | 酮体代谢挂图（三区室、运输段、2D-only）+ SF-13 结构对照页 |
 | `smoke-evidence` | 证据分级（糖酵解 / TCA / PPP / 糖异生四通路） |
 | `smoke-atom-colors` | 全站原子配色一致性 |
+| `smoke-molecule-profiles` | `/molecule/:id` 与 `/substances` 条目完整度 |
 | `smoke-layout` | 全站版式红线（消费 `tools/audit-layout.mjs` 的报告，需先跑 `node tools/audit-layout.mjs --tag after`） |
 
-### 数据校验（10 个 `tools/validate-*.mjs`）
+### 数据校验（15 个 `tools/validate-*.mjs`）
 
 纯 Node，不需要预览服务，非零退出即失败。多数脚本内置「负例自检」——故意改错一处，确认校验器真的会报错。
 
@@ -152,6 +158,11 @@ node tools/validate-urea.mjs
 | `validate-fas` | FAS 数据层，11 条负例自检 |
 | `validate-urea` | 尿素循环，≥6 条负例自检 |
 | `validate-glycogen` | 糖原代谢数据层（PLATE 10 / SF-10） |
+| `validate-amino` | 氨基酸代谢数据层（PLATE 11 / SF-11） |
+| `validate-cholesterol` | 胆固醇合成数据层（PLATE 12 / SF-12） |
+| `validate-ketone` | 酮体代谢数据层（PLATE 13 / SF-13）：三区室、2D-only、无 PDB 候选，9 条负例自检 |
+| `validate-molecule-notes` | 分子档案 note 完整度（117 条） |
+| `validate-substances` | `/substances` 条目字段完整度与链路可达 |
 
 ## 关键约定
 
@@ -194,7 +205,7 @@ node tools/validate-urea.mjs
 
 - 化学事实、EC 编号与能量数据：教材 `Lehninger Principles of Biochemistry, 8e`（章/表级引用）；EC 编号经 IUBMB Enzyme Nomenclature（EBI OLS4 标 CC BY 4.0）。
 - 结构坐标以 wwPDB / RCSB PDB 实验结构为准（PDB 归档数据为 CC0 1.0），选用前逐个在 RCSB 核验物种、方法、分辨率、配体；UniProt（CC BY 4.0）仅用于条目核对与 amino 数据的 accession 注释。
-- 数值性质：**ΔG 数值不在页面展示**，全部步骤只保留「单向 / 可逆 / 限速」等定性标注与 ATP/NADPH 化学计量；`deltaG` 的 `standard` / `physiological` / `value` / `valueKcal` 字段统一为 `null`，`qualitative` 与教材级 `source` 保留。历史计算存档见 `tools/calc-deltag-equilibrator.py` 与 `tools/deltag-results.json`（仅供复现，未在页面展示；启用须同步改渲染与断言）。43 个分子 3D 资产为实验坐标，18 个为 RDKit 计算构象（ETKDGv3 + MMFF94）；2D 布局主要由 RDKit 生成（4 个为脚本手写坐标）。查不到的数字留空，不估算。
+- 数值性质：**ΔG 数值不在页面展示**，全部步骤只保留「单向 / 可逆 / 限速」等定性标注与 ATP/NADPH 化学计量；`deltaG` 的 `standard` / `physiological` / `value` / `valueKcal` 字段统一为 `null`，`qualitative` 与教材级 `source` 保留。历史计算存档见 `tools/calc-deltag-equilibrator.py` 与 `tools/deltag-results.json`（仅供复现，未在页面展示；启用须同步改渲染与断言）。43 个分子 3D 资产为实验坐标，18 个为 RDKit 计算构象（ETKDGv3 + MMFF94）；91 个 2D 资产主要由 RDKit 生成（4 个为脚本手写坐标），其中本轮新增的 5 个酮体资产已带 `generatedBy` / `method` / `provenance`，只作 2D 示意、不登记 PDB 候选。查不到的数字留空，不估算。
 - 实验坐标**未做几何纠正**：不理想化、不最小化、不重嵌入，原子位置是结构文件里的原始坐标；键长 / 键角的视觉偏差属数据本身，不是渲染误差。
 - 第三方库与字体：React、Vite、react-router-dom 为 MIT；RDKit、3Dmol.js 为 BSD-3-Clause；Noto Sans SC / Noto Serif SC 为 SIL OFL 1.1。逐项版本、版权行与仓库内位置见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)；字体目录内许可全文为 `public/assets/fonts/OFL.txt`。
 - KEGG、BRENDA、MetaCyc、SABIO-RK、eQuilibrator 当前未用于页面或数据生产；KEGG 仅在首页致谢文字中被提及，eQuilibrator 仅有计算存档脚本。

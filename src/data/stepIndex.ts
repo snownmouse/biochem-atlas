@@ -20,6 +20,7 @@ import cholesterol from "./cholesterol/cholesterol.json";
 import fas from "./fatty-acid-synthesis/fas.json";
 import oxphos from "./oxphos/oxphos.json";
 import cori from "./cori/cori.json";
+import ketone from "./ketone/ketone.json";
 import { HOME_PATHWAYS } from "./homeMap";
 
 export interface DeltaGLike {
@@ -85,6 +86,7 @@ const FILES: { id: string; name: string; route: string; structureRoute: string |
   { id: "oxphos", name: "氧化磷酸化", route: "/pathway/oxphos", structureRoute: "/structures/oxphos", data: oxphos },
   // Cori 页引用既有步骤，自身没有结构对照页。
   { id: "cori", name: "Cori 循环", route: "/pathway/cori", structureRoute: null, data: cori },
+  { id: "ketone", name: "酮体代谢", route: "/pathway/ketone", structureRoute: "/structures/ketone", data: ketone },
 ];
 
 // 路线以 homeMap 的元数据为准（它是导航檐的唯一口径），未收录的通路用上表兜底。

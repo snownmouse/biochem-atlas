@@ -1,8 +1,8 @@
 // 物质简介档案（moleculeProfiles.ts）校验器。
 //
 // 完整门槛（无 --partial 放行）：
-//   1) 114 个“页面上出现过的物质”逐个有档案；分批时用 --keys a,b,c 只校验本批，
-//      缺任何一个指定键即失败（默认模式要求 114 全覆盖）
+//   1) 117 个“页面上出现过的物质”逐个有档案；分批时用 --keys a,b,c 只校验本批，
+//      缺任何一个指定键即失败（默认模式要求 117 全覆盖）
 //   2) 六段骨架非空：claim / classification / structure / position / flow / significance / exam
 //   3) exam 条目 2–4 条；pathways ≥1；sources ≥2
 //   4) 气泡两行（what / highlight），每行 ≤21 个全角字
@@ -11,7 +11,7 @@
 //   7) id 不重复、entry.id === map 键、aliases ≥1
 //
 // 用法：
-//   node tools/validate-molecule-notes.mjs                      # 全量 114
+//   node tools/validate-molecule-notes.mjs                      # 全量 117
 //   node tools/validate-molecule-notes.mjs --keys 2pg,3pg,camp  # 分批（只查本批，仍用全部规则）
 import { readFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
@@ -21,10 +21,10 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const FILE = join(ROOT, "src", "data", "moleculeProfiles.ts");
 const SRC = readFileSync(FILE, "utf8");
 
-/** 页面上出现过、需要简介的全部物质（数据层 entities 116 个 id 去重、并入 ACP 与 cyt c 后的 114 个） */
+/** 页面上出现过、需要简介的全部物质（数据层 entities 116 个 id 去重、并入 ACP 与 cyt c 后的 114 个，PLATE 13 酮体新增 3 个） */
 const REQUIRED = [
-  "23bpg","2pg","3pg","6pg-l","6pgl","7dhc","acacoa","accoa","acp","acylcarn","acylcoa-c16","adp",
-  "akg","ala","amp","asn","atp","bpg13","camp","carn","cholesterol","cit","co2","coa","cys",
+  "23bpg","2pg","3pg","6pg-l","6pgl","7dhc","acacoa","acetoacetate","acetone","accoa","acp","acylcarn","acylcoa-c16","adp",
+  "akg","ala","amp","asn","atp","bhb","bpg13","camp","carn","cholesterol","cit","co2","coa","cys",
   "cystathionine","cytc","desmosterol","dhap","dmapp","e4p","enoyl-c16","f6p","fa","fad","fadh2",
   "fas-c2","fas-c4-enoyl","fas-c4-keto","fas-c4-oh","fas-malonyl","fbp","fpp","fum","g1p","g6p","gap",
   "glc","gln","glu","gly","glycogen","glycogen-limit","gpp","h2o","hco3","hcy","his","hmgcoa",
@@ -142,7 +142,7 @@ for (const key of scope) {
   if (!present.has(key)) fail(`缺档案：${key}`);
 }
 for (const entry of entries) {
-  if (!REQUIRED.includes(entry.key)) fail(`多出的档案键：${entry.key}（不在 114 个物质清单里）`);
+  if (!REQUIRED.includes(entry.key)) fail(`多出的档案键：${entry.key}（不在 117 个物质清单里）`);
 }
 
 // 2–7) 逐条

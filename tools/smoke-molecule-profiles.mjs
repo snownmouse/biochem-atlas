@@ -1,6 +1,6 @@
-// 物质简介页冒烟（/molecule/:id，全量 114 个物质）
-// 校验口径：5 个样板逐项查结构/文案/3D/深链；全量 114 条路由可达且不落未知 id 兜底；
-// 12 张挂图的全部可悬停节点都能解析出「→ 物质简介」条目并指向已收录档案；
+// 物质简介页冒烟（/molecule/:id，全量 117 个物质）
+// 校验口径：5 个样板逐项查结构/文案/3D/深链；全量 117 条路由可达且不落未知 id 兜底；
+// 13 张挂图的全部可悬停节点都能解析出「→ 物质简介」条目并指向已收录档案；
 // 三处入口（气泡底行 / 结构页档案卡 / 挂图步骤面板）实测 href、未知 id 列出全部入口、
 // 1440/1280 无页面级横向溢出、无控制台报错、截图落 preview/。
 // 需先 `npm run build`，再 `npm run preview`（或 BASE_URL 指向本地服务）。
@@ -201,8 +201,8 @@ check("未知 id：给出「没有这个物质」", (await page.locator(".mp-hea
 check(`未知 id：列出全部 ${PROFILE_IDS.length} 个物质入口`, (await page.locator(".mp-links-wide a").count()) === PROFILE_IDS.length);
 check("未知 id：入口可回首页", (await page.locator('.mp-crumb a[href="/"]').count()) >= 1);
 
-// ===== 2b) 全量 114 条简介路由：可达、不落兜底、骨架齐全 =====
-check(`档案总数 ${PROFILE_IDS.length} === 114`, PROFILE_IDS.length === 114, PROFILE_IDS.length.toString());
+// ===== 2b) 全量 117 条简介路由：可达、不落兜底、骨架齐全 =====
+check(`档案总数 ${PROFILE_IDS.length} === 117`, PROFILE_IDS.length === 117, PROFILE_IDS.length.toString());
 const badRoutes = [];
 for (const id of PROFILE_IDS) {
   const resp = await page.goto(`${BASE}/molecule/${id}`, { waitUntil: "domcontentloaded" });
@@ -230,7 +230,7 @@ for (const id of PROFILE_IDS) {
 }
 check(`全量 ${PROFILE_IDS.length} 条简介路由都进到自己的页面（无 404 / 无兜底）`, badRoutes.length === 0, badRoutes.slice(0, 8).join(" | "));
 
-// ===== 2c) 12 张挂图的全部可悬停节点：气泡都能出「→ 物质简介」 =====
+// ===== 2c) 13 张挂图的全部可悬停节点：气泡都能出「→ 物质简介」 =====
 const PATHWAY_IDS = [
   "glycolysis",
   "tca",
@@ -244,6 +244,7 @@ const PATHWAY_IDS = [
   "glycogen",
   "amino-acids",
   "cholesterol",
+  "ketone",
 ];
 const nodeHrefs = new Map();
 const nodeProblems = [];
@@ -300,7 +301,7 @@ for (const pid of PATHWAY_IDS) {
   }
 }
 check(
-  `12 张挂图的 ${nodeHrefs.size} 个可悬停节点都能进到自己的简介页`,
+  `13 张挂图的 ${nodeHrefs.size} 个可悬停节点都能进到自己的简介页`,
   nodeProblems.length === 0,
   nodeProblems.slice(0, 8).join(" | "),
 );

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="20.0 20.0 467.5 294.5" width="468" height="294" role="img" aria-label="acacoa-2d">
+<rect x="20.0" y="20.0" width="467.5" height="294.5" fill="#f6f3ec"/>
+<line x1="60.0" y1="153.4" x2="156.9" y2="178.2" stroke="#22282a" stroke-width="1.6"/>
+<line x1="156.9" y1="178.2" x2="183.8" y2="274.5" stroke="#22282a" stroke-width="1.6"/>
+<line x1="158.4" y1="193.3" x2="177.3" y2="260.8" stroke="#22282a" stroke-width="1.6"/>
+<line x1="156.9" y1="178.2" x2="226.8" y2="106.7" stroke="#22282a" stroke-width="1.6"/>
+<line x1="226.8" y1="106.7" x2="323.7" y2="131.5" stroke="#22282a" stroke-width="1.6"/>
+<line x1="323.7" y1="131.5" x2="393.6" y2="60.0" stroke="#22282a" stroke-width="1.6"/>
+<line x1="336.0" y1="122.6" x2="385.0" y2="72.5" stroke="#22282a" stroke-width="1.6"/>
+<line x1="323.7" y1="131.5" x2="350.6" y2="227.8" stroke="#22282a" stroke-width="1.6"/>
+<line x1="350.6" y1="227.8" x2="447.5" y2="252.6" stroke="#22282a" stroke-width="1.6"/>
+<circle cx="60.0" cy="153.4" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="156.9" cy="178.2" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="183.8" cy="274.5" r="8.5" fill="#f6f3ec"/>
+<text x="183.8" y="277.7" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="226.8" cy="106.7" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="323.7" cy="131.5" r="1.8" fill="rgba(34,40,42,0.55)"/>
+<circle cx="393.6" cy="60.0" r="8.5" fill="#f6f3ec"/>
+<text x="393.6" y="63.2" text-anchor="middle" data-element="O" data-element-color="#b23a2c" style="fill:#b23a2c" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#b23a2c">O</text>
+<circle cx="350.6" cy="227.8" r="8.5" fill="#f6f3ec"/>
+<text x="350.6" y="231.0" text-anchor="middle" data-element="S" data-element-color="#9a8f1f" style="fill:#9a8f1f" font-family="Helvetica, Arial, sans-serif" font-size="12" font-weight="700" fill="#9a8f1f">S</text>
+<circle cx="447.5" cy="252.6" r="1.8" fill="rgba(34,40,42,0.55)"/>
+</svg>

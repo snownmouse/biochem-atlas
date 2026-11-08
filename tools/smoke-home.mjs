@@ -73,6 +73,7 @@ const PATHWAYS = [
   ["glycogen", "糖原代谢"],
   ["amino-acids", "氨基酸代谢"],
   ["cholesterol", "胆固醇合成"],
+  ["ketone", "酮体代谢"],
 ];
 
 const firstScreenTitles = async () =>
@@ -142,15 +143,15 @@ await page.goto(`${BASE}/?fold=open`, { waitUntil: "networkidle" });
 const blockAttrs = await page.locator("[data-pathway-block]").evaluateAll((els) =>
   els.map((el) => [el.getAttribute("data-pathway-block"), el.getAttribute("href")])
 );
-check("十一个通路区块存在", blockAttrs.length === 11, String(blockAttrs.length));
+check("十二个通路区块存在", blockAttrs.length === 12, String(blockAttrs.length));
 check(
-  "通路区块 href 指向十一条挂图",
+  "通路区块 href 指向十二条挂图",
   blockAttrs.every(([id, href]) => href === posterRoute(id)),
   JSON.stringify(blockAttrs)
 );
 
 const titles = await firstScreenTitles();
-check("十二个通路标题存在（十一区块 + Cori 连接带）", titles.length === 12, String(titles.length));
+check("十三个通路标题存在（十二区块 + Cori 连接带）", titles.length === 13, String(titles.length));
 for (const [id, name] of PATHWAYS) {
   const title = titles.find((item) => item.id === id);
   check(`图上出现「${name}」标题`, Boolean(title) && title.text.includes(name), title?.text ?? "missing");
@@ -160,20 +161,20 @@ check(
   titles.some((t) => t.id === "cori" && t.text.toLowerCase().includes("cori 循环")),
   titles.find((t) => t.id === "cori")?.text ?? "missing",
 );
-// 第 11 条（氨基酸代谢，y=650）与第 12 条（胆固醇合成，y=698）按用户口径允许落到首屏之外；
-// 其余十条仍必须在 1440×900 内。
+// 第 11 / 12 条与 PLATE 13 酮体按用户口径允许落到首屏之外；其余十条仍必须在 1440×900 内。
+const ALLOW_OFFSCREEN = ["amino-acids", "cholesterol", "ketone"];
 const offscreen = titles.filter((t) => t.y < 0 || t.bottom > 900 || t.x < 0 || t.right > 1440);
 check(
-  "1440×900 展开档：仅氨基酸代谢与胆固醇合成出屏（用户已接受往下拉）",
-  offscreen.length === 2 && ["amino-acids", "cholesterol"].every((id) => offscreen.some((t) => t.id === id)),
+  "1440×900 展开档：仅氨基酸代谢 / 胆固醇合成 / 酮体出屏（用户已接受往下拉）",
+  offscreen.length === 3 && ALLOW_OFFSCREEN.every((id) => offscreen.some((t) => t.id === id)),
   JSON.stringify(offscreen.map((t) => [t.id, t.x, t.y, t.right, t.bottom]))
 );
 const mapBox = await page.locator('svg[data-home-map="1"]').boundingBox();
 const lowestNonAmino = Math.max(
-  ...titles.filter((t) => t.id !== "amino-acids" && t.id !== "cholesterol").map((t) => t.bottom),
+  ...titles.filter((t) => !ALLOW_OFFSCREEN.includes(t.id)).map((t) => t.bottom),
 );
 check(
-  "除氨基酸代谢 / 胆固醇合成外，十条标题最低底边 ≤ 900（不压既有标题坐标）",
+  "除出屏三条外，十条标题最低底边 ≤ 900（不压既有标题坐标）",
   Boolean(mapBox) && lowestNonAmino <= 900,
   JSON.stringify({
     mapTop: mapBox?.y,
@@ -188,9 +189,9 @@ check(
 const destLinks = await page.locator("[data-home-link]").evaluateAll((els) =>
   els.map((el) => el.getAttribute("href"))
 );
-check("右栏二十二条去向链接", destLinks.length === 22, String(destLinks.length));
+check("右栏二十四条去向链接", destLinks.length === 24, String(destLinks.length));
 check(
-  "二十二条去向覆盖十一挂图 + 十一结构对照",
+  "二十四条去向覆盖十二挂图 + 十二结构对照",
   PATHWAYS.every(
     ([id]) => destLinks.includes(posterRoute(id)) && destLinks.includes(structureRoute(id)),
   ),
@@ -289,11 +290,10 @@ check(
   ),
 );
 const edgeSourcesText = edgeInfo.map((edge) => edge.sources).join(" ");
-// 糖原 / 氨基酸 / 胆固醇只登记标题块与导航，没有可连的跨通路边；
+// 糖原 / 氨基酸 / 胆固醇 / 酮体只登记标题块与导航，没有可连的跨通路边；
 // FAS 通过 fas-shuttle、尿素循环通过 urea-3 / urea-4 / recycle 接入，加入来源核对。
-for (const [id] of PATHWAYS.filter(
-  ([pid]) => pid !== "glycogen" && pid !== "amino-acids" && pid !== "cholesterol",
-))
+const NO_EDGE_PATHWAYS = new Set(["glycogen", "amino-acids", "cholesterol", "ketone"]);
+for (const [id] of PATHWAYS.filter(([pid]) => !NO_EDGE_PATHWAYS.has(pid)))
   check(`连线来源含 ${id} 步骤`, edgeSourcesText.includes(`${id}:`));
 check(
   "FAS 柠檬酸穿梭接口线（cit → accoa，来源 fas-shuttle）",
@@ -537,12 +537,12 @@ await page.waitForTimeout(400);
 const titles1280 = await firstScreenTitles();
 const visible1280 = titles1280.filter((t) => t.y >= 0 && t.bottom <= 900 && t.x >= 0 && t.right <= 1280);
 check(
-  "1280 下除氨基酸代谢 / 胆固醇合成外十条通路标题仍全部可见（两条允许出屏）",
-  titles1280.length === 12 &&
+  "1280 下除氨基酸代谢 / 胆固醇合成 / 酮体外十条通路标题仍全部可见（三条允许出屏）",
+  titles1280.length === 13 &&
     visible1280.length === 10 &&
     titles1280
       .filter((t) => !visible1280.includes(t))
-      .every((t) => t.id === "amino-acids" || t.id === "cholesterol"),
+      .every((t) => t.id === "amino-acids" || t.id === "cholesterol" || t.id === "ketone"),
   JSON.stringify(titles1280.map((t) => [t.id, t.x, t.y, t.right, t.bottom]))
 );
 
@@ -675,20 +675,20 @@ for (const vp of MATRIX_VPS) {
     check(`${label} · aria-expanded=${mode.aria}`, row.aria === mode.aria, String(row.aria));
     check(`${label} · 右栏${mode.aside ? "可见" : "隐藏"}`, row.asideVisible === mode.aside, String(row.asideVisible));
 
-    // 展开档 1440 / 1280 画布 955（纵向压缩），10/12（氨基酸 / 胆固醇出屏）；
-    // 1920 / 2560 画布 1020，糖原 / 氨基酸 / 胆固醇一起落到首屏下方。
+    // 展开档 1440 / 1280 画布 955（纵向压缩），10/13（氨基酸 / 胆固醇 / 酮体出屏）；
+    // 1920 / 2560 画布 1020，糖原 / 氨基酸 / 胆固醇 / 酮体一起落到首屏下方。
     const expectedVisible =
       mode.id === "default" ? 8 : mode.id === "center" ? 9 : vp === 1920 || vp === 2560 ? 9 : 10;
     const expectedHidden =
       mode.id === "default"
-        ? "urea-cycle,glycogen,amino-acids,cholesterol"
+        ? "urea-cycle,glycogen,amino-acids,cholesterol,ketone"
         : mode.id === "center"
-          ? "glycogen,amino-acids,cholesterol"
+          ? "glycogen,amino-acids,cholesterol,ketone"
           : vp === 1920 || vp === 2560
-            ? "glycogen,amino-acids,cholesterol"
-            : "amino-acids,cholesterol";
+            ? "glycogen,amino-acids,cholesterol,ketone"
+            : "amino-acids,cholesterol,ketone";
     check(
-      `${label} · 首屏完整可见 ${row.visibleCount}/12（预期 ${expectedVisible}）`,
+      `${label} · 首屏完整可见 ${row.visibleCount}/13（预期 ${expectedVisible}）`,
       row.visibleCount === expectedVisible,
       `未完整可见：${row.notVisible.join(",") || "无"}`,
     );
@@ -714,7 +714,7 @@ console.log("| 视口 | 档 | document Δ | 容器 Δ | 画布宽 | 标题 px | 
 console.log("| --- | --- | --- | --- | --- | --- | --- | --- | --- |");
 for (const r of matrixRows) {
   console.log(
-    `| ${r.vp} | ${r.mode} | ${r.docDelta} | ${r.containerDelta} | ${r.canvasWidth} | ${r.titlePx} | ${r.notePx} | ${r.visibleCount}/12 | ${r.notVisible.join(", ") || "无"} |`,
+    `| ${r.vp} | ${r.mode} | ${r.docDelta} | ${r.containerDelta} | ${r.canvasWidth} | ${r.titlePx} | ${r.notePx} | ${r.visibleCount}/13 | ${r.notVisible.join(", ") || "无"} |`,
   );
 }
 

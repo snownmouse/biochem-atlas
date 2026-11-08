@@ -1,0 +1,205 @@
+{
+  "id": "ketone",
+  "name": "酮体代谢",
+  "enName": "KETONE BODY METABOLISM",
+  "plateNo": "PLATE 13",
+  "structureNo": "SF-13",
+  "summary": "肝线粒体把两分子乙酰-CoA 缩成 C4 酮体，经血液送到肝外氧化；肝自己缺 OXCT1，只生产不消费。",
+  "heroNote": "生酮 5 步 + 利用 1 段 · 肝 → 血 → 肝外 · 2D 口径",
+  "legend": [
+    { "text": "主链（单向 / 生理方向）", "kind": "main", "tone": "ink" },
+    { "text": "可逆步（BDH1 双向使用）", "kind": "dashed", "tone": "ink" },
+    { "text": "旁路 / 侧枝", "kind": "dotted", "tone": "brick" },
+    { "text": "血液运输", "kind": "dashed", "tone": "teal" },
+    { "text": "① 步骤顺序", "kind": "badge", "tone": "ink" }
+  ],
+  "readingGuide": {
+    "label": "酮体代谢导读",
+    "summary": "肝生酮、肝外用酮：乙酰-CoA → 乙酰乙酸 / β-羟丁酸 / 丙酮；肝缺 OXCT1",
+    "paragraphs": [
+      "酮体是肝为肝外组织准备的“水溶性燃料”。肝线粒体在乙酰-CoA 过载时，用硫解酶的逆向缩合把两个 C2 单元拼成 C4 的乙酰乙酰-CoA，再由 HMG-CoA 合酶接上第三个乙酰-CoA，得到 HMG-CoA；HMG-CoA 裂解酶把它拆成乙酰乙酸并放回一分子乙酰-CoA。乙酰乙酸可被 β-羟丁酸脱氢酶还原成 β-羟丁酸，也可缓慢自发脱羧成丙酮。",
+      "三步不可逆/限速点决定了通量：HMGCS2 是生酮限速酶，受胰高血糖素上调、胰岛素下调；HMGCL 决定乙酰乙酸产出。β-羟丁酸是血液中主要循环形式，肝内 NADH/NAD⁺ 比值高推动乙酰乙酸向 β-羟丁酸转化；丙酮生成量小、挥发性强，随呼气与尿液排出，不是主要燃料。",
+      "肝外组织（心、肾、脑、骨骼肌）用另一条路线消费酮体：β-羟丁酸先经 BDH1 逆反应变回乙酰乙酸，再由 OXCT1（琥珀酰-CoA:3-酮酸 CoA 转移酶）把 CoA 从琥珀酰-CoA 转到乙酰乙酸，生成乙酰乙酰-CoA 与琥珀酸；最后硫解酶把它拆成两分子乙酰-CoA，进入 TCA。肝本身不表达 OXCT1，所以肝只生酮、不利用酮体——这是本图最容易被写错的一步。"
+    ]
+  },
+  "posterFoot": [
+    "区室是硬约束：左侧肝线粒体只画生酮 5 步；右侧肝外线粒体只画利用段；中间血液带只放 β-羟丁酸与乙酰乙酸两种循环形式。",
+    "HMG-CoA 合酶（HMGCS2，生酮限速）与 HMG-CoA 还原酶（HMGCR，胆固醇合成限速，PLATE 12 第 3 步）不是同一个酶；名字相近，方向与细胞定位都不同。"
+  ],
+  "entities": [
+    { "id": "accoa", "name": "乙酰-CoA", "abbr": "乙酰-CoA", "kind": "metabolite", "note": "来自 β-氧化与 PDH 的 C2 供体" },
+    { "id": "acacoa", "name": "乙酰乙酰-CoA", "abbr": "乙酰乙酰-CoA", "kind": "metabolite", "note": "C4 二羰基中间体" },
+    { "id": "hmgcoa", "name": "HMG-CoA（3-羟基-3-甲基戊二酰-CoA）", "abbr": "HMG-CoA", "kind": "metabolite", "note": "生酮与胆固醇合成的分岔中间体" },
+    { "id": "acetoacetate", "name": "乙酰乙酸", "abbr": "乙酰乙酸", "formula": "C4H5O3", "kind": "metabolite", "note": "酮体之一；pH 7.4 以阴离子存在" },
+    { "id": "bhb", "name": "β-羟丁酸（D-3-羟丁酸）", "abbr": "β-羟丁酸", "formula": "C4H7O3", "kind": "metabolite", "note": "主要循环形式；结构上是羟基酸，不是酮" },
+    { "id": "acetone", "name": "丙酮", "abbr": "丙酮", "formula": "C3H6O", "kind": "metabolite", "note": "微量旁路产物，挥发性" },
+    { "id": "succoa", "name": "琥珀酰-CoA", "abbr": "琥珀酰-CoA", "kind": "cofactor", "note": "TCA 第 4 步生成；利用段 CoA 供体" },
+    { "id": "suc", "name": "琥珀酸", "abbr": "琥珀酸", "kind": "metabolite", "note": "利用段副产物，回 TCA" },
+    { "id": "coa", "name": "辅酶 A（CoA-SH）", "abbr": "CoA", "kind": "cofactor" },
+    { "id": "nad", "name": "NAD⁺", "abbr": "NAD⁺", "kind": "cofactor" },
+    { "id": "nadh", "name": "NADH", "abbr": "NADH", "kind": "cofactor" },
+    { "id": "co2", "name": "二氧化碳", "abbr": "CO₂", "formula": "CO2", "kind": "cofactor" }
+  ],
+  "steps": [
+    {
+      "id": "kt-1",
+      "index": 1,
+      "name": "硫解酶催化的逆向缩合：两分子乙酰-CoA → 乙酰乙酰-CoA",
+      "shortName": "逆向缩合",
+      "compartment": "liver-mito",
+      "equation": "2 乙酰-CoA ⇌ 乙酰乙酰-CoA + CoA",
+      "substrates": ["accoa"],
+      "products": ["acacoa", "coa"],
+      "cofactors": [],
+      "enzyme": { "name": "硫解酶（乙酰-CoA 乙酰转移酶）", "isozyme": "ACAT1（肝线粒体）", "ec": "2.3.1.9" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 近平衡；生理方向由乙酰-CoA 堆积推动",
+        "source": "教材章级（脂质代谢·酮体生成）"
+      },
+      "significance": "把两个 C2 单元拼成 C4，是酮体生成的起点；该反应本身可逆，通量方向靠肝内乙酰-CoA 浓度与下游 HMGCS2 拉动决定。",
+      "misconceptions": ["写成“乙酰-CoA 直接变成酮体”跳过了 C4 缩合这一步。", "硫解酶在 β-氧化里是裂解方向，在生酮里走的是同一反应的逆向缩合。"],
+      "clinical": []
+    },
+    {
+      "id": "kt-2",
+      "index": 2,
+      "name": "HMG-CoA 合酶把第三个乙酰-CoA 接到乙酰乙酰-CoA 上",
+      "shortName": "HMG-CoA 合成",
+      "compartment": "liver-mito",
+      "equation": "乙酰乙酰-CoA + 乙酰-CoA + H₂O → HMG-CoA + CoA",
+      "substrates": ["acacoa", "accoa"],
+      "products": ["hmgcoa", "coa"],
+      "cofactors": [],
+      "enzyme": { "name": "HMG-CoA 合酶", "isozyme": "HMGCS2（肝线粒体）", "ec": "2.3.3.10" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · 生酮限速步",
+        "source": "教材章级（脂质代谢·酮体生成）"
+      },
+      "significance": "生酮的限速步：HMGCS2 受胰高血糖素上调、胰岛素下调；它决定肝把多少乙酰-CoA 送进酮体而不是 TCA。",
+      "misconceptions": ["把 HMGCS2 与胆固醇合成的 HMGCR（HMG-CoA 还原酶）混为一谈：前者在肝线粒体促生酮，后者在内质网膜促胆固醇合成。", "限速步常被错记成 HMGCL 裂解；裂解是下一步。"],
+      "clinical": ["长期饥饿、未控制糖尿病或高脂低碳饮食时，HMGCS2 通量上调，血酮升高。"]
+    },
+    {
+      "id": "kt-3",
+      "index": 3,
+      "name": "HMG-CoA 裂解酶拆出乙酰乙酸并放回一分子乙酰-CoA",
+      "shortName": "HMG-CoA 裂解",
+      "compartment": "liver-mito",
+      "equation": "HMG-CoA → 乙酰乙酸 + 乙酰-CoA",
+      "substrates": ["hmgcoa"],
+      "products": ["acetoacetate", "accoa"],
+      "cofactors": [],
+      "enzyme": { "name": "HMG-CoA 裂解酶", "isozyme": "HMGCL（肝线粒体）", "ec": "4.1.3.4" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · 不可逆",
+        "source": "教材章级（脂质代谢·酮体生成）"
+      },
+      "significance": "产出第一个真正的酮体乙酰乙酸；同时释放一分子乙酰-CoA 回用，使生酮净消耗为每分子酮体两个 C2 单元。",
+      "misconceptions": ["把释放的乙酰-CoA 当成“废物”：它回到乙酰-CoA 池，可再进入缩合或 TCA。"],
+      "clinical": ["HMGCL 缺陷属罕见遗传病，可表现为低酮性低血糖，教材多为提及而非展开。"]
+    },
+    {
+      "id": "kt-4",
+      "index": 4,
+      "name": "β-羟丁酸脱氢酶在乙酰乙酸与 β-羟丁酸之间双向转换",
+      "shortName": "β-羟丁酸 ⇌ 乙酰乙酸",
+      "compartment": "liver-mito",
+      "equation": "乙酰乙酸 + NADH + H⁺ ⇌ β-羟丁酸 + NAD⁺",
+      "substrates": ["acetoacetate"],
+      "products": ["bhb"],
+      "cofactors": ["NADH", "NAD⁺"],
+      "enzyme": { "name": "β-羟丁酸脱氢酶", "isozyme": "BDH1", "ec": "1.1.1.30" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 由 NADH/NAD⁺ 比值决定方向",
+        "source": "教材章级（脂质代谢·酮体）"
+      },
+      "significance": "同一个酶在肝内把乙酰乙酸还原成 β-羟丁酸（NADH 高），在肝外把 β-羟丁酸氧化回乙酰乙酸（NAD⁺ 高）；β-羟丁酸因此成为血液中的主要运输形式。",
+      "misconceptions": ["把 β-羟丁酸当作“真正的酮”：它的官能团是 β-羟基酸，不是酮；三个“酮体”里只有乙酰乙酸和丙酮含酮羰基。", "把这一步写成两条不同的酶促反应；肝内与肝外是同一可逆反应的两个方向。"],
+      "clinical": ["糖尿病酮症酸中毒时 β-羟丁酸是主要升高的酮体，临床检测常以 β-羟丁酸为准。"]
+    },
+    {
+      "id": "kt-5",
+      "index": 5,
+      "name": "乙酰乙酸缓慢脱羧生成丙酮",
+      "shortName": "丙酮旁路",
+      "compartment": "liver-mito",
+      "equation": "乙酰乙酸 → 丙酮 + CO₂",
+      "substrates": ["acetoacetate"],
+      "products": ["acetone", "co2"],
+      "cofactors": [],
+      "enzyme": { "name": "自发脱羧为主（肝内脱羧酶活性有限）", "isozyme": "", "ec": "" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · 自发/缓慢",
+        "source": "教材章级（脂质代谢·酮体）；酶学细节未核实"
+      },
+      "significance": "丙酮生成量小，挥发性强，主要经呼气与尿液排出；它不是肝外组织的主要燃料，也不进入 TCA。",
+      "note": "本平台未核实人肝内是否存在独立的乙酰乙酸脱羧酶主路径；按教材口径写作“自发脱羧为主”。",
+      "misconceptions": ["把丙酮当成与乙酰乙酸、β-羟丁酸等量的第三大酮体：生理生成量明显更小。", "把丙酮写成可被肝外利用的燃料：它主要靠排出。"],
+      "clinical": ["血酮很高时呼气可有丙酮气味；这是临床描述，不是本图的计算结论。"]
+    },
+    {
+      "id": "kt-6",
+      "index": 6,
+      "name": "肝外利用：OXCT1 转移 CoA，硫解酶拆成两分子乙酰-CoA",
+      "shortName": "肝外利用",
+      "compartment": "extra-mito",
+      "equation": "β-羟丁酸 → 乙酰乙酸 → 乙酰乙酰-CoA → 2 乙酰-CoA（琥珀酰-CoA 供 CoA）",
+      "substrates": ["bhb", "acetoacetate", "succoa"],
+      "products": ["acacoa", "suc", "accoa"],
+      "cofactors": ["NAD⁺", "NADH", "CoA"],
+      "enzyme": { "name": "β-酮脂酰-CoA 转移酶 + 硫解酶", "isozyme": "OXCT1（SCOT）· ACAT1", "ec": "2.8.3.5" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · 肝外利用方向",
+        "source": "教材章级（脂质代谢·酮体的利用）"
+      },
+      "significance": "肝外组织把酮体重新拆成乙酰-CoA 送入 TCA；OXCT1 是限速/方向决定酶，肝不表达它，所以肝不能利用自己生产的酮体。",
+      "note": "本步是“利用段”的三段合并写法：BDH1 逆反应、OXCT1 转移、硫解酶裂解；图上用一条主链 + 琥珀酰-CoA 侧供表示，不拆成三个编号步骤。",
+      "misconceptions": ["写成“肝也利用酮体”：肝缺 OXCT1，生酮与用酮在器官上分离。", "把琥珀酰-CoA 当成辅因子而不是 CoA 供体：OXCT1 的 CoA 来自琥珀酰-CoA，同时生成琥珀酸。"],
+      "clinical": ["饥饿或糖尿病酮症时，脑、心、肾、骨骼肌上调酮体利用，减少葡萄糖消耗。"]
+    }
+  ],
+  "transportSteps": [
+    {
+      "id": "kt-t1",
+      "name": "酮体经血液从肝运到肝外组织",
+      "from": "肝线粒体",
+      "to": "肝外组织线粒体",
+      "via": "血液",
+      "note": "β-羟丁酸是主要循环形式，乙酰乙酸次之；两者经单羧酸转运体家族进出细胞，具体亚型未核实。"
+    }
+  ],
+  "interfaces": [
+    { "stepId": "fao-4", "label": "上游：β-氧化硫解", "note": "β-氧化末步在肝线粒体产出乙酰-CoA，是生酮的碳源。" },
+    { "stepId": "tca-1", "label": "下游：乙酰-CoA 进 TCA", "note": "肝外利用段产出的乙酰-CoA 由柠檬酸合酶接进 TCA。" },
+    { "stepId": "tca-4", "label": "CoA 供体：琥珀酰-CoA", "note": "OXCT1 的 CoA 来自 TCA 第 4 步生成的琥珀酰-CoA。" },
+    { "stepId": "ch-3", "label": "易错对照：HMG-CoA 还原酶", "note": "胆固醇合成 PLATE 12 第 3 步的 HMGCR 与生酮 HMGCS2 名字相近、方向相反；两者不是同一步。" }
+  ],
+  "threeD": {
+    "status": "not-built",
+    "note": "本图沿用站内 UTP 口径：全部只做 2D 结构式，不建 3D，也不登记 PDB 候选。"
+  }
+}

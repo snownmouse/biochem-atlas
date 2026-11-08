@@ -1,0 +1,63 @@
+{
+  "canvas": { "width": 1360, "height": 640 },
+  "compartments": [
+    { "id": "liver-mito", "label": "肝线粒体 · 生酮", "en": "HEPATIC MITOCHONDRION", "x": 24, "y": 64, "width": 470, "height": 520, "tint": 0.02 },
+    { "id": "blood", "label": "血液 · 运输", "en": "BLOOD", "x": 506, "y": 64, "width": 300, "height": 520, "tint": 0.045 },
+    { "id": "extra-mito", "label": "肝外线粒体 · 利用", "en": "EXTRAHEPATIC MITOCHONDRION", "x": 818, "y": 64, "width": 518, "height": 520, "tint": 0.02 }
+  ],
+  "nodes": [
+    { "id": "accoa", "entityId": "accoa", "label": "乙酰-CoA（来自 β-氧化）", "abbr": "AcCoA", "x": 130, "y": 180, "kind": "metabolite", "compartment": "liver-mito", "stepId": "kt-1", "labelPos": { "dx": 0, "dy": 42, "anchor": "middle" } },
+    { "id": "acacoa", "entityId": "acacoa", "label": "乙酰乙酰-CoA", "abbr": "AcAcCoA", "x": 235, "y": 215, "kind": "metabolite", "compartment": "liver-mito", "stepId": "kt-1", "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" } },
+    { "id": "hmgcoa", "entityId": "hmgcoa", "label": "HMG-CoA", "abbr": "HMG-CoA", "x": 352, "y": 215, "kind": "metabolite", "compartment": "liver-mito", "stepId": "kt-2", "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" } },
+    { "id": "accoa-recycle", "entityId": "accoa", "label": "乙酰-CoA 回用", "abbr": "AcCoA", "x": 445, "y": 150, "kind": "cofactor", "compartment": "liver-mito", "stepId": "kt-3", "labelPos": { "dx": 0, "dy": -24, "anchor": "middle" } },
+    { "id": "acetoacetate", "entityId": "acetoacetate", "label": "乙酰乙酸", "abbr": "AcAc", "x": 352, "y": 330, "kind": "metabolite", "compartment": "liver-mito", "stepId": "kt-3", "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" } },
+    { "id": "bhb", "entityId": "bhb", "label": "β-羟丁酸", "abbr": "β-HB", "x": 235, "y": 430, "kind": "metabolite", "compartment": "liver-mito", "stepId": "kt-4", "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" } },
+    { "id": "acetone", "entityId": "acetone", "label": "丙酮（微量，呼气排出）", "abbr": "丙酮", "x": 452, "y": 430, "kind": "metabolite", "compartment": "liver-mito", "stepId": "kt-5", "labelPos": { "dx": 0, "dy": 34, "anchor": "middle" } },
+
+    { "id": "bhb-blood", "entityId": "bhb", "label": "β-羟丁酸 · 血（主要形式）", "abbr": "β-HB", "x": 600, "y": 330, "kind": "metabolite", "compartment": "blood", "stepId": "kt-t1", "labelPos": { "dx": 0, "dy": -28, "anchor": "middle" } },
+    { "id": "acac-blood", "entityId": "acetoacetate", "label": "乙酰乙酸 · 血", "abbr": "AcAc", "x": 700, "y": 240, "kind": "metabolite", "compartment": "blood", "stepId": "kt-t1", "labelPos": { "dx": 0, "dy": -28, "anchor": "middle" } },
+
+    { "id": "bhb-in", "entityId": "bhb", "label": "β-羟丁酸（肝外摄取）", "abbr": "β-HB", "x": 862, "y": 330, "kind": "metabolite", "compartment": "extra-mito", "stepId": "kt-4", "labelPos": { "dx": 0, "dy": -30, "anchor": "middle" } },
+    { "id": "acac-in", "entityId": "acetoacetate", "label": "乙酰乙酸", "abbr": "AcAc", "x": 968, "y": 330, "kind": "metabolite", "compartment": "extra-mito", "stepId": "kt-4", "labelPos": { "dx": 0, "dy": 46, "anchor": "middle" } },
+    { "id": "acacoa-in", "entityId": "acacoa", "label": "乙酰乙酰-CoA", "abbr": "AcAcCoA", "x": 1085, "y": 392, "kind": "metabolite", "compartment": "extra-mito", "stepId": "kt-6", "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" } },
+    { "id": "succoa-in", "entityId": "succoa", "label": "琥珀酰-CoA（TCA 供给）", "abbr": "SucCoA", "x": 1000, "y": 486, "kind": "cofactor", "compartment": "extra-mito", "stepId": "kt-6", "labelPos": { "dx": 0, "dy": 36, "anchor": "middle" } },
+    { "id": "suc-out", "entityId": "suc", "label": "琥珀酸（回 TCA）", "abbr": "Suc", "x": 890, "y": 500, "kind": "cofactor", "compartment": "extra-mito", "stepId": "kt-6", "labelPos": { "dx": 0, "dy": -26, "anchor": "middle" } },
+    { "id": "accoa-out", "entityId": "accoa", "label": "2 乙酰-CoA", "abbr": "2 AcCoA", "x": 1225, "y": 450, "kind": "metabolite", "compartment": "extra-mito", "stepId": "kt-6", "labelPos": { "dx": 0, "dy": -30, "anchor": "middle" } },
+    { "id": "tca-hub", "entityId": "accoa", "label": "→ TCA", "abbr": "TCA", "x": 1300, "y": 530, "kind": "hub", "compartment": "extra-mito", "labelPos": { "dx": 0, "dy": 32, "anchor": "middle" } }
+  ],
+  "links": [
+    { "from": "accoa", "to": "acacoa", "stepId": "kt-1", "type": "main", "label": "硫解酶（2× C2）", "bend": -0.2 },
+    { "from": "acacoa", "to": "hmgcoa", "stepId": "kt-2", "type": "main", "label": "HMGCS2（限速）" },
+    { "from": "accoa", "to": "hmgcoa", "stepId": "kt-2", "type": "feed", "label": "第三个乙酰-CoA", "bend": -0.24 },
+    { "from": "hmgcoa", "to": "acetoacetate", "stepId": "kt-3", "type": "main", "label": "HMGCL" },
+    { "from": "hmgcoa", "to": "accoa-recycle", "stepId": "kt-3", "type": "side" },
+    { "from": "acetoacetate", "to": "bhb", "stepId": "kt-4", "type": "main", "label": "BDH1（NADH）", "bend": 0.1 },
+    { "from": "acetoacetate", "to": "acetone", "stepId": "kt-5", "type": "branch", "label": "自发脱羧" },
+    { "from": "bhb", "to": "bhb-blood", "stepId": "kt-t1", "type": "transport" },
+    { "from": "acetoacetate", "to": "acac-blood", "stepId": "kt-t1", "type": "transport" },
+    { "from": "bhb-blood", "to": "bhb-in", "stepId": "kt-t1", "type": "transport" },
+    { "from": "acac-blood", "to": "acac-in", "stepId": "kt-t1", "type": "transport" },
+    { "from": "bhb-in", "to": "acac-in", "stepId": "kt-4", "type": "main", "label": "BDH1（逆向）" },
+    { "from": "acac-in", "to": "acacoa-in", "stepId": "kt-6", "type": "main", "label": "OXCT1" },
+    { "from": "succoa-in", "to": "acacoa-in", "stepId": "kt-6", "type": "feed", "label": "CoA 供体" },
+    { "from": "acacoa-in", "to": "suc-out", "stepId": "kt-6", "type": "side" },
+    { "from": "acacoa-in", "to": "accoa-out", "stepId": "kt-6", "type": "main", "label": "硫解酶" },
+    { "from": "accoa-out", "to": "tca-hub", "type": "feed" }
+  ],
+  "annotations": [
+    { "x": 40, "y": 604, "text": "肝：生酮 5 步；缺 OXCT1，不利用酮体", "anchor": "start", "size": 9.2, "tone": "brick" },
+    { "x": 520, "y": 604, "text": "血液：β-羟丁酸为主，乙酰乙酸次之", "anchor": "start", "size": 9.2, "tone": "teal" },
+    { "x": 834, "y": 604, "text": "肝外（心 / 肾 / 脑 / 骨骼肌）：只利用、不生酮", "anchor": "start", "size": 9.2, "tone": "teal" },
+    { "x": 110, "y": 116, "text": "乙酰-CoA 过载是生酮的启动条件", "anchor": "start", "size": 8.6, "tone": "ink" }
+  ],
+  "transportSteps": [
+    {
+      "id": "kt-t1",
+      "name": "酮体经血运输",
+      "from": "肝线粒体（生酮末步释放）",
+      "via": "血液（β-羟丁酸为主、乙酰乙酸次之）",
+      "to": "肝外组织线粒体（摄取后氧化利用）",
+      "note": "β-羟丁酸与乙酰乙酸经血运至肝外组织；两条边只作运输标注，不计入 5 步。"
+    }
+  ]
+}

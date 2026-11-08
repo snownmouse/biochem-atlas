@@ -1299,11 +1299,11 @@ const DOSSIERS: Record<string, SubstanceDossier> = {
     structure: "四碳 β-酮酸，含酮羰基与羧基；可被还原为 β-羟丁酸。",
     position: {
       title: "它在肝内生成，在肝外被氧化",
-      body: "乙酰乙酸在肝线粒体生成后释放入血，供肝外组织氧化；肝内缺少利用酮体的酶，因此只产不用。平台未建酮体代谢通路，本站不展开其生成步骤与酶名，酮体生成量随饥饿时间延长而上升。",
+      body: "乙酰乙酸在肝线粒体由 HMG-CoA 裂解生成，释放入血后供肝外组织氧化；肝内缺少 OXCT1，因此只产不用。站内酮体代谢图 PLATE 13 已建，可按 kt-3 至 kt-6 查看生成与利用步骤。",
     },
     origin: {
       title: "它由乙酰辅酶 A 经 HMG-辅酶 A 途径生成",
-      body: "由乙酰辅酶 A 缩合生成乙酰乙酰辅酶 A，再经 HMG-辅酶 A 途径裂解生成；饥饿与低糖状态促进其生成，其生成受胰岛素与胰高血糖素比例调控。以上为教材章级内容，本平台未建该通路。",
+      body: "由乙酰辅酶 A 缩合生成乙酰乙酰辅酶 A，再经 HMG-辅酶 A 途径裂解生成；饥饿与低糖状态促进其生成，其生成受胰岛素与胰高血糖素比例调控。具体步骤见站内酮体代谢图 kt-1 至 kt-3。",
     },
     significance: {
       title: "它是饥饿时的替代燃料，过量则致酮症",
@@ -1325,6 +1325,8 @@ const DOSSIERS: Record<string, SubstanceDossier> = {
     related: [
       { label: "β-羟丁酸", to: "/substance/beta-hydroxybutyrate" },
       { label: "丙酮", to: "/substance/acetone" },
+      { label: "酮体代谢", to: "/pathway/ketone" },
+      { label: "物质档案", to: "/molecule/acetoacetate" },
     ],
   },
   "beta-hydroxybutyrate": {
@@ -1334,7 +1336,7 @@ const DOSSIERS: Record<string, SubstanceDossier> = {
     structure: "四碳 β-羟基酸；与乙酰乙酸经脱氢酶互变，反应依赖 NADH。",
     position: {
       title: "它是酮体在血中的主要运输形式",
-      body: "β-羟丁酸是酮体在血中的主要形式，经单羧酸转运体进入肝外组织，再转为乙酰乙酸后被氧化。平台未建酮体代谢通路，本站只写其转运与利用定位，它在血中半衰期较短，需持续生成维持水平。",
+      body: "β-羟丁酸是酮体在血中的主要形式，经单羧酸转运体进入肝外组织，再转为乙酰乙酸后被氧化。站内酮体代谢图已建，可按 kt-4 与 kt-6 查看生成、转运与利用；它在血中半衰期较短，需持续生成维持水平。",
     },
     origin: {
       title: "它由乙酰乙酸还原，比例反映氧化还原状态",
@@ -1357,7 +1359,11 @@ const DOSSIERS: Record<string, SubstanceDossier> = {
       "Lehninger Principles of Biochemistry, 8e, 脂类代谢与酮体相关章节",
       "人卫版《生物化学》, 脂类代谢相关章节",
     ],
-    related: [{ label: "乙酰乙酸", to: "/substance/acetoacetate" }],
+    related: [
+      { label: "乙酰乙酸", to: "/substance/acetoacetate" },
+      { label: "酮体代谢", to: "/pathway/ketone" },
+      { label: "物质档案", to: "/molecule/bhb" },
+    ],
   },
   acetone: {
     claim: "丙酮是乙酰乙酸脱羧生成的挥发性酮体，主要经呼气排出",
@@ -1366,11 +1372,11 @@ const DOSSIERS: Record<string, SubstanceDossier> = {
     structure: "三碳酮，常温下易挥发；由乙酰乙酸失去羧基生成。",
     position: {
       title: "它经肺排出，不承担供能",
-      body: "丙酮在血中生成后主要经肺呼气排出，少量随尿排出；它不参与供能，属于酮体的代谢副产物。平台未建酮体代谢通路，本站只写其生成与排出定位，肺泡通气量变化也会影响其排出速度。",
+      body: "丙酮在血中生成后主要经肺呼气排出，少量随尿排出；它不参与供能，属于酮体的代谢副产物。站内酮体代谢图 PLATE 13 已建，kt-5 即脱羧旁路；肺泡通气量变化也会影响其排出速度。",
     },
     origin: {
       title: "它由乙酰乙酸自发脱羧，不需酶催化",
-      body: "由乙酰乙酸自发脱羧生成，不需要酶催化；因此酮体生成增加时呼气中丙酮随之升高。以上为教材章级内容，本平台未建该通路，该反应在体内缓慢进行，其速度与酮体生成量相关，因此呼气丙酮升高滞后于血酮。",
+      body: "由乙酰乙酸自发脱羧生成，教材口径不写独立脱羧酶主路径；酮体生成增加时呼气中丙酮随之升高。该反应在体内缓慢进行，其速度与酮体生成量相关，因此呼气丙酮升高滞后于血酮。",
     },
     significance: {
       title: "呼气丙酮提示酮症，但不足以定量",
@@ -1389,7 +1395,11 @@ const DOSSIERS: Record<string, SubstanceDossier> = {
       "Lehninger Principles of Biochemistry, 8e, 脂类代谢与酮体相关章节",
       "人卫版《生物化学》, 脂类代谢相关章节",
     ],
-    related: [{ label: "乙酰乙酸", to: "/substance/acetoacetate" }],
+    related: [
+      { label: "乙酰乙酸", to: "/substance/acetoacetate" },
+      { label: "酮体代谢", to: "/pathway/ketone" },
+      { label: "物质档案", to: "/molecule/acetone" },
+    ],
   },
   gtp: {
     claim: "GTP 是鸟苷三磷酸，在三羧酸循环与糖异生中承担磷酸供体角色",

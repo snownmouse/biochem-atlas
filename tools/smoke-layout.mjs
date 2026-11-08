@@ -2,7 +2,7 @@
 // 用法：node tools/audit-layout.mjs --tag after && node tools/smoke-layout.mjs
 //
 // 断言（任一失败即非零退出）：
-//   ① 图框：首页 / 12 张挂图 / 12 张结构页 / 3 张单步页，凡出现图框元素者，四边均为 1px 细边框、
+//   ① 图框：首页 / 13 张挂图 / 13 张结构页 / 3 张单步页，凡出现图框元素者，四边均为 1px 细边框、
 //      四边内边距 ≥ 24px（`.plate-scroll`、`.e3d-stage`、`.mol3d-stage`、`.s-viewer`、`.film-stage .stage-canvas`）。
 //   ② 横向：页面级横向溢出必须为 0；挂在 overflow:hidden/clip 内且不可滚的溢出必须为 0；
 //      被祖先裁切 ≥1px 的元素必须为 0。允许（且只允许）容器级 `overflow-x:auto` 的可滚横向。
@@ -59,6 +59,8 @@ const amino = read("src/data/amino-acid/amino.json");
 const aminoSkel = read("src/data/amino-acid/skeleton.json");
 const cholesterol = read("src/data/cholesterol/cholesterol.json");
 const cholesterolSkel = read("src/data/cholesterol/skeleton.json");
+const ketone = read("src/data/ketone/ketone.json");
+const ketoneSkel = read("src/data/ketone/skeleton.json");
 
 const COMPLEX_NODE_IDS = ["complex-i", "complex-ii", "complex-iii", "cytc", "complex-iv", "atp-synthase"];
 const EXPECT = {
@@ -81,6 +83,7 @@ const EXPECT = {
   glycogen: { steps: glycogen.steps.length, nodes: glycogenSkel.nodes.length },
   "amino-acids": { steps: amino.steps.length, nodes: aminoSkel.nodes.length },
   cholesterol: { steps: cholesterol.steps.length, nodes: cholesterolSkel.nodes.length },
+  ketone: { steps: ketone.steps.length, nodes: ketoneSkel.nodes.length },
 };
 
 const ROUTE_IDS = [
@@ -103,6 +106,7 @@ const ROUTE_IDS = [
   "glycogen",
   "amino-acids",
   "cholesterol",
+  "ketone",
   "structures-glycolysis",
   "structures-tca",
   "structures-gluconeogenesis",
@@ -113,6 +117,7 @@ const ROUTE_IDS = [
   "structures-glycogen",
   "structures-amino-acids",
   "structures-cholesterol",
+  "structures-ketone",
   "structures-cori",
   "structures-oxphos",
   "step-gk-1",
@@ -224,6 +229,7 @@ const STRUCT_ROUTE_KEY = {
   "structures-amino-acids": "amino-acids",
   "structures-oxphos": "oxphos",
   "structures-cholesterol": "cholesterol",
+  "structures-ketone": "ketone",
   "structures-cori": "cori",
 };
 const cmpSrc = readFileSync(resolve(ROOT, "src/data/comparisonConfig.ts"), "utf8");
@@ -251,8 +257,8 @@ for (const p of report.pages.filter((x) => x.viewport === 1440)) {
   if (shown) shownSf.push(Number(shown));
 }
 shownSf.sort((a, b) => a - b);
-if (shownSf.length !== 12 || shownSf.join(",") !== "1,2,3,4,5,6,7,8,9,10,11,12") {
-  fail(`⑥ 结构页编号集合不符：页面 ${shownSf.join(",")} ≠ {01,02,03,04,05,06,07,08,09,10,11,12}`);
+if (shownSf.length !== 13 || shownSf.join(",") !== "1,2,3,4,5,6,7,8,9,10,11,12,13") {
+  fail(`⑥ 结构页编号集合不符：页面 ${shownSf.join(",")} ≠ {01,02,03,04,05,06,07,08,09,10,11,12,13}`);
 }
 
 // 汇总
@@ -264,5 +270,5 @@ if (failures.length) {
 console.log(
   `smoke-layout PASS：${report.pages.length} 页（${ROUTE_IDS.length} 路由 × ${VIEWPORTS.length} 视口）｜` +
     `图框 1px/≥24px ✓｜横向溢出 0 ✓｜有效文本重叠 0 ✓｜节点/步骤/模块与数据源一致 ✓｜无缩放控件 ✓｜` +
-    `结构页编号三方一致（12 页 = {01–12}）✓（共 ${totalChecks} 组断言 + 编号交叉核对）`
+    `结构页编号三方一致（13 页 = {01–13}）✓（共 ${totalChecks} 组断言 + 编号交叉核对）`
 );

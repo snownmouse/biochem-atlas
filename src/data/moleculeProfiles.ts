@@ -633,6 +633,134 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     bubble: { what: "四碳硫酯，两分子乙酰的缩合物", highlight: "再装一个乙酰生成 HMG-CoA" },
   },
 
+  acetoacetate: {
+    id: "acetoacetate",
+    name: "乙酰乙酸",
+    aliases: ["AcAc", "acac", "乙酰醋酸"],
+    claim: "乙酰乙酸是酮体生成的直接产物，也是肝外利用酮体的必经入口",
+    classification: "酮体：四碳 β-酮酸，C3 带酮羰基、C4 带羧基。",
+    structure: "四碳 β-酮酸；C3 酮羰基可被还原成羟基，C4 羧基使它在 pH 7.4 下以阴离子形式存在。",
+    position: {
+      title: "它在肝线粒体由 HMG-CoA 裂解生成，在肝外被重新活化",
+      body:
+        "ketone.json 的 kt-3 由 HMG-CoA 裂解酶把 HMG-CoA 拆成乙酰乙酸并放回一分子乙酰-CoA，是生酮唯一直接产出酮体的一步；kt-4 把它与 β-羟丁酸互变；kt-5 是它自发脱羧成丙酮的旁路。肝外利用段（kt-6）先由 OXCT1 把 CoA 从琥珀酰-CoA 转给乙酰乙酸。",
+    },
+    flow: {
+      title: "它由 HMG-CoA 裂解来，往 β-羟丁酸、丙酮与乙酰乙酰-CoA 去",
+      body:
+        "来路：HMG-CoA 裂解（kt-3），同时放回一分子乙酰-CoA。去向：① 肝内 NADH 充足时经 BDH1 还原成 β-羟丁酸，成为血液中的主要运输形式；② 少量自发脱羧成丙酮，随呼气排出；③ 肝外经 OXCT1 活化成乙酰乙酰-CoA，再由硫解酶拆成两分子乙酰-CoA 进 TCA。",
+    },
+    significance: {
+      title: "三种酮体里只有它能直接接上 CoA 活化位点",
+      body:
+        "乙酰乙酸是肝外利用酮体的必经中间物：β-羟丁酸要先经 BDH1 氧化回它才能被 OXCT1 活化，丙酮则不能回补。血酮升高时乙酰乙酸与 β-羟丁酸同时升高，但以 β-羟丁酸为主，判读时要区分两者，不能只看总量。",
+    },
+    exam: {
+      title: "考点是生成步、肝内外分工与活化方式",
+      items: [
+        "乙酰乙酸由 HMG-CoA 裂解酶（HMGCL）催化 HMG-CoA 裂解生成，不是 HMGCS2 那一步。",
+        "肝外利用必须先经 OXCT1 把 CoA 从琥珀酰-CoA 转给乙酰乙酸，生成乙酰乙酰-CoA。",
+        "乙酰乙酸可还原为 β-羟丁酸，也可自发脱羧为丙酮；丙酮基本不再供能。",
+      ],
+    },
+    pathways: [
+      { label: "酮体代谢 kt-3：HMG-CoA 裂解产物", href: "/pathway/ketone?step=kt-3" },
+      { label: "kt-4：与 β-羟丁酸互变", href: "/pathway/ketone?step=kt-4" },
+      { label: "kt-6：肝外活化成乙酰乙酰-CoA", href: "/pathway/ketone?step=kt-6" },
+    ],
+    sources: [
+      "ketone.json · steps[kt-3].equation / significance",
+      "ketone.json · steps[kt-4].significance / misconceptions",
+      "ketone.json · steps[kt-6].equation / misconceptions",
+      "Lehninger Principles of Biochemistry, 8e, Ch.17（酮体）",
+    ],
+    bubble: { what: "四碳 β-酮酸，C3 带酮羰基", highlight: "肝外利用要先活化成 CoA 酯" },
+  },
+
+  acetone: {
+    id: "acetone",
+    name: "丙酮",
+    aliases: ["醋酮", "acetone"],
+    claim: "丙酮是乙酰乙酸自发脱羧的旁路产物，主要靠排出而不是供能",
+    classification: "酮体：三碳酮，常温下易挥发。",
+    structure: "三碳酮，无羧基；由乙酰乙酸失去羧基生成，挥发性强。",
+    position: {
+      title: "它挂在乙酰乙酸旁边，是生酮主链之外的支路",
+      body:
+        "ketone.json 的 kt-5 写乙酰乙酸缓慢脱羧成丙酮 + CO₂；教材口径以自发脱羧为主，人肝内是否存在独立的乙酰乙酸脱羧酶主路径，本平台未核实，因此该步的酶学细节写作未核实。",
+    },
+    flow: {
+      title: "它由乙酰乙酸脱羧来，往呼气与尿液去",
+      body:
+        "来路：乙酰乙酸自发脱羧，生成量明显小于另外两种酮体。去向：主要经肺呼气排出，少量随尿排出；它不进入 TCA，也不被肝外组织当作主要燃料回补，因此不构成可观的能量来源。",
+    },
+    significance: {
+      title: "呼气丙酮是酮症的线索，但不能替代血酮定量",
+      body:
+        "血酮很高时呼气可带丙酮气味，这是临床描述而不是本图的定量结论。丙酮生成慢、挥发快，浓度远低于乙酰乙酸与 β-羟丁酸，判读酮症仍以血酮为主，呼气检测只能作辅助。",
+    },
+    exam: {
+      title: "考点是旁路定位、生成方式与排出途径",
+      items: [
+        "丙酮由乙酰乙酸脱羧生成，教材口径写作自发脱羧为主。",
+        "丙酮主要经呼气排出，少量随尿排出，不是主要供能酮体。",
+        "三种酮体里只有乙酰乙酸与丙酮含酮羰基，β-羟丁酸是羟基酸。",
+      ],
+    },
+    pathways: [
+      { label: "酮体代谢 kt-5：脱羧旁路", href: "/pathway/ketone?step=kt-5" },
+    ],
+    sources: [
+      "ketone.json · steps[kt-5].equation / note / misconceptions",
+      "ketone.json · readingGuide.paragraphs[2]",
+      "Lehninger Principles of Biochemistry, 8e, Ch.17（酮体）",
+    ],
+    bubble: { what: "三碳酮，挥发性旁路产物", highlight: "经呼气排出，不参与供能" },
+  },
+
+  bhb: {
+    id: "bhb",
+    name: "β-羟丁酸",
+    aliases: ["BHB", "beta-hydroxybutyrate", "D-3-羟丁酸"],
+    claim: "β-羟丁酸是酮体在血中的主要运输形式，也是最主要的燃料形式",
+    classification: "酮体：四碳 β-羟基酸，名字带“丁酸”，官能团不是酮。",
+    structure: "四碳 β-羟基酸；C3 羟基与乙酰乙酸的 C3 酮羰基互为氧化还原对。",
+    position: {
+      title: "它在肝内由乙酰乙酸还原，在肝外被氧化回乙酰乙酸",
+      body:
+        "ketone.json 的 kt-4 是同一个 BDH1 的两个方向：肝内 NADH/NAD⁺ 比值高，把乙酰乙酸还原成 β-羟丁酸；肝外 NAD⁺ 占优，把 β-羟丁酸氧化回乙酰乙酸，再交给 OXCT1。kt-6 是肝外的利用段。",
+    },
+    flow: {
+      title: "它从肝内乙酰乙酸还原来，往肝外线粒体的乙酰乙酸去",
+      body:
+        "来路：肝线粒体内乙酰乙酸 + NADH 经 BDH1 还原生成。去向：经血液运到心、肾、脑、骨骼肌，进线粒体后先被 BDH1 氧化回乙酰乙酸；肝自身缺 OXCT1，不能回收利用自己产出的 β-羟丁酸。",
+    },
+    significance: {
+      title: "它决定酮症时血酮的主要升高成分",
+      body:
+        "糖尿病酮症酸中毒时 β-羟丁酸是主要升高的酮体，临床检测常以 β-羟丁酸为准；亚硝基铁氰化钠反应主要检出乙酰乙酸，对 β-羟丁酸不敏感，因此尿酮阴性不能排除酮症。",
+    },
+    exam: {
+      title: "考点是命名陷阱、NADH 比值与肝内外分工",
+      items: [
+        "β-羟丁酸是 β-羟基酸，不是酮；三种酮体里只有乙酰乙酸与丙酮含酮羰基。",
+        "乙酰乙酸与 β-羟丁酸的比例由线粒体 NADH/NAD⁺ 比值决定，不是两条独立的酶。",
+        "肝缺 OXCT1，只生酮不利用酮体；利用发生在肝外组织。",
+      ],
+    },
+    pathways: [
+      { label: "酮体代谢 kt-4：乙酰乙酸 ⇌ β-羟丁酸", href: "/pathway/ketone?step=kt-4" },
+      { label: "kt-6：肝外利用段", href: "/pathway/ketone?step=kt-6" },
+    ],
+    sources: [
+      "ketone.json · steps[kt-4].significance / misconceptions",
+      "ketone.json · steps[kt-6].significance",
+      "ketone.json · transportSteps[kt-t1].note",
+      "Lehninger Principles of Biochemistry, 8e, Ch.17（酮体）",
+    ],
+    bubble: { what: "四碳 β-羟基酸，不是酮", highlight: "血中主要的循环与燃料形式" },
+  },
+
   acp: {
     id: "acp",
     name: "酰基载体蛋白（ACP）",

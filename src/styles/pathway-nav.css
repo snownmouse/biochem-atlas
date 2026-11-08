@@ -32,7 +32,7 @@
 }
 
 .pathway-switcher .ps-sep {
-  margin: 0 7px;
+  margin: 0 6px;
   color: var(--dim, rgba(34, 40, 42, 0.4));
   opacity: 0.6;
 }

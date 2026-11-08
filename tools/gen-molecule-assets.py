@@ -1085,7 +1085,11 @@ def make_2d(spec, template):
         if b.GetBondDir() == Chem.BondDir.BEGINWEDGE:
             wedge.append({"a": idx2id[b.GetBeginAtomIdx()], "b": idx2id[b.GetEndAtomIdx()]})
     asset = {
-        "frameId": f"{spec['id']}-2d", "kind": "2d", "view": view,
+        "frameId": f"{spec['id']}-2d", "kind": "2d",
+        "generatedBy": "tools/gen-molecule-assets.py",
+        "method": "RDKit 2D depiction（SMILES → 2D 坐标，非三维构象）",
+        "provenance": {"kind": "computed", "note": "仅 2D 示意；不建 3D，不登记 PDB 候选"},
+        "view": view,
         "atoms": atoms, "bonds": bonds, "wedge": wedge,
         "annotations": [{"x": 60, "y": view["h"] - 20,
                          "text": f"{spec['form']} · RDKit 由 SMILES 生成（2D 示意，非三维构象）"}],
@@ -1313,9 +1317,34 @@ def svg_only():
     print(f"仅重绘 SVG：{len(names)} 个文件（JSON / 3D 未改动）")
 
 
+KETONE_MOLS = [
+    dict(id="acacoa", name="乙酰乙酰-CoA（片段：乙酰乙酰-硫酯）", formula="C5H8O2S",
+         smiles="CC(=O)CC(=O)SC", src=None, sdf=None, no3d=True,
+         form="乙酰乙酰-CoA（C4 二羰基单元 + 硫酯 S；CoA 长链略）",
+         caveat="按项目既有片段口径只画 C4 二羰基单元与硫酯 S（CoA 略），不建 3D。"),
+    dict(id="hmgcoa", name="HMG-CoA（片段：3-羟基-3-甲基戊二酰-硫酯）", formula="C7H11O4S",
+         smiles="[O-]C(=O)CC(O)(C)CC(=O)SC", src=None, sdf=None, no3d=True,
+         form="HMG-CoA（C6 羟甲基戊二酰单元 + 硫酯 S；羧基按 pH 7.4 电离，CoA 略）",
+         caveat="按项目既有片段口径只画 C6 羟甲基戊二酰单元与硫酯 S（CoA 略），不建 3D。"),
+    dict(id="acetoacetate", name="乙酰乙酸（乙酰乙酸根）", formula="C4H5O3",
+         smiles="CC(=O)CC(=O)[O-]", src=None, sdf=None, no3d=True,
+         form="乙酰乙酸（β-酮酸；羧基按 pH 7.4 电离）",
+         caveat="酮体按项目本轮口径只做 2D，不建 3D。"),
+    dict(id="bhb", name="β-羟丁酸（D-3-羟丁酸根）", formula="C4H7O3",
+         smiles="CC(O)CC(=O)[O-]", src=None, sdf=None, no3d=True,
+         form="β-羟丁酸（β-羟基酸；羧基按 pH 7.4 电离）",
+         caveat="酮体按项目本轮口径只做 2D，不建 3D。"),
+    dict(id="acetone", name="丙酮", formula="C3H6O",
+         smiles="CC(=O)C", src=None, sdf=None, no3d=True,
+         form="丙酮（挥发性酮，随呼气/尿液排出）",
+         caveat="酮体按项目本轮口径只做 2D，不建 3D。"),
+]
+KETONE_2D_IDS = {spec["id"] for spec in KETONE_MOLS}
+
+
 def main():
     ap = argparse.ArgumentParser(description="离线生成分子 2D/3D 资产")
-    ap.add_argument("--pathway", choices=["glycolysis", "tca", "ppp", "gluconeogenesis", "fao", "urea", "fas", "glycogen", "amino", "cholesterol"], default="glycolysis",
+    ap.add_argument("--pathway", choices=["glycolysis", "tca", "ppp", "gluconeogenesis", "fao", "urea", "fas", "glycogen", "amino", "cholesterol", "ketone"], default="glycolysis",
                     help="默认 glycolysis（保持原报告路径与行为）；tca/ppp/gluconeogenesis/fao/urea/fas 写独立报告")
     ap.add_argument("--svg-only", action="store_true",
                     help="只按现有 2D JSON 重绘 SVG（配色专用，幂等）")
@@ -1343,6 +1372,10 @@ def main():
         generate(UREA_MOLS, UREA_IDS,
                  os.path.join(ROOT, "preview", "urea-molecule-assets-report.json"),
                  "2026-11-05 · 尿素循环")
+    elif args.pathway == "ketone":
+        generate(KETONE_MOLS, KETONE_2D_IDS,
+                 os.path.join(ROOT, "preview", "ketone-molecule-assets-report.json"),
+                 "2026-11-08 · 酮体")
     elif args.pathway == "fas":
         generate(FAS_MOLS, FAS_IDS,
                  os.path.join(ROOT, "preview", "fas-molecule-assets-report.json"),

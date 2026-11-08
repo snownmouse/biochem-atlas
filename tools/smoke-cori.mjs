@@ -250,9 +250,9 @@ await page.goto(`${BASE}/?fold=open`, { waitUntil: "networkidle" });
 check("首页 Cori 回路层存在", (await page.locator("[data-cori-loop]").count()) === 1);
 check("首页回路 href 指向 /pathway/cori", (await page.locator("[data-cori-loop]").getAttribute("href")) === "/pathway/cori");
 check("首页回路两条血流", (await page.locator("[data-cori-flow]").count()) === 2);
-check("首页 11 个通路区块（Cori 不占标题块）", (await page.locator("[data-pathway-block]").count()) === 11);
-check("首页 12 个通路标题（11 区块 + Cori 连接带）", (await page.locator("[data-pathway-title]").count()) === 12);
-check("首页有 22 条去向链接", (await page.locator("[data-home-link]").count()) === 22);
+check("首页 12 个通路区块（Cori 不占标题块）", (await page.locator("[data-pathway-block]").count()) === 12);
+check("首页 13 个通路标题（12 区块 + Cori 连接带）", (await page.locator("[data-pathway-title]").count()) === 13);
+check("首页有 24 条去向链接", (await page.locator("[data-home-link]").count()) === 24);
 check("首页侧栏有 Cori 入口", (await page.locator("[data-cori-aside-link]").count()) === 1);
 const titles = await page.locator("[data-pathway-title]").evaluateAll((els) =>
   els.map((el) => {
@@ -260,14 +260,15 @@ const titles = await page.locator("[data-pathway-title]").evaluateAll((els) =>
     return { id: el.getAttribute("data-pathway-title"), x: r.x, y: r.y, right: r.right, bottom: r.bottom };
   })
 );
+const ALLOW_OFFSCREEN = ["amino-acids", "cholesterol", "ketone"];
 const offscreen = titles.filter((t) => t.y < 0 || t.bottom > 900 || t.x < 0 || t.right > 1440);
 check(
-  "1440×900 展开档：仅氨基酸代谢与胆固醇合成出屏，其余十条全见",
-  titles.length === 12 && offscreen.length === 2 && ["amino-acids", "cholesterol"].every((id) => offscreen.some((t) => t.id === id)),
+  "1440×900 展开档：仅氨基酸 / 胆固醇 / 酮体出屏，其余十条全见",
+  titles.length === 13 && offscreen.length === 3 && ALLOW_OFFSCREEN.every((id) => offscreen.some((t) => t.id === id)),
   JSON.stringify(titles.map((t) => [t.id, Math.round(t.y), Math.round(t.bottom)]))
 );
-const lowest = Math.max(...titles.filter((t) => !["amino-acids", "cholesterol"].includes(t.id)).map((t) => t.bottom));
-check("除氨基酸代谢 / 胆固醇合成外，十条标题最低底边 ≤ 900", lowest <= 900, `最低底边 ${Math.round(lowest)}px（余量 ${900 - Math.round(lowest)}px）`);
+const lowest = Math.max(...titles.filter((t) => !ALLOW_OFFSCREEN.includes(t.id)).map((t) => t.bottom));
+check("除出屏三条外，十条标题最低底边 ≤ 900", lowest <= 900, `最低底边 ${Math.round(lowest)}px（余量 ${900 - Math.round(lowest)}px）`);
 await page.screenshot({ path: join(ROOT, "preview", "home-cori-loop.png") });
 await page.locator("[data-cori-loop] rect").first().click();
 await page.waitForURL(/\/pathway\/cori/);

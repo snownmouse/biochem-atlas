@@ -7,7 +7,7 @@ import type { HomePathwayId } from "./homeMap";
  * 画布宽 1020（原生坐标宽），CSS 宽度锁在 955–1020：1440 首屏恰好完整可见，
  * 更窄视口在容器内横向拖动；高度延伸到 744，给第 10–12 条通路留出纵向落位区。
  */
-export const HOME_CANVAS = { width: 1020, height: 744 };
+export const HOME_CANVAS = { width: 1020, height: 790 };
 
 /**
  * Cori 循环在首页的表达：不新增第七个标题块，也不新增第七个通路节点。
@@ -189,6 +189,9 @@ export const HOME_PATHWAY_LABELS: HomePathwayLabel[] = [
   // 胆固醇合成：第 12 条（全站最后一条），落在原第 12 空槽 y=698；用户已明确接受出屏。
   // 1980 画布宽 / 1020 原生坐标下，1440 视口首屏底边约 819，本条标题在屏外，靠页面纵向滚动可见。
   { pathwayId: "cholesterol", x: 28, y: 698, anchor: "start", note: "13 步 · 胞质 → 内质网 · 他汀靶点" },
+  // PLATE 13：酮体代谢，落在画布纵向延伸区的第一槽（y=746）；
+  // 画布高度由 744 扩到 790，节点/边仍不增加（只登记标题块与导航）。PLATE 14–18 随后续挂图逐张接入。
+  { pathwayId: "ketone", x: 28, y: 746, anchor: "start", note: "6 步 · 肝生酮 / 肝外利用 · 只做 2D" },
 ];
 
 /**
@@ -208,7 +211,7 @@ export interface HomeReservedSlot {
 export const HOME_RESERVED_HEAD = {
   x: 28,
   y: 572,
-  text: "PLATE 12 已接入 · 12 / 12 · 无预留槽",
+  text: "PLATE 13 已接入 · 13 / 18 · 预留 14–18",
 };
 
 export const HOME_RESERVED_SLOTS: HomeReservedSlot[] = [];

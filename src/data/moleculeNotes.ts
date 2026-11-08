@@ -37,11 +37,14 @@ export const MOLECULE_REGISTRY: RegistryEntry[] = [
   { key: "6pg-l", name: "6-磷酸葡糖酸", aliases: ["6pg-l", "6pg"] },
   { key: "6pgl", name: "6-磷酸葡糖酸-1,5-内酯", aliases: ["6pgl"] },
   { key: "accoa", name: "乙酰-CoA", aliases: ["accoa", "fas-accoa", "accoa-mito", "accoa-cyt"] },
+  { key: "acetoacetate", name: "乙酰乙酸", aliases: ["acetoacetate", "acac"] },
+  { key: "acetone", name: "丙酮", aliases: ["acetone"] },
   { key: "acylcarn", name: "棕榈酰肉碱", aliases: ["acylcarn"] },
   { key: "acylcoa-c14", name: "肉豆蔻酰-CoA", aliases: ["acylcoa-c14", "acylcoa-short"] },
   { key: "acylcoa-c16", name: "棕榈酰-CoA", aliases: ["acylcoa-c16", "acylcoa", "acylcoa-cyt"] },
   { key: "akg", name: "α-酮戊二酸", aliases: ["akg"] },
   { key: "ala", name: "L-丙氨酸", aliases: ["ala"] },
+  { key: "bhb", name: "β-羟丁酸", aliases: ["bhb", "beta-hydroxybutyrate"] },
   { key: "bpg13", name: "1,3-二磷酸甘油酸", aliases: ["bpg13", "13bpg"] },
   { key: "carn", name: "L-肉碱", aliases: ["carn"] },
   { key: "cholesterol", name: "胆固醇", aliases: ["cholesterol"] },
@@ -1227,6 +1230,47 @@ export const MOLECULE_NOTES: Record<string, MoleculeNote> = {
       "amino.json · steps[aa-6].significance / equation",
       "amino.json · entities[tyr].chargeBasis",
       "comparisonConfig.ts · AMINO_CONFIG.footerNote（Lehninger 8e Ch.18）",
+    ],
+  },
+
+  // ---------- 第六批：酮体（PLATE 13） ----------
+
+  acetoacetate: {
+    id: "acetoacetate",
+    role: "酮体的母体，可自发脱羧",
+    brief: "另两种酮体都从它来",
+    position: "ketone kt-3 产物；kt-4 / kt-5 底物；肝外利用段入口。",
+    flows: "由 HMG-CoA 裂解生成；去路还原成 β-羟丁酸、脱羧成丙酮，或在肝外被 OXCT1 活化。",
+    whyHere:
+      "它是唯一能被 OXCT1 接手的酮体：β-羟丁酸要先氧化回它，丙酮则已失去可活化的羧基。",
+    sources: [
+      "ketone.json · steps[kt-3] / steps[kt-4] / steps[kt-5] / steps[kt-6]",
+    ],
+  },
+
+  bhb: {
+    id: "bhb",
+    role: "血液里的主要酮体形式",
+    brief: "还原一次，更稳定也更好运",
+    position: "ketone kt-4 产物；经血液到肝外；kt-6 底物（先经 BDH1 逆反应）。",
+    flows: "由乙酰乙酸在肝内 NADH 高时还原生成；经血液运到肝外，氧化回乙酰乙酸后进利用段。",
+    whyHere:
+      "它把酮体变成更稳定的运输形式：水溶性好、不易脱羧，血中浓度与半衰期都高于乙酰乙酸。",
+    sources: [
+      "ketone.json · steps[kt-4] / steps[kt-6]",
+    ],
+  },
+
+  acetone: {
+    id: "acetone",
+    role: "酮体的旁路产物，主要靠排出",
+    brief: "生成量小，不是主要燃料",
+    position: "ketone kt-5 产物；不进入 TCA；经呼气与尿液排出。",
+    flows: "由乙酰乙酸自发脱羧生成；去路是呼气、尿液等排出，不回到乙酰-CoA。",
+    whyHere:
+      "它只是乙酰乙酸脱羧的副产物：结构上不再有可被活化的羧基，因此进不了 OXCT1 的利用段。",
+    sources: [
+      "ketone.json · steps[kt-5]",
     ],
   },
 };

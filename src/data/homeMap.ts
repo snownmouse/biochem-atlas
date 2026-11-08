@@ -24,7 +24,8 @@ export type HomePathwayId =
   | "urea-cycle"
   | "glycogen"
   | "amino-acids"
-  | "cholesterol";
+  | "cholesterol"
+  | "ketone";
 
 export interface HomePathwayMeta {
   id: HomePathwayId;
@@ -166,6 +167,18 @@ export const HOME_PATHWAYS: HomePathwayMeta[] = [
     plateNo: "PLATE 12",
     stepCount: 13,
     accent: "brick",
+  },
+  // 酮体代谢：PLATE 13，只登记标题块与导航；不并入 SOURCES，首页节点/边口径不变。
+  {
+    id: "ketone",
+    sourceId: "ketone",
+    name: "酮体代谢",
+    en: "KETONE BODY METABOLISM",
+    route: "/pathway/ketone",
+    structureRoute: "/structures/ketone",
+    plateNo: "PLATE 13",
+    stepCount: 6,
+    accent: "amber",
   },
 ];
 

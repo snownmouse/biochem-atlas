@@ -38,6 +38,8 @@ const amino = read("src/data/amino-acid/amino.json");
 const aminoSkel = read("src/data/amino-acid/skeleton.json");
 const cholesterol = read("src/data/cholesterol/cholesterol.json");
 const cholesterolSkel = read("src/data/cholesterol/skeleton.json");
+const ketone = read("src/data/ketone/ketone.json");
+const ketoneSkel = read("src/data/ketone/skeleton.json");
 
 const EXPECT = {
   glycolysis: {
@@ -117,6 +119,14 @@ const EXPECT = {
     sources: ["cholesterol/cholesterol.json", "cholesterol/skeleton.json"],
     plate: cholesterol.plateNo,
   },
+  ketone: {
+    // 6 步（生酮 5 + 肝外利用 1 段合并步）+ 1 段血液运输；运输不计入步数
+    steps: ketone.steps.length,
+    transport: ketoneSkel.transportSteps?.length ?? 0,
+    nodes: ketoneSkel.nodes.length,
+    sources: ["ketone/ketone.json", "ketone/skeleton.json"],
+    plate: ketone.plateNo,
+  },
 };
 
 const ROUTES = [
@@ -139,6 +149,7 @@ const ROUTES = [
   { id: "glycogen", path: "/pathway/glycogen", kind: "poster", pathway: "glycogen" },
   { id: "amino-acids", path: "/pathway/amino-acids", kind: "poster", pathway: "amino-acids" },
   { id: "cholesterol", path: "/pathway/cholesterol", kind: "poster", pathway: "cholesterol" },
+  { id: "ketone", path: "/pathway/ketone", kind: "poster", pathway: "ketone" },
   { id: "structures-glycolysis", path: "/structures/glycolysis", kind: "structures" },
   { id: "structures-tca", path: "/structures/tca", kind: "structures" },
   { id: "structures-gluconeogenesis", path: "/structures/gluconeogenesis", kind: "structures" },
@@ -149,6 +160,7 @@ const ROUTES = [
   { id: "structures-glycogen", path: "/structures/glycogen", kind: "structures" },
   { id: "structures-amino-acids", path: "/structures/amino-acids", kind: "structures" },
   { id: "structures-cholesterol", path: "/structures/cholesterol", kind: "structures" },
+  { id: "structures-ketone", path: "/structures/ketone", kind: "structures" },
   { id: "structures-cori", path: "/structures/cori", kind: "structures" },
   { id: "structures-oxphos", path: "/structures/oxphos", kind: "structures" },
   { id: "step-gk-1", path: "/step/gk-1", kind: "step" },

@@ -220,18 +220,19 @@ const homeTitles = await page.locator("[data-pathway-title]").evaluateAll((els) 
     };
   });
 });
-check("首页十二条通路标题（八区块 + 糖原 + Cori 连接带 + 氨基酸 + 胆固醇）", homeTitles.length === 12, String(homeTitles.length));
+const ALLOW_OFFSCREEN = ["amino-acids", "cholesterol", "ketone"];
+check("首页十三条通路标题（十二区块 + Cori 连接带）", homeTitles.length === 13, String(homeTitles.length));
 check("首页出现「脂肪酸从头合成」标题", homeTitles.some((t) => t.id === "fatty-acid-synthesis" && t.text.includes("脂肪酸从头合成")));
 check("首页出现「尿素循环」标题", homeTitles.some((t) => t.id === "urea-cycle" && t.text.includes("尿素循环")));
 check("首页出现「糖原代谢」标题", homeTitles.some((t) => t.id === "glycogen" && t.text.includes("糖原代谢")));
 check(
-  "1440×900 展开档：仅氨基酸代谢与胆固醇合成出屏，其余十条全在屏内",
-  homeTitles.every((t) => ["amino-acids", "cholesterol"].includes(t.id) || (t.x >= 0 && t.right <= 1440 && t.y >= 0 && t.bottom <= 900)) &&
-    homeTitles.filter((t) => !["amino-acids", "cholesterol"].includes(t.id)).length === 10,
+  "1440×900 展开档：仅氨基酸 / 胆固醇 / 酮体出屏，其余十条全在屏内",
+  homeTitles.every((t) => ALLOW_OFFSCREEN.includes(t.id) || (t.x >= 0 && t.right <= 1440 && t.y >= 0 && t.bottom <= 900)) &&
+    homeTitles.filter((t) => !ALLOW_OFFSCREEN.includes(t.id)).length === 10,
   JSON.stringify(homeTitles.map((t) => [t.id, t.y, t.bottom])),
 );
-const lowest = Math.max(...homeTitles.filter((t) => !["amino-acids", "cholesterol"].includes(t.id)).map((t) => t.bottom));
-check("除氨基酸代谢 / 胆固醇合成外，十条标题最低底边 ≤ 900", lowest <= 900, String(Math.round(lowest)));
+const lowest = Math.max(...homeTitles.filter((t) => !ALLOW_OFFSCREEN.includes(t.id)).map((t) => t.bottom));
+check("除出屏三条外，十条标题最低底边 ≤ 900", lowest <= 900, String(Math.round(lowest)));
 const fasTitle = homeTitles.find((t) => t.id === "fatty-acid-synthesis");
 const faoTitle = homeTitles.find((t) => t.id === "fatty-acid-oxidation");
 check("FAS 标题在 β-氧化标题上方（胞质侧镜像）", Boolean(fasTitle && faoTitle) && fasTitle.bottom < faoTitle.y, JSON.stringify([fasTitle?.bottom, faoTitle?.y]));

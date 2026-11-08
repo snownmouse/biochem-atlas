@@ -60,6 +60,7 @@ const PATH_COLOR: Record<HomePathwayId, string> = {
   glycogen: C.amber,
   "amino-acids": C.teal,
   cholesterol: C.brick,
+  ketone: C.amber,
 };
 
 const JUNCTION_IDS = new Set(HOME_NODES.filter((node) => node.junction).map((node) => node.id));

@@ -3519,8 +3519,326 @@ const CORI_CONFIG: ComparisonConfig = {
   steps: CORI_COMPARISON,
 };
 
+/**
+ * PLATE 13 / SF-13 · 酮体代谢
+ * 本轮口径：六张新图全部 2D-only——不建 3D、不登记 PDB 候选；
+ * 每个分子都带 no3dReason，页面 3D 模式只显示这句话，不请求资产。
+ */
+const KETONE_CONFIG: ComparisonConfig = {
+  pathwayId: "ketone",
+  title: "酮体代谢 · 结构对照",
+  summary:
+    "肝线粒体的生酮 5 步与肝外的利用段逐步对照；C4 酮体在结构上只差一个 β-羟基与一个羧基，2D 足以读出差别。",
+  plateNo: "PLATE SF-13 · 结构对照 · 酮体代谢 · 2026",
+  back: { to: "/pathway/ketone", label: "返回酮体代谢挂图" },
+  backCaption: "酮体代谢",
+  enzymePanel: false,
+  enzymePanelOffNote:
+    "本图全部只做 2D：左栏不提供酶 3D 结构；六张新图沿用站内 UTP 已立的口径，不登记 PDB 候选。",
+  footerNote:
+    "SF-13 共 6 块，全部为 2D 结构式块；3D 视图在本页只显示“本平台未建 3D”的口径说明，不出现待核验占位。乙酰-CoA、琥珀酰-CoA 与 CoA 的长链不逐原子展开，2D 资产沿用项目既有的片段/全分子口径。",
+  defaultModePolicy:
+    "本轮六张新图统一默认 2D：不建 3D，因此不做 2D/3D 判据比较；逐块 defaultMode 固定为 2d，defaultModeRule 写明“本图 2D-only”。",
+  steps: [
+    {
+      stepId: "kt-1",
+      index: 1,
+      enzyme: "硫解酶（乙酰-CoA 乙酰转移酶）",
+      isozyme: "ACAT1",
+      equation: "2 乙酰-CoA ⇌ 乙酰乙酰-CoA + CoA",
+      substrate: {
+        name: "乙酰-CoA ×2",
+        formula: "C23H38N7O17P3S ×2",
+        parts: [
+          {
+            id: "accoa",
+            name: "乙酰-CoA",
+            formula: "C23H38N7O17P3S",
+            asset2d: D2("accoa"),
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+            caveat: "CoA 长链按项目既有全分子资产呈现；本步只强调 C2 单元的羰基碳与甲基碳。",
+          },
+        ],
+        cofactorNote: "两分子乙酰-CoA 的 CoA 部分不入画重点；缩合发生在 C2 单元的碳骨架。",
+      },
+      product: {
+        name: "乙酰乙酰-CoA + CoA",
+        formula: "C25H40N7O18P3S + C21H36N7O16P3S",
+        parts: [
+          {
+            id: "acacoa",
+            name: "乙酰乙酰-CoA",
+            formula: "C25H40N7O18P3S",
+            asset2d: D2("acacoa"),
+            no3dReason: "本图按 2D-only 口径；本资产为 C4 二羰基 + 硫酯 S 片段，CoA 长链略。",
+            caveat: "按项目既有片段口径：只画 C4 二羰基单元与硫酯 S，CoA 长链略。",
+          },
+        ],
+        cofactorNote: "CoA-SH 为离去基团，不入画。",
+      },
+      arrowLabel: "硫解酶 · 逆向缩合（C2 + C2 → C4）",
+      change:
+        "一分子乙酰-CoA 的甲基碳进攻另一分子乙酰-CoA 的硫酯羰基碳，形成新的 C–C 键，生成 C4 二羰基的乙酰乙酰-CoA，同时释放 CoA。",
+      physiology: "把两个乙酰-CoA 拼成 C4 单元，是酮体生成的起点；方向由肝内乙酰-CoA 堆积与下游 HMGCS2 拉动。",
+      evidence: { substrate: [evOnly2d("accoa")], product: [evOnly2d("acacoa")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "kt-2",
+      index: 2,
+      enzyme: "HMG-CoA 合酶",
+      isozyme: "HMGCS2",
+      equation: "乙酰乙酰-CoA + 乙酰-CoA + H₂O → HMG-CoA + CoA",
+      substrate: {
+        name: "乙酰乙酰-CoA + 乙酰-CoA",
+        formula: "C25H40N7O18P3S + C23H38N7O17P3S",
+        parts: [
+          {
+            id: "acacoa",
+            name: "乙酰乙酰-CoA",
+            formula: "C25H40N7O18P3S",
+            asset2d: D2("acacoa"),
+            no3dReason: "本图按 2D-only 口径；C4 二羰基片段。",
+          },
+          {
+            id: "accoa",
+            name: "乙酰-CoA",
+            formula: "C23H38N7O17P3S",
+            asset2d: D2("accoa"),
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+        cofactorNote: "H₂O 与 CoA 不入画。",
+      },
+      product: {
+        name: "HMG-CoA",
+        formula: "C27H44N7O20P3S",
+        parts: [
+          {
+            id: "hmgcoa",
+            name: "HMG-CoA",
+            formula: "C27H44N7O20P3S",
+            asset2d: D2("hmgcoa"),
+            no3dReason: "本图按 2D-only 口径；本资产为 C6 羟甲基戊二酰 + 硫酯 S 片段。",
+            caveat: "按项目既有片段口径：只画 C6 羟甲基戊二酰单元与硫酯 S，CoA 长链略。",
+          },
+        ],
+      },
+      arrowLabel: "HMGCS2 · 接上第三个乙酰-CoA（限速）",
+      change:
+        "乙酰-CoA 的甲基碳与乙酰乙酰-CoA 的甲基碳缩合，在 C5 上留下一个羟基和一个甲基，生成 3-羟基-3-甲基戊二酰（HMG）单元。",
+      physiology: "生酮限速步；HMGCS2 与胆固醇合成的 HMGCR 不是同一个酶。",
+      evidence: { substrate: [evOnly2d("acacoa"), evOnly2d("accoa")], product: [evOnly2d("hmgcoa")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "kt-3",
+      index: 3,
+      enzyme: "HMG-CoA 裂解酶",
+      isozyme: "HMGCL",
+      equation: "HMG-CoA → 乙酰乙酸 + 乙酰-CoA",
+      substrate: {
+        name: "HMG-CoA",
+        formula: "C27H44N7O20P3S",
+        parts: [
+          {
+            id: "hmgcoa",
+            name: "HMG-CoA",
+            formula: "C27H44N7O20P3S",
+            asset2d: D2("hmgcoa"),
+            no3dReason: "本图按 2D-only 口径；C6 羟甲基戊二酰片段。",
+          },
+        ],
+      },
+      product: {
+        name: "乙酰乙酸 + 乙酰-CoA",
+        formula: "C4H5O3 + C23H38N7O17P3S",
+        parts: [
+          {
+            id: "acetoacetate",
+            name: "乙酰乙酸（阴离子）",
+            formula: "C4H5O3",
+            asset2d: D2("acetoacetate"),
+            no3dReason: "本图按 2D-only 口径，不建 3D。",
+          },
+          {
+            id: "accoa",
+            name: "乙酰-CoA",
+            formula: "C23H38N7O17P3S",
+            asset2d: D2("accoa"),
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+        cofactorNote: "CoA 由 HMG-CoA 的硫酯键释放，进入产物侧。",
+      },
+      arrowLabel: "HMGCL · C–C 裂解，放出第一个酮体",
+      change:
+        "HMG 单元的 C2–C3 键断裂：C1–C2 片段成为乙酰乙酸，C3 以上的片段与 CoA 结合成为乙酰-CoA。",
+      physiology: "产出第一个真正的酮体，同时把一分子乙酰-CoA 放回池中回用。",
+      evidence: { substrate: [evOnly2d("hmgcoa")], product: [evOnly2d("acetoacetate"), evOnly2d("accoa")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "kt-4",
+      index: 4,
+      enzyme: "β-羟丁酸脱氢酶",
+      isozyme: "BDH1",
+      equation: "乙酰乙酸 + NADH + H⁺ ⇌ β-羟丁酸 + NAD⁺",
+      substrate: {
+        name: "乙酰乙酸（阴离子）",
+        formula: "C4H5O3",
+        parts: [
+          {
+            id: "acetoacetate",
+            name: "乙酰乙酸（阴离子）",
+            formula: "C4H5O3",
+            asset2d: D2("acetoacetate"),
+            no3dReason: "本图按 2D-only 口径，不建 3D。",
+          },
+        ],
+        cofactorNote: "NADH / NAD⁺ 不入画。",
+      },
+      product: {
+        name: "β-羟丁酸（阴离子）",
+        formula: "C4H7O3",
+        parts: [
+          {
+            id: "bhb",
+            name: "β-羟丁酸（阴离子）",
+            formula: "C4H7O3",
+            asset2d: D2("bhb"),
+            no3dReason: "本图按 2D-only 口径，不建 3D。",
+          },
+        ],
+      },
+      arrowLabel: "BDH1 · β-酮基还原为 β-羟基（双向）",
+      change:
+        "C3 的酮羰基被还原成羟基，C4 骨架不变；反应可逆，方向由 NADH/NAD⁺ 比值决定。",
+      physiology: "肝内 NADH 高，推动生成 β-羟丁酸；肝外 NAD⁺ 高，同一反应逆向把 β-羟丁酸氧化回乙酰乙酸。",
+      evidence: { substrate: [evOnly2d("acetoacetate")], product: [evOnly2d("bhb")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "kt-5",
+      index: 5,
+      enzyme: "自发脱羧（肝内脱羧酶活性有限）",
+      equation: "乙酰乙酸 → 丙酮 + CO₂",
+      substrate: {
+        name: "乙酰乙酸（阴离子）",
+        formula: "C4H5O3",
+        parts: [
+          {
+            id: "acetoacetate",
+            name: "乙酰乙酸（阴离子）",
+            formula: "C4H5O3",
+            asset2d: D2("acetoacetate"),
+            no3dReason: "本图按 2D-only 口径，不建 3D。",
+          },
+        ],
+      },
+      product: {
+        name: "丙酮 + CO₂",
+        formula: "C3H6O + CO2",
+        parts: [
+          {
+            id: "acetone",
+            name: "丙酮",
+            formula: "C3H6O",
+            asset2d: D2("acetone"),
+            no3dReason: "本图按 2D-only 口径，不建 3D。",
+          },
+          {
+            id: "co2",
+            name: "二氧化碳",
+            formula: "CO2",
+            asset2d: D2("co2"),
+            no3dReason: "CO₂ 原子数过少，球棍无形状信息量；本项目只做 2D。",
+          },
+        ],
+        cofactorNote: "丙酮生成量小，主要经呼气与尿液排出。",
+      },
+      arrowLabel: "自发脱羧 · 丢掉一个羧基碳",
+      change: "乙酰乙酸的羧基以 CO₂ 形式脱去，C4 骨架剩 C3 的丙酮。",
+      physiology: "旁路产物，不是肝外组织的主要燃料；酶学细节本平台未核实。",
+      evidence: { substrate: [evOnly2d("acetoacetate")], product: [evOnly2d("acetone"), evOnly2d("co2")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "kt-6",
+      index: 6,
+      enzyme: "β-酮脂酰-CoA 转移酶 + 硫解酶",
+      isozyme: "OXCT1（SCOT）· ACAT1",
+      equation: "β-羟丁酸 + 琥珀酰-CoA → 乙酰乙酰-CoA + 琥珀酸；乙酰乙酰-CoA + CoA → 2 乙酰-CoA",
+      substrate: {
+        name: "β-羟丁酸 + 琥珀酰-CoA",
+        formula: "C4H7O3 + C25H40N7O19P3S",
+        parts: [
+          {
+            id: "bhb",
+            name: "β-羟丁酸（阴离子）",
+            formula: "C4H7O3",
+            asset2d: D2("bhb"),
+            no3dReason: "本图按 2D-only 口径，不建 3D。",
+          },
+          {
+            id: "succoa",
+            name: "琥珀酰-CoA",
+            formula: "C25H40N7O19P3S",
+            asset2d: D2("succoa"),
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+        cofactorNote: "NAD⁺ / NADH 与 CoA 不入画。",
+      },
+      product: {
+        name: "乙酰乙酰-CoA + 琥珀酸 + 2 乙酰-CoA",
+        formula: "C25H40N7O18P3S + C4H4O4 + C23H38N7O17P3S ×2",
+        parts: [
+          {
+            id: "acacoa",
+            name: "乙酰乙酰-CoA",
+            formula: "C25H40N7O18P3S",
+            asset2d: D2("acacoa"),
+            no3dReason: "本图按 2D-only 口径；C4 二羰基片段。",
+          },
+          {
+            id: "suc",
+            name: "琥珀酸",
+            formula: "C4H4O4",
+            asset2d: D2("suc"),
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+          {
+            id: "accoa",
+            name: "乙酰-CoA ×2",
+            formula: "C23H38N7O17P3S ×2",
+            asset2d: D2("accoa"),
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "OXCT1 + 硫解酶 · 利用段（三步合并写法）",
+      change:
+        "先用琥珀酰-CoA 把 CoA 转给乙酰乙酸生成乙酰乙酰-CoA（同时放出琥珀酸），再由硫解酶把乙酰乙酰-CoA 拆成两分子乙酰-CoA；图上以一条主链表示这个利用段。",
+      physiology: "肝外组织把酮体拆回乙酰-CoA 送进 TCA；肝不表达 OXCT1，所以肝只生酮、不利用。",
+      evidence: {
+        substrate: [evOnly2d("bhb"), evOnly2d("succoa")],
+        product: [evOnly2d("acacoa"), evOnly2d("suc"), evOnly2d("accoa")],
+      },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+  ],
+};
+
 export const COMPARISON_CONFIGS: Record<string, ComparisonConfig> = {
   glycolysis: GLYCOLYSIS_CONFIG,
+  ketone: KETONE_CONFIG,
   tca: TCA_CONFIG,
   ppp: PPP_CONFIG,
   gluconeogenesis: GLUCONEOGENESIS_CONFIG,
