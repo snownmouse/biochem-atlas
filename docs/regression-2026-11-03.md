@@ -53,7 +53,7 @@
 
 | 初报失败 | 定性 | 处理 |
 |---|---|---|
-| 挂图页检出 `repeating-linear-gradient` | 误报：[styles.css L429-430](file:///d:/生化大项目/src/styles.css#L429-L430) 是 1px 墨色坐标纸网格纹理（挂图体例的纸面质感），非彩色装饰渐变 | 检查脚本排除 1px 网格纹理 |
+| 挂图页检出 `repeating-linear-gradient` | 误报：[styles.css L429-430](src/styles.css#L429-L430) 是 1px 墨色坐标纸网格纹理（挂图体例的纸面质感），非彩色装饰渐变 | 检查脚本排除 1px 网格纹理 |
 | `/step/gk-6` 检出 `.dot` 圆角 50% | 误报：9px 图例色点（圆形色点是图例体例），非圆角卡片 | 检查脚本排除百分比圆角 |
 | `/step/gk-6` 检出 `.op-hint` 圆角 999px | 边界：深色一次性操作提示气泡（墨/纸配色），不是胶囊 tab 控件；形状本身可议 → 列入建议第 2 条 | 检查脚本白名单 + 人工定性 |
 | `/step/gk-6` 面包屑"能回挂图对应步"失败 | 断言过严：实际断言写成必须带 `?step=` 参数回挂图；页面行为是回上一层 `/pathway/glycolysis`，符合"面包屑回上一层"要求 | 断言修正为"能回上一层挂图"；带 step 参数回跳列入建议第 3 条 |
@@ -61,7 +61,7 @@
 
 ## 四、建议清单（本次不修）
 
-1. **`.op-hint` 提示气泡为胶囊形**（[styles.css L198-206](file:///d:/生化大项目/src/styles.css#L198-L206)）：深色圆角气泡浮层，配色合规但形状与"胶囊"禁令擦边。若要更保守可改为直角细边框提示条。涉及两处定义（`.op-hint` 与 `.poster.step-poster .op-hint`）。
+1. **`.op-hint` 提示气泡为胶囊形**（[styles.css L198-206](src/styles.css#L198-L206)）：深色圆角气泡浮层，配色合规但形状与"胶囊"禁令擦边。若要更保守可改为直角细边框提示条。涉及两处定义（`.op-hint` 与 `.poster.step-poster .op-hint`）。
 2. **挂图页 crumb 的 `<b>` 当前项**：当前通路用 `<b>` 加粗呈现，与链接项视觉区分度尚可，但严格说"标注层级固定"体例可考虑统一为"当前项无下划线 + 链接项有下划线"已有实现，仅建议保持现状不折腾。
 3. **单步页面包屑回挂图不带 `?step=`**：~~从 `/step/gk-6` 返回挂图后不还原第 6 步选中态~~ → **已于当日修复（见第六节）**。
 4. **`smoke-frames` 耗时 39s**：逐帧走查 39 个 JSON 资产串行加载所致。若后续帧数增长，可考虑并行预取或按 `?frame=` 分段走查，属工程优化非缺陷。
@@ -76,7 +76,7 @@
 
 用户确认采纳建议第 3 条后执行，**改动仅此一处，未扩大范围**：
 
-- **修复**：[StepViewPage.tsx L106](file:///d:/生化大项目/src/pages/StepViewPage.tsx#L106) 面包屑回挂图链接由 `/pathway/${pathway.id}` 改为 `/pathway/${pathway.id}?step=${step.id}`——步 id 由路由参数解析出的当前步对象取（`step.id`，非硬编码），与帧带页"返回挂图带 `?step=`"语义对齐。
-- **断言**：[smoke-embed.mjs](file:///d:/生化大项目/tools/smoke-embed.mjs) 第 7 节新增 1 条——单步页面包屑回挂图 href 必须等于 `/pathway/glycolysis?step=<路由参数步 id>`（步 id 从 `page.url()` 路径取，不硬编码）。
+- **修复**：[StepViewPage.tsx L106](src/pages/StepViewPage.tsx#L106) 面包屑回挂图链接由 `/pathway/${pathway.id}` 改为 `/pathway/${pathway.id}?step=${step.id}`——步 id 由路由参数解析出的当前步对象取（`step.id`，非硬编码），与帧带页"返回挂图带 `?step=`"语义对齐。
+- **断言**：[smoke-embed.mjs](tools/smoke-embed.mjs) 第 7 节新增 1 条——单步页面包屑回挂图 href 必须等于 `/pathway/glycolysis?step=<路由参数步 id>`（步 id 从 `page.url()` 路径取，不硬编码）。
 - **验证**：`npm run build` ✓（2.04s）；`node tools/smoke-embed.mjs` **92/92 全过**（91 + 新增 1，31.4s）。其余套件未受影响（本次改动不触及挂图渲染、帧带、数据层），按约定未重跑。
 

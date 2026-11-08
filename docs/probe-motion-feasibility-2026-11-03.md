@@ -31,7 +31,7 @@
 
 ### 2.1 Python 环境
 
-`python 3.11.5`（`D:\Anaconda3\python.exe`），另有 `C:\ProgramData\anaconda3` 与 `D:\Anaconda3\envs\mineru`。
+`python 3.11.5`（`<ANACONDA_HOME>\python.exe`），另有 `<PROGRAMDATA>\anaconda3` 与 `<ANACONDA_HOME>\envs\mineru`。
 
 | 包 | 状态 | 版本 |
 |---|---|---|
@@ -50,20 +50,20 @@
 
 `gmx`、`gromacs`、`vina`、`gnina`、`smina`、`obabel`、`tleap`、`namd`、`namd2`、`lammps`、`autodock`、`autodock4`、`autogrid4`(PATH 内)、`pdb2pqr`、`mcce`、`rosetta` —— **全部不在 PATH**。
 
-磁盘检索（`D:\`、`Program Files`、`C:\Users\0`，深度 4）也未找到 `vina*.exe` / `smina*.exe` / `gnina*.exe` / `gmx.exe` / `namd2.exe`。
+磁盘检索（`<D_DRIVE_ROOT>`、`Program Files`、`%USERPROFILE%`，深度 4）也未找到 `vina*.exe` / `smina*.exe` / `gnina*.exe` / `gmx.exe` / `namd2.exe`。
 
 ### 2.3 但有一条"隐性"工具链：ADFRsuite 1.0
 
-`D:\ADFR\` 已安装 **AutoDockFR 1.0**（Scripps，AD4 打分 + 柔性受体对接），本次**实跑验证可用**：
+`<ADFR_HOME>\` 已安装 **AutoDockFR 1.0**（Scripps，AD4 打分 + 柔性受体对接），本次**实跑验证可用**：
 
 | 可执行 | 作用 | 实测 |
 |---|---|---|
-| `D:\ADFR\bin\adfr.bat` | ADFR 对接引擎（GA，多核） | **可用**，见 §3.1 |
-| `D:\ADFR\bin\agfr.bat` | 生成 AutoDock 网格 `target.trg`（内含 `*.map`） | **可用**，27.1 s |
-| `D:\ADFR\bin\prepare_receptor.bat` | MGLTools `prepare_receptor4.py`（PDB→PDBQT、加氢、加电荷） | **可用** |
-| `D:\ADFR\bin\prepare_ligand.bat` | `prepare_ligand4.py`（配体→PDBQT） | **可用** |
+| `<ADFR_HOME>\bin\adfr.bat` | ADFR 对接引擎（GA，多核） | **可用**，见 §3.1 |
+| `<ADFR_HOME>\bin\agfr.bat` | 生成 AutoDock 网格 `target.trg`（内含 `*.map`） | **可用**，27.1 s |
+| `<ADFR_HOME>\bin\prepare_receptor.bat` | MGLTools `prepare_receptor4.py`（PDB→PDBQT、加氢、加电荷） | **可用** |
+| `<ADFR_HOME>\bin\prepare_ligand.bat` | `prepare_ligand4.py`（配体→PDBQT） | **可用** |
 | `autogrid4.exe` / `autosite` / `reduce` | 网格 / 口袋检测 / 加氢 | 已在，未逐一深测 |
-| `D:\ADFR\OpenBabel-2.4.1\obabel.exe` | 格式转换（SDF→PDBQT 实测成功） | **可用，但必须设 `BABEL_DATADIR`** |
+| `<ADFR_HOME>\OpenBabel-2.4.1\obabel.exe` | 格式转换（SDF→PDBQT 实测成功） | **可用，但必须设 `BABEL_DATADIR`** |
 | 同目录 `obenergy.exe` | UFF/MMFF94 单点能量 | **可用**（UFF 单点实测返回） |
 | 同目录 `obminimize.exe` | 力场最小化 | **不可用**：运行即 `0xC0000005` 访问违规（2016 年老构建） |
 
@@ -116,13 +116,13 @@
 
 ```powershell
 # 1) 配体：项目资产 SDF → PDB → PDBQT
-D:\ADFR\bin\prepare_ligand.bat -l ligand.pdb -o ligand.pdbqt
+<ADFR_HOME>\bin\prepare_ligand.bat -l ligand.pdb -o ligand.pdbqt
 # 2) 受体：holo.pdb 只保留 ATOM（去掉 NAD），再 prep
-D:\ADFR\bin\prepare_receptor.bat -r holo_protein.pdb -o receptor2.pdbqt -A checkhydrogens -U nphs_lps_waters_nonstdres
+<ADFR_HOME>\bin\prepare_receptor.bat -r holo_protein.pdb -o receptor2.pdbqt -A checkhydrogens -U nphs_lps_waters_nonstdres
 # 3) 生成 AutoDock4 网格（box 由配体自动包围）
-D:\ADFR\bin\agfr.bat -r receptor2.pdbqt -l ligand.pdbqt -o target2.trg
+<ADFR_HOME>\bin\agfr.bat -r receptor2.pdbqt -l ligand.pdbqt -o target2.trg
 # 4) 小规模对接
-D:\ADFR\bin\adfr.bat -l ligand.pdbqt -t target2.trg -J probe2 -n 2 -p 10 -e 20000 -g 20 -c 8 -O -o run2
+<ADFR_HOME>\bin\adfr.bat -l ligand.pdbqt -t target2.trg -J probe2 -n 2 -p 10 -e 20000 -g 20 -c 8 -O -o run2
 ```
 
 实测结果：
@@ -360,4 +360,4 @@ python -c "from vina import Vina; print('ok')"
   - WSL：`/root/probe-dock/`（`receptor2.pdbqt`、`nad_only.pdbqt`、`vina_out.pdbqt`、`vmaps.*.map` 6 张）
   - 临时探针脚本：`%TEMP%\probe-wsl.sh`、`%TEMP%\vina_probe*.py`、`%TEMP%\probe-dock-setup.sh`
   - 以上全部在临时目录，**不在项目目录内**。
-- 复现要点：ADFR `.bat` 必须 `cd` 后用相对路径；受体 PDB 必须先滤掉 HETATM 配体再用 `prepare_receptor`；OpenBabel CLI 必须设 `BABEL_DATADIR=D:\ADFR\OpenBabel-2.4.1\data`；WSL 跑 Vina 必须先把输入拷到 ext4，且必须激活 `wolfoclock`（非交互 shell 里 `which vina` 始终为空，因为它是 Python 模块）。
+- 复现要点：ADFR `.bat` 必须 `cd` 后用相对路径；受体 PDB 必须先滤掉 HETATM 配体再用 `prepare_receptor`；OpenBabel CLI 必须设 `BABEL_DATADIR=<ADFR_HOME>\OpenBabel-2.4.1\data`；WSL 跑 Vina 必须先把输入拷到 ext4，且必须激活 `wolfoclock`（非交互 shell 里 `which vina` 始终为空，因为它是 Python 模块）。

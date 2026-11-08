@@ -18,7 +18,7 @@
 - 沉积原子数：2783（仅 1 条聚合链 A + 1 个 2FP 实例，单亚基沉积）
 - 配体：`2FP` = 1,6-FRUCTOSE DIPHOSPHATE (LINEAR FORM)（saccharide 类型）
 
-本项目资产实际使用的 holo 就是 4ALD：[gly-04/meta.json](file:///d:/生化大项目/public/assets/steps/gly-04/meta.json) 与 [manifest.json](file:///d:/生化大项目/public/assets/steps/manifest.json)（gk-4 条目，128–152 行）均标 `pdbId: 4ALD, species: Homo sapiens`。**资产清单无误；错误只在 structureFrames.ts 的帧带数据**（gk-4-f0 与 gk-4-f2 的 `species` 字段写成 `Oryctolagus cuniculus`）。
+本项目资产实际使用的 holo 就是 4ALD：[gly-04/meta.json](public/assets/steps/gly-04/meta.json) 与 [manifest.json](public/assets/steps/manifest.json)（gk-4 条目，128–152 行）均标 `pdbId: 4ALD, species: Homo sapiens`。**资产清单无误；错误只在 structureFrames.ts 的帧带数据**（gk-4-f0 与 gk-4-f2 的 `species` 字段写成 `Oryctolagus cuniculus`）。
 
 页面角标可直接引用的正确写法：**「人源 ALDOA（天然人骨骼肌）· 2.8 Å · X-ray」**。
 
@@ -116,7 +116,7 @@
 
 ## 四、现有表述错误清单（供修帧带文案直接引用）
 
-以下均为 [structureFrames.ts](file:///d:/生化大项目/src/data/structureFrames.ts) 中 gk-4 相关内容（只列事实错误，不给改法）：
+以下均为 [structureFrames.ts](src/data/structureFrames.ts) 中 gk-4 相关内容（只列事实错误，不给改法）：
 
 1. **gk-4-f0 `species: "Oryctolagus cuniculus"`**（约 362 行）→ 错。4ALD 物种 = `Homo sapiens`（P04075，天然人骨骼肌）。
 2. **gk-4-f0 caption "4ALD 实测（兔 ALDOA，链 A resi 364）"**（约 366 行）→ "兔" 错，应为"人 ALDOA"。

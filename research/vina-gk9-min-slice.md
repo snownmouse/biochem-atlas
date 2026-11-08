@@ -151,5 +151,5 @@ DROP_SC=39,165,244,248,249,317,318,342 PSTEP=0.4 $PY probe-sidechain.py   # 侧�
 
 ## 附：并排观看的路径
 
-- 现有关键帧动画：[preview/motion-gk9.webm](file:///d:/生化大项目/preview/motion-gk9.webm)
+- 现有关键帧动画：[preview/motion-gk9.webm](preview/motion-gk9.webm)
 - vina 版：**`preview/motion-gk9-vina.webm` 未产出**（本切片在该受体构象下不存在无碰撞通道，按约定停手）

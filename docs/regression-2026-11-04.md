@@ -95,7 +95,7 @@
 | 胶囊 tab / `.pill` / `.capsule` | 0 | crumb 为下划线文字 |
 | emoji | 0 | — |
 
-已知边界（沿用上版定性）：单步页 `.op-hint` 提示气泡仍为 `border-radius: 999px` 的深色胶囊形（[styles.css L198-207](file:///d:/生化大项目/src/styles.css#L198-L207)），非控件、配色合规；不计入违规。另发现 `.skeleton / .sk-block` 是**未被任何页面引用的死样式**（10px 圆角 + shimmer 渐变），建议清理。
+已知边界（沿用上版定性）：单步页 `.op-hint` 提示气泡仍为 `border-radius: 999px` 的深色胶囊形（[styles.css L198-207](src/styles.css#L198-L207)），非控件、配色合规；不计入违规。另发现 `.skeleton / .sk-block` 是**未被任何页面引用的死样式**（10px 圆角 + shimmer 渐变），建议清理。
 
 ### 2.6 首页首屏零 3D / 零重资产 ✅
 
@@ -151,15 +151,15 @@
 ### 非阻塞建议（按优先级）
 
 1. **【P1】挂图编号与跨页引用错乱（本次最大的不一致）—— ✅ 已修，见第八节**
-   - PPP 与 β-氧化主挂图都写 `PLATE 04 / 12`（[PppOverviewPage L436](file:///d:/生化大项目/src/pages/PppOverviewPage.tsx#L436)、[FaoOverviewPage L306](file:///d:/生化大项目/src/pages/FaoOverviewPage.tsx#L306)），但 FAO 自己的结构页是 `PLATE SF-05`——同一通路自相矛盾。FAO 应为 `PLATE 05 / 12`。
-   - 糖酵解与 TCA 都把 NADH 指向“呼吸链（挂图 04）”（[PathwayOverviewPage L546](file:///d:/生化大项目/src/pages/PathwayOverviewPage.tsx#L546)、[TcaOverviewPage L503](file:///d:/生化大项目/src/pages/TcaOverviewPage.tsx#L503)），但 04 已是 PPP/FAO，全站也没有呼吸链页。
-   - 糖酵解页脚仍写“挂图 02 · 丙酮酸氧化脱羧 → TCA 循环（**待续，本版未含**）”（[PathwayOverviewPage L676](file:///d:/生化大项目/src/pages/PathwayOverviewPage.tsx#L676)），而 TCA 早已上线。
-   - 修这三处会联动 `smoke-fao.mjs` / `smoke-ppp-poster.mjs` 里写死的 `PLATE 04` 断言（[smoke-fao L63](file:///d:/生化大项目/tools/smoke-fao.mjs#L63)、[smoke-ppp-poster L40](file:///d:/生化大项目/tools/smoke-ppp-poster.mjs#L40)），需同步改断言值而非删断言。
+   - PPP 与 β-氧化主挂图都写 `PLATE 04 / 12`（[PppOverviewPage L436](src/pages/PppOverviewPage.tsx#L436)、[FaoOverviewPage L306](src/pages/FaoOverviewPage.tsx#L306)），但 FAO 自己的结构页是 `PLATE SF-05`——同一通路自相矛盾。FAO 应为 `PLATE 05 / 12`。
+   - 糖酵解与 TCA 都把 NADH 指向“呼吸链（挂图 04）”（[PathwayOverviewPage L546](src/pages/PathwayOverviewPage.tsx#L546)、[TcaOverviewPage L503](src/pages/TcaOverviewPage.tsx#L503)），但 04 已是 PPP/FAO，全站也没有呼吸链页。
+   - 糖酵解页脚仍写“挂图 02 · 丙酮酸氧化脱羧 → TCA 循环（**待续，本版未含**）”（[PathwayOverviewPage L676](src/pages/PathwayOverviewPage.tsx#L676)），而 TCA 早已上线。
+   - 修这三处会联动 `smoke-fao.mjs` / `smoke-ppp-poster.mjs` 里写死的 `PLATE 04` 断言（[smoke-fao L63](tools/smoke-fao.mjs#L63)、[smoke-ppp-poster L40](tools/smoke-ppp-poster.mjs#L40)），需同步改断言值而非删断言。
 2. **【P2】结构对照页返回丢选中步**：TCA / 糖异生 / PPP / β-氧化 的 `back` 目标不含 `?step=`，只有糖酵解保留。建议让 `comparisonConfig` 的 back 目标参数化，与结构页入口的锚点保持一致。
 3. **【P2】无自定义 404**：未知路径落在 React Router 默认错误页，仅一行英文。建议加 catch-all 路由，用挂图版式给“回首页 / 五条挂图”入口。
 4. **【P3】数据层电离态口径**：统一 G6P（以及所有磷酸糖）的质子化/电离约定，使资产 `formula` 与配置常量一致；同步把资产分子式接入界面前必须先做这一步。
 5. **【P3】字体外链**：`fonts.googleapis.com` 在境内不可靠，首页首屏会回退字体；建议自托管 Noto Sans/Serif SC 子集，或将字族改为系统字体栈。
-6. **【P3】文案/资产卫生**：结构对照页缺配置分支的“已接入”说明漏写 β-氧化（[StructureFramesPage L952](file:///d:/生化大项目/src/pages/StructureFramesPage.tsx#L952)，当前不可见）；`.skeleton / .sk-block` 死样式；`demo-gap.json` 无引用残留；`pyruvate` / `pyr` 命名不统一。
+6. **【P3】文案/资产卫生**：结构对照页缺配置分支的“已接入”说明漏写 β-氧化（[StructureFramesPage L952](src/pages/StructureFramesPage.tsx#L952)，当前不可见）；`.skeleton / .sk-block` 死样式；`demo-gap.json` 无引用残留；`pyruvate` / `pyr` 命名不统一。
 7. **【P4】首屏包体积**：`index.js` gzip 211 kB（较上版约翻倍），建议把五条通路的静态数据按路由拆 chunk 或做 JSON 懒加载。
 
 ## 六、回答四个问题
@@ -186,13 +186,13 @@
 
 | 文件 | 页面 | 高度 |
 |---|---|---|
-| [reg-01-home.png](file:///d:/生化大项目/preview/reg-01-home.png) | `/` | 1581 px |
-| [reg-02-poster-glycolysis.png](file:///d:/生化大项目/preview/reg-02-poster-glycolysis.png) | `/pathway/glycolysis` | 1790 px |
-| [reg-03-poster-tca.png](file:///d:/生化大项目/preview/reg-03-poster-tca.png) | `/pathway/tca` | 1799 px |
-| [reg-04-poster-fao.png](file:///d:/生化大项目/preview/reg-04-poster-fao.png) | `/pathway/fatty-acid-oxidation` | 1993 px |
-| [reg-05-structures-tca.png](file:///d:/生化大项目/preview/reg-05-structures-tca.png) | `/structures/tca` | 8819 px |
-| [reg-06-step-gk6.png](file:///d:/生化大项目/preview/reg-06-step-gk6.png) | `/step/gk-6` | 2077 px |
-| [reg-07-fao-plate-05.png](file:///d:/生化大项目/preview/reg-07-fao-plate-05.png) | `/pathway/fatty-acid-oxidation` 报头（1440×240 裁切） | 240 px |
+| [reg-01-home.png](preview/reg-01-home.png) | `/` | 1581 px |
+| [reg-02-poster-glycolysis.png](preview/reg-02-poster-glycolysis.png) | `/pathway/glycolysis` | 1790 px |
+| [reg-03-poster-tca.png](preview/reg-03-poster-tca.png) | `/pathway/tca` | 1799 px |
+| [reg-04-poster-fao.png](preview/reg-04-poster-fao.png) | `/pathway/fatty-acid-oxidation` | 1993 px |
+| [reg-05-structures-tca.png](preview/reg-05-structures-tca.png) | `/structures/tca` | 8819 px |
+| [reg-06-step-gk6.png](preview/reg-06-step-gk6.png) | `/step/gk-6` | 2077 px |
+| [reg-07-fao-plate-05.png](preview/reg-07-fao-plate-05.png) | `/pathway/fatty-acid-oxidation` 报头（1440×240 裁切） | 240 px |
 
 首轮回归未改生产代码/测试；编号整改为追改（见第八节），未 git 提交；浏览器实测与资产/数据检查均为一次性脚本（未入库）。
 
@@ -219,17 +219,17 @@
 | 结构对照 | `PLATE SF-05` | β-氧化 | `/structures/fatty-acid-oxidation` |
 | 单步结构 | `PLATE S-01 … S-10 / 10` | 糖酵解各步 | `/step/<stepId>`（仅糖酵解） |
 
-说明：`SF-03` / `SF-04` 按**结构对照页接入先后**独立编号（PPP 先于糖异生），与主挂图号不一一对应；两套体系各自无重复、无跳号，本轮不重排，避免超出唯一改动范围。主挂图号现已与 [homeMap.ts](file:///d:/生化大项目/src/data/homeMap.ts) 的映射完全一致（01 糖酵解 / 02 TCA / 03 糖异生 / 04 PPP / 05 β-氧化）。
+说明：`SF-03` / `SF-04` 按**结构对照页接入先后**独立编号（PPP 先于糖异生），与主挂图号不一一对应；两套体系各自无重复、无跳号，本轮不重排，避免超出唯一改动范围。主挂图号现已与 [homeMap.ts](src/data/homeMap.ts) 的映射完全一致（01 糖酵解 / 02 TCA / 03 糖异生 / 04 PPP / 05 β-氧化）。
 
 ### 8.2 文案改动（逐条：原文 → 新文）
 
 | # | 文件:行 | 原文 | 新文 |
 |---|---|---|---|
-| 1 | [FaoOverviewPage.tsx L306](file:///d:/生化大项目/src/pages/FaoOverviewPage.tsx#L306) | `PLATE 04 / 12 · 第一版 · 2026` | `PLATE 05 / 12 · 第一版 · 2026` |
-| 2 | [FaoOverviewPage.tsx L1](file:///d:/生化大项目/src/pages/FaoOverviewPage.tsx#L1) | `// 脂肪酸 β-氧化挂图页（PLATE 04）。` | `// 脂肪酸 β-氧化挂图页（PLATE 05）。` |
-| 3 | [PathwayOverviewPage.tsx L546](file:///d:/生化大项目/src/pages/PathwayOverviewPage.tsx#L546) | `NADH → 呼吸链（挂图 04）` | `NADH → 呼吸链（本版未含）` |
-| 4 | [TcaOverviewPage.tsx L503](file:///d:/生化大项目/src/pages/TcaOverviewPage.tsx#L503) | `NADH / FADH₂ → 呼吸链（挂图 04）` | `NADH / FADH₂ → 呼吸链（本版未含）` |
-| 5 | [PathwayOverviewPage.tsx L676](file:///d:/生化大项目/src/pages/PathwayOverviewPage.tsx#L676) | `挂图 02 · 丙酮酸氧化脱羧 → TCA 循环（待续，本版未含）` | `挂图 02 · 丙酮酸氧化脱羧 → TCA 循环` |
+| 1 | [FaoOverviewPage.tsx L306](src/pages/FaoOverviewPage.tsx#L306) | `PLATE 04 / 12 · 第一版 · 2026` | `PLATE 05 / 12 · 第一版 · 2026` |
+| 2 | [FaoOverviewPage.tsx L1](src/pages/FaoOverviewPage.tsx#L1) | `// 脂肪酸 β-氧化挂图页（PLATE 04）。` | `// 脂肪酸 β-氧化挂图页（PLATE 05）。` |
+| 3 | [PathwayOverviewPage.tsx L546](src/pages/PathwayOverviewPage.tsx#L546) | `NADH → 呼吸链（挂图 04）` | `NADH → 呼吸链（本版未含）` |
+| 4 | [TcaOverviewPage.tsx L503](src/pages/TcaOverviewPage.tsx#L503) | `NADH / FADH₂ → 呼吸链（挂图 04）` | `NADH / FADH₂ → 呼吸链（本版未含）` |
+| 5 | [PathwayOverviewPage.tsx L676](src/pages/PathwayOverviewPage.tsx#L676) | `挂图 02 · 丙酮酸氧化脱羧 → TCA 循环（待续，本版未含）` | `挂图 02 · 丙酮酸氧化脱羧 → TCA 循环` |
 
 悬空引用处理口径：两处 NADH 引用改为“呼吸链（本版未含）”，**不指向任何现存挂图**（氧化磷酸化本轮无页面，未新增/未伪造页号）。糖酵解页脚直接删除“待续，本版未含”，因为 TCA 已接入且编号就是 02。
 
@@ -237,7 +237,7 @@
 
 | 文件:行 | 原断言 | 新断言 | 改写原因（已写进断言注释） |
 |---|---|---|---|
-| [smoke-fao.mjs L63-64](file:///d:/生化大项目/tools/smoke-fao.mjs#L63-L64) | `check("报头 PLATE 04", ...includes("PLATE 04"))` | `check("报头 PLATE 05", ...includes("PLATE 05"))` | FAO 主挂图由 04 改为 05，04 归 PPP，消除与自身结构页 SF-05 的自相矛盾 |
+| [smoke-fao.mjs L63-64](tools/smoke-fao.mjs#L63-L64) | `check("报头 PLATE 04", ...includes("PLATE 04"))` | `check("报头 PLATE 05", ...includes("PLATE 05"))` | FAO 主挂图由 04 改为 05，04 归 PPP，消除与自身结构页 SF-05 的自相矛盾 |
 
 其余涉及 `PLATE` 的断言逐条核对后**未改**且语义不变：`smoke-home`（`PLATE 00`）、`smoke-ppp-poster`（`PLATE 04`，PPP 本身不变）、`smoke-fao-structures`（`SF-05`）。`smoke-evidence` 等其余套件不含编号断言，未触碰。
 
@@ -246,4 +246,4 @@
 - `npm run build` ✅ exit 0，`vite build` 2.09s（含 npm 5.51s）；产物 `index-CsHHi2gU.js` 582.30 kB / gzip 211.18 kB，`3Dmol` 588.12 kB / gzip 169.78 kB。
 - 11 套冒烟 + 4 套 validate 全量重跑，**15/15 全绿，0 失败**：`smoke-home 79`、`smoke-embed 94`、`smoke-tca 40`、`smoke-frames 98`、`smoke-tca-structures 56`、`smoke-gluconeogenesis 48`、`smoke-ppp-structures 68`、`smoke-ppp-poster 44`、`smoke-evidence 89`、`smoke-fao 79`、`smoke-fao-structures 53`；validate-home 10、validate-gluconeogenesis 正例 0 错 + 负例 10/10、validate-fao 正例 0 错 + 负例 9/9、validate-ppp 正例 0 错 + 负例 8/8。总耗时约 143s。
 - 线上实测（`vite preview` 4173）：FAO 报头为 `PLATE 05 / 12 · 第一版 · 2026`；糖酵解 / TCA 文本含“呼吸链（本版未含）”、不含“挂图 04”；糖酵解文本不含“待续”。
-- 截图：[reg-07-fao-plate-05.png](file:///d:/生化大项目/preview/reg-07-fao-plate-05.png)（1440×240 报头裁切）。
+- 截图：[reg-07-fao-plate-05.png](preview/reg-07-fao-plate-05.png)（1440×240 报头裁切）。
