@@ -100,7 +100,7 @@
 ### 3.3 已知遗留（视觉 / 交互 / 资产工艺）
 
 9. **Cori 在 1280 宽下的肌列可见比例**：骨架横向总宽超过 1280 视口，肌列被横向裁切一部分；属骨架几何与响应式策略问题，改它要动 Cori skeleton 与版面，不在“内容补充”范围。
-10. **hover 详情待办**：挂图分子 hover 详情尚未实现，属交互功能，不属内容补齐。
+10. **hover 详情**：挂图分子 hover 详情已于 2026-11-06 实现（单例气泡 `ContentBubble.tsx`，见 `docs/todo-hover-detail.md`），不属内容缺口。
 11. **配体 SDF 全单键**：`public/assets` 下 59 个 `.sdf` 仍为单键表示（例如 `public/assets/steps/gly-01/ligand-G6P.sdf`）。这是 2D 结构式资产格式问题，重生成需要改生成管线，本轮不做。
 12. **6 个 `coordSource: "none"` 分子只有 2D**：`ppp-o3/co2`、`gn-1/hco3`、`urea-1/urea-nh3`、`urea-1/hco3`、`urea-1/urea-cap`、`urea-2/urea-cap`。CO₂ / HCO₃⁻ 只有 3–4 个重原子，无可用 3D 形状；CAP 易水解、无本酶口袋高分辨结构。均已在块内写 `sourceNote` 说明“只做 2D”。这是刻意选择，不是遗漏。
 

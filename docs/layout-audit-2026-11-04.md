@@ -134,7 +134,7 @@
 - `tools/audit-layout.mjs` —— 38 页 × 2 视口体检（裁切 / 横向溢出 / 文本重叠 / 完整性 / 图框 / 缩放控件），`--tag before|after` 输出截图与 JSON。
 - `tools/smoke-layout.mjs` —— 版式红线断言（图框 1px/≥24px、横向、有效重叠 0、节点步骤模块对数据源、无缩放控件）。
 - `docs/layout-audit-2026-11-04.md`（本文件）
-- `docs/todo-hover-detail.md`（hover 详情待办）
+- `docs/todo-hover-detail.md`（hover 详情，已于 2026-11-06 实现）
 
 **修改**
 - `src/styles.css` —— 统一图框变量与 `.plate-scroll` / `.e3d-stage` / `.mol3d-stage` / `.mol2d-svg` / `.s-figure`；解除 `min-width`、`overflow-y:hidden`、`max-height`。
@@ -174,4 +174,4 @@
 - **Cori 在 1280 仍需 205px 横向拖动**；未压字号、未缩放。若后续要"1280 零拖动"，需重排 1000×780 画布（会动 13 步与 6 泳道），建议单独立项。
 - 3D 查看器（3Dmol）自带的滚轮/拖拽缩放属既有交互，本轮未新增任何缩放入口；审计断言只约束"控件层"（按钮/滑块/zoom 光标/`transform: scale` 交互件），3D 画布本身不在其中。
 - `smoke-tca-structures` 在批量串行跑时偶发 1 次非零退出，单独重跑与最终批跑均通过（疑似 3Dmol 初始化时序抖动），未改其断言。
-- 首页"鼠标靠近元素弹出详情"仅登记待办，见 `docs/todo-hover-detail.md`；本轮未写任何 hover 交互代码。
+- 首页"鼠标靠近元素弹出详情"已登记并于 2026-11-06 闭环（`ContentBubble.tsx`，见 `docs/todo-hover-detail.md`）；2026-11-04 当轮未写任何 hover 交互代码。

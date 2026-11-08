@@ -95,7 +95,7 @@
 | P0 | TCA 单步页 | StepViewPage 硬编码 glycolysis，TCA 靠右栏详情 + 上下步回绕替代 | StepViewPage 改 pathwayId 驱动（糖酵解分发逻辑已有先例） |
 | P0 | TCA 静态 SVG | build-pathway-svg.mjs 仅读 glycolysis.json | 脚本参数化 skeleton-tca.json（椭圆环几何与直链不同，需适配弧段绘制） |
 | P1 | TCA 3D 结合视图 | PDB 候选未核验、PDH/α-KGDH 复合体尺寸超约束 | 逐条核验 1CTS/7ACN/1ZOY，复合体步只出核心亚基或维持占位 |
-| P1 | 糖异生 / PPP / β-氧化页面 | 数据层刚落地，渲染器未接；FAO 的 LinkType/StepKind 是通路私有扩展（cycle-return/cycle-exit、prep/transport/cycle） | 私有类型上提到共享 types 或写适配层；FAO 还需渲染器支持同实体多节点（acylcoa 跨 3 泳道） |
+| P1 | 糖异生 / PPP / β-氧化页面 | **已完成**：三页渲染器均已接入（`GluconeogenesisOverviewPage` / `PppOverviewPage` / `FaoOverviewPage`），各自 smoke 通过；FAO 的 LinkType/StepKind 私有扩展已在渲染层适配，同实体多节点（acylcoa 跨 3 泳道）已支持 | — |
 | P1 | 糖异生 11 步 ΔG 全 null | 未核实不编数（纪律：standard/physiological 均空） | 从 Lehninger 8e 或文献补 standard 值；physiological 无来源就保持 null + note |
 | P2 | gk-9 / gk-10 结构帧 | 用户明确停下（帧带保留"第 9 步帧待接入"断口） | 接入时同步改 smoke-frames 中"无帧灰字"断言目标（现为 gk-9） |
 | P2 | NMA / 关键帧动画 | gk-1 ANM 试算增益不足（0.2 Å），方案降级为声明帧 | 换明星步骤重试（GAPDH / PFK-1 二选一），或改用 morph 两态插值 |
