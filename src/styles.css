@@ -6677,3 +6677,119 @@ svg .branch { transition: opacity 0.2s ease; }
   color: var(--line);
 }
 
+/* ============================================================
+   常见物质 /substances 与 /substance/:id —— 仅本模块使用（.sub- 作用域）
+   沿用 .mp-page 的纸白/墨线骨架，只补分区、条目行与「内容整理中」标记。
+   ============================================================ */
+.sub-index .sub-category {
+  padding: 22px 0 6px;
+  border-top: 1px solid var(--edge);
+}
+.sub-index .sub-category:first-of-type {
+  border-top: 0;
+}
+.sub-index .sub-category-head h2 {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 0 0 6px;
+  font-family: var(--serif);
+  font-size: 22px;
+  font-weight: 600;
+}
+.sub-index .sub-category-en {
+  font-family: var(--sans);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--line);
+  font-weight: 400;
+}
+.sub-index .sub-category-count {
+  margin-left: auto;
+  font-family: var(--sans);
+  font-size: 11px;
+  color: var(--line);
+  font-variant-numeric: tabular-nums;
+}
+.sub-index .sub-category-intro {
+  margin: 0 0 14px;
+  font-size: 12.5px;
+  line-height: 1.7;
+  color: var(--line);
+}
+.sub-index .sub-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sub-index .sub-item {
+  display: grid;
+  grid-template-columns: minmax(120px, 190px) minmax(0, 1fr) auto;
+  align-items: baseline;
+  gap: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--edge);
+  background: var(--card);
+  color: var(--ink);
+  text-decoration: none;
+  min-width: 0;
+}
+.sub-index .sub-item:hover {
+  border-color: var(--line);
+}
+.sub-index .sub-item:focus-visible {
+  outline: 1px solid var(--brick, #9c4a3c);
+  outline-offset: 1px;
+}
+.sub-index .sub-item-name {
+  font-family: var(--serif);
+  font-size: 15px;
+  font-weight: 600;
+}
+.sub-index .sub-item-summary {
+  min-width: 0;
+  font-size: 12.5px;
+  line-height: 1.6;
+  color: var(--line);
+  overflow-wrap: anywhere;
+}
+.sub-index .sub-item-state {
+  flex: none;
+  font-family: var(--sans);
+  font-size: 11px;
+  color: var(--brick, #9c4a3c);
+  white-space: nowrap;
+}
+.sub-index .sub-item-state.is-existing {
+  color: var(--line);
+}
+.sub-index .sub-item-state.is-complete {
+  color: var(--ink);
+}
+.sub-page .sub-pending {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 10px;
+  border: 1px dashed var(--line);
+  background: var(--card);
+  font-family: var(--sans);
+  font-size: 11.5px;
+  color: var(--brick, #9c4a3c);
+}
+.sub-page code {
+  font-size: 12px;
+  color: var(--line);
+}
+@media (max-width: 720px) {
+  .sub-index .sub-item {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .sub-index .sub-item-summary {
+    grid-column: 1 / -1;
+  }
+}
+

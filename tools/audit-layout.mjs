@@ -122,6 +122,11 @@ const EXPECT = {
 const ROUTES = [
   { id: "home", path: "/", kind: "home" },
   { id: "molecules", path: "/molecules", kind: "molecules" },
+  { id: "substances", path: "/substances", kind: "substances" },
+  { id: "substance-vit-a", path: "/substance/vit-a", kind: "substance" },
+  { id: "substance-vit-c", path: "/substance/vit-c", kind: "substance" },
+  { id: "substance-sucrose", path: "/substance/sucrose", kind: "substance" },
+  { id: "substance-insulin", path: "/substance/insulin", kind: "substance" },
   { id: "glycolysis", path: "/pathway/glycolysis", kind: "poster", pathway: "glycolysis" },
   { id: "tca", path: "/pathway/tca", kind: "poster", pathway: "tca" },
   { id: "gluconeogenesis", path: "/pathway/gluconeogenesis", kind: "poster", pathway: "gluconeogenesis" },

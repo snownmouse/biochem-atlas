@@ -150,6 +150,9 @@ export default function PathwayRail({ current, layer = "poster", structureHref }
         <Link className="rr-act" to="/molecules" data-rail-action="molecules" aria-label="物质索引">
           物质索引 ↘
         </Link>
+        <Link className="rr-act" to="/substances" data-rail-action="substances" aria-label="常见物质">
+          常见物质 ↘
+        </Link>
         <Link className="rr-act" to="/" data-rail-action="home">
           ← 回总图
         </Link>

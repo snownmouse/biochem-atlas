@@ -535,6 +535,9 @@ export function HomePage() {
             <Link className="mast-molecules" to="/molecules" data-home-molecules="1">
               物质索引 →
             </Link>
+            <Link className="mast-molecules" to="/substances" data-home-substances="1">
+              常见物质 →
+            </Link>
             <span className="plate-no num">PLATE 00 / 12 · 总图 · 2026</span>
           </span>
         </div>

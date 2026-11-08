@@ -19,6 +19,8 @@ import StepViewPage from "./pages/StepViewPage";
 import StructureFramesPage from "./pages/StructureFramesPage";
 import MoleculeProfilePage from "./pages/MoleculeProfilePage";
 import MoleculesIndexPage from "./pages/MoleculesIndexPage";
+import SubstancesIndexPage from "./pages/SubstancesIndexPage";
+import SubstanceProfilePage from "./pages/SubstanceProfilePage";
 import "./styles.css";
 
 /** 通路路由分发：pathwayId 驱动，糖酵解渲染路径保持原样 */
@@ -64,6 +66,8 @@ const router = createBrowserRouter([
   { path: "/structures/:pathwayId", element: <StructureRoute /> },
   { path: "/molecule/:id", element: <MoleculeProfilePage /> },
   { path: "/molecules", element: <MoleculesIndexPage /> },
+  { path: "/substances", element: <SubstancesIndexPage /> },
+  { path: "/substance/:id", element: <SubstanceProfilePage /> },
 ]);
 
 createRoot(document.getElementById("root")!).render(

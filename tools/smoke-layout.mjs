@@ -85,6 +85,12 @@ const EXPECT = {
 
 const ROUTE_IDS = [
   "home",
+  "molecules",
+  "substances",
+  "substance-vit-a",
+  "substance-vit-c",
+  "substance-sucrose",
+  "substance-insulin",
   "glycolysis",
   "tca",
   "gluconeogenesis",

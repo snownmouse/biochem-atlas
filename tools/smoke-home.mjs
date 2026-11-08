@@ -115,6 +115,17 @@ check(
   (await page.locator(".home-poster .body-grid").getAttribute("data-fold-mode")) === "fitwidth",
 );
 
+// ===== 1c) 报头「常见物质」入口：唯一、指向 /substances、点击落点正确 =====
+{
+  const entry = page.locator('[data-home-substances="1"]');
+  check("报头有「常见物质」入口且唯一", (await entry.count()) === 1, String(await entry.count()));
+  check("报头入口 href 指向 /substances", (await entry.getAttribute("href")) === "/substances");
+  await entry.click();
+  await page.waitForURL("**/substances", { timeout: 10000 });
+  check("点报头入口落到 /substances", new URL(page.url()).pathname === "/substances", page.url());
+  await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
+}
+
 // ===== 2) 十条通路区块：存在、可点、1440×900 展开档十条可见（第 11 条允许出屏） =====
 // 第 11 条（氨基酸代谢，PLATE 11）落在 y=650，用户已明确接受「往下拉」；
 // 默认档首屏完整可见仍为 8/11（尿素 / 糖原 / 氨基酸落到首屏下方，逐档实测见第 15 节）。

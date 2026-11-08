@@ -367,7 +367,7 @@ await page.waitForSelector("svg .stepg", { timeout: 15000 });
 await page.goto(`${BASE}/pathway/glycolysis?organ=liver&step=gk-1`, { waitUntil: "networkidle" });
 await page.waitForSelector("svg .stepg", { timeout: 15000 });
 {
-  const entry = page.locator('.poster .d-body a.frames-entry');
+  const entry = page.locator('a[data-testid="frames-entry"]');
   check("有帧步骤（gk-1）出现结构帧入口链接", (await entry.count()) === 1);
   check("gk-1 入口 href 指向帧页首帧（?frame=gk-1-f0）", (await entry.getAttribute("href")) === "/structures/glycolysis?frame=gk-1-f0");
   check("入口文字为「看这一步的结构帧 →」", (await entry.innerText()).includes("看这一步的结构帧"));
@@ -397,13 +397,13 @@ await page.waitForSelector("svg .stepg", { timeout: 15000 });
 }
 await page.goto(`${BASE}/pathway/glycolysis?organ=liver&step=gk-2`, { waitUntil: "networkidle" });
 await page.waitForSelector("svg .stepg", { timeout: 15000 });
-check("gk-2 入口 href 指向 gk-2 首帧（?frame=gk-2-f0）", (await page.locator(".poster .d-body a.frames-entry").getAttribute("href")) === "/structures/glycolysis?frame=gk-2-f0");
+check("gk-2 入口 href 指向 gk-2 首帧（?frame=gk-2-f0）", (await page.locator('a[data-testid="frames-entry"]').getAttribute("href")) === "/structures/glycolysis?frame=gk-2-f0");
 
 // 帧带收尾新增：gk-9 / gk-10 入口均为链接（原 gk-9 为灰字，第 9/10 步接入后失效——见第 13 节注释）
 for (const [sid, first] of [["gk-9", "gk-9-f0"], ["gk-10", "gk-10-f0"]]) {
   await page.goto(`${BASE}/pathway/glycolysis?organ=liver&step=${sid}`, { waitUntil: "networkidle" });
   await page.waitForSelector("svg .stepg", { timeout: 15000 });
-  const entry = page.locator(".poster .d-body a.frames-entry");
+  const entry = page.locator('a[data-testid="frames-entry"]');
   check(`${sid} 入口为链接且指向首帧（?frame=${first}）`, (await entry.count()) === 1 && (await entry.getAttribute("href")) === `/structures/glycolysis?frame=${first}`);
 }
 

@@ -177,7 +177,51 @@ console.log("✓ 截图 preview/nav-tca-to-cori.png（1440 实测路径：TCA �
   check("结构页三停檐当前停为「结构对照」", structureCurrent === 1, String(structureCurrent));
 }
 
+/* ===== 3c) 顶栏「常见物质」入口：可点、落到 /substances、1440/1280 仍单行 ===== */
+for (const width of [1440, 1280]) {
+  await page.setViewportSize({ width, height: 900 });
+  await page.goto(`${BASE}/pathway/glycolysis`, { waitUntil: "networkidle" });
+  await page.waitForSelector('[data-testid="pathway-rail"]');
+  const entry = page.locator('[data-rail-action="substances"]');
+  check(`${width} · 顶栏有「常见物质」入口且唯一`, (await entry.count()) === 1, String(await entry.count()));
+  check(`${width} · 顶栏入口 href 指向 /substances`, (await entry.getAttribute("href")) === "/substances");
+  const geo = await page.evaluate(() => {
+    const rail = document.querySelector('[data-testid="pathway-rail"]');
+    const right = rail.querySelector(".rr-right");
+    const acts = [...right.children].map((el) => {
+      const r = el.getBoundingClientRect();
+      return { text: (el.textContent ?? "").trim(), top: r.top, bottom: r.bottom, right: r.right };
+    });
+    return {
+      acts,
+      railClient: rail.clientWidth,
+      railScroll: rail.scrollWidth,
+      viewport: window.innerWidth,
+    };
+  });
+  const tops = geo.acts.map((a) => a.top);
+  check(
+    `${width} · 顶栏右侧动作单行（top 差 ≤2px）`,
+    Math.max(...tops) - Math.min(...tops) <= 2,
+    JSON.stringify(tops.map((t) => Math.round(t))),
+  );
+  check(
+    `${width} · 顶栏不裁切（scrollWidth ≤ clientWidth + 1）`,
+    geo.railScroll <= geo.railClient + 1,
+    `${geo.railScroll} / ${geo.railClient}`,
+  );
+  check(
+    `${width} · 顶栏动作不越出视口右缘`,
+    Math.max(...geo.acts.map((a) => a.right)) <= geo.viewport,
+    String(Math.round(Math.max(...geo.acts.map((a) => a.right)))),
+  );
+  await entry.click();
+  await page.waitForURL("**/substances", { timeout: 10000 });
+  check(`${width} · 点顶栏入口落到 /substances`, new URL(page.url()).pathname === "/substances", page.url());
+}
+
 /* ===== 4) 同一通路内切换保留 ?step= / ?organ=（自链 + 结构页回挂图） ===== */
+await page.setViewportSize({ width: 1440, height: 900 });
 await page.goto(`${BASE}/pathway/glycolysis?organ=rbc&step=gk-3`, { waitUntil: "networkidle" });
 await page.waitForSelector('[data-testid="pathway-switcher"]');
 {
