@@ -121,6 +121,11 @@ export default function SubstanceProfilePage() {
         <p className="mp-alias" data-testid="substance-classification">
           分类：{dossier ? dossier.classification : categoryName}
         </p>
+        {dossier ? (
+          <p className="mp-alias" data-testid="substance-aliases">
+            别名：{dossier.aliases.join("、")}
+          </p>
+        ) : null}
         <p className="mp-alias" data-testid="substance-summary">
           目录定位：{entry.summary}
         </p>
@@ -184,6 +189,21 @@ export default function SubstanceProfilePage() {
               ))}
             </ul>
           </section>
+
+          {dossier?.related?.length ? (
+            <section className="mp-card" data-testid="substance-related">
+              <h2>相关档案与通路</h2>
+              <ul className="sub-related">
+                {dossier.related.map((item) => (
+                  <li key={`${item.label}-${item.to}`}>
+                    <Link to={item.to} data-testid="substance-related-link">
+                      {item.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ) : null}
         </aside>
       </div>
 

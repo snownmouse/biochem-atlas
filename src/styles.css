@@ -6784,6 +6784,18 @@ svg .branch { transition: opacity 0.2s ease; }
   font-size: 12px;
   color: var(--line);
 }
+.sub-page .mp-card ul.sub-related {
+  list-style: none;
+  padding-left: 0;
+}
+.sub-page .mp-card ul.sub-related a {
+  color: var(--ink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.sub-page .mp-card ul.sub-related a:hover {
+  color: var(--brick, #9c4a3c);
+}
 @media (max-width: 720px) {
   .sub-index .sub-item {
     grid-template-columns: minmax(0, 1fr) auto;
