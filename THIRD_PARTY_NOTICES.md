@@ -103,7 +103,7 @@
 | 许可 | BSD-3-Clause |
 | 版权行 | Copyright (c) 2006-2015, Rational Discovery LLC, Greg Landrum, and Julie Penzotti and others |
 | 仓库内位置 | 不在仓库内，也不随 Web 包分发；仅作为离线资产生成工具，由 `tools/` 与 `scripts/` 下的 Python 脚本调用（2D 布局、3D 构象、SDF 键级、电离态处理） |
-| 许可全文 | 本地安装目录 `D:\Anaconda3\Lib\site-packages\rdkit\license.txt` |
+| 许可全文 | 本地安装目录 `<ANACONDA_HOME>\Lib\site-packages\rdkit\license.txt` |
 
 ## 3. 字体（随包分发）
 
