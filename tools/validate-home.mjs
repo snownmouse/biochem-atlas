@@ -109,15 +109,15 @@ check("节点 id 唯一（同一实体不画两次）", new Set(nodeIds).size ==
 const strayNodes = home.HOME_NODES.filter((node) => node.pathwayIds.length < 1);
 check("每个节点至少被一条通路引用", strayNodes.length === 0, strayNodes.map((node) => node.id).join(","));
 
-// 1b) 挂图编号：01–06、08–13（07 属 Cori，只走首页回路层、不占标题块），无重复
+// 1b) 挂图编号：01–06、08–18（07 属 Cori，只走首页回路层、不占标题块），无重复
 const plateNos = home.HOME_PATHWAYS.map((pathway) => pathway.plateNo);
 check(
-  "十二条挂图编号 PLATE 01–06 + 08–13 无重复",
+  "十七条挂图编号 PLATE 01–06 + 08–18 无重复",
   new Set(plateNos).size === plateNos.length &&
-    ["PLATE 01", "PLATE 02", "PLATE 03", "PLATE 04", "PLATE 05", "PLATE 06", "PLATE 08", "PLATE 09", "PLATE 10", "PLATE 11", "PLATE 12", "PLATE 13"].every((no) =>
+    ["PLATE 01", "PLATE 02", "PLATE 03", "PLATE 04", "PLATE 05", "PLATE 06", "PLATE 08", "PLATE 09", "PLATE 10", "PLATE 11", "PLATE 12", "PLATE 13", "PLATE 14", "PLATE 15", "PLATE 16", "PLATE 17", "PLATE 18"].every((no) =>
       plateNos.includes(no),
     ) &&
-    plateNos.length === 12,
+    plateNos.length === 17,
   plateNos.join(","),
 );
 
@@ -275,8 +275,8 @@ check(
 );
 const pathwayLabels = layout.HOME_PATHWAY_LABELS ?? [];
 check(
-  "十二个通路标签都在画布内（PLATE 13 落在纵向延伸区，首屏外需滚动）",
-  pathwayLabels.length === 12 &&
+  "十七个通路标签都在画布内（PLATE 13–18 落在纵向延伸区，首屏外需滚动）",
+  pathwayLabels.length === 17 &&
     pathwayLabels.every((label) => label.x > 0 && label.y > 0 && label.x < canvas.width && label.y < canvas.height),
   JSON.stringify(pathwayLabels.map((label) => [label.pathwayId, label.x, label.y])),
 );

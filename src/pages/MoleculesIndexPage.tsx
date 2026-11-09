@@ -154,17 +154,23 @@ export default function MoleculesIndexPage() {
                 <span className="mol-group-count">{group.profiles.length}</span>
               </h2>
               <ul className="mol-list">
-                {group.profiles.map((profile) => (
-                  <li key={profile.id}>
-                    <Link to={`/molecule/${profile.id}`} data-testid="molecules-index-item" data-mol-id={profile.id}>
-                      <span className="mol-name">{profile.name}</span>
-                      <span className="mol-meta">
-                        <span className="mol-alias">{profile.aliases.join(" / ")}</span>
-                        <span className="mol-id">{profile.id}</span>
-                      </span>
-                    </Link>
-                  </li>
-                ))}
+                {group.profiles.map((profile) => {
+                  const [primaryAlias, ...restAliases] = profile.aliases;
+                  return (
+                    <li key={profile.id}>
+                      <Link to={`/molecule/${profile.id}`} data-testid="molecules-index-item" data-mol-id={profile.id}>
+                        <span className="mol-name">{profile.name}</span>
+                        <span className="mol-meta">
+                          <span className="mol-alias" title={profile.aliases.join(" / ")}>
+                            {primaryAlias}
+                            {restAliases.length > 0 ? ` +${restAliases.length}` : ""}
+                          </span>
+                          <span className="mol-id">{profile.id}</span>
+                        </span>
+                      </Link>
+                    </li>
+                  );
+                })}
               </ul>
             </section>
           ))}

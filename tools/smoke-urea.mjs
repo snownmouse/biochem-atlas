@@ -210,21 +210,21 @@ const titles = await page.locator("[data-pathway-title]").evaluateAll((els) =>
     };
   }),
 );
-const ALLOW_OFFSCREEN = ["amino-acids", "cholesterol", "ketone"];
+const ALLOW_OFFSCREEN = ["amino-acids", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerophospholipid", "lipoprotein"];
 const offscreen = titles.filter((t) => t.y < 0 || t.bottom > 900 || t.x < 0 || t.right > 1440);
-check("首页十三条通路标题齐全", titles.length === 13, titles.map((t) => t.id).join(","));
+check("首页十八条通路标题齐全", titles.length === 18, titles.map((t) => t.id).join(","));
 check("首页出现「尿素循环」标题", titles.some((t) => t.id === "urea-cycle" && t.text.includes("尿素循环")));
 check("首页出现「糖原代谢」标题", titles.some((t) => t.id === "glycogen" && t.text.includes("糖原代谢")));
 check(
-  "1440×900 展开档：仅氨基酸 / 胆固醇 / 酮体出屏，其余十条全见",
-  titles.length === 13 &&
-    offscreen.length === 3 &&
+  "1440×900 展开档：仅氨基酸 / 胆固醇 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白出屏，其余十条全见",
+  titles.length === 18 &&
+    offscreen.length === 8 &&
     ALLOW_OFFSCREEN.every((id) => offscreen.some((t) => t.id === id)),
   JSON.stringify(titles.map((t) => [t.id, t.x, t.y, t.bottom])),
 );
 const lowest = Math.max(...titles.filter((t) => !ALLOW_OFFSCREEN.includes(t.id)).map((t) => t.bottom));
-check("除出屏三条外，十条标题最低底边 ≤ 900", lowest <= 900, `最低底边 ${lowest}px（余量 ${900 - lowest}px）`);
-console.log(`  · 除出屏三条外，首页十条标题实测最低底边 ${lowest}px；距首屏下沿 ${900 - lowest}px`);
+check("除出屏八条外，十条标题最低底边 ≤ 900", lowest <= 900, `最低底边 ${lowest}px（余量 ${900 - lowest}px）`);
+console.log(`  · 除出屏八条外，首页十条标题实测最低底边 ${lowest}px；距首屏下沿 ${900 - lowest}px`);
 
 // ===== 10) audit-layout 本页 0 重叠 0 裁切 =====
 let audit = null;

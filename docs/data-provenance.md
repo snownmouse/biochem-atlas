@@ -20,15 +20,15 @@
 | wwPDB / RCSB PDB 条目（结构坐标） | 43 个实验 3D 资产的配体坐标；结构对照块的来源说明；步骤页 21 个 PDB 文件 | CC0 1.0 Universal Public Domain Dedication，见 wwPDB Usage Policy | 不要求；wwPDB 明确「鼓励在可能时署名原始作者」 | 不限制（CC0 允许商业使用） | 允许再分发与衍生 | 无（CC0 放弃版权与相关数据库权利） | 逐条记录 PDB ID、方法、分辨率、物种、链、配体 resname；实验坐标不做几何纠正；保留原始作者署名入口（PDB ID） |
 | PDB CCD（化学组分字典，配体定义） | 配体 atom/bond 名称与组分解读 | 作为 PDB 归档数据文件的一部分，按 wwPDB Usage Policy 的 CC0 处理；未检索到 CCD 单独许可页 | 不要求 | 不限制 | 允许 | 无 | 仅在资产生成与核对阶段使用；未把 CCD 条目文本作为页面文案 |
 | UniProt | `src/data/amino-acid/amino.json` 中 10 个 accession 的条目核对；研究文档中的酶身份核对 | CC BY 4.0，见 UniProt License & disclaimer | 要求署名（CC BY 4.0） | 不限制 | 允许，须保留署名与许可指向 | 允许，须署名（CC BY 4.0 覆盖版权与数据库权利） | 数据层保留 accession；页面/文档引用 UniProt 名称；未复制条目正文 |
-| IUBMB Enzyme Nomenclature（EC 编号，经 ExplorEnz / EBI OLS4 分发） | 85 个步骤的 EC 编号与酶分类 | EBI OLS4 的 Enzyme Nomenclature 条目声明 CC-BY-4.0；IUBMB 原站未提供统一许可页 | 要求署名（CC BY 4.0） | 不限制 | 允许，须署名 | 允许，须署名 | 每个步骤在 `ecNumber` 或 `enzyme.ec` 写 EC 编号；页面详情栏显示 EC；未复制酶学说明段落 |
+| IUBMB Enzyme Nomenclature（EC 编号，经 ExplorEnz / EBI OLS4 分发） | 138 条步骤记录的 EC 编号与酶分类 | EBI OLS4 的 Enzyme Nomenclature 条目声明 CC-BY-4.0；IUBMB 原站未提供统一许可页 | 要求署名（CC BY 4.0） | 不限制 | 允许，须署名 | 允许，须署名 | 每个步骤在 `ecNumber` 或 `enzyme.ec` 写 EC 编号；页面详情栏显示 EC；未复制酶学说明段落 |
 | OMIM | 21 处临床/疾病关联编号 | **外部不可得（2026-11-07 穷尽入口）**：官网 omim.org/help/agreement、/about、/help/copyright 仍返回反机器人验证页；Wayback、archive.today、r.jina.ai、Google 翻译入口均无可读内容。可确认：版权归 Johns Hopkins University（镜像数据文件头 `Copyright (c) 1966-2016 Johns Hopkins University` 并指向 `http://omim.org/help/agreement`）；第三方 EULA（NeDRex、PanelApp、Illumina）写明商业使用/再分发需 JHU 许可；reusabledata.org 标为 custom | 不适用（仅引事实性标识） | 外部不可得（条款未取得） | 外部不可得（条款未取得） | 外部不可得（条款未取得） | 只引 MIM 编号与病名，不复制条目正文；标注「OMIM / Johns Hopkins University, https://omim.org」；不把 OMIM 内容纳入 CC BY 4.0 |
-| Lehninger Principles of Biochemistry, 8e | 85 个定性 ΔG（数值不作页面展示）、能量账与机制描述 | 无开放许可；教材文字、图表、表格编排受出版社版权保护。事实性数据在多数法域不受版权保护，但汇编/选择可能受保护 | 无许可意义上的署名要求；学术引用为惯例 | 未授予 | 未授予（事实可引用，表达不可复制） | 未授予（未复制原表结构与图表） | 只引用反应事实与自写中文释义，标注章节/表号；未复制教材图表、表格排版或整段文字；数值缺口留空 |
+| Lehninger Principles of Biochemistry, 8e | 126 个定性 ΔG（数值不作页面展示）、能量账与机制描述 | 无开放许可；教材文字、图表、表格编排受出版社版权保护。事实性数据在多数法域不受版权保护，但汇编/选择可能受保护 | 无许可意义上的署名要求；学术引用为惯例 | 未授予 | 未授予（事实可引用，表达不可复制） | 未授予（未复制原表结构与图表） | 只引用反应事实与自写中文释义，标注章节/表号；未复制教材图表、表格排版或整段文字；数值缺口留空 |
 | KEGG | **未使用**（代码与数据层无 KEGG 数据）；首页致谢文字提及名称与年份 | 未核查（未使用其数据） | 不适用 | 不适用 | 不适用 | 不适用 | 未复制 KEGG 通路图、KO 编号或数据库内容；如后续接入，须先核实其学术/商业条款 |
 | BRENDA | **未使用** | 未核查（未使用其数据） | 不适用 | 不适用 | 不适用 | 不适用 | 代码、数据、文档均未引用 |
 | MetaCyc | **未使用** | 未核查（未使用其数据） | 不适用 | 不适用 | 不适用 | 不适用 | 代码、数据、文档均未引用 |
 | SABIO-RK | **未使用** | 未核查（未使用其数据） | 不适用 | 不适用 | 不适用 | 不适用 | 代码、数据、文档均未引用 |
 | eQuilibrator | **页面未使用**；`tools/calc-deltag-equilibrator.py` 与 `tools/deltag-results.json` 仅作计算存档，数值不进入页面与数据层 | 当前不适用（未使用）；若后续启用：`equilibrator-api` 的 PyPI 元数据为 MIT；eQuilibrator 3.0 论文称算法所需原始数据以 Creative Commons 4.0 存放于 Zenodo，但 BY 变体、数据集版本与署名格式未确认 | 不适用（未使用）；启用前需确认 | 不适用（未使用） | 不适用（未使用） | 不适用（未使用） | 存档脚本仅供复现；如启用须先锁定数据集版本、CC 变体与署名方式，并同步改渲染与断言 |
-| PubChem | **未在代码/数据层检索到 PubChem 引用**；SMILES 的具体来源未标注 | 不适用（未引用 PubChem 数据） | 不适用 | 不适用 | 不适用 | 不适用 | 统一口径见第 5 节 #4：86 个分子的 SMILES 是项目内维护的输入表，未记录逐条来源；不归因于 PubChem、教材或任何单一数据库 |
+| PubChem | **未在代码/数据层检索到 PubChem 引用**；SMILES 的具体来源未标注 | 不适用（未引用 PubChem 数据） | 不适用 | 不适用 | 不适用 | 不适用 | 统一口径见第 5 节 #4：125 个分子的 SMILES 是项目内维护的输入表，未记录逐条来源；不归因于 PubChem、教材或任何单一数据库 |
 | RDKit | 生成 2D 布局；18 个计算 3D 构象（ETKDGv3 + MMFF94）；离线生成资产 | BSD 3-Clause，见 rdkit/license.txt | 要求保留版权声明、条件与免责声明 | 不限制 | 允许再分发与衍生，须保留声明 | 不适用（软件许可） | 仅作为开发期工具；第三方声明见 `THIRD_PARTY_NOTICES.md` 第 2.5 节 |
 | 3Dmol.js | 页面 3D 球棍渲染 | BSD 3-Clause，见 3Dmol.js/LICENSE；其 LICENSE 声明含 GLmol（0.47，MIT 或 LGPL-3 双许可）、Three.js（MIT）、jQuery（MIT）代码 | 要求保留版权声明、条件与免责声明 | 不限制 | 允许再分发与衍生，须保留声明 | 不适用（软件许可） | 构建产物事实：jQuery 3.7.1 仅见于 UI 构建文件头；Three.js 具体版本查不到；逐项声明见 `THIRD_PARTY_NOTICES.md` 第 1.1 节 |
 | React / React DOM | 前端运行时 | MIT，见 facebook/react/LICENSE | 要求保留版权与许可声明 | 不限制 | 允许 | 不适用 | 运行时依赖；声明见 `THIRD_PARTY_NOTICES.md` 第 1.2 节 |
@@ -55,18 +55,18 @@
 
 ### 2.1 步骤数据（`src/data/**/*.json`）
 
-共 11 个数据文件、87 个步骤：糖酵解 10、TCA 8、糖异生 11、PPP 8、FAO 6、FAS 8、尿素循环 5、糖原 9、氨基酸 7、胆固醇 13、氧化磷酸化 2。
+共 17 个数据文件、155 个主步骤：糖酵解 10、TCA 8、糖异生 11、PPP 8、FAO 6、FAS 8、尿素循环 5、糖原 9、氨基酸 7、胆固醇 13、氧化磷酸化 2、酮体 6、一碳单位 9、嘧啶核苷酸 12、嘌呤核苷酸 15、甘油磷脂/鞘脂 15、血浆脂蛋白 11（物流步骤）。另有 4 个侧支步骤，合计 159 条步骤记录；氧化磷酸化的 7 个模块不计入步骤数。
 
 | 指标 | 数量 | 说明 |
 |---|---:|---|
 | 顶层 `source` 字段 | 0 | 现有 schema 不在步骤顶层放 `source` |
-| `deltaG.source` 有值 | 85 / 87 | 引用实际挂在 `deltaG.source` 上 |
-| 无任何出处字段 | 2 | `oxphos-e`、`oxphos-f`；电子入口模块，无 ΔG/EC |
-| 有 EC 编号（`ecNumber` 或 `enzyme.ec`） | 85 / 87 | 缺 2 个即上述氧化磷酸化模块 |
+| `deltaG.source` 有值 | 147 / 159 | 引用实际挂在 `deltaG.source` 上 |
+| 无任何出处字段 | 12 | 糖酵解侧支 1 条 + 血浆脂蛋白 11 条物流步骤；后者本就不走 ΔG 口径 |
+| 有 EC 编号（`ecNumber` 或 `enzyme.ec`） | 139 / 159 | 缺口为氧化磷酸化 2 个电子入口模块、血浆脂蛋白 11 段物流、一碳单位 3 个与甘油磷脂/鞘脂 1 个未核实步骤（DES） |
 | ΔG 有数值 | 0 | 页面不展示热力学数值；`standard` / `physiological` / `value` / `valueKcal` 统一写 `null` |
-| ΔG 仅定性、无数字 | 85 | 保留 `qualitative` 与教材级 `source` |
-| ΔG 完全缺失 | 2 | 同上，氧化磷酸化模块 `oxphos-e`、`oxphos-f` |
-| 文本含「未核实 / 未核验」 | 83 行 | 项目主动标注的未核实项 |
+| ΔG 仅定性、无数字 | 127 | 保留 `qualitative` 与教材级 `source` |
+| ΔG 完全缺失 | 12 | 同上：糖酵解侧支 1 条 + 血浆脂蛋白 11 条 |
+| 文本含「未核实 / 未核验」 | 32 条记录 | 项目主动标注的未核实项 |
 
 - 全部 `deltaG.source` 均为 `Lehninger 8e` 的章/表级引用，或指向同项目内其他步骤的口径；**没有页码**。
 - 糖酵解与 TCA 的教材表号仍保留在 `source`（Table 15-1 / Table 16-2），但数值字段为 `null`，页面不显示数字。
@@ -74,27 +74,27 @@
 
 ### 2.2 结构对照数据（`src/data/comparisonConfig.ts`）
 
-共 10 个通路配置、77 个结构块、185 个「分子 × 侧（底物/产物）」条目。
+共 17 个通路配置、145 个结构块、349 个「分子 × 侧（底物/产物）」条目（按 `comparisonConfig.ts` 中 `substrate` / `product` 两侧的 `ev*` 调用逐条计，含新增 SF-13–18）。
 
 | 指标 | 数量 | 说明 |
 |---|---:|---|
-| 结构块 | 77 | 本轮已把 README 同步为 77（原 63 未含氨基酸 7 + 胆固醇 7） |
-| 分子条目 | 185 | 同分子多次出现按条目计 |
-| `coordSource = experimental` | 106 | 有实验坐标 |
-| `coordSource = computed` | 39 | RDKit 计算构象 |
-| `coordSource = none` | 40 | 仅 2D |
-| 有 `sourceNote` | 170 / 185 | 91.9% |
-| 缺 `sourceNote` | 15 | 7 个实验条目 + 8 个计算条目（计算条目有 `caveat`） |
-| 实验条目中 `sourceNote` 含 PDB ID | 99 / 106 | 93.4% |
-| 实验条目无 `sourceNote`（因而无 PDB ID） | 7 | 全部在糖酵解早期条目（`glc`、`g6p`、`fbp`、`fbp-linear`、`3pg`、`2pg`、`pep`） |
+| 结构块 | 145 | 含 SF-14–18 新增 62 块；SF-07 复用既有 9 块，不重复计 |
+| 分子条目 | 349 | 同分子多次出现按条目计；其中 SF-14–18 新增 146 条 |
+| `coordSource = experimental` | 123 | 有实验坐标；其中 7 条为 SF-13 / SF-17 复用的既有 3D 资产分子（`accoa` / `succoa` / `suc` / `fum` / `r5p` / `glu` / `acylcoa-c16`），这两张图不展示 3D |
+| `coordSource = computed` | 39 | RDKit 计算构象（全部来自既有 13 个配置） |
+| `coordSource = none` | 187 | 仅 2D；SF-14–18 的 2D-only 口径占 135 条 |
+| 有 `sourceNote` | 170 / 185（既有 83 块） | 91.9%；SF-13–18 的 2D-only 条目统一用 `caveat` / `missing2dReason` 说明，不写 `sourceNote` |
+| 缺 `sourceNote` | 15（既有 83 块） | 7 个实验条目 + 8 个计算条目（计算条目有 `caveat`） |
+| 实验条目中 `sourceNote` 含 PDB ID | 99 / 106（既有 83 块审计口径） | 93.4%；该行未随 SF-13–18 重算 |
+| 实验条目无 `sourceNote`（因而无 PDB ID） | 7（既有 83 块审计口径） | 全部在糖酵解早期条目（`glc`、`g6p`、`fbp`、`fbp-linear`、`3pg`、`2pg`、`pep`） |
 
 ### 2.3 分子资产
 
 | 资产类型 | 数量 | 结构化来源字段 | 现状 |
 |---|---:|---|---|
 | `public/assets/ligands3d/*.json` | 61 | 有 `provenance` | 43 个 `experimental`（全部有 `pdbId`、`method`、`resolution`、`species`）；18 个 `computed`（全部有 `method`、`conformerCount`、`energyKcalMol`、`randomSeed`、`note`、`generatedBy`） |
-| `public/assets/structures/2d/*.json` | 91 | 有 `provenance`（91/91） | 82 个为 RDKit 2D 布局（`kind: computed-2d`，带 `sourceSmiles` / `verifiedOn`）；9 个为本轮 2D-only 口径（`kind: computed`，注明「仅 2D 示意；不建 3D，不登记 PDB 候选」，其中 5 个为 PLATE 13 酮体资产）；4 个脚本手写坐标仍在 `annotations` 里注明 |
-| `public/assets/structures/2d/*.svg` | 90 | 无 | 与 JSON 配对；缺 1 个 SVG（`demo-gap`，DEMO 占位，不进正式序列） |
+| `public/assets/structures/2d/*.json` | 125 | 有 `provenance`（125/125） | 82 个为 RDKit 2D 布局（`kind: computed-2d`，带 `sourceSmiles` / `verifiedOn`）；39 个为 2D-only 口径（`kind: computed`，注明「仅 2D 示意；不建 3D，不登记 PDB 候选」，含 PLATE 13–17 新增资产）；3 个脚本手写坐标仍在 `annotations` 里注明；1 个 DEMO 占位 |
+| `public/assets/structures/2d/*.svg` | 124 | 无 | 与 JSON 配对；缺 1 个 SVG（`demo-gap`，DEMO 占位，不进正式序列） |
 | `public/assets/steps/manifest.json` | 12 个步骤条目 | **0 个 `pdbId` 字段** | 有物种、方法、分辨率、caveat，但无 PDB ID |
 | `public/assets/steps/**/*.sdf` | 59 | 无结构化来源 | 文件头只有一句「experimental coordinates preserved; bond orders from SMILES template」，无 PDB ID |
 | `public/assets/steps/**/*.pdb` | 21 | 无 | 文件头被裁剪为 `REMARK 1 TRIMMED BY ...`，缺 `HEADER` / `TITLE` / `REMARK 2`，无原始 PDB ID |
@@ -117,15 +117,15 @@
 | 数值 | 性质 | 位置 / 数量 |
 |---|---|---|
 | 0 个数值 ΔG | 页面不展示热力学数值；数值字段统一 `null` | 全部通路 |
-| 85 个定性 ΔG | 引用文献的定性结论；无数字（另 2 个电子入口模块 `oxphos-e` / `oxphos-f` 无 ΔG） | 全部通路 |
+| 127 个定性 ΔG | 引用文献的定性结论；无数字（另 2 个电子入口模块与 11 段脂蛋白物流步骤无 ΔG） | 全部通路 |
 | 43 个实验 3D 坐标 | 实验观测（PDB） | `ligands3d` 的 `experimental` |
 | 18 个计算 3D 构象 | 计算（RDKit ETKDGv3 + MMFF94） | `ligands3d` 的 `computed`；含能量、种子、构象数 |
-| 91 个 2D 布局坐标 | 计算/绘制（RDKit 为主，4 个为脚本手写坐标） | `structures/2d` |
+| 125 个 2D 布局坐标 | 计算/绘制（RDKit 为主，3 个为脚本手写坐标，1 个 DEMO） | `structures/2d` |
 | 范德华体积、主轴长度、ΔV% | 由坐标计算 | 资产 `shape`；结构对照默认模式判据 |
 | 分子式、净电荷 | 由 SMILES + pH 7.4 电离口径推导 | 实体字段 + `validate-ionization` 校验 |
 | 21 个酶 3D 已建 / 10 个无可用结构 | 21 步已接入 `public/assets/steps` 并在 manifest 解析；10 步 `threeD.status = pending`，原因分三类：人源结构缺失、无本酶-底物复合物、仅有跨物种替代或无配体 apo（清单见 `scripts/pathway-enzyme-inventory.md`） | 各通路步骤数据 |
 | 32 个 `pdbCandidates` | 本轮核验存在，但数据层未记录核验状态 | 胆固醇 18、糖原 14 |
-| 83 行「未核实/未核验」 | 未核实 | 各数据文件注释/note |
+| 32 条「未核实/未核验」记录 | 未核实 | 各数据文件注释/note |
 
 ---
 
@@ -138,15 +138,15 @@
 | 3 | `src/data/glycogen/glycogen.json` | `steps[].pdbCandidates` | 以字符串数组形式存在，无物种/方法/分辨率/状态 | 14 | 统一为对象结构并补核验状态 |
 | 4 | `src/data/comparisonConfig.ts` | `*.parts[].sourceNote` | 缺来源说明 | 15（实验 7 + 计算 8） | 实验 7 条补 PDB ID/来源蛋白；计算 8 条补「计算构象」结构化说明（现有 `caveat` 保留） |
 | 5 | `src/data/comparisonConfig.ts` | 实验条目 `sourceNote` | 无 `sourceNote`（因而无 PDB ID） | 7（均为糖酵解早期） | 逐条补 PDB ID（如 `glc` 1CZA、`g6p` 1CZA、`3pg` 9FDN、`2pg`/`pep` 3UCD；`fbp` 4ALD） |
-| 6 | `public/assets/structures/2d/*.json` | 顶层 | **已完成（2026-11-08）**：91/91 个 2D 资产均带 `generatedBy` / `method` / `provenance`；新增 5 个酮体资产按 2D-only 口径写明「不登记 PDB 候选」 | 0 | 无；后续新增资产沿用同一字段口径 |
+| 6 | `public/assets/structures/2d/*.json` | 顶层 | **已完成（2026-11-09）**：125/125 个 2D 资产均带 `generatedBy` / `method` / `provenance`；PLATE 13–17 新增 34 个资产按 2D-only 口径写明「不建 3D，不登记 PDB 候选」 | 0 | 无；后续新增资产沿用同一字段口径 |
 | 7 | `public/assets/structures/2d/` | `annotations` | 无生成方式说明 | 4（`gap`、`bpg13`、`pyruvate`、`demo-gap`） | `gap` 补 annotation；其余标明「脚本手写坐标」或「DEMO」 |
 | 8 | `public/assets/steps/manifest.json` | 每条目 | 无 `pdbId` | 12 个条目，0 个有值 | 增加 `pdbId` 与 `sourceUrl` |
 | 9 | `public/assets/steps/**/*.pdb` | 文件头 | 无 `HEADER`/`TITLE`/`REMARK 2`，无 PDB ID | 21 | 生成时保留原始 `HEADER`、`TITLE`、`REMARK 2`，或在 manifest 记录 |
 | 10 | `public/assets/steps/**/*.sdf` | 文件头 | 只有一句来源说明，无 PDB ID / 计算方式 | 59 | 增加 SDF data field：`PDB_ID` / `SOURCE` / `METHOD` |
-| 11 | `tools/gen-molecule-assets.py` | SMILES 输入表 | 无逐分子来源字段；当前不能归因于 PubChem、教材或手工中的任一类 | 86 个分子 | 若需对外声称来源，增加 `SMILES_SOURCE` 并逐条核实；在此之前按项目整理数据（CC BY 4.0）处理 |
+| 11 | `tools/gen-molecule-assets.py` | SMILES 输入表 | 无逐分子来源字段；当前不能归因于 PubChem、教材或手工中的任一类 | 125 个分子 | 若需对外声称来源，增加 `SMILES_SOURCE` 并逐条核实；在此之前按项目整理数据（CC BY 4.0）处理 |
 | 12 | `public/assets/fonts/` | 目录 | **已完成（2026-11-06）**：已补 SIL OFL 1.1 全文与两个字体版权行 | 1 个目录 | 文件：`public/assets/fonts/OFL.txt`；字体文件本身未改 |
 | 13 | 仓库根目录 | 第三方声明 | **已完成（2026-11-06）**：已补第三方逐项声明 | 1 | 文件：`THIRD_PARTY_NOTICES.md`；覆盖 RDKit、3Dmol.js（含 GLmol / Three.js / jQuery）、React / React DOM、react-router-dom、Vite、TypeScript、@vitejs/plugin-react、playwright-core、Noto Sans SC / Noto Serif SC、PDB / UniProt / EC / 教材 / OMIM |
-| 14 | `README.md` | 结构块计数 / 进度表 | **已完成（2026-11-08）**：README 现为 83 块、13 页已建（含 PLATE 13 / SF-13 酮体代谢），与仓库实际一致 | 0 | 无（如后续再出现旧计数，按缺口处理） |
+| 14 | `README.md` | 结构块计数 / 进度表 | **已完成（2026-11-09）**：README 现为 145 块、18 页已建（含 PLATE 14–18），与仓库实际一致 | 0 | 无（如后续再出现旧计数，按缺口处理） |
 | 15 | `src/data/**/*.json` | OMIM 编号 | **外部不可得（2026-11-07 穷尽入口）**：官网三页被反机器人页拦截，Wayback / archive.today / r.jina.ai / Google 翻译 4 个替代入口均无可读副本；已确认版权归 JHU、商业/再分发需 JHU 许可。状态定为外部不可得，按既定方式引用 | 21 处 | 保持「只引编号与病名、不引正文」；标注 `OMIM / Johns Hopkins University, https://omim.org` |
 | 16 | 各通路步骤数据 | `threeD.status` | 21 个已建 / 10 个无可用结构 | 10 步 | 已建步骤显示 3D；10 个无资产步骤保留灰字「待核验」，不得用别酶结构冒充 |
 

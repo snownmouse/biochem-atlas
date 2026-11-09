@@ -136,8 +136,9 @@ export function posterBubbleModel(target: Element, pathwayId: string): BubbleMod
   const stepId = stepEl?.getAttribute("data-step-id") ?? stepEl?.getAttribute("data-plate-row");
   if (stepId) return stepModel(stepId, stepEl);
 
-  const nodeId = target.closest("[data-node-id]")?.getAttribute("data-node-id");
-  if (nodeId) return nodeModel(nodeId, pathwayId);
+  const nodeEl = target.closest("[data-node-id]");
+  const nodeId = nodeEl?.getAttribute("data-node-id");
+  if (nodeId) return nodeModel(nodeId, pathwayId, nodeEl?.getAttribute("data-entity-id") ?? null);
 
   return null;
 }
@@ -202,10 +203,11 @@ function pageNodeEntity(nodeId: string): string {
   return PAGE_NODE_ENTITY[nodeId] ?? nodeId;
 }
 
-function nodeModel(nodeId: string, pathwayId: string): BubbleModel | null {
+function nodeModel(nodeId: string, pathwayId: string, entityAttr: string | null = null): BubbleModel | null {
   // 挂图上的显示节点 id 与数据层 entity id 不总是一致（如 FAO 的 hydroxy→hydroxyacyl、
-  // 氨基酸页的 aa-chip-glu→glu）；先归一到 entity id 再查步骤，档案则先按显示 id 查、再退回 entity id。
-  const entityId = pageNodeEntity(nodeId);
+  // 氨基酸页的 aa-chip-glu→glu、同一分子在多个区室的重复节点 bhb-blood→bhb）；
+  // 页面在节点上写出 data-entity-id 时优先用它，没有才退回静态映射与显示 id。
+  const entityId = entityAttr ?? pageNodeEntity(nodeId);
   const related = NODE_STEPS.get(`${pathwayId}:${entityId}`) ?? [];
   const note = noteForMolecule(nodeId) ?? noteForMolecule(entityId);
   const profile = profileForMolecule(nodeId) ?? profileForMolecule(entityId);

@@ -2,7 +2,7 @@
 // validate-substances —— 「常见物质」模块校验
 //
 // 校验口径：
-//   1) /substances 六类分区齐全，条目数分别为 13/20/20/11/25/9（共 98）；
+//   1) /substances 六类分区齐全，条目数分别为 13/26/23/15/25/9（共 111）；
 //   2) 已有档案条目只链到 /molecule/:id，未收录条目只链到 /substance/:id；
 //   3) 凡已挂 dossier 的完整条目：四段正文各 80–130 字、考点 3–4 条、
 //      出处 ≥2 条、结构特征非空、别名非空；相关链接必须可达；
@@ -10,7 +10,7 @@
 //      不得落 404/空白页；
 //   5) 1440 与 1280 宽度下目录页与条目页均无页面级横向溢出；
 //   6) 全流程无控制台报错。
-// 完整/待整理条目数随补写进度变化，脚本按 61 条非档案条目总量恒等校验。
+// 完整/待整理条目数随补写进度变化，脚本按 73 条非档案条目总量恒等校验。
 // 需先 npm run build，再 npm run preview（或 BASE_URL 指向本地服务）。
 // ============================================================
 import { mkdirSync } from "node:fs";
@@ -22,13 +22,13 @@ const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const BASE = process.env.BASE_URL ?? "http://localhost:4173";
 const EXPECTED = [
   ["sugars", 13],
-  ["lipids", 20],
-  ["amino", 20],
-  ["nucleotides", 11],
+  ["lipids", 26],
+  ["amino", 23],
+  ["nucleotides", 15],
   ["vitamins", 25],
   ["hormones", 9],
 ];
-const NON_ARCHIVE_TOTAL = 61;
+const NON_ARCHIVE_TOTAL = 73;
 
 let failed = false;
 const check = (label, ok, detail) => {
@@ -68,7 +68,7 @@ for (const [id, n] of EXPECTED) {
   check(`分区 ${id} 条目数 ${n}`, got === n, String(got));
 }
 const totals = cats.reduce((s, c) => s + c.n, 0);
-check("目录条目总数 98", totals === 98, String(totals));
+check("目录条目总数 111", totals === 111, String(totals));
 
 const items = await page.locator("[data-substance-item]").evaluateAll((els) =>
   els.map((el) => ({
@@ -89,7 +89,7 @@ check(
   `${completeItems.length} + ${pendingItems.length}`,
 );
 
-// ===== 1b) 目录里全部 98 条链接都能落到实体页，不 404、不落兜底 =====
+// ===== 1b) 目录里全部 111 条链接都能落到实体页，不 404、不落兜底 =====
 const uniqueHrefs = [...new Set(items.map((i) => i.href))];
 const deadLinks = [];
 for (const href of uniqueHrefs) {

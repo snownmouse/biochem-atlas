@@ -1,0 +1,73 @@
+{
+  "canvas": { "width": 1360, "height": 640 },
+  "compartments": [
+    { "id": "mito", "label": "线粒体 · 一碳装载", "en": "MITOCHONDRION", "x": 24, "y": 64, "width": 430, "height": 520, "tint": 0.02 },
+    { "id": "cyto", "label": "细胞质 · 叶酸池 + 甲硫氨酸循环", "en": "CYTOPLASM", "x": 470, "y": 64, "width": 866, "height": 520, "tint": 0.045 }
+  ],
+  "nodes": [
+    { "id": "ser-m", "entityId": "ser", "label": "L-丝氨酸（β-碳供体）", "abbr": "Ser", "x": 140, "y": 170, "kind": "metabolite", "compartment": "mito", "stepId": "oc-1", "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" } },
+    { "id": "thf-m", "entityId": "thf", "label": "THF（一碳载体）", "abbr": "THF", "x": 310, "y": 170, "kind": "cofactor", "compartment": "mito", "stepId": "oc-1", "labelPos": { "dx": 0, "dy": -32, "anchor": "middle" } },
+    { "id": "gly-m", "entityId": "gly", "label": "甘氨酸", "abbr": "Gly", "x": 140, "y": 320, "kind": "metabolite", "compartment": "mito", "stepId": "oc-1", "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" } },
+    { "id": "ch2-m", "entityId": "ch2thf", "label": "5,10-亚甲基THF", "abbr": "CH₂-THF", "x": 310, "y": 320, "kind": "cofactor", "compartment": "mito", "stepId": "oc-1", "labelPos": { "dx": 54, "dy": 0, "anchor": "start" } },
+    { "id": "chme-m", "entityId": "chmethf", "label": "5,10-次甲基THF", "abbr": "CH-THF", "x": 310, "y": 410, "kind": "cofactor", "compartment": "mito", "stepId": "oc-2", "labelPos": { "dx": -54, "dy": 0, "anchor": "end" } },
+    { "id": "cho-m", "entityId": "chothf", "label": "10-甲酰THF", "abbr": "CHO-THF", "x": 310, "y": 500, "kind": "cofactor", "compartment": "mito", "stepId": "oc-2", "labelPos": { "dx": 0, "dy": 42, "anchor": "middle" } },
+    { "id": "formate", "entityId": "formate", "label": "甲酸（跨膜形式）", "abbr": "HCOO⁻", "x": 500, "y": 500, "kind": "metabolite", "compartment": "cyto", "labelPos": { "dx": 0, "dy": -32, "anchor": "middle" } },
+
+    { "id": "cho-c", "entityId": "chothf", "label": "10-甲酰THF（胞质池）", "abbr": "CHO-THF", "x": 600, "y": 300, "kind": "cofactor", "compartment": "cyto", "stepId": "oc-3", "labelPos": { "dx": 0, "dy": -32, "anchor": "middle" } },
+    { "id": "ch2-c", "entityId": "ch2thf", "label": "5,10-亚甲基THF", "abbr": "CH₂-THF", "x": 740, "y": 300, "kind": "cofactor", "compartment": "cyto", "stepId": "oc-3", "labelPos": { "dx": 0, "dy": -32, "anchor": "middle" } },
+    { "id": "ch3", "entityId": "ch3thf", "label": "5-甲基THF", "abbr": "CH₃-THF", "x": 880, "y": 300, "kind": "cofactor", "compartment": "cyto", "stepId": "oc-4", "labelPos": { "dx": 0, "dy": -32, "anchor": "middle" } },
+    { "id": "thf-c", "entityId": "thf", "label": "THF 回池", "abbr": "THF", "x": 880, "y": 190, "kind": "cofactor", "compartment": "cyto", "stepId": "oc-5", "labelPos": { "dx": 46, "dy": 4, "anchor": "start" } },
+    { "id": "met", "entityId": "met", "label": "甲硫氨酸", "abbr": "Met", "x": 1020, "y": 190, "kind": "metabolite", "compartment": "cyto", "stepId": "oc-5", "labelPos": { "dx": 0, "dy": -32, "anchor": "middle" } },
+    { "id": "sam", "entityId": "sam", "label": "SAM", "abbr": "SAM", "x": 1150, "y": 190, "kind": "cofactor", "compartment": "cyto", "stepId": "oc-6", "labelPos": { "dx": 0, "dy": -30, "anchor": "middle" } },
+    { "id": "sah", "entityId": "sah", "label": "SAH", "abbr": "SAH", "x": 1150, "y": 300, "kind": "metabolite", "compartment": "cyto", "stepId": "oc-7", "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" } },
+    { "id": "hcy", "entityId": "hcy", "label": "同型半胱氨酸", "abbr": "Hcy", "x": 1020, "y": 300, "kind": "metabolite", "compartment": "cyto", "stepId": "oc-5", "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" } },
+    { "id": "acceptor", "entityId": "acceptor", "label": "甲基受体（泛称）", "abbr": "受体", "x": 1280, "y": 190, "kind": "metabolite", "compartment": "cyto", "stepId": "oc-7", "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" } },
+    { "id": "ado", "entityId": "ado", "label": "腺苷（回核苷酸池）", "abbr": "Ado", "x": 1150, "y": 410, "kind": "metabolite", "compartment": "cyto", "stepId": "oc-8", "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" } },
+    { "id": "hub-cys", "entityId": "hcy", "label": "→ 胱硫醚（aa-7）", "abbr": "转硫", "x": 1010, "y": 410, "kind": "hub", "compartment": "cyto", "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" } },
+    { "id": "hub-purine", "entityId": "chothf", "label": "→ 嘌呤 C2 / C8（PLATE 16）", "abbr": "嘌呤", "x": 600, "y": 410, "kind": "hub", "compartment": "cyto", "stepId": "oc-3", "labelPos": { "dx": 0, "dy": 42, "anchor": "middle" } },
+    { "id": "hub-dtmp", "entityId": "ch2thf", "label": "→ dTMP（PLATE 15 · pyr-12）", "abbr": "dTMP", "x": 740, "y": 410, "kind": "hub", "compartment": "cyto", "stepId": "oc-3", "labelPos": { "dx": 0, "dy": 42, "anchor": "middle" } },
+    { "id": "betaine", "entityId": "betaine", "label": "甜菜碱（甘氨酸甜菜碱）", "abbr": "甜菜碱", "x": 1100, "y": 530, "kind": "metabolite", "compartment": "cyto", "stepId": "oc-9", "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" } },
+    { "id": "dimethylglycine", "entityId": "dimethylglycine", "label": "二甲基甘氨酸", "abbr": "DMG", "x": 1230, "y": 530, "kind": "metabolite", "compartment": "cyto", "stepId": "oc-9", "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" } }
+  ],
+  "links": [
+    { "from": "ser-m", "to": "gly-m", "stepId": "oc-1", "type": "main", "label": "SHMT2（PLP）" },
+    { "from": "thf-m", "to": "ch2-m", "stepId": "oc-1", "type": "feed", "label": "装载 β-碳" },
+    { "from": "ch2-m", "to": "chme-m", "stepId": "oc-2", "type": "main", "label": "MTHFD2 · 脱氢" },
+    { "from": "chme-m", "to": "cho-m", "stepId": "oc-2", "type": "main", "label": "环水解" },
+    { "from": "cho-m", "to": "formate", "stepId": "oc-t1", "type": "transport", "label": "水解释放甲酸" },
+    { "from": "formate", "to": "cho-c", "stepId": "oc-t1", "type": "transport", "label": "甲酸跨膜 · 就地装载", "bend": -0.1 },
+
+    { "from": "cho-c", "to": "ch2-c", "stepId": "oc-3", "type": "main", "label": "MTHFD1 · 还原" },
+    { "from": "ch2-c", "to": "ch3", "stepId": "oc-4", "type": "main", "label": "MTHFR（限速）" },
+    { "from": "ch3", "to": "met", "stepId": "oc-5", "type": "main", "label": "MTR · B12", "bend": 0.08 },
+    { "from": "ch3", "to": "thf-c", "stepId": "oc-5", "type": "side", "label": "THF 回池", "bend": 0.12 },
+    { "from": "hcy", "to": "met", "stepId": "oc-5", "type": "feed", "label": "接受甲基" },
+    { "from": "met", "to": "sam", "stepId": "oc-6", "type": "main", "label": "MAT · ATP" },
+    { "from": "sam", "to": "sah", "stepId": "oc-7", "type": "main", "label": "甲基转移酶", "bend": 0.1 },
+    { "from": "sam", "to": "acceptor", "stepId": "oc-7", "type": "feed", "label": "供甲基" },
+    { "from": "sah", "to": "hcy", "stepId": "oc-8", "type": "main", "label": "AHCY", "bend": -0.08 },
+    { "from": "sah", "to": "ado", "stepId": "oc-8", "type": "side" },
+    { "from": "cho-c", "to": "hub-purine", "type": "feed", "label": "供 C2 / C8" },
+    { "from": "ch2-c", "to": "hub-dtmp", "type": "feed", "label": "供亚甲基" },
+    { "from": "hcy", "to": "hub-cys", "type": "feed", "label": "转硫" },
+    { "from": "hcy", "to": "betaine", "stepId": "oc-9", "type": "feed", "label": "BHMT · 甜菜碱支路", "bend": 0.08 },
+    { "from": "betaine", "to": "met", "stepId": "oc-9", "type": "main", "label": "BHMT · 再甲基化", "bend": 0.04 },
+    { "from": "betaine", "to": "dimethylglycine", "stepId": "oc-9", "type": "side", "label": "去甲基", "bend": 0.12 }
+  ],
+  "annotations": [
+    { "x": 40, "y": 604, "text": "线粒体：丝氨酸装载 → 氧化方向 → 甲酰级输出（以甲酸形式跨膜）", "anchor": "start", "size": 9.2, "tone": "ink" },
+    { "x": 486, "y": 604, "text": "细胞质：一碳池双向互变 + 甲硫氨酸循环闭环（SAM 供甲基后回甲硫氨酸）", "anchor": "start", "size": 9.2, "tone": "teal" },
+    { "x": 40, "y": 126, "text": "THF 是一碳单位的共同载体：氧化级不同，载体相同", "anchor": "start", "size": 8.6, "tone": "ink" },
+    { "x": 486, "y": 126, "text": "MTHFR 之后只能走甲基化，不能再回头供 dTMP", "anchor": "start", "size": 8.6, "tone": "brick" }
+  ],
+  "transportSteps": [
+    {
+      "id": "oc-t1",
+      "name": "一碳单位输出线粒体",
+      "from": "线粒体（10-甲酰THF 水解释放甲酸）",
+      "via": "线粒体内膜",
+      "to": "胞质叶酸池（甲酸由 MTHFD1 合成酶域就地装到 THF 上）",
+      "note": "教材口径：线粒体生成的一碳单位以甲酸形式输出，胞质的 10-甲酰THF 由 MTHFD1 合成酶域就地生成；具体转运蛋白未核实，本图只画一条运输虚线，不计入步数。"
+    }
+  ]
+}

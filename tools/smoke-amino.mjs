@@ -254,9 +254,9 @@ for (const width of [1440, 1280]) {
     const visible = titles.filter((t) => t.y >= 0 && t.bottom <= 900 && t.right <= width);
     const lowest = Math.max(...titles.map((t) => t.bottom));
     const offTop = titles.filter((t) => t.y < 0 || t.bottom > 900).map((t) => t.id);
-    check(`首页 ${width} / ${fold}：标题 13 条`, titles.length === 13, titles.map((t) => t.id).join(","));
+    check(`首页 ${width} / ${fold}：标题 18 条`, titles.length === 18, titles.map((t) => t.id).join(","));
     check(`首页 ${width} / ${fold}：含 amino-acids`, titles.some((t) => t.id === "amino-acids"));
-    console.log(`  · ${width} / ${fold}：首屏可见 ${visible.length}/13，最低底边 ${lowest}px，出屏 ${offTop.join(",") || "无"}`);
+    console.log(`  · ${width} / ${fold}：首屏可见 ${visible.length}/18，最低底边 ${lowest}px，出屏 ${offTop.join(",") || "无"}`);
   }
 }
 

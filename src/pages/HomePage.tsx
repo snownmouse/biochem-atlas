@@ -43,6 +43,8 @@ const C = {
   amber: "#b4761f",
   teal: "#2e6e6b",
   brick: "#9c4a3c",
+  violet: "#6a4c93",
+  rose: "#a2475e",
   hair: "rgba(34,40,42,0.55)",
   hairSoft: "rgba(34,40,42,0.22)",
   hairFaint: "rgba(34,40,42,0.1)",
@@ -61,6 +63,11 @@ const PATH_COLOR: Record<HomePathwayId, string> = {
   "amino-acids": C.teal,
   cholesterol: C.brick,
   ketone: C.amber,
+  "one-carbon": C.teal,
+  "pyrimidine": C.amber,
+  purine: C.teal,
+  glycerophospholipid: C.violet,
+  lipoprotein: C.rose,
 };
 
 const JUNCTION_IDS = new Set(HOME_NODES.filter((node) => node.junction).map((node) => node.id));

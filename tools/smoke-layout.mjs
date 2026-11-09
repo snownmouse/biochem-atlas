@@ -2,7 +2,7 @@
 // 用法：node tools/audit-layout.mjs --tag after && node tools/smoke-layout.mjs
 //
 // 断言（任一失败即非零退出）：
-//   ① 图框：首页 / 13 张挂图 / 13 张结构页 / 3 张单步页，凡出现图框元素者，四边均为 1px 细边框、
+//   ① 图框：首页 / 18 张挂图 / 18 张结构页 / 3 张单步页，凡出现图框元素者，四边均为 1px 细边框、
 //      四边内边距 ≥ 24px（`.plate-scroll`、`.e3d-stage`、`.mol3d-stage`、`.s-viewer`、`.film-stage .stage-canvas`）。
 //   ② 横向：页面级横向溢出必须为 0；挂在 overflow:hidden/clip 内且不可滚的溢出必须为 0；
 //      被祖先裁切 ≥1px 的元素必须为 0。允许（且只允许）容器级 `overflow-x:auto` 的可滚横向。
@@ -61,6 +61,16 @@ const cholesterol = read("src/data/cholesterol/cholesterol.json");
 const cholesterolSkel = read("src/data/cholesterol/skeleton.json");
 const ketone = read("src/data/ketone/ketone.json");
 const ketoneSkel = read("src/data/ketone/skeleton.json");
+const oneCarbon = read("src/data/one-carbon/one-carbon.json");
+const oneCarbonSkel = read("src/data/one-carbon/skeleton.json");
+const pyrimidine = read("src/data/pyrimidine/pyrimidine.json");
+const pyrimidineSkel = read("src/data/pyrimidine/skeleton.json");
+const purine = read("src/data/purine/purine.json");
+const purineSkel = read("src/data/purine/skeleton.json");
+const glycerophospholipid = read("src/data/glycerophospholipid/glycerophospholipid.json");
+const glycerophospholipidSkel = read("src/data/glycerophospholipid/skeleton.json");
+const lipoprotein = read("src/data/lipoprotein/lipoprotein.json");
+const lipoproteinSkel = read("src/data/lipoprotein/skeleton.json");
 
 const COMPLEX_NODE_IDS = ["complex-i", "complex-ii", "complex-iii", "cytc", "complex-iv", "atp-synthase"];
 const EXPECT = {
@@ -84,6 +94,11 @@ const EXPECT = {
   "amino-acids": { steps: amino.steps.length, nodes: aminoSkel.nodes.length },
   cholesterol: { steps: cholesterol.steps.length, nodes: cholesterolSkel.nodes.length },
   ketone: { steps: ketone.steps.length, nodes: ketoneSkel.nodes.length },
+  "one-carbon": { steps: oneCarbon.steps.length, nodes: oneCarbonSkel.nodes.length },
+  pyrimidine: { steps: pyrimidine.steps.length, nodes: pyrimidineSkel.nodes.length },
+  purine: { steps: purine.steps.length, nodes: purineSkel.nodes.length },
+  glycerophospholipid: { steps: glycerophospholipid.steps.length, nodes: glycerophospholipidSkel.nodes.length },
+  lipoprotein: { steps: lipoprotein.steps.length, nodes: lipoproteinSkel.nodes.length },
 };
 
 const ROUTE_IDS = [
@@ -107,6 +122,11 @@ const ROUTE_IDS = [
   "amino-acids",
   "cholesterol",
   "ketone",
+  "one-carbon",
+  "pyrimidine",
+  "purine",
+  "glycerophospholipid",
+  "lipoprotein",
   "structures-glycolysis",
   "structures-tca",
   "structures-gluconeogenesis",
@@ -118,6 +138,11 @@ const ROUTE_IDS = [
   "structures-amino-acids",
   "structures-cholesterol",
   "structures-ketone",
+  "structures-one-carbon",
+  "structures-pyrimidine",
+  "structures-purine",
+  "structures-glycerophospholipid",
+  "structures-lipoprotein",
   "structures-cori",
   "structures-oxphos",
   "step-gk-1",
@@ -230,6 +255,11 @@ const STRUCT_ROUTE_KEY = {
   "structures-oxphos": "oxphos",
   "structures-cholesterol": "cholesterol",
   "structures-ketone": "ketone",
+  "structures-one-carbon": "one-carbon",
+  "structures-pyrimidine": "pyrimidine",
+  "structures-purine": "purine",
+  "structures-glycerophospholipid": "glycerophospholipid",
+  "structures-lipoprotein": "lipoprotein",
   "structures-cori": "cori",
 };
 const cmpSrc = readFileSync(resolve(ROOT, "src/data/comparisonConfig.ts"), "utf8");
@@ -244,6 +274,9 @@ if (fas.structurePlateNo) dataSf.set("fatty-acid-synthesis", fas.structurePlateN
 if (urea.structureNo) dataSf.set("urea-cycle", urea.structureNo.replace("SF-", ""));
 if (ox.structurePlateNo) dataSf.set("oxphos", ox.structurePlateNo.replace("SF-", ""));
 if (amino.structureNo) dataSf.set("amino-acids", amino.structureNo.replace("SF-", ""));
+if (purine.structureNo) dataSf.set("purine", purine.structureNo.replace("SF-", ""));
+if (glycerophospholipid.structureNo) dataSf.set("glycerophospholipid", glycerophospholipid.structureNo.replace("SF-", ""));
+if (lipoprotein.structureNo) dataSf.set("lipoprotein", lipoprotein.structureNo.replace("SF-", ""));
 const shownSf = [];
 for (const p of report.pages.filter((x) => x.viewport === 1440)) {
   const key = STRUCT_ROUTE_KEY[p.page];
@@ -257,8 +290,8 @@ for (const p of report.pages.filter((x) => x.viewport === 1440)) {
   if (shown) shownSf.push(Number(shown));
 }
 shownSf.sort((a, b) => a - b);
-if (shownSf.length !== 13 || shownSf.join(",") !== "1,2,3,4,5,6,7,8,9,10,11,12,13") {
-  fail(`⑥ 结构页编号集合不符：页面 ${shownSf.join(",")} ≠ {01,02,03,04,05,06,07,08,09,10,11,12,13}`);
+if (shownSf.length !== 18 || shownSf.join(",") !== "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18") {
+  fail(`⑥ 结构页编号集合不符：页面 ${shownSf.join(",")} ≠ {01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18}`);
 }
 
 // 汇总
@@ -270,5 +303,5 @@ if (failures.length) {
 console.log(
   `smoke-layout PASS：${report.pages.length} 页（${ROUTE_IDS.length} 路由 × ${VIEWPORTS.length} 视口）｜` +
     `图框 1px/≥24px ✓｜横向溢出 0 ✓｜有效文本重叠 0 ✓｜节点/步骤/模块与数据源一致 ✓｜无缩放控件 ✓｜` +
-    `结构页编号三方一致（13 页 = {01–13}）✓（共 ${totalChecks} 组断言 + 编号交叉核对）`
+    `结构页编号三方一致（${shownSf.length} 页 = {01–${String(shownSf.length).padStart(2, "0")}}）✓（共 ${totalChecks} 组断言 + 编号交叉核对）`
 );

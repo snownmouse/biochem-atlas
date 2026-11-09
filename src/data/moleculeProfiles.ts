@@ -5109,6 +5109,2529 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     bubble: { what: "五碳酮糖磷酸酯", highlight: "转酮醇酶的二碳供体" },
   },
 
+  thf: {
+    id: "thf",
+    name: "四氢叶酸（THF）",
+    aliases: ["THF", "tetrahydrofolate", "四氢叶酸"],
+    claim: "THF 是一碳单位的共同载体，N5 / N10 位挂不同氧化级的一碳",
+    classification: "蝶酰多谷氨酸的还原形式：蝶啶环 + PABA + 谷氨酸尾，四氢化后 N5 / N10 可载一碳。",
+    structure: "蝶啶环的 N5 与 N10 是装载位点；一碳单位的氧化级越高，环上与氮上的取代越不同，但载体骨架不变。",
+    position: {
+      title: "它在 oc-1 接收丝氨酸的 β-碳，在 oc-5 被释放回池",
+      body:
+        "oc-1 SHMT2 把丝氨酸的 β-碳转给 THF，生成 5,10-亚甲基THF 与甘氨酸；oc-5 甲硫氨酸合酶把 5-甲基THF 的甲基交给同型半胱氨酸后，THF 重新游离回叶酸池。",
+    },
+    flow: {
+      title: "它从丝氨酸装载来，往亚甲基 / 甲基级与回池去",
+      body:
+        "来路：丝氨酸的 β-碳经 SHMT 装上 THF。去向：先走亚甲基级、次甲基级、甲酰级，再经 MTHFR 还原成甲基级；甲基交出去后 THF 回到池里重新装载。",
+    },
+    significance: {
+      title: "没有 THF 就没有一碳单位转移",
+      body:
+        "一碳单位不能以游离形式存在，必须挂在 THF 上；叶酸缺乏时核酸合成与甲基化同时受阻，这是叶酸与 B12 缺乏表现重叠的原因。",
+    },
+    exam: {
+      title: "考点是 THF 载不同氧化级，而不是只载甲基",
+      items: [
+        "THF 载运甲酰基、次甲基、亚甲基与甲基四种氧化级，甲基只是其中一种。",
+        "一碳单位不能游离存在，必须挂在 THF 的 N5 或 N10 上。",
+        "THF 由叶酸还原生成，叶酸缺乏会同时影响 dTMP 合成与甲基化。",
+      ],
+    },
+    pathways: [
+      { label: "一碳单位 oc-1：丝氨酸装载", href: "/pathway/one-carbon?step=oc-1" },
+      { label: "一碳单位 oc-5：THF 回池", href: "/pathway/one-carbon?step=oc-5" },
+    ],
+    sources: [
+      "one-carbon.json · steps[oc-1].equation / significance",
+      "《生物化学与分子生物学》第 9 版 · 氨基酸代谢（一碳单位）",
+    ],
+    bubble: { what: "四氢叶酸（THF）", highlight: "一碳单位的共同载体" },
+  },
+
+  ch2thf: {
+    id: "ch2thf",
+    name: "5,10-亚甲基四氢叶酸",
+    aliases: ["CH2-THF", "5,10-methylenetetrahydrofolate", "5,10-亚甲基四氢叶酸"],
+    claim: "亚甲基级一碳载体：供 dTMP 合成，也是 MTHFR 的底物",
+    classification: "THF 的亚甲基级形式：一碳以亚甲基桥连接 N5 与 N10。",
+    structure: "亚甲基同时连在 N5 与 N10 上，形成一个桥；这个桥既可被氧化成次甲基，也可被还原成甲基。",
+    position: {
+      title: "它在 oc-1 生成，在 oc-2 / oc-4 与 pyr-12 被分流",
+      body:
+        "oc-1 生成 5,10-亚甲基THF；oc-2 把它氧化成次甲基级，oc-4 由 MTHFR 还原成甲基级；pyr-12 胸苷酸合酶取它的亚甲基把 dUMP 转成 dTMP，同时释放二氢叶酸。",
+    },
+    flow: {
+      title: "它从丝氨酸来，往次甲基、甲基与 dTMP 三条路去",
+      body:
+        "来路：oc-1 丝氨酸装载。去向：向上氧化成次甲基 / 甲酰级，向下还原成甲基级，或把亚甲基交给 dUMP 生成 dTMP；三条去向竞争同一个池。",
+    },
+    significance: {
+      title: "它是核酸合成与甲基化之间的分流点",
+      body:
+        "亚甲基级既能供 dTMP 合成，也能被 MTHFR 推向甲基化；MTHFR 活性与叶酸供给决定这股一碳往哪边走。",
+    },
+    exam: {
+      title: "考点是亚甲基的两个去向与 dTMP 合成",
+      items: [
+        "pyr-12 用 5,10-亚甲基THF 提供亚甲基，产物是 dTMP + 二氢叶酸。",
+        "MTHFR 把亚甲基级还原成甲基级，这一步生理不可逆。",
+        "亚甲基级不是甲基级，不能直接用于甲基化。",
+      ],
+    },
+    pathways: [
+      { label: "一碳单位 oc-2：氧化成次甲基", href: "/pathway/one-carbon?step=oc-2" },
+      { label: "嘧啶核苷酸 pyr-12：供亚甲基", href: "/pathway/pyrimidine?step=pyr-12" },
+    ],
+    sources: [
+      "one-carbon.json · steps[oc-2].equation",
+      "pyrimidine.json · steps[pyr-12].equation",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘧啶核苷酸的合成）",
+    ],
+    bubble: { what: "5,10-亚甲基THF", highlight: "供 dTMP 与甲基化分流" },
+  },
+
+  chmethf: {
+    id: "chmethf",
+    name: "5,10-次甲基四氢叶酸",
+    aliases: ["CH-THF", "5,10-methenyltetrahydrofolate", "5,10-次甲基四氢叶酸"],
+    claim: "次甲基级：夹在亚甲基与甲酰基之间的中间氧化级",
+    classification: "THF 的次甲基级形式：一碳以次甲基桥连接 N5 与 N10，环上多一个双键。",
+    structure: "次甲基桥比亚甲基少两个氢，环系更不饱和；它可水解成甲酰级，也可还原回亚甲基级。",
+    position: {
+      title: "它只在 oc-2 出现，是氧化方向的中转站",
+      body:
+        "oc-2 的 MTHFD2 先把 5,10-亚甲基THF 脱氢成 5,10-次甲基THF，再由环水解酶加水开环成 10-甲酰THF；本图不把它单列成一步。",
+    },
+    flow: {
+      title: "它从亚甲基来，往甲酰基去",
+      body:
+        "来路：oc-2 脱氢。去向：同一双功能酶的环水解域把它转成 10-甲酰THF；方向由 NADP⁺/NADPH 比值与下游对甲酰级的需求决定。",
+    },
+    significance: {
+      title: "它说明一碳单位是同一载体的不同氧化级",
+      body:
+        "次甲基级不是另一种载体分子，而是 THF 的中间氧化态；把亚甲基、次甲基、甲酰基当成三种不同载体是常见误解。",
+    },
+    exam: {
+      title: "考点是氧化级顺序与双功能酶",
+      items: [
+        "氧化方向：亚甲基 → 次甲基 → 甲酰基，次甲基在中间。",
+        "MTHFD2 是脱氢酶 / 环水解酶双功能酶，两个活性域连续工作。",
+        "次甲基级不稳定，通常不单独积累。",
+      ],
+    },
+    pathways: [
+      { label: "一碳单位 oc-2：亚甲基 → 甲酰基", href: "/pathway/one-carbon?step=oc-2" },
+    ],
+    sources: [
+      "one-carbon.json · steps[oc-2].equation / note",
+      "《生物化学与分子生物学》第 9 版 · 氨基酸代谢（一碳单位）",
+    ],
+    bubble: { what: "5,10-次甲基THF", highlight: "氧化方向的中间站" },
+  },
+
+  chothf: {
+    id: "chothf",
+    name: "10-甲酰四氢叶酸",
+    aliases: ["CHO-THF", "10-formyltetrahydrofolate", "10-甲酰四氢叶酸"],
+    claim: "甲酰级：嘌呤 C2 / C8 的供体，也可水解成甲酸输出线粒体",
+    classification: "THF 的甲酰级形式：甲酰基挂在 N10 上。",
+    structure: "甲酰基连在 N10，环系不再有 N5–N10 桥；它是 THF 一碳单位里最氧化的形式。",
+    position: {
+      title: "它在 oc-2 生成，在 oc-3 进入胞质互变",
+      body:
+        "线粒体 oc-2 生成 10-甲酰THF；它可水解成甲酸跨膜输出，也可在胞质由 MTHFD1 合成酶域把甲酸重新装回 THF 生成 10-甲酰THF（oc-3）。",
+    },
+    flow: {
+      title: "它从次甲基级来，往甲酸输出与嘌呤合成去",
+      body:
+        "来路：oc-2 环水解。去向：线粒体一侧水解成甲酸输出；胞质一侧作为嘌呤 C2 / C8 的供体，也可经 MTHFD1 还原回亚甲基级。",
+    },
+    significance: {
+      title: "它是线粒体与胞质一碳池之间的出口",
+      body:
+        "线粒体把一碳单位推到甲酰级后以甲酸形式输出，胞质再用 MTHFD1 就地装回；这条穿梭把两个区室的一碳池连起来。",
+    },
+    exam: {
+      title: "考点是甲酰级的两条去向",
+      items: [
+        "10-甲酰THF 是嘌呤 C2 / C8 的供体。",
+        "线粒体甲酰级可水解成甲酸跨膜，胞质由 MTHFD1 合成酶域重新装载。",
+        "甲酰级不是甲基级，不能直接供甲基化。",
+      ],
+    },
+    pathways: [
+      { label: "一碳单位 oc-2：生成甲酰级", href: "/pathway/one-carbon?step=oc-2" },
+      { label: "一碳单位 oc-3：胞质互变", href: "/pathway/one-carbon?step=oc-3" },
+    ],
+    sources: [
+      "one-carbon.json · steps[oc-2].equation / steps[oc-3].note",
+      "《生物化学与分子生物学》第 9 版 · 氨基酸代谢（一碳单位）",
+    ],
+    bubble: { what: "10-甲酰THF", highlight: "嘌呤 C2 / C8 的供体" },
+  },
+
+  ch3thf: {
+    id: "ch3thf",
+    name: "5-甲基四氢叶酸",
+    aliases: ["CH3-THF", "5-methyltetrahydrofolate", "5-甲基四氢叶酸"],
+    claim: "甲基级：体内主要循环形式，只供甲基化，是 MTHFR 的产物",
+    classification: "THF 的甲基级形式：甲基挂在 N5 上，是一碳单位里最还原的形式。",
+    structure: "甲基连在 N5；甲基级不能再被氧化回亚甲基级供 dTMP，只能经甲硫氨酸合酶把甲基交出去。",
+    position: {
+      title: "它在 oc-4 生成，在 oc-5 把甲基交给同型半胱氨酸",
+      body:
+        "oc-4 MTHFR 把 5,10-亚甲基THF 还原成 5-甲基THF，生理不可逆；oc-5 甲硫氨酸合酶以 B12 为中间载体，把甲基转给同型半胱氨酸生成甲硫氨酸，同时释放 THF。",
+    },
+    flow: {
+      title: "它从亚甲基级来，往甲硫氨酸与 THF 回池去",
+      body:
+        "来路：oc-4 MTHFR 还原。去向：oc-5 把甲基交给同型半胱氨酸，生成甲硫氨酸与 THF；甲基级是死端，不能直接回亚甲基级。",
+    },
+    significance: {
+      title: "它是叶酸池与甲基化之间的闸门",
+      body:
+        "5-甲基THF 是血浆与体内主要的叶酸形式；B12 或叶酸缺乏时它被“甲基陷阱”锁住，同型半胱氨酸升高，核酸合成也受影响。",
+    },
+    exam: {
+      title: "考点是甲基陷阱与 B12",
+      items: [
+        "MTHFR 反应生理不可逆，5-甲基THF 不能直接变回亚甲基级。",
+        "甲硫氨酸合酶需要甲基钴胺素（B12）作为中间载体。",
+        "B12 缺乏时叶酸被锁在甲基级，出现甲基陷阱与巨幼细胞贫血。",
+      ],
+    },
+    pathways: [
+      { label: "一碳单位 oc-4：MTHFR 还原", href: "/pathway/one-carbon?step=oc-4" },
+      { label: "一碳单位 oc-5：甲基转移", href: "/pathway/one-carbon?step=oc-5" },
+    ],
+    sources: [
+      "one-carbon.json · steps[oc-4].equation / steps[oc-5].significance",
+      "《生物化学与分子生物学》第 9 版 · 氨基酸代谢（一碳单位与甲硫氨酸循环）",
+    ],
+    bubble: { what: "5-甲基THF", highlight: "甲基陷阱的关键节点" },
+  },
+
+  dihydroceramide: {
+    id: "dihydroceramide",
+    name: "二氢神经酰胺",
+    aliases: ["dhCer", "dihydroceramide", "二氢神经酰胺"],
+    claim: "CERS 的直接产物：4,5 位还没有双键，经 DES 去饱和才是神经酰胺",
+    classification: "鞘脂中间物：二氢鞘氨醇的 2 位氨基被脂酰CoA 酰化，酰基链长度可变。",
+    structure: "鞘氨醇骨架的 4,5 位是单键；DES 引入双键后才成为带 4,5-双键的神经酰胺。",
+    position: {
+      title: "它在 gpl-13 生成，在 gpl-14 被去饱和",
+      body:
+        "gpl-13 神经酰胺合成酶（CERS）把脂酰CoA 的酰基接到二氢鞘氨醇上，产物是二氢神经酰胺；gpl-14 DES（人 DEGS1）在 4,5 位引入双键，生成神经酰胺。",
+    },
+    flow: {
+      title: "它从二氢鞘氨醇来，往神经酰胺去",
+      body:
+        "来路：gpl-12 KDSR 还原生成二氢鞘氨醇，gpl-13 CERS 酰化。去向：gpl-14 DES 去饱和成神经酰胺，再在高尔基体被 SMS 转成鞘磷脂。",
+    },
+    significance: {
+      title: "把 CERS 与 DES 分开，才看得清鞘脂骨架的饱和度",
+      body:
+        "CERS 只做 N-酰化，不引入双键；把产物直接写成神经酰胺会掩盖 DES 这一步，也会把两种酶的 EC 混在一起。",
+    },
+    exam: {
+      title: "考点是 CERS 与 DES 的分工",
+      items: [
+        "CERS 的产物是二氢神经酰胺，不是带 4,5-双键的神经酰胺。",
+        "DES（DEGS1）是独立的去饱和酶，消耗 O₂ 与还原力。",
+        "鞘脂合成的顺序是 KDSR → CERS → DES → SMS。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 / 鞘脂 gpl-13：CERS 酰化", href: "/pathway/glycerophospholipid?step=gpl-13" },
+      { label: "甘油磷脂 / 鞘脂 gpl-14：DES 去饱和", href: "/pathway/glycerophospholipid?step=gpl-14" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-13].equation / steps[gpl-14].equation",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（鞘脂的合成）",
+    ],
+    bubble: { what: "二氢神经酰胺", highlight: "CERS 的直接产物" },
+  },
+
+  formate: {
+    id: "formate",
+    name: "甲酸",
+    aliases: ["formate", "HCOO⁻", "甲酸"],
+    claim: "线粒体输出一碳单位的跨膜形式，进入胞质后由 MTHFD1 装回 THF",
+    classification: "一碳单位的最氧化形式，以甲酸 / 甲酸根形式跨膜。",
+    structure: "一个碳连两个氧，带一个可解离质子；本图只写分子式，不建结构。",
+    position: {
+      title: "它在 oc-2 之后作为出口，在 oc-3 的回池支路被重新装载",
+      body:
+        "线粒体 10-甲酰THF 水解后释放甲酸，甲酸跨过线粒体内膜进入胞质；胞质 MTHFD1 的合成酶域把甲酸、THF 与 ATP 重新装成 10-甲酰THF（oc-3）。",
+    },
+    flow: {
+      title: "它从线粒体甲酰级来，往胞质叶酸池去",
+      body:
+        "来路：线粒体 10-甲酰THF 水解。去向：跨膜进入胞质，由 MTHFD1 合成酶域装回 THF；具体转运蛋白本平台未核实，图中只画一条运输虚线。",
+    },
+    significance: {
+      title: "甲酸是线粒体与胞质一碳池之间的实际跨膜物质",
+      body:
+        "把跨膜物质写成 10-甲酰THF 会误导：THF 衍生物不直接跨膜，实际输出的是甲酸；胞质的 10-甲酰THF 是就地生成的。",
+    },
+    exam: {
+      title: "考点是跨膜形式与就地装载",
+      items: [
+        "线粒体输出的一碳单位以甲酸形式跨膜，不是 10-甲酰THF 本身。",
+        "胞质 10-甲酰THF 由 MTHFD1 合成酶域就地生成。",
+        "这条穿梭不计入反应步数，是区室间的运输。",
+      ],
+    },
+    pathways: [
+      { label: "一碳单位 oc-2：线粒体甲酰级输出", href: "/pathway/one-carbon?step=oc-2" },
+      { label: "一碳单位 oc-3：胞质重新装载", href: "/pathway/one-carbon?step=oc-3" },
+    ],
+    sources: [
+      "one-carbon.json · transportSteps[oc-t1].note",
+      "《生物化学与分子生物学》第 9 版 · 氨基酸代谢（一碳单位）",
+    ],
+    bubble: { what: "甲酸", highlight: "一碳单位的跨膜形式" },
+  },
+
+  sam: {
+    id: "sam",
+    name: "S-腺苷甲硫氨酸",
+    aliases: ["SAM", "S-adenosylmethionine", "S-腺苷蛋氨酸"],
+    claim: "SAM 是体内最主要的甲基直接供体",
+    classification: "氨基酸衍生物：甲硫氨酸的硫原子接上腺苷后被活化成正电荷锍离子。",
+    structure: "甲硫氨酸的硫上带一个正电荷并接腺苷；锍离子的强亲电性让甲基容易被受体取走。",
+    position: {
+      title: "它由甲硫氨酸活化而来，在甲基化一步交出甲基",
+      body: "一碳图第 6 步由甲硫氨酸腺苷转移酶（MAT1A / MAT2A）用 ATP 把甲硫氨酸活化成 SAM；第 7 步由各种甲基转移酶把甲基转给受体，SAM 随之变成 SAH。甘油磷脂 gpl-7 的 PEMT 是其中一条具体出口。",
+    },
+    flow: {
+      title: "它从甲硫氨酸与 ATP 来，往甲基化受体与 SAH 去",
+      body: "来路：甲硫氨酸 + ATP 经 MAT 生成 SAM，同时释放 PPi 与 Pi。去向：甲基转给磷脂酰乙醇胺（gpl-7）、胍乙酸、DNA 胞嘧啶、神经递质等受体；SAM 本身变成 SAH，再由 AHCY 水解回同型半胱氨酸与腺苷。",
+    },
+    significance: {
+      title: "SAM 与 SAH 的比值反映细胞的甲基化潜力",
+      body: "SAM 供应不足或 SAH 堆积都会压低甲基化通量；SAH 是产物抑制剂，它的清除速度直接决定甲基转移酶能跑多快。",
+    },
+    exam: {
+      title: "考点是活化方式与循环位置",
+      items: [
+        "SAM 是化学计量底物，不是辅酶：供出甲基后变成 SAH，必须靠甲硫氨酸循环重新合成。",
+        "ATP 的两个高能键用于形成锍离子，这是甲基可转移的结构基础。",
+        "SAM 的甲基不是来自 THF 直接转移，而是经 5-甲基THF → 同型半胱氨酸 → 甲硫氨酸 → SAM 这条路线。",
+      ],
+    },
+    pathways: [
+      { label: "一碳单位 oc-6：MAT 活化生成 SAM", href: "/pathway/one-carbon?step=oc-6" },
+      { label: "一碳单位 oc-7：SAM 供甲基", href: "/pathway/one-carbon?step=oc-7" },
+      { label: "甘油磷脂 gpl-7：PEMT 的甲基供体", href: "/pathway/glycerophospholipid?step=gpl-7" },
+    ],
+    sources: [
+      "one-carbon.json · steps[oc-6].equation / enzyme；steps[oc-7].significance",
+      "glycerophospholipid.json · steps[gpl-7].equation",
+      "《生物化学与分子生物学》第 9 版 · 氨基酸代谢（甲硫氨酸循环）",
+    ],
+    bubble: { what: "甲硫氨酸活化的甲基供体", highlight: "体内甲基化的直接甲基源" },
+  },
+
+  sah: {
+    id: "sah",
+    name: "S-腺苷同型半胱氨酸",
+    aliases: ["SAH", "S-adenosylhomocysteine"],
+    claim: "SAH 是甲基化用后的余额，也是甲硫氨酸循环的闭环节点",
+    classification: "核苷氨基酸衍生物：SAM 交出甲基后剩下的骨架。",
+    structure: "腺苷与同型半胱氨酸相连；比 SAM 少一个甲基，锍离子消失，不能再供甲基。",
+    position: {
+      title: "它是甲基化的产物，也是 AHCY 的底物",
+      body: "一碳图第 7 步：SAM + 甲基受体 → 甲基化受体 + SAH。第 8 步由 S-腺苷同型半胱氨酸水解酶（AHCY）水解成同型半胱氨酸与腺苷，循环在此闭合。",
+    },
+    flow: {
+      title: "它从 SAM 来，往同型半胱氨酸与腺苷去",
+      body: "来路：各种甲基转移酶把 SAM 的甲基转走后生成 SAH。去向：AHCY 水解成同型半胱氨酸与腺苷；同型半胱氨酸回甲硫氨酸循环，或经胱硫醚 β-合酶（aa-7）走转硫支路；腺苷回核苷酸池。",
+    },
+    significance: {
+      title: "SAH 堆积会反馈抑制甲基化",
+      body: "AHCY 反应的平衡偏向合成 SAH，方向靠腺苷与同型半胱氨酸被及时清除来维持；SAH 是多种甲基转移酶的竞争性抑制剂，所以它的浓度是甲基化通量的刹车。",
+    },
+    exam: {
+      title: "考点是闭环方向与产物抑制",
+      items: [
+        "SAH 不是废物：它水解出的同型半胱氨酸是循环起点，腺苷回核苷酸池。",
+        "AHCY 反应可逆且平衡偏向 SAH 合成，生理方向靠产物清除拉动。",
+        "SAH 堆积抑制甲基转移酶，是甲基化通量的反馈刹车。",
+      ],
+    },
+    pathways: [
+      { label: "一碳单位 oc-7：SAM 供甲基生成 SAH", href: "/pathway/one-carbon?step=oc-7" },
+      { label: "一碳单位 oc-8：AHCY 水解闭环", href: "/pathway/one-carbon?step=oc-8" },
+      { label: "甘油磷脂 gpl-7：PEMT 三次甲基化的产物", href: "/pathway/glycerophospholipid?step=gpl-7" },
+    ],
+    sources: [
+      "one-carbon.json · steps[oc-7].misconceptions；steps[oc-8].equation / significance",
+      "glycerophospholipid.json · steps[gpl-7].equation",
+      "《生物化学与分子生物学》第 9 版 · 氨基酸代谢（甲硫氨酸循环）",
+    ],
+    bubble: { what: "SAM供甲基后的产物", highlight: "甲基化程度的指示物" },
+  },
+
+  acceptor: {
+    id: "acceptor",
+    name: "甲基受体（泛称）",
+    aliases: ["甲基受体", "methyl acceptor"],
+    claim: "「甲基受体」是 SAM 甲基化底物的合称，不是单一分子",
+    classification: "泛称节点：磷脂、肌酸、DNA 胞嘧啶、神经递质等甲基化底物的集合。",
+    structure: "没有统一结构：受体因组织与酶而异，本图用一个泛称节点代表整类底物。",
+    position: {
+      title: "它站在 oc-7 的底物一侧",
+      body: "一碳图第 7 步写成 SAM + 甲基受体 → 甲基化受体 + SAH；具体受体不逐一展开，PEMT 以磷脂酰乙醇胺为代表（gpl-7）。",
+    },
+    flow: {
+      title: "它从各类甲基化底物来，往甲基化产物去",
+      body: "来路：磷脂酰乙醇胺、胍乙酸、DNA 胞嘧啶、去甲肾上腺素等。去向：接受 SAM 的甲基后变成甲基化产物；本图只保留泛称，不把某一具体受体写成唯一答案。",
+    },
+    significance: {
+      title: "用一个泛称节点，避免把某条支路当成全部",
+      body: "甲基化覆盖面很广，若只画 PEMT 会让人误以为 SAM 只服务磷脂；泛称节点提醒读者这是一类反应，具体酶与受体在教材各论里展开。",
+    },
+    exam: {
+      title: "考点是受体的多样性",
+      items: [
+        "甲基受体不是单一物质，PEMT、GAMT、DNA 甲基转移酶各有自己的受体。",
+        "甲基来自 SAM，不是 THF 直接提供。",
+        "甲基化产物与 SAH 按 1:1 生成。",
+      ],
+    },
+    pathways: [
+      { label: "一碳单位 oc-7：SAM 把甲基交给受体", href: "/pathway/one-carbon?step=oc-7" },
+      { label: "甘油磷脂 gpl-7：PEMT 是一条具体出口", href: "/pathway/glycerophospholipid?step=gpl-7" },
+    ],
+    sources: [
+      "one-carbon.json · steps[oc-7].equation / note",
+      "glycerophospholipid.json · steps[gpl-7].equation",
+      "《生物化学与分子生物学》第 9 版 · 氨基酸代谢（甲硫氨酸循环）",
+    ],
+    bubble: { what: "甲基化底物的泛称", highlight: "本图不逐一展开的受体" },
+  },
+
+  ado: {
+    id: "ado",
+    name: "腺苷",
+    aliases: ["Ado", "adenosine"],
+    claim: "腺苷是 SAH 水解的另一个产物，可回核苷酸池",
+    classification: "核苷：腺嘌呤与核糖以 N-糖苷键相连，不带磷酸基。",
+    structure: "腺嘌呤碱基接核糖，没有磷酸基；比 AMP 少一个磷酸，能穿过膜。",
+    position: {
+      title: "它是 oc-8 的产物，与同型半胱氨酸一起释放",
+      body: "一碳图第 8 步由 AHCY 把 SAH 水解成同型半胱氨酸与腺苷；腺苷本图只记为回核苷酸池，不展开腺苷受体信号。",
+    },
+    flow: {
+      title: "它从 SAH 来，往核苷酸池去",
+      body: "来路：SAH 水解。去向：经腺苷激酶磷酸化成 AMP 回核苷酸池；细胞外腺苷还是信号分子，本平台不展开。",
+    },
+    significance: {
+      title: "腺苷的及时清除是 AHCY 反应向前的前提",
+      body: "AHCY 平衡偏向 SAH 合成，腺苷堆积会把反应推回去；所以腺苷的去路与同型半胱氨酸的去路一起决定甲硫氨酸循环能否顺畅运转。",
+    },
+    exam: {
+      title: "考点是它与 AMP、腺嘌呤的区别",
+      items: [
+        "腺苷是核苷，不是核苷酸：它没有磷酸基。",
+        "腺苷来自 SAH 水解，不是 SAM 直接裂解。",
+        "腺苷回核苷酸池要经腺苷激酶磷酸化。",
+      ],
+    },
+    pathways: [
+      { label: "一碳单位 oc-8：AHCY 释出腺苷", href: "/pathway/one-carbon?step=oc-8" },
+    ],
+    sources: [
+      "one-carbon.json · steps[oc-8].equation / significance",
+      "《生物化学与分子生物学》第 9 版 · 氨基酸代谢（甲硫氨酸循环）",
+    ],
+    bubble: { what: "SAH水解的另一产物", highlight: "回核苷酸池的腺苷" },
+  },
+
+  cap: {
+    id: "cap",
+    name: "氨甲酰磷酸",
+    aliases: ["CAP", "carbamoyl phosphate"],
+    claim: "氨甲酰磷酸是嘧啶环的起始片段，与尿素循环的同名物分属两个区室",
+    classification: "酰基磷酸：氨甲酰基与磷酸基以酸酐键相连。",
+    structure: "氨甲酰基接磷酸，形成高能酸酐键；缩合天冬氨酸时这个键断裂释放 Pi。",
+    position: {
+      title: "它在 pyr-1 生成，在 pyr-2 被缩合",
+      body: "嘧啶图第 1 步由胞质 CPS2 用谷氨酰胺的酰胺氮、HCO₃⁻ 与 2 ATP 生成氨甲酰磷酸；第 2 步由 ATCase 把它与天冬氨酸缩合成 N-氨甲酰天冬氨酸。",
+    },
+    flow: {
+      title: "它从谷氨酰胺与 HCO₃⁻ 来，往嘧啶环去",
+      body: "来路：CPS2（CAD 多功能酶的一部分）在胞质生成。去向：进入嘧啶合成（pyr-2）；尿素循环的氨甲酰磷酸由线粒体 CPS1 生成（urea-1），氮源与去向都不同，本图不合并。",
+    },
+    significance: {
+      title: "它是嘧啶通量的限速产物",
+      body: "CPS2 受 PRPP 变构激活、UTP 变构抑制，氨甲酰磷酸的供给速度决定整条嘧啶通路的通量。",
+    },
+    exam: {
+      title: "考点是 CPS2 与 CPS1 的区分",
+      items: [
+        "CPS2 在胞质、用谷氨酰胺的酰胺氮、走嘧啶；CPS1 在线粒体、用游离 NH₃、走尿素。",
+        "两个酶同名但不是同一个蛋白，区室与去向都不同。",
+        "第一步消耗两个 ATP，氨甲酰磷酸带一个高能酸酐键。",
+      ],
+    },
+    pathways: [
+      { label: "嘧啶 pyr-1：CPS2 生成氨甲酰磷酸", href: "/pathway/pyrimidine?step=pyr-1" },
+      { label: "嘧啶 pyr-2：ATCase 缩合天冬氨酸", href: "/pathway/pyrimidine?step=pyr-2" },
+      { label: "对照：尿素循环 CPS1 的同名产物", href: "/pathway/urea-cycle?step=urea-1" },
+    ],
+    sources: [
+      "pyrimidine.json · steps[pyr-1].equation / enzyme / note",
+      "pyrimidine.json · posterFoot 第 1 条（CPS1 与 CPS2 分开写）",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘧啶核苷酸的合成）",
+    ],
+    bubble: { what: "嘧啶环的起始片段", highlight: "与尿素循环同名但分区室" },
+  },
+
+  caasp: {
+    id: "caasp",
+    name: "N-氨甲酰天冬氨酸",
+    aliases: ["CA-Asp", "N-carbamoylaspartate"],
+    claim: "N-氨甲酰天冬氨酸是嘧啶环闭合前的线性中间物",
+    classification: "氨基酸衍生物：天冬氨酸的 α-氨基被氨甲酰化。",
+    structure: "天冬氨酸的 α-氨基接上氨甲酰基，分子两端各带一个羧基，仍是开链。",
+    position: {
+      title: "它在 pyr-2 生成，在 pyr-3 闭环",
+      body: "嘧啶图第 2 步由天冬氨酸氨甲酰转移酶（ATCase，CAD 的一部分）把氨甲酰磷酸与天冬氨酸缩合；第 3 步由二氢乳清酸酶脱水闭环成二氢乳清酸。",
+    },
+    flow: {
+      title: "它从氨甲酰磷酸与天冬氨酸来，往二氢乳清酸去",
+      body: "来路：氨甲酰磷酸 + 天冬氨酸，释放 Pi。去向：pyr-3 脱水闭环；闭环后分子才成为六元嘧啶环。",
+    },
+    significance: {
+      title: "嘧啶环的第二个氮在这里接入",
+      body: "谷氨酰胺只提供第一个氮，第二个氮来自天冬氨酸的 α-氨基；这一步把碳骨架与第二个氮一起装进环的前体。",
+    },
+    exam: {
+      title: "考点是氮的来源与环化前状态",
+      items: [
+        "第二个氮来自天冬氨酸，不是谷氨酰胺。",
+        "这一步只是缩合，不是氧化；氧化在 DHODH（pyr-4）。",
+        "动物体内 ATCase 与 CPS2、二氢乳清酸酶同在 CAD 多肽链上。",
+      ],
+    },
+    pathways: [
+      { label: "嘧啶 pyr-2：缩合天冬氨酸", href: "/pathway/pyrimidine?step=pyr-2" },
+      { label: "嘧啶 pyr-3：脱水闭环", href: "/pathway/pyrimidine?step=pyr-3" },
+    ],
+    sources: [
+      "pyrimidine.json · steps[pyr-2].equation / note",
+      "pyrimidine.json · steps[pyr-3].equation / significance",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘧啶核苷酸的合成）",
+    ],
+    bubble: { what: "嘧啶环闭合前的线性物", highlight: "提供嘧啶环的第二个氮" },
+  },
+
+  dho: {
+    id: "dho",
+    name: "二氢乳清酸",
+    aliases: ["DHO", "dihydroorotate"],
+    claim: "二氢乳清酸是嘧啶环闭合后的第一个环状中间物",
+    classification: "嘧啶二羧酸：六元嘧啶环上带两个羧基，C5–C6 饱和。",
+    structure: "六元嘧啶环，C5 与 C6 之间是单键，因此称二氢；C2、C4 位各带一个羧基。",
+    position: {
+      title: "它在 pyr-3 闭环，在 pyr-4 被线粒体内膜氧化",
+      body: "嘧啶图第 3 步由二氢乳清酸酶（CAD 的一部分）脱水闭环生成；第 4 步由线粒体内膜的二氢乳清酸脱氢酶（DHODH）氧化成乳清酸，电子交给泛醌。",
+    },
+    flow: {
+      title: "它从 N-氨甲酰天冬氨酸来，往乳清酸去",
+      body: "来路：pyr-3 脱水闭环。去向：DHODH 氧化（pyr-4），产物乳清酸回到胞质继续挂核糖；这是嘧啶合成唯一的跨区室步骤。",
+    },
+    significance: {
+      title: "它是二氢与芳香之间的分界",
+      body: "二氢乳清酸本身不是芳香环，DHODH 把 C5–C6 氧化成双键后才有乳清酸的芳香嘧啶环；把两者混写会漏掉这一步氧化。",
+    },
+    exam: {
+      title: "考点是 DHODH 的位置与电子受体",
+      items: [
+        "DHODH 位于线粒体内膜，是嘧啶合成中唯一的跨区室步骤。",
+        "DHODH 的电子受体是泛醌（Q），不是 NAD⁺。",
+        "二氢乳清酸不等于乳清酸：差一对氢与一个双键。",
+      ],
+    },
+    pathways: [
+      { label: "嘧啶 pyr-3：闭环生成二氢乳清酸", href: "/pathway/pyrimidine?step=pyr-3" },
+      { label: "嘧啶 pyr-4：DHODH 内膜氧化", href: "/pathway/pyrimidine?step=pyr-4" },
+    ],
+    sources: [
+      "pyrimidine.json · steps[pyr-3].equation / significance",
+      "pyrimidine.json · steps[pyr-4].equation / note",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘧啶核苷酸的合成）",
+    ],
+    bubble: { what: "嘧啶环闭合后的中间物", highlight: "DHODH在内膜的底物" },
+  },
+
+  oro: {
+    id: "oro",
+    name: "乳清酸",
+    aliases: ["Oro", "orotate", "乳清酸"],
+    claim: "乳清酸是嘧啶从头合成的第一个芳香中间物，挂上 PRPP 才成为核苷酸",
+    classification: "嘧啶羧酸：完全氧化的嘧啶环，C4 位带羧基。",
+    structure: "六元嘧啶环 C5–C6 之间是双键，环已芳香化；C4 位带羧基，游离乳清酸不是核苷酸。",
+    position: {
+      title: "它在 pyr-4 生成，在 pyr-5 挂上核糖",
+      body: "嘧啶图第 4 步由 DHODH 在线粒体内膜生成乳清酸；乳清酸出膜回到胞质，第 5 步由乳清酸磷酸核糖转移酶（OPRT）把它与 PRPP 结合成 OMP。",
+    },
+    flow: {
+      title: "它从二氢乳清酸来，往 OMP 与 UMP 去",
+      body: "来路：二氢乳清酸经 DHODH 氧化。去向：出线粒体回胞质（转运蛋白本平台未核实，只画运输虚线、不计步），经 OPRT 接 PRPP 成 OMP，再脱羧成 UMP。",
+    },
+    significance: {
+      title: "它是跨区室步骤的产物，也是乳清酸尿症的指标",
+      body: "乳清酸在胞质与线粒体之间来回一次，是嘧啶合成唯一跨膜环节的产物；遗传性乳清酸尿症时尿中乳清酸升高，本平台只作定性提及、不展开分型。",
+    },
+    exam: {
+      title: "考点是「先成环、后挂核糖」的顺序",
+      items: [
+        "嘧啶合成先把环做好再挂核糖，与嘌呤「先挂核糖再建环」相反。",
+        "乳清酸本身不是核苷酸，必须接 PRPP 才成 OMP。",
+        "DHODH 这一步发生在线粒体内膜，其余步骤在胞质。",
+      ],
+    },
+    pathways: [
+      { label: "嘧啶 pyr-4：DHODH 生成乳清酸", href: "/pathway/pyrimidine?step=pyr-4" },
+      { label: "嘧啶 pyr-5：OPRT 挂 PRPP", href: "/pathway/pyrimidine?step=pyr-5" },
+    ],
+    sources: [
+      "pyrimidine.json · steps[pyr-4].equation / note",
+      "pyrimidine.json · steps[pyr-5].equation / significance",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘧啶核苷酸的合成）",
+    ],
+    bubble: { what: "嘧啶从头合成的芳香酸", highlight: "挂上PRPP才成核苷酸" },
+  },
+
+  omp: {
+    id: "omp",
+    name: "乳清酸核苷酸",
+    aliases: ["OMP", "orotidine monophosphate"],
+    claim: "OMP 是乳清酸挂上核糖后的第一个嘧啶核苷酸，随即脱羧成 UMP",
+    classification: "嘧啶核苷酸：乳清酸的羧基与核糖-5-磷酸相连。",
+    structure: "乳清酸通过核糖-5-磷酸的 C1 接上核糖，仍带 C4 羧基；脱羧后才是 UMP。",
+    position: {
+      title: "它在 pyr-5 生成，在 pyr-6 脱羧",
+      body: "嘧啶图第 5 步由 OPRT 把乳清酸与 PRPP 结合成 OMP；第 6 步由 OMP 脱羧酶脱去羧基生成 UMP；动物体内两个活性同在一个双功能酶（UMP 合酶）上。",
+    },
+    flow: {
+      title: "它从乳清酸与 PRPP 来，往 UMP 去",
+      body: "来路：乳清酸 + PRPP，释放 PPi。去向：脱羧生成 UMP 与 CO₂；OMP 只是转瞬即逝的中间物，不会积累。",
+    },
+    significance: {
+      title: "它是「挂核糖」与「脱羧」之间的一步",
+      body: "把 OMP 直接写成 UMP 会漏掉脱羧；这一步释放的 CO₂ 来自乳清酸带来的羧基，不是新引入的碳。",
+    },
+    exam: {
+      title: "考点是 OPRT 与 ODCase 同在一个酶上",
+      items: [
+        "OPRT 与 OMP 脱羧酶在动物体内是 UMP 合酶的两个活性域。",
+        "OMP 脱羧释放 CO₂，不消耗 ATP。",
+        "OMP 是核苷酸，乳清酸不是。",
+      ],
+    },
+    pathways: [
+      { label: "嘧啶 pyr-5：OPRT 生成 OMP", href: "/pathway/pyrimidine?step=pyr-5" },
+      { label: "嘧啶 pyr-6：脱羧成 UMP", href: "/pathway/pyrimidine?step=pyr-6" },
+    ],
+    sources: [
+      "pyrimidine.json · steps[pyr-5].equation / note",
+      "pyrimidine.json · steps[pyr-6].equation / enzyme",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘧啶核苷酸的合成）",
+    ],
+    bubble: { what: "挂上核糖的嘧啶核苷酸", highlight: "脱羧即得UMP" },
+  },
+
+  ump: {
+    id: "ump",
+    name: "尿苷一磷酸",
+    aliases: ["UMP", "uridine monophosphate"],
+    claim: "UMP 是嘧啶核苷酸代谢的中心节点",
+    classification: "嘧啶核苷酸：尿嘧啶与核糖-5-磷酸相连。",
+    structure: "尿嘧啶碱基接核糖-5-磷酸；C5 位没有甲基，这是它与 dTMP 的结构差别。",
+    position: {
+      title: "它是从头合成的终点，也是三条去路的起点",
+      body: "嘧啶图第 6 步 OMP 脱羧生成 UMP；第 7 步 UMP 激酶磷酸化成 UDP，第 8 步 NDPK 再磷酸化成 UTP；UTP 可氨基化成 CTP（pyr-9），也可在二磷酸水平脱氧走向 dTMP。",
+    },
+    flow: {
+      title: "它从 OMP 来，往 UDP、UTP 与脱氧嘧啶去",
+      body: "来路：OMP 脱羧。去向：① UMPK 磷酸化成 UDP → UTP；② UTP 经 CTP 合成酶变成 CTP（pyr-9）；③ UDP 经核糖核苷酸还原酶脱氧成 dUDP，最终走向 dTMP。",
+    },
+    significance: {
+      title: "UMP 不是终点，而是分流点",
+      body: "把 UMP 当成最终产物会漏掉 CTP 与 dTMP 两条支路；UMP 之后的磷酸化、氨基化与脱氧，才覆盖嘧啶核苷酸的全部去向。",
+    },
+    exam: {
+      title: "考点是中心节点与后续分支",
+      items: [
+        "从头合成的终点是 UMP，不是 UTP 或 CTP。",
+        "UMP → UDP 由 UMP 激酶催化，UDP → UTP 由 NDPK 催化。",
+        "脱氧发生在二磷酸水平（UDP → dUDP），不是三磷酸水平。",
+      ],
+    },
+    pathways: [
+      { label: "嘧啶 pyr-6：脱羧生成 UMP", href: "/pathway/pyrimidine?step=pyr-6" },
+      { label: "嘧啶 pyr-7：UMP → UDP", href: "/pathway/pyrimidine?step=pyr-7" },
+    ],
+    sources: [
+      "pyrimidine.json · steps[pyr-6].significance",
+      "pyrimidine.json · steps[pyr-7].equation / steps[pyr-8].equation",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘧啶核苷酸的合成）",
+    ],
+    bubble: { what: "嘧啶核苷酸的中心节点", highlight: "UTP与CTP都从它来" },
+  },
+
+  ctp: {
+    id: "ctp",
+    name: "胞苷三磷酸",
+    aliases: ["CTP", "cytidine triphosphate"],
+    claim: "CTP 是 RNA 合成的底物，也是磷脂合成中的胞苷酰基载体",
+    classification: "嘧啶核苷三磷酸：胞嘧啶接核糖，核糖带三个磷酸。",
+    structure: "胞嘧啶与核糖-5-三磷酸相连；C4 位是氨基，与 UTP 的羰基不同。",
+    position: {
+      title: "它在 pyr-9 由 UTP 氨基化生成，在 gpl-3 把 CMP 交给磷脂酸",
+      body: "嘧啶图第 9 步由 CTP 合成酶用谷氨酰胺的酰胺氮把 UTP 氨基化成 CTP；甘油磷脂 gpl-3 由 CDP-二酰甘油合成酶把 CTP 接到磷脂酸上，生成 CDP-DAG 并释放 PPi。",
+    },
+    flow: {
+      title: "它从 UTP 来，往 RNA 与活化磷脂去",
+      body: "来路：UTP + 谷氨酰胺 + ATP，经 CTP 合成酶（pyr-9）。去向：① 作为 RNA 合成的底物；② 在磷脂合成中作胞苷酰基载体，CDP-DAG、CDP-胆碱、CDP-乙醇胺都靠它活化头基。",
+    },
+    significance: {
+      title: "它把嘧啶代谢与磷脂合成接在一起",
+      body: "CTP 不是「供能分子」：它在这里的作用是提供活化的胞苷酰基，让磷脂酸或磷酸胆碱能被转接；把 CTP 说成能量货币会误导它在磷脂合成中的角色。",
+    },
+    exam: {
+      title: "考点是 CTP 的两条去向",
+      items: [
+        "CTP 由 UTP 氨基化生成，氮来自谷氨酰胺的酰胺氮。",
+        "CTP 在磷脂合成中提供胞苷酰基，不是提供能量。",
+        "CDP-DAG、CDP-胆碱、CDP-乙醇胺都是 CTP 参与活化的产物。",
+      ],
+    },
+    pathways: [
+      { label: "嘧啶 pyr-9：CTP 合成酶", href: "/pathway/pyrimidine?step=pyr-9" },
+      { label: "甘油磷脂 gpl-3：CTP 活化磷脂酸", href: "/pathway/glycerophospholipid?step=gpl-3" },
+    ],
+    sources: [
+      "pyrimidine.json · steps[pyr-9].equation / enzyme",
+      "glycerophospholipid.json · steps[gpl-3].equation；interfaces 第 1 条",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘧啶核苷酸的合成）",
+    ],
+    bubble: { what: "RNA合成的底物", highlight: "磷脂合成的胞苷酰基载体" },
+  },
+
+  dudp: {
+    id: "dudp",
+    name: "脱氧尿苷二磷酸",
+    aliases: ["dUDP", "deoxyuridine diphosphate"],
+    claim: "dUDP 是核糖核苷酸还原酶在二磷酸水平脱氧的产物",
+    classification: "脱氧嘧啶核苷二磷酸：尿嘧啶接脱氧核糖，带两个磷酸。",
+    structure: "核糖的 2′-羟基被还原成氢，其余与 UDP 相同；因此不再带 2′-OH。",
+    position: {
+      title: "它在 pyr-10 由 UDP 还原生成",
+      body: "嘧啶图第 10 步由核糖核苷酸还原酶（RNR）把 UDP 还原成 dUDP，还原力来自还原型硫氧还蛋白；dUDP 再经同一 NDPK 磷酸化成 dUTP。",
+    },
+    flow: {
+      title: "它从 UDP 来，往 dUTP 与 dUMP 去",
+      body: "来路：UDP 在二磷酸水平被 RNR 还原。去向：经 NDPK 磷酸化成 dUTP，再由 dUTP 酶水解成 dUMP；本图不把 dUDP 直接连到 dTMP。",
+    },
+    significance: {
+      title: "脱氧发生在二磷酸水平，这是嘧啶与嘌呤的共同口径",
+      body: "RNR 的底物是二磷酸核苷，不是三磷酸；把脱氧写到三磷酸水平会与酶的底物特异性冲突。",
+    },
+    exam: {
+      title: "考点是脱氧发生的水平",
+      items: [
+        "核糖核苷酸还原酶的底物是二磷酸核苷（NDP），产物是 dNDP。",
+        "dUDP 不是终点，它先变成 dUTP 再水解成 dUMP。",
+        "RNR 的还原力来自硫氧还蛋白或谷氧还蛋白系统。",
+      ],
+    },
+    pathways: [
+      { label: "嘧啶 pyr-10：RNR 还原 UDP", href: "/pathway/pyrimidine?step=pyr-10" },
+    ],
+    sources: [
+      "pyrimidine.json · steps[pyr-10].equation / enzyme",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（脱氧核苷酸的生成）",
+    ],
+    bubble: { what: "二磷酸水平的脱氧产物", highlight: "先变dUTP再水解" },
+  },
+
+  dutp: {
+    id: "dutp",
+    name: "脱氧尿苷三磷酸",
+    aliases: ["dUTP", "deoxyuridine triphosphate"],
+    claim: "dUTP 是 DNA 聚合酶会误用的底物，靠 dUTP 酶及时清掉",
+    classification: "脱氧嘧啶核苷三磷酸：尿嘧啶接脱氧核糖，带三个磷酸。",
+    structure: "与 dTTP 的差别只在 C5：dUTP 是氢，dTTP 是甲基。",
+    position: {
+      title: "它在 dUDP 之后生成，在 pyr-11 被水解",
+      body: "嘧啶图第 11 步由 dUTP 焦磷酸酶（dUTP 酶，DUT）把 dUTP 水解成 dUMP 与 PPi；这一步既供给 dTMP 合成，也把 dUTP 池压低。",
+    },
+    flow: {
+      title: "它从 dUDP 来，往 dUMP 去",
+      body: "来路：dUDP 经 NDPK 磷酸化。去向：dUTP 酶水解成 dUMP，进入胸苷酸合成；若不被清除，DNA 聚合酶会把尿嘧啶掺进 DNA，再由尿嘧啶 DNA 糖苷酶切除修复。",
+    },
+    significance: {
+      title: "dUTP 酶是防尿嘧啶掺入 DNA 的第一道闸",
+      body: "dUTP 与 dTTP 结构只差一个甲基，聚合酶难以区分；dUTP 酶把 dUTP 压到很低浓度，减少尿嘧啶掺入与后续切除修复的负担。",
+    },
+    exam: {
+      title: "考点是 dUTP 酶的双重作用",
+      items: [
+        "dUTP 酶水解 dUTP，既清池又为 dTMP 合成提供 dUMP。",
+        "dUTP 与 dTTP 只差 C5 上的一个甲基。",
+        "尿嘧啶掺入 DNA 后由尿嘧啶 DNA 糖苷酶识别切除。",
+      ],
+    },
+    pathways: [
+      { label: "嘧啶 pyr-11：dUTP 酶水解", href: "/pathway/pyrimidine?step=pyr-11" },
+    ],
+    sources: [
+      "pyrimidine.json · steps[pyr-11].equation / enzyme",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（脱氧核苷酸的生成）",
+    ],
+    bubble: { what: "会被DNA聚合酶误用", highlight: "dUTP酶把它清掉" },
+  },
+
+  dump: {
+    id: "dump",
+    name: "脱氧尿苷一磷酸",
+    aliases: ["dUMP", "deoxyuridine monophosphate"],
+    claim: "dUMP 是胸苷酸合酶的底物，dTMP 的唯一从头来源",
+    classification: "脱氧嘧啶核苷一磷酸：尿嘧啶接脱氧核糖，带一个磷酸。",
+    structure: "尿嘧啶接脱氧核糖-5-磷酸；C5 位是氢，等待胸苷酸合酶把亚甲基换成甲基。",
+    position: {
+      title: "它在 pyr-11 生成，在 pyr-12 被甲基化",
+      body: "嘧啶图第 11 步 dUTP 酶水解生成 dUMP；第 12 步由胸苷酸合酶把 5,10-亚甲基THF 的亚甲基转给 dUMP，生成 dTMP 与二氢叶酸。",
+    },
+    flow: {
+      title: "它从 dUTP 来，往 dTMP 去",
+      body: "来路：dUTP 水解。去向：胸苷酸合酶甲基化成 dTMP；甲基来自一碳单位，因此叶酸或 B12 缺乏会影响 dTMP 供应。",
+    },
+    significance: {
+      title: "它是叶酸与 DNA 合成的交叉点",
+      body: "dUMP 的甲基化把一碳单位代谢与 DNA 前体合成接在一起；这一步受阻时 dTMP 不足、dUMP 堆积，是叶酸缺乏影响细胞增殖的机制之一。",
+    },
+    exam: {
+      title: "考点是甲基来源与酶",
+      items: [
+        "dUMP 的甲基来自 5,10-亚甲基THF，不是游离甲酸或 SAM。",
+        "胸苷酸合酶同时把 THF 氧化成二氢叶酸（DHF）。",
+        "dUMP 由 dUTP 水解而来，不是 UDP 直接脱氧。",
+      ],
+    },
+    pathways: [
+      { label: "嘧啶 pyr-11：dUTP 酶生成 dUMP", href: "/pathway/pyrimidine?step=pyr-11" },
+      { label: "嘧啶 pyr-12：胸苷酸合酶", href: "/pathway/pyrimidine?step=pyr-12" },
+    ],
+    sources: [
+      "pyrimidine.json · steps[pyr-11].equation",
+      "pyrimidine.json · steps[pyr-12].equation / significance",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘧啶核苷酸的合成）",
+    ],
+    bubble: { what: "胸苷酸合酶的底物", highlight: "脱氧嘧啶的最后一个叉" },
+  },
+
+  dtmp: {
+    id: "dtmp",
+    name: "脱氧胸苷一磷酸",
+    aliases: ["dTMP", "deoxythymidine monophosphate", "胸苷酸"],
+    claim: "dTMP 是 DNA 合成的直接前体，甲基来自一碳单位",
+    classification: "脱氧嘧啶核苷一磷酸：胸腺嘧啶接脱氧核糖，带一个磷酸。",
+    structure: "尿嘧啶的 C5 位多一个甲基，其余与 dUMP 相同；这个甲基是它与 RNA 前体区分的关键。",
+    position: {
+      title: "它在 pyr-12 生成，随后走向 DNA",
+      body: "嘧啶图第 12 步由胸苷酸合酶把 dUMP 甲基化成 dTMP；本图在 dTMP 处收住，后续 dTDP / dTTP 与 DNA 复制只画一条去向注记。",
+    },
+    flow: {
+      title: "它从 dUMP 来，往 DNA 去",
+      body: "来路：dUMP + 5,10-亚甲基THF，经胸苷酸合成酶。去向：磷酸化成 dTDP / dTTP 后掺入 DNA；本平台不展开复制步骤，只登记去向。",
+    },
+    significance: {
+      title: "它把一碳单位、叶酸与 DNA 合成串在一起",
+      body: "dTMP 的供应依赖 5,10-亚甲基THF；叶酸拮抗剂或 MTHFR 活性下降会减少 dTMP，进而影响 DNA 合成，这是抗叶酸药物作用的基础。",
+    },
+    exam: {
+      title: "考点是甲基来源与抗叶酸靶点",
+      items: [
+        "dTMP 的甲基来自 5,10-亚甲基THF，不是 SAM。",
+        "胸苷酸合酶把 THF 氧化成 DHF，DHF 需 DHFR 还原回 THF。",
+        "dTMP 是 DNA 前体，dUMP 不是；两者只差 C5 上一个甲基。",
+      ],
+    },
+    pathways: [
+      { label: "嘧啶 pyr-12：胸苷酸合酶生成 dTMP", href: "/pathway/pyrimidine?step=pyr-12" },
+    ],
+    sources: [
+      "pyrimidine.json · steps[pyr-12].equation / significance",
+      "one-carbon.json · interfaces（dTMP 接口只登记真实存在的 oc-3）",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘧啶核苷酸的合成）",
+    ],
+    bubble: { what: "DNA合成的直接前体", highlight: "亚甲基来自一碳单位" },
+  },
+
+  dhf: {
+    id: "dhf",
+    name: "二氢叶酸",
+    aliases: ["DHF", "dihydrofolate", "二氢叶酸"],
+    claim: "DHF 是胸苷酸合酶的叶酸产物，必须由 DHFR 还原回 THF",
+    classification: "叶酸辅酶：蝶啶环部分被还原，但仍带两个氢未脱。",
+    structure: "蝶啶环的吡嗪部分仍是二氢状态；比 THF 少一对氢，不能载运一碳单位。",
+    position: {
+      title: "它在 pyr-12 生成，本图不展开还原步骤",
+      body: "嘧啶图第 12 步胸苷酸合酶把 5,10-亚甲基THF 的亚甲基转给 dUMP，同时把 THF 氧化成 DHF；DHF 由二氢叶酸还原酶（DHFR）还原回 THF，本图只注明去向、不单列步骤。",
+    },
+    flow: {
+      title: "它从 THF 来，往 THF 回去",
+      body: "来路：胸苷酸合酶的副产物。去向：DHFR 用 NADPH 还原成 THF，重新进入一碳单位池；DHFR 是甲氨蝶呤等抗叶酸药物的靶点。",
+    },
+    significance: {
+      title: "DHF 的还原是叶酸池循环的必要一环",
+      body: "若 DHFR 被抑制，THF 无法再生，一碳单位供应与 dTMP 合成都受阻；所以抗叶酸药物同时打击嘌呤与嘧啶合成。",
+    },
+    exam: {
+      title: "考点是 DHF 与 THF 的差别",
+      items: [
+        "DHF 不能载运一碳单位，必须先还原成 THF。",
+        "DHFR 用 NADPH 作还原力，是甲氨蝶呤的靶点。",
+        "胸苷酸合酶每生成一个 dTMP 就产生一个 DHF。",
+      ],
+    },
+    pathways: [
+      { label: "嘧啶 pyr-12：胸苷酸合酶的叶酸产物", href: "/pathway/pyrimidine?step=pyr-12" },
+    ],
+    sources: [
+      "pyrimidine.json · steps[pyr-12].equation / posterFoot 第 3 条",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘧啶核苷酸的合成）",
+    ],
+    bubble: { what: "胸苷酸合酶的叶酸产物", highlight: "需DHFR还原回THF" },
+  },
+
+  prpp: {
+    id: "prpp",
+    name: "磷酸核糖焦磷酸",
+    aliases: ["PRPP", "5-phosphoribosyl-1-pyrophosphate"],
+    claim: "PRPP 是嘌呤与嘧啶从头合成共用的活化核糖供体",
+    classification: "糖磷酸酯：核糖-5-磷酸的 C1 位接焦磷酸。",
+    structure: "核糖的 C1 位带焦磷酸，形成活化的糖基；C1 是嘌呤与嘧啶挂核糖时成键的位置。",
+    position: {
+      title: "它在 pur-1 生成，既是嘌呤第 2 步的底物，也供给嘧啶 pyr-5",
+      body: "嘌呤图第 1 步由 PRPP 合成酶把 R5P 焦磷酸化成 PRPP，同时释放 AMP；第 2 步由 PPAT 把 PRPP 的核糖交给谷氨酰胺。嘧啶图 pyr-5 也用它把乳清酸变成 OMP。",
+    },
+    flow: {
+      title: "它从 R5P 来，往嘌呤与嘧啶两条路去",
+      body: "来路：磷酸戊糖途径的 R5P + ATP，经 PRPP 合成酶。去向：① 嘌呤从头合成（pur-2）；② 嘧啶 OMP 生成（pyr-5）；③ 嘌呤与嘧啶的补救合成。PRPP 合成酶受 AMP、GMP、IMP 反馈抑制。",
+    },
+    significance: {
+      title: "它是两条核苷酸通路的共同入口",
+      body: "PRPP 供给速度同时影响嘌呤与嘧啶合成；把 PRPP 只当作嘌呤的中间物，会漏掉它在嘧啶图 pyr-5 的角色。",
+    },
+    exam: {
+      title: "考点是 PRPP 的两条去向",
+      items: [
+        "PRPP 合成酶产生 PRPP 与 AMP，不产生游离 PPi；PPi 的释放与水解在 pur-2。",
+        "PRPP 的核糖来自磷酸戊糖途径的 R5P。",
+        "PRPP 同时供给嘌呤与嘧啶合成，不只服务嘌呤。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-1：PRPP 合成酶", href: "/pathway/purine?step=pur-1" },
+      { label: "嘌呤 pur-2：PPAT 把核糖交给谷氨酰胺", href: "/pathway/purine?step=pur-2" },
+      { label: "嘧啶 pyr-5：PRPP 生成 OMP", href: "/pathway/pyrimidine?step=pyr-5" },
+    ],
+    sources: [
+      "purine.json · steps[pur-1].equation / note",
+      "pyrimidine.json · steps[pyr-5].equation",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "嘌呤与嘧啶的共同底物", highlight: "把核糖-5-磷酸活化" },
+  },
+
+  pra: {
+    id: "pra",
+    name: "5-磷酸核糖胺",
+    aliases: ["PRA", "5-phosphoribosylamine"],
+    claim: "PRA 是嘌呤从头合成的第一个中间物，嘌呤环从它长出来",
+    classification: "氨基糖磷酸酯：核糖-5-磷酸的 C1 位换成氨基。",
+    structure: "核糖-5-磷酸的 C1 位由氨基取代焦磷酸，成为嘌呤环的起点。",
+    position: {
+      title: "它在 pur-2 生成，在 pur-3 接上甘氨酸",
+      body: "嘌呤图第 2 步由磷酸核糖焦磷酸酰胺转移酶（PPAT）把谷氨酰胺的酰胺氮接到 PRPP 上，生成 PRA 并释放 PPi；第 3 步由 GARS 把整分子甘氨酸接上来。",
+    },
+    flow: {
+      title: "它从 PRPP 与谷氨酰胺来，往 GAR 去",
+      body: "来路：PRPP + 谷氨酰胺 + H₂O，释放谷氨酸与 PPi；PPi 水解把反应拉向 PRA。去向：pur-3 接甘氨酸，成为 GAR。",
+    },
+    significance: {
+      title: "嘌呤环的第一个氮来自谷氨酰胺",
+      body: "PRA 的氨基是嘌呤环 N9，来自谷氨酰胺的酰胺氮；此后甘氨酸、天冬氨酸与另一个谷氨酰胺再补上其余氮原子。",
+    },
+    exam: {
+      title: "考点是第一个氮的来源",
+      items: [
+        "PRA 的氨基来自谷氨酰胺的酰胺氮，不是游离 NH₃。",
+        "PPAT 是嘌呤合成的限速与调控步，受 PRPP 激活、AMP/GMP 抑制。",
+        "嘌呤合成先挂核糖再建环，与嘧啶相反。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-2：PPAT 生成 PRA", href: "/pathway/purine?step=pur-2" },
+      { label: "嘌呤 pur-3：GARS 接甘氨酸", href: "/pathway/purine?step=pur-3" },
+    ],
+    sources: [
+      "purine.json · steps[pur-2].equation / enzyme / note",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "嘌呤合成的第一个中间物", highlight: "嘌呤环从它长出来" },
+  },
+
+  gar: {
+    id: "gar",
+    name: "甘氨酰胺核苷酸",
+    aliases: ["GAR", "glycinamide ribonucleotide"],
+    claim: "GAR 是甘氨酸整分子接入后的嘌呤中间物",
+    classification: "核苷酸中间物：PRA 的氨基接上甘氨酸。",
+    structure: "PRA 的氨基与甘氨酸的羧基缩合成酰胺键，甘氨酸的碳与氮都进入嘌呤环。",
+    position: {
+      title: "它在 pur-3 生成，在 pur-4 接甲酰基",
+      body: "嘌呤图第 3 步由甘氨酰胺核苷酸合成酶（GARS）把甘氨酸整分子接到 PRA 上，消耗 ATP；第 4 步由 GART 把 10-甲酰THF 的甲酰基转到 GAR 上，生成 FGAR。",
+    },
+    flow: {
+      title: "它从 PRA 与甘氨酸来，往 FGAR 去",
+      body: "来路：PRA + 甘氨酸 + ATP。去向：pur-4 甲酰化成 FGAR；甘氨酸的 C 与 N 随后成为嘌呤环的 C4、C5 与 N7。",
+    },
+    significance: {
+      title: "甘氨酸一次提供三个环原子",
+      body: "嘌呤环的 C4、C5、N7 来自甘氨酸整分子，这是嘌呤原子来源表的常考点；GAR 就是这一步完成后的状态。",
+    },
+    exam: {
+      title: "考点是甘氨酸贡献的原子",
+      items: [
+        "甘氨酸整分子进入，贡献 C4、C5 与 N7。",
+        "这一步消耗 ATP，不是单纯缩合。",
+        "下一个甲酰基来自 10-甲酰THF，不是 SAM。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-3：GARS 接甘氨酸", href: "/pathway/purine?step=pur-3" },
+      { label: "嘌呤 pur-4：GART 转甲酰基", href: "/pathway/purine?step=pur-4" },
+    ],
+    sources: [
+      "purine.json · steps[pur-3].equation / enzyme",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "接上甘氨酸的核苷酸", highlight: "嘌呤环的甘氨酸片段" },
+  },
+
+  fgar: {
+    id: "fgar",
+    name: "甲酰甘氨酰胺核苷酸",
+    aliases: ["FGAR", "formylglycinamide ribonucleotide"],
+    claim: "FGAR 是 GAR 接上甲酰基后的中间物",
+    classification: "核苷酸中间物：GAR 的氨基被甲酰化。",
+    structure: "GAR 的甘氨酸氨基上多一个甲酰基，来自 10-甲酰THF。",
+    position: {
+      title: "它在 pur-4 生成，在 pur-5 补脒基氮",
+      body: "嘌呤图第 4 步由 GART 把 10-甲酰THF 的甲酰基转给 GAR，生成 FGAR 并释放 THF；第 5 步由 FGAMS（PFAS）用谷氨酰胺补上脒基氮，生成 FGAM。",
+    },
+    flow: {
+      title: "它从 GAR 与 10-甲酰THF 来，往 FGAM 去",
+      body: "来路：GAR + 10-甲酰THF。去向：pur-5 用谷氨酰胺与 ATP 补上脒基氮；这个甲酰基后来成为嘌呤环的 C8。",
+    },
+    significance: {
+      title: "这里引入第一个一碳单位",
+      body: "嘌呤环的 C8 来自 10-甲酰THF；FGAR 就是这一步一碳单位已经装上的状态，把一碳代谢与嘌呤合成接在一起。",
+    },
+    exam: {
+      title: "考点是一碳单位进入的位置",
+      items: [
+        "这个甲酰基来自 10-甲酰THF，最终成为嘌呤环的 C8。",
+        "GART 是双功能酶，还负责后面的 AICAR 甲酰转移。",
+        "下一步补的是脒基氮，来自谷氨酰胺。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-4：GART 转甲酰基", href: "/pathway/purine?step=pur-4" },
+      { label: "嘌呤 pur-5：FGAMS 补脒基氮", href: "/pathway/purine?step=pur-5" },
+    ],
+    sources: [
+      "purine.json · steps[pur-4].equation / enzyme",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "接上甲酰基的中间物", highlight: "甲酰基来自10-甲酰THF" },
+  },
+
+  fgam: {
+    id: "fgam",
+    name: "甲酰甘氨脒核苷酸",
+    aliases: ["FGAM", "formylglycinamidine ribonucleotide"],
+    claim: "FGAM 是补上脒基氮后的嘌呤中间物，随即闭环",
+    classification: "核苷酸中间物：FGAR 的氧被脒基氮取代。",
+    structure: "FGAR 的酰胺氧换成脒基氮，多一个氮原子；这个氮成为嘌呤环的 N3。",
+    position: {
+      title: "它在 pur-5 生成，在 pur-6 闭环",
+      body: "嘌呤图第 5 步由甲酰甘氨酰胺核苷酸合成酶（FGAMS / PFAS）用谷氨酰胺的酰胺氮与 ATP 生成 FGAM；第 6 步由 AIRS 闭环生成 5-氨基咪唑核苷酸。",
+    },
+    flow: {
+      title: "它从 FGAR 与谷氨酰胺来，往 AIR 去",
+      body: "来路：FGAR + 谷氨酰胺 + ATP。去向：pur-6 消耗 ATP 闭环成 AIR，嘌呤的五元咪唑环在这里形成。",
+    },
+    significance: {
+      title: "第二个谷氨酰胺氮进入嘌呤环",
+      body: "嘌呤环的 N3 来自这一步的谷氨酰胺；FGAM 是闭环前最后一个开链中间物。",
+    },
+    exam: {
+      title: "考点是第二个谷氨酰胺氮",
+      items: [
+        "FGAM 的脒基氮来自谷氨酰胺，成为嘌呤环的 N3。",
+        "下一步闭环形成五元咪唑环，不是六元环。",
+        "这一步与 pur-2 都消耗谷氨酰胺，但接入位置不同。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-5：FGAMS 补脒基氮", href: "/pathway/purine?step=pur-5" },
+      { label: "嘌呤 pur-6：AIRS 闭环", href: "/pathway/purine?step=pur-6" },
+    ],
+    sources: [
+      "purine.json · steps[pur-5].equation / enzyme",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "补上脒基氮的中间物", highlight: "谷氨酰胺供这个氮" },
+  },
+
+  air: {
+    id: "air",
+    name: "5-氨基咪唑核苷酸",
+    aliases: ["AIR", "5-aminoimidazole ribonucleotide"],
+    claim: "AIR 是嘌呤五元咪唑环闭合后的第一个环状中间物",
+    classification: "核苷酸中间物：咪唑环已闭合，仍缺六元环部分。",
+    structure: "核糖上已形成五元咪唑环，带一个氨基；六元嘧啶环尚未补齐。",
+    position: {
+      title: "它在 pur-6 闭环，在 pur-7 羧化",
+      body: "嘌呤图第 6 步由 AIRS 消耗 ATP 闭环生成 AIR；第 7 步由 AIRC 用 CO₂ 羧化 AIR，生成 CAIR。",
+    },
+    flow: {
+      title: "它从 FGAM 来，往 CAIR 去",
+      body: "来路：FGAM 闭环。去向：pur-7 羧化引入嘌呤环的 C6；此后还要接天冬氨酸并补第二个甲酰基。",
+    },
+    significance: {
+      title: "嘌呤的两个环不是同时形成的",
+      body: "AIR 只有五元咪唑环，六元环要到后面才补齐；把 AIR 说成「嘌呤环已形成」会漏掉后续几步。",
+    },
+    exam: {
+      title: "考点是环形成的顺序",
+      items: [
+        "AIR 只有咪唑环，六元环尚未闭合。",
+        "下一步羧化引入 C6，来自 CO₂。",
+        "闭环这一步消耗 ATP。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-6：AIRS 闭环", href: "/pathway/purine?step=pur-6" },
+      { label: "嘌呤 pur-7：AIRC 羧化", href: "/pathway/purine?step=pur-7" },
+    ],
+    sources: [
+      "purine.json · steps[pur-6].equation / enzyme",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "嘌呤五元环已闭合", highlight: "还差羧化与天冬氨酸" },
+  },
+
+  cair: {
+    id: "cair",
+    name: "5-氨基咪唑-4-羧酸核苷酸",
+    aliases: ["CAIR", "5-aminoimidazole-4-carboxylate ribonucleotide"],
+    claim: "CAIR 是 AIR 羧化后的中间物，紧接着接上天冬氨酸",
+    classification: "核苷酸中间物：咪唑环上多一个羧基。",
+    structure: "AIR 的咪唑环 C4 位接上羧基，这个碳成为嘌呤环的 C6。",
+    position: {
+      title: "它在 pur-7 生成，在 pur-8 接天冬氨酸",
+      body: "嘌呤图第 7 步由 AIRC 用 CO₂ 羧化 AIR；第 8 步由 SAICAR 合成酶把天冬氨酸接到 CAIR 上，消耗 ATP，生成 SAICAR。",
+    },
+    flow: {
+      title: "它从 AIR 与 CO₂ 来，往 SAICAR 去",
+      body: "来路：AIR + CO₂。去向：pur-8 接天冬氨酸，天冬氨酸的氨基成为嘌呤环的 N1。",
+    },
+    significance: {
+      title: "羧化把六元环的碳补上",
+      body: "嘌呤环的 C6 来自 CO₂；没有这一步羧化，后面的天冬氨酸与甲酰基都无处可接。",
+    },
+    exam: {
+      title: "考点是 CO₂ 与天冬氨酸的分工",
+      items: [
+        "CAIR 的羧基来自 CO₂，成为嘌呤环的 C6。",
+        "下一步天冬氨酸的氨基成为嘌呤环的 N1。",
+        "羧化不消耗 ATP，接天冬氨酸才消耗 ATP。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-7：AIRC 羧化", href: "/pathway/purine?step=pur-7" },
+      { label: "嘌呤 pur-8：SAICAR 合成酶", href: "/pathway/purine?step=pur-8" },
+    ],
+    sources: [
+      "purine.json · steps[pur-7].equation / enzyme",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "羧化后的咪唑核苷酸", highlight: "天冬氨酸接在它上面" },
+  },
+
+  saicar: {
+    id: "saicar",
+    name: "腺苷酸琥珀酸甲酰胺核苷酸",
+    aliases: ["SAICAR", "phosphoribosylaminoimidazole-succinocarboxamide"],
+    claim: "SAICAR 是天冬氨酸接入后的嘌呤中间物，裂解即释放延胡索酸",
+    classification: "核苷酸中间物：CAIR 接上天冬氨酸形成的琥珀酸衍生物。",
+    structure: "咪唑环上接一条天冬氨酸来源的琥珀酸侧链，随后裂解把延胡索酸带走。",
+    position: {
+      title: "它在 pur-8 生成，在 pur-9 裂解",
+      body: "嘌呤图第 8 步由 SAICAR 合成酶把天冬氨酸接到 CAIR 上；第 9 步由腺苷酸琥珀酸裂解酶（ADSL）裂解 SAICAR，释放延胡索酸，生成 AICAR。",
+    },
+    flow: {
+      title: "它从 CAIR 与天冬氨酸来，往 AICAR 与延胡索酸去",
+      body: "来路：CAIR + 天冬氨酸 + ATP。去向：pur-9 裂解，天冬氨酸的碳骨架以延胡索酸形式离开，剩下的氨基留在嘌呤环里成为 N1。",
+    },
+    significance: {
+      title: "延胡索酸从这里第一次离开嘌呤通路",
+      body: "嘌呤合成两次接入天冬氨酸、两次以延胡索酸形式释放碳骨架；SAICAR 是第一次，第二次在 AMP 分支的腺苷酸琥珀酸。",
+    },
+    exam: {
+      title: "考点是延胡索酸释放的位置",
+      items: [
+        "SAICAR 裂解释放延胡索酸，保留的氨基成为嘌呤环 N1。",
+        "ADSL 在 pur-9 与 pur-13 是同一个酶。",
+        "这一步不消耗 ATP，裂解本身放能。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-8：SAICAR 合成酶", href: "/pathway/purine?step=pur-8" },
+      { label: "嘌呤 pur-9：ADSL 裂解", href: "/pathway/purine?step=pur-9" },
+    ],
+    sources: [
+      "purine.json · steps[pur-8].equation / enzyme",
+      "purine.json · steps[pur-9].equation / significance",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "带琥珀酸的天冬氨酸产物", highlight: "裂解就放延胡索酸" },
+  },
+
+  aicar: {
+    id: "aicar",
+    name: "5-氨基咪唑-4-甲酰胺核苷酸",
+    aliases: ["AICAR", "ZMP", "aminoimidazole carboxamide ribonucleotide"],
+    claim: "AICAR 是第二个甲酰基的受体，嘌呤骨架到此已基本完整",
+    classification: "核苷酸中间物：咪唑环上带甲酰胺基。",
+    structure: "咪唑环 C4 位是甲酰胺基；再补一个来自 10-甲酰THF 的甲酰基即可闭环。",
+    position: {
+      title: "它在 pur-9 生成，在 pur-10 接第二个甲酰基",
+      body: "嘌呤图第 9 步由 ADSL 裂解 SAICAR 生成 AICAR；第 10 步由 ATIC 把 10-甲酰THF 的甲酰基转到 AICAR 上，生成 FAICAR。",
+    },
+    flow: {
+      title: "它从 SAICAR 来，往 FAICAR 去",
+      body: "来路：SAICAR 裂解，延胡索酸离开。去向：pur-10 接第二个甲酰基；这个甲酰基成为嘌呤环的 C2。",
+    },
+    significance: {
+      title: "第二个一碳单位在这里进入",
+      body: "嘌呤环的 C2 来自这一次 10-甲酰THF 转移；AICAR 的核糖衍生物（ZMP）还是 AMP 依赖蛋白激酶的调节物，本平台不展开。",
+    },
+    exam: {
+      title: "考点是第二个甲酰基的来源",
+      items: [
+        "第二个甲酰基来自 10-甲酰THF，成为嘌呤环的 C2。",
+        "ATIC 是双功能酶，既转甲酰基又催化闭环。",
+        "AICAR 不是最终产物，还差一次闭环。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-9：ADSL 裂解 SAICAR", href: "/pathway/purine?step=pur-9" },
+      { label: "嘌呤 pur-10：ATIC 转第二个甲酰基", href: "/pathway/purine?step=pur-10" },
+    ],
+    sources: [
+      "purine.json · steps[pur-9].equation",
+      "purine.json · steps[pur-10].equation / enzyme",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "第二个甲酰基的受体", highlight: "嘌呤骨架已基本完整" },
+  },
+
+  faicar: {
+    id: "faicar",
+    name: "5-甲酰胺基咪唑-4-甲酰胺核苷酸",
+    aliases: ["FAICAR", "formyl-AICAR"],
+    claim: "FAICAR 是嘌呤闭环前的最后一个开链中间物",
+    classification: "核苷酸中间物：AICAR 再接一个甲酰基。",
+    structure: "咪唑环上同时带甲酰胺基与甲酰基，两者缩合脱水即闭合六元环。",
+    position: {
+      title: "它在 pur-10 生成，在 pur-11 闭环成 IMP",
+      body: "嘌呤图第 10 步由 ATIC 把甲酰基转给 AICAR 生成 FAICAR；第 11 步由同一双功能酶的环水解酶活性脱水闭环，生成 IMP。",
+    },
+    flow: {
+      title: "它从 AICAR 来，往 IMP 去",
+      body: "来路：AICAR + 10-甲酰THF。去向：pur-11 脱水闭环成 IMP，水是产物；IMP 是嘌呤核苷酸的中心节点。",
+    },
+    significance: {
+      title: "嘌呤从头合成在这里收口",
+      body: "FAICAR 闭环后得到第一个完整嘌呤核苷酸 IMP；此后 IMP 分叉成 AMP 与 GMP 两条支路。",
+    },
+    exam: {
+      title: "考点是闭环与水的去向",
+      items: [
+        "FAICAR → IMP + H₂O：水是产物，不是底物。",
+        "闭环与上一步甲酰转移都由 ATIC 一个双功能酶完成。",
+        "IMP 是中心节点，不是最终产物。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-10：ATIC 转甲酰基", href: "/pathway/purine?step=pur-10" },
+      { label: "嘌呤 pur-11：闭环生成 IMP", href: "/pathway/purine?step=pur-11" },
+    ],
+    sources: [
+      "purine.json · steps[pur-10].equation",
+      "purine.json · steps[pur-11].equation / enzyme",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "闭环前的最后一个中间物", highlight: "脱水即成IMP" },
+  },
+
+  imp: {
+    id: "imp",
+    name: "次黄苷酸",
+    aliases: ["IMP", "inosine monophosphate", "次黄嘌呤核苷酸"],
+    claim: "IMP 是嘌呤核苷酸代谢的中心节点，分叉成 AMP 与 GMP",
+    classification: "嘌呤核苷酸：次黄嘌呤接核糖-5-磷酸。",
+    structure: "次黄嘌呤碱基（C6 位是羰基）接核糖-5-磷酸；它是 AMP 与 GMP 的共同前体。",
+    position: {
+      title: "它在 pur-11 生成，分出 AMP 与 GMP 两条支路",
+      body: "嘌呤图第 11 步闭环生成 IMP；第 12 步 ADSS 用天冬氨酸与 GTP 把 IMP 变成腺苷酸琥珀酸，第 13 步裂解成 AMP；第 14 步 IMPDH 氧化 IMP 成 XMP，第 15 步 GMPS 把 XMP 变成 GMP。",
+    },
+    flow: {
+      title: "它从 FAICAR 来，往 AMP、GMP 与补救合成去",
+      body: "来路：pur-11 闭环。去向：① 经腺苷酸琥珀酸生成 AMP（pur-12、pur-13）；② 经 XMP 生成 GMP（pur-14、pur-15）；③ 补救合成重新利用。AMP 与 GMP 反馈抑制 PRPP 合成酶。",
+    },
+    significance: {
+      title: "IMP 是两条嘌呤支路的分岔点",
+      body: "把 IMP 当成「嘌呤的最终产物」会漏掉 AMP 与 GMP 两条支路；两条支路各消耗一个天冬氨酸或谷氨酰胺，并分别以延胡索酸、NADH 为副产物。",
+    },
+    exam: {
+      title: "考点是分叉与两条支路的差别",
+      items: [
+        "IMP → AMP 用天冬氨酸与 GTP，经腺苷酸琥珀酸中间物。",
+        "IMP → GMP 先经 NAD⁺ 氧化成 XMP，再用谷氨酰胺的酰胺氮。",
+        "AMP 与 GMP 都反馈抑制 PRPP 合成酶，而不是只抑制 IMP 之后的步骤。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-11：闭环生成 IMP", href: "/pathway/purine?step=pur-11" },
+      { label: "嘌呤 pur-12：AMP 分支起点", href: "/pathway/purine?step=pur-12" },
+      { label: "嘌呤 pur-14：GMP 分支起点", href: "/pathway/purine?step=pur-14" },
+    ],
+    sources: [
+      "purine.json · steps[pur-11].equation",
+      "purine.json · steps[pur-12].equation / steps[pur-14].equation",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "嘌呤核苷酸的中心节点", highlight: "分叉成AMP与GMP" },
+  },
+
+  asuc: {
+    id: "asuc",
+    name: "腺苷酸琥珀酸",
+    aliases: ["adenylosuccinate", "S-AMP", "腺苷酸代琥珀酸"],
+    claim: "腺苷酸琥珀酸是 IMP 走向 AMP 的中间物",
+    classification: "嘌呤核苷酸中间物：IMP 接上天冬氨酸。",
+    structure: "IMP 的 C6 位接上一条天冬氨酸来源的琥珀酸侧链；裂解后留下氨基成为 AMP 的 C6-NH₂。",
+    position: {
+      title: "它在 pur-12 生成，在 pur-13 裂解成 AMP",
+      body: "嘌呤图第 12 步由腺苷酸琥珀酸合成酶（ADSS）用天冬氨酸与 GTP 把 IMP 变成腺苷酸琥珀酸；第 13 步由 ADSL 裂解释放延胡索酸，生成 AMP。",
+    },
+    flow: {
+      title: "它从 IMP 与天冬氨酸来，往 AMP 与延胡索酸去",
+      body: "来路：IMP + 天冬氨酸 + GTP。去向：pur-13 裂解成 AMP + 延胡索酸；AMP 再经激酶磷酸化成 ADP / ATP。",
+    },
+    significance: {
+      title: "第二次以延胡索酸形式释放碳骨架",
+      body: "嘌呤合成两次用天冬氨酸、两次释放延胡索酸：第一次在 SAICAR（pur-9），第二次就是这里的腺苷酸琥珀酸（pur-13）。",
+    },
+    exam: {
+      title: "考点是 AMP 分支的两个反应",
+      items: [
+        "IMP → 腺苷酸琥珀酸消耗 GTP，不是 ATP。",
+        "ADSL 在 pur-9 与 pur-13 是同一个酶。",
+        "裂解产物是 AMP 与延胡索酸，不是 AMP 与天冬氨酸。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-12：ADSS 合成腺苷酸琥珀酸", href: "/pathway/purine?step=pur-12" },
+      { label: "嘌呤 pur-13：ADSL 裂解成 AMP", href: "/pathway/purine?step=pur-13" },
+    ],
+    sources: [
+      "purine.json · steps[pur-12].equation / enzyme",
+      "purine.json · steps[pur-13].equation / note",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "腺嘌呤分支的中间物", highlight: "裂解出AMP与延胡索酸" },
+  },
+
+  xmp: {
+    id: "xmp",
+    name: "黄苷酸",
+    aliases: ["XMP", "xanthosine monophosphate", "黄嘌呤核苷酸"],
+    claim: "XMP 是 GMP 分支的氧化中间物",
+    classification: "嘌呤核苷酸：黄嘌呤接核糖-5-磷酸。",
+    structure: "黄嘌呤碱基（C2 位是羰基、C6 位也是羰基）接核糖-5-磷酸；C2 位换成氨基才是 GMP。",
+    position: {
+      title: "它在 pur-14 由 IMP 氧化生成，在 pur-15 氨基化成 GMP",
+      body: "嘌呤图第 14 步由 IMP 脱氢酶（IMPDH）用 NAD⁺ 把 IMP 氧化成 XMP，释放 NADH 与 H⁺；第 15 步由 GMP 合成酶用谷氨酰胺的酰胺氮与 ATP 把 XMP 变成 GMP。",
+    },
+    flow: {
+      title: "它从 IMP 来，往 GMP 去",
+      body: "来路：IMP + NAD⁺ + H₂O，经 IMPDH。去向：pur-15 用谷氨酰胺的酰胺氮替换 C2 羰基氧，生成 GMP；IMPDH 是嘌呤合成的调控点之一，受 GMP 反馈抑制。",
+    },
+    significance: {
+      title: "XMP 是 GMP 分支的必经中间物",
+      body: "IMP 不能直接变成 GMP：必须先氧化成 XMP，再把 C2 位的氧换成氨基；把两步合并会漏掉 NADH 的生成与 IMPDH 的调控。",
+    },
+    exam: {
+      title: "考点是 GMP 分支的两步",
+      items: [
+        "IMP → XMP 由 IMPDH 催化，电子受体是 NAD⁺，产物带 NADH 与 H⁺。",
+        "XMP → GMP 的氨基来自谷氨酰胺，不是游离 NH₃。",
+        "GMP 反馈抑制 IMPDH，AMP 不抑制这一步。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-14：IMPDH 氧化 IMP", href: "/pathway/purine?step=pur-14" },
+      { label: "嘌呤 pur-15：GMPS 生成 GMP", href: "/pathway/purine?step=pur-15" },
+    ],
+    sources: [
+      "purine.json · steps[pur-14].equation / enzyme",
+      "purine.json · steps[pur-15].equation / enzyme",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "GMP分支的氧化中间物", highlight: "酰胺氮换上才成GMP" },
+  },
+
+  gmp: {
+    id: "gmp",
+    name: "鸟苷一磷酸",
+    aliases: ["GMP", "guanosine monophosphate", "鸟苷酸"],
+    claim: "GMP 是嘌呤合成的另一终点，反馈抑制 PRPP 合成酶与 IMPDH",
+    classification: "嘌呤核苷酸：鸟嘌呤接核糖-5-磷酸。",
+    structure: "鸟嘌呤碱基（C2 位是氨基、C6 位是羰基）接核糖-5-磷酸。",
+    position: {
+      title: "它在 pur-15 生成，是 GMP 分支的终点",
+      body: "嘌呤图第 15 步由 GMP 合成酶（GMPS）用谷氨酰胺的酰胺氮与 ATP 把 XMP 变成 GMP，同时释放 AMP 与 PPi；GMP 再经激酶磷酸化成 GDP / GTP。",
+    },
+    flow: {
+      title: "它从 XMP 来，往 GDP、GTP 与核酸去",
+      body: "来路：XMP + 谷氨酰胺 + ATP。去向：磷酸化成 GDP / GTP，用于 RNA 合成、GTP 结合蛋白与核酸；GMP 反馈抑制 PRPP 合成酶，GMP 也抑制 IMPDH。",
+    },
+    significance: {
+      title: "它与 AMP 一起把嘌呤池控制在合适比例",
+      body: "AMP 与 GMP 分别反馈抑制 PRPP 合成酶，GMP 还额外抑制 IMPDH；这种交叉调控让两条支路的产物比例保持平衡。",
+    },
+    exam: {
+      title: "考点是反馈调控的层次",
+      items: [
+        "GMP 反馈抑制 PRPP 合成酶与 IMPDH，AMP 只抑制前者。",
+        "GMP 合成的氨基来自谷氨酰胺，不是天冬氨酸。",
+        "嘌呤合成的终产物是 IMP、AMP、GMP 三种核苷酸，不是只有 GMP。",
+      ],
+    },
+    pathways: [
+      { label: "嘌呤 pur-15：GMPS 生成 GMP", href: "/pathway/purine?step=pur-15" },
+    ],
+    sources: [
+      "purine.json · steps[pur-15].equation / significance",
+      "《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）",
+    ],
+    bubble: { what: "鸟嘌呤核苷酸", highlight: "反馈抑制PRPP合成" },
+  },
+
+  lpa: {
+    id: "lpa",
+    name: "溶血磷脂酸",
+    aliases: ["LPA", "lysophosphatidic acid"],
+    claim: "溶血磷脂酸是甘油磷脂合成的第一个中间物，也是信号分子",
+    classification: "单酰基甘油磷脂酸：甘油骨架上只带一条脂酰链。",
+    structure: "甘油-3-磷酸的 C1 位接一条脂酰链，C2 位仍游离，因此只有一个疏水尾巴。",
+    position: {
+      title: "它在 gpl-1 生成，在 gpl-2 被酰化成磷脂酸",
+      body: "甘油磷脂图第 1 步由甘油-3-磷酸酰基转移酶（GPAT）把脂酰CoA 接到 G3P 上生成 LPA；第 2 步由 AGPAT 在 C2 位再酰化，生成磷脂酸。",
+    },
+    flow: {
+      title: "它从 G3P 与脂酰CoA 来，往磷脂酸去",
+      body: "来路：G3P + 脂酰CoA，释放 CoA。去向：AGPAT 酰化成 PA（gpl-2）；游离 LPA 还通过 G 蛋白偶联受体发挥信号作用，本平台不展开。",
+    },
+    significance: {
+      title: "它是 Kennedy 途径的起点中间物",
+      body: "LPA 只有一个脂酰链，水溶性比 PA 好；它既是合成中间物，也是细胞外信号分子，本图只画合成角色。",
+    },
+    exam: {
+      title: "考点是酰化次数与产物顺序",
+      items: [
+        "G3P 先酰化成 LPA，再酰化成 PA，两步都由酰基转移酶催化。",
+        "LPA 只有一个脂酰链，PA 有两个。",
+        "LPA 也是信号分子，但本图只把它当中间物。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-1：GPAT 生成 LPA", href: "/pathway/glycerophospholipid?step=gpl-1" },
+      { label: "甘油磷脂 gpl-2：AGPAT 酰化成 PA", href: "/pathway/glycerophospholipid?step=gpl-2" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-1].equation / steps[gpl-2].equation",
+      "glycerophospholipid.json · entities[lpa].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "单酰基的磷脂酸", highlight: "既是中间物也是信号" },
+  },
+
+  pa: {
+    id: "pa",
+    name: "磷脂酸",
+    aliases: ["PA", "phosphatidic acid", "磷脂酸"],
+    claim: "磷脂酸是甘油磷脂合成的中心分岔点",
+    classification: "二酰基甘油磷脂酸：甘油骨架带两条脂酰链与一个磷酸。",
+    structure: "甘油骨架的 C1、C2 位各接一条脂酰链，C3 位接磷酸；两条疏水尾巴使它偏好膜相。",
+    position: {
+      title: "它在 gpl-2 生成，可水解成 DAG 或活化成 CDP-DAG",
+      body: "甘油磷脂图第 2 步 AGPAT 生成 PA；第 3 步 CDS 用 CTP 把它活化成 CDP-DAG，第 4 步磷脂酸磷酸酶把它水解成 DAG，两条支路分别走向不同头基。",
+    },
+    flow: {
+      title: "它从 LPA 来，往 CDP-DAG 与 DAG 去",
+      body: "来路：LPA + 脂酰CoA。去向：① CDS 活化生成 CDP-DAG（gpl-3），供 PI、PS、PG、CL 合成；② PAP 水解成 DAG（gpl-4），供 PC、PE 合成。",
+    },
+    significance: {
+      title: "PA 的分配决定两条头基支路",
+      body: "同一份 PA 既可以活化成 CDP-DAG，也可以水解成 DAG；两条支路的相对通量决定细胞造哪一类磷脂。",
+    },
+    exam: {
+      title: "考点是 PA 的两个去向",
+      items: [
+        "PA → CDP-DAG 由 CDS 催化，消耗 CTP。",
+        "PA → DAG 由磷脂酸磷酸酶催化，释放 Pi。",
+        "PA 是中心分岔点，不是某一条支路的专属中间物。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-2：AGPAT 生成 PA", href: "/pathway/glycerophospholipid?step=gpl-2" },
+      { label: "甘油磷脂 gpl-3：CDS 活化成 CDP-DAG", href: "/pathway/glycerophospholipid?step=gpl-3" },
+      { label: "甘油磷脂 gpl-4：PAP 水解成 DAG", href: "/pathway/glycerophospholipid?step=gpl-4" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-3].equation / steps[gpl-4].equation",
+      "glycerophospholipid.json · entities[pa].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "甘油磷脂的中心分岔点", highlight: "水解成DAG或活化" },
+  },
+
+  dag: {
+    id: "dag",
+    name: "二酰甘油",
+    aliases: ["DAG", "diacylglycerol", "甘油二酯"],
+    claim: "DAG 是 Kennedy 途径的头基受体，也是 PKC 的第二信使",
+    classification: "中性脂：甘油骨架带两条脂酰链，不带磷酸。",
+    structure: "甘油骨架 C1、C2 位各接一条脂酰链，C3 位游离羟基等待头基转移。",
+    position: {
+      title: "它在 gpl-4 生成，在 gpl-5 与 gpl-6 接收头基",
+      body: "甘油磷脂图第 4 步磷脂酸磷酸酶把 PA 水解成 DAG；第 5、6 步分别由 CPT 与 EPT 把 CDP-胆碱、CDP-乙醇胺的磷酸头基转给 DAG，生成 PC 与 PE。",
+    },
+    flow: {
+      title: "它从 PA 来，往 PC 与 PE 去",
+      body: "来路：PA 水解，释放 Pi。去向：① CPT 生成 PC（gpl-5）；② EPT 生成 PE（gpl-6）；③ 作为第二信使激活 PKC，本平台不展开信号通路。",
+    },
+    significance: {
+      title: "DAG 是把头基装上骨架的受体",
+      body: "Kennedy 途径的核心就是 DAG + CDP-头基 → 磷脂 + CMP；把 DAG 只当信号分子，会漏掉它在磷脂合成中的中心位置。",
+    },
+    exam: {
+      title: "考点是 Kennedy 途径的三步",
+      items: [
+        "DAG 由 PA 水解生成，不直接来自 CDP-DAG。",
+        "CDP-胆碱与 CDP-乙醇胺分别把磷酸胆碱、磷酸乙醇胺转给 DAG。",
+        "反应释放 CMP，不是 CTP 或 PPi。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-4：PAP 生成 DAG", href: "/pathway/glycerophospholipid?step=gpl-4" },
+      { label: "甘油磷脂 gpl-5：CPT 生成 PC", href: "/pathway/glycerophospholipid?step=gpl-5" },
+      { label: "甘油磷脂 gpl-6：EPT 生成 PE", href: "/pathway/glycerophospholipid?step=gpl-6" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-4].equation / steps[gpl-5].equation",
+      "glycerophospholipid.json · entities[dag].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "Kennedy途径的头基受体", highlight: "也是PKC的第二信使" },
+  },
+
+  "cdp-dag": {
+    id: "cdp-dag",
+    name: "CDP-二酰甘油",
+    aliases: ["CDP-DAG", "CDP-diacylglycerol"],
+    claim: "CDP-DAG 是活化的磷脂酸，把 CMP 换下即可接上头基",
+    classification: "活化磷脂：PA 的磷酸基接上胞苷一磷酸。",
+    structure: "磷脂酸的磷酸基与 CMP 形成酸酐键，成为可转移的磷脂酰供体。",
+    position: {
+      title: "它在 gpl-3 生成，供 gpl-8、gpl-9、gpl-10 使用",
+      body: "甘油磷脂图第 3 步 CDS 用 CTP 把 PA 活化成 CDP-DAG；第 8 步 PIS 接肌醇生成 PI，第 9 步 PSS1 接丝氨酸生成 PS，第 10 步 PGPS 接 G3P 生成 PGP。",
+    },
+    flow: {
+      title: "它从 PA 与 CTP 来，往 PI、PS、PG 去",
+      body: "来路：PA + CTP，释放 PPi。去向：PIS（gpl-8）、PSS1（gpl-9）、PGPS（gpl-10）分别接肌醇、丝氨酸、G3P，每次都释放 CMP。",
+    },
+    significance: {
+      title: "它是 CDP-DAG 支路的共同活化形式",
+      body: "PI、PS、PG、CL 的合成都从 CDP-DAG 出发；把 CDP-DAG 与 DAG 混为一谈，会把两条头基支路接错。",
+    },
+    exam: {
+      title: "考点是 CDP-DAG 与 DAG 的分工",
+      items: [
+        "CDP-DAG 由 PA + CTP 生成，DAG 由 PA 水解生成。",
+        "CDP-DAG 接肌醇、丝氨酸或 G3P，DAG 接磷酸胆碱或磷酸乙醇胺。",
+        "头基转移后释放的都是 CMP。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-3：CDS 生成 CDP-DAG", href: "/pathway/glycerophospholipid?step=gpl-3" },
+      { label: "甘油磷脂 gpl-8：PIS 生成 PI", href: "/pathway/glycerophospholipid?step=gpl-8" },
+      { label: "甘油磷脂 gpl-10：PGPS 生成 PGP", href: "/pathway/glycerophospholipid?step=gpl-10" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-3].equation / steps[gpl-8].equation",
+      "glycerophospholipid.json · entities[cdp-dag].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "活化的磷脂酸", highlight: "把CMP换下接头基" },
+  },
+
+  pc: {
+    id: "pc",
+    name: "磷脂酰胆碱",
+    aliases: ["PC", "phosphatidylcholine", "卵磷脂"],
+    claim: "磷脂酰胆碱是含量最高的甘油磷脂",
+    classification: "甘油磷脂：DAG 接磷酸胆碱头基。",
+    structure: "二酰甘油骨架接磷酸胆碱，头基带正电荷的胆碱，整体呈两性。",
+    position: {
+      title: "它有 Kennedy 途径与 PEMT 两条来路",
+      body: "甘油磷脂图第 5 步 CPT 把 CDP-胆碱的磷酸胆碱转给 DAG 生成 PC；第 7 步 PEMT 用 SAM 把 PE 三次甲基化成 PC。第 15 步 SMS 又把 PC 的磷酸胆碱转给神经酰胺。",
+    },
+    flow: {
+      title: "它从 DAG 或 PE 来，往膜与鞘磷脂去",
+      body: "来路：DAG + CDP-胆碱（gpl-5），或 PE + 3 SAM（gpl-7）。去向：构成膜的主要磷脂；在 gpl-15 把磷酸胆碱供给神经酰胺，生成鞘磷脂。",
+    },
+    significance: {
+      title: "PC 既是膜主体，也是鞘磷脂的头基来源",
+      body: "PC 占膜磷脂的很大比例；它同时是 PEMT 的产物与 SMS 的供体，把甘油磷脂与鞘脂两条线连在一起。",
+    },
+    exam: {
+      title: "考点是两条合成路线",
+      items: [
+        "Kennedy 途径：DAG + CDP-胆碱 → PC + CMP。",
+        "PEMT 路线：PE + 3 SAM → PC + 3 SAH。",
+        "SMS 用 PC 作磷酸胆碱供体生成鞘磷脂。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-5：CPT 生成 PC", href: "/pathway/glycerophospholipid?step=gpl-5" },
+      { label: "甘油磷脂 gpl-7：PEMT 甲基化生成 PC", href: "/pathway/glycerophospholipid?step=gpl-7" },
+      { label: "甘油磷脂 gpl-15：SMS 生成鞘磷脂", href: "/pathway/glycerophospholipid?step=gpl-15" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-5].equation / steps[gpl-7].equation",
+      "glycerophospholipid.json · steps[gpl-15].equation",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "含量最高的甘油磷脂", highlight: "Kennedy或PEMT都能造" },
+  },
+
+  pe: {
+    id: "pe",
+    name: "磷脂酰乙醇胺",
+    aliases: ["PE", "phosphatidylethanolamine", "脑磷脂"],
+    claim: "PE 是 Kennedy 途径的产物，也是 PEMT 的甲基化底物",
+    classification: "甘油磷脂：DAG 接磷酸乙醇胺头基。",
+    structure: "二酰甘油骨架接磷酸乙醇胺，头基比胆碱少三个甲基。",
+    position: {
+      title: "它在 gpl-6 生成，在 gpl-7 被三次甲基化成 PC",
+      body: "甘油磷脂图第 6 步 EPT 把 CDP-乙醇胺的磷酸乙醇胺转给 DAG 生成 PE；第 7 步 PEMT 用 SAM 在头基上连续加三个甲基，生成 PC。",
+    },
+    flow: {
+      title: "它从 DAG 与 CDP-乙醇胺来，往 PC 去",
+      body: "来路：DAG + CDP-乙醇胺（gpl-6）。去向：PEMT 三次甲基化成 PC（gpl-7）；PS 脱羧回 PE 的支路本图不单列。",
+    },
+    significance: {
+      title: "PE 是膜内叶与 PC 之间的甲基化前体",
+      body: "PE 的头基小、易形成负曲率，富集在膜内叶；PEMT 把 PE 变成 PC 是肝细胞补充 PC 的重要路线。",
+    },
+    exam: {
+      title: "考点是甲基化次数",
+      items: [
+        "PEMT 需要三个 SAM，生成三个 SAH 与一个 PC。",
+        "PE 由 EPT 从 DAG 与 CDP-乙醇胺生成。",
+        "PE 与 PC 的差别只在头基的三个甲基。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-6：EPT 生成 PE", href: "/pathway/glycerophospholipid?step=gpl-6" },
+      { label: "甘油磷脂 gpl-7：PEMT 把 PE 甲基化成 PC", href: "/pathway/glycerophospholipid?step=gpl-7" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-6].equation / steps[gpl-7].equation",
+      "glycerophospholipid.json · entities[pe].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "Kennedy途径的产物", highlight: "PEMT的甲基化底物" },
+  },
+
+  ps: {
+    id: "ps",
+    name: "磷脂酰丝氨酸",
+    aliases: ["PS", "phosphatidylserine"],
+    claim: "PS 由 CDP-DAG 接丝氨酸生成",
+    classification: "甘油磷脂：DAG 接丝氨酸头基。",
+    structure: "磷脂酸的磷酸基接丝氨酸的羟基，头基同时带氨基与羧基。",
+    position: {
+      title: "它在 gpl-9 生成",
+      body: "甘油磷脂图第 9 步由磷脂酰丝氨酸合成酶 1（PSS1）把丝氨酸接到 CDP-DAG 上，生成 PS 并释放 CMP；丝氨酸由氨基酸图 aa-7 的池供给。",
+    },
+    flow: {
+      title: "它从 CDP-DAG 与丝氨酸来，往膜与 PE 去",
+      body: "来路：CDP-DAG + 丝氨酸（gpl-9）。去向：构成膜磷脂；PS 脱羧生成 PE 的支路本图不单列；PS 外翻是凋亡信号，本平台不展开。",
+    },
+    significance: {
+      title: "PS 把丝氨酸代谢与磷脂合成接在一起",
+      body: "PSS1 直接使用游离丝氨酸，因此丝氨酸供给会影响 PS 合成；PS 也是线粒体膜与凋亡信号的重要成分。",
+    },
+    exam: {
+      title: "考点是头基来源",
+      items: [
+        "PS 的头基来自丝氨酸，不是乙醇胺。",
+        "PSS1 用 CDP-DAG 作活化供体，释放 CMP。",
+        "PS 脱羧可生成 PE，但本图不单列这一步。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-9：PSS1 生成 PS", href: "/pathway/glycerophospholipid?step=gpl-9" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-9].equation / enzyme",
+      "glycerophospholipid.json · interfaces 第 2 条（丝氨酸池）",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "CDP-DAG接丝氨酸的产物", highlight: "头基同时带氨基与羧基" },
+  },
+
+  "pi-lipid": {
+    id: "pi-lipid",
+    name: "磷脂酰肌醇",
+    aliases: ["PI", "phosphatidylinositol"],
+    claim: "磷脂酰肌醇由 CDP-DAG 接肌醇生成，可进一步磷酸化成信号脂质",
+    classification: "甘油磷脂：DAG 接肌醇头基。",
+    structure: "磷脂酸的磷酸基接肌醇环的羟基；肌醇环可被磷酸化，生成 PIP、PIP2 等。",
+    position: {
+      title: "它在 gpl-8 生成",
+      body: "甘油磷脂图第 8 步由磷脂酰肌醇合成酶（PIS）把肌醇接到 CDP-DAG 上，生成 PI 并释放 CMP。",
+    },
+    flow: {
+      title: "它从 CDP-DAG 与肌醇来，往膜与磷酸化衍生物去",
+      body: "来路：CDP-DAG + 肌醇（gpl-8）。去向：构成膜磷脂；经激酶磷酸化成 PIP2 等信号脂质，本平台不展开。",
+    },
+    significance: {
+      title: "PI 是膜信号脂质的前体",
+      body: "PI 本身是结构磷脂，但它的磷酸化衍生物参与信号转导；本图只画 PIS 这一步，不展开激酶级联。",
+    },
+    exam: {
+      title: "考点是头基与活化供体",
+      items: [
+        "PI 的头基是肌醇，直接替换 CDP-DAG 上的 CMP。",
+        "PIS 不消耗 ATP，头基转移本身放能。",
+        "PI 可磷酸化成 PIP2，但本图不展开。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-8：PIS 生成 PI", href: "/pathway/glycerophospholipid?step=gpl-8" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-8].equation / enzyme",
+      "glycerophospholipid.json · entities[pi-lipid].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "肌醇头基的磷脂", highlight: "可磷酸化成PIP2" },
+  },
+
+  pg: {
+    id: "pg",
+    name: "磷脂酰甘油",
+    aliases: ["PG", "phosphatidylglycerol"],
+    claim: "PG 由 PGP 去磷酸生成，是心磷脂合成的底物",
+    classification: "甘油磷脂：DAG 接甘油头基。",
+    structure: "磷脂酸的磷酸基接甘油，头基带一个游离羟基。",
+    position: {
+      title: "它在 gpl-10 的第二步生成",
+      body: "甘油磷脂图第 10 步包含两个反应：PGPS 先把 G3P 接到 CDP-DAG 上生成 PGP，再由 PGP 磷酸酶水解成 PG；PG 进一步可生成心磷脂，本图只作 hub 注记。",
+    },
+    flow: {
+      title: "它从 PGP 来，往心磷脂去",
+      body: "来路：PGP + H₂O，经 PGP 磷酸酶释放 Pi。去向：作为心磷脂合成的底物；CLS 步骤本平台未建，只画 hub。",
+    },
+    significance: {
+      title: "PG 是心磷脂的直接前体",
+      body: "心磷脂由两分子 PG 与一分子 CDP-DAG 缩合而成；本图不建 CLS 步骤，但保留 PG → CL 的 hub 注记。",
+    },
+    exam: {
+      title: "考点是 gpl-10 是两个反应",
+      items: [
+        "PGPS 生成 PGP，PGP 磷酸酶生成 PG，两个酶不是同一个。",
+        "PG 是心磷脂的前体，但 CLS 步骤本平台未建。",
+        "PGP 磷酸酶水解释放 Pi，不释放 CMP。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-10：PGPS 与 PGP 磷酸酶", href: "/pathway/glycerophospholipid?step=gpl-10" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-10].equation / note",
+      "glycerophospholipid.json · entities[pg].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "PGP去磷酸的产物", highlight: "心磷脂合成的底物" },
+  },
+
+  pgp: {
+    id: "pgp",
+    name: "磷脂酰甘油磷酸",
+    aliases: ["PGP", "phosphatidylglycerol phosphate"],
+    claim: "PGP 是 PGPS 的产物，经磷酸酶水解成 PG",
+    classification: "甘油磷脂中间物：DAG 接甘油磷酸头基。",
+    structure: "磷脂酸的磷酸基接甘油-3-磷酸，头基比 PG 多一个磷酸。",
+    position: {
+      title: "它在 gpl-10 的第一步生成",
+      body: "甘油磷脂图第 10 步由磷脂酰甘油磷酸合成酶（PGPS）把 G3P 接到 CDP-DAG 上生成 PGP；同一步的 PGP 磷酸酶再把它水解成 PG。",
+    },
+    flow: {
+      title: "它从 CDP-DAG 与 G3P 来，往 PG 去",
+      body: "来路：CDP-DAG + G3P，释放 CMP。去向：PGP 磷酸酶水解，释放 Pi，生成 PG。",
+    },
+    significance: {
+      title: "它只是 PG 之前的一步",
+      body: "PGP 不带 CMP 就进入下一步水解；把 gpl-10 写成一步会漏掉两个不同的酶。",
+    },
+    exam: {
+      title: "考点是两个酶的分工",
+      items: [
+        "PGPS 用 CDP-DAG 与 G3P 生成 PGP。",
+        "PGP 磷酸酶把 PGP 水解成 PG。",
+        "第二步释放 Pi，不是 CMP。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-10：PGPS 与 PGP 磷酸酶", href: "/pathway/glycerophospholipid?step=gpl-10" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-10].equation / note",
+      "glycerophospholipid.json · entities[pgp].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "PGPS的产物", highlight: "经磷酸酶水解成PG" },
+  },
+
+  cl: {
+    id: "cl",
+    name: "心磷脂",
+    aliases: ["CL", "cardiolipin", "双磷脂酰甘油"],
+    claim: "心磷脂是线粒体内膜的特征磷脂",
+    classification: "双磷脂：两分子磷脂酸共用一分子甘油。",
+    structure: "两分子磷脂酸通过一分子甘油的 C1、C3 位相连，形成四个脂酰链与两个磷酸基。",
+    position: {
+      title: "它在 PG 之后生成，本图只作 hub 注记",
+      body: "本平台未建心磷脂合成酶（CLS）步骤，只在甘油磷脂图的 hub 处注明 PG → 心磷脂的去向，不伪造酶与反应式。",
+    },
+    flow: {
+      title: "它从 PG 来，往线粒体内膜去",
+      body: "来路：PG 与 CDP-DAG 缩合，经 CLS；本平台未建该步骤，只画 hub。去向：富集在线粒体内膜，参与呼吸链复合物组装，本平台不展开。",
+    },
+    significance: {
+      title: "它是本图唯一只作注记、不建步骤的脂质",
+      body: "心磷脂的合成涉及 CLS 与后续重塑，本平台按 2D 口径不展开；把 hub 注记当成完整步骤会误导读者。",
+    },
+    exam: {
+      title: "考点是它与 PG 的关系",
+      items: [
+        "心磷脂由两分子磷脂酸共用一分子甘油构成。",
+        "PG 是它的直接前体，但 CLS 步骤本平台未建。",
+        "心磷脂主要位于线粒体内膜。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-10：PG 的后续去向", href: "/pathway/glycerophospholipid?step=gpl-10" },
+    ],
+    sources: [
+      "glycerophospholipid.json · entities[cl].note",
+      "glycerophospholipid.json · steps[gpl-10].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "线粒体内膜的特征磷脂", highlight: "本图只作hub注记" },
+  },
+
+  kds: {
+    id: "kds",
+    name: "3-酮基二氢鞘氨醇",
+    aliases: ["KDS", "3-ketodihydrosphingosine", "3-酮基鞘氨醇"],
+    claim: "3-酮基二氢鞘氨醇是鞘脂合成的第一个中间物",
+    classification: "鞘氨醇衍生物：长链碱基的 C3 位是酮基。",
+    structure: "丝氨酸与棕榈酰CoA 缩合后形成的长链氨基酮，C3 位是酮基；下一步还原成羟基。",
+    position: {
+      title: "它在 gpl-11 生成，在 gpl-12 被还原",
+      body: "甘油磷脂图第 11 步由丝氨酸棕榈酰转移酶（SPT）把丝氨酸与棕榈酰CoA 缩合成 3-酮基二氢鞘氨醇，释放 CoA 与 CO₂；第 12 步由 KDSR 用 NADPH 还原成二氢鞘氨醇。",
+    },
+    flow: {
+      title: "它从丝氨酸与棕榈酰CoA 来，往二氢鞘氨醇去",
+      body: "来路：丝氨酸 + 棕榈酰CoA（gpl-11）。去向：KDSR 还原（gpl-12），C3 酮基变成羟基；SPT 是鞘脂合成的限速步。",
+    },
+    significance: {
+      title: "鞘脂的起点是丝氨酸而不是甘油",
+      body: "鞘脂骨架来自丝氨酸与棕榈酰CoA，不是甘油-3-磷酸；这是鞘脂与甘油磷脂最根本的分野。",
+    },
+    exam: {
+      title: "考点是鞘脂骨架的来源",
+      items: [
+        "鞘脂骨架由丝氨酸与棕榈酰CoA 缩合而成，不用甘油。",
+        "SPT 是限速步，产物 C3 位是酮基。",
+        "下一步由 KDSR 用 NADPH 还原成羟基。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-11：SPT 生成酮基中间物", href: "/pathway/glycerophospholipid?step=gpl-11" },
+      { label: "甘油磷脂 gpl-12：KDSR 还原", href: "/pathway/glycerophospholipid?step=gpl-12" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-11].equation / enzyme",
+      "glycerophospholipid.json · entities[kds].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（鞘脂的合成）",
+    ],
+    bubble: { what: "鞘脂合成的第一个中间物", highlight: "SPT缩合的产物" },
+  },
+
+  dhs: {
+    id: "dhs",
+    name: "二氢鞘氨醇",
+    aliases: ["dihydrosphingosine", "sphinganine", "鞘氨醇"],
+    claim: "二氢鞘氨醇是 KDSR 的产物，CERS 的酰化底物",
+    classification: "长链碱基：C3 位是羟基，C4–C5 之间还没有双键。",
+    structure: "长链氨基二醇，C1 与 C3 位各带羟基；C4–C5 位饱和，所以称二氢。",
+    position: {
+      title: "它在 gpl-12 生成，在 gpl-13 被酰化",
+      body: "甘油磷脂图第 12 步 KDSR 把 3-酮基还原成羟基，生成二氢鞘氨醇；第 13 步 CERS 把脂酰CoA 的脂酰基接到 C2 氨基上，生成二氢神经酰胺。",
+    },
+    flow: {
+      title: "它从 3-酮基二氢鞘氨醇来，往二氢神经酰胺去",
+      body: "来路：KDSR 还原（gpl-12）。去向：CERS 酰化成二氢神经酰胺（gpl-13）；此后的 4,5-双键由 DES 引入（gpl-14）。",
+    },
+    significance: {
+      title: "它比鞘氨醇少一个 4,5-双键",
+      body: "二氢鞘氨醇不是鞘氨醇：C4–C5 仍是单键，去饱和发生在神经酰胺阶段，而不是在长链碱基阶段。",
+    },
+    exam: {
+      title: "考点是去饱和发生的位置",
+      items: [
+        "二氢鞘氨醇的 C4–C5 是单键，鞘氨醇是双键。",
+        "CERS 酰化生成二氢神经酰胺，不直接生成神经酰胺。",
+        "4,5-双键由 DES（gpl-14）在神经酰胺阶段引入。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-12：KDSR 生成二氢鞘氨醇", href: "/pathway/glycerophospholipid?step=gpl-12" },
+      { label: "甘油磷脂 gpl-13：CERS 酰化", href: "/pathway/glycerophospholipid?step=gpl-13" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-12].equation",
+      "glycerophospholipid.json · steps[gpl-13].equation",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（鞘脂的合成）",
+    ],
+    bubble: { what: "KDSR还原的产物", highlight: "CERS的酰化底物" },
+  },
+
+  cer: {
+    id: "cer",
+    name: "神经酰胺",
+    aliases: ["Cer", "ceramide", "神经酰胺"],
+    claim: "神经酰胺是鞘脂合成的中心中间物",
+    classification: "鞘脂：二氢鞘氨醇的 C2 氨基被脂酰化，C4–C5 位带双键。",
+    structure: "长链碱基与脂酰链以酰胺键相连，C4–C5 之间是双键；疏水性很强。",
+    position: {
+      title: "它在 gpl-14 由二氢神经酰胺去饱和生成，在 gpl-15 变成鞘磷脂",
+      body: "甘油磷脂图第 14 步由二氢神经酰胺去饱和酶（DES / DEGS1）在 C4–C5 位引入双键，生成神经酰胺；第 15 步 SMS 在高尔基体把 PC 的磷酸胆碱转给神经酰胺，生成鞘磷脂。",
+    },
+    flow: {
+      title: "它从二氢神经酰胺来，往鞘磷脂与其他鞘脂去",
+      body: "来路：二氢神经酰胺经 DES 去饱和（gpl-14）。去向：SMS 生成鞘磷脂（gpl-15）；也可生成葡糖神经酰胺等糖鞘脂，本平台不展开。",
+    },
+    significance: {
+      title: "它是鞘脂与甘油磷脂的交叉点",
+      body: "神经酰胺既接受 DES 引入的双键，又接受来自 PC 的磷酸胆碱；本图把它放在 CERS 之后、SMS 之前，顺序不能颠倒。",
+    },
+    exam: {
+      title: "考点是 CERS 与 DES 的分工",
+      items: [
+        "CERS 只做 N-酰化，产物是二氢神经酰胺。",
+        "DES（DEGS1）再引入 C4–C5 双键，产物才是神经酰胺。",
+        "SMS 用 PC 作磷酸胆碱供体，生成鞘磷脂与 DAG。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-14：DES 去饱和生成神经酰胺", href: "/pathway/glycerophospholipid?step=gpl-14" },
+      { label: "甘油磷脂 gpl-15：SMS 生成鞘磷脂", href: "/pathway/glycerophospholipid?step=gpl-15" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-14].equation / steps[gpl-15].equation",
+      "glycerophospholipid.json · entities[cer].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（鞘脂的合成）",
+    ],
+    bubble: { what: "鞘脂合成的中心中间物", highlight: "DES去饱和后生成" },
+  },
+
+  "cdp-choline": {
+    id: "cdp-choline",
+    name: "CDP-胆碱",
+    aliases: ["CDP-choline", "citicoline", "胞苷二磷酸胆碱"],
+    claim: "CDP-胆碱是 Kennedy 途径的活化胆碱供体",
+    classification: "活化头基：磷酸胆碱的磷酸基接上 CMP。",
+    structure: "磷酸胆碱与 CMP 形成酸酐键，成为可转移的磷酸胆碱供体。",
+    position: {
+      title: "它在 gpl-5 把磷酸胆碱交给 DAG",
+      body: "甘油磷脂图第 5 步由胆碱磷酸转移酶（CPT）把 CDP-胆碱的磷酸胆碱转给 DAG，生成 PC 并释放 CMP；CDP-胆碱本身的生成步骤本图不展开。",
+    },
+    flow: {
+      title: "它从胆碱活化来，往 PC 去",
+      body: "来路：胆碱经胆碱激酶与 CTP:磷酸胆碱胞苷酰转移酶活化（本图不展开）。去向：CPT 把磷酸胆碱转给 DAG（gpl-5）。",
+    },
+    significance: {
+      title: "它把胆碱供给与 PC 合成接起来",
+      body: "CDP-胆碱是胆碱进入磷脂的活化形式；没有它，DAG 无法变成 PC。",
+    },
+    exam: {
+      title: "考点是活化形式",
+      items: [
+        "CDP-胆碱提供的是磷酸胆碱，不是游离胆碱。",
+        "CPT 反应释放 CMP。",
+        "CDP-胆碱的生成本图不展开，只作底物出现。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-5：CPT 生成 PC", href: "/pathway/glycerophospholipid?step=gpl-5" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-5].equation / enzyme",
+      "glycerophospholipid.json · entities[cdp-choline].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "活化胆碱的供体", highlight: "把磷酸胆碱交给DAG" },
+  },
+
+  "cdp-ethanolamine": {
+    id: "cdp-ethanolamine",
+    name: "CDP-乙醇胺",
+    aliases: ["CDP-ethanolamine", "胞苷二磷酸乙醇胺"],
+    claim: "CDP-乙醇胺是 Kennedy 途径的活化乙醇胺供体",
+    classification: "活化头基：磷酸乙醇胺的磷酸基接上 CMP。",
+    structure: "磷酸乙醇胺与 CMP 形成酸酐键，成为可转移的磷酸乙醇胺供体。",
+    position: {
+      title: "它在 gpl-6 把磷酸乙醇胺交给 DAG",
+      body: "甘油磷脂图第 6 步由乙醇胺磷酸转移酶（EPT）把 CDP-乙醇胺的磷酸乙醇胺转给 DAG，生成 PE 并释放 CMP；CDP-乙醇胺本身的生成步骤本图不展开。",
+    },
+    flow: {
+      title: "它从乙醇胺活化来，往 PE 去",
+      body: "来路：乙醇胺经乙醇胺激酶与 CTP:磷酸乙醇胺胞苷酰转移酶活化（本图不展开）。去向：EPT 把磷酸乙醇胺转给 DAG（gpl-6）。",
+    },
+    significance: {
+      title: "它把乙醇胺供给与 PE 合成接起来",
+      body: "CDP-乙醇胺是乙醇胺进入磷脂的活化形式；PE 生成后还可经 PEMT 甲基化成 PC。",
+    },
+    exam: {
+      title: "考点是与 CDP-胆碱的平行关系",
+      items: [
+        "CDP-乙醇胺与 CDP-胆碱是两条平行的活化头基。",
+        "EPT 反应释放 CMP。",
+        "PE 生成后可作为 PEMT 的底物。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-6：EPT 生成 PE", href: "/pathway/glycerophospholipid?step=gpl-6" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-6].equation / enzyme",
+      "glycerophospholipid.json · entities[cdp-ethanolamine].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "活化乙醇胺的供体", highlight: "把磷酸乙醇胺交给DAG" },
+  },
+
+  inositol: {
+    id: "inositol",
+    name: "肌醇",
+    aliases: ["Inositol", "myo-inositol", "肌醇"],
+    claim: "肌醇是 PI 的头基，直接替换 CDP-DAG 上的 CMP",
+    classification: "环醇：六元碳环上每个碳带一个羟基。",
+    structure: "环己烷骨架的六个碳各带一个羟基，其中一个与磷脂酸的磷酸成键。",
+    position: {
+      title: "它在 gpl-8 接到 CDP-DAG 上",
+      body: "甘油磷脂图第 8 步由磷脂酰肌醇合成酶（PIS）把肌醇接到 CDP-DAG 上，生成 PI 并释放 CMP。",
+    },
+    flow: {
+      title: "它从游离肌醇池来，往 PI 去",
+      body: "来路：游离肌醇，可由葡萄糖经肌醇合成酶生成（本图不展开）。去向：PIS 接到 CDP-DAG 上（gpl-8），生成 PI。",
+    },
+    significance: {
+      title: "肌醇头基可进一步磷酸化",
+      body: "PI 的肌醇环被磷酸化后生成 PIP、PIP2 等信号脂质；本图只画肌醇接入这一步。",
+    },
+    exam: {
+      title: "考点是头基直接转移",
+      items: [
+        "PIS 把游离肌醇直接接到 CDP-DAG 上，不消耗 ATP。",
+        "反应释放 CMP，不是 PPi。",
+        "PI 的肌醇环可磷酸化成 PIP2。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-8：PIS 生成 PI", href: "/pathway/glycerophospholipid?step=gpl-8" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-8].equation",
+      "glycerophospholipid.json · entities[inositol].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂的合成）",
+    ],
+    bubble: { what: "PI的头基", highlight: "直接替换CDP-DAG的CMP" },
+  },
+
+  sm: {
+    id: "sm",
+    name: "鞘磷脂",
+    aliases: ["SM", "sphingomyelin", "神经鞘磷脂"],
+    claim: "鞘磷脂是甘油磷脂与鞘脂的交叉产物",
+    classification: "鞘脂：神经酰胺接磷酸胆碱头基。",
+    structure: "神经酰胺的 C1 羟基接磷酸胆碱，头基与 PC 相同，骨架却来自鞘氨醇。",
+    position: {
+      title: "它在 gpl-15 由 SMS 生成",
+      body: "甘油磷脂图第 15 步由鞘磷脂合成酶（SMS）在高尔基体把 PC 的磷酸胆碱转给神经酰胺，生成鞘磷脂并释放 DAG。",
+    },
+    flow: {
+      title: "它从神经酰胺与 PC 来，往髓鞘与膜去",
+      body: "来路：神经酰胺 + PC（gpl-15）。去向：构成髓鞘与质膜外叶的鞘磷脂；SMS 在高尔基体，不在内质网。",
+    },
+    significance: {
+      title: "它把两条磷脂通路的产物接在一起",
+      body: "鞘磷脂的骨架来自鞘脂，头基来自 PC；因此鞘磷脂合成会同时消耗神经酰胺与 PC，并释放 DAG。",
+    },
+    exam: {
+      title: "考点是头基来源与区室",
+      items: [
+        "鞘磷脂的磷酸胆碱来自 PC，不是 CDP-胆碱。",
+        "SMS 在高尔基体，CERS 与 DES 在内质网。",
+        "反应释放 DAG，不是 CMP。",
+      ],
+    },
+    pathways: [
+      { label: "甘油磷脂 gpl-15：SMS 生成鞘磷脂", href: "/pathway/glycerophospholipid?step=gpl-15" },
+    ],
+    sources: [
+      "glycerophospholipid.json · steps[gpl-15].equation / enzyme",
+      "glycerophospholipid.json · entities[sm].note",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（鞘脂的合成）",
+    ],
+    bubble: { what: "甘油磷脂与鞘脂的交叉产物", highlight: "磷酸胆碱来自PC" },
+  },
+
+  cm: {
+    id: "cm",
+    name: "乳糜微粒",
+    aliases: ["CM", "chylomicron", "乳糜微粒"],
+    claim: "乳糜微粒是小肠组装的外源脂蛋白，把膳食脂类运出",
+    classification: "脂蛋白颗粒：以甘油三酯为核心、表面覆载脂蛋白与磷脂。",
+    structure: "疏水核心装甘油三酯与胆固醇酯，表面是磷脂、游离胆固醇与载脂蛋白；颗粒大小随脂负荷变化。",
+    position: {
+      title: "它在 lp-1 由小肠组装，在 lp-2 被 LPL 水解",
+      body: "血浆脂蛋白图第 1 步：小肠黏膜把膳食脂类组装成乳糜微粒，经淋巴进入血；第 2 步血中脂蛋白脂肪酶（LPL）水解其甘油三酯。",
+    },
+    flow: {
+      title: "它从小肠来，往残粒与肝去",
+      body: "来路：小肠吸收的膳食脂类。去向：LPL 水解甘油三酯后变成乳糜微粒残粒（lp-3），被肝摄取；本图不展开载脂蛋白的逐段交换。",
+    },
+    significance: {
+      title: "它是外源脂类运输的第一站",
+      body: "乳糜微粒只运膳食脂类，与肝组装的 VLDL 分工不同；把两者混写会打乱外源与内源两条运输线。",
+    },
+    exam: {
+      title: "考点是外源运输的起点",
+      items: [
+        "乳糜微粒由小肠组装，经淋巴入血。",
+        "LPL 水解其核心甘油三酯，游离脂肪酸供外周组织。",
+        "残粒被肝摄取，不直接变成 LDL。",
+      ],
+    },
+    pathways: [
+      { label: "血浆脂蛋白 lp-1：小肠组装 CM", href: "/pathway/lipoprotein?step=lp-1" },
+      { label: "血浆脂蛋白 lp-2：LPL 水解", href: "/pathway/lipoprotein?step=lp-2" },
+    ],
+    sources: [
+      "lipoprotein.json · steps[lp-1] / steps[lp-2]",
+      "lipoprotein.json · posterFoot（外源与内源两条线分开）",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（血浆脂蛋白代谢）",
+    ],
+    bubble: { what: "小肠组装的外源脂蛋白", highlight: "把膳食脂类运出" },
+  },
+
+  "cm-remnant": {
+    id: "cm-remnant",
+    name: "乳糜微粒残粒",
+    aliases: ["CM remnant", "chylomicron remnant"],
+    claim: "乳糜微粒残粒是 CM 脱脂后被肝摄取的颗粒",
+    classification: "脂蛋白残粒：甘油三酯大部分已被 LPL 水解。",
+    structure: "核心甘油三酯显著减少，相对富含胆固醇酯与载脂蛋白 E，颗粒变小。",
+    position: {
+      title: "它在 lp-3 被肝摄取",
+      body: "血浆脂蛋白图第 3 步：LPL 水解后的乳糜微粒残粒经载脂蛋白 E 与肝受体识别被摄取，完成外源脂类的清除。",
+    },
+    flow: {
+      title: "它从 CM 来，往肝去",
+      body: "来路：CM 经 LPL 水解（lp-2）。去向：肝细胞摄取（lp-3），残余胆固醇进入肝池；本图不展开受体亚型。",
+    },
+    significance: {
+      title: "残粒清除是外源运输的收尾",
+      body: "残粒若清除延迟，会在血中停留过久；本图只写清除方向，不展开临床分型。",
+    },
+    exam: {
+      title: "考点是残粒的去向",
+      items: [
+        "残粒由 CM 脱脂生成，不经过 VLDL。",
+        "肝摄取依赖载脂蛋白 E 等识别。",
+        "残粒不直接变成 LDL。",
+      ],
+    },
+    pathways: [
+      { label: "血浆脂蛋白 lp-3：肝摄取 CM 残粒", href: "/pathway/lipoprotein?step=lp-3" },
+    ],
+    sources: [
+      "lipoprotein.json · steps[lp-3]",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（血浆脂蛋白代谢）",
+    ],
+    bubble: { what: "CM脱脂后的残粒", highlight: "由肝摄取清除" },
+  },
+
+  vldl: {
+    id: "vldl",
+    name: "极低密度脂蛋白",
+    aliases: ["VLDL", "very low density lipoprotein"],
+    claim: "VLDL 是肝组装的内源脂蛋白，把肝内脂类运出去",
+    classification: "脂蛋白颗粒：以甘油三酯为核心，密度低于 LDL。",
+    structure: "核心富含甘油三酯，表面带载脂蛋白 B-100；颗粒比 CM 小、比 LDL 大。",
+    position: {
+      title: "它在 lp-4 由肝组装，在 lp-5 被 LPL 水解",
+      body: "血浆脂蛋白图第 4 步：肝把内源甘油三酯与胆固醇组装成 VLDL；第 5 步 LPL 水解其甘油三酯，颗粒逐步变小。",
+    },
+    flow: {
+      title: "它从肝来，往 IDL 与 LDL 去",
+      body: "来路：肝组装（lp-4）。去向：LPL 水解成 IDL（lp-5、lp-6），IDL 再分流为 LDL 或回肝。",
+    },
+    significance: {
+      title: "它是内源脂类运输的起点",
+      body: "VLDL 与 CM 的分工是内源与外源：VLDL 由肝组装，CM 由小肠组装；把两者合并会混淆两条运输线。",
+    },
+    exam: {
+      title: "考点是内源运输的起点",
+      items: [
+        "VLDL 由肝组装，CM 由小肠组装。",
+        "LPL 水解 VLDL 的甘油三酯，颗粒逐步变小。",
+        "VLDL 不直接变成 LDL，中间经过 IDL。",
+      ],
+    },
+    pathways: [
+      { label: "血浆脂蛋白 lp-4：肝组装 VLDL", href: "/pathway/lipoprotein?step=lp-4" },
+      { label: "血浆脂蛋白 lp-5：LPL 水解 VLDL", href: "/pathway/lipoprotein?step=lp-5" },
+    ],
+    sources: [
+      "lipoprotein.json · steps[lp-4] / steps[lp-5]",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（血浆脂蛋白代谢）",
+    ],
+    bubble: { what: "肝组装的内源脂蛋白", highlight: "把肝内脂类运出去" },
+  },
+
+  idl: {
+    id: "idl",
+    name: "中间密度脂蛋白",
+    aliases: ["IDL", "intermediate density lipoprotein"],
+    claim: "IDL 是 VLDL 脱脂后的中间态，可回肝也可变成 LDL",
+    classification: "脂蛋白颗粒：密度介于 VLDL 与 LDL 之间。",
+    structure: "甘油三酯进一步减少，胆固醇比例上升，仍带载脂蛋白 B-100 与 E。",
+    position: {
+      title: "它在 lp-6 分流",
+      body: "血浆脂蛋白图第 6 步：IDL 一部分经受体回肝，另一部分继续脱脂变成 LDL；本图把分流画成一个节点，不展开两条通量的比例。",
+    },
+    flow: {
+      title: "它从 VLDL 来，往肝或 LDL 去",
+      body: "来路：VLDL 经 LPL 水解（lp-5）。去向：① 回肝摄取；② 继续脱脂生成 LDL（lp-7）。",
+    },
+    significance: {
+      title: "IDL 是内源运输的分流点",
+      body: "IDL 的去向决定有多少胆固醇最终进入 LDL；把 VLDL → LDL 写成一步会漏掉这个分流节点。",
+    },
+    exam: {
+      title: "考点是分流而不是直通",
+      items: [
+        "IDL 由 VLDL 脱脂生成，不是肝直接分泌。",
+        "IDL 一部分回肝，一部分变成 LDL。",
+        "LDL 由 IDL 继续脱脂生成。",
+      ],
+    },
+    pathways: [
+      { label: "血浆脂蛋白 lp-6：IDL 分流", href: "/pathway/lipoprotein?step=lp-6" },
+    ],
+    sources: [
+      "lipoprotein.json · steps[lp-6]",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（血浆脂蛋白代谢）",
+    ],
+    bubble: { what: "VLDL脱脂的中间态", highlight: "可回肝也可变LDL" },
+  },
+
+  ldl: {
+    id: "ldl",
+    name: "低密度脂蛋白",
+    aliases: ["LDL", "low density lipoprotein"],
+    claim: "LDL 是胆固醇的主要运载者，经 LDLR 进入细胞",
+    classification: "脂蛋白颗粒：以胆固醇酯为核心，密度较高。",
+    structure: "核心几乎全是胆固醇酯，表面带一分子载脂蛋白 B-100，负责被 LDL 受体识别。",
+    position: {
+      title: "它在 lp-7 经 LDLR 进入细胞，在 lp-11 被类固醇生成组织摄取",
+      body: "血浆脂蛋白图第 7 步：LDL 经 LDL 受体（LDLR）内吞进入细胞；第 11 步类固醇生成组织也通过 LDLR 摄取 LDL，把胆固醇用于激素合成。",
+    },
+    flow: {
+      title: "它从 IDL 来，往细胞与类固醇生成组织去",
+      body: "来路：IDL 继续脱脂（lp-6）。去向：① LDLR 介导内吞（lp-7）；② 类固醇生成组织摄取（lp-11）；③ 氧化修饰后经清道夫受体摄取，本平台不展开。",
+    },
+    significance: {
+      title: "LDL 是血浆胆固醇的主要载体",
+      body: "LDL 把胆固醇送到外周与类固醇生成组织；LDLR 的数量与活性决定清除速度，本图只写方向、不展开调控细节。",
+    },
+    exam: {
+      title: "考点是受体介导的摄取",
+      items: [
+        "LDL 经 LDLR 内吞进入细胞，不是自由扩散。",
+        "LDL 的载脂蛋白是 B-100。",
+        "LDL 由 IDL 继续脱脂生成，不直接来自 VLDL。",
+      ],
+    },
+    pathways: [
+      { label: "血浆脂蛋白 lp-7：LDLR 摄取 LDL", href: "/pathway/lipoprotein?step=lp-7" },
+      { label: "血浆脂蛋白 lp-11：类固醇生成组织摄取", href: "/pathway/lipoprotein?step=lp-11" },
+    ],
+    sources: [
+      "lipoprotein.json · steps[lp-7] / steps[lp-11]",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（血浆脂蛋白代谢）",
+    ],
+    bubble: { what: "胆固醇的主要运载者", highlight: "经LDLR进细胞" },
+  },
+
+  "hdl-nascent": {
+    id: "hdl-nascent",
+    name: "新生 HDL",
+    aliases: ["nascent HDL", "盘状 HDL", "新生高密度脂蛋白"],
+    claim: "新生 HDL 是盘状颗粒，接受外周细胞外流的胆固醇",
+    classification: "脂蛋白颗粒：以载脂蛋白 A-I 与磷脂为主，核心几乎为空。",
+    structure: "盘状或小颗粒，表面载脂蛋白 A-I 与磷脂形成圆盘，核心尚未装入胆固醇酯。",
+    position: {
+      title: "它在 lp-8 接受外周胆固醇外流",
+      body: "血浆脂蛋白图第 8 步：外周细胞把游离胆固醇外流给载脂蛋白 A-I / 新生 HDL；随后经 LCAT 酯化，颗粒逐渐成熟。",
+    },
+    flow: {
+      title: "它从肝与小肠分泌来，往成熟 HDL 去",
+      body: "来路：肝与小肠分泌的载脂蛋白 A-I 与磷脂。去向：接受外周胆固醇外流（lp-8），经 LCAT 酯化后变成成熟 HDL（lp-9）。",
+    },
+    significance: {
+      title: "它是逆向胆固醇转运的接受端",
+      body: "新生 HDL 的核心是空的，正好接收外周细胞外流的胆固醇；没有这一步，逆向转运就没有起点。",
+    },
+    exam: {
+      title: "考点是盘状与成熟的区别",
+      items: [
+        "新生 HDL 是盘状、核心几乎为空。",
+        "它接受外周游离胆固醇外流，经 LCAT 酯化后成熟。",
+        "载脂蛋白 A-I 是它的主要蛋白。",
+      ],
+    },
+    pathways: [
+      { label: "血浆脂蛋白 lp-8：外周胆固醇外流", href: "/pathway/lipoprotein?step=lp-8" },
+    ],
+    sources: [
+      "lipoprotein.json · steps[lp-8]",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（血浆脂蛋白代谢）",
+    ],
+    bubble: { what: "盘状的新生HDL", highlight: "接受外周胆固醇外流" },
+  },
+
+  "hdl-mature": {
+    id: "hdl-mature",
+    name: "成熟 HDL",
+    aliases: ["mature HDL", "HDL", "高密度脂蛋白"],
+    claim: "成熟 HDL 负责逆向胆固醇转运，把外周胆固醇带回肝",
+    classification: "脂蛋白颗粒：核心含胆固醇酯，密度最高。",
+    structure: "球形颗粒，核心装满胆固醇酯，表面带载脂蛋白 A-I；密度在各类脂蛋白中最高。",
+    position: {
+      title: "它在 lp-9 成熟，在 lp-10 与 CETP 交换脂质",
+      body: "血浆脂蛋白图第 9 步：新生 HDL 经 LCAT 酯化胆固醇后成熟，把胆固醇酯带回肝；第 10 步 CETP 在 HDL 与含载脂蛋白 B 的脂蛋白之间交换胆固醇酯与甘油三酯。",
+    },
+    flow: {
+      title: "它从新生 HDL 来，往肝与 CETP 交换去",
+      body: "来路：新生 HDL 接受外周胆固醇并经 LCAT 酯化（lp-8）。去向：① 把胆固醇酯送回肝（lp-9）；② 经 CETP 与 VLDL / LDL 交换（lp-10）。",
+    },
+    significance: {
+      title: "它是逆向胆固醇转运的载体",
+      body: "HDL 把外周多余的胆固醇带回肝，是唯一逆向运输路线；本图只写方向，不展开亚类与受体细节。",
+    },
+    exam: {
+      title: "考点是逆向转运的方向",
+      items: [
+        "HDL 把胆固醇从外周带回肝，方向与 LDL 相反。",
+        "LCAT 在 HDL 表面酯化胆固醇，使核心装填。",
+        "CETP 交换的是胆固醇酯与甘油三酯。",
+      ],
+    },
+    pathways: [
+      { label: "血浆脂蛋白 lp-9：HDL 成熟与逆向转运", href: "/pathway/lipoprotein?step=lp-9" },
+      { label: "血浆脂蛋白 lp-10：CETP 交换", href: "/pathway/lipoprotein?step=lp-10" },
+    ],
+    sources: [
+      "lipoprotein.json · steps[lp-9] / steps[lp-10]",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（血浆脂蛋白代谢）",
+    ],
+    bubble: { what: "逆向转运胆固醇", highlight: "把外周胆固醇带回肝" },
+  },
+
+  ffa: {
+    id: "ffa",
+    name: "游离脂肪酸",
+    aliases: ["FFA", "free fatty acid", "非酯化脂肪酸"],
+    claim: "游离脂肪酸由白蛋白携带，是外周组织的重要燃料",
+    classification: "非酯化脂肪酸：脂肪动员后从脂肪组织释放。",
+    structure: "长链羧酸，水溶性很低，在血中主要与白蛋白结合运输。",
+    position: {
+      title: "它在 lp-2、lp-5 由 LPL 水解产生，供外周组织摄取",
+      body: "血浆脂蛋白图第 2、5 步：LPL 水解 CM 与 VLDL 的甘油三酯，释放游离脂肪酸供外周组织；脂肪动员释放的游离脂肪酸也经白蛋白运输，本图不单列该步。",
+    },
+    flow: {
+      title: "它从脂蛋白甘油三酯来，往肌肉与脂肪去",
+      body: "来路：LPL 水解脂蛋白核心甘油三酯（lp-2、lp-5）；脂肪组织脂解也释放游离脂肪酸。去向：肌肉氧化供能、脂肪组织再酯化储存、肝摄取。",
+    },
+    significance: {
+      title: "它是脂蛋白与细胞之间的交接形式",
+      body: "脂蛋白核心的甘油三酯必须先被 LPL 水解成游离脂肪酸才能进入细胞；把脂蛋白颗粒直接当成细胞燃料会漏掉这一步。",
+    },
+    exam: {
+      title: "考点是运输形式",
+      items: [
+        "游离脂肪酸在血中主要与白蛋白结合，不装在脂蛋白核心。",
+        "LPL 水解甘油三酯释放游离脂肪酸。",
+        "游离脂肪酸可被肌肉氧化，也可在脂肪组织再酯化。",
+      ],
+    },
+    pathways: [
+      { label: "血浆脂蛋白 lp-2：LPL 水解 CM", href: "/pathway/lipoprotein?step=lp-2" },
+      { label: "血浆脂蛋白 lp-5：LPL 水解 VLDL", href: "/pathway/lipoprotein?step=lp-5" },
+    ],
+    sources: [
+      "lipoprotein.json · steps[lp-2] / steps[lp-5]",
+      "《生物化学与分子生物学》第 9 版 · 脂质代谢（血浆脂蛋白代谢）",
+    ],
+    bubble: { what: "白蛋白携带的游离脂肪酸", highlight: "外周组织的燃料" },
+  },
+
+  betaine: {
+    id: "betaine",
+    name: "甜菜碱（甘氨酸甜菜碱）",
+    aliases: ["betaine", "甘氨酸甜菜碱", "三甲基甘氨酸"],
+    claim: "甜菜碱是 BHMT 的甲基供体，把同型半胱氨酸直接带回甲硫氨酸",
+    classification: "含三甲铵基的小分子，由胆碱氧化生成；与叶酸循环并行的一条再甲基化路线。",
+    structure: "甘氨酸的氮上连三个甲基，形成带正电的季铵；本图只写分子式，不建结构。",
+    position: {
+      title: "它在 oc-9 把甲基交给同型半胱氨酸",
+      body:
+        "oc-9 甜菜碱-同型半胱氨酸甲基转移酶（BHMT）把甜菜碱的一个甲基转移到同型半胱氨酸的硫上，生成甲硫氨酸和二甲基甘氨酸；这条旁支与 MTR（oc-5）并行，不经过 5-甲基 THF。",
+    },
+    flow: {
+      title: "它从胆碱来，往二甲基甘氨酸去",
+      body:
+        "来路：胆碱经胆碱脱氢酶与甜菜碱醛脱氢酶氧化生成甜菜碱（肝、肾）。去向：oc-9 交出甲基后变成二甲基甘氨酸，后者可继续代谢为肌氨酸与甘氨酸。",
+    },
+    significance: {
+      title: "它让再甲基化不完全依赖叶酸与 B12",
+      body:
+        "BHMT 主要在肝、肾表达；甜菜碱供给充足时，这条旁支分担同型半胱氨酸的再甲基化，叶酸或 B12 缺乏时仍能保留一部分通量。",
+    },
+    exam: {
+      title: "考点是甲基来源与旁支位置",
+      items: [
+        "BHMT 的甲基来自甜菜碱，不来自 5-甲基 THF，也不依赖 B12。",
+        "反应式是同型半胱氨酸 + 甜菜碱 → 甲硫氨酸 + 二甲基甘氨酸。",
+        "它是甲硫氨酸循环的旁支，与转硫支路去向不同。",
+      ],
+    },
+    pathways: [
+      { label: "一碳单位 oc-9：BHMT 再甲基化旁支", href: "/pathway/one-carbon?step=oc-9" },
+    ],
+    sources: [
+      "one-carbon.json · steps[oc-9].equation / enzyme",
+      "《生物化学与分子生物学》第 9 版 · 氨基酸代谢（甲硫氨酸循环）",
+    ],
+    bubble: { what: "甜菜碱，三甲基甘氨酸", highlight: "BHMT 的甲基供体" },
+  },
+  dimethylglycine: {
+    id: "dimethylglycine",
+    name: "二甲基甘氨酸",
+    aliases: ["dimethylglycine", "DMG", "N,N-二甲基甘氨酸"],
+    claim: "二甲基甘氨酸是甜菜碱交出甲基后的产物，继续代谢为肌氨酸与甘氨酸",
+    classification: "二甲基化氨基酸中间物；胆碱—甜菜碱—甘氨酸通路的节点。",
+    structure: "甘氨酸的氮上连两个甲基；本图只写分子式，不建结构。",
+    position: {
+      title: "它在 oc-9 生成，随后离开甲硫氨酸循环",
+      body:
+        "oc-9 BHMT 把甜菜碱的一个甲基转给同型半胱氨酸，甜菜碱随之变成二甲基甘氨酸；它不是甲硫氨酸循环的成员，生成后进入线粒体的甲基代谢。",
+    },
+    flow: {
+      title: "它从甜菜碱来，往肌氨酸与甘氨酸去",
+      body:
+        "来路：oc-9 甜菜碱去甲基。去向：二甲基甘氨酸脱氢酶把它变成肌氨酸，再经肌氨酸脱氢酶生成甘氨酸；本图只画到生成，不展开后续两步。",
+    },
+    significance: {
+      title: "它把甜菜碱支路与甘氨酸池接起来",
+      body:
+        "二甲基甘氨酸的去路说明甜菜碱的甲基不是凭空消失：碳骨架最终回到甘氨酸池，这也是胆碱—甜菜碱通路与一碳单位分开记账的原因。",
+    },
+    exam: {
+      title: "考点是它不属于叶酸循环",
+      items: [
+        "二甲基甘氨酸是甜菜碱去甲基的产物，不是叶酸衍生物。",
+        "它继续代谢为肌氨酸和甘氨酸，不回到甲硫氨酸循环。",
+        "把 BHMT 的产物写成 SAH 或 5-甲基 THF 都是错的。",
+      ],
+    },
+    pathways: [
+      { label: "一碳单位 oc-9：BHMT 再甲基化旁支", href: "/pathway/one-carbon?step=oc-9" },
+    ],
+    sources: [
+      "one-carbon.json · steps[oc-9].equation / products",
+      "《生物化学与分子生物学》第 9 版 · 氨基酸代谢（甲硫氨酸循环）",
+    ],
+    bubble: { what: "二甲基甘氨酸", highlight: "甜菜碱去甲基的产物" },
+  },
+
   // __PROFILE_BATCHES__
 };
 

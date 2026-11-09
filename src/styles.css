@@ -5519,6 +5519,89 @@ svg .branch { transition: opacity 0.2s ease; }
 }
 .cori-home-link:hover { color: var(--brick); }
 
+/* ===== 血浆脂蛋白挂图（PLATE 18）：器官列 + 血浆带 + 颗粒账本 ===== */
+.lp-poster .plate-canvas { width: 1200px; height: 820px; }
+.lp-poster .lp-chip { transition: opacity 0.15s ease; }
+.lp-poster .lp-chip.faded { opacity: 0.32; }
+.lp-poster .lp-chip.sel .st-name { text-decoration: underline; text-underline-offset: 3px; text-decoration-style: solid; }
+.lp-poster .lp-node { transition: opacity 0.15s ease; }
+.lp-poster .lp-node.faded { opacity: 0.38; }
+.lp-poster .lp-node.hl circle { stroke: var(--brick); stroke-width: 1.8; }
+
+.lp-ledger {
+  margin: 6px 0 26px;
+  padding: 18px 22px 20px;
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--hair-soft);
+  background: rgba(34, 40, 42, 0.018);
+}
+.lp-ledger-table td { vertical-align: top; }
+.lp-ledger-table td.num { font-variant-numeric: tabular-nums; }
+.lp-subhead { margin: 16px 0 6px; }
+.lp-subhead .t { font-size: 11px; letter-spacing: 0.3em; font-weight: 700; }
+.lp-inline-link {
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 3px;
+}
+.lp-inline-link:hover { color: var(--teal); }
+.lp-footnote-note {
+  font-size: 10.5px;
+  line-height: 1.8;
+  opacity: 0.62;
+  margin-top: 6px;
+}
+.lp-interface-card {
+  padding: 8px 0 10px;
+  border-bottom: 1px solid var(--hair-faint);
+  font-size: 10.5px;
+  line-height: 1.8;
+}
+.lp-interface-card:last-child { border-bottom: none; }
+.lp-interface-title {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.lp-interface-title .num { font-size: 9px; opacity: 0.55; font-weight: 400; letter-spacing: 0.12em; }
+.lp-interface-card p { margin: 4px 0 0; opacity: 0.68; }
+.lp-interface-card .lp-inline-link { font-size: 10px; }
+.lp-particle-card {
+  padding: 6px 0 8px;
+  border-bottom: 1px solid var(--hair-faint);
+  font-size: 10.5px;
+  line-height: 1.75;
+}
+.lp-particle-card:last-child { border-bottom: none; }
+.lp-particle-name {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-weight: 700;
+}
+.lp-particle-name .num { font-size: 9px; opacity: 0.55; font-weight: 400; letter-spacing: 0.12em; }
+.lp-particle-card p { margin: 2px 0 0; opacity: 0.66; }
+.lp-three-mis { margin-top: 12px; border-top: 1px dashed var(--hair-soft); padding-top: 8px; }
+.lp-three-mis > div {
+  font-size: 10.5px;
+  line-height: 1.8;
+  padding: 4px 0 5px 8px;
+  border-left: 2px solid var(--hair-soft);
+  margin-bottom: 5px;
+}
+.lp-three-mis > div:last-child { border-left-color: var(--teal); }
+.lp-three-mis .lbl {
+  display: block;
+  font-size: 9.5px;
+  letter-spacing: 0.18em;
+  color: var(--brick);
+  font-weight: 700;
+  margin-bottom: 1px;
+}
+
 .home-tribute {
   margin: 0 28px;
   padding: 14px 0 30px;

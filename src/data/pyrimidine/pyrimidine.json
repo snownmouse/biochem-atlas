@@ -1,0 +1,412 @@
+{
+  "id": "pyrimidine",
+  "name": "嘧啶核苷酸代谢",
+  "enName": "PYRIMIDINE NUCLEOTIDE METABOLISM",
+  "plateNo": "PLATE 15",
+  "structureNo": "SF-15",
+  "summary": "胞质 CPS2 用谷氨酰胺的酰胺氮装成氨甲酰磷酸，经天冬氨酸缩合、环化、线粒体内膜脱氢生成乳清酸，再挂上 PRPP 成为 UMP；UMP 逐级磷酸化成 UDP / UTP，UTP 可氨基化成 CTP，也可在二磷酸水平脱氧后走向 dTMP。",
+  "heroNote": "胞质 11 步 + 线粒体内膜 DHODH 1 步 · 2D 口径",
+  "legend": [
+    { "text": "主链（生理方向）", "kind": "main", "tone": "ink" },
+    { "text": "可逆 / 近平衡", "kind": "dashed", "tone": "ink" },
+    { "text": "旁支 / 去向", "kind": "dotted", "tone": "brick" },
+    { "text": "跨区室运输", "kind": "dashed", "tone": "teal" },
+    { "text": "① 步骤顺序", "kind": "badge", "tone": "ink" }
+  ],
+  "readingGuide": {
+    "label": "嘧啶核苷酸代谢导读",
+    "summary": "CPS2 → 氨甲酰磷酸 → 环化 → 乳清酸 → UMP → UDP / UTP → CTP；二磷酸水平脱氧后接 dTMP",
+    "paragraphs": [
+      "嘧啶环的原子来源与嘌呤不同：氨甲酰磷酸提供羰基碳与一个氮，天冬氨酸提供另一个氮和其余碳骨架。第一步由胞质 CPS2 完成——它用谷氨酰胺的酰胺氮，而不是游离氨；线粒体里的 CPS1 才是尿素循环的酶（urea-1），两者同名叫“氨甲酰磷酸合成酶”，但区室、氮源与去向都不同，本图把它们明确分开。",
+      "前三个反应在动物体内由同一条多功能肽链 CAD 催化（CPS2、天冬氨酸氨甲酰转移酶、二氢乳清酸酶）。第四个反应由 DHODH 催化，酶位于线粒体内膜，把二氢乳清酸氧化成乳清酸，电子交给泛醌（Q）；乳清酸随后回到胞质，与 PRPP 结合成 OMP，再脱羧成 UMP。这是嘧啶合成中唯一的跨区室步骤。",
+      "UMP 是嘧啶核苷酸的中心节点：经 UMP 激酶变成 UDP，再经核苷二磷酸激酶变成 UTP；UTP 由 CTP 合成酶接受谷氨酰胺的酰胺氮生成 CTP。UTP 还有两个去向：一是作为糖原合成的直接供体（G1P + UTP → UDP-葡萄糖，糖原挂图 gly-7），二是继续走向脱氧嘧啶。",
+      "脱氧发生在二磷酸水平：核糖核苷酸还原酶把 UDP 还原成 dUDP，dUDP 经同一 NDPK 磷酸化成 dUTP，再由 dUTP 酶水解成 dUMP。最后一步是胸苷酸合酶：它把 5,10-亚甲基THF 的亚甲基转给 dUMP 生成 dTMP，同时把 THF 氧化成二氢叶酸（DHF）。这一步就是 PLATE 14 预留的 dTMP 接口，本图在此收住，不展开 DNA 复制。"
+    ]
+  },
+  "posterFoot": [
+    "CPS2 与 CPS1 必须分开写：CPS2 在胞质、用谷氨酰胺、走嘧啶；CPS1 在线粒体、用游离氨、走尿素（urea-1）。把两者合并成“氨甲酰磷酸合成酶”一条，整张图的区室与氮源就都错了。",
+    "DHODH 位于线粒体内膜，是本图唯一的跨区室步骤；乳清酸出线粒体的具体转运蛋白本平台未核实，运输线只标方向、不计入步数。",
+    "dTMP 的甲基来自一碳单位：胸苷酸合酶把 5,10-亚甲基THF 的亚甲基转给 dUMP，同时生成 DHF；DHF 需经二氢叶酸还原酶（DHFR）还原回 THF，本图不展开该循环。",
+    "UTP 与糖原挂图对齐：UDP-葡萄糖焦磷酸化酶（gly-7）以 UTP 为底物；糖原图当前仍把 UTP 来源记为“本平台未建”，属跨图口径待统一，本图只登记两端都存在的 gly-7。",
+    "ATCase 调控按物种分开写：大肠杆菌 ATCase 受 CTP 反馈抑制（经典变构模型）；哺乳动物 CAD 的调控主要落在 CPS2 域（UTP 抑制、PRPP 激活），本图按活性分列，不能写成“CAD 也受 CTP 抑制”。",
+    "教材依据：《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘧啶核苷酸的合成）章节；只写章节名，不标页码、不引真题年份。"
+  ],
+  "entities": [
+    { "id": "gln", "name": "谷氨酰胺", "abbr": "Gln", "kind": "metabolite", "note": "CPS2 与 CTP 合成酶的酰胺氮供体" },
+    { "id": "hco3", "name": "碳酸氢盐", "abbr": "HCO₃⁻", "kind": "metabolite", "note": "提供嘧啶环的羰基碳" },
+    { "id": "atp", "name": "ATP", "abbr": "ATP", "kind": "cofactor" },
+    { "id": "adp", "name": "ADP", "abbr": "ADP", "kind": "cofactor" },
+    { "id": "pi", "name": "磷酸", "abbr": "Pi", "kind": "cofactor" },
+    { "id": "ppi", "name": "焦磷酸", "abbr": "PPi", "kind": "cofactor" },
+    { "id": "cap", "name": "氨甲酰磷酸", "abbr": "CAP", "kind": "metabolite", "note": "嘧啶环的起始片段；与尿素循环的氨甲酰磷酸同名但区室不同" },
+    { "id": "asp", "name": "L-天冬氨酸", "abbr": "Asp", "kind": "metabolite", "note": "提供嘧啶环的第二个氮与剩余碳骨架" },
+    { "id": "caasp", "name": "N-氨甲酰天冬氨酸", "abbr": "CA-Asp", "kind": "metabolite" },
+    { "id": "dho", "name": "二氢乳清酸", "abbr": "DHO", "kind": "metabolite" },
+    { "id": "q", "name": "泛醌（Q）", "abbr": "Q", "kind": "cofactor", "note": "DHODH 的电子受体" },
+    { "id": "qh2", "name": "泛醇（QH₂）", "abbr": "QH₂", "kind": "cofactor" },
+    { "id": "oro", "name": "乳清酸", "abbr": "Oro", "kind": "metabolite" },
+    { "id": "prpp", "name": "磷酸核糖焦磷酸（PRPP）", "abbr": "PRPP", "kind": "metabolite", "note": "由磷酸戊糖途径的 R5P 生成；本图只作底物使用" },
+    { "id": "omp", "name": "乳清酸核苷酸（OMP）", "abbr": "OMP", "kind": "metabolite" },
+    { "id": "ump", "name": "尿苷一磷酸（UMP）", "abbr": "UMP", "kind": "metabolite", "note": "嘧啶核苷酸的中心节点" },
+    { "id": "co2", "name": "二氧化碳", "abbr": "CO₂", "kind": "metabolite" },
+    { "id": "udp", "name": "尿苷二磷酸（UDP）", "abbr": "UDP", "kind": "metabolite" },
+    { "id": "utp", "name": "尿苷三磷酸（UTP）", "abbr": "UTP", "kind": "metabolite", "note": "RNA 合成与糖原 UDP-葡萄糖的供体" },
+    { "id": "ctp", "name": "胞苷三磷酸（CTP）", "abbr": "CTP", "kind": "metabolite", "note": "RNA 合成底物；胞苷酰基载体：CTP 与磷酸胆碱/磷酸乙醇胺缩合生成 CDP-胆碱/CDP-乙醇胺并释放 PPi；ATP 用于胆碱/乙醇胺的磷酸化" },
+    { "id": "dudp", "name": "脱氧尿苷二磷酸（dUDP）", "abbr": "dUDP", "kind": "metabolite" },
+    { "id": "dutp", "name": "脱氧尿苷三磷酸（dUTP）", "abbr": "dUTP", "kind": "metabolite" },
+    { "id": "dump", "name": "脱氧尿苷一磷酸（dUMP）", "abbr": "dUMP", "kind": "metabolite" },
+    { "id": "dtmp", "name": "脱氧胸苷一磷酸（dTMP）", "abbr": "dTMP", "kind": "metabolite" },
+    { "id": "ch2thf", "name": "5,10-亚甲基四氢叶酸", "abbr": "CH₂-THF", "kind": "cofactor", "note": "dTMP 合成的亚甲基供体；来自一碳单位代谢" },
+    { "id": "dhf", "name": "二氢叶酸", "abbr": "DHF", "kind": "cofactor", "note": "胸苷酸合酶的产物，需由 DHFR 还原回 THF" },
+    { "id": "glu", "name": "谷氨酸", "abbr": "Glu", "kind": "metabolite" }
+  ],
+  "steps": [
+    {
+      "id": "pyr-1",
+      "index": 1,
+      "name": "CPS2 用谷氨酰胺的酰胺氮装成氨甲酰磷酸",
+      "shortName": "CPS2 起始",
+      "compartment": "cyto",
+      "equation": "谷氨酰胺 + HCO₃⁻ + 2 ATP → 氨甲酰磷酸 + 谷氨酸 + 2 ADP + Pi",
+      "substrates": ["gln", "hco3", "atp"],
+      "products": ["cap", "glu", "adp", "pi"],
+      "cofactors": ["Mg²⁺"],
+      "enzyme": { "name": "氨甲酰磷酸合成酶 II", "isozyme": "CPS2（胞质，CAD 多功能酶的一部分）", "ec": "6.3.5.5" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · 耗两个 ATP，生理不可逆",
+        "source": "教材章级（核苷酸代谢·嘧啶合成）"
+      },
+      "significance": "嘧啶从头合成的第一步与限速步：把谷氨酰胺的酰胺氮固定成氨甲酰磷酸，决定整条通路的通量。PRPP 变构激活、UTP 变构抑制。",
+      "note": "与尿素循环 CPS1 严格区分：CPS1 在线粒体基质、用游离 NH₃、产物进尿素；CPS2 在胞质、用谷氨酰胺的酰胺氮、产物进嘧啶。",
+      "misconceptions": [
+        "把 CPS2 与 CPS1 当成同一个酶：两者同工但不同区室、不同氮源、不同去向。",
+        "以为第一步用的是游离氨：CPS2 的氮来自谷氨酰胺的酰胺侧链，水解后放出谷氨酸。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pyr-2",
+      "index": 2,
+      "name": "天冬氨酸氨甲酰转移酶把天冬氨酸缩合上来",
+      "shortName": "缩合天冬氨酸",
+      "compartment": "cyto",
+      "equation": "氨甲酰磷酸 + L-天冬氨酸 → N-氨甲酰天冬氨酸 + Pi",
+      "substrates": ["cap", "asp"],
+      "products": ["caasp", "pi"],
+      "cofactors": [],
+      "enzyme": { "name": "天冬氨酸氨甲酰转移酶", "isozyme": "ATCase（CAD 多功能酶的一部分）", "ec": "2.1.3.2" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 生理方向由底物供给拉动",
+        "source": "教材章级（核苷酸代谢·嘧啶合成）"
+      },
+      "significance": "把天冬氨酸的氨基与碳骨架接入，嘧啶环的第二个氮由此而来；产物随即环化。",
+      "note": "动物体内 ATCase 与 CPS2、二氢乳清酸酶同在 CAD 多肽链上，本图按酶活性分别编号，不把 CAD 拆成三个独立蛋白。",
+      "misconceptions": [
+        "把第二个氮也归给谷氨酰胺：第二个氮来自天冬氨酸。",
+        "以为这一步释放 ATP：释放的是氨甲酰磷酸的磷酸基，ATP 已在第一步消耗。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pyr-3",
+      "index": 3,
+      "name": "二氢乳清酸酶闭环生成二氢乳清酸",
+      "shortName": "环化",
+      "compartment": "cyto",
+      "equation": "N-氨甲酰天冬氨酸 ⇌ 二氢乳清酸 + H₂O",
+      "substrates": ["caasp"],
+      "products": ["dho"],
+      "cofactors": [],
+      "enzyme": { "name": "二氢乳清酸酶", "isozyme": "DHOase（CAD 多功能酶的一部分）", "ec": "3.5.2.3" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 脱水闭环，近平衡",
+        "source": "教材章级（核苷酸代谢·嘧啶合成）"
+      },
+      "significance": "六元嘧啶环在这里闭合；至此环上所有原子都已就位，只差氧化与挂核糖。",
+      "misconceptions": [
+        "把这一步当成氧化：这里只是脱水闭环，氧化在下一步由 DHODH 完成。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pyr-4",
+      "index": 4,
+      "name": "DHODH 在线粒体内膜把二氢乳清酸氧化成乳清酸",
+      "shortName": "内膜脱氢",
+      "compartment": "mito",
+      "equation": "二氢乳清酸 + Q → 乳清酸 + QH₂",
+      "substrates": ["dho"],
+      "products": ["oro", "qh2"],
+      "cofactors": ["Q", "FAD（DHODH 辅基）"],
+      "enzyme": { "name": "二氢乳清酸脱氢酶（醌型）", "isozyme": "DHODH（线粒体内膜）", "ec": "1.3.5.2" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "生理单向 · 与呼吸链偶联拉动",
+        "source": "教材章级（核苷酸代谢·嘧啶合成）"
+      },
+      "significance": "嘧啶合成中唯一发生在线粒体的步骤：电子经 Q 进入呼吸链，产物乳清酸回到胞质继续挂核糖。",
+      "note": "DHODH 是线粒体内膜整合蛋白；本图只画一条跨区室运输线表示乳清酸出膜，具体转运蛋白未核实，不计入步数。",
+      "misconceptions": [
+        "把整条嘧啶合成都写在线粒体：只有 DHODH 这一步在内膜，其余在胞质。",
+        "把 DHODH 的电子受体写成 NAD⁺：它把电子交给泛醌（Q），不是 NAD⁺。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pyr-5",
+      "index": 5,
+      "name": "乳清酸与 PRPP 结合生成 OMP",
+      "shortName": "挂核糖",
+      "compartment": "cyto",
+      "equation": "乳清酸 + PRPP → OMP + PPi",
+      "substrates": ["oro", "prpp"],
+      "products": ["omp", "ppi"],
+      "cofactors": ["Mg²⁺"],
+      "enzyme": { "name": "乳清酸磷酸核糖转移酶", "isozyme": "OPRT（UMP 合酶双功能酶的一部分）", "ec": "2.4.2.10" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "生理单向 · 由 PPi 水解拉动",
+        "source": "教材章级（核苷酸代谢·嘧啶合成）"
+      },
+      "significance": "把磷酸核糖部分接上，嘧啶环成为核苷酸；PRPP 由磷酸戊糖途径供给。",
+      "note": "动物体内 OPRT 与 OMP 脱羧酶在同一双功能酶（UMP 合酶）上；本图按活性分列两步。",
+      "misconceptions": [
+        "把核糖来源写成游离核糖：供体是 PRPP，不是核糖。",
+        "把 PPi 当无用副产物：PPi 水解推动反应向前。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pyr-6",
+      "index": 6,
+      "name": "OMP 脱羧生成 UMP",
+      "shortName": "脱羧成 UMP",
+      "compartment": "cyto",
+      "equation": "OMP → UMP + CO₂",
+      "substrates": ["omp"],
+      "products": ["ump", "co2"],
+      "cofactors": [],
+      "enzyme": { "name": "乳清酸核苷酸脱羧酶", "isozyme": "ODCase（UMP 合酶双功能酶的一部分）", "ec": "4.1.1.23" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · 脱羧放能",
+        "source": "教材章级（核苷酸代谢·嘧啶合成）"
+      },
+      "significance": "从头合成的终点是 UMP；此后的磷酸化、氨基化与脱氧都以 UMP 为起点。",
+      "misconceptions": [
+        "把 UMP 当成最终产物：UMP 只是中心节点，要变成 UTP / CTP / dTMP 还需后续步骤。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pyr-7",
+      "index": 7,
+      "name": "UMP 激酶把 UMP 磷酸化成 UDP",
+      "shortName": "UMP → UDP",
+      "compartment": "cyto",
+      "equation": "UMP + ATP → UDP + ADP",
+      "substrates": ["ump", "atp"],
+      "products": ["udp", "adp"],
+      "cofactors": ["Mg²⁺"],
+      "enzyme": { "name": "UMP 激酶", "isozyme": "UMPK", "ec": "2.7.4.14" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 由 ATP 水解驱动",
+        "source": "教材章级（核苷酸代谢·嘧啶合成）"
+      },
+      "significance": "核苷酸激酶的第一步：把 UMP 推到二磷酸水平，为 UTP 与脱氧支路提供共同前体。",
+      "misconceptions": [
+        "以为 UMP 可以直接脱氧：脱氧发生在二磷酸（NDP）水平，不在单磷酸水平。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pyr-8",
+      "index": 8,
+      "name": "核苷二磷酸激酶把 UDP 磷酸化成 UTP",
+      "shortName": "UDP → UTP",
+      "compartment": "cyto",
+      "equation": "UDP + ATP → UTP + ADP",
+      "substrates": ["udp", "atp"],
+      "products": ["utp", "adp"],
+      "cofactors": ["Mg²⁺"],
+      "enzyme": { "name": "核苷二磷酸激酶", "isozyme": "NDPK（底物谱广）", "ec": "2.7.4.6" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 磷酸基在 NTP / NDP 间转移",
+        "source": "教材章级（核苷酸代谢·嘧啶合成）"
+      },
+      "significance": "生成 UTP：既是 RNA 合成的底物，也是糖原 UDP-葡萄糖的供体；同一酶也把 dUDP 磷酸化成 dUTP。",
+      "note": "NDPK 底物谱广，本图只把 UDP → UTP 记为第 8 步；dUDP → dUTP 在图中以“同酶”旁注表示，不另编步骤号。",
+      "misconceptions": [
+        "以为 UTP 只用于 RNA：UTP 还是糖原合成中 UDP-葡萄糖的直接供体。",
+        "把 NDPK 当成特异性酶：它对嘌呤、嘧啶、脱氧核苷二磷酸都起作用。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pyr-9",
+      "index": 9,
+      "name": "CTP 合成酶把 UTP 氨基化成 CTP",
+      "shortName": "UTP → CTP",
+      "compartment": "cyto",
+      "equation": "UTP + 谷氨酰胺 + ATP → CTP + 谷氨酸 + ADP + Pi",
+      "substrates": ["utp", "gln", "atp"],
+      "products": ["ctp", "glu", "adp", "pi"],
+      "cofactors": ["Mg²⁺"],
+      "enzyme": { "name": "CTP 合成酶", "isozyme": "CTPS", "ec": "6.3.4.2" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · 酰胺氮转移耗 ATP",
+        "source": "教材章级（核苷酸代谢·嘧啶合成）"
+      },
+      "significance": "把尿嘧啶变成胞嘧啶：CTP 是 RNA 合成与磷脂合成（CDP-胆碱、CDP-二酰甘油）的供体，也是 PLATE 17 磷脂通路的接口分子。",
+      "misconceptions": [
+        "以为 CTP 由 UMP 直接氨基化：氨基化发生在三磷酸水平，底物是 UTP。",
+        "把 CTP 合成酶的氮源写成游离氨：它用谷氨酰胺的酰胺氮。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pyr-10",
+      "index": 10,
+      "name": "核糖核苷酸还原酶在二磷酸水平把 UDP 还原成 dUDP",
+      "shortName": "UDP → dUDP",
+      "compartment": "cyto",
+      "equation": "UDP + 还原型硫氧还蛋白 → dUDP + 氧化型硫氧还蛋白 + H₂O",
+      "substrates": ["udp"],
+      "products": ["dudp"],
+      "cofactors": ["硫氧还蛋白", "NADPH（经硫氧还蛋白还原酶）"],
+      "enzyme": { "name": "核糖核苷酸还原酶", "isozyme": "RNR（α₂β₂，变构调节底物特异性）", "ec": "1.17.4.1" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "生理单向 · 由还原力供给与变构调节控制",
+        "source": "教材章级（核苷酸代谢·脱氧核苷酸生成）"
+      },
+      "significance": "脱氧核苷酸的共同入口：核糖的 2′-羟基被还原成氢，反应发生在二磷酸水平，产物再经 NDPK 磷酸化成 dNTP。",
+      "note": "RNR 的还原力最终来自 NADPH，经硫氧还蛋白 / 谷氧还蛋白传递；本图不展开电子传递链。",
+      "misconceptions": [
+        "以为脱氧发生在 NTP 水平：RNR 的底物是 NDP，不是 NTP。",
+        "把 RNR 当成只作用于嘧啶：它对四种 NDP 都起作用，底物特异性由变构位点切换。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pyr-11",
+      "index": 11,
+      "name": "dUTP 酶把 dUTP 水解成 dUMP",
+      "shortName": "dUTP → dUMP",
+      "compartment": "cyto",
+      "equation": "dUTP + H₂O → dUMP + PPi",
+      "substrates": ["dutp"],
+      "products": ["dump", "ppi"],
+      "cofactors": ["Mg²⁺"],
+      "enzyme": { "name": "dUTP 焦磷酸酶（dUTP 酶）", "isozyme": "DUT", "ec": "3.6.1.23" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · 水解焦磷酸",
+        "source": "教材章级（核苷酸代谢·脱氧核苷酸生成）"
+      },
+      "significance": "既为 dTMP 合成提供 dUMP，也把 dUTP 控制在低水平，减少尿嘧啶误掺入 DNA。",
+      "note": "dUTP 由 dUDP 经 NDPK（第 8 步同一酶）磷酸化生成，本图用“同酶”旁注连接，不另占步骤号。",
+      "misconceptions": [
+        "把 dUTP 酶当成胸苷酸合酶：前者水解 dUTP 生成 dUMP，后者把 dUMP 甲基化成 dTMP。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pyr-12",
+      "index": 12,
+      "name": "胸苷酸合酶把亚甲基转给 dUMP，生成 dTMP",
+      "shortName": "dUMP → dTMP",
+      "compartment": "cyto",
+      "equation": "dUMP + 5,10-亚甲基THF → dTMP + 二氢叶酸",
+      "substrates": ["dump", "ch2thf"],
+      "products": ["dtmp", "dhf"],
+      "cofactors": [],
+      "enzyme": { "name": "胸苷酸合酶", "isozyme": "TS（thyA / TYMS）", "ec": "2.1.1.45" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · 亚甲基转移并还原",
+        "source": "教材章级（核苷酸代谢·嘧啶核苷酸互变）"
+      },
+      "significance": "dTMP 的唯一从头来源：一碳单位以亚甲基形式进入脱氧核苷酸池；同时 THF 被氧化成 DHF，必须由 DHFR 还原才能继续载一碳。",
+      "note": "这就是 PLATE 14 预留的 dTMP 接口：一碳单位只到“5,10-亚甲基THF 提供亚甲基”，本图接手后续。DHF → THF 的 DHFR 反应本图不展开。",
+      "misconceptions": [
+        "以为 dUMP 直接甲基化就能循环供甲基：甲基来自 5,10-亚甲基THF，THF 同时被氧化成 DHF。",
+        "把 DHF 当终产物：DHF 需经 DHFR 还原回 THF，否则一碳池被抽空。"
+      ],
+      "clinical": []
+    }
+  ],
+  "transportSteps": [
+    {
+      "id": "pyr-t1",
+      "name": "乳清酸从线粒体回到胞质",
+      "from": "线粒体（DHODH 产物侧）",
+      "to": "胞质（OPRT 反应）",
+      "via": "线粒体内膜",
+      "note": "乳清酸在线粒体内膜生成后需回到胞质与 PRPP 结合；具体转运蛋白本平台未核实，本图只画一条运输虚线，不计入步数。"
+    }
+  ],
+  "interfaces": [
+    {
+      "stepId": "urea-1",
+      "label": "CPS1：尿素循环的线粒体同工酶",
+      "note": "与本图第 1 步 CPS2 对照：CPS1 在线粒体基质、用游离 NH₃、产物进尿素；两者不能合并。"
+    },
+    {
+      "stepId": "gly-7",
+      "label": "UDP-葡萄糖焦磷酸化酶以 UTP 为底物",
+      "note": "G1P + UTP ⇌ UDP-葡萄糖 + PPi；本图第 8 步生成的 UTP 直接供给糖原合成。糖原图当前仍记 UTP 来源为“本平台未建”，属跨图口径待统一。"
+    },
+    {
+      "stepId": "oc-3",
+      "label": "胞质 MTHFD1 产出 5,10-亚甲基THF",
+      "note": "胸苷酸合酶的亚甲基来自胞质一碳池；本图只登记一碳单位挂图真实存在的 oc-3，不伪造 DHFR 步骤。"
+    }
+  ],
+  "threeD": {
+    "status": "not-built",
+    "note": "本图沿用站内 UTP 口径：全部只做 2D 结构式，不建 3D，也不登记 PDB 候选。"
+  }
+}

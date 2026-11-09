@@ -81,7 +81,14 @@ const ifaceHrefs = await interfaces.locator("a").evaluateAll((els) => els.map((a
 check("接口链接均为「既有通路?step=」", ifaceHrefs.every((h) => h && h.includes("?step=")), ifaceHrefs.join(","));
 
 // ===== 5) 运输段三态语义 =====
-await frame.locator("g[data-transport-id='kt-t1'] rect").click();
+// 血流转运带宽 813×270，正中间（600,330）被 bhb-blood 节点盖住——节点优先，点击那里打开的是步骤；
+// 这里点带内右下空白处（避开 β-羟丁酸/乙酰乙酸/丙酮节点与其标签），验证的是「带 → 运输详情」这一层语义。
+const transportBand = frame.locator("g[data-transport-id='kt-t1'] rect");
+const bandBox = await transportBand.boundingBox();
+if (!bandBox) throw new Error("运输段点击面没有布局盒");
+await transportBand.click({
+  position: { x: Math.round(bandBox.width * 0.7), y: Math.round(bandBox.height * 0.85) },
+});
 await page.waitForTimeout(120);
 check("点击运输段 → 运输详情面板", (await page.locator("[data-transport-detail='1']").count()) === 1);
 const transportText = await page.locator("[data-transport-detail='1']").innerText();

@@ -1,0 +1,181 @@
+{
+  "pathwayId": "lipoprotein",
+  "canvas": { "width": 1200, "height": 820 },
+  "spatialNote": "左侧小肠列收集外源脂类，中左肝列负责内源组装与终末摄取，中央血浆带是颗粒共用的物流通道，右侧外周列接受 FFA 并外流胆固醇，右下小分区是类固醇生成组织。颗粒节点落在血浆带，组装 / 摄取 / 外流节点落在器官列。",
+  "compartments": [
+    { "id": "intestine", "name": "小肠 · 黏膜细胞", "x0": 20, "y0": 140, "x1": 250, "y1": 772, "tint": 0.012 },
+    { "id": "liver", "name": "肝 · 肝细胞", "x0": 292, "y0": 140, "x1": 548, "y1": 772, "tint": 0.012 },
+    { "id": "blood", "name": "血浆 · 细胞外（BLOOD）", "x0": 572, "y0": 140, "x1": 846, "y1": 772, "tint": 0.045 },
+    { "id": "peripheral", "name": "外周组织", "x0": 870, "y0": 140, "x1": 1180, "y1": 584, "tint": 0.012 },
+    { "id": "steroid", "name": "", "x0": 870, "y0": 606, "x1": 1180, "y1": 772, "tint": 0.028 }
+  ],
+  "organColumns": [
+    { "id": "intestine", "name": "小肠", "role": "外源脂类入口", "en": "INTESTINE · EXOGENOUS LIPID ENTRY", "x": 20, "width": 230, "headerY": 100 },
+    { "id": "liver", "name": "肝", "role": "内源脂类与逆向转运终点", "en": "LIVER · ENDOGENOUS & REVERSE TRANSPORT", "x": 292, "width": 256, "headerY": 100 },
+    { "id": "peripheral", "name": "外周组织", "role": "脂肪 / 肌肉", "en": "PERIPHERAL TISSUE · ADIPOSE / MUSCLE", "x": 870, "width": 310, "headerY": 100 },
+    { "id": "steroid", "name": "肾上腺 / 性腺", "role": "类固醇生成", "en": "STEROIDOGENIC TISSUE", "x": 884, "width": 296, "headerY": 636 }
+  ],
+  "nodes": [
+    { "id": "cm", "x": 120, "y": 330, "abbr": "CM", "label": "乳糜微粒", "side": "below", "stepId": "lp-1", "particle": "cm" },
+    { "id": "cm-remnant", "x": 690, "y": 205, "abbr": "残粒", "label": "CM 残粒", "side": "left", "stepId": "lp-3", "particle": "cm-remnant" },
+    { "id": "vldl", "x": 500, "y": 330, "abbr": "VLDL", "label": "VLDL", "side": "left", "stepId": "lp-4", "particle": "vldl" },
+    { "id": "idl", "x": 690, "y": 355, "abbr": "IDL", "label": "IDL", "side": "left", "stepId": "lp-6", "particle": "idl" },
+    { "id": "ldl", "x": 690, "y": 425, "abbr": "LDL", "label": "LDL", "side": "left", "stepId": "lp-7", "particle": "ldl" },
+    { "id": "hdl-mature", "x": 690, "y": 655, "abbr": "HDL", "label": "成熟 HDL", "side": "left", "stepId": "lp-9", "particle": "hdl-mature" },
+    { "id": "ffa", "x": 1100, "y": 300, "abbr": "FFA", "label": "FFA", "side": "left", "stepId": "lp-5", "particle": "ffa" },
+    { "id": "hdl-nascent", "x": 1100, "y": 440, "abbr": "HDL", "label": "新生 HDL（盘状）", "side": "left", "stepId": "lp-8", "particle": "hdl-nascent" }
+  ],
+  "arms": [
+    {
+      "organId": "intestine",
+      "spine": { "x": 28, "y0": 150, "y1": 760 },
+      "chips": [{ "stepId": "lp-1", "x": 36, "y": 200, "anchor": "start", "organId": "intestine" }]
+    },
+    {
+      "organId": "liver",
+      "spine": { "x": 300, "y0": 150, "y1": 760 },
+      "chips": [
+        { "stepId": "lp-3", "x": 310, "y": 175, "anchor": "start", "organId": "liver" },
+        { "stepId": "lp-4", "x": 310, "y": 245, "anchor": "start", "organId": "liver" },
+        { "stepId": "lp-6", "x": 310, "y": 420, "anchor": "start", "organId": "liver" },
+        { "stepId": "lp-7", "x": 310, "y": 490, "anchor": "start", "organId": "liver" },
+        { "stepId": "lp-9", "x": 310, "y": 575, "anchor": "start", "organId": "liver" },
+        { "stepId": "lp-10", "x": 310, "y": 655, "anchor": "start", "organId": "liver" }
+      ]
+    },
+    {
+      "organId": "peripheral",
+      "spine": { "x": 878, "y0": 150, "y1": 570 },
+      "chips": [
+        { "stepId": "lp-2", "x": 884, "y": 190, "anchor": "start", "organId": "peripheral" },
+        { "stepId": "lp-5", "x": 884, "y": 330, "anchor": "start", "organId": "peripheral" },
+        { "stepId": "lp-8", "x": 884, "y": 470, "anchor": "start", "organId": "peripheral" }
+      ]
+    },
+    {
+      "organId": "steroid",
+      "spine": { "x": 878, "y0": 670, "y1": 760 },
+      "chips": [{ "stepId": "lp-11", "x": 884, "y": 682, "anchor": "start", "organId": "steroid" }]
+    }
+  ],
+  "blood": { "bandId": "blood" },
+  "flows": [
+    {
+      "id": "cm-to-blood",
+      "particle": "CM",
+      "from": "intestine",
+      "to": "blood",
+      "direction": "ltr",
+      "path": "M 584 255 L 840 255",
+      "label": "小肠 → 血 · CM",
+      "labelX": 744,
+      "labelY": 247,
+      "labelAnchor": "start",
+      "note": "CM 经淋巴入血，进入外源途径。"
+    },
+    {
+      "id": "cm-remnant-to-liver",
+      "particle": "CM 残粒",
+      "from": "blood",
+      "to": "liver",
+      "direction": "rtl",
+      "path": "M 840 205 L 584 205",
+      "label": "CM 残粒 → 肝",
+      "labelX": 744,
+      "labelY": 197,
+      "labelAnchor": "start",
+      "note": "ApoE 介导的残粒受体 / LRP 摄取。"
+    },
+    {
+      "id": "vldl-to-blood",
+      "particle": "VLDL",
+      "from": "liver",
+      "to": "blood",
+      "direction": "ltr",
+      "path": "M 584 305 L 840 305",
+      "label": "肝 → 血 · VLDL",
+      "labelX": 744,
+      "labelY": 297,
+      "labelAnchor": "start",
+      "note": "肝分泌的内源 TG 运输颗粒进入血浆。"
+    },
+    {
+      "id": "idl-to-liver",
+      "particle": "IDL",
+      "from": "blood",
+      "to": "liver",
+      "direction": "rtl",
+      "path": "M 840 355 L 584 355",
+      "label": "IDL → 肝（部分）",
+      "labelX": 744,
+      "labelY": 347,
+      "labelAnchor": "start",
+      "note": "一部分 IDL 直接被肝摄取。"
+    },
+    {
+      "id": "ldl-to-peripheral",
+      "particle": "LDL",
+      "from": "blood",
+      "to": "peripheral",
+      "direction": "ltr",
+      "path": "M 584 400 L 840 400",
+      "label": "LDL → 外周 / 肝",
+      "labelX": 744,
+      "labelY": 390,
+      "labelAnchor": "start",
+      "note": "LDLR 分布于肝与外周细胞，两处都能摄取 LDL。"
+    },
+    {
+      "id": "ldl-to-liver",
+      "particle": "LDL",
+      "from": "blood",
+      "to": "liver",
+      "direction": "rtl",
+      "path": "M 840 458 L 584 458",
+      "label": "LDL → 肝（LDLR）",
+      "labelX": 744,
+      "labelY": 448,
+      "labelAnchor": "start",
+      "note": "肝是 LDL 的主要清除器官。"
+    },
+    {
+      "id": "cetp-exchange",
+      "particle": "CETP",
+      "from": "hdl-mature",
+      "to": "ldl",
+      "direction": "bidirectional",
+      "path": "M 640 520 L 800 520",
+      "label": "CETP ⇄ 胆固醇酯 / TG",
+      "labelX": 720,
+      "labelY": 512,
+      "labelAnchor": "middle",
+      "note": "CETP 在 HDL 与含 ApoB 颗粒之间双向交换脂质。"
+    },
+    {
+      "id": "nascent-hdl-to-blood",
+      "particle": "新生 HDL",
+      "from": "peripheral",
+      "to": "blood",
+      "direction": "rtl",
+      "path": "M 840 595 L 584 595",
+      "label": "新生 HDL → 血",
+      "labelX": 744,
+      "labelY": 587,
+      "labelAnchor": "start",
+      "note": "ABCA1 交给 ApoA-I 的盘状颗粒进入血浆。"
+    },
+    {
+      "id": "mature-hdl-to-liver",
+      "particle": "成熟 HDL",
+      "from": "blood",
+      "to": "liver",
+      "direction": "rtl",
+      "path": "M 840 655 L 584 655",
+      "label": "成熟 HDL → 肝",
+      "labelX": 744,
+      "labelY": 647,
+      "labelAnchor": "start",
+      "note": "SR-B1 选择性摄取胆固醇酯，完成逆向转运。"
+    }
+  ]
+}

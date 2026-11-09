@@ -25,7 +25,12 @@ export type HomePathwayId =
   | "glycogen"
   | "amino-acids"
   | "cholesterol"
-  | "ketone";
+  | "ketone"
+  | "one-carbon"
+  | "pyrimidine"
+  | "purine"
+  | "glycerophospholipid"
+  | "lipoprotein";
 
 export interface HomePathwayMeta {
   id: HomePathwayId;
@@ -36,7 +41,7 @@ export interface HomePathwayMeta {
   structureRoute: string;
   plateNo: string;
   stepCount: number;
-  accent: "ink" | "teal" | "amber" | "brick";
+  accent: "ink" | "teal" | "amber" | "brick" | "violet" | "rose";
 }
 
 export const HOME_PATHWAYS: HomePathwayMeta[] = [
@@ -179,6 +184,66 @@ export const HOME_PATHWAYS: HomePathwayMeta[] = [
     plateNo: "PLATE 13",
     stepCount: 6,
     accent: "amber",
+  },
+  // 一碳单位：PLATE 14，同样只登记标题块与导航；不并入 SOURCES，首页节点/边口径不变。
+  {
+    id: "one-carbon",
+    sourceId: "one-carbon",
+    name: "一碳单位代谢",
+    en: "ONE-CARBON UNITS",
+    route: "/pathway/one-carbon",
+    structureRoute: "/structures/one-carbon",
+    plateNo: "PLATE 14",
+    stepCount: 9,
+    accent: "teal",
+  },
+  // 嘧啶核苷酸：PLATE 15，只登记标题块与导航；不并入 SOURCES，首页节点/边口径不变。
+  {
+    id: "pyrimidine",
+    sourceId: "pyrimidine",
+    name: "嘧啶核苷酸代谢",
+    en: "PYRIMIDINE NUCLEOTIDES",
+    route: "/pathway/pyrimidine",
+    structureRoute: "/structures/pyrimidine",
+    plateNo: "PLATE 15",
+    stepCount: 12,
+    accent: "amber",
+  },
+  // 嘌呤核苷酸：PLATE 16，只登记标题块与导航；不并入 SOURCES，首页节点/边口径不变。
+  {
+    id: "purine",
+    sourceId: "purine",
+    name: "嘌呤核苷酸代谢",
+    en: "PURINE NUCLEOTIDES",
+    route: "/pathway/purine",
+    structureRoute: "/structures/purine",
+    plateNo: "PLATE 16",
+    stepCount: 15,
+    accent: "teal",
+  },
+  // 甘油磷脂与鞘脂：PLATE 17，只登记标题块与导航；不并入 SOURCES，首页节点/边口径不变。
+  {
+    id: "glycerophospholipid",
+    sourceId: "glycerophospholipid",
+    name: "甘油磷脂与鞘脂代谢",
+    en: "GLYCEROPHOSPHOLIPID & SPHINGOLIPID",
+    route: "/pathway/glycerophospholipid",
+    structureRoute: "/structures/glycerophospholipid",
+    plateNo: "PLATE 17",
+    stepCount: 14,
+    accent: "violet",
+  },
+  // 血浆脂蛋白：PLATE 18，只登记标题块与导航；不并入 SOURCES，首页节点/边口径不变。
+  {
+    id: "lipoprotein",
+    sourceId: "lipoprotein",
+    name: "血浆脂蛋白代谢",
+    en: "PLASMA LIPOPROTEINS",
+    route: "/pathway/lipoprotein",
+    structureRoute: "/structures/lipoprotein",
+    plateNo: "PLATE 18",
+    stepCount: 11,
+    accent: "rose",
   },
 ];
 

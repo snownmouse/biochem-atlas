@@ -15,6 +15,11 @@ import GlycogenOverviewPage from "./pages/GlycogenOverviewPage";
 import AminoAcidOverviewPage from "./pages/AminoAcidOverviewPage";
 import CholesterolOverviewPage from "./pages/CholesterolOverviewPage";
 import KetoneOverviewPage from "./pages/KetoneOverviewPage";
+import OneCarbonOverviewPage from "./pages/OneCarbonOverviewPage";
+import PyrimidineOverviewPage from "./pages/PyrimidineOverviewPage";
+import PurineOverviewPage from "./pages/PurineOverviewPage";
+import GlycerophospholipidOverviewPage from "./pages/GlycerophospholipidOverviewPage";
+import LipoproteinOverviewPage from "./pages/LipoproteinOverviewPage";
 import OxphosStructurePage from "./pages/OxphosStructurePage";
 import StepViewPage from "./pages/StepViewPage";
 import StructureFramesPage from "./pages/StructureFramesPage";
@@ -51,6 +56,16 @@ function PathwayRoute() {
     <CholesterolOverviewPage />
   ) : pathwayId === "ketone" ? (
     <KetoneOverviewPage />
+  ) : pathwayId === "one-carbon" ? (
+    <OneCarbonOverviewPage />
+  ) : pathwayId === "pyrimidine" ? (
+    <PyrimidineOverviewPage />
+  ) : pathwayId === "purine" ? (
+    <PurineOverviewPage />
+  ) : pathwayId === "glycerophospholipid" ? (
+    <GlycerophospholipidOverviewPage />
+  ) : pathwayId === "lipoprotein" ? (
+    <LipoproteinOverviewPage />
   ) : (
     <PathwayOverviewPage />
   );

@@ -1,0 +1,480 @@
+{
+  "id": "purine",
+  "name": "嘌呤核苷酸代谢",
+  "enName": "PURINE NUCLEOTIDE METABOLISM",
+  "plateNo": "PLATE 16",
+  "structureNo": "SF-16",
+  "summary": "胞质里，磷酸戊糖途径的 R5P 先被焦磷酸化成 PRPP，再以 PRPP 为起点，把甘氨酸、天冬氨酸、谷氨酰胺的酰胺氮、CO₂ 与一碳单位逐个装到核糖上，闭合嘌呤环得到 IMP；IMP 是 AMP 与 GMP 的共同前体，分别耗 GTP 与 ATP 分出两条支路。",
+  "heroNote": "胞质从头合成 15 步 · 2D 口径",
+  "legend": [
+    { "text": "主链（生理方向）", "kind": "main", "tone": "ink" },
+    { "text": "可逆 / 近平衡", "kind": "dashed", "tone": "ink" },
+    { "text": "旁支 / 去向", "kind": "dotted", "tone": "brick" },
+    { "text": "跨通路接口", "kind": "dashed", "tone": "teal" },
+    { "text": "① 步骤顺序", "kind": "badge", "tone": "ink" }
+  ],
+  "readingGuide": {
+    "label": "嘌呤核苷酸代谢导读",
+    "summary": "R5P → PRPP → PRA → GAR → FGAR → FGAM → AIR → CAIR → SAICAR → AICAR → FAICAR → IMP → AMP / GMP",
+    "paragraphs": [
+      "嘌呤从头合成不从游离碱基开始，而是把原子逐个装到核糖上。入口是 R5P：它来自磷酸戊糖途径的 ppp-n1（Ru5P ⇌ R5P），由 PRPP 合成酶消耗 ATP 变成 PRPP。PRPP 既是的嘌呤起点，也是嘧啶与补救途径共用的活化核糖供体；本图只登记 ppp-n1 这条真实存在的接口，不改 PPP 图。",
+      "真正的装环从 PRPP 开始：磷酸核糖焦磷酸酰胺转移酶把谷氨酰胺的酰胺氮接到 PRPP 上，放出 PPi 与谷氨酸，生成 5-磷酸核糖胺（PRA）。这是限速步，也是不可逆的承诺步，被 AMP / GMP / IMP 反馈抑制。随后甘氨酸整分子接入，再依次由一碳单位、谷氨酰胺、ATP 与 CO₂ 补上环上的碳和氮，咪唑环在 AIR 处闭合。",
+      "嘌呤环的九个原子来源必须逐一对上：N1 来自天冬氨酸，C2 与 C8 来自 10-甲酰THF，N3 与 N9 来自谷氨酰胺的酰胺氮，C4、C5、N7 来自甘氨酸，C6 来自 CO₂。两个甲酰基转移步（pur-4、pur-10）都从胞质一碳池取 10-甲酰THF；本图只登记一碳单位挂图真实存在的 oc-3，不伪造 DHFR 等步骤。",
+      "装环完成后，FAICAR 脱水闭环生成 IMP。IMP 是嘌呤核苷酸的中心分叉点：一条支路经腺苷酸琥珀酸合成酶消耗 GTP、接上天冬氨酸，再由腺苷酸琥珀酸裂解酶放出延胡索酸得到 AMP；另一条支路由 IMP 脱氢酶氧化成 XMP，再由 GMP 合成酶消耗 ATP 与谷氨酰胺的酰胺氮得到 GMP。两条支路的能学不同——AMP 支路耗 GTP，GMP 支路耗 ATP——这是嘌呤核苷酸互相平衡的关键。"
+    ]
+  },
+  "posterFoot": [
+    "嘌呤环原子来源：N1 来自天冬氨酸；C2 与 C8 来自 10-甲酰THF；N3 与 N9 来自谷氨酰胺的酰胺氮；C4、C5、N7 来自甘氨酸；C6 来自 CO₂。把来源写错，整张图的原子账就对不上。",
+    "两个接口：本图第 1 步以 R5P 为起点，R5P 由磷酸戊糖途径的 ppp-n1（Ru5P ⇌ R5P）供给；pur-4 与 pur-10 的甲酰基来自胞质一碳池，只登记真实存在的 oc-3，不改动对应挂图。",
+    "IMP 是 AMP 与 GMP 的共同前体：AMP 支路由 ADSS 消耗 GTP、ADSL 释放延胡索酸；GMP 支路由 IMPDH 氧化、GMPS 消耗 ATP 与谷氨酰胺。两条支路耗能不同，不能写成“IMP 直接变成 AMP 或 GMP”而不交代辅因子。",
+    "补救途径只作注记：HGPRT / APRT 把游离嘌呤碱基接回 PRPP，本平台未建该通路，也不为它编步骤号；图中只放一个补救 hub，不与从头合成步骤混编。",
+    "教材依据：《生物化学与分子生物学》第 9 版 · 核苷酸代谢（嘌呤核苷酸的合成）章节；只写章节名，不标页码、不引真题年份。"
+  ],
+  "entities": [
+    { "id": "r5p", "name": "5-磷酸核糖（R5P）", "abbr": "R5P", "kind": "metabolite", "note": "来自磷酸戊糖途径 ppp-n1；嘌呤从头合成的核糖起点" },
+    { "id": "prpp", "name": "磷酸核糖焦磷酸（PRPP）", "abbr": "PRPP", "kind": "metabolite", "note": "活化的核糖供体；嘌呤、嘧啶与补救途径共用" },
+    { "id": "gln", "name": "谷氨酰胺", "abbr": "Gln", "kind": "metabolite", "note": "提供嘌呤环的 N3 与 N9（酰胺氮）" },
+    { "id": "glu", "name": "谷氨酸", "abbr": "Glu", "kind": "metabolite" },
+    { "id": "ppi", "name": "焦磷酸", "abbr": "PPi", "kind": "cofactor" },
+    { "id": "pra", "name": "5-磷酸核糖胺（PRA）", "abbr": "PRA", "kind": "metabolite", "note": "嘌呤从头合成的第一个含氮中间物" },
+    { "id": "gly", "name": "甘氨酸", "abbr": "Gly", "kind": "metabolite", "note": "提供嘌呤环的 C4、C5 与 N7" },
+    { "id": "gar", "name": "甘氨酰胺核苷酸（GAR）", "abbr": "GAR", "kind": "metabolite" },
+    { "id": "fgar", "name": "甲酰甘氨酰胺核苷酸（FGAR）", "abbr": "FGAR", "kind": "metabolite" },
+    { "id": "thf", "name": "四氢叶酸（THF）", "abbr": "THF", "kind": "cofactor", "note": "甲酰基转移后的受体形式；本图不展开一碳循环" },
+    { "id": "chothf", "name": "10-甲酰四氢叶酸", "abbr": "10-CHO-THF", "kind": "cofactor", "note": "C2 与 C8 的甲酰基供体；来自胞质一碳池" },
+    { "id": "fgam", "name": "甲酰甘氨脒核苷酸（FGAM）", "abbr": "FGAM", "kind": "metabolite" },
+    { "id": "adp", "name": "ADP", "abbr": "ADP", "kind": "cofactor" },
+    { "id": "pi", "name": "磷酸", "abbr": "Pi", "kind": "cofactor" },
+    { "id": "atp", "name": "ATP", "abbr": "ATP", "kind": "cofactor" },
+    { "id": "air", "name": "5-氨基咪唑核苷酸（AIR）", "abbr": "AIR", "kind": "metabolite", "note": "咪唑环在此闭合" },
+    { "id": "co2", "name": "二氧化碳", "abbr": "CO₂", "kind": "metabolite", "note": "提供嘌呤环的 C6" },
+    { "id": "cair", "name": "5-氨基咪唑-4-羧酸核苷酸（CAIR）", "abbr": "CAIR", "kind": "metabolite" },
+    { "id": "asp", "name": "L-天冬氨酸", "abbr": "Asp", "kind": "metabolite", "note": "提供嘌呤环的 N1，并在 AMP 支路作为氮源" },
+    { "id": "saicar", "name": "腺苷酸琥珀酸甲酰胺核苷酸（SAICAR）", "abbr": "SAICAR", "kind": "metabolite" },
+    { "id": "aicar", "name": "5-氨基咪唑-4-甲酰胺核苷酸（AICAR）", "abbr": "AICAR", "kind": "metabolite" },
+    { "id": "fum", "name": "延胡索酸", "abbr": "Fum", "kind": "metabolite" },
+    { "id": "faicar", "name": "5-甲酰胺基咪唑-4-甲酰胺核苷酸（FAICAR）", "abbr": "FAICAR", "kind": "metabolite" },
+    { "id": "imp", "name": "次黄苷酸（IMP）", "abbr": "IMP", "kind": "metabolite", "note": "AMP 与 GMP 的共同前体；嘌呤核苷酸的中心节点" },
+    { "id": "gtp", "name": "GTP", "abbr": "GTP", "kind": "cofactor", "note": "AMP 支路的能量供体" },
+    { "id": "gdp", "name": "GDP", "abbr": "GDP", "kind": "cofactor" },
+    { "id": "asuc", "name": "腺苷酸琥珀酸", "abbr": "ASUC", "kind": "metabolite" },
+    { "id": "amp", "name": "腺苷一磷酸（AMP）", "abbr": "AMP", "kind": "metabolite" },
+    { "id": "nad", "name": "NAD⁺", "abbr": "NAD⁺", "kind": "cofactor" },
+    { "id": "nadh", "name": "NADH", "abbr": "NADH", "kind": "cofactor" },
+    { "id": "xmp", "name": "黄苷酸（XMP）", "abbr": "XMP", "kind": "metabolite" },
+    { "id": "gmp", "name": "鸟苷一磷酸（GMP）", "abbr": "GMP", "kind": "metabolite" },
+    { "id": "h2o", "name": "水", "abbr": "H₂O", "kind": "cofactor" }
+  ],
+  "steps": [
+    {
+      "id": "pur-1",
+      "index": 1,
+      "name": "PRPP 合成酶把 R5P 焦磷酸化成 PRPP",
+      "shortName": "PRPP 起始",
+      "compartment": "cyto",
+      "equation": "R5P + ATP → PRPP + AMP",
+      "substrates": ["r5p", "atp"],
+      "products": ["prpp", "amp"],
+      "cofactors": ["Mg²⁺"],
+      "enzyme": { "name": "磷酸核糖焦磷酸合成酶", "isozyme": "PRPPS", "ec": "2.7.6.1" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "生理单向 · 生成 PRPP 与 AMP，产物 AMP 反馈调节",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "把磷酸戊糖途径的 R5P 接进嘌呤从头合成，生成活化的核糖供体 PRPP；这是全图的入口，也是嘌呤与嘧啶共用的 PRPP 池来源。",
+      "note": "接口 ppp-n1：R5P 由磷酸戊糖途径的 Ru5P ⇌ R5P 供给；本图只登记这条真实存在的步骤，不改 PPP 图。PRPP 合成酶只把 ATP 的焦磷酸基整体转移到 R5P 上，产物是 PRPP 与 AMP，不产生游离 PPi；PPi 的释放与水解发生在下一步 pur-2。",
+      "misconceptions": [
+        "以为嘌呤从头合成从游离核糖开始：实际起点是 R5P，先焦磷酸化成 PRPP。",
+        "把 PRPP 当成嘌呤环的一部分：PRPP 只提供核糖-5-磷酸，嘌呤环在后续步骤逐个装上。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-2",
+      "index": 2,
+      "name": "酰胺转移酶把谷氨酰胺的酰胺氮接到 PRPP 上",
+      "shortName": "限速 · 装酰胺氮",
+      "compartment": "cyto",
+      "equation": "PRPP + 谷氨酰胺 + H₂O → 5-磷酸核糖胺 + 谷氨酸 + PPi",
+      "substrates": ["prpp", "gln", "h2o"],
+      "products": ["pra", "glu", "ppi"],
+      "cofactors": ["Mg²⁺"],
+      "enzyme": { "name": "磷酸核糖焦磷酸酰胺转移酶", "isozyme": "PPAT", "ec": "2.4.2.14" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · 限速步，释放 PPi 拉动",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "嘌呤从头合成的限速步与承诺步：把第一个氮装到核糖上，决定整条通路的通量；AMP、GMP、IMP 反馈抑制此酶。",
+      "note": "被 AMP / GMP / IMP 反馈抑制；PRPP 与谷氨酰胺是底物，PPi 释放后水解，生理方向不可逆。",
+      "misconceptions": [
+        "以为嘌呤环的第一个氮来自天冬氨酸：第一个氮来自谷氨酰胺的酰胺侧链。",
+        "把这一步当成可逆的平衡反应：PPi 水解释放能量，生理方向单向。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-3",
+      "index": 3,
+      "name": "GARS 把甘氨酸整分子接到 PRA 上",
+      "shortName": "装甘氨酸",
+      "compartment": "cyto",
+      "equation": "PRA + 甘氨酸 + ATP → GAR + ADP + Pi",
+      "substrates": ["pra", "gly", "atp"],
+      "products": ["gar", "adp", "pi"],
+      "cofactors": [],
+      "enzyme": { "name": "甘氨酰胺核苷酸合成酶", "isozyme": "GARS", "ec": "6.3.4.13" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "ATP 驱动的缩合，生理方向偏向 GAR",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "甘氨酸整分子接入，一次带来嘌呤环的 C4、C5 与 N7 三个原子；ATP 的 γ-磷酸用于活化羧基。",
+      "misconceptions": [
+        "把甘氨酸拆成多个片段分别接入：GARS 反应里甘氨酸是整分子缩合。",
+        "忘记这一步耗 ATP：缩合由 ATP 活化，产物侧释放 ADP 与 Pi。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-4",
+      "index": 4,
+      "name": "GART 把 10-甲酰THF 的甲酰基转到 GAR 上",
+      "shortName": "装 C8 甲酰基",
+      "compartment": "cyto",
+      "equation": "GAR + 10-甲酰THF → FGAR + THF",
+      "substrates": ["gar", "chothf"],
+      "products": ["fgar", "thf"],
+      "cofactors": [],
+      "enzyme": { "name": "甘氨酰胺核苷酸甲酰转移酶", "isozyme": "GART", "ec": "2.1.2.2" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 甲酰基转移，近平衡",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "第一个一碳单位进入嘌呤环，提供 C8；10-甲酰THF 转出甲酰基后变成 THF。",
+      "note": "甲酰基来自胞质一碳池：本图只登记真实存在的 oc-3（胞质 MTHFD1 步骤），不伪造 DHFR 等站内没有的步骤。",
+      "misconceptions": [
+        "把 C8 的来源记成 CO₂：C8 来自 10-甲酰THF，CO₂ 提供的是 C6。",
+        "以为 THF 直接供甲酰基：供体是 10-甲酰THF，THF 是转出甲酰基后的形式。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-5",
+      "index": 5,
+      "name": "FGAMS 用谷氨酰胺补上 FGAM 的脒基氮",
+      "shortName": "装 N3 酰胺氮",
+      "compartment": "cyto",
+      "equation": "FGAR + 谷氨酰胺 + ATP → FGAM + 谷氨酸 + ADP + Pi",
+      "substrates": ["fgar", "gln", "atp"],
+      "products": ["fgam", "glu", "adp", "pi"],
+      "cofactors": [],
+      "enzyme": { "name": "甲酰甘氨酰胺核苷酸合成酶", "isozyme": "FGAMS / PFAS", "ec": "6.3.5.3" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "ATP 驱动 · 谷氨酰胺酰胺氮转移",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "第二个谷氨酰胺酰胺氮进入嘌呤环，提供 N3；ATP 供能，谷氨酰胺水解后放出谷氨酸。",
+      "misconceptions": [
+        "把 N3 与 N9 的来源混为一谈：两者都来自谷氨酰胺，但分别由 pur-2 与 pur-5 两次装入。",
+        "以为这一步只加水：反应是酰胺氮转移，需要 ATP 与谷氨酰胺。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-6",
+      "index": 6,
+      "name": "AIRS 闭环生成氨基咪唑核苷酸",
+      "shortName": "咪唑环闭合",
+      "compartment": "cyto",
+      "equation": "FGAM + ATP → AIR + ADP + Pi",
+      "substrates": ["fgam", "atp"],
+      "products": ["air", "adp", "pi"],
+      "cofactors": [],
+      "enzyme": { "name": "氨基咪唑核苷酸合成酶", "isozyme": "AIRS", "ec": "6.3.3.1" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "ATP 驱动 · 咪唑环闭合，生理方向偏向 AIR",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "五元咪唑环在这里闭合，嘌呤骨架的双环系统完成一半；ATP 的 γ-磷酸驱动环化。",
+      "misconceptions": [
+        "以为嘌呤双环一次成形：先闭合咪唑五元环，六元环的原子随后补入。",
+        "把这一步写成水解：环化由 ATP 驱动，产物侧释放 ADP 与 Pi。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-7",
+      "index": 7,
+      "name": "AIRC 用 CO₂ 羧化 AIR 生成 CAIR",
+      "shortName": "装 C6 羧基",
+      "compartment": "cyto",
+      "equation": "AIR + CO₂ → CAIR",
+      "substrates": ["air", "co2"],
+      "products": ["cair"],
+      "cofactors": [],
+      "enzyme": { "name": "氨基咪唑核苷酸羧化酶", "isozyme": "AIRC", "ec": "4.1.1.21" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · CO₂ 羧化，近平衡",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "CO₂ 以羧基形式进入嘌呤环，提供 C6；这一步不需要 ATP，是 CO₂ 固定型羧化。",
+      "misconceptions": [
+        "把 C6 记成来自一碳单位：C6 来自 CO₂，一碳单位提供的是 C2 与 C8。",
+        "把羧化酶与生物素依赖的羧化混为一谈：AIRC 的辅因子与反应细节按教材章级标注，本图不展开机制。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-8",
+      "index": 8,
+      "name": "SAICAR 合成酶把天冬氨酸接到 CAIR 上",
+      "shortName": "装 N1 天冬氨酸",
+      "compartment": "cyto",
+      "equation": "CAIR + 天冬氨酸 + ATP → SAICAR + ADP + Pi",
+      "substrates": ["cair", "asp", "atp"],
+      "products": ["saicar", "adp", "pi"],
+      "cofactors": [],
+      "enzyme": { "name": "SAICAR 合成酶", "isozyme": "", "ec": "6.3.2.6" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "ATP 驱动的缩合，生理方向偏向 SAICAR",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "天冬氨酸的氨基进入嘌呤环，提供 N1；ATP 活化羧基，产物侧释放 ADP 与 Pi。",
+      "misconceptions": [
+        "把 N1 归给谷氨酰胺：N1 来自天冬氨酸，谷氨酰胺提供 N3 与 N9。",
+        "忘记天冬氨酸的碳骨架随后被裂解释放：下一步 ADSL 把延胡索酸放走。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-9",
+      "index": 9,
+      "name": "ADSL 裂解 SAICAR 释放延胡索酸",
+      "shortName": "裂解 · 放延胡索酸",
+      "compartment": "cyto",
+      "equation": "SAICAR → AICAR + 延胡索酸",
+      "substrates": ["saicar"],
+      "products": ["aicar", "fum"],
+      "cofactors": [],
+      "enzyme": { "name": "腺苷酸琥珀酸裂解酶", "isozyme": "ADSL", "ec": "4.3.2.2" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 裂解释放延胡索酸",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "把天冬氨酸的碳骨架以延胡索酸形式放走，留下 AICAR；同一酶在 AMP 支路再次裂解腺苷酸琥珀酸。",
+      "misconceptions": [
+        "把延胡索酸当废物：它回到 TCA 循环，是嘌呤合成与三羧酸循环的碳骨架接口。",
+        "以为 ADSL 只催化 AMP 支路：本图 pur-9 与 pur-13 是同一酶的两个位置。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-10",
+      "index": 10,
+      "name": "ATIC 把第二个甲酰基转到 AICAR 上",
+      "shortName": "装 C2 甲酰基",
+      "compartment": "cyto",
+      "equation": "AICAR + 10-甲酰THF → FAICAR + THF",
+      "substrates": ["aicar", "chothf"],
+      "products": ["faicar", "thf"],
+      "cofactors": [],
+      "enzyme": { "name": "AICAR 甲酰转移酶", "isozyme": "ATIC", "ec": "2.1.2.3" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 第二个甲酰基转移",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "第二个一碳单位进入嘌呤环，提供 C2；10-甲酰THF 变成 THF，与 pur-4 共用同一胞质一碳池。",
+      "note": "与 pur-4 相同，甲酰基来自胞质一碳池；本图只登记真实存在的 oc-3，不伪造 DHFR 等步骤。ATIC 同时具有 pur-11 的环水解酶活性。",
+      "misconceptions": [
+        "以为 C2 与 C8 来自不同的辅因子：两者都来自 10-甲酰THF。",
+        "把 ATIC 只当成甲酰转移酶：它还是下一步 IMP 环水解酶（pur-11）的双功能酶。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-11",
+      "index": 11,
+      "name": "ATIC 环水解酶闭环生成 IMP",
+      "shortName": "闭环 · 生成 IMP",
+      "compartment": "cyto",
+      "equation": "FAICAR → IMP + H₂O",
+      "substrates": ["faicar"],
+      "products": ["imp", "h2o"],
+      "cofactors": [],
+      "enzyme": { "name": "IMP 环水解酶", "isozyme": "ATIC（双功能）", "ec": "3.5.4.10" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 脱水闭环，近平衡",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "嘌呤六元环在这里闭合，生成第一个完整嘌呤核苷酸 IMP；IMP 是 AMP 与 GMP 的共同前体。",
+      "misconceptions": [
+        "把 IMP 当终产物：IMP 只是分叉点，后续分别走向 AMP 与 GMP。",
+        "把这一步与 pur-10 当成两个独立蛋白：动物体内二者由双功能酶 ATIC 催化。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-12",
+      "index": 12,
+      "name": "ADSS 用天冬氨酸与 GTP 合成腺苷酸琥珀酸",
+      "shortName": "AMP 支路 · 接天冬氨酸",
+      "compartment": "cyto",
+      "equation": "IMP + 天冬氨酸 + GTP → 腺苷酸琥珀酸 + GDP + Pi",
+      "substrates": ["imp", "asp", "gtp"],
+      "products": ["asuc", "gdp", "pi"],
+      "cofactors": [],
+      "enzyme": { "name": "腺苷酸琥珀酸合成酶", "isozyme": "ADSS", "ec": "6.3.4.4" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "GTP 驱动 · 生理方向偏向腺苷酸琥珀酸",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "AMP 支路的第一步：天冬氨酸的氨基替换 IMP 的 6-羟基，GTP 提供能量；注意这条支路耗 GTP，不是 ATP。",
+      "misconceptions": [
+        "以为 AMP 支路耗 ATP：这一步用的是 GTP，GMP 支路才耗 ATP。",
+        "把腺苷酸琥珀酸当稳定中间物：它随即被 ADSL 裂解。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-13",
+      "index": 13,
+      "name": "ADSL 裂解腺苷酸琥珀酸生成 AMP",
+      "shortName": "AMP 支路 · 放延胡索酸",
+      "compartment": "cyto",
+      "equation": "腺苷酸琥珀酸 → AMP + 延胡索酸",
+      "substrates": ["asuc"],
+      "products": ["amp", "fum"],
+      "cofactors": [],
+      "enzyme": { "name": "腺苷酸琥珀酸裂解酶", "isozyme": "ADSL（与 pur-9 同酶）", "ec": "4.3.2.2" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 裂解释放延胡索酸",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "AMP 支路的收口：腺苷酸琥珀酸裂解成 AMP 与延胡索酸；同一 ADSL 也催化 pur-9，延胡索酸再次回到 TCA。",
+      "misconceptions": [
+        "把 pur-13 当成另一个酶：它与 pur-9 是同一个 ADSL。",
+        "忘记 AMP 支路也释放延胡索酸：天冬氨酸的碳骨架以延胡索酸形式离开。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-14",
+      "index": 14,
+      "name": "IMPDH 氧化 IMP 生成 XMP",
+      "shortName": "GMP 支路 · 氧化",
+      "compartment": "cyto",
+      "equation": "IMP + NAD⁺ + H₂O → XMP + NADH + H⁺",
+      "substrates": ["imp", "nad", "h2o"],
+      "products": ["xmp", "nadh"],
+      "cofactors": [],
+      "enzyme": { "name": "IMP 脱氢酶", "isozyme": "IMPDH", "ec": "1.1.1.205" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · NAD⁺ 依赖的氧化，限速",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "GMP 支路的限速步：IMP 的 2 位碳被氧化成羰基，NAD⁺ 还原为 NADH；IMPDH 是核苷酸池平衡的重要调控点。",
+      "misconceptions": [
+        "以为 IMP 直接氨化成 GMP：先由 IMPDH 氧化成 XMP，再由 GMPS 酰胺化。",
+        "把 NAD⁺ 写成 NADP⁺：本步用 NAD⁺，产物是 NADH。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "pur-15",
+      "index": 15,
+      "name": "GMPS 用谷氨酰胺的酰胺氮把 XMP 变成 GMP",
+      "shortName": "GMP 支路 · 装酰胺氮",
+      "compartment": "cyto",
+      "equation": "XMP + 谷氨酰胺 + ATP → GMP + 谷氨酸 + AMP + PPi",
+      "substrates": ["xmp", "gln", "atp"],
+      "products": ["gmp", "glu", "amp", "ppi"],
+      "cofactors": ["Mg²⁺"],
+      "enzyme": { "name": "GMP 合成酶", "isozyme": "GMPS", "ec": "6.3.5.2" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "ATP 驱动 · 酰胺氮转移，生理方向偏向 GMP",
+        "source": "教材章级（核苷酸代谢·嘌呤核苷酸的合成）"
+      },
+      "significance": "GMP 支路的收口：谷氨酰胺的酰胺氮替换 XMP 的 2-位羰基氧，ATP 活化并释放 AMP 与 PPi；注意这条支路耗 ATP，与 AMP 支路耗 GTP 相对。",
+      "misconceptions": [
+        "以为 GMP 支路不耗高能磷酸：GMPS 消耗 ATP，并释放 AMP 与 PPi。",
+        "把 XMP 当终点：XMP 只是 IMP 与 GMP 之间的氧化中间物。"
+      ],
+      "clinical": []
+    }
+  ],
+  "interfaces": [
+    {
+      "stepId": "ppp-n1",
+      "label": "磷酸戊糖途径的 R5P 出口",
+      "note": "本图第 1 步以 R5P 为起点生成 PRPP；R5P 由 ppp-n1（Ru5P ⇌ R5P）供给，不改 PPP 图。"
+    },
+    {
+      "stepId": "oc-3",
+      "label": "胞质一碳池的 10-甲酰THF",
+      "note": "pur-4 与 pur-10 的甲酰基来自一碳单位胞质池；本图只登记真实存在的 oc-3，不伪造 DHFR 等步骤。"
+    }
+  ],
+  "threeD": {
+    "status": "not-built",
+    "note": "本图按项目口径只做 2D 结构式，不建 3D，也不登记 PDB 候选。"
+  }
+}

@@ -1,0 +1,320 @@
+{
+  "id": "one-carbon",
+  "name": "一碳单位代谢",
+  "enName": "ONE-CARBON UNITS · FOLATE & METHIONINE CYCLE",
+  "plateNo": "PLATE 14",
+  "structureNo": "SF-14",
+  "summary": "四氢叶酸把丝氨酸的 β-碳装成一碳单位，按甲酰基 / 亚甲基 / 甲基三种氧化级互相转换；甲基级经甲硫氨酸循环交给 SAM，供甲基后再回到同型半胱氨酸。",
+  "heroNote": "线粒体装载 + 胞质叶酸池 + 甲硫氨酸循环闭环 · 9 步 · 2D 口径",
+  "legend": [
+    { "text": "主链（生理方向）", "kind": "main", "tone": "ink" },
+    { "text": "可逆 / 双向互变", "kind": "dashed", "tone": "ink" },
+    { "text": "旁路 / 回池", "kind": "dotted", "tone": "brick" },
+    { "text": "跨区室运输", "kind": "dashed", "tone": "teal" },
+    { "text": "① 步骤顺序", "kind": "badge", "tone": "ink" }
+  ],
+  "readingGuide": {
+    "label": "一碳单位代谢导读",
+    "summary": "THF 载一碳：丝氨酸装载 → 氧化级互变 → 甲基级 → SAM 供甲基 → 回同型半胱氨酸",
+    "paragraphs": [
+      "一碳单位是含一个碳原子的基团，包括甲酰基、亚甲基（甲烯基）、次甲基（甲炔基）与甲基等。它们不能以游离形式存在，必须挂在四氢叶酸（THF）的 N5 或 N10 上，因此 THF 是一碳单位的共同载体；叶酸缺乏时，一碳单位转移受阻，核酸合成与甲基化同时受影响。",
+      "本图的左侧是线粒体：丝氨酸羟甲基转移酶把丝氨酸的 β-碳转给 THF，生成甘氨酸与 5,10-亚甲基 THF；后者在双功能酶 MTHFD2 作用下沿氧化方向走成 5,10-次甲基 THF、再到 10-甲酰 THF。右侧胞质里，同一组三个氧化级可在 MTHFD1 作用下双向互变，方向由 NADPH/NADP⁺ 与下游需求决定——这是“一碳单位不同氧化态互通”的关键，不能只写“THF 提供一碳单位”。",
+      "真正把一碳单位锁死方向的是 MTHFR：它把 5,10-亚甲基 THF 还原成 5-甲基 THF，生理上不可逆。甲基级只能用于甲基化，不能再回头供胸苷酸合成；要回到亚甲基级，必须先经甲硫氨酸合酶把甲基交给同型半胱氨酸，生成甲硫氨酸，再由 SAM 循环走一圈。",
+      "甲硫氨酸循环是本图的闭环：甲硫氨酸经 MAT 活化成 SAM，SAM 把甲基交给受体后变成 SAH，SAH 水解释出同型半胱氨酸与腺苷，同型半胱氨酸再从 5-甲基 THF 接受甲基回到甲硫氨酸。这个环把叶酸池、B12 与甲基化三者绑在一起；同型半胱氨酸也可经甜菜碱-同型半胱氨酸甲基转移酶（BHMT）从甜菜碱接受甲基回到甲硫氨酸，这条旁支不经过 5-甲基 THF，与转硫支路（见氨基酸代谢 aa-7）是两条不同去向，本图都不展开。"
+    ]
+  },
+  "posterFoot": [
+    "氧化态标尺：甲酰基（最氧化）→ 次甲基 → 亚甲基 → 甲基（最还原）。线粒体以氧化方向为主，胞质以双向互变供不同下游；方向写错，整张图的因果就反了。",
+    "dTMP 合成只到“5,10-亚甲基 THF 提供亚甲基”为止：胸苷酸合酶（TS）把亚甲基转给 dUMP 并生成二氢叶酸，这一步在 PLATE 15 嘧啶核苷酸代谢的 pyr-12 展开，本图只画供体一侧，不重复画受体通路。",
+    "甜菜碱支路：同型半胱氨酸 + 甜菜碱 → 甲硫氨酸 + 二甲基甘氨酸（BHMT，肝/肾），与 MTR 并行，是不依赖 B12 与 5-甲基 THF 的再甲基化路线；本图按旁支单列一步，不改主循环顺序。",
+    "教材依据：《生物化学与分子生物学》第 9 版 · 氨基酸代谢（一碳单位）与核苷酸代谢相关章节；只写章节名，不标页码、不引真题年份。"
+  ],
+  "entities": [
+    { "id": "ser", "name": "L-丝氨酸", "abbr": "Ser", "kind": "metabolite", "note": "一碳单位的主要来源；β-碳被 SHMT 转移" },
+    { "id": "gly", "name": "甘氨酸", "abbr": "Gly", "kind": "metabolite", "note": "丝氨酸脱去 β-碳后的产物；也是嘌呤与血红素原料" },
+    { "id": "thf", "name": "四氢叶酸（THF）", "abbr": "THF", "kind": "cofactor", "note": "一碳单位的共同载体；N5 / N10 位挂一碳" },
+    { "id": "ch2thf", "name": "5,10-亚甲基四氢叶酸", "abbr": "CH₂-THF", "kind": "cofactor", "note": "亚甲基级；可还原成甲基级，也可供 dTMP 合成" },
+    { "id": "chmethf", "name": "5,10-次甲基四氢叶酸", "abbr": "CH-THF", "kind": "cofactor", "note": "次甲基级；介于亚甲基与甲酰基之间" },
+    { "id": "chothf", "name": "10-甲酰四氢叶酸", "abbr": "CHO-THF", "kind": "cofactor", "note": "甲酰级；嘌呤 C2 / C8 的供体" },
+    { "id": "ch3thf", "name": "5-甲基四氢叶酸", "abbr": "CH₃-THF", "kind": "cofactor", "note": "甲基级；体内最主要的循环形式，只供甲基化" },
+    { "id": "hcy", "name": "同型半胱氨酸", "abbr": "Hcy", "kind": "metabolite", "note": "甲硫氨酸循环的出口；再甲基化或转硫两条去向" },
+    { "id": "met", "name": "甲硫氨酸", "abbr": "Met", "kind": "metabolite", "note": "必需氨基酸；SAM 的直接前体" },
+    { "id": "betaine", "name": "甜菜碱（甘氨酸甜菜碱）", "abbr": "甜菜碱", "kind": "metabolite", "note": "BHMT 的甲基供体；由胆碱氧化生成，交出甲基后变成二甲基甘氨酸" },
+    { "id": "dimethylglycine", "name": "二甲基甘氨酸", "abbr": "DMG", "kind": "metabolite", "note": "甜菜碱去甲基的产物；继续代谢为肌氨酸与甘氨酸，不回到甲硫氨酸循环" },
+    { "id": "sam", "name": "S-腺苷甲硫氨酸（SAM）", "abbr": "SAM", "kind": "cofactor", "note": "体内最主要的甲基直接供体；锍离子型" },
+    { "id": "sah", "name": "S-腺苷同型半胱氨酸（SAH）", "abbr": "SAH", "kind": "metabolite", "note": "SAM 供甲基后的产物；甲基化程度的指示物" },
+    { "id": "ado", "name": "腺苷", "abbr": "Ado", "kind": "metabolite", "note": "SAH 水解的另一产物；可回核苷酸池" },
+    { "id": "formate", "name": "甲酸", "abbr": "HCOO⁻", "kind": "metabolite", "note": "线粒体输出一碳单位的跨膜形式；进入胞质后由 MTHFD1 合成酶域重新装到 THF 上" },
+    { "id": "atp", "name": "ATP", "abbr": "ATP", "kind": "cofactor" },
+    { "id": "ppi", "name": "焦磷酸", "abbr": "PPi", "kind": "cofactor", "note": "MAT 反应释放，随后水解为两分子 Pi" },
+    { "id": "pi", "name": "磷酸", "abbr": "Pi", "kind": "cofactor" },
+    { "id": "acceptor", "name": "甲基受体（泛称）", "abbr": "受体", "kind": "metabolite", "note": "磷脂、肌酸、DNA、神经递质等甲基化底物的合称，本图不逐一展开" },
+    { "id": "methylacc", "name": "甲基化受体", "abbr": "受体-CH₃", "kind": "metabolite", "note": "接受 SAM 甲基后的产物，具体种类随组织而异" }
+  ],
+  "steps": [
+    {
+      "id": "oc-1",
+      "index": 1,
+      "name": "丝氨酸羟甲基转移酶把丝氨酸的 β-碳装到 THF 上",
+      "shortName": "丝氨酸装载一碳",
+      "compartment": "mito",
+      "equation": "L-丝氨酸 + THF → 甘氨酸 + 5,10-亚甲基THF + H₂O",
+      "substrates": ["ser", "thf"],
+      "products": ["gly", "ch2thf"],
+      "cofactors": ["磷酸吡哆醛（PLP）"],
+      "enzyme": { "name": "丝氨酸羟甲基转移酶", "isozyme": "SHMT2（肝线粒体同工酶）", "ec": "2.1.2.1" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 生理方向由线粒体一碳需求拉动",
+        "source": "教材章级（氨基酸代谢·一碳单位）"
+      },
+      "significance": "一碳单位的主要入口：丝氨酸的 β-碳以亚甲基级挂上 THF，同时放出甘氨酸。这一步决定线粒体一碳池的供给量。",
+      "note": "SHMT1 在胞质、SHMT2 在线粒体；本图画肝线粒体这一支，不把两个同工酶合并成一步反应式之外的结论。",
+      "misconceptions": [
+        "把 THF 当成“甲基载体”：THF 载运的是不同氧化级的一碳单位，甲基只是其中最低价的一种。",
+        "把丝氨酸写成直接提供甲基：丝氨酸给的是亚甲基级，要变成甲基级还得经 MTHFR 还原。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "oc-2",
+      "index": 2,
+      "name": "MTHFD2 把亚甲基氧化成次甲基、再水解成甲酰基",
+      "shortName": "亚甲基 → 甲酰基",
+      "compartment": "mito",
+      "equation": "5,10-亚甲基THF + NADP⁺ → 5,10-次甲基THF + NADPH + H⁺；5,10-次甲基THF + H₂O → 10-甲酰THF",
+      "substrates": ["ch2thf"],
+      "products": ["chmethf", "chothf"],
+      "cofactors": ["NADP⁺", "NADPH"],
+      "enzyme": { "name": "亚甲基四氢叶酸脱氢酶 / 环水解酶（双功能）", "isozyme": "MTHFD2（线粒体）", "ec": "" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 线粒体内偏向氧化方向",
+        "source": "教材章级（氨基酸代谢·一碳单位）；双功能酶 EC 未核实"
+      },
+      "significance": "把一碳单位沿氧化方向推高一级，产出甲酰级；甲酰级是嘌呤 C2 / C8 的供体，也可水解成甲酸输出线粒体。",
+      "note": "双功能酶的两个活性域分属脱氢酶与环水解酶，本平台未逐域核实 EC 号，故页面显示“未核实”。",
+      "misconceptions": [
+        "把亚甲基、次甲基、甲酰基当成三种不同的载体分子：它们是同一个 THF 的不同氧化级。",
+        "把氧化方向写成不可逆：脱氢与环水解都可逆，方向由 NADP⁺/NADPH 比值与下游拉动决定。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "oc-3",
+      "index": 3,
+      "name": "胞质 MTHFD1 让甲酰级与亚甲基级双向互变",
+      "shortName": "胞质一碳池互变",
+      "compartment": "cyto",
+      "equation": "10-甲酰THF + NADPH + H⁺ ⇌ 5,10-亚甲基THF + NADP⁺",
+      "substrates": ["chothf"],
+      "products": ["ch2thf"],
+      "cofactors": ["NADPH", "NADP⁺"],
+      "enzyme": { "name": "亚甲基四氢叶酸脱氢酶 / 环水解酶 / 甲酰基THF合成酶（三功能）", "isozyme": "MTHFD1（胞质）", "ec": "" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 双向，随 NADPH/NADP⁺ 与下游需求变向",
+        "source": "教材章级（氨基酸代谢·一碳单位）；三功能酶 EC 未核实"
+      },
+      "significance": "胞质一碳池的“换挡器”：同一个酶把甲酰级与亚甲基级互相转换，向上供嘌呤合成、向下供 MTHFR 还原成甲基级。",
+      "note": "三功能酶含甲酰基THF合成酶域，可把 THF + 甲酸 + ATP 重新装成 10-甲酰THF；该支路只在本图用一条回池虚线示意。",
+      "misconceptions": [
+        "把胞质与线粒体的一碳池当成同一池：两者以甲酸等形式穿梭，区室不同。",
+        "认为甲酰级只能用于嘌呤合成：它也可被还原回亚甲基级，再走甲基化路线。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "oc-4",
+      "index": 4,
+      "name": "MTHFR 把亚甲基还原成甲基，这一步生理不可逆",
+      "shortName": "还原成甲基级",
+      "compartment": "cyto",
+      "equation": "5,10-亚甲基THF + NADPH + H⁺ → 5-甲基THF + NADP⁺",
+      "substrates": ["ch2thf"],
+      "products": ["ch3thf"],
+      "cofactors": ["NADPH", "FAD"],
+      "enzyme": { "name": "亚甲基四氢叶酸还原酶", "isozyme": "MTHFR", "ec": "1.5.1.20" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · 生理不可逆、限速",
+        "source": "教材章级（氨基酸代谢·一碳单位）"
+      },
+      "significance": "把一碳单位从“可进核酸合成”的亚甲基级转成“只能用于甲基化”的甲基级；这是分流点，也是叶酸与甲基化之间的闸门。",
+      "misconceptions": [
+        "以为 5-甲基THF 能直接变回亚甲基THF 去供 dTMP：MTHFR 生理不可逆，甲基级是死端，只能绕甲硫氨酸循环。",
+        "把 MTHFR 与甲硫氨酸合酶混为一谈：前者还原 THF 的氧化级，后者把甲基转给同型半胱氨酸。"
+      ],
+      "clinical": [
+        "MTHFR 活性下降与同型半胱氨酸升高相关；教材作为遗传因素提及，本平台不展开分型与用药。"
+      ]
+    },
+    {
+      "id": "oc-5",
+      "index": 5,
+      "name": "甲硫氨酸合酶把甲基交给同型半胱氨酸，B12 是中间载体",
+      "shortName": "甲基转移给 Hcy",
+      "compartment": "cyto",
+      "equation": "5-甲基THF + 同型半胱氨酸 → 甲硫氨酸 + THF",
+      "substrates": ["ch3thf", "hcy"],
+      "products": ["met", "thf"],
+      "cofactors": ["钴胺素（维生素 B12，甲基钴胺素形式）"],
+      "enzyme": { "name": "甲硫氨酸合酶（蛋氨酸合酶）", "isozyme": "MTR", "ec": "2.1.1.13" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "生理单向 · 由甲基受体供给拉动",
+        "source": "教材章级（氨基酸代谢·一碳单位与甲硫氨酸循环）"
+      },
+      "significance": "把叶酸池与甲硫氨酸循环接起来：THF 被释放回池，甲硫氨酸被再生。B12 缺乏时这一步受阻，叶酸被“甲基陷阱”锁住。",
+      "misconceptions": [
+        "把 B12 当成末端甲基供体：B12 只是甲基的中间载体，末端供体仍是 5-甲基THF。",
+        "把同型半胱氨酸当成必需氨基酸：它由甲硫氨酸循环生成，不是膳食必需。"
+      ],
+      "clinical": [
+        "叶酸或 B12 缺乏时同型半胱氨酸升高，并出现巨幼细胞贫血；这是“甲基陷阱”的经典解释。"
+      ]
+    },
+    {
+      "id": "oc-6",
+      "index": 6,
+      "name": "甲硫氨酸腺苷转移酶把甲硫氨酸活化成 SAM",
+      "shortName": "活化生成 SAM",
+      "compartment": "cyto",
+      "equation": "甲硫氨酸 + ATP → SAM + PPi + Pi",
+      "substrates": ["met", "atp"],
+      "products": ["sam", "ppi", "pi"],
+      "cofactors": [],
+      "enzyme": { "name": "甲硫氨酸腺苷转移酶", "isozyme": "MAT1A / MAT2A（肝）", "ec": "2.5.1.6" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · 消耗 ATP 的两个高能键",
+        "source": "教材章级（氨基酸代谢·甲硫氨酸循环）"
+      },
+      "significance": "把甲硫氨酸的硫原子活化成正电荷锍离子，使甲基易于转移；SAM 是体内最主要的甲基直接供体。",
+      "misconceptions": [
+        "把 SAM 当成辅酶：SAM 是化学计量底物，供出甲基后变成 SAH，不循环使用。",
+        "以为这一步只是“耗能”：ATP 的两个高能键用于形成锍离子，是甲基可转移的结构基础。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "oc-7",
+      "index": 7,
+      "name": "甲基转移酶把 SAM 的甲基交给受体，生成 SAH",
+      "shortName": "SAM 供甲基",
+      "compartment": "cyto",
+      "equation": "SAM + 甲基受体 → 甲基化受体 + SAH",
+      "substrates": ["sam", "acceptor"],
+      "products": ["methylacc", "sah"],
+      "cofactors": [],
+      "enzyme": { "name": "甲基转移酶（家族，受体因组织而异）", "isozyme": "", "ec": "" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "单向 · 甲基转移基本不可逆",
+        "source": "教材章级（氨基酸代谢·甲硫氨酸循环）；具体酶 EC 未核实"
+      },
+      "significance": "甲基化的执行步：磷脂酰胆碱、肌酸、DNA 与神经递质的甲基都来自 SAM；产物 SAH 是循环的“用后余额”。",
+      "note": "本平台不逐一展开甲基受体（PEMT、GNMT、DNA 甲基转移酶等），图中以“甲基受体（泛称）”合并表示。",
+      "misconceptions": [
+        "把甲基化写成 SAM 直接再生：SAM 必须由甲硫氨酸循环重新合成。",
+        "把 SAH 当废物：它水解后回到同型半胱氨酸，是闭环的关键节点；SAH 堆积还会反馈抑制甲基化。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "oc-8",
+      "index": 8,
+      "name": "SAH 水解酶释出同型半胱氨酸与腺苷，环闭合",
+      "shortName": "SAH 水解闭环",
+      "compartment": "cyto",
+      "equation": "SAH + H₂O ⇌ 同型半胱氨酸 + 腺苷",
+      "substrates": ["sah"],
+      "products": ["hcy", "ado"],
+      "cofactors": [],
+      "enzyme": { "name": "S-腺苷同型半胱氨酸水解酶", "isozyme": "AHCY", "ec": "3.3.1.1" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 平衡偏向 SAH 合成，靠产物清除拉动",
+        "source": "教材章级（氨基酸代谢·甲硫氨酸循环）"
+      },
+      "significance": "闭环步：同型半胱氨酸回到循环起点，腺苷回核苷酸池。反应本身偏向合成 SAH，方向靠腺苷与同型半胱氨酸的及时清除维持。",
+      "misconceptions": [
+        "以为 AHCY 反应单向生成同型半胱氨酸：平衡常数偏向 SAH，方向由下游清除决定。",
+        "忽略腺苷的去向：腺苷既是产物也是信号分子，本图只把它记为回核苷酸池。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "oc-9",
+      "index": 9,
+      "name": "甜菜碱-同型半胱氨酸甲基转移酶把甜菜碱的甲基交给同型半胱氨酸",
+      "shortName": "甜菜碱再甲基化",
+      "compartment": "cyto",
+      "equation": "同型半胱氨酸 + 甜菜碱 → 甲硫氨酸 + 二甲基甘氨酸",
+      "substrates": ["hcy", "betaine"],
+      "products": ["met", "dimethylglycine"],
+      "cofactors": [],
+      "enzyme": { "name": "甜菜碱-同型半胱氨酸甲基转移酶", "isozyme": "BHMT", "ec": "2.1.1.5" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 生理方向偏向再甲基化，由甜菜碱供给与二甲基甘氨酸清除拉动",
+        "source": "教材章级（氨基酸代谢·甲硫氨酸循环）"
+      },
+      "significance": "与 MTR 并行的第二条再甲基化路线：不依赖 B12 与 5-甲基 THF，直接把甜菜碱的甲基交给同型半胱氨酸；肝、肾中承担相当一部分再甲基化通量。",
+      "note": "BHMT 主要表达于肝与肾；本图把它画成旁支，接在 SAH → 同型半胱氨酸之后、与甲硫氨酸循环闭合处，不替代 MTR 主环。反应化学上可逆，生理方向由甜菜碱摄取与二甲基甘氨酸代谢拉动。",
+      "misconceptions": [
+        "把 BHMT 当成叶酸循环的酶：它的甲基来自甜菜碱（胆碱氧化产物），不来自 5-甲基 THF，也不依赖 B12。",
+        "把甜菜碱支路与转硫支路混为一谈：前者回到甲硫氨酸，后者把同型半胱氨酸送去合成半胱氨酸。"
+      ],
+      "clinical": []
+    }
+  ],
+  "transportSteps": [
+    {
+      "id": "oc-t1",
+      "name": "一碳单位从线粒体输出到胞质",
+      "from": "线粒体（10-甲酰THF 水解释放甲酸）",
+      "to": "胞质叶酸池（甲酸由 MTHFD1 合成酶域就地装载）",
+      "via": "线粒体内膜",
+      "note": "教材口径：线粒体生成的一碳单位以甲酸形式输出，胞质的 10-甲酰THF 由 MTHFD1 合成酶域就地生成；具体转运蛋白未核实，本图只画一条运输虚线，不计入步数。"
+    }
+  ],
+  "interfaces": [
+    {
+      "stepId": "aa-7",
+      "label": "转硫支路入口：胱硫醚 β-合酶",
+      "note": "同型半胱氨酸 + 丝氨酸 → 胱硫醚，是 Hcy 离开甲硫氨酸循环的另一条去向；本图不展开，详见氨基酸代谢挂图。"
+    }
+  ],
+  "threeD": {
+    "status": "not-built",
+    "note": "本图沿用站内 UTP 口径：全部只做 2D 结构式，不建 3D，也不登记 PDB 候选。"
+  }
+}

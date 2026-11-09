@@ -1,0 +1,498 @@
+{
+  "id": "glycerophospholipid",
+  "name": "甘油磷脂与鞘脂代谢",
+  "enName": "GLYCEROPHOSPHOLIPID & SPHINGOLIPID METABOLISM",
+  "plateNo": "PLATE 17",
+  "structureNo": "SF-17",
+  "summary": "内质网胞质面 14 步、高尔基体 1 步：从甘油-3-磷酸与脂酰CoA 起步，经 PA 分岔到 Kennedy 途径（PC / PE）与 CDP-DAG 支路（PI / PS / PG），再到鞘脂从丝氨酸 + 棕榈酰CoA 起始，经 CERS 生成二氢神经酰胺、DES 引入 4,5-双键，最后在高尔基体由 SMS 把 PC 的磷酸胆碱转给神经酰胺。",
+  "heroNote": "甘油磷脂与鞘脂共用 PA / DAG / CDP-DAG / PC 四个枢纽；只做 2D，脂质酰基链不建结构。",
+  "legend": [
+    { "text": "实线主链：每一步反应一条主线，箭头指向产物", "kind": "main", "tone": "ink" },
+    { "text": "细线进料：辅因子或补给底物，箭头指向反应节点", "kind": "dotted", "tone": "teal" },
+    { "text": "虚线支路：只作 hub 注记，本平台未展开（心磷脂 CLS）", "kind": "dashed", "tone": "brick" },
+    { "text": "圆形编号：点击查看酶名、EC、反应式与教材口径", "kind": "badge", "tone": "ink" },
+    { "text": "区室底色：内质网 · 胞质面 14 步；高尔基体 1 步（SMS）", "kind": "color", "tone": "amber" }
+  ],
+  "readingGuide": {
+    "label": "读图顺序",
+    "summary": "先沿上排走 PA 的三条去路，再看 PC / PE 头基交换，最后看右侧鞘脂支路与底部高尔基体交叉点。",
+    "paragraphs": [
+      "第一段看骨架：甘油-3-磷酸（G3P）被 GPAT 酰化成 LPA，再由 AGPAT 酰化成 PA。GPAT 是限速步与承诺步，LPA 与 PA 都只在这里出现一次。",
+      "第二段看 PA 的分岔：一条经 PAP / lipin 水解成 DAG，进入 Kennedy 途径生成 PC 与 PE；另一条经 CDS 接上 CTP 生成 CDP-DAG，再分给 PI、PS 与 PGP → PG。CDP-DAG 是甘油磷脂头基交换的活化供体。",
+      "第三段看头基交换：PEMT 用 SAM 把 PE 三次甲基化成 PC；PSS1 用丝氨酸替换 CDP-DAG 的 CMP 生成 PS。PSS2 的碱基交换支路与 PS 脱羧回 PE 都不单列步骤，只在注记中说明。",
+      "第四段看鞘脂：丝氨酸与棕榈酰CoA 由 SPT 缩合成 3-酮基二氢鞘氨醇，KDSR 还原成二氢鞘氨醇，CERS 酰化成神经酰胺；CERS 先给出二氢神经酰胺，DES 再引入 4,5-双键。高尔基体的 SMS 把 PC 的磷酸胆碱转给神经酰胺生成鞘磷脂，同时释放 DAG，这是甘油磷脂与鞘脂的交叉点。"
+    ]
+  },
+  "posterFoot": [
+    "① Kennedy 途径与 CDP-DAG 分岔：DAG 接受 CDP-胆碱或 CDP-乙醇胺生成 PC / PE；CDP-DAG 则把 CMP 换下，分给 PI、PS 与 PGP → PG。两条路线都从 PA 出发，但活化载体不同。",
+    "② PC ↔ PE ↔ PS 的头基交换：PEMT 以 SAM 为甲基供体把 PE 三次甲基化成 PC；PSS1 用丝氨酸生成 PS；PSS2 的碱基交换支路与 PS 脱羧回 PE 本图不单列。",
+    "③ 鞘脂从丝氨酸 + 棕榈酰CoA 起始：SPT 是承诺步，KDSR 还原，CERS 只做 N-酰化、产物是二氢神经酰胺；DES（人 DEGS1）再引入 4,5-双键生成神经酰胺，本图把 DES 单列为 gpl-14（EC 未核实）。SMS 在高尔基体把 PC 的磷酸胆碱转给神经酰胺，生成 SM 并释放 DAG。",
+    "④ 心磷脂只作 hub 注记：PG 之后本可经 CLS 生成心磷脂，但本平台未建 CLS 步骤，图上只保留「→ 心磷脂（CLS，未展开）」的虚线注记。",
+    "⑤ 教材依据：《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂与鞘脂的合成）。"
+  ],
+  "entities": [
+    { "id": "g3p", "name": "甘油-3-磷酸", "abbr": "G3P", "formula": "C3H9O6P", "kind": "metabolite", "note": "甘油磷脂与醚脂的共同起始骨架；也由糖酵解 DHAP 还原而来。" },
+    { "id": "lpa", "name": "溶血磷脂酸", "abbr": "LPA", "kind": "metabolite", "note": "只有一个脂酰链的磷脂酸，既是中间物也是信号分子。" },
+    { "id": "pa", "name": "磷脂酸", "abbr": "PA", "kind": "metabolite", "note": "甘油磷脂合成的中心分岔点：可水解成 DAG，也可活化成 CDP-DAG。" },
+    { "id": "cdp-dag", "name": "CDP-二酰甘油", "abbr": "CDP-DAG", "kind": "metabolite", "note": "活化的磷脂酸，把 CMP 换下即可接上头基。" },
+    { "id": "dag", "name": "二酰甘油", "abbr": "DAG", "kind": "metabolite", "note": "Kennedy 途径的头基受体，也是 PKC 的第二信使。" },
+    { "id": "pc", "name": "磷脂酰胆碱", "abbr": "PC", "kind": "metabolite", "note": "含量最高的甘油磷脂；可由 Kennedy 途径或 PEMT 甲基化生成。" },
+    { "id": "pe", "name": "磷脂酰乙醇胺", "abbr": "PE", "kind": "metabolite", "note": "Kennedy 途径产物，也是 PEMT 的底物。" },
+    { "id": "ps", "name": "磷脂酰丝氨酸", "abbr": "PS", "kind": "metabolite", "note": "由 PSS1 生成；PS 脱羧回 PE 的支路本图不单列。" },
+    { "id": "pi-lipid", "name": "磷脂酰肌醇", "abbr": "PI", "kind": "metabolite", "note": "由 PIS 生成，可进一步磷酸化成 PIP2 等信号脂质。" },
+    { "id": "pg", "name": "磷脂酰甘油", "abbr": "PG", "kind": "metabolite", "note": "由 PGP 去磷酸生成；进一步可生成心磷脂。" },
+    { "id": "pgp", "name": "磷脂酰甘油磷酸", "abbr": "PGP", "kind": "metabolite", "note": "PGPS 的产物，经 PGP 磷酸酶水解成 PG。" },
+    { "id": "cl", "name": "心磷脂", "abbr": "CL", "kind": "hub", "note": "线粒体内膜特征磷脂；本平台只作 hub 注记，未建 CLS 步骤。" },
+    { "id": "cer", "name": "神经酰胺", "abbr": "Cer", "kind": "metabolite", "note": "鞘脂合成的中心中间物；由 DES 在二氢神经酰胺上引入 4,5-双键生成，SMS 在高尔基体把它转成鞘磷脂。" },
+    { "id": "dihydroceramide", "name": "二氢神经酰胺", "abbr": "dhCer", "kind": "metabolite", "note": "CERS 的直接产物；4,5 位还没有双键，由 DES 去饱和后才是神经酰胺。" },
+    { "id": "o2", "name": "氧气", "abbr": "O₂", "kind": "cofactor", "note": "去饱和酶的末端电子受体；本图只写分子式，不建结构。" },
+    { "id": "sm", "name": "鞘磷脂", "abbr": "SM", "kind": "metabolite", "note": "甘油磷脂与鞘脂的交叉产物，磷酸胆碱来自 PC。" },
+    { "id": "dhs", "name": "二氢鞘氨醇", "abbr": "DHS", "kind": "metabolite", "note": "KDSR 的产物，CERS 的酰化底物。" },
+    { "id": "kds", "name": "3-酮基二氢鞘氨醇", "abbr": "KDS", "kind": "metabolite", "note": "SPT 的产物，鞘脂合成的第一个中间物。" },
+    { "id": "choline", "name": "胆碱", "abbr": "Cho", "kind": "cofactor", "note": "PC 的头基来源；经胆碱激酶与 CTP 活化成 CDP-胆碱，本图不展开。" },
+    { "id": "cdp-choline", "name": "CDP-胆碱", "abbr": "CDP-Cho", "kind": "cofactor", "note": "Kennedy 途径的活化胆碱供体。" },
+    { "id": "ethanolamine", "name": "乙醇胺", "abbr": "Etn", "kind": "cofactor", "note": "PE 的头基来源；活化成 CDP-乙醇胺后交给 DAG。" },
+    { "id": "cdp-ethanolamine", "name": "CDP-乙醇胺", "abbr": "CDP-Etn", "kind": "cofactor", "note": "Kennedy 途径的活化乙醇胺供体。" },
+    { "id": "inositol", "name": "肌醇", "abbr": "Ins", "kind": "cofactor", "note": "PI 的头基，直接替换 CDP-DAG 上的 CMP。" },
+    { "id": "ser", "name": "丝氨酸", "abbr": "Ser", "kind": "cofactor", "note": "PSS1 与 SPT 的共同底物；在氨基酸图 aa-7 进入代谢。" },
+    { "id": "sam", "name": "S-腺苷甲硫氨酸", "abbr": "SAM", "kind": "cofactor", "note": "PEMT 的甲基供体；由一碳图 oc-6 生成。" },
+    { "id": "sah", "name": "S-腺苷同型半胱氨酸", "abbr": "SAH", "kind": "cofactor", "note": "PEMT 三次甲基化后释放的产物。" },
+    { "id": "acylcoa-c16", "name": "棕榈酰CoA（C16 脂酰CoA）", "abbr": "C16-CoA", "kind": "cofactor", "note": "酰基供体；本图以 C16 代表脂酰CoA，酰基链长度是同一实体的参数。" },
+    { "id": "coa", "name": "辅酶A", "abbr": "CoA", "kind": "cofactor", "note": "酰基转移的离去基团。" },
+    { "id": "ctp", "name": "胞苷三磷酸", "abbr": "CTP", "kind": "cofactor", "note": "CDS 的活化载体；由嘧啶图 pyr-9 供给。" },
+    { "id": "ppi", "name": "焦磷酸", "abbr": "PPi", "kind": "cofactor", "note": "CDS 反应的离去基团，随后水解。" },
+    { "id": "cmp", "name": "胞苷一磷酸", "abbr": "CMP", "kind": "cofactor", "note": "CDP-DAG 转移头基后释放的离去基团。" },
+    { "id": "nadph", "name": "还原型烟酰胺腺嘌呤二核苷酸磷酸", "abbr": "NADPH", "kind": "cofactor", "note": "KDSR 的还原力。" },
+    { "id": "nadp", "name": "氧化型烟酰胺腺嘌呤二核苷酸磷酸", "abbr": "NADP⁺", "kind": "cofactor", "note": "KDSR 还原反应的另一产物。" },
+    { "id": "h2o", "name": "水", "abbr": "H₂O", "kind": "cofactor", "note": "PAP 与 PGP 磷酸酶水解反应的反应物。" },
+    { "id": "pi", "name": "无机磷酸", "abbr": "Pi", "kind": "cofactor", "note": "磷脂酸磷酸酶与 PGP 磷酸酶水解释放的磷酸。" },
+    { "id": "co2", "name": "二氧化碳", "abbr": "CO₂", "kind": "cofactor", "note": "SPT 脱羧释放。" }
+  ],
+  "steps": [
+    {
+      "id": "gpl-1",
+      "index": 1,
+      "name": "甘油-3-磷酸酰基转移酶把脂酰基接到 G3P 上",
+      "shortName": "GPAT · 限速 / 承诺步",
+      "compartment": "er",
+      "equation": "甘油-3-磷酸 + 脂酰CoA → 溶血磷脂酸（LPA） + CoA",
+      "substrates": ["g3p", "acylcoa-c16"],
+      "products": ["lpa", "coa"],
+      "cofactors": [],
+      "enzyme": { "name": "甘油-3-磷酸酰基转移酶", "isozyme": "GPAT", "ec": "2.3.1.15" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "生理单向 · 酰基转移并释放 CoA，是甘油磷脂合成的承诺步",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "把甘油-3-磷酸接进甘油磷脂合成，决定进入该途径的碳流；GPAT 是限速步与承诺步。",
+      "note": "GPAT 有多个同工酶，分布于内质网与线粒体外膜；本图只写内质网胞质面这一池。",
+      "misconceptions": [
+        "GPAT 不是把脂酰基接到 DAG 上，而是接到甘油-3-磷酸的 1 位羟基。",
+        "LPA 不是终产物，必须继续酰化成 PA 才能进入后续分岔。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-2",
+      "index": 2,
+      "name": "1-酰基甘油-3-磷酸酰基转移酶把 LPA 酰化成 PA",
+      "shortName": "AGPAT · 二酰化",
+      "compartment": "er",
+      "equation": "溶血磷脂酸（LPA） + 脂酰CoA → 磷脂酸（PA） + CoA",
+      "substrates": ["lpa", "acylcoa-c16"],
+      "products": ["pa", "coa"],
+      "cofactors": [],
+      "enzyme": { "name": "1-酰基甘油-3-磷酸酰基转移酶", "isozyme": "AGPAT", "ec": "2.3.1.51" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 再引入一条脂酰链，生成二酰化的 PA",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "补齐 PA 的 2 位脂酰链；PA 是甘油磷脂合成的中心分岔点。",
+      "note": "AGPAT 的底物选择性影响 PA 的脂肪酸组成，本图不展开同工酶差异。",
+      "misconceptions": [
+        "PA 不是 CDP-DAG；PA 需要 CDS 接上 CTP 才成为活化的头基供体。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-3",
+      "index": 3,
+      "name": "CDP-二酰甘油合成酶把 PA 活化成 CDP-DAG",
+      "shortName": "CDS · 活化",
+      "compartment": "er",
+      "equation": "磷脂酸（PA） + CTP → CDP-二酰甘油（CDP-DAG） + PPi",
+      "substrates": ["pa", "ctp"],
+      "products": ["cdp-dag", "ppi"],
+      "cofactors": [],
+      "enzyme": { "name": "CDP-二酰甘油合成酶", "isozyme": "CDS", "ec": "2.7.7.41" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "生理单向 · CTP 的胞苷一磷酸转移并释放 PPi，PPi 水解释放能量",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "生成 CDP-DAG，为 PI、PS 与 PGP 的合成提供活化的磷脂酸。CTP 来自嘧啶图 pyr-9。",
+      "note": "接口：CTP 由嘧啶代谢的 CTP 合成酶（pyr-9）供给；本图不改嘧啶图。",
+      "misconceptions": [
+        "CDP-DAG 的活化位点是胞苷一磷酸，不是 CDP 的焦磷酸端。",
+        "CDP-DAG 不是 Kennedy 途径的中间物；Kennedy 途径用的是 DAG + CDP-胆碱 / CDP-乙醇胺。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-4",
+      "index": 4,
+      "name": "磷脂酸磷酸酶把 PA 水解成 DAG",
+      "shortName": "PAP / lipin",
+      "compartment": "er",
+      "equation": "磷脂酸（PA） + H₂O → 二酰甘油（DAG） + Pi",
+      "substrates": ["pa", "h2o"],
+      "products": ["dag", "pi"],
+      "cofactors": [],
+      "enzyme": { "name": "磷脂酸磷酸酶", "isozyme": "PAP / lipin", "ec": "3.1.3.4" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 磷酸酯水解，生成 Kennedy 途径的头基受体",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "把 PA 转成 DAG，是 Kennedy 途径（PC / PE）的入口；lipin 也参与脂肪组织与肝的脂质分配。",
+      "note": "DAG 既是 PC / PE 的头基受体，也可回到 PA 或用于 TAG 合成，本图只画 Kennedy 途径这一支。",
+      "misconceptions": [
+        "PAP 不是 CDS 的反向反应；两者分别消耗 H₂O 与 CTP，产物不同。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-5",
+      "index": 5,
+      "name": "胆碱磷酸转移酶把 CDP-胆碱的磷酸胆碱转给 DAG",
+      "shortName": "CPT · Kennedy 途径",
+      "compartment": "er",
+      "equation": "二酰甘油（DAG） + CDP-胆碱 → 磷脂酰胆碱（PC） + CMP",
+      "substrates": ["dag", "cdp-choline"],
+      "products": ["pc", "cmp"],
+      "cofactors": [],
+      "enzyme": { "name": "胆碱磷酸转移酶", "isozyme": "CPT", "ec": "2.7.8.2" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 转移磷酸胆碱并释放 CMP",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "Kennedy 途径的末步，生成含量最高的甘油磷脂 PC；PC 又是 SMS 合成鞘磷脂的磷酸胆碱供体。",
+      "note": "胆碱需先经胆碱激酶与 CTP 活化成 CDP-胆碱，本图把活化段折叠进 CDP-胆碱节点，不单列步骤。",
+      "misconceptions": [
+        "CPT 转移的是磷酸胆碱整段，不是游离胆碱。",
+        "Kennedy 途径的 CMP 来自 CDP-胆碱，不是来自 CTP 直接水解。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-6",
+      "index": 6,
+      "name": "乙醇胺磷酸转移酶把 CDP-乙醇胺的磷酸乙醇胺转给 DAG",
+      "shortName": "EPT · Kennedy 途径",
+      "compartment": "er",
+      "equation": "二酰甘油（DAG） + CDP-乙醇胺 → 磷脂酰乙醇胺（PE） + CMP",
+      "substrates": ["dag", "cdp-ethanolamine"],
+      "products": ["pe", "cmp"],
+      "cofactors": [],
+      "enzyme": { "name": "乙醇胺磷酸转移酶", "isozyme": "EPT", "ec": "2.7.8.1" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 转移磷酸乙醇胺并释放 CMP",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "Kennedy 途径的另一末步，生成 PE；PE 可被 PEMT 甲基化成 PC。",
+      "note": "乙醇胺需先活化成 CDP-乙醇胺，本图同样把活化段折叠进节点。",
+      "misconceptions": [
+        "PE 不是 PC 的直接前体；PE → PC 需要 PEMT 与 SAM 参与。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-7",
+      "index": 7,
+      "name": "磷脂酰乙醇胺 N-甲基转移酶用 SAM 把 PE 三次甲基化成 PC",
+      "shortName": "PEMT · 三次甲基化",
+      "compartment": "er",
+      "equation": "磷脂酰乙醇胺（PE） + 3 SAM → 磷脂酰胆碱（PC） + 3 SAH",
+      "substrates": ["pe", "sam"],
+      "products": ["pc", "sah"],
+      "cofactors": [],
+      "enzyme": { "name": "磷脂酰乙醇胺 N-甲基转移酶", "isozyme": "PEMT", "ec": "2.1.1.17" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 三次甲基转移，总反应消耗 3 分子 SAM 并释放 3 分子 SAH",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "不依赖胆碱的 PC 来源，与 Kennedy 途径共同维持 PC 池；肝内 PEMT 对极低密度脂蛋白装配尤其重要。",
+      "note": "教材口径为三次甲基化：本图按 3 SAM → 3 SAH 写反应式；接口：SAM 由一碳图 oc-6（甲硫氨酸腺苷转移酶）生成，本图不改一碳图。",
+      "misconceptions": [
+        "PEMT 不是把游离胆碱接到 PE 上，而是把 SAM 的甲基逐个转到 PE 的乙醇胺头基。",
+        "PEMT 反应只写 1 SAM 会漏掉两次甲基化中间物，本图按总反应写 3 SAM。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-8",
+      "index": 8,
+      "name": "磷脂酰肌醇合成酶把肌醇接到 CDP-DAG 上",
+      "shortName": "PIS · PI 合成",
+      "compartment": "er",
+      "equation": "CDP-二酰甘油（CDP-DAG） + 肌醇 → 磷脂酰肌醇（PI） + CMP",
+      "substrates": ["cdp-dag", "inositol"],
+      "products": ["pi-lipid", "cmp"],
+      "cofactors": [],
+      "enzyme": { "name": "磷脂酰肌醇合成酶", "isozyme": "PIS", "ec": "2.7.8.11" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 肌醇替换 CMP，生成 PI",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "生成 PI，为磷脂酰肌醇信号系统（PIP2、IP3、DAG）提供膜脂底物。",
+      "note": "PI 可进一步磷酸化成 PIP / PIP2，本图只画到 PI。",
+      "misconceptions": [
+        "PIS 的活化供体是 CDP-DAG，不是 CDP-肌醇。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-9",
+      "index": 9,
+      "name": "磷脂酰丝氨酸合成酶 1 把丝氨酸接到 CDP-DAG 上",
+      "shortName": "PSS1 · PS 合成",
+      "compartment": "er",
+      "equation": "CDP-二酰甘油（CDP-DAG） + 丝氨酸 → 磷脂酰丝氨酸（PS） + CMP",
+      "substrates": ["cdp-dag", "ser"],
+      "products": ["ps", "cmp"],
+      "cofactors": [],
+      "enzyme": { "name": "磷脂酰丝氨酸合成酶 1", "isozyme": "PSS1", "ec": "2.7.8.8" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 丝氨酸替换 CMP，生成 PS",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "生成 PS，是线粒体与内质网膜的重要磷脂；PS 也是细胞凋亡时外翻的信号脂质。",
+      "note": "PSS2 的碱基交换支路（用乙醇胺或胆碱替换 PS 的丝氨酸）本图不单列；PS 脱羧回 PE 的支路也不单列，只在本注记说明。接口：丝氨酸在氨基酸图 aa-7 进入代谢（胱硫醚 β-合酶步骤），本图不改氨基酸图。",
+      "misconceptions": [
+        "PSS1 用 CDP-DAG 作活化供体；PSS2 则走碱基交换，两者不是同一条反应。",
+        "PS 不是只能由 PE 合成；本图走的是 CDP-DAG + 丝氨酸这一支。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-10",
+      "index": 10,
+      "name": "磷脂酰甘油磷酸合成酶与 PGP 磷酸酶两步生成 PG",
+      "shortName": "PGPS + PGP 磷酸酶 · 合并步",
+      "compartment": "er",
+      "equation": "CDP-DAG + G3P → PGP + CMP；PGP + H₂O → PG + Pi",
+      "substrates": ["cdp-dag", "g3p"],
+      "products": ["pgp", "pg"],
+      "cofactors": ["h2o"],
+      "enzyme": {
+        "name": "磷脂酰甘油磷酸合成酶（PGPS） + PGP 磷酸酶（PGP phosphatase）",
+        "isozyme": "PGPS / PGP phosphatase（第二步 EC 3.1.3.27）",
+        "ec": "2.7.8.5"
+      },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 先转移磷脂酰甘油磷酸，再水解脱磷酸生成 PG",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "生成 PG，PG 是心磷脂与细菌膜磷脂的前体；本图把连续两步合并，避免 PGP 只作瞬时中间物占一个独立步骤。",
+      "note": "合并理由：PGPS 与 PGP 磷酸酶在教材中常作为 PG 合成的连续两步叙述，PGP 不稳定且本图不作为独立节点；反应式与注记同时写清两步酶与 EC（2.7.8.5；第二步 3.1.3.27）。PG 之后可经 CLS 生成心磷脂，本平台未建 CLS 步骤，只用 hub 注记。",
+      "misconceptions": [
+        "PGPS 的底物是 CDP-DAG + 甘油-3-磷酸，不是 DAG + 甘油-3-磷酸。",
+        "PGP 不是终产物；PGP 磷酸酶把它水解成 PG 才完成这一步。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-11",
+      "index": 11,
+      "name": "丝氨酸棕榈酰转移酶把丝氨酸与棕榈酰CoA 缩合成鞘脂骨架",
+      "shortName": "SPT · 鞘脂承诺步",
+      "compartment": "er",
+      "equation": "丝氨酸 + 棕榈酰CoA → 3-酮基二氢鞘氨醇 + CoA + CO₂",
+      "substrates": ["ser", "acylcoa-c16"],
+      "products": ["kds", "coa", "co2"],
+      "cofactors": [],
+      "enzyme": { "name": "丝氨酸棕榈酰转移酶", "isozyme": "SPT", "ec": "2.3.1.50" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "生理单向 · 缩合脱羧，是鞘脂合成的承诺步",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "鞘脂合成的起点与承诺步；把丝氨酸池与脂酰CoA 池接进鞘脂途径。",
+      "note": "接口：丝氨酸在氨基酸图 aa-7（胱硫醚 β-合酶步骤）进入代谢，本图不改氨基酸图。SPT 的产物是 3-酮基二氢鞘氨醇，不是鞘氨醇。",
+      "misconceptions": [
+        "SPT 的产物不是神经酰胺，而是 3-酮基二氢鞘氨醇。",
+        "鞘脂的骨架来自丝氨酸 + 棕榈酰CoA，不是来自甘油-3-磷酸。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-12",
+      "index": 12,
+      "name": "3-酮基二氢鞘氨醇还原酶把酮基还原成羟基",
+      "shortName": "KDSR · 还原",
+      "compartment": "er",
+      "equation": "3-酮基二氢鞘氨醇 + NADPH → 二氢鞘氨醇 + NADP⁺",
+      "substrates": ["kds", "nadph"],
+      "products": ["dhs", "nadp"],
+      "cofactors": [],
+      "enzyme": { "name": "3-酮基二氢鞘氨醇还原酶", "isozyme": "KDSR", "ec": "1.1.1.102" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · NADPH 依赖的酮基还原",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "把 SPT 产物还原成二氢鞘氨醇，为 CERS 的酰化准备 2 位氨基。",
+      "note": "本步不引入双键，产物是二氢鞘氨醇；4,5-双键在 CERS 之后由 DES（gpl-14）引入。",
+      "misconceptions": [
+        "KDSR 还原的是 3 位酮基，不是引入 4,5-双键。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-13",
+      "index": 13,
+      "name": "神经酰胺合成酶把脂酰基接到二氢鞘氨醇上",
+      "shortName": "CERS · 酰化",
+      "compartment": "er",
+      "equation": "二氢鞘氨醇 + 脂酰CoA → 二氢神经酰胺 + CoA",
+      "substrates": ["dhs", "acylcoa-c16"],
+      "products": ["dihydroceramide", "coa"],
+      "cofactors": [],
+      "enzyme": { "name": "神经酰胺合成酶", "isozyme": "CERS", "ec": "2.3.1.24" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · N-酰化，生成二氢神经酰胺骨架",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "生成二氢神经酰胺，是鞘脂合成中心中间物的直接前体；不同 CERS 同工酶决定酰基链长度。",
+      "note": "CERS 只做 N-酰化，产物是二氢神经酰胺；4,5-双键由下一步 DES（gpl-14）引入，DES 的 EC 未核实。",
+      "misconceptions": [
+        "CERS 的直接产物是二氢神经酰胺，不是带 4,5-双键的神经酰胺。",
+        "DES 不是 CERS 的同工酶，而是独立的去饱和酶；本图把 DES 单列为 gpl-14。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-14",
+      "index": 14,
+      "name": "二氢神经酰胺去饱和酶在 4,5 位引入双键",
+      "shortName": "DES / DEGS1 · 去饱和",
+      "compartment": "er",
+      "equation": "二氢神经酰胺 + NAD(P)H + H⁺ + O₂ → 神经酰胺 + NAD(P)⁺ + 2 H₂O",
+      "substrates": ["dihydroceramide", "nadph"],
+      "products": ["cer", "nadp", "h2o"],
+      "cofactors": ["o2"],
+      "enzyme": { "name": "二氢神经酰胺去饱和酶（Δ4-去饱和酶）", "isozyme": "DES1 / DEGS1（人）", "ec": "未核实" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 氧化去饱和，引入 4,5-双键",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）；EC 未核实"
+      },
+      "significance": "把二氢神经酰胺转成带 4,5-双键的神经酰胺；这一步决定鞘脂骨架的饱和度，神经酰胺随后在高尔基体被 SMS 转成鞘磷脂。",
+      "note": "人基因组中 DES1 由 DEGS1 编码，属膜结合去饱和酶；EC 未核实（DES 的 EC 子项本平台未查到可引原文），还原力偏好（NADH 还是 NADPH）也待核实。",
+      "misconceptions": [
+        "DES 不是 CERS 的同工酶，而是独立的去饱和酶；CERS 的产物是二氢神经酰胺。",
+        "去饱和消耗 O₂ 与还原力，不是简单水解；不要把 DES 与神经酰胺酶混为一谈。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gpl-15",
+      "index": 15,
+      "name": "鞘磷脂合成酶把 PC 的磷酸胆碱转给神经酰胺",
+      "shortName": "SMS · 甘油磷脂 ↔ 鞘脂交叉点",
+      "compartment": "golgi",
+      "equation": "神经酰胺 + 磷脂酰胆碱（PC） → 鞘磷脂（SM） + 二酰甘油（DAG）",
+      "substrates": ["cer", "pc"],
+      "products": ["sm", "dag"],
+      "cofactors": [],
+      "enzyme": { "name": "鞘磷脂合成酶", "isozyme": "SMS", "ec": "2.7.8.27" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 磷酸胆碱转移，PC 与神经酰胺互换头基",
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
+      },
+      "significance": "甘油磷脂与鞘脂的交叉点：PC 提供磷酸胆碱，神经酰胺提供鞘氨醇骨架，同时释放 DAG 回到甘油磷脂池。",
+      "note": "本步在高尔基体进行；神经酰胺需从内质网转来，本图不画跨区室运输步骤，只在高尔基体区室注记中说明。",
+      "misconceptions": [
+        "SMS 转移的是 PC 的磷酸胆碱整段，不是游离胆碱。",
+        "SMS 的产物除 SM 外还有 DAG，DAG 可回到 Kennedy 途径或 TAG 合成。"
+      ],
+      "clinical": []
+    }
+  ],
+  "interfaces": [
+    {
+      "stepId": "pyr-9",
+      "label": "嘧啶代谢的 CTP 出口",
+      "note": "gpl-3 把 CTP 接到 PA 上生成 CDP-DAG；CTP 由嘧啶图 pyr-9（CTP 合成酶）供给，不改嘧啶图。"
+    },
+    {
+      "stepId": "aa-7",
+      "label": "丝氨酸池",
+      "note": "gpl-9 与 gpl-11 都以丝氨酸为底物；丝氨酸在氨基酸图 aa-7（胱硫醚 β-合酶步骤）进入代谢，本图不改氨基酸图。"
+    },
+    {
+      "stepId": "oc-6",
+      "label": "SAM 供甲基",
+      "note": "gpl-7 的甲基来自 SAM；SAM 由一碳图 oc-6（甲硫氨酸腺苷转移酶）生成，本图不改一碳图。"
+    }
+  ],
+  "threeD": {
+    "status": "not-built",
+    "note": "本图只做 2D：脂质含可变酰基链，不建 3D，也不登记 PDB 候选。"
+  }
+}

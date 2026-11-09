@@ -1,0 +1,291 @@
+{
+  "id": "lipoprotein",
+  "name": "血浆脂蛋白代谢",
+  "en": "PLASMA LIPOPROTEIN METABOLISM",
+  "plateNo": "PLATE 18",
+  "structureNo": "SF-18",
+  "summary": "小肠、肝、血浆、外周组织与类固醇生成组织之间搬运脂蛋白颗粒的器官间物流图；不是一步一底物一产物的反应链。",
+  "textbook": "《生物化学与分子生物学》第 9 版 · 脂质代谢（血浆脂蛋白代谢）",
+  "thesis": {
+    "statement": "每一步只回答：谁把什么颗粒从哪里搬到哪里，颗粒表面与组成发生了什么变化；不写反应式，不写 ΔG。",
+    "stepCount": 11,
+    "reactionCount": 0
+  },
+  "organs": [
+    {
+      "id": "intestine",
+      "name": "小肠",
+      "role": "外源脂类入口",
+      "note": "膳食脂类在黏膜细胞重新酯化，与 ApoB-48 组装成乳糜微粒，经淋巴入血。"
+    },
+    {
+      "id": "liver",
+      "name": "肝",
+      "role": "内源脂类与逆向转运终点",
+      "note": "摄取残粒，分泌 VLDL，也是 LDL 与成熟 HDL 胆固醇的主要归宿。"
+    },
+    {
+      "id": "peripheral",
+      "name": "外周组织",
+      "role": "脂肪 / 肌肉",
+      "note": "接受 LPL 水解出的 FFA；胆固醇经 ABCA1 外流给 ApoA-I。"
+    },
+    {
+      "id": "steroid",
+      "name": "肾上腺 / 性腺",
+      "role": "类固醇生成",
+      "note": "经 LDLR 摄取 LDL，用胆固醇合成类固醇激素。"
+    }
+  ],
+  "steps": [
+    {
+      "id": "lp-1",
+      "name": "小肠组装乳糜微粒",
+      "kind": "assembly",
+      "organId": "intestine",
+      "label": "小肠组装 CM",
+      "players": ["膳食 TG", "胆固醇酯", "ApoB-48", "CM"],
+      "flow": "小肠黏膜 → 淋巴 → 血浆",
+      "note": "膳食 TG 与胆固醇酯在小肠黏膜细胞内重新酯化，与 ApoB-48 组装成乳糜微粒（CM），经淋巴入血；这是外源途径的起点。",
+      "detail": "CM 核心以 TG 为主，表面是磷脂、游离胆固醇与 ApoB-48。ApoC-II 与 ApoE 在血浆中由 HDL 转移而来，分别决定后续 LPL 激活与残粒被肝识别。",
+      "refs": []
+    },
+    {
+      "id": "lp-2",
+      "name": "血中 LPL 水解 CM 的 TG",
+      "kind": "lipolysis",
+      "organId": "peripheral",
+      "label": "内皮 LPL 水解 CM",
+      "players": ["CM", "ApoC-II", "LPL", "FFA", "CM 残粒"],
+      "flow": "毛细血管内皮 → 外周组织（FFA / 甘油）",
+      "note": "血管内皮表面的脂蛋白脂肪酶（LPL）被 ApoC-II 激活，把 CM 中的 TG 水解为游离脂肪酸（FFA）与甘油；FFA 进入脂肪与肌肉，CM 缩成 CM 残粒。",
+      "detail": "LPL 固定在毛细血管内皮腔面，ApoC-II 是必需的激活因子。水解后颗粒变小，ApoC-II 归还 HDL，残粒相对富集胆固醇酯与 ApoE。",
+      "refs": []
+    },
+    {
+      "id": "lp-3",
+      "name": "肝摄取 CM 残粒",
+      "kind": "receptor",
+      "organId": "liver",
+      "label": "肝摄取 CM 残粒",
+      "players": ["CM 残粒", "ApoE", "残粒受体", "LDL 受体相关蛋白"],
+      "flow": "血浆 → 肝细胞",
+      "note": "CM 残粒经 ApoE 介导，被残粒受体与 LDL 受体相关蛋白识别并摄取，胆固醇进入肝。",
+      "detail": "残粒在肝内被溶酶体降解，胆固醇可用于膜结构、胆汁酸合成或再包装成 VLDL。ApoE 是残粒被肝识别的关键配体。",
+      "refs": []
+    },
+    {
+      "id": "lp-4",
+      "name": "肝组装 VLDL",
+      "kind": "assembly",
+      "organId": "liver",
+      "label": "肝组装 VLDL",
+      "players": ["内源 TG", "胆固醇", "ApoB-100", "VLDL"],
+      "flow": "肝细胞 → 血浆",
+      "note": "肝把内源 TG、胆固醇与 ApoB-100 组装成 VLDL 分泌入血，开启内源途径。",
+      "detail": "VLDL 核心是肝合成的 TG，表面带 ApoB-100、ApoC 与 ApoE。ApoB-100 是 VLDL 及其代谢产物的结构标志，也是 LDL 受体识别的配体；组装所用胆固醇来自肝内胆固醇池。",
+      "refs": []
+    },
+    {
+      "id": "lp-5",
+      "name": "LPL 水解 VLDL",
+      "kind": "lipolysis",
+      "organId": "peripheral",
+      "label": "LPL 水解 VLDL",
+      "players": ["VLDL", "ApoC-II", "LPL", "FFA", "IDL"],
+      "flow": "血浆 → 外周组织；VLDL → IDL",
+      "note": "VLDL 的 TG 同样被内皮 LPL 水解，FFA 供外周组织利用，VLDL 逐步缩小为中密度脂蛋白（IDL）。",
+      "detail": "LPL 对 CM 与 VLDL 共用同一套水解机制，ApoC-II 激活、ApoC-III 抑制。释放的 FFA 进入脂肪与肌肉后可活化成脂酰-CoA，进入 β-氧化或再酯化储存。",
+      "refs": []
+    },
+    {
+      "id": "lp-6",
+      "name": "IDL 分流",
+      "kind": "lipolysis",
+      "organId": "liver",
+      "label": "IDL 分流",
+      "players": ["IDL", "肝脂酶（HL）", "LDL", "LDLR"],
+      "flow": "IDL → 肝（摄取）或 → LDL（继续脱脂）",
+      "note": "IDL 一部分被肝摄取；另一部分经肝脂酶（HL）进一步水解 TG，脱去 ApoE 后转为 LDL。",
+      "detail": "IDL 是 VLDL 与 LDL 之间的过渡颗粒，同时带 ApoB-100 与 ApoE。肝脂酶在内皮表面继续水解 TG，使颗粒进一步缩小并富集胆固醇酯。",
+      "refs": []
+    },
+    {
+      "id": "lp-7",
+      "name": "LDL 经 LDLR 进入细胞",
+      "kind": "receptor",
+      "organId": "liver",
+      "label": "LDL 经 LDLR 入细胞",
+      "players": ["LDL", "ApoB-100", "LDLR"],
+      "flow": "血浆 → 肝 / 外周细胞",
+      "note": "LDL 经 LDL 受体（LDLR）进入肝与外周细胞；细胞内胆固醇升高时负反馈下调 LDLR。",
+      "detail": "LDLR 识别 ApoB-100，经网格蛋白包被内吞进入细胞并释放胆固醇。胆固醇升高抑制 SREBP 通路并促进 LDLR 降解；本图只作注记，不展开该通路。",
+      "refs": []
+    },
+    {
+      "id": "lp-8",
+      "name": "外周胆固醇外流",
+      "kind": "efflux",
+      "organId": "peripheral",
+      "label": "外周胆固醇外流",
+      "players": ["ABCA1", "胆固醇", "磷脂", "ApoA-I", "新生 HDL"],
+      "flow": "外周细胞 → 血浆",
+      "note": "ABCA1 把细胞内胆固醇与磷脂交给 ApoA-I，形成盘状新生 HDL。",
+      "detail": "ABCA1 是外周细胞胆固醇外流的关键转运体，ApoA-I 是接受体。新生 HDL 为盘状，富含磷脂与游离胆固醇，尚未完成酯化。",
+      "refs": []
+    },
+    {
+      "id": "lp-9",
+      "name": "HDL 成熟与逆向转运",
+      "kind": "transfer",
+      "organId": "liver",
+      "label": "HDL 成熟与逆向转运",
+      "players": ["LCAT", "ApoA-I", "成熟 HDL", "SR-B1", "胆固醇酯"],
+      "flow": "血浆 → 肝（胆固醇酯）",
+      "note": "LCAT 被 ApoA-I 激活，把游离胆固醇酯化，HDL 由盘状变为球状成熟颗粒；成熟 HDL 经 SR-B1 把胆固醇酯送回肝，完成逆向胆固醇转运。",
+      "detail": "LCAT 在血浆中催化游离胆固醇酯化，酯化产物进入 HDL 核心使颗粒成熟。SR-B1 介导选择性胆固醇酯摄取，不整体吞入 HDL。",
+      "refs": []
+    },
+    {
+      "id": "lp-10",
+      "name": "CETP 交换",
+      "kind": "transfer",
+      "organId": "liver",
+      "label": "CETP 交换",
+      "players": ["CETP", "HDL", "VLDL", "LDL", "胆固醇酯", "TG"],
+      "flow": "HDL ⇄ VLDL / LDL（血浆内交换）",
+      "note": "胆固醇酯转运蛋白（CETP）在 HDL 与 VLDL / LDL 之间交换胆固醇酯与 TG，把胆固醇间接带回肝。",
+      "detail": "CETP 把 HDL 的胆固醇酯换给含 ApoB 的脂蛋白，同时把 TG 换给 HDL。交换后的 VLDL / LDL 最终经肝 LDLR 摄取，因此胆固醇绕道回到肝。",
+      "refs": []
+    },
+    {
+      "id": "lp-11",
+      "name": "类固醇生成组织摄取 LDL",
+      "kind": "uptake",
+      "organId": "steroid",
+      "label": "类固醇组织摄取 LDL",
+      "players": ["LDL", "LDLR", "胆固醇", "类固醇激素"],
+      "flow": "血浆 → 肾上腺 / 性腺",
+      "note": "肾上腺与性腺经 LDLR 摄取 LDL，把胆固醇用于合成类固醇激素；肝内胆固醇也可转胆汁酸排出（只注记，不单列步骤）。",
+      "detail": "类固醇生成细胞以 LDL 胆固醇为主要原料。肝内胆固醇的另一去路是合成胆汁酸，本图不单列步骤，也不修改胆固醇图。",
+      "refs": []
+    }
+  ],
+  "interfaces": [
+    {
+      "stepId": "fao-act",
+      "label": "FFA 在外周活化",
+      "note": "lp-2 / lp-5 释放的 FFA 进入脂肪/肌肉后，经 fao-act（脂酰-CoA 合成酶）活化成脂酰-CoA；本图不重复画 β-氧化。"
+    },
+    {
+      "stepId": "ch-13",
+      "label": "肝胆固醇池",
+      "note": "lp-4 组装 VLDL 的胆固醇来自肝内胆固醇池；胆固醇从头合成收尾见 ch-13，本图不改胆固醇图。"
+    }
+  ],
+  "particles": [
+    {
+      "id": "cm",
+      "name": "乳糜微粒",
+      "en": "CHYLOMICRON",
+      "abbr": "CM",
+      "note": "外源途径起点，核心以膳食 TG 为主，表面带 ApoB-48。"
+    },
+    {
+      "id": "cm-remnant",
+      "name": "CM 残粒",
+      "en": "CHYLOMICRON REMNANT",
+      "abbr": "CM 残粒",
+      "note": "TG 被 LPL 水解后缩小的残粒，富集胆固醇酯与 ApoE，被肝摄取。"
+    },
+    {
+      "id": "vldl",
+      "name": "极低密度脂蛋白",
+      "en": "VERY LOW DENSITY LIPOPROTEIN",
+      "abbr": "VLDL",
+      "note": "肝分泌的内源 TG 运输颗粒，表面带 ApoB-100。"
+    },
+    {
+      "id": "idl",
+      "name": "中密度脂蛋白",
+      "en": "INTERMEDIATE DENSITY LIPOPROTEIN",
+      "abbr": "IDL",
+      "note": "VLDL 与 LDL 之间的过渡颗粒，同时带 ApoB-100 与 ApoE。"
+    },
+    {
+      "id": "ldl",
+      "name": "低密度脂蛋白",
+      "en": "LOW DENSITY LIPOPROTEIN",
+      "abbr": "LDL",
+      "note": "胆固醇酯富集的颗粒，经 LDLR 进入肝与外周细胞。"
+    },
+    {
+      "id": "hdl-nascent",
+      "name": "新生 HDL（盘状）",
+      "en": "NASCENT HDL",
+      "abbr": "新生 HDL",
+      "note": "ABCA1 交给 ApoA-I 的磷脂与游离胆固醇形成的盘状颗粒。"
+    },
+    {
+      "id": "hdl-mature",
+      "name": "成熟 HDL",
+      "en": "MATURE HDL",
+      "abbr": "成熟 HDL",
+      "note": "LCAT 酯化后核心充填胆固醇酯的球状颗粒，经 SR-B1 把胆固醇酯送回肝。"
+    },
+    {
+      "id": "ffa",
+      "name": "游离脂肪酸",
+      "en": "FREE FATTY ACIDS",
+      "abbr": "FFA",
+      "note": "LPL 水解 TG 的产物，进入脂肪与肌肉后被利用。"
+    }
+  ],
+  "compositionLedger": {
+    "title": "颗粒组成账本",
+    "basis": "定性口径：只按教材常见描述比较相对占比（高 / 中 / 低），不写精确百分比；不同教材数值不统一，本图不做定量。",
+    "columns": ["颗粒", "载脂蛋白", "TG", "胆固醇（含酯）", "磷脂", "蛋白"],
+    "rows": [
+      {
+        "id": "cm",
+        "name": "CM",
+        "apolipoprotein": "ApoB-48",
+        "tg": "高",
+        "cholesterol": "中",
+        "phospholipid": "低",
+        "protein": "低"
+      },
+      {
+        "id": "vldl",
+        "name": "VLDL",
+        "apolipoprotein": "ApoB-100",
+        "tg": "高",
+        "cholesterol": "中",
+        "phospholipid": "中",
+        "protein": "低"
+      },
+      {
+        "id": "ldl",
+        "name": "LDL",
+        "apolipoprotein": "ApoB-100",
+        "tg": "低",
+        "cholesterol": "高",
+        "phospholipid": "中",
+        "protein": "中"
+      },
+      {
+        "id": "hdl",
+        "name": "HDL",
+        "apolipoprotein": "ApoA-I",
+        "tg": "低",
+        "cholesterol": "中",
+        "phospholipid": "高",
+        "protein": "高"
+      }
+    ]
+  },
+  "threeD": {
+    "status": "not-built",
+    "note": "脂蛋白是颗粒，不是单一分子；本图只做 2D 器官间物流，不建 3D 模型，也不登记 PDB。"
+  }
+}

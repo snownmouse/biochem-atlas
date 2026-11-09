@@ -21,6 +21,11 @@ import fas from "./fatty-acid-synthesis/fas.json";
 import oxphos from "./oxphos/oxphos.json";
 import cori from "./cori/cori.json";
 import ketone from "./ketone/ketone.json";
+import oneCarbon from "./one-carbon/one-carbon.json";
+import pyrimidine from "./pyrimidine/pyrimidine.json";
+import purine from "./purine/purine.json";
+import glycerophospholipid from "./glycerophospholipid/glycerophospholipid.json";
+import lipoprotein from "./lipoprotein/lipoprotein.json";
 import { HOME_PATHWAYS } from "./homeMap";
 
 export interface DeltaGLike {
@@ -87,6 +92,12 @@ const FILES: { id: string; name: string; route: string; structureRoute: string |
   // Cori 页引用既有步骤，自身没有结构对照页。
   { id: "cori", name: "Cori 循环", route: "/pathway/cori", structureRoute: null, data: cori },
   { id: "ketone", name: "酮体代谢", route: "/pathway/ketone", structureRoute: "/structures/ketone", data: ketone },
+  { id: "one-carbon", name: "一碳单位代谢", route: "/pathway/one-carbon", structureRoute: "/structures/one-carbon", data: oneCarbon },
+  { id: "pyrimidine", name: "嘧啶核苷酸代谢", route: "/pathway/pyrimidine", structureRoute: "/structures/pyrimidine", data: pyrimidine },
+  { id: "purine", name: "嘌呤核苷酸代谢", route: "/pathway/purine", structureRoute: "/structures/purine", data: purine },
+  { id: "glycerophospholipid", name: "甘油磷脂与鞘脂代谢", route: "/pathway/glycerophospholipid", structureRoute: "/structures/glycerophospholipid", data: glycerophospholipid },
+  // 血浆脂蛋白是器官间物流图，自身有颗粒组成对照页 SF-18。
+  { id: "lipoprotein", name: "血浆脂蛋白代谢", route: "/pathway/lipoprotein", structureRoute: "/structures/lipoprotein", data: lipoprotein },
 ];
 
 // 路线以 homeMap 的元数据为准（它是导航檐的唯一口径），未收录的通路用上表兜底。

@@ -1,0 +1,72 @@
+{
+  "canvas": { "width": 1360, "height": 780 },
+  "compartments": [
+    { "id": "cyto", "label": "细胞质 · 嘧啶从头合成（CPS2 → UMP → UTP / CTP）", "en": "CYTOPLASM", "x": 24, "y": 64, "width": 1312, "height": 690, "tint": 0.045 },
+    { "id": "mito", "label": "线粒体内膜 · DHODH", "en": "MITOCHONDRIAL INNER MEMBRANE", "x": 510, "y": 170, "width": 260, "height": 180, "tint": 0.02 }
+  ],
+  "nodes": [
+    { "id": "cap", "entityId": "cap", "label": "氨甲酰磷酸", "abbr": "CAP", "x": 150, "y": 260, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-1", "labelPos": { "dx": 0, "dy": -32, "anchor": "middle" } },
+    { "id": "gln", "entityId": "gln", "label": "谷氨酰胺（酰胺氮）", "abbr": "Gln", "x": 60, "y": 150, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-1", "labelPos": { "dx": 0, "dy": -28, "anchor": "middle" } },
+    { "id": "hco3", "entityId": "hco3", "label": "HCO₃⁻", "abbr": "HCO₃⁻", "x": 150, "y": 150, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-1", "labelPos": { "dx": 0, "dy": -28, "anchor": "middle" } },
+    { "id": "caasp", "entityId": "caasp", "label": "N-氨甲酰天冬氨酸", "abbr": "CA-Asp", "x": 300, "y": 260, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-2", "labelPos": { "dx": 0, "dy": -32, "anchor": "middle" } },
+    { "id": "asp", "entityId": "asp", "label": "L-天冬氨酸", "abbr": "Asp", "x": 300, "y": 150, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-2", "labelPos": { "dx": 0, "dy": -28, "anchor": "middle" } },
+    { "id": "dho", "entityId": "dho", "label": "二氢乳清酸", "abbr": "DHO", "x": 450, "y": 260, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-3", "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" } },
+    { "id": "oro-m", "entityId": "oro", "label": "乳清酸（膜内生成）", "abbr": "Oro", "x": 640, "y": 260, "kind": "metabolite", "compartment": "mito", "stepId": "pyr-4", "labelPos": { "dx": 0, "dy": -30, "anchor": "middle" } },
+    { "id": "oro-c", "entityId": "oro", "label": "乳清酸（胞质池）", "abbr": "Oro", "x": 790, "y": 260, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-5", "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" } },
+    { "id": "omp", "entityId": "omp", "label": "OMP", "abbr": "OMP", "x": 930, "y": 260, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-5", "labelPos": { "dx": 0, "dy": -30, "anchor": "middle" } },
+    { "id": "prpp", "entityId": "prpp", "label": "PRPP（来自 PPP）", "abbr": "PRPP", "x": 930, "y": 150, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-5", "labelPos": { "dx": 0, "dy": -28, "anchor": "middle" } },
+    { "id": "ump", "entityId": "ump", "label": "UMP", "abbr": "UMP", "x": 1070, "y": 260, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-6", "labelPos": { "dx": 0, "dy": -30, "anchor": "middle" } },
+    { "id": "atp", "entityId": "atp", "label": "ATP", "abbr": "ATP", "x": 1170, "y": 350, "kind": "cofactor", "compartment": "cyto", "stepId": "pyr-7", "labelPos": { "dx": 32, "dy": 4, "anchor": "start" } },
+    { "id": "udp", "entityId": "udp", "label": "UDP", "abbr": "UDP", "x": 1070, "y": 430, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-7", "labelPos": { "dx": 36, "dy": 4, "anchor": "start" } },
+    { "id": "utp", "entityId": "utp", "label": "UTP（糖原供体）", "abbr": "UTP", "x": 910, "y": 430, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-8", "labelPos": { "dx": 0, "dy": -28, "anchor": "middle" } },
+    { "id": "ctp", "entityId": "ctp", "label": "CTP", "abbr": "CTP", "x": 750, "y": 430, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-9", "labelPos": { "dx": 0, "dy": -28, "anchor": "middle" } },
+    { "id": "dudp", "entityId": "dudp", "label": "dUDP", "abbr": "dUDP", "x": 1070, "y": 600, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-10", "labelPos": { "dx": 36, "dy": 4, "anchor": "start" } },
+    { "id": "dutp", "entityId": "dutp", "label": "dUTP", "abbr": "dUTP", "x": 910, "y": 600, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-11", "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" } },
+    { "id": "dump", "entityId": "dump", "label": "dUMP", "abbr": "dUMP", "x": 750, "y": 600, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-11", "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" } },
+    { "id": "dtmp", "entityId": "dtmp", "label": "dTMP（→ DNA）", "abbr": "dTMP", "x": 590, "y": 600, "kind": "metabolite", "compartment": "cyto", "stepId": "pyr-12", "labelPos": { "dx": 0, "dy": -30, "anchor": "middle" } },
+    { "id": "ch2thf", "entityId": "ch2thf", "label": "5,10-亚甲基THF", "abbr": "CH₂-THF", "x": 470, "y": 700, "kind": "cofactor", "compartment": "cyto", "stepId": "pyr-12", "labelPos": { "dx": -18, "dy": 4, "anchor": "end" } },
+    { "id": "dhf", "entityId": "dhf", "label": "二氢叶酸（DHFR 还原）", "abbr": "DHF", "x": 700, "y": 700, "kind": "cofactor", "compartment": "cyto", "stepId": "pyr-12", "labelPos": { "dx": 18, "dy": 4, "anchor": "start" } },
+    { "id": "hub-glycogen", "entityId": "utp", "label": "→ 糖原 UDP-葡萄糖（gly-7）", "abbr": "糖原", "x": 1210, "y": 500, "kind": "hub", "compartment": "cyto", "labelPos": { "dx": 0, "dy": -24, "anchor": "middle" } },
+    { "id": "hub-dna", "entityId": "dtmp", "label": "→ DNA（dTDP / dTTP 未展开）", "abbr": "DNA", "x": 430, "y": 600, "kind": "hub", "compartment": "cyto", "labelPos": { "dx": 0, "dy": 42, "anchor": "middle" } }
+  ],
+  "links": [
+    { "from": "gln", "to": "cap", "stepId": "pyr-1", "type": "feed", "label": "酰胺氮" },
+    { "from": "hco3", "to": "cap", "stepId": "pyr-1", "type": "main", "label": "HCO₃⁻" },
+    { "from": "cap", "to": "caasp", "stepId": "pyr-2", "type": "main", "label": "ATCase" },
+    { "from": "asp", "to": "caasp", "stepId": "pyr-2", "type": "feed", "label": "Asp" },
+    { "from": "caasp", "to": "dho", "stepId": "pyr-3", "type": "main", "label": "DHOase · 脱水闭环" },
+    { "from": "dho", "to": "oro-m", "stepId": "pyr-4", "type": "main", "label": "DHODH · 内膜" },
+    { "from": "oro-m", "to": "oro-c", "stepId": "pyr-t1", "type": "transport", "label": "出线粒体（转运蛋白未核实）", "bend": -0.08 },
+    { "from": "oro-c", "to": "omp", "stepId": "pyr-5", "type": "main", "label": "OPRT" },
+    { "from": "prpp", "to": "omp", "stepId": "pyr-5", "type": "feed", "label": "PRPP" },
+    { "from": "omp", "to": "ump", "stepId": "pyr-6", "type": "main", "label": "ODCase · 脱羧" },
+    { "from": "ump", "to": "udp", "stepId": "pyr-7", "type": "main", "label": "UMPK" },
+    { "from": "atp", "to": "ump", "stepId": "pyr-7", "type": "feed", "label": "ATP" },
+    { "from": "atp", "to": "udp", "stepId": "pyr-8", "type": "feed", "label": "ATP" },
+    { "from": "udp", "to": "utp", "stepId": "pyr-8", "type": "main", "label": "NDPK" },
+    { "from": "utp", "to": "ctp", "stepId": "pyr-9", "type": "main", "label": "CTP 合成酶" },
+    { "from": "udp", "to": "dudp", "stepId": "pyr-10", "type": "main" },
+    { "from": "dudp", "to": "dutp", "type": "feed", "label": "NDPK（同酶）" },
+    { "from": "dutp", "to": "dump", "stepId": "pyr-11", "type": "main", "label": "dUTP 酶" },
+    { "from": "dump", "to": "dtmp", "stepId": "pyr-12", "type": "main", "label": "TS · 亚甲基转移" },
+    { "from": "ch2thf", "to": "dtmp", "type": "feed", "label": "CH₂-THF" },
+    { "from": "ch2thf", "to": "dhf", "type": "feed", "label": "DHF（DHFR 还原回 THF）" },
+    { "from": "dtmp", "to": "hub-dna", "type": "feed", "label": "→ DNA" },
+    { "from": "utp", "to": "hub-glycogen", "type": "feed", "label": "→ 糖原", "bend": 0.12 }
+  ],
+  "annotations": [
+    { "x": 40, "y": 716, "text": "CPS2（胞质，谷氨酰胺）与 CPS1（线粒体，游离氨 → 尿素 urea-1）是两个酶，不能合并。", "anchor": "start", "size": 9.2, "tone": "ink" },
+    { "x": 40, "y": 738, "text": "DHODH 在线粒体内膜；乳清酸出膜的转运蛋白未核实，运输线不计步数。", "anchor": "start", "size": 8.6, "tone": "brick" },
+    { "x": 40, "y": 752, "text": "dTMP 的甲基来自一碳单位：5,10-亚甲基THF 供亚甲基并生成 DHF（DHFR 还原回 THF，本图不展开）。", "anchor": "start", "size": 9.2, "tone": "teal" }
+  ],
+  "transportSteps": [
+    {
+      "id": "pyr-t1",
+      "name": "乳清酸从线粒体回到胞质",
+      "from": "线粒体（DHODH 产物侧）",
+      "via": "线粒体内膜",
+      "to": "胞质（OPRT 反应）",
+      "note": "乳清酸在线粒体内膜生成后需回到胞质与 PRPP 结合；具体转运蛋白本平台未核实，本图只画一条运输虚线，不计入步数。"
+    }
+  ]
+}

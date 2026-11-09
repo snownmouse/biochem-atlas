@@ -32,9 +32,28 @@
 }
 
 .pathway-switcher .ps-sep {
-  margin: 0 6px;
+  margin: 0 3px;
   color: var(--dim, rgba(34, 40, 42, 0.4));
   opacity: 0.6;
+}
+
+/* 条目超过 15 条后，1440 / 1280 下若保留「00 / 01」前缀就要横向滚动。
+   口径：优先保证单行不溢出，窄屏隐藏序号前缀，序号仍在 DOM 与读屏文本里。 */
+@media (max-width: 1650px) {
+  .pathway-switcher .ps-no {
+    display: none;
+  }
+  /* PLATE 18 接入后条目增至 19 条：进一步收窄字号并去掉分隔符外边距，
+     保证 1440 单行不溢出（19 条 × 两位编号在 1440 下已放不下，编号前缀另行隐藏）。
+     nav 同时带 .crumb，styles.css 的 .crumb（13px）与 .pathway-switcher 同权重且在后，
+     故此处必须用 .pathway-switcher.crumb 提高权重，否则字号被 .crumb 覆盖。 */
+  .pathway-switcher.crumb {
+    font-size: 11.6px;
+    letter-spacing: 0;
+  }
+  .pathway-switcher.crumb .ps-sep {
+    margin: 0;
+  }
 }
 
 .pathway-switcher .ps-no {

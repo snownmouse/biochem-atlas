@@ -40,6 +40,16 @@ const cholesterol = read("src/data/cholesterol/cholesterol.json");
 const cholesterolSkel = read("src/data/cholesterol/skeleton.json");
 const ketone = read("src/data/ketone/ketone.json");
 const ketoneSkel = read("src/data/ketone/skeleton.json");
+const oneCarbon = read("src/data/one-carbon/one-carbon.json");
+const oneCarbonSkel = read("src/data/one-carbon/skeleton.json");
+const pyrimidine = read("src/data/pyrimidine/pyrimidine.json");
+const pyrimidineSkel = read("src/data/pyrimidine/skeleton.json");
+const purine = read("src/data/purine/purine.json");
+const purineSkel = read("src/data/purine/skeleton.json");
+const glycerophospholipid = read("src/data/glycerophospholipid/glycerophospholipid.json");
+const glycerophospholipidSkel = read("src/data/glycerophospholipid/skeleton.json");
+const lipoprotein = read("src/data/lipoprotein/lipoprotein.json");
+const lipoproteinSkel = read("src/data/lipoprotein/skeleton.json");
 
 const EXPECT = {
   glycolysis: {
@@ -127,6 +137,43 @@ const EXPECT = {
     sources: ["ketone/ketone.json", "ketone/skeleton.json"],
     plate: ketone.plateNo,
   },
+  "one-carbon": {
+    // 8 步（线粒体装载 2 + 胞质 6）+ 1 段线粒体→胞质运输；运输不计入步数
+    steps: oneCarbon.steps.length,
+    transport: oneCarbonSkel.transportSteps?.length ?? 0,
+    nodes: oneCarbonSkel.nodes.length,
+    sources: ["one-carbon/one-carbon.json", "one-carbon/skeleton.json"],
+    plate: oneCarbon.plateNo,
+  },
+  pyrimidine: {
+    // 12 步（胞质 11 + 线粒体内膜 DHODH 1）+ 1 段乳清酸出线粒体运输；运输不计入步数
+    steps: pyrimidine.steps.length,
+    transport: pyrimidineSkel.transportSteps?.length ?? 0,
+    nodes: pyrimidineSkel.nodes.length,
+    sources: ["pyrimidine/pyrimidine.json", "pyrimidine/skeleton.json"],
+    plate: pyrimidine.plateNo,
+  },
+  purine: {
+    // 15 步全部胞质，无运输段；单区室 cyto
+    steps: purine.steps.length,
+    nodes: purineSkel.nodes.length,
+    sources: ["purine/purine.json", "purine/skeleton.json"],
+    plate: purine.plateNo,
+  },
+  glycerophospholipid: {
+    // 14 步：内质网 13 + 高尔基体 1；无运输段
+    steps: glycerophospholipid.steps.length,
+    nodes: glycerophospholipidSkel.nodes.length,
+    sources: ["glycerophospholipid/glycerophospholipid.json", "glycerophospholipid/skeleton.json"],
+    plate: glycerophospholipid.plateNo,
+  },
+  lipoprotein: {
+    // 11 段器官间物流（lp-1…lp-11）+ 4 个器官列 + 9 条血浆带颗粒流；颗粒账本独立成表
+    steps: lipoprotein.steps.length,
+    nodes: lipoproteinSkel.nodes.length,
+    sources: ["lipoprotein/lipoprotein.json", "lipoprotein/skeleton.json"],
+    plate: lipoprotein.plateNo,
+  },
 };
 
 const ROUTES = [
@@ -150,6 +197,11 @@ const ROUTES = [
   { id: "amino-acids", path: "/pathway/amino-acids", kind: "poster", pathway: "amino-acids" },
   { id: "cholesterol", path: "/pathway/cholesterol", kind: "poster", pathway: "cholesterol" },
   { id: "ketone", path: "/pathway/ketone", kind: "poster", pathway: "ketone" },
+  { id: "one-carbon", path: "/pathway/one-carbon", kind: "poster", pathway: "one-carbon" },
+  { id: "pyrimidine", path: "/pathway/pyrimidine", kind: "poster", pathway: "pyrimidine" },
+  { id: "purine", path: "/pathway/purine", kind: "poster", pathway: "purine" },
+  { id: "glycerophospholipid", path: "/pathway/glycerophospholipid", kind: "poster", pathway: "glycerophospholipid" },
+  { id: "lipoprotein", path: "/pathway/lipoprotein", kind: "poster", pathway: "lipoprotein" },
   { id: "structures-glycolysis", path: "/structures/glycolysis", kind: "structures" },
   { id: "structures-tca", path: "/structures/tca", kind: "structures" },
   { id: "structures-gluconeogenesis", path: "/structures/gluconeogenesis", kind: "structures" },
@@ -161,6 +213,11 @@ const ROUTES = [
   { id: "structures-amino-acids", path: "/structures/amino-acids", kind: "structures" },
   { id: "structures-cholesterol", path: "/structures/cholesterol", kind: "structures" },
   { id: "structures-ketone", path: "/structures/ketone", kind: "structures" },
+  { id: "structures-one-carbon", path: "/structures/one-carbon", kind: "structures" },
+  { id: "structures-pyrimidine", path: "/structures/pyrimidine", kind: "structures" },
+  { id: "structures-purine", path: "/structures/purine", kind: "structures" },
+  { id: "structures-glycerophospholipid", path: "/structures/glycerophospholipid", kind: "structures" },
+  { id: "structures-lipoprotein", path: "/structures/lipoprotein", kind: "structures" },
   { id: "structures-cori", path: "/structures/cori", kind: "structures" },
   { id: "structures-oxphos", path: "/structures/oxphos", kind: "structures" },
   { id: "step-gk-1", path: "/step/gk-1", kind: "step" },

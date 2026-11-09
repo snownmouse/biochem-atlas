@@ -70,14 +70,15 @@ check("3D 高亮对 H 有保护分支（H → 氢色）", /at\.el\?\.toUpperCase
 check("2D 圈注对 H 有保护分支（命中 H 不画语义圈）", /if \(a\.el\.toUpperCase\(\) === "H"\) return null/.test(frames));
 
 /* ---------- 3. 生成的 2D SVG ---------- */
-// 85 个 SVG 全由 tools/gen-molecule-assets.py 按其分子清单写出（gap / bpg13 / pyr 三个
+// 124 个 SVG 全由 tools/gen-molecule-assets.py 按其分子清单写出（gap / bpg13 / pyr 三个
 // 既有手绘 JSON 也由该脚本补同名 SVG，其中 pyr 写作 pyruvate.svg）。按通路分项：
-//   糖酵解 12 + TCA 9 + PPP 10 + 糖异生 4 + β-氧化 8 + 尿素循环 9 + FAS 9 + 糖原 7 + 氨基酸 8 + 胆固醇 9 = 85
+//   糖酵解 12 + TCA 9 + PPP 10 + 糖异生 4 + β-氧化 8 + 尿素循环 9 + FAS 9 + 糖原 7 + 氨基酸 8 + 胆固醇 9 = 85，
+//   酮体 6 + 一碳单位 5 + 嘧啶 11 + 嘌呤 14 + 甘油磷脂 4 = 40，另 1 个为 PLATE 13 前的既有手绘补 SVG，合计 125 个 JSON、124 个 SVG。
 // 其中 PPP 的 g6p-g6pd、糖异生的 pyr-gn / fbp-gn / f6p-gn 复用既有 g6p / pyr / fbp / f6p 的 2D 资产，
-// 不另出 SVG，故 89 条分子条目对应 85 个 SVG。此断言仍是精确相等，不是放宽阈值。
+// 不另出 SVG；demo-gap 为 DEMO 占位、只有 JSON 无 SVG。此断言仍是精确相等，不是放宽阈值。
 const svgDir = join(ROOT, "public", "assets", "structures", "2d");
 const svgs = readdirSync(svgDir).filter((f) => f.endsWith(".svg"));
-check("2D SVG 资产数量与生成脚本清单一致（85）", svgs.length === 85);
+check("2D SVG 资产数量与生成脚本清单一致（124）", svgs.length === 124);
 let badSvg = [];
 let hetTexts = 0;
 for (const f of svgs) {

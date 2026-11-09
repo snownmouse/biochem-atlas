@@ -321,6 +321,16 @@ export const SUBSTANCE_CATEGORIES: SubstanceCategory[] = [
         summary: "以鞘氨醇为骨架的脂类，包括神经酰胺与鞘磷脂。",
       },
       {
+        id: "cardiolipin",
+        name: "心磷脂",
+        summary: "双磷脂酰甘油，线粒体内膜的特征性磷脂。",
+      },
+      {
+        id: "ceramide",
+        name: "神经酰胺",
+        summary: "鞘氨醇的 N-酰化产物，鞘脂合成与信号转导的中心中间物。",
+      },
+      {
         id: "cholesterol",
         name: "胆固醇",
         summary: "动物细胞膜的甾醇，也是胆汁酸与类固醇激素前体。",
@@ -356,6 +366,26 @@ export const SUBSTANCE_CATEGORIES: SubstanceCategory[] = [
         name: "丙酮",
         summary: "酮体之一，由乙酰乙酸脱羧生成，主要经呼气排出。",
       },
+      {
+        id: "chylomicron",
+        name: "乳糜微粒",
+        summary: "颗粒，不是单一分子；小肠组装的外源脂类运输颗粒，表面带 ApoB-48。",
+      },
+      {
+        id: "vldl",
+        name: "VLDL",
+        summary: "颗粒，不是单一分子；肝分泌的内源 TG 运输颗粒，表面带 ApoB-100。",
+      },
+      {
+        id: "ldl-cholesterol",
+        name: "LDL",
+        summary: "颗粒，不是单一分子；胆固醇酯富集的脂蛋白颗粒，经 LDLR 进入细胞。",
+      },
+      {
+        id: "hdl",
+        name: "HDL",
+        summary: "颗粒，不是单一分子；参与逆向胆固醇转运的脂蛋白颗粒，表面带 ApoA-I。",
+      },
     ],
   },
   {
@@ -377,6 +407,9 @@ export const SUBSTANCE_CATEGORIES: SubstanceCategory[] = [
       { id: "leu", name: "亮氨酸", summary: "支链氨基酸，纯生酮。", moleculeId: "leu" },
       { id: "lys", name: "赖氨酸", summary: "碱性氨基酸，纯生酮。", moleculeId: "lys" },
       { id: "met", name: "甲硫氨酸", summary: "含硫氨基酸，SAM 与一碳单位的供体。", moleculeId: "met" },
+      { id: "hcy", name: "同型半胱氨酸", summary: "甲硫氨酸循环的中间产物，可经甲基化回甲硫氨酸。", moleculeId: "hcy" },
+      { id: "sam", name: "SAM", summary: "S-腺苷甲硫氨酸，体内最主要的甲基供体。" },
+      { id: "sah", name: "SAH", summary: "S-腺苷同型半胱氨酸，SAM 供甲基后的产物。" },
       { id: "phe", name: "苯丙氨酸", summary: "芳香族氨基酸，羟化为酪氨酸。", moleculeId: "phe" },
       { id: "pro", name: "脯氨酸", summary: "环状亚氨基酸，胶原中经羟化。", moleculeId: "pro" },
       { id: "ser", name: "丝氨酸", summary: "含羟基氨基酸，一碳单位与磷脂原料。", moleculeId: "ser" },
@@ -395,9 +428,13 @@ export const SUBSTANCE_CATEGORIES: SubstanceCategory[] = [
       { id: "atp", name: "ATP", summary: "细胞的通用能量货币，磷酸酐键水解释能。", moleculeId: "atp" },
       { id: "utp", name: "UTP", summary: "尿苷三磷酸，RNA 合成与糖原 UDP-葡萄糖的供体。", moleculeId: "utp" },
       { id: "gtp", name: "GTP", summary: "鸟苷三磷酸，糖异生 PEPCK 与翻译等过程的供能分子。" },
-      { id: "ctp", name: "CTP", summary: "胞苷三磷酸，RNA 合成与磷脂合成的供能分子。" },
+      { id: "ctp", name: "CTP", summary: "RNA 合成底物；胞苷酰基载体：与磷酸胆碱/磷酸乙醇胺缩合生成 CDP-胆碱/CDP-乙醇胺并释放 PPi；ATP 用于胆碱/乙醇胺的磷酸化。" },
       { id: "amp", name: "AMP", summary: "腺苷一磷酸，ATP 水解后的低能形式。", moleculeId: "amp" },
       { id: "adp", name: "ADP", summary: "腺苷二磷酸，ATP 与 AMP 之间的中间形式。", moleculeId: "adp" },
+      { id: "imp", name: "IMP", summary: "次黄苷酸，嘌呤从头合成的中心产物，AMP 与 GMP 的共同前体。" },
+      { id: "gmp", name: "GMP", summary: "鸟苷一磷酸，RNA 的组成单位，由 IMP 经 XMP 生成。" },
+      { id: "xmp", name: "XMP", summary: "黄苷酸，IMP 氧化后的中间物，GMP 的直接前体。" },
+      { id: "adenosine", name: "腺苷", summary: "腺嘌呤与核糖组成的核苷，甲硫氨酸循环的副产物之一。" },
       cAMP_ENTRY,
       { id: "damp", name: "dAMP", summary: "脱氧腺苷一磷酸，DNA 的组成单位。" },
       { id: "dgmp", name: "dGMP", summary: "脱氧鸟苷一磷酸，DNA 的组成单位。" },
@@ -968,7 +1005,7 @@ const DOSSIERS: Record<string, SubstanceDossier> = {
     structure: "甘油三个羟基分别与脂肪酸羧基成酯；高度疏水，以脂滴形式储存。",
     position: {
       title: "它在脂肪组织储存，由脂蛋白运输",
-      body: "脂肪组织是主要储存部位，脂蛋白把肝内合成的甘油三酯运往外周；脂肪酶水解释放脂肪酸供氧化，饥饿时这一过程明显增强。平台未建脂解与脂蛋白通路，因此空腹延长会动用脂肪储备。",
+      body: "脂肪组织是主要储存部位，脂蛋白把肝内合成的甘油三酯运往外周；脂肪酶水解释放脂肪酸供氧化，饥饿时这一过程明显增强。血浆脂蛋白的搬运与分发见 PLATE 18，空腹延长会动用脂肪储备。",
     },
     origin: {
       title: "它由肠道吸收与肝内合成两条来源",
@@ -999,7 +1036,7 @@ const DOSSIERS: Record<string, SubstanceDossier> = {
     structure: "甘油磷脂，sn-3 磷酸连接胆碱，sn-1/sn-2 接脂肪酸；两亲性分子。",
     position: {
       title: "它构成膜与脂蛋白表面",
-      body: "构成细胞膜与脂蛋白表面，也是肺表面活性物质的主要磷脂；它维持膜流动性，并为脂蛋白提供两亲性外壳。平台未建甘油磷脂合成通路，本站不单列其合成步骤，因此它也是脂蛋白装配的关键磷脂。",
+      body: "构成细胞膜与脂蛋白表面，也是肺表面活性物质的主要磷脂；它维持膜流动性，并为脂蛋白提供两亲性外壳。甘油磷脂合成见 PLATE 17，它同时也是血浆脂蛋白颗粒装配时最先铺上的表面磷脂。",
     },
     origin: {
       title: "它从食物与肝内合成两路来",
@@ -1437,13 +1474,13 @@ const DOSSIERS: Record<string, SubstanceDossier> = {
     ],
   },
   ctp: {
-    claim: "CTP 是胞苷三磷酸，为 RNA 合成与磷脂合成提供能量",
+    claim: "CTP 是胞苷三磷酸，是 RNA 合成的底物与磷脂合成中的胞苷酰基载体",
     aliases: ["胞苷三磷酸", "cytidine triphosphate"],
     classification: "核苷酸；嘧啶核苷三磷酸",
     structure: "胞嘧啶、核糖与三个磷酸基构成；与 UTP 同为嘧啶核苷三磷酸。",
     position: {
       title: "它在核酸与磷脂两条合成线上",
-      body: "CTP 主要参与核酸与磷脂合成：RNA 聚合时作为胞苷供体，磷脂合成中先转为 CDP-二酰甘油再接入头基。站内未建 CTP 专用通路，本站只写其两类去向，因此其水平与膜更新速度相关。",
+      body: "CTP 参与核酸与磷脂合成：RNA 聚合时作胞苷供体；磷脂合成中作胞苷酰基载体——与磷酸胆碱/磷酸乙醇胺缩合生成 CDP-胆碱/CDP-乙醇胺并释放 PPi（ATP 用于胆碱/乙醇胺的磷酸化），或与 PA 生成 CDP-DAG。",
     },
     origin: {
       title: "它由 CMP 经两步磷酸化生成",
@@ -1457,7 +1494,7 @@ const DOSSIERS: Record<string, SubstanceDossier> = {
       title: "考点是 RNA 供体与 CDP-二酰甘油",
       items: [
         "CTP 是 RNA 合成的胞苷供体。",
-        "CTP 参与磷脂合成时先转为 CDP-二酰甘油。",
+        "CTP 参与磷脂合成时作胞苷酰基载体，生成 CDP-胆碱 / CDP-乙醇胺 / CDP-DAG。",
         "CTP 与 UTP 同属嘧啶核苷三磷酸。",
         "CTP 由 CMP 经两步磷酸化生成。",
       ],

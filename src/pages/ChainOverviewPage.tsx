@@ -360,6 +360,29 @@ export default function ChainOverviewPage({ data, skel, pathwayId, idleContext }
                     </g>
                   ))}
 
+                  {/* 运输段点击面：按该运输步骤连线的包围盒生成，不写死坐标 */}
+                  {(skel.transportSteps ?? []).map((t) => {
+                    const pts = skel.links
+                      .filter((l) => l.type === "transport" && l.stepId === t.id)
+                      .flatMap((l) => [nodeById(l.from), nodeById(l.to)])
+                      .filter((n): n is ChainNode => !!n);
+                    if (pts.length === 0) return null;
+                    const xs = pts.map((n) => n.x);
+                    const ys = pts.map((n) => n.y);
+                    const pad = 40;
+                    return (
+                      <g key={t.id} data-transport-id={t.id} style={{ cursor: "pointer" }}>
+                        <rect
+                          x={Math.min(...xs) - pad}
+                          y={Math.min(...ys) - pad}
+                          width={Math.max(...xs) - Math.min(...xs) + pad * 2}
+                          height={Math.max(...ys) - Math.min(...ys) + pad * 2}
+                          fill="transparent"
+                        />
+                      </g>
+                    );
+                  })}
+
                   {/* 连线 */}
                   {skel.links.map((link, index) => {
                     const from = nodeById(link.from);
@@ -510,13 +533,6 @@ export default function ChainOverviewPage({ data, skel, pathwayId, idleContext }
                       </g>
                     );
                   })}
-
-                  {/* 运输段点击面：覆盖血液带里的两条运输边 */}
-                  {(skel.transportSteps ?? []).map((t) => (
-                    <g key={t.id} data-transport-id={t.id} style={{ cursor: "pointer" }}>
-                      <rect x={520} y={70} width={272} height={96} fill="transparent" />
-                    </g>
-                  ))}
 
                   {(skel.annotations ?? []).map(renderAnnotation)}
                 </svg>

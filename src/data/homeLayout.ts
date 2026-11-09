@@ -7,7 +7,7 @@ import type { HomePathwayId } from "./homeMap";
  * 画布宽 1020（原生坐标宽），CSS 宽度锁在 955–1020：1440 首屏恰好完整可见，
  * 更窄视口在容器内横向拖动；高度延伸到 744，给第 10–12 条通路留出纵向落位区。
  */
-export const HOME_CANVAS = { width: 1020, height: 790 };
+export const HOME_CANVAS = { width: 1020, height: 1030 };
 
 /**
  * Cori 循环在首页的表达：不新增第七个标题块，也不新增第七个通路节点。
@@ -192,6 +192,16 @@ export const HOME_PATHWAY_LABELS: HomePathwayLabel[] = [
   // PLATE 13：酮体代谢，落在画布纵向延伸区的第一槽（y=746）；
   // 画布高度由 744 扩到 790，节点/边仍不增加（只登记标题块与导航）。PLATE 14–18 随后续挂图逐张接入。
   { pathwayId: "ketone", x: 28, y: 746, anchor: "start", note: "6 步 · 肝生酮 / 肝外利用 · 只做 2D" },
+  // PLATE 14：一碳单位代谢，落在酮体下一槽 y=794；画布高度由 790 扩到 838。
+  { pathwayId: "one-carbon", x: 28, y: 794, anchor: "start", note: "9 步 · 线粒体装载 / 胞质叶酸池 · 只做 2D" },
+  // PLATE 15：嘧啶核苷酸代谢，落在 y=842；画布高度由 838 扩到 886。
+  { pathwayId: "pyrimidine", x: 28, y: 842, anchor: "start", note: "12 步 · CPS2 胞质 / DHODH 内膜 · 只做 2D" },
+  // PLATE 16：嘌呤核苷酸代谢，落在 y=890；画布高度由 886 扩到 934。
+  { pathwayId: "purine", x: 28, y: 890, anchor: "start", note: "15 步 · 胞质 · 只做 2D" },
+  // PLATE 17：甘油磷脂与鞘脂代谢，落在 y=938；画布高度由 934 扩到 982。
+  { pathwayId: "glycerophospholipid", x: 28, y: 938, anchor: "start", note: "15 步 · 内质网 / 高尔基体 · 只做 2D" },
+  // PLATE 18：血浆脂蛋白代谢，落在 y=986；画布高度由 982 扩到 1030。
+  { pathwayId: "lipoprotein", x: 28, y: 986, anchor: "start", note: "11 段器官间物流 · 只做 2D" },
 ];
 
 /**
@@ -211,7 +221,7 @@ export interface HomeReservedSlot {
 export const HOME_RESERVED_HEAD = {
   x: 28,
   y: 572,
-  text: "PLATE 13 已接入 · 13 / 18 · 预留 14–18",
+  text: "PLATE 18 已接入 · 18 / 18 · 全部完成",
 };
 
 export const HOME_RESERVED_SLOTS: HomeReservedSlot[] = [];

@@ -149,6 +149,8 @@ export function parseConfig(text) {
     }
     const f = slice.match(/formula:\s*"([^"]+)"/);
     if (f) mol.formula = f[1];
+    const m2 = slice.match(/missing2dReason:\s*"([^"]+)"/);
+    if (m2) mol.missing2dReason = m2[1];
   }
   return mols;
 }
@@ -193,12 +195,16 @@ function main() {
   const errors = [];
   const warnings = [];
   const checked = [];
+  const declaredNo2d = [];
 
   const rdItems = [];
   for (const mol of mols.values()) {
     // 1) 2D 资产
     if (!mol.asset2d) {
-      errors.push(`${mol.id}: 证据分子没有 2D 资产`);
+      // 口径：2D 结构本轮明确未建的分子，数据层必须写 missing2dReason，
+      // 页面据此显示「缺 2D 结构式 + 原因」；没写原因的仍判失败。
+      if (mol.missing2dReason) declaredNo2d.push(mol.id);
+      else errors.push(`${mol.id}: 证据分子没有 2D 资产，且未写 missing2dReason`);
     } else {
       const jsonPath = path.join(ROOT, "public", mol.asset2d.replace(/^\//, ""));
       if (!fs.existsSync(jsonPath)) errors.push(`${mol.id}: 2D 文件不存在 ${mol.asset2d}`);
@@ -262,6 +268,7 @@ function main() {
     process.exit(1);
   }
   console.log(`PASS 资产校验：${checked.length} 个 3D 资产、${mols.size} 个证据分子（SMILES 往返 / 分子式 / 分子量 / SVG 键线 / 坐标 / 体积 / gzip / provenance 全通过）`);
+  if (declaredNo2d.length) console.log(`  其中 ${declaredNo2d.length} 个分子按数据层 missing2dReason 声明「2D 本轮未建」：${declaredNo2d.join("、")}`);
 }
 
 function selfTest() {

@@ -1341,10 +1341,172 @@ KETONE_MOLS = [
 ]
 KETONE_2D_IDS = {spec["id"] for spec in KETONE_MOLS}
 
+# 一碳单位（PLATE 14）：仅补 2D，不生成 3D，不登记 PDB 候选。
+# 蝶啶环系 + PABA–Glu 尾链的 THF 各氧化级不做近似结构：SMILES 逐原子核验未完成，
+# 本轮如实留空，结构页对应块标注“本平台未建 2D 资产”，不凑数。
+ONE_CARBON_2D_MOLS = [
+    dict(id="gly", name="甘氨酸（Gly）", formula="C2H4NO2",
+         smiles="NCC(=O)[O-]", src=None, sdf=None, no3d=True,
+         form="甘氨酸（α-氨基未质子化写法；羧基按 pH 7.4 电离）",
+         caveat="本轮仅补 2D；一碳单位按项目口径只做 2D，不建 3D。"),
+    dict(id="met", name="L-甲硫氨酸（Met）", formula="C5H11NO2S",
+         smiles="CSCCC([NH3+])C(=O)[O-]", src=None, sdf=None, no3d=True,
+         form="L-甲硫氨酸两性离子（净电荷 0）",
+         caveat="本轮仅补 2D；一碳单位按项目口径只做 2D，不建 3D。"),
+    dict(id="sam", name="S-腺苷甲硫氨酸（SAM）", formula="C15H23N6O5S",
+         smiles="C[S+](CCC([NH3+])C(=O)[O-])C1OC(CO)C(O)C1n2cnc3c(N)ncnc32", src=None, sdf=None, no3d=True,
+         form="SAM 锍离子 + 质子化 α-氨基（净电荷 +1；生理 pH 下的书写近似）",
+         caveat="本轮仅补 2D；甲基供体按项目口径只做 2D，不建 3D。"),
+    dict(id="sah", name="S-腺苷同型半胱氨酸（SAH）", formula="C14H20N6O5S",
+         smiles="S(CCC([NH3+])C(=O)[O-])C1OC(CO)C(O)C1n2cnc3c(N)ncnc32", src=None, sdf=None, no3d=True,
+         form="SAH 两性离子（硫醚不带电；净电荷 0）",
+         caveat="本轮仅补 2D；一碳单位按项目口径只做 2D，不建 3D。"),
+    dict(id="ado", name="腺苷（Adenosine）", formula="C10H13N5O4",
+         smiles="Nc1ncnc2c1ncn2C3OC(CO)C(O)C3O", src=None, sdf=None, no3d=True,
+         form="腺苷（中性核糖核苷；不画磷酸基）",
+         caveat="本轮仅补 2D；一碳单位按项目口径只做 2D，不建 3D。"),
+]
+ONE_CARBON_2D_IDS = {spec["id"] for spec in ONE_CARBON_2D_MOLS}
+
+# 嘧啶核苷酸（PLATE 15）：仅补 2D；CPS2 起始到 dTMP 的 11 个新资产。
+# 氨甲酰磷酸 / 天冬氨酸 / UDP / UTP 复用既有资产；叶酸两种形式本轮仍不建 2D，理由同一碳单位。
+PYRIMIDINE_2D_MOLS = [
+    dict(id="caasp", name="N-氨甲酰天冬氨酸", formula="C5H8N2O5",
+         smiles="NC(=O)NC(CC(=O)O)C(=O)O", src=None, sdf=None, no3d=True,
+         form="N-氨甲酰天冬氨酸（中性写法）",
+         caveat="本轮仅补 2D；嘧啶核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="dho", name="二氢乳清酸", formula="C5H6N2O4",
+         smiles="O=C1NC(=O)CC(C(=O)O)N1", src=None, sdf=None, no3d=True,
+         form="二氢乳清酸（6-羧基-5,6-二氢尿嘧啶，中性写法）",
+         caveat="本轮仅补 2D；嘧啶核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="oro", name="乳清酸", formula="C5H4N2O4",
+         smiles="O=C1NC(=O)C=C(C(=O)O)N1", src=None, sdf=None, no3d=True,
+         form="乳清酸（6-羧基尿嘧啶，中性写法）",
+         caveat="本轮仅补 2D；嘧啶核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="prpp", name="磷酸核糖焦磷酸（PRPP）", formula="C5H13O14P3",
+         smiles="O=P(O)(O)OCC1OC(OP(=O)(O)OP(=O)(O)O)C(O)C1O", src=None, sdf=None, no3d=True,
+         form="PRPP 全质子化写法（生理 pH 下多级电离，结构式按中性画）",
+         caveat="本轮仅补 2D；嘧啶核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="omp", name="乳清酸核苷酸（OMP）", formula="C10H13N2O11P",
+         smiles="O=C1NC(=O)C=C(C(=O)O)N1C2OC(COP(=O)(O)O)C(O)C2O", src=None, sdf=None, no3d=True,
+         form="OMP 全质子化写法（磷酸按中性画）",
+         caveat="本轮仅补 2D；嘧啶核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="ump", name="尿苷一磷酸（UMP）", formula="C9H13N2O9P",
+         smiles="O=c1cc[nH]c(=O)n1C2OC(COP(=O)(O)O)C(O)C2O", src=None, sdf=None, no3d=True,
+         form="UMP 全质子化写法（磷酸按中性画）",
+         caveat="本轮仅补 2D；嘧啶核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="ctp", name="胞苷三磷酸（CTP）", formula="C9H16N3O14P3",
+         smiles="Nc1ccn(C2OC(COP(=O)(O)OP(=O)(O)OP(=O)(O)O)C(O)C2O)c(=O)n1", src=None, sdf=None, no3d=True,
+         form="CTP 全质子化写法（三磷酸按中性画）",
+         caveat="本轮仅补 2D；嘧啶核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="dudp", name="脱氧尿苷二磷酸（dUDP）", formula="C9H14N2O11P2",
+         smiles="O=c1cc[nH]c(=O)n1C1CC(O)C(COP(=O)(O)OP(=O)(O)O)O1", src=None, sdf=None, no3d=True,
+         form="dUDP 全质子化写法（二磷酸按中性画）",
+         caveat="本轮仅补 2D；嘧啶核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="dutp", name="脱氧尿苷三磷酸（dUTP）", formula="C9H15N2O14P3",
+         smiles="O=c1cc[nH]c(=O)n1C1CC(O)C(COP(=O)(O)OP(=O)(O)OP(=O)(O)O)O1", src=None, sdf=None, no3d=True,
+         form="dUTP 全质子化写法（三磷酸按中性画）",
+         caveat="本轮仅补 2D；嘧啶核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="dump", name="脱氧尿苷一磷酸（dUMP）", formula="C9H13N2O8P",
+         smiles="O=c1cc[nH]c(=O)n1C1CC(O)C(COP(=O)(O)O)O1", src=None, sdf=None, no3d=True,
+         form="dUMP 全质子化写法（磷酸按中性画）",
+         caveat="本轮仅补 2D；嘧啶核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="dtmp", name="脱氧胸苷一磷酸（dTMP）", formula="C10H15N2O8P",
+         smiles="Cc1cn(C2CC(O)C(COP(=O)(O)O)O2)c(=O)[nH]c1=O", src=None, sdf=None, no3d=True,
+         form="dTMP 全质子化写法（磷酸按中性画）",
+         caveat="本轮仅补 2D；嘧啶核苷酸按项目口径只做 2D，不建 3D。"),
+]
+PYRIMIDINE_2D_IDS = {spec["id"] for spec in PYRIMIDINE_2D_MOLS}
+
+# 嘌呤核苷酸（PLATE 16）：仅补 2D；从 PRA 到腺苷酸琥珀酸的 14 个新资产。
+# R5P / PRPP / Gly / Gln / Glu / Fum / CO2 复用既有资产；THF 与 10-甲酰THF 不建 2D，理由同一碳单位。
+PURINE_2D_MOLS = [
+    dict(id="pra", name="5-磷酸核糖胺（PRA）", formula="C5H12NO7P",
+         smiles="N[C@@H]1O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]1O", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="gar", name="甘氨酰胺核苷酸（GAR）", formula="C7H15N2O8P",
+         smiles="NCC(=O)N[C@@H]1O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]1O", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="fgar", name="甲酰甘氨酰胺核苷酸（FGAR）", formula="C8H15N2O9P",
+         smiles="O=CNCC(=O)N[C@@H]1O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]1O", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="fgam", name="甲酰甘氨脒核苷酸（FGAM）", formula="C8H16N3O8P",
+         smiles="O=CNCC(=N)N[C@@H]1O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]1O", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="air", name="5-氨基咪唑核苷酸（AIR）", formula="C8H14N3O7P",
+         smiles="Nc1ncn([C@@H]2O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]2O)c1", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="cair", name="5-氨基咪唑-4-羧酸核苷酸（CAIR）", formula="C9H14N3O9P",
+         smiles="Nc1c(C(=O)O)ncn1[C@@H]2O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]2O", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="saicar", name="腺苷酸琥珀酸甲酰胺核苷酸（SAICAR）", formula="C13H19N4O12P",
+         smiles="O=C(O)C[C@@H](NC(=O)c1c(N)ncn1[C@@H]1O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]1O)C(=O)O", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="aicar", name="5-氨基咪唑-4-甲酰胺核苷酸（AICAR）", formula="C9H15N4O8P",
+         smiles="NC(=O)c1c(N)ncn1[C@@H]1O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]1O", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="faicar", name="5-甲酰胺基咪唑-4-甲酰胺核苷酸（FAICAR）", formula="C10H15N4O9P",
+         smiles="O=CNC(=O)c1c(N)ncn1[C@@H]1O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]1O", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="imp", name="次黄苷酸（IMP）", formula="C10H13N4O8P",
+         smiles="O=c1[nH]cnc2c1ncn2[C@@H]1O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]1O", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="amp", name="腺苷一磷酸（AMP）", formula="C10H14N5O7P",
+         smiles="Nc1ncnc2c1ncn2[C@@H]1O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]1O", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="gmp", name="鸟苷一磷酸（GMP）", formula="C10H14N5O8P",
+         smiles="Nc1nc2c(ncn2[C@@H]2O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]2O)c(=O)[nH]1", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="xmp", name="黄苷酸（XMP）", formula="C10H13N4O9P",
+         smiles="O=c1[nH]c2c(ncn2[C@@H]2O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]2O)c(=O)[nH]1", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+    dict(id="asuc", name="腺苷酸琥珀酸", formula="C14H18N5O11P",
+         smiles="O=C(O)C[C@@H](Nc1ncnc2c1ncn2[C@@H]1O[C@H](COP(=O)(O)O)[C@@H](O)[C@H]1O)C(=O)O", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；嘌呤核苷酸按项目口径只做 2D，不建 3D。"),
+]
+PURINE_2D_IDS = {spec["id"] for spec in PURINE_2D_MOLS}
+
+# 甘油磷脂与鞘脂（PLATE 17）：仅补 4 个小分子 2D；脂质含可变酰基链，不建 2D/3D。
+# 甘油-3-磷酸、胆碱、乙醇胺、肌醇为新增；acylcoa-c16 / ctp / ser / sam / sah / co2 复用既有资产。
+GLYCEROLIPID_2D_MOLS = [
+    dict(id="g3p", name="甘油-3-磷酸（G3P）", formula="C3H9O6P",
+         smiles="OCC(O)COP(=O)(O)O", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；甘油磷脂图按项目口径只做 2D，不建 3D。"),
+    dict(id="choline", name="胆碱", formula="C5H14NO",
+         smiles="C[N+](C)(C)CCO", src=None, sdf=None, no3d=True,
+         form="阳离子写法",
+         caveat="本轮仅补 2D；胆碱以季铵阳离子形式存在，不建 3D。"),
+    dict(id="ethanolamine", name="乙醇胺", formula="C2H7NO",
+         smiles="NCCO", src=None, sdf=None, no3d=True,
+         form="中性写法",
+         caveat="本轮仅补 2D；乙醇胺按中性游离碱写，不建 3D。"),
+    dict(id="inositol", name="肌醇", formula="C6H12O6",
+         smiles="OC1[C@H](O)[C@@H](O)[C@H](O)[C@@H](O)[C@@H]1O", src=None, sdf=None, no3d=True,
+         form="myo-肌醇写法",
+         caveat="本轮仅补 2D；肌醇按 myo 构型写，不建 3D。"),
+]
+GLYCEROLIPID_2D_IDS = {spec["id"] for spec in GLYCEROLIPID_2D_MOLS}
+
+
 
 def main():
     ap = argparse.ArgumentParser(description="离线生成分子 2D/3D 资产")
-    ap.add_argument("--pathway", choices=["glycolysis", "tca", "ppp", "gluconeogenesis", "fao", "urea", "fas", "glycogen", "amino", "cholesterol", "ketone"], default="glycolysis",
+    ap.add_argument("--pathway", choices=["glycolysis", "tca", "ppp", "gluconeogenesis", "fao", "urea", "fas", "glycogen", "amino", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerolipid"], default="glycolysis",
                     help="默认 glycolysis（保持原报告路径与行为）；tca/ppp/gluconeogenesis/fao/urea/fas 写独立报告")
     ap.add_argument("--svg-only", action="store_true",
                     help="只按现有 2D JSON 重绘 SVG（配色专用，幂等）")
@@ -1392,6 +1554,22 @@ def main():
         generate(CHOLESTEROL_2D_MOLS, CHOLESTEROL_2D_IDS,
                  os.path.join(ROOT, "preview", "cholesterol-2d-assets-report.json"),
                  "2026-11-05 · 胆固醇合成（仅 2D）")
+    elif args.pathway == "one-carbon":
+        generate(ONE_CARBON_2D_MOLS, ONE_CARBON_2D_IDS,
+                 os.path.join(ROOT, "preview", "one-carbon-2d-assets-report.json"),
+                 "2026-11-09 · 一碳单位（仅 2D）")
+    elif args.pathway == "pyrimidine":
+        generate(PYRIMIDINE_2D_MOLS, PYRIMIDINE_2D_IDS,
+                 os.path.join(ROOT, "preview", "pyrimidine-2d-assets-report.json"),
+                 "2026-11-09 · 嘧啶核苷酸（仅 2D）")
+    elif args.pathway == "purine":
+        generate(PURINE_2D_MOLS, PURINE_2D_IDS,
+                 os.path.join(ROOT, "preview", "purine-2d-assets-report.json"),
+                 "2026-11-09 · 嘌呤核苷酸（仅 2D）")
+    elif args.pathway == "glycerolipid":
+        generate(GLYCEROLIPID_2D_MOLS, GLYCEROLIPID_2D_IDS,
+                 os.path.join(ROOT, "preview", "glycerolipid-2d-assets-report.json"),
+                 "2026-11-09 · 甘油磷脂与鞘脂（仅 2D）")
     else:
         generate(MOLS, TWO_D_IDS, REPORT, "2026-11-03")
 
