@@ -1,5 +1,5 @@
 // 胆汁酸代谢挂图冒烟（PLATE 20 · SF-20）。
-// 校验口径：路由可达、6 步 + 1 段肠肝循环、4 区室、11 节点、三态（步骤 / 节点 / 运输段）点击语义、
+// 校验口径：路由可达、6 步 + 4 段肠肝循环、4 区室、11 节点、三态（步骤 / 节点 / 运输段）点击语义、
 // ?step= 深链还原、接口面板只指向真实步骤（ch-13 / oc-1）、全图只做 2D（无 3D 开关、无「待结构核验」）、
 // 结构与分子档案入口可点、1440 无横向溢出、audit-layout 本页 0 重叠 0 裁切。
 // 需先 `npm run build` 与 `npm run preview`（或 BASE_URL 指向本地服务）。
@@ -68,10 +68,17 @@ const nodeIds = await frame.locator("[data-node-id]").evaluateAll((els) =>
 check("图上 11 个节点 id（去重）", nodeIds.length === 11, String(nodeIds.length));
 check("起点胆固醇 / 结合产物节点存在", nodeIds.includes("chol") && nodeIds.includes("conj"));
 check(
-  "运输段命中带存在（1 块点击面 + 4 条边）",
-  (await frame.locator("[data-transport-id='bile-t1']").count()) >= 5,
-  String(await frame.locator("[data-transport-id='bile-t1']").count()),
+  "运输段命中带存在（4 块点击面 + 4 条边）",
+  (await frame.locator("[data-transport-id]").count()) === 8,
+  String(await frame.locator("[data-transport-id]").count()),
 );
+for (const tid of ["bile-t1", "bile-t2", "bile-t3", "bile-t4"]) {
+  check(
+    `运输段 ${tid} 各有一套点击面 + 边`,
+    (await frame.locator(`[data-transport-id='${tid}']`).count()) === 2,
+    String(await frame.locator(`[data-transport-id='${tid}']`).count()),
+  );
+}
 
 // ===== 3) 点击步骤 → 详情栏（含酶 / 区室 / 定性 ΔG） =====
 await frame.locator(".step-badge[data-step-id='bile-1']").click();
@@ -95,17 +102,18 @@ const ifaceHrefs = await interfaces.locator("a").evaluateAll((els) => els.map((a
 check("接口链接均为「既有通路?step=」", ifaceHrefs.every((h) => h && h.includes("?step=")), ifaceHrefs.join(","));
 
 // ===== 5) 运输段三态语义 =====
-// 运输点击面覆盖 3 个节点，取带内右下空白处（避开 bile / gut / portal 与其标签）
-const transportBand = frame.locator("g[data-transport-id='bile-t1'] rect").first();
-const bandBox = await transportBand.boundingBox();
-if (!bandBox) throw new Error("运输段点击面没有布局盒");
-await transportBand.click({
-  position: { x: Math.round(bandBox.width * 0.35), y: Math.round(bandBox.height * 0.9) },
-});
-await page.waitForTimeout(120);
-check("点击运输段 → 运输详情面板", (await page.locator("[data-transport-detail='1']").count()) === 1);
-const transportText = await page.locator("[data-transport-detail='1']").innerText();
-check("运输详情写明肠肝循环与不计入步数", transportText.includes("肠肝循环") && transportText.includes("不计入步数"));
+// 4 段运输各自有独立点击面，逐段点开验证详情对得上号
+for (const [tid, kw] of [["bile-t1", "BSEP"], ["bile-t2", "胆囊"], ["bile-t3", "ASBT"], ["bile-t4", "NTCP"]]) {
+  // 点该段连线自身的标签文字（同一 data-transport-id 组内，避免落在节点或空白上）
+  const label = frame.locator(`g[data-transport-id='${tid}'] text`).first();
+  if (!(await label.count())) throw new Error(`运输段 ${tid} 没有标签`);
+  await label.click({ force: true });
+  await page.waitForTimeout(120);
+  check(`点击 ${tid} → 运输详情面板`, (await page.locator("[data-transport-detail='1']").count()) === 1);
+  const transportText = await page.locator("[data-transport-detail='1']").innerText();
+  check(`${tid} 详情对上号（含 ${kw}）`, transportText.includes(kw), transportText.slice(0, 60));
+  check(`${tid} 详情写明不计入步数`, transportText.includes("不计入步数"));
+}
 
 // ===== 6) 节点点击 → 打开该节点所属步骤 =====
 await frame.locator("[data-node-id='chol']").first().click();

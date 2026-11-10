@@ -146,15 +146,15 @@
     { "from": "ca_pre", "to": "ca_coa", "stepId": "bile-5", "type": "main", "label": "侧链 β-氧化缩短" },
     { "from": "ca_coa", "to": "conj", "stepId": "bile-6", "type": "main", "label": "BAAT + Gly / Tau" },
     { "from": "conj", "to": "bile", "stepId": "bile-t1", "type": "transport", "label": "BSEP · 排入胆汁", "bend": 0.08 },
-    { "from": "bile", "to": "gut", "stepId": "bile-t1", "type": "transport", "label": "胆汁入肠" },
-    { "from": "gut", "to": "portal", "stepId": "bile-t1", "type": "transport", "label": "ASBT · 回肠重吸收" },
-    { "from": "portal", "to": "chol", "stepId": "bile-t1", "type": "transport", "label": "NTCP · 肝摄取", "bend": 0.25 }
+    { "from": "bile", "to": "gut", "stepId": "bile-t2", "type": "transport", "label": "胆囊排空入肠" },
+    { "from": "gut", "to": "portal", "stepId": "bile-t3", "type": "transport", "label": "ASBT → OSTα/OSTβ" },
+    { "from": "portal", "to": "chol", "stepId": "bile-t4", "type": "transport", "label": "NTCP · 肝摄取", "bend": 0.25 }
   ],
   "annotations": [
     {
       "x": 40,
       "y": 600,
-      "text": "肠肝循环：BSEP 排入胆汁 → 肠道 → ASBT 回肠重吸收 → 门静脉 → NTCP 肝摄取（1 段运输，不计步）",
+      "text": "肠肝循环 4 段：BSEP 分泌 → 胆囊排空入肠 → ASBT / OSTα-OSTβ 重吸收 → NTCP 肝摄取（不计步）",
       "anchor": "start",
       "size": 8.6,
       "tone": "teal"
@@ -187,11 +187,35 @@
   "transportSteps": [
     {
       "id": "bile-t1",
-      "name": "胆汁酸的肠肝循环",
-      "from": "肝（结合胆汁酸经 BSEP 排入胆管）",
-      "via": "胆囊 / 胆管 → 肠道 → 回肠（ASBT 重吸收）→ 门静脉",
-      "to": "肝（NTCP 摄取回胆汁酸池）",
-      "note": "结合胆汁酸排入胆汁后，肠道内大部分被回肠重吸收，经门静脉回肝再摄取，形成肠肝循环；本图只画一段运输，不计入步数。转运蛋白的具体亚型未逐条核对。"
+      "name": "BSEP 把结合胆汁酸分泌进胆汁",
+      "from": "肝细胞（毛细胆管侧）",
+      "via": "BSEP（ABCB11）逆浓度梯度转运",
+      "to": "胆汁（胆管）",
+      "note": "结合型胆汁酸是 BSEP 的主要底物；这一步是胆汁酸池离开肝细胞的出口，也是胆汁生成的限速环节。运输段不计入步数。"
+    },
+    {
+      "id": "bile-t2",
+      "name": "胆囊收缩把胆汁排入肠腔",
+      "from": "胆囊 / 胆管",
+      "via": "进食后胆囊收缩、Oddi 括约肌舒张",
+      "to": "十二指肠 → 肠腔",
+      "note": "无转运蛋白参与，属腔道内的整体流动。运输段不计入步数。"
+    },
+    {
+      "id": "bile-t3",
+      "name": "回肠末端重吸收并经门静脉回血",
+      "from": "肠腔（回肠末端）",
+      "via": "ASBT（SLC10A2）顶端摄取 → OSTα/OSTβ（SLC51A/B）基底侧输出",
+      "to": "门静脉血",
+      "note": "结合胆汁酸在回肠末端被主动重吸收，是肠肝循环的回收端；ASBT 为钠依赖性同向转运体。运输段不计入步数。"
+    },
+    {
+      "id": "bile-t4",
+      "name": "NTCP 把门静脉胆汁酸摄取回肝",
+      "from": "门静脉血（肝窦侧）",
+      "via": "NTCP（SLC10A1）钠依赖性摄取",
+      "to": "肝细胞（回到胆汁酸池）",
+      "note": "肝的首过摄取效率高，使门静脉血胆汁酸浓度维持在低水平。运输段不计入步数。"
     }
   ]
 }

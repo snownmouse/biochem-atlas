@@ -30,7 +30,7 @@
 | PLATE 17 | 甘油磷脂与鞘脂代谢（内质网 14 + 高尔基体 1，只做 2D） | 已完成 |
 | PLATE 18 | 血浆脂蛋白代谢（4 器官列 + 血浆带，11 段器官间物流，只做 2D） | 已完成 |
 | PLATE 19 | 血红素代谢（合成 8 步 + 降解 2 步，线粒体起始 / 胞质中段 / 线粒体末端 / 内质网，只做 2D） | 已完成 |
-| PLATE 20 | 胆汁酸代谢（6 步 + 1 段肠肝循环，内质网 / 线粒体 / 过氧化物酶体，只做 2D） | 已完成 |
+| PLATE 20 | 胆汁酸代谢（6 步 + 4 段肠肝循环，内质网 / 线粒体 / 过氧化物酶体，只做 2D） | 已完成 |
 | PLATE 21 | 糖复合物代谢（13 步，糖核苷酸供体 → 糖链，胞质 / 内质网 / 高尔基体，只做 2D） | 已完成 |
 | PLATE 22 | 氧化还原与自由基（6 步，NADPH–GSH 抗氧化网与 ROS 主干；防御网络，非经典代谢通路，只做 2D） | 已完成 |
 
@@ -194,7 +194,7 @@ node tools/validate-urea.mjs
 | `validate-glycerophospholipid` | 甘油磷脂 / 鞘脂数据层（PLATE 17 / SF-17），15 条负例 |
 | `validate-lipoprotein` | 血浆脂蛋白数据层（PLATE 18 / SF-18）：器官物流、颗粒账本、2D-only，16 条负例 |
 | `validate-heme` | 血红素代谢数据层（PLATE 19 / SF-19）：10 步 / 4 区室 / 2 接口 / 2D-only，13 条负例 |
-| `validate-bile` | 胆汁酸数据层（PLATE 20 / SF-20）：6 步 + 1 段运输 / 2 接口 / 2D-only，13 条负例 |
+| `validate-bile` | 胆汁酸数据层（PLATE 20 / SF-20）：6 步 + 4 段运输 / 2 接口 / 2D-only，13 条负例 |
 | `validate-glycoconjugate` | 糖复合物数据层（PLATE 21 / SF-21）：13 步 / 3 区室 / 7 种供体 / 4 接口 / 2D-only，15 条负例 |
 | `validate-redox` | 氧化还原数据层（PLATE 22 / SF-22）：6 步上限 / 防御网络声明 / 2 接口 / 2D-only，15 条负例 |
 | `validate-molecule-notes` | 分子档案 note 完整度 |

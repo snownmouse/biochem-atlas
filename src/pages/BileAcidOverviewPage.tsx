@@ -12,7 +12,7 @@ export default function BileAcidOverviewPage() {
       data={DATA}
       skel={SKEL}
       pathwayId="bile-acid"
-      idleContext="6 步 + 1 段肠肝循环 · 内质网 / 线粒体 / 过氧化物酶体 · 2D 口径"
+      idleContext="6 步 + 4 段肠肝循环 · 内质网 / 线粒体 / 过氧化物酶体 · 2D 口径"
     />
   );
 }

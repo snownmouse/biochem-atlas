@@ -125,16 +125,18 @@ function validate(d, s) {
   if (blob.includes("待结构核验")) push("数据里出现「待结构核验」占位");
   if (/第\s*\d+\s*页|真题\s*\d{4}|20\d{2}\s*年真题/.test(blob)) push("数据里出现页码或真题年份");
 
-  // 10) 运输段：1 段 bile-t1，数据与骨架一致
+  // 10) 运输段：4 段肠肝循环（BSEP / 胆囊排空 / ASBT+OST / NTCP），数据与骨架一致
+  const EXPECT_T = ["bile-t1", "bile-t2", "bile-t3", "bile-t4"];
   const dt = (d.transportSteps ?? []).map((t) => t.id);
   const st = (s.transportSteps ?? []).map((t) => t.id);
-  if (dt.length !== 1 || dt[0] !== "bile-t1") push(`数据层运输段应为 1 段 bile-t1，实际 ${dt.join(",") || "无"}`);
+  if (dt.join(",") !== EXPECT_T.join(",")) push(`数据层运输段应为 4 段 ${EXPECT_T.join(",")}，实际 ${dt.join(",") || "无"}`);
   if (st.join(",") !== dt.join(",")) push(`骨架运输段应与数据层一致：数据 ${dt.join(",")} / 骨架 ${st.join(",")}`);
-  const tr = (s.transportSteps ?? [])[0];
-  if (tr) {
-    if (!tr.from || !tr.to || !tr.via || !tr.note) push("运输段缺 from/to/via/note");
-    if (!tr.note.includes("不计入")) push("运输段应说明不计入步数");
+  for (const tr of s.transportSteps ?? []) {
+    if (!tr.from || !tr.to || !tr.via || !tr.note) push(`运输段 ${tr.id} 缺 from/to/via/note`);
+    if (!tr.note.includes("不计入")) push(`运输段 ${tr.id} 应说明不计入步数`);
   }
+  const linkT = (s.links ?? []).filter((l) => l.type === "transport").map((l) => l.stepId).sort();
+  if (linkT.join(",") !== [...EXPECT_T].sort().join(",")) push(`运输连线应一段一条，实际 ${linkT.join(",")}`);
 
   // 11) 接口：只指向真实存在的既有步骤（ch-13 / oc-1）
   const known = new Set();
@@ -246,5 +248,5 @@ if (errors.length) {
 }
 console.log(
   `validate-bile PASS：6 步（内质网 3 + 线粒体 1 + 过氧化物酶体 2）｜4 区室｜${skel.nodes.length} 节点｜${skel.links.length} 连线｜` +
-    `运输 1 段｜接口 ${data.interfaces.length} 条（ch-13 / oc-1）｜2D-only｜负例 ${NEGATIVES.length} 组全部拦下｜无 PDB / 无「待结构核验」`,
+    `运输 4 段（BSEP / 胆囊排空 / ASBT+OST / NTCP）｜接口 ${data.interfaces.length} 条（ch-13 / oc-1）｜2D-only｜负例 ${NEGATIVES.length} 组全部拦下｜无 PDB / 无「待结构核验」`,
 );
