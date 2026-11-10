@@ -122,7 +122,7 @@ npm run preview   # 预览构建产物（默认 http://localhost:4173）
 
 两类脚本，全部是独立可执行文件，不挂在 `npm run build` 里。
 
-### 冒烟（32 个 `tools/smoke-*.mjs`）
+### 冒烟（33 个 `tools/smoke-*.mjs`）
 
 用 `playwright-core` 驱动本机 Edge / Chrome 做真实浏览器断言。运行前先 `npm run build` 并 `npm run preview`，默认连 `http://localhost:4173`（可用环境变量 `BASE_URL` 改）。
 
@@ -137,6 +137,7 @@ node tools/smoke-cori.mjs        # Cori 循环挂图
 | `smoke-home` | 首页两域构图、节点与连线、点击语义、预留槽 |
 | `smoke-nav` | 统一通路切换器（23 条 = 22 通路 + 首页、高亮唯一、跨页可达） |
 | `smoke-embed` | 糖酵解海报 + 内嵌 3D 切片、缺资产降级、URL 还原 |
+| `smoke-glycolysis` | 糖酵解海报全页：`organ=rbc&step=gk-3` URL 还原、器官切换不重排、gk-10 详情、PEP 节点语义、gk-6 的 3D 入口与面包屑返航 |
 | `smoke-frames` | 糖酵解结构对照页 |
 | `smoke-tca` / `smoke-tca-structures` | TCA 挂图 / TCA 结构对照页 |
 | `smoke-gluconeogenesis` | 糖异生挂图（三次跨膜、右栏镜像对照） |

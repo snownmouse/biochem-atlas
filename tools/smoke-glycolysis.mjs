@@ -1,6 +1,6 @@
-// B 海报版概览页的冒烟验证 + 1440 宽截图。
-// 校验口径与旧脚本一致（不弱化）：URL 还原、器官切换、点节点出详情、URL 同步；
-// 另加海报特有校验：Δ 标签随器官浮现、挂图不重排（步骤组数量恒定）、3D 入口存在。
+// 糖酵解海报版冒烟验证（原 scripts/smoke-poster.mjs，2026-11-10 按当前 DOM 重写并迁入 tools/）。
+// 守住的口径与旧脚本一致（不弱化）：URL 还原、器官切换不重排、点步骤出详情、点代谢物沿用旧语义、
+// gk-6 的 3D 入口可跳转、单步页面包屑可返航。
 import { mkdirSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -37,13 +37,14 @@ mkdirSync(join(ROOT, "preview"), { recursive: true });
 await page.goto(`${BASE}/pathway/glycolysis?organ=rbc&step=gk-3`, { waitUntil: "networkidle" });
 await page.waitForSelector("svg .stepg", { timeout: 15000 });
 check("URL 还原：gk-3 处于选中态", (await page.locator('svg .stepg.sel[data-step-id="gk-3"]').count()) === 1);
-check("URL 还原：红细胞视图激活", (await page.locator(".organ-tab.active").innerText()) === "红细胞");
+const activeOrganTabs = page.locator(".organ-switch .organ-tab.active");
+check("URL 还原：红细胞视图激活且唯一", (await activeOrganTabs.count()) === 1 && (await activeOrganTabs.innerText()) === "红细胞");
 const rbcDelta = await page.locator('svg [data-delta="1"]').count();
 check(`红细胞视图 Δ 标签浮现（${rbcDelta} 个，应 ≥5）`, rbcDelta >= 5);
 const stepCountRbc = await page.locator("svg .stepg").count();
 
 // 2) 器官切换到肝：Δ 标签变化、图面步骤组数量不变（不重排）
-await page.click(".organ-tab:has-text('肝')");
+await page.locator(".organ-switch .organ-tab", { hasText: "肝" }).first().click();
 await page.waitForTimeout(400);
 const liverDelta = await page.locator('svg [data-delta="1"]').count();
 check(`肝视图 Δ 标签数变化（${liverDelta} ≠ ${rbcDelta}）`, liverDelta !== rbcDelta);
@@ -55,7 +56,7 @@ check("器官切换后 URL 同步", page.url().includes("organ=liver"));
 // 3) 点击主链步骤 gk-10：详情 + URL
 await page.locator('svg .stepg[data-step-id="gk-10"] line.arrow').click({ force: true });
 await page.waitForTimeout(300);
-const detailText = await page.locator(".poster .d-body").innerText();
+const detailText = await page.locator(".panel-block .d-body").innerText();
 check("点击 gk-10 后详情含丙酮酸激酶", detailText.includes("丙酮酸激酶"));
 check("点击后 URL 含 step=gk-10", page.url().includes("step=gk-10"));
 
@@ -67,16 +68,24 @@ await page.waitForTimeout(300);
 check("点击 PEP 节点选中 gk-9", (await page.locator('svg .stepg.sel[data-step-id="gk-9"]').count()) === 1);
 
 // 5) 3D 入口：gk-6 详情栏有“打开 3D 结合视图”，且跳转 /step/gk-6 不断裂
+//    页面结构变化说明：单步页 2026-11 起用 .step-poster + .s-grid 承载，旧脚本等待的 .view-wrap 已不存在；
+//    这里改为等待 .s-grid 与 3D 宿主 canvas，断言强度不变（页面必须真正挂出 3D 画布）。
 await page.goto(`${BASE}/pathway/glycolysis?organ=liver&step=gk-6`, { waitUntil: "networkidle" });
 await page.waitForSelector("svg .stepg", { timeout: 15000 });
-const link = page.locator(".d-3dlink");
-check("gk-6 详情栏存在 3D 入口", (await link.count()) === 1);
+const link = page.locator(".panel-block .d-3dlink");
+check("gk-6 详情栏存在唯一 3D 入口", (await link.count()) === 1);
 await link.click();
 await page.waitForURL("**/step/gk-6", { timeout: 10000 });
-await page.waitForSelector(".view-wrap", { timeout: 15000 });
+await page.waitForSelector(".step-poster .s-grid", { timeout: 15000 });
 check("3D 页打开成功（/step/gk-6）", page.url().includes("/step/gk-6"));
-const crumbBack = await page.locator(".crumb a").first().count();
-check("3D 页有返回概览的面包屑", crumbBack === 1);
+// 画布由 3Dmol 在元数据就绪后异步挂到 .s-viewer，故等待其出现（超时即失败，不放宽）
+await page.waitForSelector(".s-main canvas", { timeout: 15000 });
+check("3D 页已挂出 3D 画布", (await page.locator(".s-main canvas").count()) >= 1);
+const crumbBack = page.locator('.crumb a[href^="/pathway/glycolysis"]');
+check("3D 页有唯一返回概览的面包屑", (await crumbBack.count()) === 1 && (await page.locator(".crumb a").count()) === 2);
+await crumbBack.click();
+await page.waitForURL("**/pathway/glycolysis?step=gk-6", { timeout: 10000 });
+check("面包屑返航回概览并保留 gk-6", page.url().includes("/pathway/glycolysis") && page.url().includes("step=gk-6"));
 
 // 6) 截图：默认肝视图（整页）
 await page.goto(`${BASE}/pathway/glycolysis?organ=liver`, { waitUntil: "networkidle" });
