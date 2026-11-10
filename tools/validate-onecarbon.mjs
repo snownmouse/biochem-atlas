@@ -83,13 +83,15 @@ function validate(d, s) {
   if (!oc5?.protein?.toString().includes("MTR") && !oc5?.enzyme?.isozyme?.includes("MTR")) push("oc-5 的同工酶应写 MTR");
   const oc7 = d.steps.find((x) => x.id === "oc-7");
   if (oc7?.enzyme?.ec) push(`oc-7 是甲基转移酶家族，EC 应留空（现为 ${oc7.enzyme.ec}）`);
-  if (!/未核实/.test(oc7?.deltaG?.source ?? "")) push("oc-7 的 ΔG 来源应注明具体酶 EC 未核实");
+  if (!/教材章级/.test(oc7?.deltaG?.source ?? "")) push("oc-7 的 ΔG 来源应写教材章级出处");
 
-  // 6) EC 纪律：不确定的一律留空并写「未核实」
+  // 6) EC 纪律：不确定的一律留空，页面上也不得出现「未核实」类占位文字
   for (const id of ["oc-2", "oc-3", "oc-7"]) {
     const st = d.steps.find((x) => x.id === id);
     if (st?.enzyme?.ec) push(`${id} 的 EC 应留空（现为 ${st.enzyme.ec}）`);
-    if (!/未核实/.test(`${st?.deltaG?.source ?? ""}${st?.note ?? ""}`)) push(`${id} 应明写「未核实」`);
+    if (/未核实|未核验|待核实/.test(`${st?.deltaG?.source ?? ""}${st?.note ?? ""}`)) {
+      push(`${id} 的 note / ΔG 来源不得出现「未核实」类占位文字`);
+    }
   }
 
   // 7) dTMP 只作接口预留：不得展开成步骤，页脚要指向已建成的 PLATE 15（pyr-12）

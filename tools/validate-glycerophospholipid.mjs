@@ -33,7 +33,10 @@ function validate(d, s) {
     if (step.index !== i + 1) push(`${step.id} 的 index 应为 ${i + 1}，实际 ${step.index}`);
     if (!step.name || !step.shortName || !step.equation) push(`${step.id} 缺 name/shortName/equation`);
     if (!step.substrates.length || !step.products.length) push(`${step.id} 底物或产物为空`);
-    if (!step.enzyme?.name || !step.enzyme?.ec) push(`${step.id} 缺酶名或 EC`);
+    if (!step.enzyme?.name) push(`${step.id} 缺酶名`);
+    if (step.enzyme?.ec && !/^\d+\.\d+\.\d+\.\d+$/.test(String(step.enzyme.ec))) {
+      push(`${step.id} 的 EC 必须是编号或留空，不得写占位文字（当前「${step.enzyme.ec}」）`);
+    }
     if (step.deltaG?.standard !== null || step.deltaG?.physiological !== null) {
       push(`${step.id} 的 ΔG 数值必须为 null（只保留定性标注）`);
     }
@@ -93,15 +96,15 @@ function validate(d, s) {
   if (!p13?.products?.includes("dihydroceramide")) push("gpl-13 的产物应是二氢神经酰胺");
   if (p13?.products?.includes("cer")) push("gpl-13 不应直接生成带 4,5-双键的神经酰胺");
   if (!/DES/.test(p13?.note ?? "")) push("gpl-13 的 note 应写 DES 的后续去饱和");
-  if (!/EC 未核实/.test(p13?.note ?? "")) push("gpl-13 的 note 应写「EC 未核实」");
+  if (/未核实|未核验|待核实/.test(p13?.note ?? "")) push("gpl-13 的 note 不得出现「未核实」类占位文字");
 
   const p14 = d.steps.find((x) => x.id === "gpl-14");
   if (!/去饱和酶/.test(`${p14?.enzyme?.name}${p14?.enzyme?.isozyme}`)) push("gpl-14 应是 DES 去饱和酶");
   if (!p14?.substrates?.includes("dihydroceramide") || !p14?.products?.includes("cer")) {
     push("gpl-14 应以二氢神经酰胺为底物、生成神经酰胺");
   }
-  if (p14?.enzyme?.ec !== "未核实") push("gpl-14 的 EC 子项本平台未核实，应写「未核实」");
-  if (!/EC 未核实/.test(p14?.note ?? "")) push("gpl-14 的 note 应写「EC 未核实」");
+  if (p14?.enzyme?.ec !== "") push("gpl-14 的 EC 子项应留空（无可靠编号，不得写占位文字或编造）");
+  if (/未核实|未核验|待核实/.test(p14?.note ?? "")) push("gpl-14 的 note 不得出现「未核实」类占位文字");
 
   const p15 = d.steps.find((x) => x.id === "gpl-15");
   if (!/SMS/.test(p15?.enzyme?.isozyme ?? "")) push("gpl-15 应写 SMS");
@@ -123,7 +126,7 @@ function validate(d, s) {
     "gpl-11": "2.3.1.50",
     "gpl-12": "1.1.1.102",
     "gpl-13": "2.3.1.24",
-    "gpl-14": "未核实",
+    "gpl-14": "",
     "gpl-15": "2.7.8.27",
   };
   for (const [id, ec] of Object.entries(EC_FIXED)) {
@@ -290,7 +293,8 @@ negative("删掉 oc-6 接口", (d) => { d.interfaces = d.interfaces.filter((x) =
 negative("把节点挪出区室", (d, s) => { s.nodes[0].x = 10; });
 negative("把 gpl-15 放回 er", (d) => { d.steps[14].compartment = "er"; });
 negative("把 gpl-7 写成 1 SAM → 1 SAH", (d) => { d.steps[6].equation = "PE + SAM → PC + SAH"; });
-negative("删掉 DES 的 EC 未核实说明", (d) => { d.steps[13].note = "去饱和。" });
+negative("给 DES 填编造 EC", (d) => { d.steps[13].enzyme.ec = "1.14.19.17"; });
+negative("把 DES 的 EC 写成占位文字", (d) => { d.steps[13].enzyme.ec = "未核实"; });
 negative("把 CERS 产物直接写成神经酰胺", (d) => { d.steps[12].products = ["cer", "coa"]; });
 negative("写页码", (d) => { d.posterFoot.push("见第 123 页。"); });
 negative("登记 PDB", (d) => { d.threeD.pdbId = "1ABC"; });

@@ -92,7 +92,7 @@ check("ΔG 只给定性、不含数值", dgText.includes("定性") && !/[-−]?\
 check("无「待结构核验」占位", !(await page.locator("body").innerText()).includes("待结构核验"));
 check("全图只做 2D：无 3D 切换控件", (await page.locator("[data-3d-toggle], .d-3d-toggle, button:has-text('3D')").count()) === 0);
 check("2D-only 说明存在（不登记 PDB）", (await page.locator("[data-2d-only='1']").first().innerText()).includes("PDB"));
-check("EC 查不准的步骤写「未核实」", (await page.locator("body").innerText()).includes("未核实"));
+check("页面不出现「未核实」类占位文字", !(await page.locator("body").innerText()).includes("未核实"));
 
 // ===== 4) 接口面板只指向真实步骤 =====
 const interfaces = page.locator("[data-chain-interfaces='1'] [data-interface-step]");

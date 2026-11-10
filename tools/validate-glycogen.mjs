@@ -367,7 +367,7 @@ function check(d) {
   }
   for (const s of d.data.steps) {
     for (const p of s.pdbCandidates ?? []) {
-      if (!cand.has(p.pdbId)) push(`${s.id} 引用未核验 PDB ${p.pdbId}`);
+      if (!cand.has(p.pdbId)) push(`${s.id} 引用未登记 PDB ${p.pdbId}`);
       if (p.status !== "verified") push(`${s.id} 的 PDB ${p.pdbId} 缺 status=verified`);
       if (
         !p.organism ||
@@ -527,7 +527,7 @@ const negatives = [
     },
   ],
   [
-    "PDB 候选缺 RCSB 条目标题（身份未核验）",
+    "PDB 候选缺 RCSB 条目标题（身份字段缺失）",
     (d) => {
       d.data.threeD.candidates.find((c) => c.pdbId === "1EM6").entryTitle = "";
     },

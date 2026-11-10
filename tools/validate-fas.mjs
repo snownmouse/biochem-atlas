@@ -227,7 +227,7 @@ function check(data, skel) {
       warn(`${s.id} 既不用 NADPH 也不是缩合/脱水步，还原当量记录可疑`);
   }
   for (const s of steps) {
-    if (!s.deltaG) warn(`${s.id} 缺少 deltaG（未核实也要写 null + 定性 + 来源）`);
+    if (!s.deltaG) warn(`${s.id} 缺少 deltaG（无数据也要写 null + 定性 + 来源）`);
     else {
       const src = String(s.deltaG.source ?? "");
       if (s.deltaG.valueKcal !== null) warn(`${s.id} 的 ΔG 数值必须为 null（页面不展示热力学数值）`);

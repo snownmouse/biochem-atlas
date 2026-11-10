@@ -141,7 +141,7 @@ function validate(d, s) {
   if (tr) {
     if (!tr.from || !tr.to || !tr.via || !tr.note) push("运输段缺 from/to/via/note");
     if (!tr.note.includes("不计入")) push("运输段应说明不计入步数");
-    if (!tr.note.includes("未核实")) push("运输段应说明转运蛋白未核实");
+    if (/未核实|未核验|待核实/.test(tr.note)) push("运输段不得出现「未核实」类占位文字");
   }
 
   // 10) 接口：只指向真实存在的既有步骤（urea-1 / gly-7 / oc-3）

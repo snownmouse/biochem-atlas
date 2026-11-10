@@ -42,10 +42,10 @@ const EC = {
   "gcon-4": "2.6.1.16",
   "gcon-5": "2.7.7.22",
   "gcon-6": "4.2.1.47",
-  "gcon-7": "未核实",
+  "gcon-7": "",
   "gcon-8": "2.7.7.43",
   "gcon-9": "2.4.1.119",
-  "gcon-10": "未核实",
+  "gcon-10": "",
   "gcon-11": "2.4.1.255",
   "gcon-12": "2.4.1.212",
   "gcon-13": "2.4.1.80",
@@ -107,13 +107,13 @@ function validate(d, s) {
     if (want && step.compartment !== want) push(`${step.id} 应在 ${want}，实际 ${step.compartment}`);
   }
 
-  // 3) 方向与 EC（查不准的一律写「未核实」，不编子项）
+  // 3) 方向与 EC（无可靠编号的一律留空，不编子项，也不写占位文字）
   for (const step of d.steps) {
     if (typeof IRREVERSIBLE[step.id] === "boolean" && step.irreversible !== IRREVERSIBLE[step.id]) {
       push(`${step.id} 的 irreversible 应为 ${IRREVERSIBLE[step.id]}，实际 ${step.irreversible}`);
     }
-    if (EC[step.id] && step.enzyme?.ec !== EC[step.id]) {
-      push(`${step.id} 的 EC 应为 ${EC[step.id]}，实际 ${step.enzyme?.ec}`);
+    if (step.enzyme?.ec !== (EC[step.id] ?? "")) {
+      push(`${step.id} 的 EC 应为 ${EC[step.id] === "" ? "空（无可靠编号）" : EC[step.id]}，实际 ${step.enzyme?.ec}`);
     }
   }
   if (d.steps.some((x) => /^\d+\.\d+\.\d+\.\d+$/.test(x.enzyme?.ec ?? "") && !EC[x.id])) {
@@ -136,7 +136,7 @@ function validate(d, s) {
   for (const donor of ["udp-glcnac", "udp-gal", "gdp-fuc", "cmp-neu5ac"]) {
     if (!g10?.substrates?.includes(donor)) push(`gcon-10 的底物应含末端供体 ${donor}`);
   }
-  if (g10?.enzyme?.ec !== "未核实") push("gcon-10 是多酶体系，EC 应写「未核实」");
+  if (g10?.enzyme?.ec !== "") push("gcon-10 是多酶体系，EC 应留空");
   const g11 = d.steps.find((x) => x.id === "gcon-11");
   if (!/OGT/.test(g11?.enzyme?.isozyme ?? "")) push("gcon-11 的同工酶应写 OGT");
   if (!/可逆/.test(`${g11?.significance ?? ""}${g11?.deltaG?.qualitative ?? ""}`)) push("gcon-11 应写明 O-GlcNAc 可逆");

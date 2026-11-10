@@ -132,6 +132,7 @@ check("展开后临床节点恢复 3 条", (await page.locator("svg[data-frame='
 
 // ===== 5) 点击语义：步骤 / 分子 / 酶 / 去路 / 接口 =====
 await page.locator("svg[data-frame='amino'] [data-step-id='aa-1']").click({ force: true });
+await page.waitForURL(/step=aa-1/, { timeout: 3000 }).catch(() => {});
 check("点步骤标签 aa-1 → URL step=aa-1", page.url().includes("step=aa-1"));
 check("右栏 ALT 详情出现", (await page.locator("aside [data-detail-kind='step'] .d-enzyme").innerText()).includes("丙氨酸氨基转移酶"));
 check("ALT ΔG 不出现具体数值", !/(kJ\/mol|kcal\/mol|eQuilibrator)/.test(await page.locator("aside [data-detail-kind='step']").innerText()));
@@ -144,6 +145,7 @@ check("电离态逐项：α-羧基 / γ-羧基 / α-氨基", (await page.locator
 check("分子详情写明分类归属", (await page.locator("aside [data-detail-kind='entity']").innerText()).includes("生糖"));
 
 await page.locator("svg[data-frame='amino'] [data-node-id='enz-gldh']").click({ force: true });
+await page.waitForURL(/step=aa-3/, { timeout: 3000 }).catch(() => {});
 check("点 GLDH 酶盒 → step=aa-3", page.url().includes("step=aa-3"));
 check("右栏 GLDH 详情出现", (await page.locator("aside [data-detail-kind='step'] .d-enzyme").innerText()).includes("谷氨酸脱氢酶"));
 check("GLDH 详情写 NAD(P)⁺ 辅因子", (await page.locator("aside [data-detail-kind='step']").innerText()).includes("NAD(P)⁺"));

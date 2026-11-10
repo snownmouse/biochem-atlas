@@ -173,7 +173,7 @@ check("ΔG 只给定性 + Lehninger 8e", aside.includes("Lehninger 8e") && !/ΔG
 check("gly-1 肝/肌差异句可见", aside.includes("肝") && aside.includes("肌"));
 check("PDB 1EM6 身份齐备（人 PYGL / 2.2 Å / PLP + NBG）", aside.includes("1EM6") && aside.includes("2.2") && aside.includes("PLP") && aside.includes("NBG"));
 check("PDB 1FA9 / 1Z8D 也列出", aside.includes("1FA9") && aside.includes("1Z8D"));
-check("未核验 / 未建资产不伪造：3D 状态 pending", (await page.locator("[data-three-d]").innerText()).includes("pending"));
+check("未建资产不伪造：3D 状态 pending", (await page.locator("[data-three-d]").innerText()).includes("pending"));
 const shared = await page.locator("aside [data-shared-with]").evaluateAll((els) => els.map((e) => e.getAttribute("data-shared-with")));
 check("gly-1 无跨通路接口时如实写「本步没有跨通路接口」", shared.length === 0 && aside.includes("本步没有跨通路接口"));
 await page.goto(`${ROUTE}?step=gly-3`, { waitUntil: "networkidle" });

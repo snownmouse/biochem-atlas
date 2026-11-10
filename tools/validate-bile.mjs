@@ -26,10 +26,10 @@ const COMPARTMENT_OF = {
 };
 const EC = {
   "bile-1": "1.14.14.23",
-  "bile-2": "未核实",
-  "bile-3": "未核实",
-  "bile-4": "未核实",
-  "bile-5": "未核实",
+  "bile-2": "",
+  "bile-3": "",
+  "bile-4": "",
+  "bile-5": "",
   "bile-6": "2.3.1.65",
 };
 const IRREVERSIBLE = {
@@ -71,13 +71,13 @@ function validate(d, s) {
     if (want && step.compartment !== want) push(`${step.id} 应在 ${want}，实际 ${step.compartment}`);
   }
 
-  // 3) 方向与 EC（查不准的一律写「未核实」，不编子项）
+  // 3) 方向与 EC（无可靠编号的一律留空；占位文字或编造编号都算失败）
   for (const step of d.steps) {
     if (typeof IRREVERSIBLE[step.id] === "boolean" && step.irreversible !== IRREVERSIBLE[step.id]) {
       push(`${step.id} 的 irreversible 应为 ${IRREVERSIBLE[step.id]}，实际 ${step.irreversible}`);
     }
-    if (EC[step.id] && step.enzyme?.ec !== EC[step.id]) {
-      push(`${step.id} 的 EC 应为 ${EC[step.id]}，实际 ${step.enzyme?.ec}`);
+    if (step.enzyme?.ec !== (EC[step.id] ?? "")) {
+      push(`${step.id} 的 EC 应为 ${EC[step.id] === "" ? "空（无可靠编号）" : EC[step.id]}，实际 ${step.enzyme?.ec}`);
     }
   }
 

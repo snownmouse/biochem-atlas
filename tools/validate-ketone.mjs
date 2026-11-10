@@ -56,12 +56,14 @@ function validate(d, s) {
   if (k4?.irreversible) push("kt-4（BDH1）应为可逆");
   if (!k4?.enzyme?.isozyme?.includes("BDH1")) push("kt-4 应写 BDH1");
 
-  // 4) kt-5（丙酮旁路）不许编酶：EC 为空且明写未核实
+  // 4) kt-5（丙酮旁路）不许编酶：EC 为空，走教材的自发脱羧口径
   const k5 = d.steps.find((x) => x.id === "kt-5");
   if (k5) {
     if (k5.enzyme?.ec) push(`kt-5 的 EC 必须留空（现为 ${k5.enzyme.ec}）`);
-    if (!k5.note?.includes("未核实")) push("kt-5 应明写「未核实」");
-    if (!k5.deltaG?.source?.includes("未核实")) push("kt-5 的 ΔG 来源应注明酶学细节未核实");
+    if (/未核实|未核验|待核实/.test(`${k5.note ?? ""}${k5.deltaG?.source ?? ""}`)) {
+      push("kt-5 的 note / ΔG 来源不得出现「未核实」类占位文字");
+    }
+    if (!/教材章级/.test(k5.deltaG?.source ?? "")) push("kt-5 的 ΔG 来源应写教材章级出处");
   }
 
   // 5) 肝外利用段：OXCT1 + 肝不表达

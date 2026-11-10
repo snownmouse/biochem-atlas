@@ -302,8 +302,8 @@ function check(data, skel, tcaData) {
   const anyCandidate = steps.flatMap((s) => s.threeD?.candidates ?? []);
   for (const c of anyCandidate) {
     if (!c.pdbId) warn(`候选结构 ${c.enzyme} 缺少 pdbId`);
-    if (c.organism === "未核验" && c.method !== null) warn(`候选 ${c.pdbId} 未核验却填了 method`);
-    if (c.organism === "未核验" && c.resolutionA !== null) warn(`候选 ${c.pdbId} 未核验却填了分辨率`);
+    if (c.organism === "unknown" && c.method !== null) warn(`候选 ${c.pdbId} 身份未确认却填了 method`);
+    if (c.organism === "unknown" && c.resolutionA !== null) warn(`候选 ${c.pdbId} 身份未确认却填了分辨率`);
   }
 
   // 12) 临床条目克制

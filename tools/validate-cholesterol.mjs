@@ -404,7 +404,7 @@ function check(data, skel, ctx) {
     }
   }
   if (data.threeD?.status !== "pending") warn("threeD.status 必须是 pending");
-  if (!/未核验|NONE|无人源结构/.test(data.threeD?.note ?? "")) warn("threeD.note 必须写明未核验 / 无人源结构的酶");
+  if (!/NONE|无人源结构/.test(data.threeD?.note ?? "")) warn("threeD.note 必须写明无人源结构的酶");
 
   // ---------- 9) 骨架几何 / 区室 ----------
   if (W !== 1980 || H !== 1000) warn(`画布应为 1980×1000，实际 ${W}×${H}`);

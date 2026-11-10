@@ -102,9 +102,9 @@ check("接驳步标为「接驳步」而不是第 0 步", (await page.locator("#
 check("TCA 没有任何酶 3D 面板", (await page.locator('[data-testid="enzyme-3d"]').count()) === 0);
 check("九块左侧都有灰字声明", (await page.locator('[data-testid="enzyme-panel-off"]').count()) === STEP_IDS.length);
 check(
-  "灰字声明文案来自配置（本步酶结构资产未建立 · 待核验后接入）",
+  "灰字声明文案来自配置（本步酶结构资产未建立 · 本页不展示 3D）",
   (await page.locator('#tca-1 [data-testid="enzyme-panel-off"]').innerText()).trim() ===
-    "本步酶结构资产未建立 · 待核验后接入"
+    "本步酶结构资产未建立 · 本页不展示 3D"
 );
 check("每块都有「这一步改了什么」", (await page.locator('[data-testid="change-line"]').count()) === STEP_IDS.length);
 check("每块都有一句生理意义", (await page.locator(".cmp-phys").count()) === STEP_IDS.length);

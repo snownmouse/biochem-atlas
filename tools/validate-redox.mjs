@@ -23,7 +23,7 @@ const COMPARTMENT_OF = {
   "rd-5": "cyto",
   "rd-6": "cyto",
 };
-const EC = { "rd-1": "未核实", "rd-2": "1.15.1.1", "rd-3": "未核实", "rd-4": "1.8.1.7", "rd-5": "未核实", "rd-6": "未核实" };
+const EC = { "rd-1": "", "rd-2": "1.15.1.1", "rd-3": "", "rd-4": "1.8.1.7", "rd-5": "", "rd-6": "" };
 const IRREVERSIBLE = { "rd-1": true, "rd-2": true, "rd-3": true, "rd-4": false, "rd-5": true, "rd-6": true };
 const ENTITIES = ["o2", "o2m", "h2o2", "h2o", "gsh", "gssg", "nadph", "nadp", "prec", "g6p"];
 
