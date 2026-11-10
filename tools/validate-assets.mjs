@@ -131,6 +131,12 @@ export function checkFormula(id, declared, assetFormula, mw) {
 /** 从 comparisonConfig.ts 抽取：molId → 证据来源 / 2D 路径 / 声明分子式 */
 export function parseConfig(text) {
   const mols = new Map();
+  // 共享文案常量（如 GLYCO_MISSING / REDOX_MISSING）：missing2dReason 允许引用同文件内的字符串常量，
+  // 这里先把常量表建好再解析，判定口径不变（仍必须解析出一条非空原因文字）。
+  const consts = new Map();
+  for (const m of text.matchAll(/const\s+([A-Za-z0-9_]+)\s*(?::\s*string\s*)?=\s*"([^"]+)"/g)) {
+    consts.set(m[1], m[2]);
+  }
   const evRe = /ev(OwnHuman|OwnNonhuman|OtherHuman|OtherNonhuman|Computed|Only2d)\("([^"]+)"\)/g;
   for (const m of text.matchAll(evRe)) {
     const coordSource = m[1] === "Only2d" ? "none" : m[1] === "Computed" ? "computed" : "experimental";
@@ -149,8 +155,12 @@ export function parseConfig(text) {
     }
     const f = slice.match(/formula:\s*"([^"]+)"/);
     if (f) mol.formula = f[1];
-    const m2 = slice.match(/missing2dReason:\s*"([^"]+)"/);
-    if (m2) mol.missing2dReason = m2[1];
+    const m2 = slice.match(/missing2dReason:\s*(?:"([^"]+)"|([A-Za-z0-9_]+))/);
+    if (m2) {
+      const reason = m2[1] ?? consts.get(m2[2]);
+      if (reason) mol.missing2dReason = reason;
+      else mol.missing2dReasonUnresolved = m2[2];
+    }
   }
   return mols;
 }
