@@ -200,7 +200,7 @@ const organNote = await page.locator("[data-organ-note]").innerText();
 check("乳腺下 KS 如实写「本步无差异」", organNote.includes("本步无") && organNote.includes("乳腺（泌乳期）"), organNote);
 
 // ===== 10) 1440 首页展开档：十条既有标题全见（第 11 条氨基酸代谢允许出屏） =====
-// 政策（2026-11-05）：无参数默认改为「收起辅助栏 + 等比铺满」，首屏完整可见 8/11。
+// 政策（2026-11-05）：无参数默认改为「收起辅助栏 + 等比铺满」，首屏完整可见 8/22。
 // 本条原判定口径是展开档，用同一套 ?fold=open 还原；断言与阈值未改，仅按用户口径
 // 把第 11 条（氨基酸代谢，y=650）排除在「必须可见」之外（不许压其它标题坐标）。
 await page.setViewportSize({ width: 1440, height: 900 });
@@ -220,19 +220,19 @@ const homeTitles = await page.locator("[data-pathway-title]").evaluateAll((els) 
     };
   });
 });
-const ALLOW_OFFSCREEN = ["amino-acids", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerophospholipid", "lipoprotein"];
-check("首页十八条通路标题（十七区块 + Cori 连接带）", homeTitles.length === 18, String(homeTitles.length));
+const ALLOW_OFFSCREEN = ["amino-acids", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerophospholipid", "lipoprotein", "heme", "bile-acid", "glycoconjugate", "redox"];
+check("首页二十二条通路标题（二十一区块 + Cori 连接带）", homeTitles.length === 22, String(homeTitles.length));
 check("首页出现「脂肪酸从头合成」标题", homeTitles.some((t) => t.id === "fatty-acid-synthesis" && t.text.includes("脂肪酸从头合成")));
 check("首页出现「尿素循环」标题", homeTitles.some((t) => t.id === "urea-cycle" && t.text.includes("尿素循环")));
 check("首页出现「糖原代谢」标题", homeTitles.some((t) => t.id === "glycogen" && t.text.includes("糖原代谢")));
 check(
-  "1440×900 展开档：仅氨基酸 / 胆固醇 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白出屏，其余十条全在屏内",
+  "1440×900 展开档：仅氨基酸 / 胆固醇 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白 / 血红素 / 胆汁酸 / 糖复合物 / 氧化还原出屏，其余十条全在屏内",
   homeTitles.every((t) => ALLOW_OFFSCREEN.includes(t.id) || (t.x >= 0 && t.right <= 1440 && t.y >= 0 && t.bottom <= 900)) &&
     homeTitles.filter((t) => !ALLOW_OFFSCREEN.includes(t.id)).length === 10,
   JSON.stringify(homeTitles.map((t) => [t.id, t.y, t.bottom])),
 );
 const lowest = Math.max(...homeTitles.filter((t) => !ALLOW_OFFSCREEN.includes(t.id)).map((t) => t.bottom));
-check("除出屏八条外，十条标题最低底边 ≤ 900", lowest <= 900, String(Math.round(lowest)));
+check("除出屏十二条外，十条标题最低底边 ≤ 900", lowest <= 900, String(Math.round(lowest)));
 const fasTitle = homeTitles.find((t) => t.id === "fatty-acid-synthesis");
 const faoTitle = homeTitles.find((t) => t.id === "fatty-acid-oxidation");
 check("FAS 标题在 β-氧化标题上方（胞质侧镜像）", Boolean(fasTitle && faoTitle) && fasTitle.bottom < faoTitle.y, JSON.stringify([fasTitle?.bottom, faoTitle?.y]));

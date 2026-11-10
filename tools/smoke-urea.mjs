@@ -188,7 +188,7 @@ check("结构对照 5 块（urea-1…urea-5）", cmpSteps.length === 5 && ["urea
 check("结构对照页无控制台报错", errors.length === 0, errors.slice(0, 3).join(" | "));
 
 // ===== 9) 首页 1440×900 展开档：十条既有标题全见（第 11 条氨基酸代谢允许出屏） =====
-// 政策（2026-11-05）：无参数默认改为「收起辅助栏 + 等比铺满」，首屏完整可见 8/11。
+// 政策（2026-11-05）：无参数默认改为「收起辅助栏 + 等比铺满」，首屏完整可见 8/22。
 // 本条原判定口径是展开档（右栏可见、画布 955），用同一套 ?fold=open 还原；断言与阈值未改，
 // 仅把第 11 条（氨基酸代谢，y=650）按用户口径排除在「必须可见」之外（不许压其它标题坐标）。
 await page.setViewportSize({ width: 1440, height: 900 });
@@ -210,21 +210,21 @@ const titles = await page.locator("[data-pathway-title]").evaluateAll((els) =>
     };
   }),
 );
-const ALLOW_OFFSCREEN = ["amino-acids", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerophospholipid", "lipoprotein"];
+const ALLOW_OFFSCREEN = ["amino-acids", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerophospholipid", "lipoprotein", "heme", "bile-acid", "glycoconjugate", "redox"];
 const offscreen = titles.filter((t) => t.y < 0 || t.bottom > 900 || t.x < 0 || t.right > 1440);
-check("首页十八条通路标题齐全", titles.length === 18, titles.map((t) => t.id).join(","));
+check("首页二十二条通路标题齐全（二十一区块 + Cori 连接带）", titles.length === 22, titles.map((t) => t.id).join(","));
 check("首页出现「尿素循环」标题", titles.some((t) => t.id === "urea-cycle" && t.text.includes("尿素循环")));
 check("首页出现「糖原代谢」标题", titles.some((t) => t.id === "glycogen" && t.text.includes("糖原代谢")));
 check(
-  "1440×900 展开档：仅氨基酸 / 胆固醇 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白出屏，其余十条全见",
-  titles.length === 18 &&
-    offscreen.length === 8 &&
+  "1440×900 展开档：仅氨基酸 / 胆固醇 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白 / 血红素 / 胆汁酸 / 糖复合物 / 氧化还原出屏，其余十条全见",
+  titles.length === 22 &&
+    offscreen.length === 12 &&
     ALLOW_OFFSCREEN.every((id) => offscreen.some((t) => t.id === id)),
   JSON.stringify(titles.map((t) => [t.id, t.x, t.y, t.bottom])),
 );
 const lowest = Math.max(...titles.filter((t) => !ALLOW_OFFSCREEN.includes(t.id)).map((t) => t.bottom));
-check("除出屏八条外，十条标题最低底边 ≤ 900", lowest <= 900, `最低底边 ${lowest}px（余量 ${900 - lowest}px）`);
-console.log(`  · 除出屏八条外，首页十条标题实测最低底边 ${lowest}px；距首屏下沿 ${900 - lowest}px`);
+check("除出屏十二条外，十条标题最低底边 ≤ 900", lowest <= 900, `最低底边 ${lowest}px（余量 ${900 - lowest}px）`);
+console.log(`  · 除出屏十二条外，首页十条标题实测最低底边 ${lowest}px；距首屏下沿 ${900 - lowest}px`);
 
 // ===== 10) audit-layout 本页 0 重叠 0 裁切 =====
 let audit = null;

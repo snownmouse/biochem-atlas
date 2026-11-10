@@ -162,22 +162,22 @@ for (const asset of assets) {
 }
 check(`两个 3D 资产总原子 ${atomTotal} < 50k（单页预算）`, atomTotal < 50000);
 
-// 编号集合：主挂图 01–06 + 08–18（07 属于 Cori，只走回路层、不占标题块，故留空位）
+// 编号集合：主挂图 01–06 + 08–22（07 属于 Cori，只走回路层、不占标题块，故留空位）
 const homeSrc = fs.readFileSync(join(ROOT, "src/data/homeMap.ts"), "utf8");
 const mainNos = [...homeSrc.matchAll(/plateNo: "PLATE (\d{2})"/g)].map((m) => Number(m[1]));
 check(
-  "首页主挂图编号精确等于 {01,02,03,04,05,06,08,…,18}，无重复、无跳号（07 属 Cori）",
+  "首页主挂图编号精确等于 {01,02,03,04,05,06,08,…,22}，无重复、无跳号（07 属 Cori）",
   new Set(mainNos).size === mainNos.length &&
-    [...mainNos].sort((a, b) => a - b).join(",") === "1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,17,18",
+    [...mainNos].sort((a, b) => a - b).join(",") === "1,2,3,4,5,6,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
   mainNos.join(","),
 );
 const cmpSrc = fs.readFileSync(join(ROOT, "src/data/comparisonConfig.ts"), "utf8");
-// SF 号对齐 PLATE 号：结构页 01–18（07 为 Cori 结构对照，已接入 /structures/cori；06 为氧化磷酸化专页，存在 oxphos.json）
+// SF 号对齐 PLATE 号：结构页 01–22（07 为 Cori 结构对照，已接入 /structures/cori；06 为氧化磷酸化专页，存在 oxphos.json）
 const sfNos = [...cmpSrc.matchAll(/^  plateNo: "PLATE SF-(\d{2})/gm)].map((m) => Number(m[1]));
 const sfAll = [...new Set([...sfNos, Number(ox.structurePlateNo.slice(3))])].sort((a, b) => a - b);
 check(
-  "结构页编号精确等于 {01,…,18}，无重复、无跳号（07 已由 Cori 补齐）",
-  new Set(sfNos).size === sfNos.length && sfAll.join(",") === "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18",
+  "结构页编号精确等于 {01,…,22}，无重复、无跳号（07 已由 Cori 补齐）",
+  new Set(sfNos).size === sfNos.length && sfAll.join(",") === "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22",
   sfAll.join(","),
 );
 

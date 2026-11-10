@@ -242,17 +242,17 @@ await page.goto(`${BASE}/pathway/cori`, { waitUntil: "networkidle" });
 await page.locator('svg g[data-node-id="oaa"] text').first().click();
 check("点击 OAA 节点映射到 PC 引用", page.url().includes("step=cori-l-pc"));
 
-/* ===== 10) 首页：十一条标题；FAS 上线后标题块 6→7，尿素循环再加一块，糖原再加一块，氨基酸再加一块；Cori 仍只走回路层 ===== */
-// 政策（2026-11-05）：无参数默认改为「收起辅助栏 + 等比铺满」，首屏完整可见 8/11。
+/* ===== 10) 首页：二十二条标题；PLATE 01–22 共二十一区块，Cori 只走回路层 ===== */
+// 政策（2026-11-05）：无参数默认改为「收起辅助栏 + 等比铺满」，首屏完整可见 8/22。
 // 本条原判定口径是展开档，用同一套 ?fold=open 还原；断言与阈值未改，仅按用户口径
 // 把第 11 条（氨基酸代谢，y=650）排除在「必须可见」之外（不许压其它标题坐标）。
 await page.goto(`${BASE}/?fold=open`, { waitUntil: "networkidle" });
 check("首页 Cori 回路层存在", (await page.locator("[data-cori-loop]").count()) === 1);
 check("首页回路 href 指向 /pathway/cori", (await page.locator("[data-cori-loop]").getAttribute("href")) === "/pathway/cori");
 check("首页回路两条血流", (await page.locator("[data-cori-flow]").count()) === 2);
-check("首页 17 个通路区块（Cori 不占标题块）", (await page.locator("[data-pathway-block]").count()) === 17);
-check("首页 18 个通路标题（17 区块 + Cori 连接带）", (await page.locator("[data-pathway-title]").count()) === 18);
-check("首页有 34 条去向链接", (await page.locator("[data-home-link]").count()) === 34);
+check("首页 21 个通路区块（Cori 不占标题块）", (await page.locator("[data-pathway-block]").count()) === 21);
+check("首页 22 个通路标题（21 区块 + Cori 连接带）", (await page.locator("[data-pathway-title]").count()) === 22);
+check("首页有 42 条去向链接", (await page.locator("[data-home-link]").count()) === 42);
 check("首页侧栏有 Cori 入口", (await page.locator("[data-cori-aside-link]").count()) === 1);
 const titles = await page.locator("[data-pathway-title]").evaluateAll((els) =>
   els.map((el) => {
@@ -260,15 +260,15 @@ const titles = await page.locator("[data-pathway-title]").evaluateAll((els) =>
     return { id: el.getAttribute("data-pathway-title"), x: r.x, y: r.y, right: r.right, bottom: r.bottom };
   })
 );
-const ALLOW_OFFSCREEN = ["amino-acids", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerophospholipid", "lipoprotein"];
+const ALLOW_OFFSCREEN = ["amino-acids", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerophospholipid", "lipoprotein", "heme", "bile-acid", "glycoconjugate", "redox"];
 const offscreen = titles.filter((t) => t.y < 0 || t.bottom > 900 || t.x < 0 || t.right > 1440);
 check(
-  "1440×900 展开档：仅氨基酸 / 胆固醇 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白出屏，其余十条全见",
-  titles.length === 18 && offscreen.length === 8 && ALLOW_OFFSCREEN.every((id) => offscreen.some((t) => t.id === id)),
+  "1440×900 展开档：仅氨基酸 / 胆固醇 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白 / 血红素 / 胆汁酸 / 糖复合物 / 氧化还原出屏，其余十条全见",
+  titles.length === 22 && offscreen.length === 12 && ALLOW_OFFSCREEN.every((id) => offscreen.some((t) => t.id === id)),
   JSON.stringify(titles.map((t) => [t.id, Math.round(t.y), Math.round(t.bottom)]))
 );
 const lowest = Math.max(...titles.filter((t) => !ALLOW_OFFSCREEN.includes(t.id)).map((t) => t.bottom));
-check("除出屏八条外，十条标题最低底边 ≤ 900", lowest <= 900, `最低底边 ${Math.round(lowest)}px（余量 ${900 - Math.round(lowest)}px）`);
+check("除出屏十二条外，十条标题最低底边 ≤ 900", lowest <= 900, `最低底边 ${Math.round(lowest)}px（余量 ${900 - Math.round(lowest)}px）`);
 await page.screenshot({ path: join(ROOT, "preview", "home-cori-loop.png") });
 await page.locator("[data-cori-loop] rect").first().click();
 await page.waitForURL(/\/pathway\/cori/);
