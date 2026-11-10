@@ -49,7 +49,7 @@
     { "id": "sm", "name": "鞘磷脂", "abbr": "SM", "kind": "metabolite", "note": "甘油磷脂与鞘脂的交叉产物，磷酸胆碱来自 PC。" },
     { "id": "dhs", "name": "二氢鞘氨醇", "abbr": "DHS", "kind": "metabolite", "note": "KDSR 的产物，CERS 的酰化底物。" },
     { "id": "kds", "name": "3-酮基二氢鞘氨醇", "abbr": "KDS", "kind": "metabolite", "note": "SPT 的产物，鞘脂合成的第一个中间物。" },
-    { "id": "choline", "name": "胆碱", "abbr": "Cho", "kind": "cofactor", "note": "PC 的头基来源；经胆碱激酶与 CTP 活化成 CDP-胆碱，本图不展开。" },
+    { "id": "choline", "name": "胆碱", "abbr": "Cho", "kind": "cofactor", "note": "PC 的头基来源；胆碱激酶先用 ATP 把它磷酸化成磷酸胆碱，再由胞苷转移酶用 CTP 活化成 CDP-胆碱，本图不展开。" },
     { "id": "cdp-choline", "name": "CDP-胆碱", "abbr": "CDP-Cho", "kind": "cofactor", "note": "Kennedy 途径的活化胆碱供体。" },
     { "id": "ethanolamine", "name": "乙醇胺", "abbr": "Etn", "kind": "cofactor", "note": "PE 的头基来源；活化成 CDP-乙醇胺后交给 DAG。" },
     { "id": "cdp-ethanolamine", "name": "CDP-乙醇胺", "abbr": "CDP-Etn", "kind": "cofactor", "note": "Kennedy 途径的活化乙醇胺供体。" },
@@ -195,7 +195,7 @@
         "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
       },
       "significance": "Kennedy 途径的末步，生成含量最高的甘油磷脂 PC；PC 又是 SMS 合成鞘磷脂的磷酸胆碱供体。",
-      "note": "胆碱需先经胆碱激酶与 CTP 活化成 CDP-胆碱，本图把活化段折叠进 CDP-胆碱节点，不单列步骤。",
+      "note": "胆碱需先用 ATP（胆碱激酶）磷酸化成磷酸胆碱，再用 CTP（胞苷转移酶）活化成 CDP-胆碱；本图把活化段折叠进 CDP-胆碱节点，不单列步骤。",
       "misconceptions": [
         "CPT 转移的是磷酸胆碱整段，不是游离胆碱。",
         "Kennedy 途径的 CMP 来自 CDP-胆碱，不是来自 CTP 直接水解。"
