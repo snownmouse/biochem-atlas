@@ -961,9 +961,9 @@ export default function FasOverviewPage() {
 
       <PathwayRailFoot current="fatty-acid-synthesis" />
       <div className="poster-foot">
-        <span>待确认：ΔG 数值不作页面展示，仅保留 Lehninger Ch.21 定性结论；能量账见本页 ATP/NADPH 化学计量。<br /></span>
-        <span>3D 现状：FASN 约 540 kDa 巨型合酶，本页已为 fas-pdh（PDH E1 人源 α₂β₂）、fas-acc（ACC1 BC 域）、fas-er 与 fas-kr（8VM0 的 ER/KR 域，仅显示目标域）接入 3D；四步环中的 KS/DH/TE 与柠檬酸穿梭仍无可用结构或仅有 apo/跨物种候选，保持待核验。页面不伪造资产路径。<br /></span>
-        <span>分子资产：本轮不做 2D / 3D 分子图；结构对照页以文字 + 计算坐标占位说明，默认 2D，不伪造口袋。<br /></span>
+        <span>说明：ΔG 数值不作页面展示，仅保留 Lehninger Ch.21 定性结论；能量账见本页 ATP/NADPH 化学计量。<br /></span>
+        <span>3D 现状：FASN 约 540 kDa 巨型合酶，本页已为 fas-pdh（PDH E1 人源 α₂β₂）、fas-acc（ACC1 BC 域）、fas-er 与 fas-kr（8VM0 的 ER/KR 域，仅显示目标域）接入 3D；四步环中的 KS/DH/TE 与柠檬酸穿梭仍无可用结构或仅有 apo/跨物种候选，本页不展示其 3D。页面不伪造资产路径。<br /></span>
+        <span>分子资产：本轮不做 2D / 3D 分子图；结构对照页以文字 + 计算坐标说明，默认 2D，不伪造口袋。<br /></span>
         <span>{data.threeD.note}</span>
       </div>
     </div>

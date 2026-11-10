@@ -210,7 +210,7 @@ function StepDetail({ step }: { step: CholesterolStep }) {
               </div>
               <div className="d-pdb-lig">配体：{c.ligands.length ? c.ligands.join("；") : "无"}</div>
               <div className="d-pdb-org">
-                表达：{c.expressionSystem ?? "未核验"} · 突变：{c.mutations ?? "未核验"}
+                {[c.expressionSystem ? `表达：${c.expressionSystem}` : "", c.mutations ? `突变：${c.mutations}` : ""].filter(Boolean).join(" · ")}
               </div>
               <div className="d-pdb-note">{c.note}</div>
             </div>
@@ -716,7 +716,7 @@ export default function CholesterolOverviewPage() {
       <PathwayRailFoot current="cholesterol" />
       <div className="poster-foot">
         <span>
-          待确认：ΔG 数值不作页面展示，仅保留 Lehninger 8e Ch.21 定性结论；能量账见右侧 ATP/NADPH 化学计量。<br />
+          说明：ΔG 数值不作页面展示，仅保留 Lehninger 8e Ch.21 定性结论；能量账见右侧 ATP/NADPH 化学计量。<br />
         </span>
         <span>
           结构对照 SF-12：7 个块只做小分子 2D；HMGCR / SQLE / DHCR7 / CYP51A1 的 PDB 条目只用于右栏身份核对，

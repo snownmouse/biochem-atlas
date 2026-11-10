@@ -512,7 +512,7 @@ function MolCard({
       <div className="cmp3d-mol">
         <div className="cmp-mol-head">
           <span className="cmp-mol-name">{part.name}</span>
-          <span className="cmp-mol-formula num">{part.formula}</span>
+          {part.formula ? <span className="cmp-mol-formula num">{part.formula}</span> : null}
         </div>
         {part.no3dReason ? (
           // 原子数过少（CO₂ / HCO₃⁻）：3D 不建，页面只给原因，不塞假球
@@ -536,7 +536,7 @@ function MolCard({
     <div className="cmp3d-mol">
       <div className="cmp-mol-head">
         <span className="cmp-mol-name">{part.name}</span>
-        <span className="cmp-mol-formula num">{part.formula}</span>
+        {part.formula ? <span className="cmp-mol-formula num">{part.formula}</span> : null}
       </div>
       {/* 与 3D 分支同一套 .mol3d 包裹（stage + foot + marks）：切换模式时只换 stage 内容，
           side 格子高度不变（.mol3d-prov 的 min-height 也保证了页脚同高）。 */}
@@ -625,7 +625,7 @@ function ChemSideView({
     <div className="cmp3d-side" data-side={sideKey}>
       <div className="cmp3d-sidehead">
         <span className="cmp3d-side-name">{side.name}</span>
-        <span className="cmp3d-side-formula num">{side.formula}</span>
+        {side.formula ? <span className="cmp3d-side-formula num">{side.formula}</span> : null}
       </div>
       <div className={`cmp3d-mols${side.parts.length > 1 ? " duo" : ""}`}>
         {side.parts.map((part) => (

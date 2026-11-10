@@ -566,9 +566,7 @@ export default function ChainOverviewPage({ data, skel, pathwayId, idleContext }
                     {selectedStep.enzyme.isozyme ? <span className="d-iso"> — {selectedStep.enzyme.isozyme}</span> : null}
                   </div>
                   <div className="d-eq">{selectedStep.equation}</div>
-                  {selectedStep.enzyme.ec ? <div className="d-cof num"><b>EC</b>　{selectedStep.enzyme.ec}</div> : (
-                    <div className="d-cof num"><b>EC</b>　<span style={{ opacity: 0.6 }}>未核实</span></div>
-                  )}
+                  {selectedStep.enzyme.ec ? <div className="d-cof num"><b>EC</b>　{selectedStep.enzyme.ec}</div> : null}
                   {selectedStep.cofactors.length ? (
                     <div className="d-cof"><b>辅因子</b>　{selectedStep.cofactors.join(" · ")}</div>
                   ) : null}
@@ -691,7 +689,7 @@ export default function ChainOverviewPage({ data, skel, pathwayId, idleContext }
                             {entry.pathwayName} · {it.stepId}
                           </Link>
                         ) : (
-                          <span style={{ opacity: 0.6 }}>{it.stepId}（未核实）</span>
+                          <span style={{ opacity: 0.6 }}>{it.stepId}</span>
                         )}
                         <div style={{ opacity: 0.66, marginTop: 4 }}>{it.note}</div>
                       </div>

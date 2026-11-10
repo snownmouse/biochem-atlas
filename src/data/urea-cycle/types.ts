@@ -65,13 +65,13 @@ export interface Step3D {
 export interface ThreeDCandidate {
   stepId: string;
   enzyme: string;
-  /** 只在确实登记候选时写 PDB ID；未核验字段用 null */
+  /** 只在确实登记候选时写 PDB ID；无法确认的字段用 null */
   pdbId: string;
-  organism: "human" | "nonhuman" | "未核验";
+  organism: "human" | "nonhuman" | "unknown";
   method: "X-ray" | "cryo-EM" | null;
   resolutionA: number | null;
   ligands: string[];
-  pocketRole: "own" | "other" | "未核验";
+  pocketRole: "own" | "other" | "unknown";
   note: string;
 }
 

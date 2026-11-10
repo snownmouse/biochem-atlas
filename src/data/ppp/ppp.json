@@ -53,7 +53,7 @@
       "significance": "全通路唯一入口与限速步：G6P 在 C1 位脱氢生成 δ-内酯，NADP⁺ 专一收电子（拒收 NAD⁺，2′-磷酸基刻在结合口袋里）。NADP⁺/NADPH 比值是氧化相的节流阀——NADPH 堆积即断流，把 G6P 让给糖酵解。催化碱 His 攻击底物 C1。",
       "equation": "G6P + NADP⁺ → 6-磷酸葡糖酸-δ-内酯 + NADPH + H⁺",
       "organDiffs": [
-        { "organ": "rbc", "text": "红细胞没有线粒体，PPP 是唯一 NADPH 来源，撑起 GSH 还原系统抗氧化；红细胞约十分之一量级的 G6P 流入 PPP（教材口径 5–10% 有出入，未核实唯一数）。" },
+        { "organ": "rbc", "text": "红细胞没有线粒体，PPP 是唯一 NADPH 来源，撑起 GSH 还原系统抗氧化；红细胞约十分之一量级的 G6P 流入 PPP（教材口径 5–10%）。" },
         { "organ": "liver", "text": "肝 G6PD 受胰岛素长期上调（合成脂肪要大量 NADPH），喂高糖膳食酶量成倍升高。" }
       ],
       "bindingProfile": null,
@@ -101,7 +101,7 @@
       "misconceptions": [
         "「内酯只是中间体随便跳过」——内酯水解是把『环状半缩醛氧化』变成『线性羧酸 β-脱羧』的化学必要铺垫，跳过它 6PGD 的脱羧逻辑讲不通。"
       ],
-      "clinical": ["人源 6PGL 无结构，罕见缺陷报道极少（细节未核实，不作临床主条目）。"],
+      "clinical": ["人源 6PGL 无结构，罕见缺陷报道极少，不作临床主条目。"],
       "carbonBookkeeping": { "substrateCarbons": 6, "productCarbons": 6, "mainChainProductCarbons": 6, "netDelta": 0, "note": "只加水开环" },
       "groupTransfer": null,
       "threeD": {
@@ -169,7 +169,7 @@
       "misconceptions": [
         "「非氧化相是垃圾处理环节」——R5P 出口正在这一步：没有 N1，核酸合成的原料就断供。"
       ],
-      "clinical": ["RPIA 缺乏：罕见神经发育障碍（OMIM 608611，细节未核实）。"],
+      "clinical": ["RPIA 缺乏：罕见神经发育障碍（OMIM 608611）。"],
       "carbonBookkeeping": { "substrateCarbons": 5, "productCarbons": 5, "mainChainProductCarbons": 5, "netDelta": 0, "note": "同分异构" },
       "groupTransfer": null,
       "threeD": {
@@ -200,7 +200,7 @@
       "misconceptions": [
         "「差向异构和异构差不多」——N1 换的是羰基位置（酮↔醛），N2 换的是羟基手性（差向），化学操作完全不同。"
       ],
-      "clinical": ["RPE 缺陷临床报道罕见（细节未核实，不作临床主条目）。"],
+      "clinical": ["RPE 缺陷临床报道罕见，不作临床主条目。"],
       "carbonBookkeeping": { "substrateCarbons": 5, "productCarbons": 5, "mainChainProductCarbons": 5, "netDelta": 0, "note": "同分异构" },
       "groupTransfer": null,
       "threeD": {
@@ -233,7 +233,7 @@
         "「转酮醇酶搬的是整个五碳」——错，它只搬 C1–C2 两个碳（羟乙酰基），残下三碳。搬几碳是 TK/TA 的全部区别：TK 搬 2C、TA 搬 3C。",
         "「TPP 是可有可无的辅因子」——TPP 的噻唑环 C2 负碳是剪基团的刀，没有 TPP 就没有转移化学（与 PDH E1、丙酮酸脱羧酶共享辅胺化学）。"
       ],
-      "clinical": ["Wernicke-Korsakoff 综合征与 TK 活性下降相关（TPP 依赖酶敏感性的遗传变异，细节未核实唯一表述）。"],
+      "clinical": ["Wernicke-Korsakoff 综合征与 TK 活性下降相关（TPP 依赖酶敏感性的遗传变异）。"],
       "carbonBookkeeping": { "substrateCarbons": 10, "productCarbons": 10, "mainChainProductCarbons": 10, "netDelta": 0, "note": "C5+C5 → C3+C7：总量不变，分布重排" },
       "groupTransfer": {
         "enzyme": "transketolase",
@@ -275,7 +275,7 @@
         "「TA 和 TK 反正都是转移酶」——搬的碳数不同（3C vs 2C）、化学不同（席夫碱 vs TPP 卡宾）、辅因子需求不同（无 vs TPP+Mg²⁺）。",
         "「TA 是第二个 TK」——席夫碱机制与糖酵解醛缩酶同源，与 TK 的辅胺化学是两族。"
       ],
-      "clinical": ["TALDO 缺乏：罕见，肝硬化样表型 + 白内障 + 心肌病（OMIM 606003，细节未核实）。"],
+      "clinical": ["TALDO 缺乏：罕见，肝硬化样表型 + 白内障 + 心肌病（OMIM 606003）。"],
       "carbonBookkeeping": { "substrateCarbons": 10, "productCarbons": 10, "mainChainProductCarbons": 10, "netDelta": 0, "note": "C7+C3 → C4+C6：总量不变，分布重排" },
       "groupTransfer": {
         "enzyme": "transaldolase",

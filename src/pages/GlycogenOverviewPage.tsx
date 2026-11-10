@@ -185,7 +185,7 @@ function StepDetail({ step }: { step: GlycogenStep }) {
                 配体：{c.ligands.length ? c.ligands.join("；") : "无"}
               </div>
               <div className="d-pdb-org">
-                表达：{c.expressionSystem ?? "未核验"} · 突变：{c.mutations ?? "未核验"}
+                {[c.expressionSystem ? `表达：${c.expressionSystem}` : "", c.mutations ? `突变：${c.mutations}` : ""].filter(Boolean).join(" · ")}
               </div>
               <div className="d-pdb-note">{c.note}</div>
             </div>
@@ -670,7 +670,7 @@ export default function GlycogenOverviewPage() {
       <PathwayRailFoot current="glycogen" />
       <div className="poster-foot">
         <span>
-          待确认：ΔG 数值不作页面展示，仅保留 Lehninger 8e Ch.19 定性结论；能量账见右侧 ATP/UTP 化学计量。<br />
+          说明：ΔG 数值不作页面展示，仅保留 Lehninger 8e Ch.19 定性结论；能量账见右侧 ATP/UTP 化学计量。<br />
         </span>
         <span>
           已核验：结构对照 SF-10 /structures/glycogen 的 3D 只使用人源实验坐标中的 G6P（6UIQ）与葡萄糖（1CZA），

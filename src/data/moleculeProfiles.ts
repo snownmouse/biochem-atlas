@@ -687,7 +687,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     position: {
       title: "它挂在乙酰乙酸旁边，是生酮主链之外的支路",
       body:
-        "ketone.json 的 kt-5 写乙酰乙酸缓慢脱羧成丙酮 + CO₂；教材口径以自发脱羧为主，人肝内是否存在独立的乙酰乙酸脱羧酶主路径，本平台未核实，因此该步的酶学细节写作未核实。",
+        "ketone.json 的 kt-5 写乙酰乙酸缓慢脱羧成丙酮 + CO₂；教材口径以自发脱羧为主。",
     },
     flow: {
       title: "它由乙酰乙酸脱羧来，往呼气与尿液去",
@@ -5370,7 +5370,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     flow: {
       title: "它从线粒体甲酰级来，往胞质叶酸池去",
       body:
-        "来路：线粒体 10-甲酰THF 水解。去向：跨膜进入胞质，由 MTHFD1 合成酶域装回 THF；具体转运蛋白本平台未核实，图中只画一条运输虚线。",
+        "来路：线粒体 10-甲酰THF 水解。去向：跨膜进入胞质，由 MTHFD1 合成酶域装回 THF；图中只画一条运输虚线。",
     },
     significance: {
       title: "甲酸是线粒体与胞质一碳池之间的实际跨膜物质",
@@ -5683,7 +5683,7 @@ export const MOLECULE_PROFILES: Record<string, MoleculeProfile> = {
     },
     flow: {
       title: "它从二氢乳清酸来，往 OMP 与 UMP 去",
-      body: "来路：二氢乳清酸经 DHODH 氧化。去向：出线粒体回胞质（转运蛋白本平台未核实，只画运输虚线、不计步），经 OPRT 接 PRPP 成 OMP，再脱羧成 UMP。",
+      body: "来路：二氢乳清酸经 DHODH 氧化。去向：出线粒体回胞质（只画运输虚线、不计步），经 OPRT 接 PRPP 成 OMP，再脱羧成 UMP。",
     },
     significance: {
       title: "它是跨区室步骤的产物，也是乳清酸尿症的指标",

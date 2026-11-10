@@ -4421,7 +4421,7 @@ svg .branch { transition: opacity 0.2s ease; }
 .poster table.organs td.stepcell .dm { color: var(--brick); font-weight: 700; margin-right: 6px; }
 .poster table.organs tbody tr:hover td { background: rgba(34, 40, 42, 0.03); }
 
-/* 页脚待确认 */
+/* 页脚说明 */
 .poster .poster-foot {
   padding: 0 28px 28px;
   font-size: 10px;

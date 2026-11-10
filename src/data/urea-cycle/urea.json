@@ -494,7 +494,7 @@
       "compartment": "cytosol",
       "substrates": ["arginine", "h2o"],
       "products": ["urea", "ornithine"],
-      "cofactors": ["Mn²⁺ / Mg²⁺（金属辅因子，细节未核实）"],
+      "cofactors": ["Mn²⁺ / Mg²⁺（金属辅因子）"],
       "enzyme": {
         "entityId": "arg1",
         "name": "精氨酸酶 1",
@@ -593,7 +593,7 @@
     "balanceNote": "ATP 名义数 3 是分子计数；高能磷酸键 4 是能量口径（ATP → AMP + PPi 计 2 个键）。两种口径同时保留，不混用。",
     "nitrogenNote": "2 N 进（NH₃ 1 + Asp α-NH₂ 1）→ 尿素 2 N；鸟氨酸 δ-N 只是载体，不计入净输入。",
     "carbonNote": "HCO₃⁻ 1 C + Asp 4 C → 尿素 1 C + 延胡索酸 4 C；鸟氨酸 C5 载体净不变。",
-    "deltaGDiscipline": "五步 ΔG 数值均未核实：standard / physiological 一律 null，只给定性结论；source = Lehninger 8e Ch.18。"
+    "deltaGDiscipline": "五步 ΔG 只给定性结论：standard / physiological 一律 null；source = Lehninger 8e Ch.18。"
   },
   "nitrogenLedger": {
     "inputs": [

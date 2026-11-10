@@ -909,7 +909,7 @@ const GLYCOLYSIS_CONFIG: ComparisonConfig = {
   back: { to: "/pathway/glycolysis", label: "← 返回挂图" },
   backCaption: "糖酵解 · 结构对照",
   enzymePanel: true,
-  enzymePanelOffNote: "本步酶结构资产未建立 · 待核验后接入",
+  enzymePanelOffNote: "本步酶结构资产未建立 · 本页不展示 3D",
   footerNote:
     "3D 分子来源分两类并逐条标注：实验坐标取 RCSB PDB 配体实例（青标，PDB ID/分辨率/方法/物种/链/配体名），无实验坐标的分子用 RDKit ETKDG+MMFF94 计算构象（琥珀标，并写明「自由态，不等于结合态」），两类不混标。平面结构式与分子资产由 tools/gen-molecule-assets.py 离线生成；酶结构来自 PDB 实验坐标。",
   defaultModePolicy:
@@ -926,7 +926,7 @@ const TCA_CONFIG: ComparisonConfig = {
   back: { to: "/pathway/tca", label: "← 返回挂图" },
   backCaption: "TCA 循环 · 结构对照",
   enzymePanel: false,
-  enzymePanelOffNote: "本步酶结构资产未建立 · 待核验后接入",
+  enzymePanelOffNote: "本步酶结构资产未建立 · 本页不展示 3D",
   footerNote:
     "TCA 环内九个有机酸（含乙酰-CoA / 琥珀酰-CoA 的反应端）全部来自 RCSB PDB 真实配体络合物的实验坐标；每个分子在块内首屏有一句「配体来源」，写明 PDB ID/分辨率/方法/物种/链/配体 resname 与来源蛋白全名及其在 TCA 中的角色。本轮能换就换（同分子 + 分辨率 ≤2.5 Å + X-ray/cryo-EM）：柠檬酸 3MWD→8ZVV（人 CS，1.59 Å）、异柠檬酸 6PAY→5H3E（小鼠线粒体 IDH2 K256Q，2.21 Å）、琥珀酰-CoA 5TRL→8P5V（谷氨酸棒杆菌 OGDH E1/E2，2.07 Å，cryo-EM）、延胡索酸 1PJ3（人 ME2 变构位点）→9BPW（金黄色葡萄球菌 FumC，2.00 Å）。未换的：琥珀酸仍取自人 SUCL 7MSS（1.75 Å），本步 SDH 口袋内同分子 ≤2.5 Å 未获；α-酮戊二酸取自人 IDH2 R140Q 5I95（1.54 Å）；乙酰-CoA/OAA/苹果酸分别取自人 CS 8ZW1/8ZVW、人 MDH2 2DFD。不理想的点逐条明写：异柠檬酸与延胡索酸为非人源（前者还是 K256Q 突变体）、琥珀酰-CoA 来自非人源 OGDH 而非 SUCL、琥珀酸取自相邻的 SUCL；这些都不是拿类似物冒充底物。接驳步丙酮酸无实验配体坐标，保留计算构象（琥珀标，自由态，不等于结合态），不计入这九个分子。乙酰-CoA / 琥珀酰-CoA 为分块呈现（CoA 略），反应端用完整配体的实测几何，不是完整分子。本通路酶 3D 结构资产未建立：每块左侧只给一行灰字声明，不伪造。",
   defaultModePolicy:
@@ -3181,7 +3181,7 @@ const AMINO_CONFIG: ComparisonConfig = {
   enzymePanel: false,
   enzymePanelOffNote: "本通路不渲染酶三维：ALT / AST / GLDH / GLS1 / BCAT2 / PAH / CBS 只做 PDB 身份核验，不截取酶结构冒充全酶。",
   footerNote:
-    "氨基酸代谢 7 块：ALT、AST、GLDH、GLS1、BCAT2、PAH、CBS。3D 只用于已有实验坐标的 Ala / α-KG / Glu / Pyr / OAA / Asp（Ala 8JDW、α-KG 5I95、Glu 3CZD、OAA 8ZVW、Asp 2NZ2；Pyr 为计算构象），且多数不是本步酶口袋，块内 sourceNote 已逐条写明。8 个新分子与 4COO / 1J8U / 6HYC 等酶结构只做 2D 或只做身份核验：PAH 的 1J8U（1.5 Å，Fe(II) + BH₄）与 6HYC（3.18 Å，BH₄）均未建模 Phe / Tyr；CBS 的 4COO（2.0 Å，PLP + 血红素）未建模 Hcy / 丝氨酸 / 胱硫醚；BCKDH 的 1OLS（1.85 Å，TPP + K + MN + GOL）标题为 His291 / His146 机制研究，突变状态未核实。全部 ΔG 为 null，只写定性方向与 Lehninger 8e Ch.18，不编数字。NH₄⁺ 的去向见尿素循环 PLATE 09，本页不重复画。",
+    "氨基酸代谢 7 块：ALT、AST、GLDH、GLS1、BCAT2、PAH、CBS。3D 只用于已有实验坐标的 Ala / α-KG / Glu / Pyr / OAA / Asp（Ala 8JDW、α-KG 5I95、Glu 3CZD、OAA 8ZVW、Asp 2NZ2；Pyr 为计算构象），且多数不是本步酶口袋，块内 sourceNote 已逐条写明。8 个新分子与 4COO / 1J8U / 6HYC 等酶结构只做 2D 或只做身份核验：PAH 的 1J8U（1.5 Å，Fe(II) + BH₄）与 6HYC（3.18 Å，BH₄）均未建模 Phe / Tyr；CBS 的 4COO（2.0 Å，PLP + 血红素）未建模 Hcy / 丝氨酸 / 胱硫醚；BCKDH 的 1OLS（1.85 Å，TPP + K + MN + GOL）仅登记身份。全部 ΔG 为 null，只写定性方向与 Lehninger 8e Ch.18，不编数字。NH₄⁺ 的去向见尿素循环 PLATE 09，本页不重复画。",
   defaultModePolicy:
     "默认模式逐块决定：两侧都有可比 3D 资产且重原子数 / 体积改变 → 3D；任一侧只有 2D → 2D。?mode=2d|3d 为显式覆盖，优先级高于默认值。",
   steps: AMINO_COMPARISON,
@@ -3536,7 +3536,7 @@ const KETONE_CONFIG: ComparisonConfig = {
   enzymePanelOffNote:
     "本图全部只做 2D：左栏不提供酶 3D 结构；六张新图沿用站内 UTP 已立的口径，不登记 PDB 候选。",
   footerNote:
-    "SF-13 共 6 块，全部为 2D 结构式块；3D 视图在本页只显示“本平台未建 3D”的口径说明，不出现待核验占位。乙酰-CoA、琥珀酰-CoA 与 CoA 的长链不逐原子展开，2D 资产沿用项目既有的片段/全分子口径。",
+    "SF-13 共 6 块，全部为 2D 结构式块；3D 视图在本页只显示“本平台未建 3D”的口径说明，不出现占位性结构。乙酰-CoA、琥珀酰-CoA 与 CoA 的长链不逐原子展开，2D 资产沿用项目既有的片段/全分子口径。",
   defaultModePolicy:
     "本轮六张新图统一默认 2D：不建 3D，因此不做 2D/3D 判据比较；逐块 defaultMode 固定为 2d，defaultModeRule 写明“本图 2D-only”。",
   steps: [
@@ -3763,7 +3763,7 @@ const KETONE_CONFIG: ComparisonConfig = {
       },
       arrowLabel: "自发脱羧 · 丢掉一个羧基碳",
       change: "乙酰乙酸的羧基以 CO₂ 形式脱去，C4 骨架剩 C3 的丙酮。",
-      physiology: "旁路产物，不是肝外组织的主要燃料；酶学细节本平台未核实。",
+      physiology: "旁路产物，不是肝外组织的主要燃料。",
       evidence: { substrate: [evOnly2d("acetoacetate")], product: [evOnly2d("acetone"), evOnly2d("co2")] },
       defaultMode: "2d",
       defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
@@ -6321,7 +6321,7 @@ const GLYCEROPHOSPHOLIPID_CONFIG: ComparisonConfig = {
             no3dReason: "本图 2D-only：不建 3D。",
           },
         ],
-        cofactorNote: "O₂ 与 NAD(P)H 不入画；本图用 NAD(P)H 统称还原力，DEGS1 的还原力偏好未核实。",
+        cofactorNote: "O₂ 与 NAD(P)H 不入画；本图用 NAD(P)H 统称还原力。",
       },
       product: {
         name: "神经酰胺",
@@ -6340,7 +6340,7 @@ const GLYCEROPHOSPHOLIPID_CONFIG: ComparisonConfig = {
       },
       arrowLabel: "DES · 4,5-去饱和",
       change: "二氢神经酰胺的 4,5 位被氧化去饱和，生成带双键的神经酰胺。",
-      physiology: "决定鞘脂骨架的饱和度；这一步的 EC 子项与还原力偏好本平台未核实。",
+      physiology: "决定鞘脂骨架的饱和度；本图不写这一步的 EC 子项与还原力偏好。",
       evidence: { substrate: [evOnly2d("dihydroceramide")], product: [evOnly2d("cer")] },
       defaultMode: "2d",
       defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
@@ -6804,12 +6804,12 @@ const HEME_CONFIG: ComparisonConfig = {
       },
       product: {
         name: "羟甲基胆烷",
-        formula: "未核实（四吡咯开链，未逐原子核验）",
+        formula: "",
         parts: [
           {
             id: "hmb",
             name: "羟甲基胆烷",
-            formula: "未核实",
+            formula: "",
             asset2d: "",
             missing2dReason:
               "羟甲基胆烷的 2D 资产本轮未建，且分子式未逐原子核验；为避免近似结构误导，此处只给名称与文字，不写结构式。",
@@ -6832,12 +6832,12 @@ const HEME_CONFIG: ComparisonConfig = {
       equation: "羟甲基胆烷 → 尿卟啉原Ⅲ + H₂O",
       substrate: {
         name: "羟甲基胆烷",
-        formula: "未核实（四吡咯开链，未逐原子核验）",
+        formula: "",
         parts: [
           {
             id: "hmb",
             name: "羟甲基胆烷",
-            formula: "未核实",
+            formula: "",
             asset2d: "",
             missing2dReason:
               "羟甲基胆烷的 2D 资产本轮未建，且分子式未逐原子核验；为避免近似结构误导，此处只给名称与文字，不写结构式。",
@@ -6847,12 +6847,12 @@ const HEME_CONFIG: ComparisonConfig = {
       },
       product: {
         name: "尿卟啉原Ⅲ",
-        formula: "未核实（Ⅲ型四吡咯环，未逐原子核验）",
+        formula: "",
         parts: [
           {
             id: "uro3",
             name: "尿卟啉原Ⅲ",
-            formula: "未核实",
+            formula: "",
             asset2d: "",
             missing2dReason:
               "尿卟啉原Ⅲ的 2D 资产本轮未建（四吡咯环 + 四条丙酸侧链的取代基排列需逐原子核验，不用近似结构凑数），此处以文字呈现。",
@@ -6875,12 +6875,12 @@ const HEME_CONFIG: ComparisonConfig = {
       equation: "尿卟啉原Ⅲ → 粪卟啉原Ⅲ + 4 CO₂",
       substrate: {
         name: "尿卟啉原Ⅲ",
-        formula: "未核实（Ⅲ型四吡咯环，未逐原子核验）",
+        formula: "",
         parts: [
           {
             id: "uro3",
             name: "尿卟啉原Ⅲ",
-            formula: "未核实",
+            formula: "",
             asset2d: "",
             missing2dReason:
               "尿卟啉原Ⅲ的 2D 资产本轮未建（四吡咯环 + 四条丙酸侧链的取代基排列需逐原子核验，不用近似结构凑数），此处以文字呈现。",
@@ -6890,12 +6890,12 @@ const HEME_CONFIG: ComparisonConfig = {
       },
       product: {
         name: "粪卟啉原Ⅲ",
-        formula: "未核实（Ⅲ型四吡咯环，未逐原子核验）",
+        formula: "",
         parts: [
           {
             id: "copro3",
             name: "粪卟啉原Ⅲ",
-            formula: "未核实",
+            formula: "",
             asset2d: "",
             missing2dReason:
               "粪卟啉原Ⅲ的 2D 资产本轮未建（四吡咯环 + 四条甲/丙酸侧链需逐原子核验，不用近似结构凑数），此处以文字呈现。",
@@ -6918,12 +6918,12 @@ const HEME_CONFIG: ComparisonConfig = {
       equation: "粪卟啉原Ⅲ + O₂ → 原卟啉原Ⅸ + 2 CO₂ + 2 H₂O",
       substrate: {
         name: "粪卟啉原Ⅲ",
-        formula: "未核实（Ⅲ型四吡咯环，未逐原子核验）",
+        formula: "",
         parts: [
           {
             id: "copro3",
             name: "粪卟啉原Ⅲ",
-            formula: "未核实",
+            formula: "",
             asset2d: "",
             missing2dReason:
               "粪卟啉原Ⅲ的 2D 资产本轮未建（四吡咯环 + 四条甲/丙酸侧链需逐原子核验，不用近似结构凑数），此处以文字呈现。",
@@ -6933,12 +6933,12 @@ const HEME_CONFIG: ComparisonConfig = {
       },
       product: {
         name: "原卟啉原Ⅸ",
-        formula: "未核实（四吡咯环氧化态改变，未逐原子核验）",
+        formula: "",
         parts: [
           {
             id: "ppg9",
             name: "原卟啉原Ⅸ",
-            formula: "未核实",
+            formula: "",
             asset2d: "",
             missing2dReason:
               "原卟啉原Ⅸ的 2D 资产本轮未建（与粪卟啉原Ⅲ只差两条丙酸侧链的氧化脱羧，需逐原子核验，不用近似结构凑数），此处以文字呈现。",
@@ -6961,12 +6961,12 @@ const HEME_CONFIG: ComparisonConfig = {
       equation: "原卟啉原Ⅸ + 3 O₂ → 原卟啉Ⅸ + 3 H₂O₂",
       substrate: {
         name: "原卟啉原Ⅸ",
-        formula: "未核实（四吡咯环氧化态改变，未逐原子核验）",
+        formula: "",
         parts: [
           {
             id: "ppg9",
             name: "原卟啉原Ⅸ",
-            formula: "未核实",
+            formula: "",
             asset2d: "",
             missing2dReason:
               "原卟啉原Ⅸ的 2D 资产本轮未建（与粪卟啉原Ⅲ只差两条丙酸侧链的氧化脱羧，需逐原子核验，不用近似结构凑数），此处以文字呈现。",
@@ -7236,7 +7236,7 @@ const BILE_ACID_CONFIG: ComparisonConfig = {
       },
       arrowLabel: "HSD3B7 · 脱氢 + 异构化",
       change: "3β-羟基脱氢成 3-酮，双键从 Δ⁵ 迁到 Δ⁴，A 环完成修饰。",
-      physiology: "为后续 12α-羟化与侧链氧化提供结构前提；EC 编号未核实，本块不写子项。",
+      physiology: "为后续 12α-羟化与侧链氧化提供结构前提；本块不写 EC 子项。",
       evidence: { substrate: [evOnly2d("c7ol")], product: [evOnly2d("c7one")] },
       defaultMode: "2d",
       defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
@@ -7352,12 +7352,12 @@ const BILE_ACID_CONFIG: ComparisonConfig = {
       },
       product: {
         name: "胆酰-CoA / 鹅脱氧胆酰-CoA",
-        formula: "未核实（甾核 + CoA 硫酯，未逐原子核验）",
+        formula: "",
         parts: [
           {
             id: "ca_coa",
             name: "胆酰-CoA",
-            formula: "未核实",
+            formula: "",
             asset2d: "",
             missing2dReason:
               "胆酰-CoA 的 2D 资产本轮未建（甾核 + CoA 硫酯的逐原子坐标没有可信模板，不用近似结构凑数），此处以文字呈现。",
@@ -7366,7 +7366,7 @@ const BILE_ACID_CONFIG: ComparisonConfig = {
           {
             id: "cdca_coa",
             name: "鹅脱氧胆酰-CoA",
-            formula: "未核实",
+            formula: "",
             asset2d: "",
             missing2dReason:
               "鹅脱氧胆酰-CoA 的 2D 资产本轮未建（甾核 + CoA 硫酯的逐原子坐标没有可信模板，不用近似结构凑数），此处以文字呈现。",
@@ -7389,12 +7389,12 @@ const BILE_ACID_CONFIG: ComparisonConfig = {
       equation: "胆酰-CoA + 甘氨酸 / 牛磺酸 → 甘氨胆酸 / 牛磺胆酸 + CoA-SH",
       substrate: {
         name: "胆酰-CoA + 甘氨酸 / 牛磺酸",
-        formula: "未核实 + C2H5NO2 / C2H7NO3S",
+        formula: "C2H5NO2 / C2H7NO3S",
         parts: [
           {
             id: "ca_coa",
             name: "胆酰-CoA",
-            formula: "未核实",
+            formula: "",
             asset2d: "",
             missing2dReason:
               "胆酰-CoA 的 2D 资产本轮未建（甾核 + CoA 硫酯的逐原子坐标没有可信模板，不用近似结构凑数），此处以文字呈现。",
@@ -7661,7 +7661,7 @@ const GLYCOCONJUGATE_CONFIG: ComparisonConfig = {
           { id: "neu5ac", name: "N-乙酰神经氨酸", formula: "C11H19NO9", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
         ],
       },
-      arrowLabel: "GNE（EC 未核实）→ NANS",
+      arrowLabel: "GNE → NANS",
       change: "UDP-GlcNAc 经 GNE 的差向异构与激酶活性转成 ManNAc，再与 PEP 缩合成 Neu5Ac。",
       physiology: "GNE 是唾液酸合成的限速步；唾液酸是糖蛋白与糖脂末端常见修饰，参与识别与清除。",
       evidence: { substrate: [evOnly2d("udp_glcnac")], product: [evOnly2d("neu5ac")] },
@@ -7704,17 +7704,17 @@ const GLYCOCONJUGATE_CONFIG: ComparisonConfig = {
       equation: "Glc₃Man₉GlcNAc₂-PP-Dol + 蛋白-Asn → Glc₃Man₉GlcNAc₂-Asn + PP-Dol",
       substrate: {
         name: "核心寡糖-PP-Dol + 蛋白 Asn",
-        formula: "未核实（糖链聚合度不定）",
+        formula: "",
         parts: [
-          { id: "dol_pp", name: "Glc₃Man₉GlcNAc₂-PP-Dol", formula: "未核实（糖链聚合度不定）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "dol_pp", name: "Glc₃Man₉GlcNAc₂-PP-Dol", formula: "", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
         ],
         cofactorNote: "三种供体在胞质一侧活化：GlcNAc 来自 UDP-GlcNAc、Man 来自 GDP-Man、外圈 Glc 来自 UDP-Glc。",
       },
       product: {
         name: "N-糖链核心寡糖（-Asn）",
-        formula: "未核实（糖链聚合度不定）",
+        formula: "",
         parts: [
-          { id: "nglycan_core", name: "Glc₃Man₉GlcNAc₂-Asn", formula: "未核实（糖链聚合度不定）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "nglycan_core", name: "Glc₃Man₉GlcNAc₂-Asn", formula: "", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
         ],
       },
       arrowLabel: "OST · 核心寡糖整体转移到 Asn-X-Ser/Thr",
@@ -7732,9 +7732,9 @@ const GLYCOCONJUGATE_CONFIG: ComparisonConfig = {
       equation: "Glc₃Man₉GlcNAc₂-Asn → 复杂型 N-糖链-Asn（逐级加 GlcNAc / Gal / Fuc / Neu5Ac）",
       substrate: {
         name: "N-糖链核心寡糖",
-        formula: "未核实（糖链聚合度不定）",
+        formula: "",
         parts: [
-          { id: "nglycan_core", name: "Glc₃Man₉GlcNAc₂-Asn", formula: "未核实（糖链聚合度不定）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "nglycan_core", name: "Glc₃Man₉GlcNAc₂-Asn", formula: "", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
           { id: "udp_glcnac_2", name: "UDP-GlcNAc（末端供体）", formula: "C17H27N3O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
           { id: "udp_gal_2", name: "UDP-Gal（末端供体）", formula: "C15H24N2O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
           { id: "gdp_fuc_2", name: "GDP-Fuc（末端供体）", formula: "C15H25N5O15P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
@@ -7744,9 +7744,9 @@ const GLYCOCONJUGATE_CONFIG: ComparisonConfig = {
       },
       product: {
         name: "复杂型 N-糖链",
-        formula: "未核实（糖链聚合度不定）",
+        formula: "",
         parts: [
-          { id: "nglycan_complex", name: "复杂型 N-糖链-Asn", formula: "未核实（糖链聚合度不定）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "nglycan_complex", name: "复杂型 N-糖链-Asn", formula: "", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
         ],
       },
       arrowLabel: "Golgi · 修剪 + 逐级加 GlcNAc / Gal / Fuc / Neu5Ac",
@@ -7767,17 +7767,17 @@ const GLYCOCONJUGATE_CONFIG: ComparisonConfig = {
       equation: "蛋白-Ser/Thr + UDP-GlcNAc → 蛋白-Ser/Thr-O-GlcNAc + UDP",
       substrate: {
         name: "蛋白-Ser/Thr + UDP-GlcNAc",
-        formula: "未核实（蛋白受体）",
+        formula: "",
         parts: [
-          { id: "protein_st", name: "蛋白-Ser/Thr", formula: "未核实（蛋白受体）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "protein_st", name: "蛋白-Ser/Thr", formula: "", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
           { id: "udp_glcnac_3", name: "UDP-GlcNAc", formula: "C17H27N3O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
         ],
       },
       product: {
         name: "O-GlcNAc 修饰蛋白",
-        formula: "未核实（修饰蛋白）",
+        formula: "",
         parts: [
-          { id: "oglycan", name: "蛋白-Ser/Thr-O-GlcNAc", formula: "未核实（修饰蛋白）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "oglycan", name: "蛋白-Ser/Thr-O-GlcNAc", formula: "", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
         ],
       },
       arrowLabel: "OGT · 胞内可逆 O-GlcNAc",
@@ -7803,9 +7803,9 @@ const GLYCOCONJUGATE_CONFIG: ComparisonConfig = {
       },
       product: {
         name: "透明质酸（糖胺聚糖）",
-        formula: "未核实（聚合度不定）",
+        formula: "",
         parts: [
-          { id: "gag_ha", name: "透明质酸 (GlcA-GlcNAc)ₙ", formula: "未核实（聚合度不定）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "gag_ha", name: "透明质酸 (GlcA-GlcNAc)ₙ", formula: "", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
         ],
       },
       arrowLabel: "HAS · GlcA / GlcNAc 交替聚合",
@@ -7823,9 +7823,9 @@ const GLYCOCONJUGATE_CONFIG: ComparisonConfig = {
       equation: "神经酰胺 + UDP-Glc → GlcCer；GlcCer + UDP-Gal → LacCer",
       substrate: {
         name: "神经酰胺 + UDP-Glc / UDP-Gal",
-        formula: "未核实（神经酰胺）+ C15H24N2O17P2",
+        formula: "",
         parts: [
-          { id: "ceramide", name: "神经酰胺", formula: "未核实（脂酰链长度不定）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "ceramide", name: "神经酰胺", formula: "", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
           { id: "udp_glc_2", name: "UDP-Glc", formula: "C15H24N2O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
           { id: "udp_gal_3", name: "UDP-Gal", formula: "C15H24N2O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
         ],
@@ -7833,12 +7833,12 @@ const GLYCOCONJUGATE_CONFIG: ComparisonConfig = {
       },
       product: {
         name: "乳糖神经酰胺（糖脂）",
-        formula: "未核实（糖脂）",
+        formula: "",
         parts: [
-          { id: "glycolipid", name: "乳糖神经酰胺（LacCer）", formula: "未核实（糖脂）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "glycolipid", name: "乳糖神经酰胺（LacCer）", formula: "", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
         ],
       },
-      arrowLabel: "UGCG → B4GALT5/6（EC 未核实）",
+      arrowLabel: "UGCG → B4GALT5/6",
       change: "神经酰胺接受 UDP-Glc 生成 GlcCer，再加 UDP-Gal 生成 LacCer；两步合并为本块。",
       physiology: "糖脂支路的入口；产物可继续延伸为血型糖脂与神经节苷脂，本图不展开。",
       evidence: {

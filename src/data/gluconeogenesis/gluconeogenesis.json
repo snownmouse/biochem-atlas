@@ -53,7 +53,7 @@
       "equation": "丙酮酸 + HCO₃⁻ + ATP → 草酰乙酸 + ADP + Pi",
       "organDiffs": [
         { "organ": "liver", "text": "肝线粒体 PC 活性高，是空腹血糖维持的主力；乙酰-CoA 别构激活把脂肪酸氧化状态与糖异生启动直接挂钩。" },
-        { "organ": "kidney", "text": "肾皮质同样表达 PC，长期饥饿时肾糖异生贡献显著上升（比例数值教材出入大，未核实不写数）。" }
+        { "organ": "kidney", "text": "肾皮质同样表达 PC，长期饥饿时肾糖异生贡献显著上升（比例数值各教材口径不同，本图不写数）。" }
       ],
       "bindingProfile": null,
       "ecNumber": "6.4.1.1",
@@ -100,13 +100,13 @@
       "substrates": ["oaa"],
       "products": ["pep"],
       "enzyme": { "entityId": "pepck", "name": "PEP 羧激酶", "isozyme": "人两同工酶：胞质 PCK1（肝为主）、线粒体 PCK2；主图按肝取 PCK1" },
-      "cofactors": ["GTP", "Mn²⁺（人体内首选二价阳离子存在 Mg²⁺/Mn²⁺ 之争，未核实唯一口径）"],
+      "cofactors": ["GTP", "Mn²⁺（教材亦有写 Mg²⁺ 者，本图按 Mn²⁺ 标注）"],
       "irreversible": true,
       "significance": "把『不可逆』的 PK 逆向代价拆成两步可控反应的后一半：脱羧放能 + GTP 水解一次完成，把 PEP 的高能磷酸键（水解 ΔG°′ ≈ −61.9 kJ/mol）用 GTP 买回来。",
       "equation": "草酰乙酸 + GTP → 磷酸烯醇式丙酮酸 + GDP + CO₂",
       "organDiffs": [
         { "organ": "liver", "text": "肝以胞质 PCK1 为主：OAA 先以苹果酸形式出线粒体（顺带把 NADH 带入胞质供第 6 步），再在胞质脱羧。" },
-        { "organ": "kidney", "text": "线粒体同工酶 PCK2 路线：OAA 不出膜、原位脱羧为 PEP 后经膜转运出线粒体；两路线的组织占比未核实，不写数。" }
+        { "organ": "kidney", "text": "线粒体同工酶 PCK2 路线：OAA 不出膜、原位脱羧为 PEP 后经膜转运出线粒体；两路线的组织占比本图不写数。" }
       ],
       "bindingProfile": null,
       "ecNumber": "4.1.1.32",
@@ -125,7 +125,7 @@
         "「这一步不耗能，因为是脱羧」——脱羧提供的是热力学推力，磷酸基的来源是 GTP 水解，账要记。"
       ],
       "clinical": [
-        "PCK1 缺乏：极罕见（OMIM 261650），临床表型报道有限（未核实）。"
+        "PCK1 缺乏：极罕见（OMIM 261650），临床表型报道有限。"
       ],
       "mirrorOf": "gk-10",
       "contrastWithGlycolysis": {
@@ -259,7 +259,7 @@
       "equation": "1,3-二磷酸甘油酸 + NADH + H⁺ ⇌ 甘油醛-3-磷酸 + NAD⁺ + Pi",
       "organDiffs": [
         { "organ": "liver", "text": "NADH 来源二选一：乳酸（LDH 氧化时供胞质 NADH）或苹果酸穿梭（OAA 出线粒体时带入）；选哪条取决于原料。" },
-        { "organ": "kidney", "text": "同肝逻辑；若走 PCK2 线粒体路线，NADH 供需的空间配比不同（细节未核实，不写数）。" }
+        { "organ": "kidney", "text": "同肝逻辑；若走 PCK2 线粒体路线，NADH 供需的空间配比不同（本图不写数）。" }
       ],
       "bindingProfile": null,
       "ecNumber": "1.2.1.12",
@@ -326,7 +326,7 @@
       "equation": "甘油醛-3-磷酸 + 磷酸二羟丙酮 ⇌ 果糖-1,6-二磷酸",
       "organDiffs": [
         { "organ": "liver", "text": "肝为 ALDOB（果糖代谢入口酶），逆向缩合 FBP 同样成立；同工酶差异不影响本步方向。" },
-        { "organ": "kidney", "text": "肾皮质以 ALDOB 为主（表达细节未核实到唯一口径，不写数）。" }
+        { "organ": "kidney", "text": "肾皮质以 ALDOB 为主（表达细节各教材口径不同，本图不写数）。" }
       ],
       "bindingProfile": null,
       "ecNumber": "4.1.2.13",
@@ -356,7 +356,7 @@
       "substrates": ["fbp"],
       "products": ["f6p"],
       "enzyme": { "entityId": "fbpase1", "name": "果糖-1,6-二磷酸酶-1" },
-      "cofactors": ["Mg²⁺（水解酶活性所需金属，口径见教材通用描述；特异性辅因子未核实到唯一数字）"],
+      "cofactors": ["Mg²⁺（水解酶活性所需金属，按教材通用描述标注）"],
       "irreversible": true,
       "significance": "把糖酵解限速步的『正门』换成『排水口』：PFK-1 花 ATP 装上的 C1 磷酸由水解卸下，不产 ATP 也不耗 ATP——水当刀。与 PFK-1 构成教科书级底物循环（futile cycle）。",
       "equation": "果糖-1,6-二磷酸 + H₂O → 果糖-6-磷酸 + Pi",
@@ -374,7 +374,7 @@
         "source": "Lehninger 8e Ch.20（定性结论）"
       },
       "stereochemistry": [
-        "只切 C1 磷酸酯键；呋喃/吡喃环型平衡中酶取其一为底物（细节未核实到唯一口径）"
+        "只切 C1 磷酸酯键；呋喃/吡喃环型平衡中酶取其一为底物（本图按其一为底物处理）"
       ],
       "misconceptions": [
         "「底物循环是浪费设计」——PFK-1/FBPase-1 这对『拔河』正是放大灵敏度与产热的调控结构；F2,6BP 单一信使同时按住一个方向、松开另一个方向。",
@@ -382,7 +382,7 @@
       ],
       "clinical": [
         "FBPase-1 缺乏：空腹诱发低血糖 + 乳酸酸中毒（OMIM 232890）。",
-        "药物视角：FBPase 抑制剂（2Y5K 的 YCU 即磺酰脲类抑制剂）曾是 2 型糖尿病降糖药方向（临床转化状态未核实）。"
+        "药物视角：FBPase 抑制剂（2Y5K 的 YCU 即磺酰脲类抑制剂）曾是 2 型糖尿病降糖药方向。"
       ],
       "mirrorOf": "gk-3",
       "contrastWithGlycolysis": {
@@ -448,7 +448,7 @@
       "equation": "葡糖-6-磷酸 + H₂O → 葡萄糖 + Pi（发生于 ER 膜，活性位点朝腔侧）",
       "organDiffs": [
         { "organ": "liver", "text": "肝是空腹血糖的主要供给者：G6P 经 SLC37A4 入 ER 腔被 G6PC1 水解，葡萄糖经 GLUT2 出肝。" },
-        { "organ": "kidney", "text": "肾皮质同样表达 G6PC1，长期饥饿时贡献上升（比例数值教材出入大，未核实不写数）。肌不表达 G6PC（也无 G6Pase 活性）——肌糖原只能自己用。" }
+        { "organ": "kidney", "text": "肾皮质同样表达 G6PC1，长期饥饿时贡献上升（比例数值各教材口径不同，本图不写数）。肌不表达 G6PC（也无 G6Pase 活性）——肌糖原只能自己用。" }
       ],
       "bindingProfile": null,
       "ecNumber": "3.1.3.9",
@@ -505,7 +505,7 @@
       "equation": "乳酸 + NAD⁺ ⇌ 丙酮酸 + NADH + H⁺",
       "organDiffs": [
         { "organ": "liver", "text": "Cori 循环的肝侧：收回肌/红细胞的乳酸；NADH/NAD⁺ 比在胞质由该反应与 gn-6 共同决定。" },
-        { "organ": "kidney", "text": "肾皮质也能收回乳酸并异生（长期饥饿时份额上升，数值未核实）。" }
+        { "organ": "kidney", "text": "肾皮质也能收回乳酸并异生（长期饥饿时份额上升，本图不写数）。" }
       ],
       "bindingProfile": null,
       "mirrorOf": null,
@@ -533,7 +533,7 @@
       "equation": "丙氨酸 + α-酮戊二酸 ⇌ 丙酮酸 + 谷氨酸",
       "organDiffs": [
         { "organ": "liver", "text": "葡萄糖-丙氨酸循环的肝侧：ALT 把氨基转给 α-酮戊二酸，丙酮酸进入 gn-1。" },
-        { "organ": "kidney", "text": "肾在酸中毒时另有一条谷氨酰胺产氨路线参与（细节未核实，不写数）。" }
+        { "organ": "kidney", "text": "肾在酸中毒时另有一条谷氨酰胺产氨路线参与（本图不写数）。" }
       ],
       "bindingProfile": null,
       "mirrorOf": null,

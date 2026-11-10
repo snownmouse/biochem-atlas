@@ -1,7 +1,7 @@
 // TCA「代谢图谱挂图」（B 方案延续）：与糖酵解挂图同一版式语言（四色封顶 + 挂图体例），
 // 但主图是闭环椭圆环 + 回流带。数据以 tca.json / skeleton-tca.json 为唯一事实源。
 // 本页不复制糖酵解渲染路径：PathwayOverviewPage 保持原样，main.tsx 按 pathwayId 分发到此页。
-// 3D 本轮不做：右栏固定占位说明（PDB 候选未核验 / 复合体尺寸超约束）。
+// 3D 本轮不做：右栏固定占位说明（PDB 候选条目 / 复合体尺寸超约束）。
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { MouseEvent as ReactMouseEvent } from "react";
 import { Link, useParams, useSearchParams } from "react-router-dom";
@@ -759,7 +759,7 @@ export default function TcaOverviewPage() {
       <PathwayRailFoot current="tca" />
       <div className="poster-foot">
         {TODO_NOTES_TCA.map((n) => (
-          <span key={n}>待确认：{n}<br /></span>
+          <span key={n}>说明：{n}<br /></span>
         ))}
       </div>
     </div>

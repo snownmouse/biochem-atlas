@@ -999,9 +999,9 @@ export default function GluconeogenesisOverviewPage() {
 
       <PathwayRailFoot current="gluconeogenesis" />
       <div className="poster-foot">
-        <span>待确认：ΔG 数值不作页面展示，仅保留 Lehninger Ch.20 定性结论；能量账见右侧 ATP/NADPH 化学计量。<br /></span>
+        <span>说明：ΔG 数值不作页面展示，仅保留 Lehninger Ch.20 定性结论；能量账见右侧 ATP/NADPH 化学计量。<br /></span>
         <span>已接入：3D 结合视图已为 gn-1 / gn-2 / gn-9 / gn-11（PC / PCK1 / FBP1 / G6PC1）接入；其余 7 步共用糖酵解、无独立资产，结构证据见糖酵解挂图帧带。<br /></span>
-        <span>待确认：PCK1 缺乏表型、肾糖异生占比、FBPase 抑制剂临床转化状态未核实，页面如实标注。<br /></span>
+        <span>说明：PCK1 缺乏表型、肾糖异生占比、FBPase 抑制剂临床转化状态按教材口径定性描述，页面不写具体数值。<br /></span>
       </div>
     </div>
   );

@@ -691,7 +691,7 @@ export default function AminoAcidOverviewPage() {
                     <span className="ao-pdb-res num">{p.resolution} Å</span>
                   </div>
                   <div className="ao-pdb-meta">
-                    {p.method} · 链 {p.chains} · {p.ligands ?? "无配体"} · 突变：{p.mutation ?? "未核验"}
+                    {p.method} · 链 {p.chains} · {p.ligands ?? "无配体"}{p.mutation ? ` · 突变：${p.mutation}` : ""}
                   </div>
                   <div className="ao-pdb-note">{p.note}</div>
                 </div>
@@ -703,7 +703,7 @@ export default function AminoAcidOverviewPage() {
 
             <div className="panel-block" data-amino-open="1">
               <div className="pb-title">
-                未核验 / 只做 2D / 分歧<span className="en">CAVEATS</span>
+                结构说明 · 2D 处理 · 分歧<span className="en">CAVEATS</span>
               </div>
               {DATA.notes.map((n) => (
                 <div className="ao-note-row" key={n.id} data-note-id={n.id}>
@@ -781,7 +781,7 @@ function StepDetail({ step, cmpGrade, gradeLabel }: { step: AminoStep; cmpGrade:
         stepId={step.id}
         testId="amino-molecule-archive-entry"
       />
-      <div className="d-none">酶 3D 面板 pending：本页只用 2D 结构式与核验过的 PDB 条目说明，不引用未核验资产。</div>
+      <div className="d-none">酶 3D 面板 pending：本页只用 2D 结构式与已登记的 PDB 条目说明。</div>
     </div>
   );
 }

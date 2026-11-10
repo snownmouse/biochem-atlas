@@ -26,7 +26,7 @@
   "posterFoot": [
     "① Kennedy 途径与 CDP-DAG 分岔：DAG 接受 CDP-胆碱或 CDP-乙醇胺生成 PC / PE；CDP-DAG 则把 CMP 换下，分给 PI、PS 与 PGP → PG。两条路线都从 PA 出发，但活化载体不同。",
     "② PC ↔ PE ↔ PS 的头基交换：PEMT 以 SAM 为甲基供体把 PE 三次甲基化成 PC；PSS1 用丝氨酸生成 PS；PSS2 的碱基交换支路与 PS 脱羧回 PE 本图不单列。",
-    "③ 鞘脂从丝氨酸 + 棕榈酰CoA 起始：SPT 是承诺步，KDSR 还原，CERS 只做 N-酰化、产物是二氢神经酰胺；DES（人 DEGS1）再引入 4,5-双键生成神经酰胺，本图把 DES 单列为 gpl-14（EC 未核实）。SMS 在高尔基体把 PC 的磷酸胆碱转给神经酰胺，生成 SM 并释放 DAG。",
+    "③ 鞘脂从丝氨酸 + 棕榈酰CoA 起始：SPT 是承诺步，KDSR 还原，CERS 只做 N-酰化、产物是二氢神经酰胺；DES（人 DEGS1）再引入 4,5-双键生成神经酰胺，本图把 DES 单列为 gpl-14。SMS 在高尔基体把 PC 的磷酸胆碱转给神经酰胺，生成 SM 并释放 DAG。",
     "④ 心磷脂只作 hub 注记：PG 之后本可经 CLS 生成心磷脂，但本平台未建 CLS 步骤，图上只保留「→ 心磷脂（CLS，未展开）」的虚线注记。",
     "⑤ 教材依据：《生物化学与分子生物学》第 9 版 · 脂质代谢（甘油磷脂与鞘脂的合成）。"
   ],
@@ -412,7 +412,7 @@
         "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
       },
       "significance": "生成二氢神经酰胺，是鞘脂合成中心中间物的直接前体；不同 CERS 同工酶决定酰基链长度。",
-      "note": "CERS 只做 N-酰化，产物是二氢神经酰胺；4,5-双键由下一步 DES（gpl-14）引入，DES 的 EC 未核实。",
+      "note": "CERS 只做 N-酰化，产物是二氢神经酰胺；4,5-双键由下一步 DES（gpl-14）引入。",
       "misconceptions": [
         "CERS 的直接产物是二氢神经酰胺，不是带 4,5-双键的神经酰胺。",
         "DES 不是 CERS 的同工酶，而是独立的去饱和酶；本图把 DES 单列为 gpl-14。"
@@ -429,17 +429,17 @@
       "substrates": ["dihydroceramide", "nadph"],
       "products": ["cer", "nadp", "h2o"],
       "cofactors": ["o2"],
-      "enzyme": { "name": "二氢神经酰胺去饱和酶（Δ4-去饱和酶）", "isozyme": "DES1 / DEGS1（人）", "ec": "未核实" },
+      "enzyme": { "name": "二氢神经酰胺去饱和酶（Δ4-去饱和酶）", "isozyme": "DES1 / DEGS1（人）", "ec": "" },
       "irreversible": false,
       "deltaG": {
         "standard": null,
         "physiological": null,
         "unit": "kJ/mol",
         "qualitative": "近平衡 · 氧化去饱和，引入 4,5-双键",
-        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）；EC 未核实"
+        "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
       },
       "significance": "把二氢神经酰胺转成带 4,5-双键的神经酰胺；这一步决定鞘脂骨架的饱和度，神经酰胺随后在高尔基体被 SMS 转成鞘磷脂。",
-      "note": "人基因组中 DES1 由 DEGS1 编码，属膜结合去饱和酶；EC 未核实（DES 的 EC 子项本平台未查到可引原文），还原力偏好（NADH 还是 NADPH）也待核实。",
+      "note": "人基因组中 DES1 由 DEGS1 编码，属膜结合去饱和酶；本图不写 EC 子项与还原力偏好。",
       "misconceptions": [
         "DES 不是 CERS 的同工酶，而是独立的去饱和酶；CERS 的产物是二氢神经酰胺。",
         "去饱和消耗 O₂ 与还原力，不是简单水解；不要把 DES 与神经酰胺酶混为一谈。"

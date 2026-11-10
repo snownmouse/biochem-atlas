@@ -476,7 +476,7 @@ export default function CoriOverviewPage() {
                     第三来源 · 不画完整臂
                   </text>
                   <text x={skel.blood.rbc.x + 14} y={skel.blood.rbc.y + 78} fontSize={9.2} opacity={0.5}>
-                    静息血乳酸贡献比例未核实
+                    静息血乳酸贡献比例各来源不一
                   </text>
                   <path
                     d={skel.blood.rbc.arrow}
@@ -810,7 +810,7 @@ export default function CoriOverviewPage() {
                   <tr key={m.title}>
                     <td>{m.title}</td>
                     <td>{m.text}</td>
-                    <td style={{ color: m.grade === "未核实" ? BRICK : INK, fontWeight: 700 }}>{m.grade}</td>
+                    <td style={{ color: m.grade !== "确定" ? BRICK : INK, fontWeight: 700 }}>{m.grade}</td>
                   </tr>
                 ))}
               </tbody>
@@ -1008,7 +1008,7 @@ export default function CoriOverviewPage() {
           页面不存储第二份酶名、反应式或意义文本，validate-cori 会拒绝任何复制字段。<br />
         </span>
         <span>
-          待确认：红细胞对静息血乳酸贡献的比例未核实到唯一一手数字，页面只写“稳定来源”；肾皮质糖异生份额同样未定。<br />
+          说明：红细胞对静息血乳酸贡献的比例，综述常见 15–20%，页面只写“稳定来源”；肾皮质糖异生份额同样不写数。<br />
         </span>
         <span>
           3D：整循环是器官物流与能量转移，没有结合姿态可展示；本页不做 3D，不给资产路径。

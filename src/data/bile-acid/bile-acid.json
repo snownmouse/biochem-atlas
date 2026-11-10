@@ -136,7 +136,7 @@
       "substrates": ["c7ol"],
       "products": ["c7one"],
       "cofactors": ["NAD⁺"],
-      "enzyme": { "name": "3β-羟基-Δ⁵-类固醇脱氢酶 / Δ⁵–Δ⁴ 异构酶", "ec": "未核实" },
+      "enzyme": { "name": "3β-羟基-Δ⁵-类固醇脱氢酶 / Δ⁵–Δ⁴ 异构酶", "ec": "" },
       "irreversible": false,
       "deltaG": {
         "standard": null,
@@ -146,7 +146,7 @@
         "source": "教材章级（胆固醇代谢 · 甾核修饰）"
       },
       "significance": "把 3β-羟基转成 3-酮并迁移双键，是后续 12α-羟化与侧链氧化的结构前提。",
-      "note": "EC 编号未核实：该酶在 IUBMB 归类中有多个历史编号，本图不写子项，也不自造编号。",
+      "note": "该酶在 IUBMB 归类中有多个历史编号，本图不写 EC 子项，也不自造编号。",
       "misconceptions": [
         "把脱氢与异构化拆成两步：教材口径常合并为一步。",
         "把 3-酮中间物当成终产物：它还要继续 12α-羟化与侧链缩短。"
@@ -163,7 +163,7 @@
       "substrates": ["c7one"],
       "products": ["c7diol"],
       "cofactors": ["NADPH（经 P450 还原酶供电子）"],
-      "enzyme": { "name": "甾醇 12α-羟化酶", "isozyme": "CYP8B1", "ec": "未核实" },
+      "enzyme": { "name": "甾醇 12α-羟化酶", "isozyme": "CYP8B1", "ec": "" },
       "irreversible": true,
       "deltaG": {
         "standard": null,
@@ -173,7 +173,7 @@
         "source": "教材章级（胆固醇代谢 · 胆汁酸分支）"
       },
       "significance": "分支点：有 12α-羟化走胆酸（CA），没有则走鹅脱氧胆酸（CDCA）。",
-      "note": "CYP8B1 活性决定 CA / CDCA 比例；本图把无 12α-羟化的支路画成旁注，不另列步骤。EC 编号未核实。",
+      "note": "CYP8B1 活性决定 CA / CDCA 比例；本图把无 12α-羟化的支路画成旁注，不另列步骤。",
       "misconceptions": [
         "把 CA 与 CDCA 当成同一条线的先后产物：两者是分支关系，不是串联。",
         "把 12α-羟基写成所有胆汁酸都有：CDCA 就没有。"
@@ -190,7 +190,7 @@
       "substrates": ["c7diol"],
       "products": ["ca_pre"],
       "cofactors": ["NADPH（经 P450 还原酶供电子）"],
-      "enzyme": { "name": "甾醇 27-羟化酶", "isozyme": "CYP27A1", "ec": "未核实" },
+      "enzyme": { "name": "甾醇 27-羟化酶", "isozyme": "CYP27A1", "ec": "" },
       "irreversible": false,
       "deltaG": {
         "standard": null,
@@ -217,7 +217,7 @@
       "substrates": ["ca_pre"],
       "products": ["ca_coa", "cdca_coa"],
       "cofactors": ["CoA-SH"],
-      "enzyme": { "name": "过氧化物酶体侧链 β-氧化酶系", "ec": "未核实" },
+      "enzyme": { "name": "过氧化物酶体侧链 β-氧化酶系", "ec": "" },
       "irreversible": true,
       "deltaG": {
         "standard": null,

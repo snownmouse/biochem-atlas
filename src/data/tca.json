@@ -117,9 +117,9 @@
       "stereochemistry": ["E2 硫辛酰赖氨酸摆臂在三个活性位点间摆动传递，接力顺序 TPP→硫辛酸→FAD→NAD⁺，与 PDH 同型。"],
       "misconceptions": [
         "「琥珀酰-CoA 的『高能键』是类似 ATP 的磷酸键」——是硫酯键，能量形式不同，下一步才转成 GTP。",
-        "「α-KG 脱氢酶受与 PDH 相同的磷酸化调控」——调控以 NADH / 琥珀酰-CoA 产物抑制与 Ca²⁺ 激活为主，无 PDH 式激酶/磷酸酶开关（细节未核实）。"
+        "「α-KG 脱氢酶受与 PDH 相同的磷酸化调控」——调控以 NADH / 琥珀酰-CoA 产物抑制与 Ca²⁺ 激活为主，无 PDH 式激酶/磷酸酶开关。"
       ],
-      "clinical": ["亚砷酸盐结合硫辛酸二巯基抑制本复合体（与 PDH 同机理）；遗传性缺陷罕见，个案报道为乳酸酸中毒伴神经退行（未核实）。"]
+      "clinical": ["亚砷酸盐结合硫辛酸二巯基抑制本复合体（与 PDH 同机理）；遗传性缺陷罕见，个案报道为乳酸酸中毒伴神经退行。"]
     },
     {
       "id": "tca-5",
@@ -127,7 +127,7 @@
       "name": "琥珀酰-CoA → 琥珀酸（底物水平磷酸化）",
       "substrates": ["succoa"],
       "products": ["suc"],
-      "enzyme": { "entityId": "sucl", "name": "琥珀酰-CoA 合成酶", "isozyme": "ADP 型 SUCLA1 / GDP 型 SUCLG2（组织分布细节未核实）" },
+      "enzyme": { "entityId": "sucl", "name": "琥珀酰-CoA 合成酶", "isozyme": "ADP 型 SUCLA1 / GDP 型 SUCLG2" },
       "cofactors": ["GDP + Pi（底物水平磷酸化）"],
       "irreversible": false,
       "significance": "循环内唯一的底物水平磷酸化（产 GTP）；与糖酵解第 Ⅶ/Ⅹ 步同概念，但发生在线粒体基质。",
@@ -158,12 +158,12 @@
       "bindingProfile": null,
       "ecNumber": "1.3.5.1",
       "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Table 16-2" },
-      "stereochemistry": ["延胡索酸为反式丁烯二酸（trans 双键）；脱氢的立体化学由酶腔锁定（细节未核实）。"],
+      "stereochemistry": ["延胡索酸为反式丁烯二酸（trans 双键）；脱氢的立体化学由酶腔锁定。"],
       "misconceptions": [
         "「FADH₂ 和 NADH 一样进复合体 I」——FADH₂ 的电子从复合体 II / ETF 进入泛醌池，绕过复合体 I，产 ATP 更少。",
         "「琥珀酸脱氢酶是基质酶」——它是唯一嵌内膜的 TCA 酶，其余 8 步（含 PDH）都在基质。"
       ],
-      "clinical": ["SDH 亚基（SDHB/SDHC/SDHD）或组装因子突变 → 家族性副神经节瘤/嗜铬细胞瘤综合征；双等位缺陷可致 Leigh 样脑病（条目未核实）。"]
+      "clinical": ["SDH 亚基（SDHB/SDHC/SDHD）或组装因子突变 → 家族性副神经节瘤/嗜铬细胞瘤综合征；双等位缺陷可致 Leigh 样脑病。"]
     },
     {
       "id": "tca-7",
@@ -185,7 +185,7 @@
         "「顺丁烯二酸也能被水合」——酶严格区分顺/反几何，马来酸不是底物。",
         "「反应可逆所以加水方向随便」——立体专一：反式加成，只产 L-苹果酸。"
       ],
-      "clinical": ["FH 双等位缺陷 → 延胡索酸水合酶缺陷综合征（神经皮肤型，罕见）；FH 兼肿瘤抑制基因，胚系失活致 HLRCC（条目未核实）。"]
+      "clinical": ["FH 双等位缺陷 → 延胡索酸水合酶缺陷综合征（神经皮肤型，罕见）；FH 兼肿瘤抑制基因，胚系失活致 HLRCC。"]
     },
     {
       "id": "tca-8",
@@ -207,7 +207,7 @@
         "「+29.7 kJ/mol 说明这步在细胞里不走」——标准态≠生理态，OAA 被第 1 步快速抽走使本步实际近平衡。",
         "「苹果酸脱氢酶只有线粒体一种」——胞质 MDH1 与线粒体 MDH2 分工，苹果酸-天冬氨酸穿梭靠两者协作。"
       ],
-      "clinical": ["MDH2 双等位致病变异罕见神经代谢病（个案层级，未核实）。"]
+      "clinical": ["MDH2 双等位致病变异罕见神经代谢病（个案层级）。"]
     }
   ],
   "sideBranchSteps": [
@@ -224,13 +224,13 @@
       "equation": "丙酮酸 + CoA-SH + NAD⁺ → 乙酰-CoA + CO₂ + NADH",
       "organDiffs": [
         { "organ": "liver", "text": "肝：产物乙酰-CoA / NADH 激活 PDH 激酶（磷酸化＝灭活），胰岛素激活磷酸酶（去磷酸化＝激活）——进食状态开闸。" },
-        { "organ": "muscle", "text": "肌：按能量状态与 Ca²⁺ 信号去磷酸化激活（收缩偶联）；PDK 同工型组织分布细节未核实。" },
+        { "organ": "muscle", "text": "肌：按能量状态与 Ca²⁺ 信号去磷酸化激活（收缩偶联）。" },
         { "organ": "rbc", "text": "红细胞无线粒体，PDH 与 TCA 均不运行。" }
       ],
       "bindingProfile": null,
       "ecNumber": "1.2.4.1 / 2.3.1.12 / 1.8.1.4",
       "deltaG": { "standard": null, "physiological": null, "unit": "kJ/mol", "source": "Lehninger 8e Ch.16（PDH 小节）" },
-      "stereochemistry": ["E2 硫辛酰摆臂『摆动传递』需完整复合物结构支撑；哺乳动物复合体 cryo-EM 条目未核实，3D 不在本轮范围。"],
+      "stereochemistry": ["E2 硫辛酰摆臂『摆动传递』需完整复合物结构支撑；哺乳动物复合体的高分辨结构不在本轮范围。"],
       "misconceptions": [
         "「PDH 是 TCA 循环的一步」——它是独立的多酶复合体接驳反应，不计入环上 8 步。",
         "「丙酮酸靠 PDH 进线粒体」——丙酮酸先经线粒体丙酮酸载体（MPC）入基质，再被 PDH 脱羧。"

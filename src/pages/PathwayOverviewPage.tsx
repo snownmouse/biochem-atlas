@@ -897,7 +897,7 @@ export default function PathwayOverviewPage() {
       <PathwayRailFoot current="glycolysis" />
       <div className="poster-foot">
         {TODO_NOTES.map((n) => (
-          <span key={n}>待确认：{n}<br /></span>
+          <span key={n}>说明：{n}<br /></span>
         ))}
       </div>
     </div>

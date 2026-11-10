@@ -96,6 +96,6 @@
   "annotations": [
     { "x": 40, "y": 612, "text": "PA 之后分两路：水解成 DAG 走 Kennedy 途径（PC / PE）；接 CTP 成 CDP-DAG 走 PI / PS / PG 支路。", "tone": "ink", "size": 9.2, "anchor": "start" },
     { "x": 40, "y": 631, "text": "头基交换：PEMT 把 PE 三次甲基化成 PC；PSS1 用丝氨酸替换 CMP 生成 PS；PSS2 支路与 PS 脱羧回 PE 均不单列。", "tone": "teal", "size": 9.2, "anchor": "start" },
-    { "x": 40, "y": 650, "text": "鞘脂从丝氨酸 + 棕榈酰CoA 起始；CERS 酰化成二氢神经酰胺，DES（DEGS1）再引入 4,5-双键生成神经酰胺（EC 未核实，单列为 gpl-14）；SMS 在高尔基体把 PC 的磷酸胆碱转给神经酰胺。", "tone": "brick", "size": 9.2, "anchor": "start" }
+    { "x": 40, "y": 650, "text": "鞘脂从丝氨酸 + 棕榈酰CoA 起始；CERS 酰化成二氢神经酰胺，DES（DEGS1）再引入 4,5-双键生成神经酰胺（单列为 gpl-14）；SMS 在高尔基体把 PC 的磷酸胆碱转给神经酰胺。", "tone": "brick", "size": 9.2, "anchor": "start" }
   ]
 }

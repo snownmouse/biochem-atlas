@@ -1083,10 +1083,10 @@ export default function PppOverviewPage() {
 
       <PathwayRailFoot current="ppp" />
       <div className="poster-foot">
-        <span>待确认：ΔG 数值不作页面展示，仅保留 Lehninger 8e Ch.14 定性结论。<br /></span>
-        <span>已接入：3D 结合视图 5 步已建（ppp-o1 / o3 / n2 / n3 / n5）；ppp-o2 与 ppp-n1 人源结构缺失（仅跨物种替代），ppp-n4 只有无配体 apo，三步保留待核验占位，不硬凑。<br /></span>
-        <span>待确认：人源缺口——6PGL 无结构、RPIA 人源未检索到结构（2VVP 为结核 RpiB，跨种且跨家族）；照实标注，不硬凑。<br /></span>
-        <span>待确认：organDiffs 仅登记肝与红细胞；肌肉等其它器官未登记，页面不提供该视图。<br /></span>
+        <span>说明：ΔG 数值不作页面展示，仅保留 Lehninger 8e Ch.14 定性结论。<br /></span>
+        <span>已接入：3D 结合视图 5 步已建（ppp-o1 / o3 / n2 / n3 / n5）；ppp-o2 与 ppp-n1 人源结构缺失（仅跨物种替代），ppp-n4 只有无配体 apo，三步本页不提供 3D 视图，不硬凑。<br /></span>
+        <span>说明：人源缺口——6PGL 无结构、RPIA 人源未检索到结构（2VVP 为结核 RpiB，跨种且跨家族）；照实标注，不硬凑。<br /></span>
+        <span>说明：organDiffs 仅登记肝与红细胞；肌肉等其它器官未登记，页面不提供该视图。<br /></span>
       </div>
     </div>
   );

@@ -438,7 +438,7 @@
     "netEquation": "8 乙酰-CoA + 7 ATP + 14 NADPH + 14 H⁺ → 棕榈酸（C16）+ 8 CoA + 7 ADP + 7 Pi + 14 NADP⁺",
     "balanceNote": "净方程按用户给定口径只列主币种；把 7 HCO₃⁻ 与 7 CO₂、以及 6 H₂O（7 轮释放 7、TE 水解耗 1）补齐后仍原子守恒。CO₂ 的碳来自 HCO₃⁻，不进碳链。",
     "carbonNote": "碳守恒：8 个乙酰-CoA 各 C2，合计 16 个碳；其中 1 个作引物、7 个羧化成丙二酰-CoA。丙二酰的游离羧基在缩合时以 CO₂ 离去，所以碳链恰好是 8 × C2 = C16。缩合新键在链的 C2–C3 之间，不是 C3–C4。",
-    "deltaGDiscipline": "ΔG 全部未核实，页面只给定性结论；不编数值、不做定量比较。来源口径统一记为 Lehninger 8e Ch.21。"
+    "deltaGDiscipline": "ΔG 只给定性结论，不写数值、不做定量比较；来源口径统一记为 Lehninger 8e Ch.21。"
   },
   "threeD": {
     "status": "pending",

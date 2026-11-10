@@ -19,7 +19,7 @@
     "paragraphs": [
       "糖复合物不是一条从头到尾的分解链，而是「活化供体 + 转移酶 + 受体」的三元反应网络。本图把范围收窄到供体端：G6P 经 PGM1 与 UGP2 做成 UDP-Glc，再分出 UDP-Gal（GALE）与 UDP-GlcA（UGDH）；F6P 经 GFPT 限速步骤做成 UDP-GlcNAc，经 MPI / PMM2 / GMPPB 做成 GDP-Man，再脱水还原成 GDP-Fuc；UDP-GlcNAc 还经 GNE 与 NANS 做成 Neu5Ac，最后由 CMAS 用 CTP 活化成 CMP-唾液酸。",
       "七种供体各有去向：UDP-Glc、GDP-Man 与 UDP-GlcNAc 供 N-糖基化核心寡糖在内质网整体转移到 Asn-X-Ser/Thr；高尔基体再用 UDP-GlcNAc、UDP-Gal、GDP-Fuc 与 CMP-唾液酸把核心糖链加工成复杂型；UDP-GlcNAc 还供 OGT 做可逆的 O-GlcNAc 修饰；UDP-GlcA 与 UDP-GlcNAc 交替聚合成透明质酸；UDP-Glc 与 UDP-Gal 依次加到神经酰胺上，进入糖鞘脂支路。",
-      "边界：本图不画糖链逐级装配的全图，也不展开硫酸化、血型抗原与神经节苷脂的每一代结构；黏蛋白型 O-糖基化以 UDP-GalNAc 为起始供体，UDP-GalNAc 不在本图七种供体之列，只在 O-GlcNAc 一步用一句话说明。酶的 EC 编号查不准的写「未核实」，不编子项。"
+      "边界：本图不画糖链逐级装配的全图，也不展开硫酸化、血型抗原与神经节苷脂的每一代结构；黏蛋白型 O-糖基化以 UDP-GalNAc 为起始供体，UDP-GalNAc 不在本图七种供体之列，只在 O-GlcNAc 一步用一句话说明。酶的 EC 编号查不准的留空，不编子项。"
     ]
   },
   "posterFoot": [
@@ -27,7 +27,7 @@
     "供体池：UDP-Glc、UDP-Gal、UDP-GlcA、UDP-GlcNAc、GDP-Man、GDP-Fuc、CMP-唾液酸；UDP-GalNAc 不在本图七种供体之列，黏蛋白型 O-糖基化只一句带过。",
     "去向：N-糖基化（ER 起始、Golgi 末端加工）、O-GlcNAc（可逆）、糖胺聚糖（透明质酸代表）、糖脂（GlcCer → LacCer 代表）四条支路。",
     "接口：糖酵解 gk-1（G6P）、PPP ppp-n1（R5P，经 PRPP→UTP 间接供糖核苷酸）、FAS fas-te（棕榈酸供鞘脂酰链）、嘧啶 pyr-9（CTP）。丝氨酸在氨基酸图中没有独立生成步，按「两端都真实存在」的口径不登记 step 接口，只在糖脂一步注明。",
-    "EC：UGP2、GALE、UGDH、GFPT1、GMPPB、GMDS、CMAS、OST、OGT、HAS、UGCG 写编号；GNE、高尔基体加工酶系、B4GALT5/6 等查不准或为多酶体系的写「未核实」，不编子项。",
+    "EC：UGP2、GALE、UGDH、GFPT1、GMPPB、GMDS、CMAS、OST、OGT、HAS、UGCG 写编号；GNE、高尔基体加工酶系、B4GALT5/6 等查不准或为多酶体系的留空，不编子项。",
     "教材依据：《生物化学与分子生物学》第 9 版 · 糖复合物与糖蛋白相关章节；只写章节名，不标页码、不引真题年份。"
   ],
   "transportSteps": [],
@@ -271,8 +271,8 @@
       "enzyme": {
         "name": "UDP-N-乙酰葡糖胺 2-差向异构酶 / ManNAc 激酶",
         "isozyme": "GNE",
-        "ec": "未核实",
-        "note": "GNE 为双功能酶；Neu5Ac 合酶 NANS 并入本步。EC 编号未逐条核实，按站内口径写「未核实」。"
+        "ec": "",
+        "note": "GNE 为双功能酶；Neu5Ac 合酶 NANS 并入本步。双功能酶不合并成单一 EC 编号。"
       },
       "irreversible": true,
       "deltaG": {
@@ -357,8 +357,8 @@
       "enzyme": {
         "name": "高尔基体 N-糖链加工酶系",
         "isozyme": "MGAT1 / B4GALT1 / FUT8 / ST6GAL1 等",
-        "ec": "未核实",
-        "note": "多酶顺序加工，不合并成单一 EC；本图不逐条核实每个转移酶的 EC。"
+        "ec": "",
+        "note": "多酶顺序加工，不合并成单一 EC。"
       },
       "irreversible": true,
       "deltaG": {
@@ -444,7 +444,7 @@
         "name": "UDP-葡萄糖:神经酰胺葡萄糖基转移酶",
         "isozyme": "UGCG",
         "ec": "2.4.1.80",
-        "note": "第二步乳糖神经酰胺由 B4GALT5/6 催化，EC 未核实。"
+        "note": "第二步乳糖神经酰胺由 B4GALT5/6 催化。"
       },
       "irreversible": true,
       "deltaG": {

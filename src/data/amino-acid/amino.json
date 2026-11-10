@@ -276,7 +276,7 @@
       ],
       "pdbCandidates": [
         { "pdbId": "1KT8", "title": "Branched-chain amino acid aminotransferase, mitochondrial", "species": "Homo sapiens", "method": "X-ray", "resolution": 1.9, "chains": "A,B", "ligands": "ILP, ACY", "mutation": "无", "status": "verified", "note": "ILP = N-(O-phosphono-pyridoxyl)isoleucine（PLP–Ile 外部醛亚胺）；证明 PLP 转氨机制，但配体是 Ile 不是 Leu。" },
-        { "pdbId": "1OLS", "title": "2-Oxoisovalerate dehydrogenase alpha subunit", "species": "Homo sapiens", "method": "X-ray", "resolution": 1.85, "chains": "A", "ligands": "TPP, K, MN, GOL", "mutation": "未核实（条目标题为 His291 / His146 机制研究，可能是突变体）", "status": "verified", "note": "人 BCKDH E1 α 亚基，TPP 与 K / MN / GOL 均在坐标中；BCKDH 不在本页做独立步骤，仅登记为支链去路的下一酶。" }
+        { "pdbId": "1OLS", "title": "2-Oxoisovalerate dehydrogenase alpha subunit", "species": "Homo sapiens", "method": "X-ray", "resolution": 1.85, "chains": "A", "ligands": "TPP, K, MN, GOL", "mutation": "机制研究构建体（关注 His291 / His146，条目未列具体突变）", "status": "verified", "note": "人 BCKDH E1 α 亚基，TPP 与 K / MN / GOL 均在坐标中；BCKDH 不在本页做独立步骤，仅登记为支链去路的下一酶。" }
       ]
     },
     {

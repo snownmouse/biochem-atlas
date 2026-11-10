@@ -184,7 +184,7 @@ export default function SubstanceProfilePage() {
           <section className="mp-card" data-testid="substance-sources">
             <h2>出处</h2>
             <ul>
-              {(dossier ? dossier.sources : ["内容整理中：出处待补。"]).map((source) => (
+              {(dossier ? dossier.sources : ["内容整理中。"]).map((source) => (
                 <li key={source}>{source}</li>
               ))}
             </ul>

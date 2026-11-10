@@ -113,7 +113,7 @@ export interface CoriData {
   };
   energyLedger: EnergyLedger;
   redoxLedger: RedoxLedger;
-  misreads: { title: string; text: string; grade: "确定" | "未核实" }[];
+  misreads: { title: string; text: string; grade: "确定" | "存疑" }[];
   threeD: { status: "pending"; note: string };
 }
 
