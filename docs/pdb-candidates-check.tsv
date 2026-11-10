@@ -1,0 +1,33 @@
+pathway	stepId	pdbId	enzyme	title	method	resolution	status	checkedOn	note
+cholesterol	ch-3	1HWK	HMG-CoA 还原酶	COMPLEX OF THE CATALYTIC PORTION OF HUMAN HMG-COA REDUCTASE WITH ATORVASTATIN	X-ray	2.22	OK	2026-11-10	
+cholesterol	ch-3	1HW9	HMG-CoA 还原酶	COMPLEX OF THE CATALYTIC PORTION OF HUMAN HMG-COA REDUCTASE WITH SIMVASTATIN	X-ray	2.33	OK	2026-11-10	
+cholesterol	ch-3	1DQA	HMG-CoA 还原酶	COMPLEX OF THE CATALYTIC PORTION OF HUMAN HMG-COA REDUCTASE WITH HMG, COA, AND NADP+	X-ray	2	OK	2026-11-10	
+cholesterol	ch-4	2R3V	甲羟戊酸激酶	The Biochemical and Structural Basis for Feedback Inhibition of Mevalonate Kinase and Isoprenoid Metabolism	X-ray	2.5	OK	2026-11-10	
+cholesterol	ch-5	3CH4	磷酸甲羟戊酸激酶	The Crystal Structure of Human Phosphomavelonate Kinase At 1.8 A Resolution	X-ray	1.76	OK	2026-11-10	
+cholesterol	ch-6	3D4J	甲羟戊酸二磷酸脱羧酶	Crystal structure of Human mevalonate diphosphate decarboxylase	X-ray	2.4	OK	2026-11-10	
+cholesterol	ch-7	2ICK	异戊烯基二磷酸异构酶 1	Human isopentenyl diphophate isomerase complexed with substrate analog	X-ray	1.93	OK	2026-11-10	
+cholesterol	ch-8	5CG6	法尼基二磷酸合酶	Neutron crystal structure of human farnesyl pyrophosphate synthase in complex with risedronate and isopentenyl pyrophosphate	Multiple methods	1.7	OK	2026-11-10	
+cholesterol	ch-9	5JA0	法尼基二磷酸合酶	Crystal structure of human FPPS with allosterically bound FPP	X-ray	1.9	OK	2026-11-10	
+cholesterol	ch-10	3WEG	角鲨烯合酶	Crystal structure of the human squalene synthase in complex with farnesyl thiopyrophosphate and magnesium ion	X-ray	1.75	OK	2026-11-10	
+cholesterol	ch-10	3VJC	角鲨烯合酶	Crystal structure of the human squalene synthase in complex with zaragozic acid A	X-ray	1.89	OK	2026-11-10	
+cholesterol	ch-11	6C6P	角鲨烯单加氧酶	Human squalene epoxidase (SQLE, squalene monooxygenase) structure with FAD and NB-598	X-ray	2.5	OK	2026-11-10	
+cholesterol	ch-12	1W6K	羊毛甾醇合酶	Structure of human OSC in complex with Lanosterol	X-ray	2.1	OK	2026-11-10	
+cholesterol	ch-12	1W6J	羊毛甾醇合酶	Structure of human OSC in complex with Ro 48-8071	X-ray	2.2	OK	2026-11-10	
+cholesterol	ch-13	4UHI	羊毛甾醇 14α-去甲基酶（簇首酶）	HUMAN STEROL 14-ALPHA DEMETHYLASE (CYP51) IN COMPLEX WITH VFV IN C121 SPACE GROUP	X-ray	2.04	OK	2026-11-10	
+cholesterol	ch-13	6UEZ	羊毛甾醇 14α-去甲基酶（簇首酶）	Human sterol 14a-demethylase (CYP51) in complex with the substrate lanosterol	X-ray	1.98	OK	2026-11-10	
+cholesterol	ch-13	6JKH	羊毛甾醇 14α-去甲基酶（簇首酶）	The NAD+-bound form of human NSDHL	X-ray	3	OK	2026-11-10	簇内旁证（NSDHL，role=architecture），非 CYP51，属预期用途
+cholesterol	ch-13	6OHT	羊毛甾醇 14α-去甲基酶（簇首酶）	Structure of EBP and U18666A	X-ray	3.2	OK	2026-11-10	簇内旁证（EBP，role=architecture），非 CYP51，属预期用途
+glycogen	gly-1	1EM6	糖原磷酸化酶	HUMAN LIVER GLYCOGEN PHOSPHORYLASE A COMPLEXED WITH GLCNAC AND CP-526,423	X-ray	2.2	OK	2026-11-10	
+glycogen	gly-1	1FA9	糖原磷酸化酶	HUMAN LIVER GLYCOGEN PHOSPHORYLASE A COMPLEXED WITH AMP	X-ray	2.4	OK	2026-11-10	
+glycogen	gly-1	1Z8D	糖原磷酸化酶	Crystal Structure of Human Muscle Glycogen Phosphorylase a with AMP and Glucose	X-ray	2.3	OK	2026-11-10	
+glycogen	gly-2	8ZEQ	脱支酶	Molecular Architecture of Human Glycogen Debranching Enzyme: Insights into Glycogen Storage Disease III Pathogenesis	EM	3.36	OK	2026-11-10	
+glycogen	gly-3	6UIQ	磷酸葡萄糖变位酶 1	Crystal structure of wild-type human phosphoglucomutase 1 in complex with Glucose-6-Phosphate	X-ray	2.3	OK	2026-11-10	分解向；与 gly-6 复用同一结构，属合理复用
+glycogen	gly-4	9JTM	葡萄糖-6-磷酸酶催化亚基 1	Human glucose 6 phosphate catalytic subunit 1 (hG6PC1) bound with G6P	EM	2.9	OK	2026-11-10	
+glycogen	gly-4	9JTN	葡萄糖-6-磷酸酶催化亚基 1	Human glucose 6 phosphate catalytic subunit 1 (hG6PC1) bound with phosphate.	EM	3.1	OK	2026-11-10	
+glycogen	gly-4	9JTO	葡萄糖-6-磷酸酶催化亚基 1	Human glucose 6 phosphate catalytic subunit 1 (hG6PC1) bound with F6P.	EM	3.3	OK	2026-11-10	
+glycogen	gly-6	6UIQ	磷酸葡萄糖变位酶 1	Crystal structure of wild-type human phosphoglucomutase 1 in complex with Glucose-6-Phosphate	X-ray	2.3	OK	2026-11-10	合成向；与 gly-3 复用同一结构，属合理复用
+glycogen	gly-7	4R7P	UDP-葡萄糖焦磷酸化酶	Human UDP-glucose pyrophosphorylase isoform 1 in complex with UDP-glucose	X-ray	3.35	OK	2026-11-10	
+glycogen	gly-8	7Q13	糖原合酶	Human GYS1-GYG1 complex activated state bound to glucose-6-phosphate, uridine diphosphate, and glucose	EM	3	OK	2026-11-10	
+glycogen	gly-8	7Q0S	糖原合酶	Human GYS1-GYG1 complex inhibited-like state bound to glucose-6-phosphate	EM	4	OK	2026-11-10	
+glycogen	gly-9	5CLW	糖原分支酶	Crystal structure of human glycogen branching enzyme (GBE1) in complex with maltoheptaose	X-ray	2.8	OK	2026-11-10	
+glycogen	gly-9	4BZY	糖原分支酶	Crystal structure of human glycogen branching enzyme (GBE1)	X-ray	2.75	OK	2026-11-10	

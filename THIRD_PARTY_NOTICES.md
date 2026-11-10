@@ -5,7 +5,7 @@
 - 本项目原创代码与原创文档：MIT，见 [LICENSE](LICENSE)。
 - 本项目自写的讲解文字与整理后的数据：CC BY 4.0，见 [LICENSE-CC-BY-4.0.md](LICENSE-CC-BY-4.0.md)。
 - 本文件所列第三方内容**不在上述 MIT / CC BY 4.0 授权范围内**，按其各自条款使用。
-- 核对日期：2026-11-07。版本以仓库内 `package.json` 声明、本地已安装包与构建产物文件头为准；标「查不到 / 外部不可得」的项表示已查位置均无法确定，未作猜测。
+- 核对日期：2026-11-10（2026-11-07 首次核对；本轮复核 OMIM / Lehninger / PDB 与 CCD / eQuilibrator 四项条款）。版本以仓库内 `package.json` 声明、本地已安装包与构建产物文件头为准；标「查不到 / 外部不可得」的项表示已查位置均无法确定，未作猜测。
 
 ## 1. 运行时随包分发（进入浏览器构建产物）
 
@@ -142,7 +142,7 @@
 | 名称 | PDB 实验结构坐标（含由 HETATM 截取的配体坐标） |
 | 许可 | CC0 1.0（wwPDB 使用条款） |
 | 仓库内位置 | `public/assets/ligands3d/`（实验坐标条目）、`public/assets/structures/2d/`、`public/assets/steps/` |
-| 说明 | 数据本身为 CC0；本项目对其的整理与标注按 CC BY 4.0。各条目的 PDB ID 与核验信息见 `docs/data-provenance.md` |
+| 说明 | 数据本身为 CC0（`https://www.wwpdb.org/about/usage-policies`，2026-11-10）；CCD（`components.cif`）作为 PDB 归档数据文件随归档适用同一 CC0，未检索到单独条款页；本项目对其的整理与标注按 CC BY 4.0。各条目的 PDB ID 与核验信息见 `docs/data-provenance.md` |
 
 ### 4.2 UniProt
 
@@ -167,18 +167,28 @@
 | 项 | 内容 |
 | --- | --- |
 | 名称 | Lehninger Principles of Biochemistry, 8e |
-| 许可 | 无开放许可（版权归原出版方） |
+| 许可 | 无开放许可（版权归原出版方）。**有条件允许（2026-11-10）**：事实性内容与自写释义可引；复制图表、表格编排或原文段落须向 Macmillan Learning 取得许可（`https://www.macmillanlearning.com/college/us/legal/copyright-permission-form`） |
 | 仓库内位置 | 仅出现在数据层的章 / 表级出处标注与文档说明中 |
-| 说明 | 只作为**事实出处**引用；未复制教材的图表、段落或表格编排，不对其授予任何许可。引用粒度一律为「书名 + 版次 + 章/表号」，不写未核实页码 |
+| 说明 | 只作为**事实出处**引用；未复制教材的图表、段落或表格编排，不对其授予任何许可。引用粒度一律为「书名 + 版次 + 章/表号」，不写未核实页码。2026-11-10 通读全仓 60 处引用，未发现原文段落、图表或表格编排的复制，也未发现逐句翻译 |
 
 ### 4.5 OMIM
 
 | 项 | 内容 |
 | --- | --- |
 | 名称 | OMIM 条目引用（数据层注记中的 OMIM 编号） |
-| 许可 | **外部不可得（2026-11-07 穷尽入口）**：官网 `omim.org/help/agreement`、`/about`、`/help/copyright` 仍返回反机器人验证页；Wayback、archive.today、r.jina.ai、Google 翻译代理入口均无可读内容。可确认的事实：① OMIM 数据版权归 Johns Hopkins University，镜像数据文件头为 `Copyright (c) 1966-2016 Johns Hopkins University. Use of this file adheres to the terms specified at http://omim.org/help/agreement.`（来源：`http://data.biostarhandbook.com/omim/mim2gene.txt`）；② NCBI 的 OMIM 说明页称其「freely available」、由 JHU 编写，官方主页为 omim.org（来源：`https://www.ncbi.nlm.nih.gov/omim`）；③ 第三方 EULA 均写明 OMIM 数据由 JHU 控制，商业使用与再分发需 JHU 许可：NeDRex EULA（`https://nedrex.net/about.html`）、PanelApp Terms of Use（`https://prod-media-panelapp.genomicsengland.co.uk/media/files/GEL_-_PanelApp_Terms_of_Use_December_2019.pdf`）、Illumina DRAGEN 附加条款（`https://support.illumina.com/content/dam/illumina-support/documents/documentation/software_documentation/dragen-bio-it/Software%20Subscription%20Agreement%20-%20DRAGEN.pdf`）；④ reusabledata.org 把 OMIM 许可标为 `custom`（`https://reusabledata.org/omim.html`） |
+| 许可 | **有条件允许（2026-11-10）**：NCBI Bookshelf 收录的 OMIM 条款原文写明，OMIM 数据可用于个人、教育/学术与研究用途；商业目的或再分发的复制、分发、传输、改编须取得 Johns Hopkins University 许可（`https://www.ncbi.nlm.nih.gov/books/NBK21108/`，2026-11-10）。版权归 Johns Hopkins University。**现行条款页 `https://omim.org/help/agreement` 本轮直连仍被 Cloudflare 拦（HTTP 403），未直读**；结论依据为上述 NCBI 收录文本，现行页待人工用浏览器复核（见 `docs/pending-review.md` 第 6 节） |
 | 仓库内位置 | 数据层注记（共 21 处，只出现 MIM 编号与病名） |
-| 说明 | 标注方式：`OMIM #<MIM>（<病名>），OMIM / Johns Hopkins University，https://omim.org`；只引登记号与病名，不复制条目正文、表格或描述；不把 OMIM 内容纳入 CC BY 4.0；条款外部不可得，按上述方式引用，不扩大使用范围 |
+| 说明 | 标注方式：`OMIM #<MIM>（<病名>），OMIM / Johns Hopkins University，https://omim.org`；只引登记号与病名，不复制条目正文、表格或描述；不把 OMIM 内容纳入 CC BY 4.0；不用于商业用途；如需商业使用或再分发，先取得 JHU 许可 |
+
+### 4.6 eQuilibrator（离线存档，不随包分发）
+
+| 项 | 内容 |
+| --- | --- |
+| 名称 | eQuilibrator 计算存档（`tools/calc-deltag-equilibrator.py`、`tools/deltag-results.json`） |
+| 版本 | 软件 `equilibrator-api`；数据为 Zenodo Compound Database v1.0.0 与 Training data v1.1 |
+| 许可 | **软件 MIT**（`https://github.com/eladnoor/equilibrator-api/blob/master/LICENSE`）；**数据 CC BY 4.0**（`https://zenodo.org/api/records/4128542`，DOI `10.5281/zenodo.4128543`；`https://zenodo.org/api/records/3978439`，DOI `10.5281/zenodo.5495826`）；均 2026-11-10 核对 |
+| 仓库内位置 | `tools/` 下的复现脚本与结果存档；**不进入 `src/`、`dist/` 或任何页面** |
+| 说明 | 当前页面与数据层不使用其数值，故当前不产生署名义务。若日后启用数值：须按 CC BY 4.0 署名、注明修改、保留许可指向，并固定数据集版本与 DOI |
 
 ## 5. 版本与条款核查结果
 
@@ -186,4 +196,6 @@
 | --- | --- | --- |
 | Three.js 具体版本（3Dmol.js 内含） | **查不到** | `node_modules/3dmol/LICENSE`、`package.json`、`build/3Dmol.js`、`build/3Dmol.es6.js`、`build/3Dmol-min.js`、`build/3Dmol.es6-min.js`（无 `THREE.REVISION` / `three.js rNNN`）；本地无 `node_modules/three` |
 | jQuery 具体版本（3Dmol.js 内含） | **已确认 3.7.1** | `build/3Dmol.ui.js` L26、`build/3Dmol.ui-min.js.LICENSE.txt` L8（均为 `jQuery JavaScript Library v3.7.1`） |
-| OMIM 使用条款 | **外部不可得**；已确认版权归 JHU、商业/再分发需 JHU 许可 | 官网三页（拦截）、Wayback / archive.today / r.jina.ai / Google 翻译（空）、镜像数据文件头、NeDRex / PanelApp / Illumina EULA、reusabledata.org |
+| OMIM 使用条款 | **有条件允许（2026-11-10）**：个人、教育/学术、研究用途允许；商业使用或再分发须 JHU 许可。现行条款页直连 403，未直读 | `https://www.ncbi.nlm.nih.gov/books/NBK21108/`（WebFetch，2026-11-10）；`https://omim.org/help/agreement`（Node fetch / WebFetch 均 403） |
+| PDB CCD 条款 | **允许（CC0 1.0）**：随 PDB 归档数据适用，无单独条款页 | `https://www.wwpdb.org/about/usage-policies`、`https://www.rcsb.org/pages/policies`（2026-11-10） |
+| eQuilibrator 许可 | **软件 MIT / 数据 CC BY 4.0**（当前未使用其数值） | `eladnoor/equilibrator-api` LICENSE；Zenodo 4128542、3978439（2026-11-10） |

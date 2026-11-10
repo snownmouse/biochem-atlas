@@ -241,11 +241,12 @@ node tools/validate-urea.mjs
 教材内容只作事实出处标注，不对其图表、段落或表格编排授予任何许可。
 
 - 化学事实、EC 编号与能量数据：教材 `Lehninger Principles of Biochemistry, 8e`（章/表级引用）；EC 编号经 IUBMB Enzyme Nomenclature（EBI OLS4 标 CC BY 4.0）。
-- 结构坐标以 wwPDB / RCSB PDB 实验结构为准（PDB 归档数据为 CC0 1.0），选用前逐个在 RCSB 核验物种、方法、分辨率、配体；UniProt（CC BY 4.0）仅用于条目核对与 amino 数据的 accession 注释。
+- 结构坐标以 wwPDB / RCSB PDB 实验结构为准（PDB 归档数据与 CCD 均为 CC0 1.0），选用前逐个在 RCSB 核验物种、方法、分辨率、配体；UniProt（CC BY 4.0）仅用于条目核对与 amino 数据的 accession 注释。
+- 疾病关联只引 OMIM 编号与病名（`OMIM / Johns Hopkins University`，https://omim.org）；OMIM 条款允许个人、教育/学术与研究用途，商业使用或再分发须 JHU 许可（依据 NCBI Bookshelf `NBK21108`；现行条款页 2026-11-10 直连 403、未直读，详见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) 4.5）。
 - 数值性质：**ΔG 数值不在页面展示**，全部步骤只保留「单向 / 可逆 / 限速」等定性标注与 ATP/NADPH 化学计量；`deltaG` 的 `standard` / `physiological` / `value` / `valueKcal` 字段统一为 `null`，`qualitative` 与教材级 `source` 保留。历史计算存档见 `tools/calc-deltag-equilibrator.py` 与 `tools/deltag-results.json`（仅供复现，未在页面展示；启用须同步改渲染与断言）。43 个分子 3D 资产为实验坐标，18 个为 RDKit 计算构象（ETKDGv3 + MMFF94）；2D 资产共 125 个 JSON / 124 个 SVG：82 个为 RDKit 2D 布局、39 个为 2D-only 口径、3 个为脚本手写坐标、1 个为 DEMO 占位。此外有 20 个分子（THF 的四个氧化级 + 16 个甘油磷脂 / 鞘脂）本轮明确不建 2D，数据层用 `missing2dReason` 声明原因、页面显示「缺 2D 结构式 + 原因」，不用近似结构凑数。查不到的数字留空，不估算。
 - 实验坐标**未做几何纠正**：不理想化、不最小化、不重嵌入，原子位置是结构文件里的原始坐标；键长 / 键角的视觉偏差属数据本身，不是渲染误差。
 - 第三方库与字体：React、Vite、react-router-dom 为 MIT；RDKit、3Dmol.js 为 BSD-3-Clause；Noto Sans SC / Noto Serif SC 为 SIL OFL 1.1。逐项版本、版权行与仓库内位置见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)；字体目录内许可全文为 `public/assets/fonts/OFL.txt`。
-- KEGG、BRENDA、MetaCyc、SABIO-RK、eQuilibrator 当前未用于页面或数据生产；KEGG 仅在首页致谢文字中被提及，eQuilibrator 仅有计算存档脚本。
+- KEGG、BRENDA、MetaCyc、SABIO-RK、eQuilibrator 当前未用于页面或数据生产；KEGG 仅在首页致谢文字中被提及，eQuilibrator 仅有计算存档脚本（软件 MIT、存档数据 CC BY 4.0，2026-11-10 核实；数值不进入页面）。
 - 遇到争议口径时只采用一个口径，另一口径只进注记；非人源/非本酶结构必须标明物种与来源蛋白，实验坐标与计算构象不得混用。完整清单与处理规则见下。
 - 来源登记表、引用完整度审计、缺口清单、争议清单、核实结果与未解决项见 [docs/data-provenance.md](docs/data-provenance.md)。
 - 本项目**仅用于教学与演示**，不构成科研结论、不做临床或药物决策依据。
