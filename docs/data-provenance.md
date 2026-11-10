@@ -11,7 +11,7 @@
 ## 1. 来源登记表
 
 说明：
-- 「许可」均为 2026-11-06 至 2026-11-07 从上游页面或仓库许可文件读到的原文结论；未能取得原文的标为「外部不可得」或「查不到」。
+- 「许可」均为 2026-11-06 至 2026-11-07 从上游页面或仓库许可文件读到的原文结论；未能取得原文的标为「未取得」或「查不到」。
 - 「提取-重组」指数据库权利层面的摘取与重新编排，不等同于版权层面的引用。
 - 「本项目如何遵守」只写当前仓库实际做到的事；未做到的列入第 5 节缺口清单。
 
@@ -21,7 +21,7 @@
 | PDB CCD（化学组分字典，配体定义） | 配体 atom/bond 名称与组分解读 | **CC0 1.0（2026-11-10 复核）**：CCD（`components.cif`）是 PDB 归档数据文件，随归档适用 wwPDB Usage Policy（`https://www.wwpdb.org/about/usage-policies`）；未检索到单独条款页，也无与之冲突的例外条款 | 不要求 | 不限制 | 允许 | 无 | 仅在资产生成与核对阶段使用；未把 CCD 条目文本作为页面文案 |
 | UniProt | `src/data/amino-acid/amino.json` 中 10 个 accession 的条目核对；研究文档中的酶身份核对 | CC BY 4.0，见 UniProt License & disclaimer | 要求署名（CC BY 4.0） | 不限制 | 允许，须保留署名与许可指向 | 允许，须署名（CC BY 4.0 覆盖版权与数据库权利） | 数据层保留 accession；页面/文档引用 UniProt 名称；未复制条目正文 |
 | IUBMB Enzyme Nomenclature（EC 编号，经 ExplorEnz / EBI OLS4 分发） | 165 条步骤记录的 EC 编号与酶分类 | EBI OLS4 的 Enzyme Nomenclature 条目声明 CC-BY-4.0；IUBMB 原站未提供统一许可页 | 要求署名（CC BY 4.0） | 不限制 | 允许，须署名 | 允许，须署名 | 每个步骤在 `ecNumber` 或 `enzyme.ec` 写 EC 编号；页面详情栏显示 EC；未复制酶学说明段落 |
-| OMIM | 21 处临床/疾病关联编号 | **有条件允许（2026-11-10）**：NCBI Bookshelf 收录的 OMIM 条款原文写明可用于个人、教育/学术与研究用途，商业目的或再分发的复制、分发、传输、改编须 JHU 许可（`https://www.ncbi.nlm.nih.gov/books/NBK21108/`，2026-11-10）。版权归 Johns Hopkins University。**现行条款页 `https://omim.org/help/agreement` 直连仍被 Cloudflare 拦（HTTP 403），未直读**，见 `docs/pending-review.md` 第 6 节 | 要求（按学术惯例标注 OMIM / JHU 与官网） | 须 JHU 许可 | 须 JHU 许可（为再分发的复制/传输/改编均在限制内） | 须 JHU 许可 | 只引 MIM 编号与病名，不复制条目正文；标注「OMIM / Johns Hopkins University, https://omim.org」；不把 OMIM 内容纳入 CC BY 4.0；不用于商业用途 |
+| OMIM | 21 处临床/疾病关联编号 | **有条件允许（2026-11-10）**：NCBI Bookshelf 收录的 OMIM 条款原文写明可用于个人、教育/学术与研究用途，商业目的或再分发的复制、分发、传输、改编须 JHU 许可（`https://www.ncbi.nlm.nih.gov/books/NBK21108/`，2026-11-10）。版权归 Johns Hopkins University。**现行 Use Agreement 页 `https://www.omim.org/help/agreement` 源站返回 403，页面无条款正文**；已由用户本机与自动化会话两个独立复核确认（`/help/copyright`、`/`、`/help/faq` 同为 403 模板），原因在源站一侧，不再尝试访问。判定依据为 NCBI 收录的 **2002 年版**条款，**未直读最新版**，见 `docs/pending-review.md` 第 6 节 #24 | 要求（按学术惯例标注 OMIM / JHU 与官网） | 须 JHU 许可 | 须 JHU 许可（为再分发的复制/传输/改编均在限制内） | 须 JHU 许可 | 只引 MIM 编号与病名，不复制条目正文；标注「OMIM / Johns Hopkins University, https://omim.org」；不把 OMIM 内容纳入 CC BY 4.0；不用于商业用途 |
 | Lehninger Principles of Biochemistry, 8e | 161 个定性 ΔG（数值不作页面展示）、能量账与机制描述 | **有条件允许（2026-11-10）**：无开放许可；复制受版权保护的材料须向 Macmillan Learning 申请许可（`https://www.macmillanlearning.com/college/us/legal/copyright-permission-form`，2026-11-10）。事实本身不受版权保护，表达（图表、表格编排、原文段落）受保护 | 无许可意义上的署名要求；学术引用为惯例 | 未授予（复制发行须许可） | 未授予（事实可引用，表达不可复制） | 未授予（未复制原表结构与图表） | 只引用反应事实与自写中文释义，标注章节/表号；2026-11-10 通读全仓 60 处引用，未发现原文段落、图表或表格编排的复制，也未发现逐句翻译；数值缺口留空 |
 | KEGG | **未使用**（代码与数据层无 KEGG 数据）；首页致谢文字提及名称与年份 | 未核查（未使用其数据） | 不适用 | 不适用 | 不适用 | 不适用 | 未复制 KEGG 通路图、KO 编号或数据库内容；如后续接入，须先核实其学术/商业条款 |
 | BRENDA | **未使用** | 未核查（未使用其数据） | 不适用 | 不适用 | 不适用 | 不适用 | 代码、数据、文档均未引用 |
@@ -45,7 +45,7 @@
 - **可以安全再分发**：PDB 条目与 CCD（CC0；CCD 随归档适用，无单独条款页，2026-11-10 复核）；RDKit、3Dmol.js、React、Vite、react-router-dom（BSD/MIT，保留声明）；Noto 字体（OFL 1.1，保留许可文本）。
 - **可以再分发但必须署名**：UniProt（CC BY 4.0）、IUBMB EC（CC BY 4.0）、Noto 字体（OFL 要求保留版权与许可）。
 - **有条件允许（2026-11-10）**：Lehninger 教材内容——可引事实与自写释义，复制图表 / 表格编排 / 原文段落须向 Macmillan Learning 取得许可。
-- **有条件允许（非商业，2026-11-10）**：OMIM——个人、教育/学术、研究用途允许；商业使用或再分发须 JHU 许可。结论依据 NCBI Bookshelf 收录的条款原文（`NBK21108`）；现行条款页 `omim.org/help/agreement` 直连仍 403，未直读。只引 MIM 编号与病名，不引正文。
+- **有条件允许（非商业，2026-11-10）**：OMIM——个人、教育/学术、研究用途允许；商业使用或再分发须 JHU 许可。结论依据 NCBI Bookshelf 收录的 2002 年版条款（`NBK21108`）；现行 Use Agreement 页源站 403、无条款正文（两个独立浏览器复核一致），未直读最新版，原因在源站一侧。只引 MIM 编号与病名，不引正文。
 - **未使用，不产生许可义务**：KEGG、BRENDA、MetaCyc、SABIO-RK、eQuilibrator（eQuilibrator 仅有存档脚本，数值不进入页面与数据层；其软件 MIT、存档数据 CC BY 4.0 已于 2026-11-10 核实，启用时须署名）。
 - **许可文本已补齐**：`public/assets/fonts/OFL.txt`（SIL OFL 1.1 全文 + 两个 Noto 字体的版权行）；根目录 `THIRD_PARTY_NOTICES.md`（第三方逐项声明）；`LICENSE-CC-BY-4.0.md`（CC BY 4.0 官方全文 + 建议署名格式）。
 
@@ -146,7 +146,7 @@
 | 12 | `public/assets/fonts/` | 目录 | **已完成（2026-11-06）**：已补 SIL OFL 1.1 全文与两个字体版权行 | 1 个目录 | 文件：`public/assets/fonts/OFL.txt`；字体文件本身未改 |
 | 13 | 仓库根目录 | 第三方声明 | **已完成（2026-11-06）**：已补第三方逐项声明 | 1 | 文件：`THIRD_PARTY_NOTICES.md`；覆盖 RDKit、3Dmol.js（含 GLmol / Three.js / jQuery）、React / React DOM、react-router-dom、Vite、TypeScript、@vitejs/plugin-react、playwright-core、Noto Sans SC / Noto Serif SC、PDB / UniProt / EC / 教材 / OMIM |
 | 14 | `README.md` | 结构块计数 / 进度表 | **已完成（2026-11-09）**：README 现为 145 块、18 页已建（含 PLATE 14–18），与仓库实际一致 | 0 | 无（如后续再出现旧计数，按缺口处理） |
-| 15 | `src/data/**/*.json` | OMIM 编号 | **有条件允许（2026-11-10）**：条款原文（NCBI Bookshelf `NBK21108`）允许个人、教育/学术、研究用途；商业使用或再分发须 JHU 许可。现行条款页 `omim.org/help/agreement` 直连 403，未直读，见第 5 节 #1 | 21 处 | 保持「只引编号与病名、不引正文」；标注 `OMIM / Johns Hopkins University, https://omim.org`；不用于商业用途 |
+| 15 | `src/data/**/*.json` | OMIM 编号 | **有条件允许（2026-11-10）**：条款原文（NCBI Bookshelf `NBK21108`）允许个人、教育/学术、研究用途；商业使用或再分发须 JHU 许可。现行 Use Agreement 页源站 403、无条款正文（两个独立复核），依据 2002 年版条款，未直读最新版；见第 5 节 #1 | 21 处 | 保持「只引编号与病名、不引正文」；标注 `OMIM / Johns Hopkins University, https://omim.org`；不用于商业用途 |
 | 16 | 各通路步骤数据 | `threeD.status` | 21 个已建 / 10 个无可用结构 | 10 步 | 已建步骤显示 3D；10 个无资产步骤保留灰字「待核验」，不得用别酶结构冒充 |
 
 ---
@@ -188,11 +188,11 @@
 
 ---
 
-## 5. 核实结果（已定案与剩余未决）
+## 5. 核实结果（全部收口）
 
-| # | 事项 | 查了哪里 | 缺什么 / 为什么不能下结论 |
+| # | 事项 | 查了哪里 | 结论 |
 |---|---|---|---|
-| 1 | OMIM 使用条款 | `https://www.ncbi.nlm.nih.gov/books/NBK21108/`（WebFetch，2026-11-10）；`https://omim.org/help/agreement`（Node fetch 与 WebFetch 均 HTTP 403，Cloudflare 安全验证页） | **已定案（2026-11-10）**：条款原文表明个人、教育/学术、研究用途允许，商业使用或再分发须 JHU 许可；现行条款页直连被拦，未直读，故结论依据为 NCBI Bookshelf 收录文本。实际采用：只引 MIM 编号与病名，标注 `OMIM / Johns Hopkins University, https://omim.org`。见 `docs/pending-review.md` 第 3 节 #18 与第 6 节 #24 |
+| 1 | OMIM 使用条款 | `https://www.ncbi.nlm.nih.gov/books/NBK21108/`（2026-11-10）；`https://www.omim.org/help/agreement`（源站返回 403 错误模板、无条款正文，2026-11-10） | **已收口（2026-11-10）**：2002 年版条款原文表明个人、教育/学术、研究用途允许，商业使用或再分发须 JHU 许可。现行 Use Agreement 页由用户本机与自动化会话两个独立复核，均为同一 1019 字符 403 模板（`/help/copyright`、`/`、`/help/faq` 亦然），原因在源站一侧，不再尝试访问；**未直读最新版**，结论依据为 2002 年版。实际采用：只引 MIM 编号与病名，标注 `OMIM / Johns Hopkins University, https://omim.org`。见 `docs/pending-review.md` 第 3 节 #18 与第 6 节 #24 |
 | 2 | Lehninger 数值再分发的法域风险 | `https://www.macmillanlearning.com/college/us/legal/copyright-permission-form`（2026-11-10）；全仓 60 处 `Lehninger` 引用逐条通读 | **已定案（2026-11-10）**：当前用法成立——只引事实性结论与自写释义、章/表级出处，不展示 ΔG 数值、不复制图表或表格编排；未发现原文段落复制或逐句翻译。复制发行须向 Macmillan 申请许可；若日后需要，另立条目跟踪 |
 | 3 | Lehninger 章/表号与页码 | 24 个 `deltaG.source` 字符串；全量 `src/data/**/*.json` 页码检索 | **已决定并执行**：一律用书名 + 版次 + 章/表号，不写未核实页码；当前数据层无页码，无需转换。见第 4.1 节 |
 | 4 | 86 个分子的 SMILES 来源 | RDKit 2022.09.5 生成 InChIKey；PubChem PUG REST 按完整 InChIKey 反查（2026-11-10） | **已核验（2026-11-10）**：86/86 可生成 InChIKey；PubChem 精确命中 81 条。5 条例外：`enoyl-c16` / `hydroxy-c16` / `keto-c16` / `succoa` 为已声明的反应端分块片段（CoA 长链省略，`comparisonConfig.ts` caveat 写明），`s7p` 为环式 −2 电荷、与 PubChem 开链中性记录不同构。均为已知设计，不改 SMILES。SMILES 仍是项目内维护输入，PubChem CID 仅作身份核验；明细 `docs/smiles-source-map.tsv` |

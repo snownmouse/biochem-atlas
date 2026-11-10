@@ -39,7 +39,7 @@
 
 | # | 事项 | 结论 | 依据（地址 · 查阅日期） | 对仓库的处理 |
 |---|---|---|---|---|
-| 18 | OMIM 使用条款 | **有条件允许**：个人使用、教育/学术、研究用途允许；商业使用或（为再分发的）复制、分发、传输、改编须 JHU 许可 | `https://www.ncbi.nlm.nih.gov/books/NBK21108/`（NCBI Bookshelf 收录的 OMIM 条款原文：「…for your personal use, for educational or scholarly use, or for research purposes only… may not be copied, distributed… for commercial purposes or for the purpose of redistribution without a license from The Johns Hopkins University」）· 2026-11-10。**现行条款页 `https://omim.org/help/agreement` 本轮直连仍被 Cloudflare 拦（HTTP 403）**，未直读，见第 6 节 | 当前只引 MIM 编号与病名、标注 OMIM / JHU 与官网，不复制正文，落在允许用途内。`THIRD_PARTY_NOTICES.md` 4.5 与 `docs/data-provenance.md` 第 1、5 节按此改写 |
+| 18 | OMIM 使用条款 | **有条件允许**：个人使用、教育/学术、研究用途允许；商业使用或（为再分发的）复制、分发、传输、改编须 JHU 许可 | `https://www.ncbi.nlm.nih.gov/books/NBK21108/`（NCBI Bookshelf 收录的 OMIM 条款原文：「…for your personal use, for educational or scholarly use, or for research purposes only… may not be copied, distributed… for commercial purposes or for the purpose of redistribution without a license from The Johns Hopkins University」）· 2026-11-10。**现行 Use Agreement 页 `https://www.omim.org/help/agreement` 源站返回 403**：页面为 1019 字符错误模板（`Warning: We are unable to process your request at this time because it does not have access to the requested content.`、helpful links、`Copyright® 1966-2026 Johns Hopkins University`），无条款正文；用户本机浏览器与自动化会话两个独立复核结果一致，对照路径 `/help/copyright`、`/`、`/help/faq` 同为该模板，导航链接文字为「Use Agreement」、URL 无误。故 OMIM 的可用性判定依据为 NCBI Bookshelf 收录的 **2002 年版**条款，**未直读最新版**；不可获取的原因在源站一侧，本仓库不再尝试访问（见第 6 节 #24） | 当前只引 MIM 编号与病名、标注 OMIM / JHU 与官网，不复制正文，落在允许用途内。`THIRD_PARTY_NOTICES.md` 4.5 与 `docs/data-provenance.md` 第 1、5 节按此改写 |
 | 19 | Lehninger 教材材料的再分发 | **有条件允许**：事实性内容与自写释义可引；复制教材图表、表格编排或原文段落须出版社许可 | `https://www.macmillanlearning.com/college/us/legal/copyright-permission-form`（Macmillan Learning：「Thank you for seeking permission to reproduce copyrighted material…」）· 2026-11-10。另做全仓审计：`Lehninger` 命中 60 处，逐条通读为「事实性结论 + 自写中文释义 + 章/表级出处」，**未发现原文段落、图表或表格编排的复制，也未发现逐句翻译**，故本轮没有需要改成转述的段落 | 维持现状：不复制图表/段落/表格编排、不展示 ΔG 数值、只写章/表号不写未核实页码。`data-provenance.md` 第 1 节与 `THIRD_PARTY_NOTICES.md` 4.4 按此措辞改写 |
 | 20 | PDB 条目数据与 CCD | **允许**（CC0 1.0；署名鼓励但非强制） | `https://www.wwpdb.org/about/usage-policies`：「Data files contained in the PDB archive are available under the CC0 1.0 Universal (CC0 1.0) Public Domain Dedication. Users of PDB data are encouraged to attribute the original authors…」· 2026-11-10；`https://www.rcsb.org/pages/policies`：「Data provided by RCSB PDB programmatic APIs are available under the same license unless they originate from an integrated external resource… RCSB PDB software products are distributed under the terms of an open source license (MIT or Apache 2.0)」· 2026-11-10。CCD（`components.cif`）是 PDB 归档数据文件，随归档适用同一 CC0；**未检索到 CCD 单独条款页** | 无需取得额外许可；保留 PDB ID 作署名入口，本项目对数据的整理与标注按 CC BY 4.0。`data-provenance.md` 第 1、5 节与 `THIRD_PARTY_NOTICES.md` 4.1 同步 |
 | 21 | eQuilibrator 许可 | **软件：允许（MIT）**；**数据：有条件允许（CC BY 4.0，须署名、注明修改并保留许可指向）** | 软件：`https://github.com/eladnoor/equilibrator-api/blob/master/LICENSE`（GitHub API 返回 `license.spdx_id = MIT`）· 2026-11-10。数据：`https://zenodo.org/api/records/4128542`（Compound Database for eQuilibrator，v1.0.0，`license.id = cc-by-4.0`，DOI `10.5281/zenodo.4128543`）· 2026-11-10；`https://zenodo.org/api/records/3978439`（Training data for the component contribution method，v1.1，`license.id = cc-by-4.0`，DOI `10.5281/zenodo.5495826`）· 2026-11-10 | 当前页面与数据层不使用其数值，`tools/deltag-results.json` 仅为存档，故当前不产生署名义务；若启用数值，须按 CC BY 4.0 署名并存档版本与 DOI。`THIRD_PARTY_NOTICES.md` 新增 4.6，README 与 `data-provenance.md` 同步现状 |
@@ -67,13 +67,13 @@
   5. `s7p`：本项目 SMILES 为呋喃型环式、−2 电荷（RDKit 实测 `C7H13O10P-2`，InChIKey `RKCHIPUTSFLEHR-UHFFFAOYSA-L`）；PubChem 无该 InChIKey 记录，最接近的是开链中性 CID 165007（`JDTUMPKOJBQPKX-GBNDHIKLSA-N`，`C7H15O10P`）。`comparisonConfig.ts` 的 S7P caveat 已写「配体为环式，非开链」，属有意选择。
 - 附带确认：`kic` 精确命中 CID 3527278（阴离子型 `C6H9O3⁻`），中性型为 CID 70；数据层的阴离子写法与生理 pH 口径一致，不改。
 
-## 6. 仍待外部答复 / 待复核（本轮剩余）
+## 6. 外部事项收口（无待办）
 
 | # | 事项 | 本轮结果 | 需要谁提供 |
 |---|---|---|---|
-| 24 | OMIM **现行条款页**直读 | **本轮未能联网核验该页**：`https://omim.org/help/agreement` 与 `https://www.omim.org/help/agreement` 均返回 HTTP 403「Just a moment… Enable JavaScript and cookies to continue」（Cloudflare）；NCBI Bookshelf 直连返回 reCAPTCHA。第 3 节 OMIM 的结论依据是 WebFetch 取得的 NBK21108 条款原文（2002 年版），不是现行页面 | 人工用真实浏览器打开并留存现行条款页；若条款已变更，按新条款重评 |
-| 25 | OMIM 商业使用或再分发的书面许可 | 当前用途不需要；一旦涉及商业使用或再分发，须先取得 JHU 许可 | Johns Hopkins University（omim.org 所列许可联系方式） |
-| 26 | Lehninger 的复制许可 | 当前用途不需要；一旦要复制图表、表格编排或原文段落（含商业发行），须提交 Macmillan 许可申请 | Macmillan Learning Permissions |
+| 24 | OMIM 现行 Use Agreement 页 | **已收口（2026-11-10）**：`https://www.omim.org/help/agreement` 源站返回 403，页面只有 1019 字符错误模板（`Warning: We are unable to process your request at this time because it does not have access to the requested content.` + helpful links + `Copyright® 1966-2026 Johns Hopkins University`），无条款正文。用户本机浏览器与自动化会话两个独立复核结果一致；`/help/copyright`、`/`、`/help/faq` 三个对照路径同为该模板；站点导航里该路径链接文字为「Use Agreement」，URL 无误。**无法获取的原因在源站一侧，不是我们未做；本仓库不再尝试访问**。现行条款正文不可得，OMIM 判定依据为 NCBI Bookshelf 收录的 2002 年版条款，**未直读最新版** | 无需任何人提供（源站侧限制，无法继续推进） |
+| 25 | OMIM 商业使用或再分发的书面许可 | 非当前待办；一旦涉及商业使用或再分发，须先取得 JHU 许可 | Johns Hopkins University（触发时才需要） |
+| 26 | Lehninger 的复制许可 | 非当前待办；一旦要复制图表、表格编排或原文段落（含商业发行），须提交 Macmillan 许可申请 | Macmillan Learning Permissions（触发时才需要） |
 
 ## 7. 判定标准（供后续沿用）
 
