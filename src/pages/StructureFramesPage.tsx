@@ -1229,7 +1229,7 @@ export default function StructureFramesPage() {
   }
 
   return (
-    <div className="poster film-poster cmp-poster structures-page" data-page="comparison" data-mode={modeChoice}>
+    <div className="poster structures-page" data-page="comparison" data-mode={modeChoice}>
       <ContentBubble enabled resolve={structureBubbleModel} />
       <div className="structures-backbar-slot">
         <nav className={`film-back structures-backbar${barFixed ? " is-fixed" : ""}`} data-testid="film-back">
@@ -1240,8 +1240,10 @@ export default function StructureFramesPage() {
           <span className="film-back-step">{config.backCaption}</span>
         </nav>
       </div>
+      {/* 全局切换器不进 1180 限宽：21 条通路在 1440 下要整行显示，不能被版面列裁切 */}
       <PathwaySwitcher current={pathwayId as NavItemId} variant="structure" />
 
+      <div className="film-poster cmp-poster comparison-plate">
       <header className="masthead">
         <div className="mast-top">
           <span className="plate-no num">{config.plateNo}</span>
@@ -1292,6 +1294,7 @@ export default function StructureFramesPage() {
         {config.footerNote}
         {steps.length} 步中 {complete3dCount} 步两侧 3D 齐全、{complete2dCount} 步两侧 2D 结构式齐全。
       </footer>
+      </div>
     </div>
   );
 }

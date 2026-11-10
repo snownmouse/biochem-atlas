@@ -5174,11 +5174,16 @@ svg .branch { transition: opacity 0.2s ease; }
    上域胞质 / 中膜带 / 下域基质；纵向自然滚动，横向在容器内拖动。
    ============================================================ */
 .home-poster .crumb.home-crumb { margin: 14px 28px 0; }
+.home-poster .masthead { padding-top: 18px; }
+.home-poster .legend { padding: 4px 28px; }
 .home-poster .plate-wrap { min-width: 0; }
 /* 右栏折叠：收起后画布列独占整行，可视窗从 1003 增到 1310（1440 视口） */
 .home-poster .body-grid.aside-collapsed { grid-template-columns: minmax(0, 1fr); }
 .home-poster .body-grid.aside-collapsed .plate-wrap { border-right: 0; }
-.home-poster .plate-head { gap: 14px; }
+.home-poster .plate-head {
+  gap: 14px;
+  padding: 6px 18px;
+}
 .home-poster .plate-head .ph-tools {
   margin-left: auto;
   display: flex;
@@ -5201,13 +5206,16 @@ svg .branch { transition: opacity 0.2s ease; }
 }
 .home-poster .aside-toggle:focus-visible { outline: 1px solid var(--brick); outline-offset: 1px; }
 
-/* 首页画布：横向容器级拖动，纵向交给整页自然滚动；不做 max-height / overflow:hidden 裁切 */
+/* 首页画布：横向容器级拖动，纵向交给整页自然滚动；不做 max-height / overflow:hidden 裁切。
+   导航改成两行后抬头区增高，这里只收「图框外」的上边距与图框上方的两行留白；
+   图框内边距仍严格保持 24px（layout 政策要求 ≥24px/≥24px，不改）。 */
 .home-poster .plate-scroll {
   overflow-x: auto;
   overflow-y: visible;
   cursor: grab;
   touch-action: pan-y;
   overscroll-behavior-x: contain;
+  margin-top: 4px;
 }
 .home-poster .plate-scroll:focus-visible { outline: 1px solid var(--brick); outline-offset: -3px; }
 .home-poster .plate-scroll.is-dragging { cursor: grabbing; user-select: none; }
