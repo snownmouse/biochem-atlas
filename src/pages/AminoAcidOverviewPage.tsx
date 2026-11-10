@@ -53,6 +53,7 @@ const PATH_LABEL: Record<string, string> = {
   glycolysis: "糖酵解",
   gluconeogenesis: "糖异生",
   tca: "TCA 循环",
+  ketone: "酮体代谢",
 };
 
 const PATH_ROUTE: Record<string, string> = {
@@ -60,6 +61,7 @@ const PATH_ROUTE: Record<string, string> = {
   glycolysis: "/pathway/glycolysis",
   gluconeogenesis: "/pathway/gluconeogenesis",
   tca: "/pathway/tca",
+  ketone: "/pathway/ketone",
   "amino-acids": "/pathway/amino-acids",
 };
 
@@ -646,7 +648,7 @@ export default function AminoAcidOverviewPage() {
                 </div>
               ))}
               <p className="ao-note">
-                去路指向已存在步骤 id；乙酰乙酸 + 乙酰-CoA 的生酮通路未建，明确置 unbuilt，不以幽灵 id 占位。
+                去路指向已存在步骤 id；乙酰乙酸 + 乙酰-CoA 已接入 PLATE 13 生酮通路（kt-1 / kt-3），不以幽灵 id 占位。
               </p>
             </div>
 
@@ -837,7 +839,7 @@ function FateDetail({ fate }: { fate: AminoFate }) {
           ))}
         </div>
       ) : (
-        <p className="ao-note">未建：本平台尚无生酮通路数据，故无任何 sharedWith 目标，避免幽灵 id。</p>
+        <p className="ao-note">未建：该去路没有已建通路数据，故无任何 sharedWith 目标，避免幽灵 id。</p>
       )}
       <div className="d-sig">{fate.note}</div>
       <div className="d-cof">来源氨基酸：{fate.sources.join(" · ")}</div>

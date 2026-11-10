@@ -418,9 +418,11 @@
       "id": "int-utp",
       "entityId": "utp",
       "title": "UTP 来源",
-      "note": "UTP 由嘧啶核苷酸合成供给（UMP → UDP → UTP）。本平台未建该通路，因此不给 sharedWith 指向任何不存在的 id，只在此注记。",
-      "status": "unbuilt",
-      "sharedWith": []
+      "note": "UTP 由嘧啶核苷酸合成供给：UMP → UDP → UTP，末段为 NDPK 的 UDP → UTP（PLATE 15 第 8 步）。",
+      "status": "connected",
+      "sharedWith": [
+        { "pathwayId": "pyrimidine", "stepId": "pyr-8", "entityId": "utp", "note": "NDPK 把 UDP 磷酸化成 UTP" }
+      ]
     },
     {
       "id": "int-glycogenin",

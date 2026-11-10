@@ -16,11 +16,11 @@
 //   ⑧ 3D 候选身份字段齐全（PDB ID / 标题 / 物种 / 方法 / 分辨率 / 链 / 配体 / 核验日），
 //      PLP 三条必须写明人源、表达系统与突变状态；资产只允许既有 g6p / glc，missingAssets 不得在磁盘上存在；
 //   ⑨ 接口 sharedWith 只指向真实存在的跨通路 step / entity id（不指向不存在 id）；
-//      空接口 status=unbuilt，页面据此显示“未接入 / 数据待建”；
+//      int-utp 必须接上 PLATE 15 的 pyr-8（UTP），int-glycogenin 未建实体、保持空接口；
 //   ⑩ 结构对照块数与字段：4–6 块、evidence 与 parts 一一对齐、没有手写等级。
 //   附加：泳道带不重叠、节点落在所属泳道与画布内、每步至少一条骨架链接。
 //
-// 负例纪律：内置 12 个自洽负例，每个都必须被抓到；任一漏报 → exit 1。
+// 负例纪律：内置 14 个自洽负例，每个都必须被抓到；任一漏报 → exit 1。
 import { readFileSync, existsSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -38,7 +38,12 @@ const glycolysis = JSON.parse(readFileSync(join(ROOT, "src/data/glycolysis.json"
 const gluconeogenesis = JSON.parse(
   readFileSync(join(ROOT, "src/data/gluconeogenesis/gluconeogenesis.json"), "utf8"),
 );
+const pyrimidine = JSON.parse(readFileSync(join(ROOT, "src/data/pyrimidine/pyrimidine.json"), "utf8"));
 const cross = {
+  pyrimidine: {
+    steps: new Set(pyrimidine.steps.map((s) => s.id)),
+    entities: new Set(pyrimidine.entities.map((e) => e.id)),
+  },
   glycolysis: {
     steps: new Set(glycolysis.steps.map((s) => s.id)),
     entities: new Set(glycolysis.entities.map((e) => e.id)),
@@ -333,8 +338,9 @@ function check(d) {
       }
     }
   }
-  if (d.data.interfaces?.some((i) => i.id === "int-utp" && i.sharedWith.length > 0)) {
-    push("int-utp 未建通路，sharedWith 必须为空，不得伪造接口");
+  const utpInt = d.data.interfaces?.find((i) => i.id === "int-utp");
+  if (utpInt?.status !== "connected" || !(utpInt.sharedWith ?? []).some((s) => s.pathwayId === "pyrimidine" && s.stepId === "pyr-8" && s.entityId === "utp")) {
+    push("int-utp 必须接上 PLATE 15（pyrimidine:pyr-8 / utp），不得退回空接口");
   }
   if (d.data.interfaces?.some((i) => i.id === "int-glycogenin" && i.sharedWith.length > 0)) {
     push("int-glycogenin 未建实体，sharedWith 必须为空");
@@ -545,9 +551,9 @@ const negatives = [
     },
   ],
   [
-    "空接口 int-utp 被标成 connected（页面会漏掉“未接入”文案）",
+    "已接入的 UTP 接口指向不存在的嘧啶步骤 pyr-99",
     (d) => {
-      d.data.interfaces.find((i) => i.id === "int-utp").status = "connected";
+      d.data.interfaces.find((i) => i.id === "int-utp").sharedWith[0].stepId = "pyr-99";
     },
   ],
   [

@@ -85,13 +85,24 @@ function validate(d, s) {
   if (oc7?.enzyme?.ec) push(`oc-7 是甲基转移酶家族，EC 应留空（现为 ${oc7.enzyme.ec}）`);
   if (!/教材章级/.test(oc7?.deltaG?.source ?? "")) push("oc-7 的 ΔG 来源应写教材章级出处");
 
-  // 6) EC 纪律：不确定的一律留空，页面上也不得出现「未核实」类占位文字
-  for (const id of ["oc-2", "oc-3", "oc-7"]) {
+  // 6) EC 纪律：多活性域按脱氢酶域登记单值 EC（IUBMB / UniProt），家族酶仍留空
+  for (const id of ["oc-7"]) {
     const st = d.steps.find((x) => x.id === id);
     if (st?.enzyme?.ec) push(`${id} 的 EC 应留空（现为 ${st.enzyme.ec}）`);
     if (/未核实|未核验|待核实/.test(`${st?.deltaG?.source ?? ""}${st?.note ?? ""}`)) {
       push(`${id} 的 note / ΔG 来源不得出现「未核实」类占位文字`);
     }
+  }
+  // 6b) MTHFD2 / MTHFD1：EC 与辅酶必须对得上（NAD⁺ vs NADP⁺）
+  const oc2 = d.steps.find((x) => x.id === "oc-2");
+  if (oc2?.enzyme?.ec !== "1.5.1.15") push(`oc-2（MTHFD2）的 EC 应为 1.5.1.15，实际 ${oc2?.enzyme?.ec}`);
+  if (/NADP/.test(`${oc2?.equation ?? ""}${(oc2?.cofactors ?? []).join("")}`)) {
+    push("oc-2（MTHFD2）应用 NAD⁺/NADH，不得写 NADP⁺/NADPH");
+  }
+  const oc3 = d.steps.find((x) => x.id === "oc-3");
+  if (oc3?.enzyme?.ec !== "1.5.1.5") push(`oc-3（MTHFD1）的 EC 应为 1.5.1.5，实际 ${oc3?.enzyme?.ec}`);
+  if (!/NADPH/.test(`${oc3?.equation ?? ""}${(oc3?.cofactors ?? []).join("")}`)) {
+    push("oc-3（MTHFD1）应用 NADPH/NADP⁺");
   }
 
   // 7) dTMP 只作接口预留：不得展开成步骤，页脚要指向已建成的 PLATE 15（pyr-12）
@@ -268,6 +279,8 @@ const NEGATIVES = [
   ["运输段 id 不一致", (d, s) => { s.transportSteps[0].id = "oc-t2"; }],
   ["MTHFR 被改成可逆", (d) => { const st = d.steps.find((x) => x.id === "oc-4"); st.irreversible = false; }],
   ["BHMT 被改成不可逆", (d) => { const st = d.steps.find((x) => x.id === "oc-9"); st.irreversible = true; }],
+  ["MTHFD2 辅酶被写成 NADP⁺", (d) => { d.steps.find((x) => x.id === "oc-2").equation = "5,10-亚甲基THF + NADP⁺ → 5,10-次甲基THF + NADPH + H⁺"; }],
+  ["MTHFD1 的 EC 被写成线粒体型的 1.5.1.15", (d) => { d.steps.find((x) => x.id === "oc-3").enzyme.ec = "1.5.1.15"; }],
 ];
 for (const [label, mutate] of NEGATIVES) {
   const d = clone(data);

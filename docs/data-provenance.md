@@ -20,9 +20,9 @@
 | wwPDB / RCSB PDB 条目（结构坐标） | 43 个实验 3D 资产的配体坐标；结构对照块的来源说明；步骤页 21 个 PDB 文件 | CC0 1.0 Universal Public Domain Dedication，见 wwPDB Usage Policy | 不要求；wwPDB 明确「鼓励在可能时署名原始作者」 | 不限制（CC0 允许商业使用） | 允许再分发与衍生 | 无（CC0 放弃版权与相关数据库权利） | 逐条记录 PDB ID、方法、分辨率、物种、链、配体 resname；实验坐标不做几何纠正；保留原始作者署名入口（PDB ID） |
 | PDB CCD（化学组分字典，配体定义） | 配体 atom/bond 名称与组分解读 | 作为 PDB 归档数据文件的一部分，按 wwPDB Usage Policy 的 CC0 处理；未检索到 CCD 单独许可页 | 不要求 | 不限制 | 允许 | 无 | 仅在资产生成与核对阶段使用；未把 CCD 条目文本作为页面文案 |
 | UniProt | `src/data/amino-acid/amino.json` 中 10 个 accession 的条目核对；研究文档中的酶身份核对 | CC BY 4.0，见 UniProt License & disclaimer | 要求署名（CC BY 4.0） | 不限制 | 允许，须保留署名与许可指向 | 允许，须署名（CC BY 4.0 覆盖版权与数据库权利） | 数据层保留 accession；页面/文档引用 UniProt 名称；未复制条目正文 |
-| IUBMB Enzyme Nomenclature（EC 编号，经 ExplorEnz / EBI OLS4 分发） | 138 条步骤记录的 EC 编号与酶分类 | EBI OLS4 的 Enzyme Nomenclature 条目声明 CC-BY-4.0；IUBMB 原站未提供统一许可页 | 要求署名（CC BY 4.0） | 不限制 | 允许，须署名 | 允许，须署名 | 每个步骤在 `ecNumber` 或 `enzyme.ec` 写 EC 编号；页面详情栏显示 EC；未复制酶学说明段落 |
+| IUBMB Enzyme Nomenclature（EC 编号，经 ExplorEnz / EBI OLS4 分发） | 165 条步骤记录的 EC 编号与酶分类 | EBI OLS4 的 Enzyme Nomenclature 条目声明 CC-BY-4.0；IUBMB 原站未提供统一许可页 | 要求署名（CC BY 4.0） | 不限制 | 允许，须署名 | 允许，须署名 | 每个步骤在 `ecNumber` 或 `enzyme.ec` 写 EC 编号；页面详情栏显示 EC；未复制酶学说明段落 |
 | OMIM | 21 处临床/疾病关联编号 | **外部不可得（2026-11-07 穷尽入口）**：官网 omim.org/help/agreement、/about、/help/copyright 仍返回反机器人验证页；Wayback、archive.today、r.jina.ai、Google 翻译入口均无可读内容。可确认：版权归 Johns Hopkins University（镜像数据文件头 `Copyright (c) 1966-2016 Johns Hopkins University` 并指向 `http://omim.org/help/agreement`）；第三方 EULA（NeDRex、PanelApp、Illumina）写明商业使用/再分发需 JHU 许可；reusabledata.org 标为 custom | 不适用（仅引事实性标识） | 外部不可得（条款未取得） | 外部不可得（条款未取得） | 外部不可得（条款未取得） | 只引 MIM 编号与病名，不复制条目正文；标注「OMIM / Johns Hopkins University, https://omim.org」；不把 OMIM 内容纳入 CC BY 4.0 |
-| Lehninger Principles of Biochemistry, 8e | 126 个定性 ΔG（数值不作页面展示）、能量账与机制描述 | 无开放许可；教材文字、图表、表格编排受出版社版权保护。事实性数据在多数法域不受版权保护，但汇编/选择可能受保护 | 无许可意义上的署名要求；学术引用为惯例 | 未授予 | 未授予（事实可引用，表达不可复制） | 未授予（未复制原表结构与图表） | 只引用反应事实与自写中文释义，标注章节/表号；未复制教材图表、表格排版或整段文字；数值缺口留空 |
+| Lehninger Principles of Biochemistry, 8e | 161 个定性 ΔG（数值不作页面展示）、能量账与机制描述 | 无开放许可；教材文字、图表、表格编排受出版社版权保护。事实性数据在多数法域不受版权保护，但汇编/选择可能受保护 | 无许可意义上的署名要求；学术引用为惯例 | 未授予 | 未授予（事实可引用，表达不可复制） | 未授予（未复制原表结构与图表） | 只引用反应事实与自写中文释义，标注章节/表号；未复制教材图表、表格排版或整段文字；数值缺口留空 |
 | KEGG | **未使用**（代码与数据层无 KEGG 数据）；首页致谢文字提及名称与年份 | 未核查（未使用其数据） | 不适用 | 不适用 | 不适用 | 不适用 | 未复制 KEGG 通路图、KO 编号或数据库内容；如后续接入，须先核实其学术/商业条款 |
 | BRENDA | **未使用** | 未核查（未使用其数据） | 不适用 | 不适用 | 不适用 | 不适用 | 代码、数据、文档均未引用 |
 | MetaCyc | **未使用** | 未核查（未使用其数据） | 不适用 | 不适用 | 不适用 | 不适用 | 代码、数据、文档均未引用 |
@@ -62,7 +62,7 @@
 | 顶层 `source` 字段 | 0 | 现有 schema 不在步骤顶层放 `source` |
 | `deltaG.source` 有值 | 179 / 190 | 引用实际挂在 `deltaG.source` 上 |
 | 无任何出处字段 | 11 | 血浆脂蛋白 11 条物流步骤；本就不走 ΔG 口径 |
-| 有 EC 编号（`ecNumber` 或 `enzyme.ec`） | 162 / 190 | 缺口 28：氧化磷酸化 2 个电子入口模块、血浆脂蛋白 11 段物流、甘油磷脂/鞘脂 1（DES）、胆汁酸 4、糖复合物 2、氧化还原与自由基 4、酮体 1（丙酮旁路）、一碳单位 3；这些步骤的 `enzyme.ec` 一律留空，不写占位文字 |
+| 有 EC 编号（`ecNumber` 或 `enzyme.ec`） | 165 / 190 | 缺口 25：氧化磷酸化 2 个电子入口模块、血浆脂蛋白 11 段物流、胆汁酸 4、糖复合物 2、氧化还原与自由基 4、酮体 1（丙酮旁路）、一碳单位 1（甲基转移酶家族）；这些步骤的 `enzyme.ec` 一律留空，不写占位文字。2026-11-10 补 3 条：甘油磷脂 `gpl-14`（1.14.19.17）、一碳 `oc-2`（1.5.1.15）、`oc-3`（1.5.1.5），依据 IUBMB EC / UniProt P13995、P11586 |
 | ΔG 有数值 | 0 | 页面不展示热力学数值；`standard` / `physiological` / `value` / `valueKcal` 统一写 `null` |
 | ΔG 仅定性、无数字 | 161 | 保留 `qualitative` 与教材级 `source` |
 | ΔG 完全缺失 | 11 | 同上：血浆脂蛋白 11 条物流步骤 |
@@ -117,7 +117,7 @@
 | 数值 | 性质 | 位置 / 数量 |
 |---|---|---|
 | 0 个数值 ΔG | 页面不展示热力学数值；数值字段统一 `null` | 全部通路 |
-| 144 个定性 ΔG | 引用文献的定性结论；无数字（另 2 个电子入口模块与 11 段脂蛋白物流步骤无 ΔG） | 全部通路 |
+| 161 个定性 ΔG | 引用文献的定性结论；无数字（11 段脂蛋白物流步骤无 ΔG 字段；其余 179 条有 ΔG 记录，其中 161 条带定性结论） | 全部通路 |
 | 43 个实验 3D 坐标 | 实验观测（PDB） | `ligands3d` 的 `experimental` |
 | 18 个计算 3D 构象 | 计算（RDKit ETKDGv3 + MMFF94） | `ligands3d` 的 `computed`；含能量、种子、构象数 |
 | 125 个 2D 布局坐标 | 计算/绘制（RDKit 为主，3 个为脚本手写坐标，1 个 DEMO） | `structures/2d` |
@@ -199,8 +199,8 @@
 | 5 | 字体文件版本与取得路径 | `public/assets/fonts/` 的 404 个 woff2 名称表；`package.json`、`package-lock.json`；`src/styles.css` 首行注释 | **已解决**：字体全部自托管，不依赖 `@fontsource` 包；字体二进制版本 2.004-H2（Sans）/ 2.003-H1（Serif）；`src/styles.css` 首行注释已于 2026-11-07 改为「woff2 随仓库分发；来源与许可见 `public/assets/fonts/OFL.txt`」，不再提 `@fontsource` |
 | 6 | PDB CCD 是否有单独条款 | wwPDB Usage Policy、RCSB Policies | **未解决**：未检索到 CCD 单独许可页；按 PDB 归档 CC0 处理，但「无例外」尚未取得明文确认，故不据此对外声明 |
 | 7 | eQuilibrator 存档数据的许可 | PyPI `equilibrator-api`、eQuilibrator 3.0 论文（arXiv:2103.00621） | **当前不适用**：页面不展示数值，数据层不含计算值，`tools/` 仅保留复现脚本与结果存档，因此不构成当前合规阻塞。若启用：代码为 MIT；论文称原始数据为 CC 4.0，但未写明 BY 变体、数据集版本与署名格式，须重新核实 |
-| 8 | `6PGL` / `6PGD` 类误命中 | RCSB 条目标题 | **未解决**：已确认是酶缩写，不是错数据；但说明「PDB 编号自动抽取」不可靠，后续需人工核对 |
-| 9 | 32 个 `pdbCandidates` 的核验记录 | RCSB REST API（2026-11-06） | **未解决**：本轮确认全部真实存在，但数据层没有逐条 `status` / 核验日期；需落库 |
+| 8 | `6PGL` / `6PGD` 类误命中 | RCSB 条目标题 | **已定案（2026-11-10）**：确认是酶缩写，不是错数据；数据与页面不改。该现象说明「PDB 编号自动抽取」不可靠，后续抽取一律人工复核 |
+| 9 | 32 个 `pdbCandidates` 的核验记录 | RCSB REST API（2026-11-06） | **未解决（非外部证据缺口，是工作量）**：本轮确认全部真实存在，但数据层没有逐条 `status` / 核验日期；需按 RCSB API 逐条复核后落库，见 `docs/pending-review.md` 第 18 项 |
 | 10 | KEGG 等未使用数据库 | 全仓代码/数据检索 | 确认当前未使用；若后续接入，须重新核查条款，不能沿用本文件「未使用」结论 |
 
 ---

@@ -199,16 +199,17 @@ check("调控含磷酸化酶激酶 / PP1 / AMP / cAMP", ["磷酸化酶激酶", "
 check("激素含胰岛素 / 胰高血糖素 / 肾上腺素", ["胰岛素", "胰高血糖素", "肾上腺素"].every((t) => regText.includes(t)));
 check("调控出处 Lehninger 8e", regText.includes("Lehninger 8e"));
 
-// 两个空接口必须在页面上显式写“未接入 / 数据待建”，不能只留在数据字段
+// int-glycogenin 仍未建实体，必须在页面上显式写“未接入 / 数据待建”；int-utp 已接 PLATE 15，必须给出真实链接
 const ifPanel = (await page.locator("[data-interfaces]").innerText()).replace(/\s+/g, " ");
-for (const id of ["int-utp", "int-glycogenin"]) {
+for (const id of ["int-glycogenin"]) {
   const el = page.locator(`[data-interface-unbuilt="${id}"]`);
   check(
     `${id} 在页面上显式标注「未接入 / 数据待建」`,
     (await el.count()) === 1 && (await el.innerText()).includes("未接入 / 数据待建"),
   );
 }
-check("有真实 sharedWith 的接口不挂「未接入」标记", (await page.locator("[data-interface-unbuilt]").count()) === 2 && ifPanel.includes("UTP 来源") && ifPanel.includes("glycogenin"));
+check("有真实 sharedWith 的接口不挂「未接入」标记", (await page.locator("[data-interface-unbuilt]").count()) === 1 && ifPanel.includes("UTP 来源") && ifPanel.includes("glycogenin"));
+check("int-utp 指向 PLATE 15 的 pyr-8", (await page.locator("[data-interface-link='int-utp:pyrimidine:pyr-8']").count()) === 1);
 
 // ===== 8) 结构对照页 SF-10 =====
 console.log("\n===== 8) 结构对照 =====");

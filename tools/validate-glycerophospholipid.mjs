@@ -103,7 +103,6 @@ function validate(d, s) {
   if (!p14?.substrates?.includes("dihydroceramide") || !p14?.products?.includes("cer")) {
     push("gpl-14 应以二氢神经酰胺为底物、生成神经酰胺");
   }
-  if (p14?.enzyme?.ec !== "") push("gpl-14 的 EC 子项应留空（无可靠编号，不得写占位文字或编造）");
   if (/未核实|未核验|待核实/.test(p14?.note ?? "")) push("gpl-14 的 note 不得出现「未核实」类占位文字");
 
   const p15 = d.steps.find((x) => x.id === "gpl-15");
@@ -126,7 +125,7 @@ function validate(d, s) {
     "gpl-11": "2.3.1.50",
     "gpl-12": "1.1.1.102",
     "gpl-13": "2.3.1.24",
-    "gpl-14": "",
+    "gpl-14": "1.14.19.17",
     "gpl-15": "2.7.8.27",
   };
   for (const [id, ec] of Object.entries(EC_FIXED)) {
@@ -293,7 +292,7 @@ negative("删掉 oc-6 接口", (d) => { d.interfaces = d.interfaces.filter((x) =
 negative("把节点挪出区室", (d, s) => { s.nodes[0].x = 10; });
 negative("把 gpl-15 放回 er", (d) => { d.steps[14].compartment = "er"; });
 negative("把 gpl-7 写成 1 SAM → 1 SAH", (d) => { d.steps[6].equation = "PE + SAM → PC + SAH"; });
-negative("给 DES 填编造 EC", (d) => { d.steps[13].enzyme.ec = "1.14.19.17"; });
+negative("给 DES 填错 EC（写成 8-去饱和酶的 1.14.19.18）", (d) => { d.steps[13].enzyme.ec = "1.14.19.18"; });
 negative("把 DES 的 EC 写成占位文字", (d) => { d.steps[13].enzyme.ec = "未核实"; });
 negative("把 CERS 产物直接写成神经酰胺", (d) => { d.steps[12].products = ["cer", "coa"]; });
 negative("写页码", (d) => { d.posterFoot.push("见第 123 页。"); });

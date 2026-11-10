@@ -10,7 +10,7 @@
 //   3) 7 步齐全；转氨闸 ≥2、氧化脱氨闸 ≥2；ALT / AST / GLDH / GLS1 身份
 //   4) 每步底物 / 产物实体存在；辅因子（PLP / BH₄ / NAD(P)⁺ / 血红素）写到
 //   5) 7 个去路；sharedWith 必须指向真实存在的通路 / 步骤 / 实体，禁止幽灵 id
-//   6) 乙酰乙酰-CoA 明确 unbuilt：entityId=null、sharedWith=[]、节点 status=unbuilt
+//   6) 乙酰乙酰-CoA 已接入 PLATE 13：status=linked，sharedWith 指 kt-1 / kt-3 的真实实体
 //   7) 双氮源：GLDH（aa-3）与 GLS1（aa-4）都释放 NH₄⁺，两条接口弧都指 if-nh4
 //   8) NH₄⁺ 只做接口芯片；骨架里不得重画尿素循环（无尿素循环节点 / 步骤）
 //   9) 电离态：20 个氨基酸的分子式与净电荷对表；charge = Σ chargeAt74
@@ -41,6 +41,7 @@ const DEPS = {
   glycolysis: JSON.parse(readFileSync(join(ROOT, "src", "data", "glycolysis.json"), "utf8")),
   gluconeogenesis: JSON.parse(readFileSync(join(ROOT, "src", "data", "gluconeogenesis", "gluconeogenesis.json"), "utf8")),
   "urea-cycle": JSON.parse(readFileSync(join(ROOT, "src", "data", "urea-cycle", "urea.json"), "utf8")),
+  ketone: JSON.parse(readFileSync(join(ROOT, "src", "data", "ketone", "ketone.json"), "utf8")),
 };
 
 /** 已实时向 RCSB 核验的人源条目；不在表内一律报错（防止凭记忆写 ID）。 */
@@ -295,7 +296,13 @@ function check(data, skel, ctx) {
     }
   }
   const unbuilt = fates.filter((f) => f.status === "unbuilt");
-  if (unbuilt.length !== 1 || unbuilt[0].id !== "fate-acacoa") warn("乙酰乙酰-CoA 必须唯一置 unbuilt（本平台未建生酮通路）");
+  // 2026-11-10：PLATE 13 生酮通路已建，去路改为真实接口，unbuilt 集合必须为空。
+  if (unbuilt.length !== 0) warn(`生酮通路已建（PLATE 13），去路不应再有 unbuilt：${unbuilt.map((f) => f.id).join("、")}`);
+  const fateAcacoa = fates.find((f) => f.id === "fate-acacoa");
+  const ketShots = new Set((fateAcacoa?.sharedWith ?? []).filter((s) => s.pathwayId === "ketone").map((s) => s.stepId));
+  for (const want of ["kt-1", "kt-3"]) {
+    if (!ketShots.has(want)) warn(`乙酰乙酰-CoA 去路必须指向 ketone:${want}`);
+  }
 
   for (const s of steps) {
     for (const sh of s.sharedWith ?? []) {
@@ -597,8 +604,8 @@ expectFail("芯片放错分组带", (d, s) => {
   chip.y = 154;
 }, "落在");
 
-expectFail("乙酰乙酰-CoA 偷偷接上幽灵接口", (d) => {
-  d.fates.find((f) => f.id === "fate-acacoa").sharedWith = [{ pathwayId: "ketone", stepId: "ket-1", entityId: "acacoa", note: "自造" }];
+expectFail("已接入的生酮去路被退回 unbuilt 却保留 sharedWith", (d) => {
+  d.fates.find((f) => f.id === "fate-acacoa").status = "unbuilt";
 }, "不得填 sharedWith");
 
 const failed = negatives.filter((n) => !n.ok);

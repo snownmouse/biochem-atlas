@@ -85,11 +85,11 @@
       "name": "MTHFD2 把亚甲基氧化成次甲基、再水解成甲酰基",
       "shortName": "亚甲基 → 甲酰基",
       "compartment": "mito",
-      "equation": "5,10-亚甲基THF + NADP⁺ → 5,10-次甲基THF + NADPH + H⁺；5,10-次甲基THF + H₂O → 10-甲酰THF",
+      "equation": "5,10-亚甲基THF + NAD⁺ → 5,10-次甲基THF + NADH + H⁺；5,10-次甲基THF + H₂O → 10-甲酰THF",
       "substrates": ["ch2thf"],
       "products": ["chmethf", "chothf"],
-      "cofactors": ["NADP⁺", "NADPH"],
-      "enzyme": { "name": "亚甲基四氢叶酸脱氢酶 / 环水解酶（双功能）", "isozyme": "MTHFD2（线粒体）", "ec": "" },
+      "cofactors": ["NAD⁺", "NADH"],
+      "enzyme": { "name": "亚甲基四氢叶酸脱氢酶 / 环水解酶（双功能）", "isozyme": "MTHFD2（线粒体）", "ec": "1.5.1.15" },
       "irreversible": false,
       "deltaG": {
         "standard": null,
@@ -99,10 +99,10 @@
         "source": "教材章级（氨基酸代谢·一碳单位）"
       },
       "significance": "把一碳单位沿氧化方向推高一级，产出甲酰级；甲酰级是嘌呤 C2 / C8 的供体，也可水解成甲酸输出线粒体。",
-      "note": "双功能酶的两个活性域分属脱氢酶与环水解酶；本图不写 EC 子项。",
+      "note": "双功能酶：脱氢酶域 EC 1.5.1.15（NAD⁺ 依赖），环水解酶域 EC 3.5.4.9；单值 ec 字段按脱氢酶域登记（IUBMB · UniProt P13995）。",
       "misconceptions": [
         "把亚甲基、次甲基、甲酰基当成三种不同的载体分子：它们是同一个 THF 的不同氧化级。",
-        "把氧化方向写成不可逆：脱氢与环水解都可逆，方向由 NADP⁺/NADPH 比值与下游拉动决定。"
+        "把氧化方向写成不可逆：脱氢与环水解都可逆，方向由 NAD⁺/NADH 比值与下游拉动决定。"
       ],
       "clinical": []
     },
@@ -116,7 +116,7 @@
       "substrates": ["chothf"],
       "products": ["ch2thf"],
       "cofactors": ["NADPH", "NADP⁺"],
-      "enzyme": { "name": "亚甲基四氢叶酸脱氢酶 / 环水解酶 / 甲酰基THF合成酶（三功能）", "isozyme": "MTHFD1（胞质）", "ec": "" },
+      "enzyme": { "name": "亚甲基四氢叶酸脱氢酶 / 环水解酶 / 甲酰基THF合成酶（三功能）", "isozyme": "MTHFD1（胞质）", "ec": "1.5.1.5" },
       "irreversible": false,
       "deltaG": {
         "standard": null,
@@ -126,7 +126,7 @@
         "source": "教材章级（氨基酸代谢·一碳单位）"
       },
       "significance": "胞质一碳池的“换挡器”：同一个酶把甲酰级与亚甲基级互相转换，向上供嘌呤合成、向下供 MTHFR 还原成甲基级。",
-      "note": "三功能酶含甲酰基THF合成酶域，可把 THF + 甲酸 + ATP 重新装成 10-甲酰THF；该支路只在本图用一条回池虚线示意。",
+      "note": "三功能酶含甲酰基THF合成酶域（EC 6.3.4.3），可把 THF + 甲酸 + ATP 重新装成 10-甲酰THF；该支路只在本图用一条回池虚线示意。单值 ec 字段按脱氢酶域登记 EC 1.5.1.5（NADP⁺ 依赖，IUBMB · UniProt P11586）。",
       "misconceptions": [
         "把胞质与线粒体的一碳池当成同一池：两者以甲酸等形式穿梭，区室不同。",
         "认为甲酰级只能用于嘌呤合成：它也可被还原回亚甲基级，再走甲基化路线。"

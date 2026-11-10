@@ -335,7 +335,10 @@
     { "id": "fate-accoa", "name": "乙酰-CoA", "en": "ACETYL-COA", "entityId": "accoa", "status": "linked", "sharedWith": [
       { "pathwayId": "tca", "stepId": "tca-1", "entityId": "accoa", "note": "进入 TCA 第 1 步" }
     ], "sources": ["leu", "lys", "ile", "phe", "tyr", "trp", "thr"], "note": "生酮；Leu、Lys 只走这一侧，Ile / Phe / Trp / Tyr 兼生糖。" },
-    { "id": "fate-acacoa", "name": "乙酰乙酸 + 乙酰-CoA", "en": "ACETOACETATE + ACETYL-COA", "entityId": null, "status": "unbuilt", "sharedWith": [], "sources": ["leu", "lys", "phe", "tyr", "trp"], "note": "生酮终产物：乙酰乙酸 + 乙酰-CoA；乙酰乙酰-CoA 是上游中间物。本平台尚未建立生酮通路，故不指向任何 id，不编造接口。" },
+    { "id": "fate-acacoa", "name": "乙酰乙酸 + 乙酰-CoA", "en": "ACETOACETATE + ACETYL-COA", "entityId": "acetoacetate", "status": "linked", "sharedWith": [
+      { "pathwayId": "ketone", "stepId": "kt-1", "entityId": "accoa", "note": "乙酰-CoA 经硫解酶逆向缩合生成乙酰乙酰-CoA，进入生酮" },
+      { "pathwayId": "ketone", "stepId": "kt-3", "entityId": "acetoacetate", "note": "HMG-CoA 裂解产出乙酰乙酸" }
+    ], "sources": ["leu", "lys", "phe", "tyr", "trp"], "note": "生酮终产物：乙酰乙酸 + 乙酰-CoA；乙酰乙酰-CoA 是上游中间物。生酮通路已在 PLATE 13 建立，去路指向 kt-1 / kt-3 的真实实体。" },
     { "id": "fate-akg", "name": "α-酮戊二酸", "en": "ALPHA-KETOGLUTARATE", "entityId": "akg", "status": "linked", "sharedWith": [
       { "pathwayId": "tca", "stepId": "tca-4", "entityId": "akg", "note": "TCA 第 4 步底物" }
     ], "sources": ["glu", "gln", "arg", "pro", "his"], "note": "生糖；Glu / Gln / Arg / Pro / His 的碳骨架汇入 α-KG。" },
@@ -370,7 +373,7 @@
     { "id": "if-gly", "target": "糖酵解 PLATE 01", "route": "丙酮酸 ↔ 糖酵解", "note": "丙酮酸既是糖酵解终产物，也是糖异生起点。", "link": "/pathway/glycolysis?step=gk-10" },
     { "id": "if-tca", "target": "TCA 循环 PLATE 02", "route": "α-KG / 琥珀酰-CoA / 延胡索酸 / OAA → TCA", "note": "五条生糖去路经 TCA 中间物回补循环。", "link": "/pathway/tca?step=tca-4" },
     { "id": "if-gng", "target": "糖异生 PLATE 03", "route": "丙酮酸 / OAA → 糖异生", "note": "生糖氨基酸的碳骨架最终进入糖异生。", "link": "/pathway/gluconeogenesis?step=gn-1" },
-    { "id": "if-ketone", "target": "生酮通路（未建）", "route": "乙酰乙酰-CoA → 生酮", "note": "本平台尚未建立生酮通路，因此该去路不指向任何 id，不编造接口。" }
+    { "id": "if-ketone", "target": "酮体代谢 PLATE 13", "route": "乙酰乙酰-CoA → 生酮", "note": "生酮与肝外利用见 PLATE 13；本页不重复画 HMG-CoA 循环。", "link": "/pathway/ketone?step=kt-3" }
   ],
   "energyLedger": {
     "title": "能量账",
@@ -391,7 +394,7 @@
     { "id": "n-bcat", "level": "verified", "text": "1KT8 配体 ILP 是 PLP–异亮氨酸外部醛亚胺，不是亮氨酸；只能证明 PLP 机制，不能冒充 Leu 口袋。" },
     { "id": "n-pah", "level": "verified", "text": "1J8U 为人 PAH 催化域，Fe(II) 与 BH₄（H4B）均在坐标中；无 Phe / Tyr 底物建模。" },
     { "id": "n-cbs", "level": "verified", "text": "4COO 为人 CBS Δ516–525 构建体，含 PLP 与血红素；缺失片段是构建体设计，不是点突变。" },
-    { "id": "n-ketone", "level": "unbuilt", "text": "乙酰乙酰-CoA 去路无对应通路数据；不指向幽灵 id，不编造接口。" },
+    { "id": "n-ketone", "level": "verified", "text": "乙酰乙酰-CoA 去路已在 PLATE 13 实现：kt-1（硫解酶逆缩合）与 kt-3（HMG-CoA 裂解）为真实接口。" },
     { "id": "n-thr", "level": "disputed", "text": "Thr 归属教材有分歧：Lehninger 8e 列生糖；部分教材按乙酰-CoA 生成列生糖兼生酮。本页按 Lehninger 8e 并注明分歧。" },
     { "id": "n-deltag", "level": "pending", "text": "全部 ΔG 为 null + 定性 + 出处；未编造数值。" }
   ],

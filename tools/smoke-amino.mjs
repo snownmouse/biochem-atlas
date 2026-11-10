@@ -114,8 +114,8 @@ check("接口芯片不重画尿素循环", (await page.locator("svg[data-frame='
 // ===== 3) 七去路 + unbuilt =====
 const fateNodes = page.locator("svg[data-frame='amino'] [data-node-kind='fate']");
 check("七个去路节点", (await fateNodes.count()) === 7, String(await fateNodes.count()));
-check("乙酰乙酰-CoA 节点标注 unbuilt", (await page.locator("svg[data-frame='amino'] [data-node-id='fate-acacoa']").getAttribute("data-fate-status")) === "unbuilt");
-check("unbuilt 节点明写「无实体可指 · 不编造接口」", (await page.locator("svg[data-frame='amino'] [data-node-id='fate-acacoa']").evaluate((el) => el.textContent ?? "")).includes("无实体可指 · 不编造接口"));
+check("乙酰乙酰-CoA 节点标注 linked（生酮已建 PLATE 13）", (await page.locator("svg[data-frame='amino'] [data-node-id='fate-acacoa']").getAttribute("data-fate-status")) === "linked");
+check("已接入去路写明 ketone:kt-1 / ketone:kt-3", (await page.locator("svg[data-frame='amino'] [data-node-id='fate-acacoa']").evaluate((el) => el.textContent ?? "")).includes("ketone:kt-3"));
 const fateText = await page.locator("svg[data-frame='amino']").evaluate((el) => el.textContent ?? "");
 check("去路写真实 id：glycolysis:gk-10", fateText.includes("glycolysis:gk-10"));
 check("去路写真实 id：tca:tca-1 / tca:tca-4 / tca:tca-5", ["tca:tca-1", "tca:tca-4", "tca:tca-5"].every((s) => fateText.includes(s)));
@@ -156,8 +156,8 @@ check("去路详情出现 糖酵解 · gk-10 链接", (await page.locator("aside
 check("去路链接 href 指向 /pathway/glycolysis?step=gk-10", (await page.locator("aside [data-detail-kind='fate'] a").first().getAttribute("href")) === "/pathway/glycolysis?step=gk-10");
 
 await page.locator("svg[data-frame='amino'] [data-node-id='fate-acacoa']").click({ force: true });
-check("点乙酰乙酰-CoA → 未建说明", (await page.locator("aside [data-detail-kind='fate']").innerText()).includes("避免幽灵 id"));
-check("未建去路没有可点接口链接", (await page.locator("aside [data-detail-kind='fate'] a").count()) === 0);
+check("点乙酰乙酰-CoA → 去路详情写 酮体代谢", (await page.locator("aside [data-detail-kind='fate']").innerText()).includes("酮体代谢 · kt-3"));
+check("已接入去路给出两条生酮链接", (await page.locator("aside [data-detail-kind='fate'] a").count()) === 2);
 
 await page.locator("svg[data-frame='amino'] [data-node-id='if-nh4']").click({ force: true });
 check("点 NH₄⁺ 接口芯片 → 接口详情", (await page.locator("aside [data-detail-kind='interface']").count()) === 1);

@@ -429,7 +429,7 @@
       "substrates": ["dihydroceramide", "nadph"],
       "products": ["cer", "nadp", "h2o"],
       "cofactors": ["o2"],
-      "enzyme": { "name": "二氢神经酰胺去饱和酶（Δ4-去饱和酶）", "isozyme": "DES1 / DEGS1（人）", "ec": "" },
+      "enzyme": { "name": "二氢神经酰胺去饱和酶（Δ4-去饱和酶）", "isozyme": "DES1 / DEGS1（人）", "ec": "1.14.19.17" },
       "irreversible": false,
       "deltaG": {
         "standard": null,
@@ -439,7 +439,7 @@
         "source": "教材章级（脂质代谢·甘油磷脂与鞘脂的合成）"
       },
       "significance": "把二氢神经酰胺转成带 4,5-双键的神经酰胺；这一步决定鞘脂骨架的饱和度，神经酰胺随后在高尔基体被 SMS 转成鞘磷脂。",
-      "note": "人基因组中 DES1 由 DEGS1 编码，属膜结合去饱和酶；本图不写 EC 子项与还原力偏好。",
+      "note": "人基因组中 DES1 由 DEGS1 编码；EC 1.14.19.17（sphingolipid 4-desaturase，IUBMB）。IUBMB 反应式以细胞色素 b5 为直接电子供体，本图方程写总的 NAD(P)H 消耗，不展开 b5 电子传递链。",
       "misconceptions": [
         "DES 不是 CERS 的同工酶，而是独立的去饱和酶；CERS 的产物是二氢神经酰胺。",
         "去饱和消耗 O₂ 与还原力，不是简单水解；不要把 DES 与神经酰胺酶混为一谈。"
