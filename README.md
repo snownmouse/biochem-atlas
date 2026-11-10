@@ -122,7 +122,7 @@ npm run preview   # 预览构建产物（默认 http://localhost:4173）
 
 两类脚本，全部是独立可执行文件，不挂在 `npm run build` 里。
 
-### 冒烟（30 个 `tools/smoke-*.mjs`）
+### 冒烟（32 个 `tools/smoke-*.mjs`）
 
 用 `playwright-core` 驱动本机 Edge / Chrome 做真实浏览器断言。运行前先 `npm run build` 并 `npm run preview`，默认连 `http://localhost:4173`（可用环境变量 `BASE_URL` 改）。
 
@@ -135,7 +135,7 @@ node tools/smoke-cori.mjs        # Cori 循环挂图
 | 脚本 | 管什么 |
 | --- | --- |
 | `smoke-home` | 首页两域构图、节点与连线、点击语义、预留槽 |
-| `smoke-nav` | 统一通路切换器（19 条 = 18 通路 + 首页、高亮唯一、跨页可达） |
+| `smoke-nav` | 统一通路切换器（23 条 = 22 通路 + 首页、高亮唯一、跨页可达） |
 | `smoke-embed` | 糖酵解海报 + 内嵌 3D 切片、缺资产降级、URL 还原 |
 | `smoke-frames` | 糖酵解结构对照页 |
 | `smoke-tca` / `smoke-tca-structures` | TCA 挂图 / TCA 结构对照页 |
@@ -164,7 +164,7 @@ node tools/smoke-cori.mjs        # Cori 循环挂图
 | `smoke-molecule-profiles` | `/molecule/:id` 与 `/substances` 条目完整度 |
 | `smoke-layout` | 全站版式红线（消费 `tools/audit-layout.mjs` 的报告，需先跑 `node tools/audit-layout.mjs --tag after`） |
 
-### 数据校验（22 个 `tools/validate-*.mjs`）
+### 数据校验（24 个 `tools/validate-*.mjs`）
 
 纯 Node，不需要预览服务，非零退出即失败。多数脚本内置「负例自检」——故意改错一处，确认校验器真的会报错。
 
