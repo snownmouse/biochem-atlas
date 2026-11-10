@@ -1,0 +1,241 @@
+{
+  "id": "bile-acid",
+  "name": "胆汁酸代谢",
+  "enName": "BILE ACID SYNTHESIS & ENTEROHEPATIC CIRCULATION",
+  "plateNo": "PLATE 20",
+  "structureNo": "SF-20",
+  "summary": "胆固醇经 CYP7A1 限速羟化、甾核修饰与侧链氧化缩短，生成胆酸与鹅脱氧胆酸；两者与甘氨酸或牛磺酸结合成结合胆汁酸，经胆汁排入肠道后大部分被回肠重吸收，经门静脉回肝，构成肠肝循环。",
+  "heroNote": "胆固醇转化支路 · 内质网 / 线粒体 / 过氧化物酶体 · 6 步 + 1 段肠肝循环 · 2D 口径",
+  "legend": [
+    { "text": "主链（生理方向）", "kind": "main", "tone": "ink" },
+    { "text": "可逆 / 双向", "kind": "dashed", "tone": "ink" },
+    { "text": "分支 / 旁路", "kind": "dotted", "tone": "brick" },
+    { "text": "跨区室运输", "kind": "dashed", "tone": "teal" },
+    { "text": "① 步骤顺序", "kind": "badge", "tone": "ink" }
+  ],
+  "readingGuide": {
+    "label": "胆汁酸代谢导读",
+    "summary": "胆固醇 → 7α-羟化（限速）→ 甾核修饰 → 侧链缩短 → 胆酸 / 鹅脱氧胆酸 → 结合 → 肠肝循环",
+    "paragraphs": [
+      "这是胆固醇的转化支路，不是胆固醇合成：起点接胆固醇挂图 ch-13 之后的胆固醇池。肝细胞把胆固醇的 A 环 7α 位羟化，这一步由 CYP7A1 催化，是整条通路的限速步；CYP7A1 的转录受胆汁酸负反馈抑制，FXR 诱导 FGF19 后抑制 CYP7A1，这条信号链本图只用一句话带过，不展开。",
+      "7α-羟基胆固醇先经 3β-羟基脱氢与 Δ⁵–Δ⁴ 异构化转成 3-酮，再由 CYP8B1 决定要不要加 12α-羟基：加了走胆酸（CA），不加走鹅脱氧胆酸（CDCA）。随后侧链末端 27 位羟化并氧化成羧酸，进入过氧化物酶体经 β-氧化缩短，切下的碳以丙酰-CoA 形式释放，得到胆酰-CoA 或鹅脱氧胆酰-CoA。",
+      "最后一步由 BAAT 把胆酰-CoA 与甘氨酸或牛磺酸结合，生成甘氨胆酸或牛磺胆酸。结合提高溶解度、降低游离胆汁酸的去污剂毒性，也是排入胆汁与肠道回收的前提。结合胆汁酸经 BSEP 排入胆汁，肠道内大部分经 ASBT 在回肠重吸收，经门静脉回肝由 NTCP 摄取，构成肠肝循环；这一段是运输，不计入步数。"
+    ]
+  },
+  "posterFoot": [
+    "这张图是胆固醇的转化支路，起点接胆固醇挂图 ch-13 之后的胆固醇池；不与胆固醇合成图合并，也不把合成步骤画进来。",
+    "调控：CYP7A1 是限速步，受胆汁酸负反馈；FXR 诱导 FGF19、再抑制 CYP7A1 的路径可一句带过，本图不展开信号通路细节。",
+    "分支：CYP8B1 的 12α-羟化决定胆酸 / 鹅脱氧胆酸比例；无 12α-羟化时走鹅脱氧胆酸支路，本图在图上以旁注标出，不另列步骤。",
+    "结合与溶解度：与甘氨酸或牛磺酸结合后，胆汁酸的溶解度提高、去污剂毒性降低；甘氨酸结合型与牛磺酸结合型比例随物种与饮食变化，本图不写固定比例。",
+    "肠肝循环：结合胆汁酸经 BSEP 排入胆汁，肠道内大部分经 ASBT 回肠重吸收，经门静脉回肝由 NTCP 摄取；本图画一段运输虚线，不计步，转运蛋白亚型未逐条核对。",
+    "教材依据：《生物化学与分子生物学》第 9 版 · 胆固醇代谢与胆汁酸相关章节；只写章节名，不标页码、不引真题年份。"
+  ],
+  "transportSteps": [
+    {
+      "id": "bile-t1",
+      "name": "胆汁酸的肠肝循环",
+      "from": "肝（结合胆汁酸经 BSEP 排入胆管）",
+      "via": "胆囊 / 胆管 → 肠道 → 回肠（ASBT 重吸收）→ 门静脉",
+      "to": "肝（NTCP 摄取回胆汁酸池）",
+      "note": "结合胆汁酸排入胆汁后，肠道内大部分被回肠重吸收，经门静脉回肝再摄取，形成肠肝循环；本图只画一段运输，不计入步数。转运蛋白的具体亚型未逐条核对。"
+    }
+  ],
+  "interfaces": [
+    {
+      "stepId": "ch-13",
+      "label": "胆固醇（胆固醇合成 ch-13 之后的产物）",
+      "note": "本图起点是胆固醇池，不重复胆固醇合成；CYP7A1 把胆固醇转成 7α-羟基胆固醇，是胆固醇离开结构/膜池的主要去路之一。"
+    },
+    {
+      "stepId": "oc-1",
+      "label": "甘氨酸（一碳单位 oc-1 产物）",
+      "note": "胆汁酸结合反应可用甘氨酸；甘氨酸由丝氨酸经 SHMT 一步生成，本图只把它画成结合底物，不重复一碳单位图。"
+    }
+  ],
+  "threeD": {
+    "status": "not-built",
+    "note": "本图沿用站内 UTP 口径：全部只做 2D 结构式，不建 3D，也不登记 PDB 候选。"
+  },
+  "entities": [
+    { "id": "chol", "name": "胆固醇", "abbr": "Cholesterol", "kind": "metabolite", "note": "起点；来自胆固醇合成 ch-13 之后的胆固醇池。" },
+    { "id": "c7ol", "name": "7α-羟基胆固醇", "abbr": "7α-OH", "kind": "metabolite", "note": "CYP7A1 的产物；继续经甾核修饰。" },
+    { "id": "c7one", "name": "7α-羟基-4-胆甾烯-3-酮", "abbr": "C7-one", "kind": "metabolite", "note": "3β-羟基脱氢与 Δ⁵–Δ⁴ 异构化后的中间物。" },
+    { "id": "c7diol", "name": "7α,12α-二羟基-4-胆甾烯-3-酮", "abbr": "C7,12-diol", "kind": "metabolite", "note": "CYP8B1 加 12α-羟基后的中间物；决定走胆酸分支。" },
+    { "id": "ca_pre", "name": "三羟基 / 二羟基胆甾烷酸", "abbr": "27-酸", "kind": "metabolite", "note": "侧链 27 位羟化并氧化成羧酸后的中间物。" },
+    { "id": "ca_coa", "name": "胆酰-CoA", "abbr": "Cholyl-CoA", "kind": "metabolite", "note": "侧链缩短后的活化形式；与甘氨酸或牛磺酸结合。" },
+    { "id": "cdca_coa", "name": "鹅脱氧胆酰-CoA", "abbr": "CDCA-CoA", "kind": "metabolite", "note": "无 12α-羟化支路的活化形式；同样进入结合反应。" },
+    { "id": "ca", "name": "胆酸", "abbr": "CA", "kind": "metabolite", "note": "三羟基胆汁酸；以结合型排入胆汁。" },
+    { "id": "cdca", "name": "鹅脱氧胆酸", "abbr": "CDCA", "kind": "metabolite", "note": "二羟基胆汁酸；无 12α-羟化时生成。" },
+    { "id": "gca", "name": "甘氨胆酸", "abbr": "GCA", "kind": "metabolite", "note": "甘氨酸结合型胆汁酸；溶解度提高。" },
+    { "id": "tca_bile", "name": "牛磺胆酸", "abbr": "TCA", "kind": "metabolite", "note": "牛磺酸结合型胆汁酸；溶解度更高。" },
+    { "id": "gly", "name": "甘氨酸", "abbr": "Gly", "kind": "metabolite", "note": "结合反应的氨基酸供体；由丝氨酸经 SHMT 一步生成（oc-1）。" },
+    { "id": "tau", "name": "牛磺酸", "abbr": "Tau", "kind": "metabolite", "note": "结合反应的另一氨基酸供体；本图不展开其合成。" },
+    { "id": "bile", "name": "胆汁", "abbr": "Bile", "kind": "hub", "note": "结合胆汁酸的排出去向；经胆管进入肠道。" },
+    { "id": "gut", "name": "肠道", "abbr": "Gut", "kind": "hub", "note": "胆汁酸在此参与脂质乳化，并被回肠重吸收。" },
+    { "id": "portal", "name": "门静脉", "abbr": "Portal vein", "kind": "hub", "note": "回吸收的胆汁酸经门静脉回肝。" }
+  ],
+  "steps": [
+    {
+      "id": "bile-1",
+      "index": 1,
+      "name": "CYP7A1 把胆固醇 7α-羟化",
+      "shortName": "7α-羟化（限速）",
+      "compartment": "er",
+      "equation": "胆固醇 + O₂ + NADPH → 7α-羟基胆固醇 + H₂O",
+      "substrates": ["chol"],
+      "products": ["c7ol"],
+      "cofactors": ["NADPH（经 P450 还原酶供电子）"],
+      "enzyme": { "name": "胆固醇 7α-羟化酶", "isozyme": "CYP7A1", "ec": "1.14.14.23" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "强放能 · 羟化驱动，生理不可逆；限速步",
+        "source": "教材章级（胆固醇代谢 · 胆汁酸合成）"
+      },
+      "significance": "胆汁酸合成的限速步与调控靶点；CYP7A1 的转录受胆汁酸负反馈。",
+      "note": "CYP7A1 在内质网；胆汁酸经 FXR 诱导 FGF19 后抑制 CYP7A1，本图只用一句带过，不展开信号链。",
+      "misconceptions": [
+        "把 CYP7A1 写成线粒体酶：它属于内质网的细胞色素 P450。",
+        "把这一步当成胆固醇合成的步骤：方向相反，是胆固醇的转化去路。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "bile-2",
+      "index": 2,
+      "name": "3β-羟基脱氢与 Δ⁵–Δ⁴ 异构化把 A 环转成 3-酮",
+      "shortName": "甾核修饰",
+      "compartment": "er",
+      "equation": "7α-羟基胆固醇 → 7α-羟基-4-胆甾烯-3-酮",
+      "substrates": ["c7ol"],
+      "products": ["c7one"],
+      "cofactors": ["NAD⁺"],
+      "enzyme": { "name": "3β-羟基-Δ⁵-类固醇脱氢酶 / Δ⁵–Δ⁴ 异构酶", "ec": "未核实" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 脱氢与异构化偶联，方向向 3-酮",
+        "source": "教材章级（胆固醇代谢 · 甾核修饰）"
+      },
+      "significance": "把 3β-羟基转成 3-酮并迁移双键，是后续 12α-羟化与侧链氧化的结构前提。",
+      "note": "EC 编号未核实：该酶在 IUBMB 归类中有多个历史编号，本图不写子项，也不自造编号。",
+      "misconceptions": [
+        "把脱氢与异构化拆成两步：教材口径常合并为一步。",
+        "把 3-酮中间物当成终产物：它还要继续 12α-羟化与侧链缩短。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "bile-3",
+      "index": 3,
+      "name": "CYP8B1 加 12α-羟基，决定胆酸分支",
+      "shortName": "12α-羟化（分支）",
+      "compartment": "er",
+      "equation": "7α-羟基-4-胆甾烯-3-酮 + O₂ + NADPH → 7α,12α-二羟基-4-胆甾烯-3-酮 + H₂O",
+      "substrates": ["c7one"],
+      "products": ["c7diol"],
+      "cofactors": ["NADPH（经 P450 还原酶供电子）"],
+      "enzyme": { "name": "甾醇 12α-羟化酶", "isozyme": "CYP8B1", "ec": "未核实" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 羟化驱动，生理方向向 12α-羟基",
+        "source": "教材章级（胆固醇代谢 · 胆汁酸分支）"
+      },
+      "significance": "分支点：有 12α-羟化走胆酸（CA），没有则走鹅脱氧胆酸（CDCA）。",
+      "note": "CYP8B1 活性决定 CA / CDCA 比例；本图把无 12α-羟化的支路画成旁注，不另列步骤。EC 编号未核实。",
+      "misconceptions": [
+        "把 CA 与 CDCA 当成同一条线的先后产物：两者是分支关系，不是串联。",
+        "把 12α-羟基写成所有胆汁酸都有：CDCA 就没有。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "bile-4",
+      "index": 4,
+      "name": "CYP27A1 羟化侧链 27 位并氧化成羧酸",
+      "shortName": "侧链 27-羟化",
+      "compartment": "mito",
+      "equation": "7α,12α-二羟基-4-胆甾烯-3-酮 + O₂ + NADPH → 三羟基胆甾烷酸（27-酸）+ H₂O",
+      "substrates": ["c7diol"],
+      "products": ["ca_pre"],
+      "cofactors": ["NADPH（经 P450 还原酶供电子）"],
+      "enzyme": { "name": "甾醇 27-羟化酶", "isozyme": "CYP27A1", "ec": "未核实" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 后续氧化把 27-醇拉到羧酸",
+        "source": "教材章级（胆固醇代谢 · 侧链氧化）"
+      },
+      "significance": "侧链改造的第一步，决定胆汁酸侧链末端的羧基位置。",
+      "note": "CYP27A1 在线粒体内膜；侧链末端先羟化再氧化成酸，本图把羟化与氧化合并为一步。",
+      "misconceptions": [
+        "把 27-羟化写成限速步：限速在 CYP7A1。",
+        "把侧链氧化写成一次 β-氧化：实际是多轮缩短。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "bile-5",
+      "index": 5,
+      "name": "过氧化物酶体侧链 β-氧化缩短，生成胆酰-CoA 与鹅脱氧胆酰-CoA",
+      "shortName": "侧链缩短",
+      "compartment": "perox",
+      "equation": "三羟基 / 二羟基胆甾烷酸 → 胆酰-CoA / 鹅脱氧胆酰-CoA + 丙酰-CoA",
+      "substrates": ["ca_pre"],
+      "products": ["ca_coa", "cdca_coa"],
+      "cofactors": ["CoA-SH"],
+      "enzyme": { "name": "过氧化物酶体侧链 β-氧化酶系", "ec": "未核实" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 碳链缩短，生理不可逆",
+        "source": "教材章级（胆固醇代谢 · 侧链 β-氧化）"
+      },
+      "significance": "把 C27 的侧链缩到 C24，切下的碳以丙酰-CoA 释放；产物是结合反应的直接底物。",
+      "note": "反应在过氧化物酶体；侧链缩短经多轮 β-氧化，本图合并为一步，不逐轮展开。",
+      "misconceptions": [
+        "把侧链氧化写成线粒体 β-氧化：这一步在过氧化物酶体。",
+        "把丙酰-CoA 当成终产物：它进入其他代谢去路，本图不展开。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "bile-6",
+      "index": 6,
+      "name": "BAAT 把胆酸与甘氨酸或牛磺酸结合",
+      "shortName": "结合胆汁酸",
+      "compartment": "perox",
+      "equation": "胆酰-CoA + 甘氨酸 / 牛磺酸 → 甘氨胆酸 / 牛磺胆酸 + CoA-SH",
+      "substrates": ["ca_coa", "gly", "tau"],
+      "products": ["gca", "tca_bile"],
+      "cofactors": [],
+      "enzyme": { "name": "胆汁酸-CoA:氨基酸 N-酰基转移酶", "isozyme": "BAAT", "ec": "2.3.1.65" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 酰胺键形成，生理方向向结合型",
+        "source": "教材章级（胆固醇代谢 · 胆汁酸结合）"
+      },
+      "significance": "结合提高溶解度、降低游离胆汁酸的去污剂毒性，是排入胆汁与肠道回收的前提。",
+      "note": "甘氨酸结合型与牛磺酸结合型比例随物种与饮食变化，本图不写固定比例。",
+      "misconceptions": [
+        "把结合写成排泄：结合只是提高溶解度，排泄还要经胆管。",
+        "把牛磺酸结合当成唯一形式：人体两种结合型都有。"
+      ],
+      "clinical": []
+    }
+  ]
+}

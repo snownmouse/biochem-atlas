@@ -1,0 +1,197 @@
+{
+  "canvas": { "width": 1360, "height": 720 },
+  "compartments": [
+    { "id": "er", "label": "内质网 · 7α-羟化与甾核修饰", "en": "ENDOPLASMIC RETICULUM", "x": 24, "y": 64, "width": 560, "height": 520, "tint": 0.03 },
+    { "id": "mito", "label": "线粒体 · 侧链 27-羟化", "en": "MITOCHONDRION", "x": 604, "y": 64, "width": 330, "height": 520, "tint": 0.02 },
+    { "id": "perox", "label": "过氧化物酶体 · 缩短与结合", "en": "PEROXISOME", "x": 954, "y": 64, "width": 382, "height": 520, "tint": 0.025 },
+    { "id": "entero", "label": "肠肝循环 · 胆汁酸回收", "en": "ENTEROHEPATIC CIRCULATION", "x": 24, "y": 610, "width": 1312, "height": 90, "tint": 0.03 }
+  ],
+  "nodes": [
+    {
+      "id": "chol",
+      "entityId": "chol",
+      "label": "胆固醇（ch-13 之后）",
+      "abbr": "Cholesterol",
+      "x": 120,
+      "y": 170,
+      "kind": "metabolite",
+      "compartment": "er",
+      "stepId": "bile-1",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "c7ol",
+      "entityId": "c7ol",
+      "label": "7α-羟基胆固醇",
+      "abbr": "7α-OH",
+      "x": 350,
+      "y": 170,
+      "kind": "metabolite",
+      "compartment": "er",
+      "stepId": "bile-1",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "c7one",
+      "entityId": "c7one",
+      "label": "7α-羟基-4-胆甾烯-3-酮",
+      "abbr": "C7-one",
+      "x": 350,
+      "y": 310,
+      "kind": "metabolite",
+      "compartment": "er",
+      "stepId": "bile-2",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "c7diol",
+      "entityId": "c7diol",
+      "label": "7α,12α-二羟基-4-胆甾烯-3-酮",
+      "abbr": "C7,12-diol",
+      "x": 350,
+      "y": 450,
+      "kind": "metabolite",
+      "compartment": "er",
+      "stepId": "bile-3",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "hub-cdca",
+      "entityId": "cdca",
+      "label": "→ 无 12α-羟化：CDCA 支路",
+      "abbr": "CDCA",
+      "x": 520,
+      "y": 400,
+      "kind": "hub",
+      "compartment": "er",
+      "stepId": "bile-3",
+      "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" }
+    },
+    {
+      "id": "ca_pre",
+      "entityId": "ca_pre",
+      "label": "三羟基 / 二羟基胆甾烷酸",
+      "abbr": "27-酸",
+      "x": 750,
+      "y": 450,
+      "kind": "metabolite",
+      "compartment": "mito",
+      "stepId": "bile-4",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "ca_coa",
+      "entityId": "ca_coa",
+      "label": "胆酰-CoA / 鹅脱氧胆酰-CoA",
+      "abbr": "Cholyl-CoA",
+      "x": 1030,
+      "y": 450,
+      "kind": "metabolite",
+      "compartment": "perox",
+      "stepId": "bile-5",
+      "labelPos": { "dx": 0, "dy": -36, "anchor": "middle" }
+    },
+    {
+      "id": "conj",
+      "entityId": "gca",
+      "label": "甘氨胆酸 / 牛磺胆酸",
+      "abbr": "GCA / TCA",
+      "x": 1240,
+      "y": 450,
+      "kind": "metabolite",
+      "compartment": "perox",
+      "stepId": "bile-6",
+      "labelPos": { "dx": 0, "dy": 46, "anchor": "middle" }
+    },
+    {
+      "id": "bile",
+      "entityId": "bile",
+      "label": "胆汁（胆管）",
+      "abbr": "Bile",
+      "x": 1230,
+      "y": 655,
+      "kind": "hub",
+      "compartment": "entero",
+      "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" }
+    },
+    {
+      "id": "gut",
+      "entityId": "gut",
+      "label": "肠道",
+      "abbr": "Gut",
+      "x": 880,
+      "y": 655,
+      "kind": "hub",
+      "compartment": "entero",
+      "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" }
+    },
+    {
+      "id": "portal",
+      "entityId": "portal",
+      "label": "门静脉",
+      "abbr": "Portal",
+      "x": 540,
+      "y": 655,
+      "kind": "hub",
+      "compartment": "entero",
+      "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" }
+    }
+  ],
+  "links": [
+    { "from": "chol", "to": "c7ol", "stepId": "bile-1", "type": "main", "label": "CYP7A1 · 7α-羟化（限速）" },
+    { "from": "c7ol", "to": "c7one", "stepId": "bile-2", "type": "main", "label": "HSD3B7" },
+    { "from": "c7one", "to": "c7diol", "stepId": "bile-3", "type": "main", "label": "CYP8B1" },
+    { "from": "c7one", "to": "hub-cdca", "stepId": "bile-3", "type": "branch", "label": "无 12α-羟化", "bend": 0.1 },
+    { "from": "c7diol", "to": "ca_pre", "stepId": "bile-4", "type": "main", "label": "CYP27A1 · 27-羟化 + 氧化" },
+    { "from": "ca_pre", "to": "ca_coa", "stepId": "bile-5", "type": "main", "label": "侧链 β-氧化缩短" },
+    { "from": "ca_coa", "to": "conj", "stepId": "bile-6", "type": "main", "label": "BAAT + Gly / Tau" },
+    { "from": "conj", "to": "bile", "stepId": "bile-t1", "type": "transport", "label": "BSEP · 排入胆汁", "bend": 0.08 },
+    { "from": "bile", "to": "gut", "stepId": "bile-t1", "type": "transport", "label": "胆汁入肠" },
+    { "from": "gut", "to": "portal", "stepId": "bile-t1", "type": "transport", "label": "ASBT · 回肠重吸收" },
+    { "from": "portal", "to": "chol", "stepId": "bile-t1", "type": "transport", "label": "NTCP · 肝摄取", "bend": 0.25 }
+  ],
+  "annotations": [
+    {
+      "x": 40,
+      "y": 600,
+      "text": "肠肝循环：BSEP 排入胆汁 → 肠道 → ASBT 回肠重吸收 → 门静脉 → NTCP 肝摄取（1 段运输，不计步）",
+      "anchor": "start",
+      "size": 8.6,
+      "tone": "teal"
+    },
+    {
+      "x": 40,
+      "y": 560,
+      "text": "CYP7A1 限速、受胆汁酸负反馈（FXR–FGF19 一句带过）",
+      "anchor": "start",
+      "size": 8.4,
+      "tone": "brick"
+    },
+    {
+      "x": 620,
+      "y": 560,
+      "text": "CYP27A1 · 侧链 27-羟化",
+      "anchor": "start",
+      "size": 8.4,
+      "tone": "ink"
+    },
+    {
+      "x": 970,
+      "y": 560,
+      "text": "侧链 β-氧化 + BAAT 结合",
+      "anchor": "start",
+      "size": 8.4,
+      "tone": "ink"
+    }
+  ],
+  "transportSteps": [
+    {
+      "id": "bile-t1",
+      "name": "胆汁酸的肠肝循环",
+      "from": "肝（结合胆汁酸经 BSEP 排入胆管）",
+      "via": "胆囊 / 胆管 → 肠道 → 回肠（ASBT 重吸收）→ 门静脉",
+      "to": "肝（NTCP 摄取回胆汁酸池）",
+      "note": "结合胆汁酸排入胆汁后，肠道内大部分被回肠重吸收，经门静脉回肝再摄取，形成肠肝循环；本图只画一段运输，不计入步数。转运蛋白的具体亚型未逐条核对。"
+    }
+  ]
+}

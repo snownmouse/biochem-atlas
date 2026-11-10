@@ -71,6 +71,14 @@ const glycerophospholipid = read("src/data/glycerophospholipid/glycerophospholip
 const glycerophospholipidSkel = read("src/data/glycerophospholipid/skeleton.json");
 const lipoprotein = read("src/data/lipoprotein/lipoprotein.json");
 const lipoproteinSkel = read("src/data/lipoprotein/skeleton.json");
+const heme = read("src/data/heme/heme.json");
+const hemeSkel = read("src/data/heme/skeleton.json");
+const bileAcid = read("src/data/bile-acid/bile-acid.json");
+const bileAcidSkel = read("src/data/bile-acid/skeleton.json");
+const glycoconjugate = read("src/data/glycoconjugate/glycoconjugate.json");
+const glycoconjugateSkel = read("src/data/glycoconjugate/skeleton.json");
+const redox = read("src/data/redox/redox.json");
+const redoxSkel = read("src/data/redox/skeleton.json");
 
 const COMPLEX_NODE_IDS = ["complex-i", "complex-ii", "complex-iii", "cytc", "complex-iv", "atp-synthase"];
 const EXPECT = {
@@ -99,6 +107,10 @@ const EXPECT = {
   purine: { steps: purine.steps.length, nodes: purineSkel.nodes.length },
   glycerophospholipid: { steps: glycerophospholipid.steps.length, nodes: glycerophospholipidSkel.nodes.length },
   lipoprotein: { steps: lipoprotein.steps.length, nodes: lipoproteinSkel.nodes.length },
+  heme: { steps: heme.steps.length, nodes: hemeSkel.nodes.length },
+  "bile-acid": { steps: bileAcid.steps.length, nodes: bileAcidSkel.nodes.length },
+  glycoconjugate: { steps: glycoconjugate.steps.length, nodes: glycoconjugateSkel.nodes.length },
+  redox: { steps: redox.steps.length, nodes: redoxSkel.nodes.length },
 };
 
 const ROUTE_IDS = [
@@ -127,6 +139,10 @@ const ROUTE_IDS = [
   "purine",
   "glycerophospholipid",
   "lipoprotein",
+  "heme",
+  "bile-acid",
+  "glycoconjugate",
+  "redox",
   "structures-glycolysis",
   "structures-tca",
   "structures-gluconeogenesis",
@@ -143,6 +159,10 @@ const ROUTE_IDS = [
   "structures-purine",
   "structures-glycerophospholipid",
   "structures-lipoprotein",
+  "structures-heme",
+  "structures-bile-acid",
+  "structures-glycoconjugate",
+  "structures-redox",
   "structures-cori",
   "structures-oxphos",
   "step-gk-1",
@@ -260,6 +280,10 @@ const STRUCT_ROUTE_KEY = {
   "structures-purine": "purine",
   "structures-glycerophospholipid": "glycerophospholipid",
   "structures-lipoprotein": "lipoprotein",
+  "structures-heme": "heme",
+  "structures-bile-acid": "bile-acid",
+  "structures-glycoconjugate": "glycoconjugate",
+  "structures-redox": "redox",
   "structures-cori": "cori",
 };
 const cmpSrc = readFileSync(resolve(ROOT, "src/data/comparisonConfig.ts"), "utf8");
@@ -277,6 +301,10 @@ if (amino.structureNo) dataSf.set("amino-acids", amino.structureNo.replace("SF-"
 if (purine.structureNo) dataSf.set("purine", purine.structureNo.replace("SF-", ""));
 if (glycerophospholipid.structureNo) dataSf.set("glycerophospholipid", glycerophospholipid.structureNo.replace("SF-", ""));
 if (lipoprotein.structureNo) dataSf.set("lipoprotein", lipoprotein.structureNo.replace("SF-", ""));
+if (heme.structureNo) dataSf.set("heme", heme.structureNo.replace("SF-", ""));
+if (bileAcid.structureNo) dataSf.set("bile-acid", bileAcid.structureNo.replace("SF-", ""));
+if (glycoconjugate.structureNo) dataSf.set("glycoconjugate", glycoconjugate.structureNo.replace("SF-", ""));
+if (redox.structureNo) dataSf.set("redox", redox.structureNo.replace("SF-", ""));
 const shownSf = [];
 for (const p of report.pages.filter((x) => x.viewport === 1440)) {
   const key = STRUCT_ROUTE_KEY[p.page];
@@ -290,8 +318,8 @@ for (const p of report.pages.filter((x) => x.viewport === 1440)) {
   if (shown) shownSf.push(Number(shown));
 }
 shownSf.sort((a, b) => a - b);
-if (shownSf.length !== 18 || shownSf.join(",") !== "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18") {
-  fail(`⑥ 结构页编号集合不符：页面 ${shownSf.join(",")} ≠ {01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18}`);
+if (shownSf.length !== 22 || shownSf.join(",") !== "1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22") {
+  fail(`⑥ 结构页编号集合不符：页面 ${shownSf.join(",")} ≠ {01–22}`);
 }
 
 // 汇总

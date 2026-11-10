@@ -1,0 +1,244 @@
+{
+  "id": "redox",
+  "name": "氧化还原与自由基",
+  "enName": "REDOX HOMEOSTASIS & FREE RADICALS",
+  "plateNo": "PLATE 22",
+  "structureNo": "SF-22",
+  "summary": "本图不是经典代谢通路中的一条分解 / 合成链，而是一张防御网络：活性氧（O₂•⁻、H₂O₂）从哪里来、被 SOD / CAT / GPX 清到哪里去，以及 NADPH–GSH 系统如何把氧化型谷胱甘肽还原回来。6 步只画主干，不展开信号转导。",
+  "heroNote": "防御网络 · 不属于经典代谢通路 · 线粒体 / 胞质 · 6 步 · NADPH–GSH 主干 · 2D 口径",
+  "legend": [
+    { "text": "主链（ROS 产生 / 清除 / 再生）", "kind": "main", "tone": "ink" },
+    { "text": "可逆 / 循环", "kind": "dashed", "tone": "ink" },
+    { "text": "分支 / 旁路", "kind": "dotted", "tone": "brick" },
+    { "text": "① 步骤顺序", "kind": "badge", "tone": "ink" }
+  ],
+  "readingGuide": {
+    "label": "氧化还原与自由基导读",
+    "summary": "ROS 产生 → SOD 歧化 → CAT / GPX / Prx 清除 → GSH 再生 → NADPH 供给",
+    "paragraphs": [
+      "这张图要说明的不是「某物质变成某物质」的代谢链，而是一个稳态：活性氧一边产生、一边被清除。线粒体呼吸链复合体 I / III 漏出的电子把 O₂ 还原成超氧阴离子，NADPH 氧化酶与黄嘌呤氧化酶也产生超氧；SOD 把超氧歧化成过氧化氢，后者再由过氧化氢酶、谷胱甘肽过氧化物酶与过氧化物还原酶清成水。",
+      "清除过氧化氢会消耗还原型谷胱甘肽（GSH），生成二聚的氧化型谷胱甘肽（GSSG）；谷胱甘肽还原酶用 NADPH 把 GSSG 还原回 2 分子 GSH，NADPH 则由磷酸戊糖途径的氧化分支（G6PD / 6PGD）以及苹果酸酶、异柠檬酸脱氢酶供给。GSH 本身由谷氨酸、半胱氨酸与甘氨酸经两步 ATP 依赖反应合成。",
+      "边界：本图只画 ROS 来源与清除的主干，以及 NADPH–GSH 这一条抗氧化网，不展开硫氧还蛋白系统、Nrf2 转录调控与 ROS 参与的细胞信号转导，也不把线粒体呼吸链、PPP 的完整步骤搬进来。酶的 EC 编号查不准或一一步合并了多个酶的，写「未核实」并在 note 里说明。"
+    ]
+  },
+  "posterFoot": [
+    "性质：本图不属于经典代谢通路，没有统一的终产物，只有「产生—清除」的稳态；它是一张防御网络，不是分解或合成链。",
+    "范围：只做 NADPH–GSH 抗氧化网与活性氧的来源 / 清除主干（6 步）；不展开硫氧还蛋白系统、Nrf2 通路与 ROS 信号转导。",
+    "酶：SOD（1.15.1.1）与谷胱甘肽还原酶（1.8.1.7）写编号；ROS 产生、过氧化氢清除、GSH 合成与 NADPH 再生都是多酶或多来源体系，EC 写「未核实」，不编单一编号。",
+    "接口：PPP ppp-o1（G6P 脱氢，NADPH 来源）与糖酵解 gk-1（G6P）；线粒体呼吸链只作为 ROS 来源在文字中说明，不登记 oxphos 的 step 接口。",
+    "教材依据：《生物化学与分子生物学》第 9 版 · 氧化还原与抗氧化相关章节；只写章节名，不标页码、不引真题年份。"
+  ],
+  "transportSteps": [],
+  "interfaces": [
+    {
+      "stepId": "ppp-o1",
+      "label": "NADPH（PPP ppp-o1 产物）",
+      "note": "G6PD 催化的 G6P 脱氢是 NADPH 的主要来源；本图 rd-6 只登记「G6P → NADPH」的去向，不重复 PPP 步骤。"
+    },
+    {
+      "stepId": "gk-1",
+      "label": "G6P（糖酵解 gk-1 产物）",
+      "note": "葡糖-6-磷酸是 PPP 氧化分支的入口，本图以它作为 NADPH 再生的起点，不重复糖酵解步骤。"
+    }
+  ],
+  "threeD": {
+    "status": "not-built",
+    "note": "本图沿用站内 UTP 口径：全部只做 2D 结构式，不建 3D，也不登记 PDB 候选。"
+  },
+  "entities": [
+    { "id": "o2", "name": "氧分子", "abbr": "O₂", "kind": "metabolite", "note": "呼吸链末端电子受体；漏电子时被还原成超氧。" },
+    { "id": "o2m", "name": "超氧阴离子", "abbr": "O₂•⁻", "kind": "metabolite", "note": "初级活性氧；由呼吸链漏电子、NOX 与黄嘌呤氧化酶产生。" },
+    { "id": "h2o2", "name": "过氧化氢", "abbr": "H₂O₂", "kind": "metabolite", "note": "SOD 歧化产物；可由 CAT / GPX / Prx 清除。" },
+    { "id": "h2o", "name": "水", "abbr": "H₂O", "kind": "metabolite", "note": "过氧化氢清除的终产物。" },
+    { "id": "gsh", "name": "还原型谷胱甘肽", "abbr": "GSH", "kind": "metabolite", "note": "胞内主要巯基缓冲；GPX 的供氢体。" },
+    { "id": "gssg", "name": "氧化型谷胱甘肽", "abbr": "GSSG", "kind": "metabolite", "note": "两分子 GSH 经二硫键连接；由 GR 还原回 GSH。" },
+    { "id": "nadph", "name": "还原型辅酶Ⅱ", "abbr": "NADPH", "kind": "metabolite", "note": "GR 的供氢体；由 PPP 氧化分支等来源再生。" },
+    { "id": "nadp", "name": "氧化型辅酶Ⅱ", "abbr": "NADP⁺", "kind": "metabolite", "note": "NADPH 供氢后的产物，回到再生步骤。" },
+    { "id": "prec", "name": "GSH 合成前体（谷氨酸 + 半胱氨酸 + 甘氨酸）", "abbr": "Glu + Cys + Gly", "kind": "metabolite", "note": "经 γ-谷氨酰半胱氨酸合成酶与谷胱甘肽合成酶两步消耗 ATP 生成 GSH。" },
+    { "id": "g6p", "name": "葡糖-6-磷酸", "abbr": "G6P", "kind": "metabolite", "note": "来自糖酵解；进入 PPP 氧化分支生成 NADPH。" }
+  ],
+  "steps": [
+    {
+      "id": "rd-1",
+      "index": 1,
+      "name": "活性氧产生：呼吸链漏电子与 NOX / 黄嘌呤氧化酶",
+      "shortName": "ROS 产生",
+      "compartment": "mito",
+      "equation": "O₂ + e⁻ → O₂•⁻",
+      "substrates": ["o2"],
+      "products": ["o2m"],
+      "cofactors": ["NADH（复合体 I）", "NADPH（NOX）"],
+      "enzyme": {
+        "name": "活性氧产生部位（多来源，非单一酶）",
+        "isozyme": "呼吸链复合体 I / III、NOX、黄嘌呤氧化酶",
+        "ec": "未核实",
+        "note": "ROS 不是某一种酶的产物，而是多处电子传递的副产物；本块合并为一步，不写单一 EC。"
+      },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "非平衡 · 电子漏出即单向生成，速率随氧张力与电子压力变化",
+        "source": "教材章级（氧化还原 · 活性氧产生）"
+      },
+      "significance": "活性氧的第一环：线粒体呼吸链漏出的电子把 O₂ 单电子还原成超氧阴离子，是后续所有清除步骤的源头。",
+      "note": "本图不展开呼吸链各复合体的质子泵步骤；ROS 来源只作为主干起点。",
+      "misconceptions": [
+        "以为 ROS 只来自线粒体：NOX、黄嘌呤氧化酶与过氧化物酶体也产生。",
+        "把 ROS 当成纯废物：低浓度时有生理信号作用，本图不展开信号转导。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "rd-2",
+      "index": 2,
+      "name": "SOD 把超氧阴离子歧化为过氧化氢",
+      "shortName": "SOD 歧化",
+      "compartment": "mito",
+      "equation": "2 O₂•⁻ + 2 H⁺ → H₂O₂ + O₂",
+      "substrates": ["o2m"],
+      "products": ["h2o2"],
+      "cofactors": ["Mn（MnSOD）", "Cu / Zn（CuZnSOD）"],
+      "enzyme": { "name": "超氧化物歧化酶", "isozyme": "MnSOD / CuZnSOD / SOD3", "ec": "1.15.1.1" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 歧化反应，接近扩散控制",
+        "source": "教材章级（氧化还原 · 超氧歧化）"
+      },
+      "significance": "把寿命短、反应性强的超氧转成较稳定、可被酶清除的过氧化氢；MnSOD 在线粒体基质，CuZnSOD 在胞质与胞外。",
+      "note": "本步只表示歧化方向，不画出 O₂ 回到起点的循环边。",
+      "misconceptions": [
+        "以为 SOD 直接清除 ROS：它只把超氧转成 H₂O₂，H₂O₂ 还要再清。",
+        "把三种 SOD 混为一种：定位与金属辅基不同。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "rd-3",
+      "index": 3,
+      "name": "过氧化氢酶与谷胱甘肽过氧化物酶清除过氧化氢",
+      "shortName": "H₂O₂ 清除",
+      "compartment": "mito",
+      "equation": "2 H₂O₂ → 2 H₂O + O₂（CAT）；H₂O₂ + 2 GSH → GSSG + 2 H₂O（GPX）",
+      "substrates": ["h2o2", "gsh"],
+      "products": ["h2o"],
+      "cofactors": ["血红素（CAT）", "硒代半胱氨酸（GPX）"],
+      "enzyme": {
+        "name": "过氧化氢酶 / 谷胱甘肽过氧化物酶 / 过氧化物还原酶",
+        "isozyme": "CAT / GPX1 / PRDX",
+        "ec": "未核实",
+        "note": "CAT（1.11.1.6）与 GPX（1.11.1.9）分属不同酶，本块合并为「清除 H₂O₂」一步，不写单一 EC；Prx 走硫氧还蛋白系统，本图不展开。"
+      },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 过氧化氢被还原成水",
+        "source": "教材章级（氧化还原 · 过氧化氢清除）"
+      },
+      "significance": "H₂O₂ 的清除主干：CAT 直接歧化，GPX 用 GSH 作供氢体；两条路都把 H₂O₂ 变成水。",
+      "note": "CAT 主要在过氧化物酶体，GPX 在胞质与线粒体；本块把两条清除路线合为一步，图中以 GPX 消耗 GSH 的分支表示。",
+      "misconceptions": [
+        "以为 CAT 与 GPX 是同一条路：前者不需 GSH，后者消耗 GSH。",
+        "把 GPX 写成只在线粒体：胞质 GPX1 同样重要。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "rd-4",
+      "index": 4,
+      "name": "谷胱甘肽还原酶用 NADPH 把 GSSG 还原回 GSH",
+      "shortName": "GSH 再生",
+      "compartment": "cyto",
+      "equation": "GSSG + NADPH + H⁺ → 2 GSH + NADP⁺",
+      "substrates": ["gssg", "nadph"],
+      "products": ["gsh", "nadp"],
+      "cofactors": ["FAD"],
+      "enzyme": { "name": "谷胱甘肽还原酶", "isozyme": "GSR", "ec": "1.8.1.7" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 由 NADPH / NADP⁺ 比值与 GSSG 浓度共同决定方向",
+        "source": "教材章级（氧化还原 · 谷胱甘肽循环）"
+      },
+      "significance": "GSH 循环的再生端：把 GPX 产生的 GSSG 还原回 GSH，使巯基缓冲不被耗尽。",
+      "note": "这一步把 NADPH 的还原力转成 GSH 的还原力；NADPH 不足时 GSSG 积累，细胞进入氧化应激。",
+      "misconceptions": [
+        "把 GR 与 GPX 混为一种酶：GPX 消耗 GSH，GR 再生 GSH。",
+        "以为 GR 用 NADH：它用 NADPH。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "rd-5",
+      "index": 5,
+      "name": "两步 ATP 依赖反应合成谷胱甘肽",
+      "shortName": "GSH 合成",
+      "compartment": "cyto",
+      "equation": "谷氨酸 + 半胱氨酸 + ATP → γ-谷氨酰半胱氨酸；+ 甘氨酸 + ATP → GSH",
+      "substrates": ["prec"],
+      "products": ["gsh"],
+      "cofactors": ["ATP", "Mg²⁺"],
+      "enzyme": {
+        "name": "γ-谷氨酰半胱氨酸合成酶 / 谷胱甘肽合成酶",
+        "isozyme": "GCLC / GSS",
+        "ec": "未核实",
+        "note": "GCLC（6.3.2.2）与 GSS（6.3.2.3）是两个酶，本块合并为「GSH 合成」一步，不写单一 EC；GCLC 是限速步。"
+      },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 两次 ATP 水解拉动肽键形成",
+        "source": "教材章级（氧化还原 · 谷胱甘肽合成）"
+      },
+      "significance": "补足 GSH 池的合成端：半胱氨酸是限速底物，GCLC 受 GSH 负反馈抑制。",
+      "note": "GSH 的 γ-谷氨酰键不被一般肽酶水解，这是它作为胞内还原剂的结构基础。",
+      "misconceptions": [
+        "以为 GSH 是三个氨基酸的普通肽键连接：第一个键是 γ-谷氨酰键。",
+        "把 GSH 合成当成一步：实际是两步、消耗 2 分子 ATP。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "rd-6",
+      "index": 6,
+      "name": "PPP 氧化分支等来源再生 NADPH",
+      "shortName": "NADPH 再生",
+      "compartment": "cyto",
+      "equation": "G6P + NADP⁺ → 6-磷酸葡糖酸内酯 + NADPH；后续 6PGD 再产 1 分子 NADPH",
+      "substrates": ["g6p", "nadp"],
+      "products": ["nadph"],
+      "cofactors": ["Mg²⁺"],
+      "enzyme": {
+        "name": "葡萄糖-6-磷酸脱氢酶 / 6-磷酸葡糖酸脱氢酶（另有苹果酸酶、异柠檬酸脱氢酶）",
+        "isozyme": "G6PD / 6PGD / ME1 / IDH1",
+        "ec": "未核实",
+        "note": "NADPH 有多个来源，G6PD 是主要供者；本块只登记「G6P → NADPH」的去向，不重复 PPP 的完整步骤。"
+      },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 脱氢反应，方向受 NADP⁺ / NADPH 比值拉动",
+        "source": "教材章级（氧化还原 · NADPH 供给）"
+      },
+      "significance": "抗氧化网的还原力来源：G6PD 是红细胞与多数组织 NADPH 的主要供者，NADPH 不足时 GSH 无法再生。",
+      "note": "G6PD 缺陷时 NADPH 供给不足，红细胞对氧化应激敏感；本图只登记接口，不展开临床细节。",
+      "misconceptions": [
+        "把 NADPH 与 NADH 混用：GR 与 G6PD 都用 NADPH。",
+        "以为 NADPH 只来自 PPP：苹果酸酶与 IDH1 也供给。"
+      ],
+      "clinical": []
+    }
+  ]
+}

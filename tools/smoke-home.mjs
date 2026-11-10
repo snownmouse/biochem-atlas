@@ -79,6 +79,10 @@ const PATHWAYS = [
   ["purine", "嘌呤核苷酸代谢"],
   ["glycerophospholipid", "甘油磷脂与鞘脂代谢"],
   ["lipoprotein", "血浆脂蛋白代谢"],
+  ["heme", "血红素代谢"],
+  ["bile-acid", "胆汁酸代谢"],
+  ["glycoconjugate", "糖复合物代谢"],
+  ["redox", "氧化还原与自由基"],
 ];
 
 const firstScreenTitles = async () =>
@@ -132,9 +136,9 @@ check(
   await page.goto(`${BASE}/`, { waitUntil: "networkidle" });
 }
 
-// ===== 2) 十条通路区块：存在、可点、1440×900 展开档十条可见（第 11 条允许出屏） =====
+// ===== 2) 二十一条通路区块：存在、可点、1440×900 展开档十条标题可见（第 11 条起允许出屏） =====
 // 第 11 条（氨基酸代谢，PLATE 11）落在 y=650，用户已明确接受「往下拉」；
-// 默认档首屏完整可见仍为 8/11（尿素 / 糖原 / 氨基酸落到首屏下方，逐档实测见第 15 节）。
+// 默认档首屏完整可见为 8/22（尿素 / 糖原 / 氨基酸等落到首屏下方，逐档实测见第 15 节）。
 // 原「十条全见」断言的判定口径是「展开档」；用同一套 ?fold=open 参数还原展开档，断言与阈值原样保留。
 /** 路由别名：FAS 的挂图路由按需求为 /pathway/fas，结构页沿用 /structures/<数据目录名> */
 const ROUTE_ALIAS = {
@@ -148,15 +152,15 @@ await page.goto(`${BASE}/?fold=open`, { waitUntil: "networkidle" });
 const blockAttrs = await page.locator("[data-pathway-block]").evaluateAll((els) =>
   els.map((el) => [el.getAttribute("data-pathway-block"), el.getAttribute("href")])
 );
-check("十七个通路区块存在", blockAttrs.length === 17, String(blockAttrs.length));
+check("二十一个通路区块存在", blockAttrs.length === 21, String(blockAttrs.length));
 check(
-  "通路区块 href 指向十七条挂图",
+  "通路区块 href 指向二十一条挂图",
   blockAttrs.every(([id, href]) => href === posterRoute(id)),
   JSON.stringify(blockAttrs)
 );
 
 const titles = await firstScreenTitles();
-check("十八个通路标题存在（十七区块 + Cori 连接带）", titles.length === 18, String(titles.length));
+check("二十二个通路标题存在（二十一区块 + Cori 连接带）", titles.length === 22, String(titles.length));
 for (const [id, name] of PATHWAYS) {
   const title = titles.find((item) => item.id === id);
   check(`图上出现「${name}」标题`, Boolean(title) && title.text.includes(name), title?.text ?? "missing");
@@ -166,12 +170,12 @@ check(
   titles.some((t) => t.id === "cori" && t.text.toLowerCase().includes("cori 循环")),
   titles.find((t) => t.id === "cori")?.text ?? "missing",
 );
-// 第 11 / 12 条、PLATE 13 酮体、PLATE 14 一碳单位、PLATE 15 嘧啶、PLATE 16 嘌呤、PLATE 17 甘油磷脂与 PLATE 18 血浆脂蛋白按用户口径允许落到首屏之外；其余十条仍必须在 1440×900 内。
-const ALLOW_OFFSCREEN = ["amino-acids", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerophospholipid", "lipoprotein"];
+// 第 11 / 12 条、PLATE 13 酮体、PLATE 14 一碳单位、PLATE 15 嘧啶、PLATE 16 嘌呤、PLATE 17 甘油磷脂、PLATE 18 血浆脂蛋白、PLATE 19 血红素、PLATE 20 胆汁酸、PLATE 21 糖复合物与 PLATE 22 氧化还原按用户口径允许落到首屏之外；其余十条仍必须在 1440×900 内。
+const ALLOW_OFFSCREEN = ["amino-acids", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerophospholipid", "lipoprotein", "heme", "bile-acid", "glycoconjugate", "redox"];
 const offscreen = titles.filter((t) => t.y < 0 || t.bottom > 900 || t.x < 0 || t.right > 1440);
 check(
-  "1440×900 展开档：仅氨基酸代谢 / 胆固醇合成 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白出屏（用户已接受往下拉）",
-  offscreen.length === 8 && ALLOW_OFFSCREEN.every((id) => offscreen.some((t) => t.id === id)),
+  "1440×900 展开档：仅氨基酸代谢 / 胆固醇合成 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白 / 血红素 / 胆汁酸 / 糖复合物 / 氧化还原出屏（用户已接受往下拉）",
+  offscreen.length === 12 && ALLOW_OFFSCREEN.every((id) => offscreen.some((t) => t.id === id)),
   JSON.stringify(offscreen.map((t) => [t.id, t.x, t.y, t.right, t.bottom]))
 );
 const mapBox = await page.locator('svg[data-home-map="1"]').boundingBox();
@@ -179,7 +183,7 @@ const lowestNonAmino = Math.max(
   ...titles.filter((t) => !ALLOW_OFFSCREEN.includes(t.id)).map((t) => t.bottom),
 );
 check(
-  "除出屏八条外，十条标题最低底边 ≤ 900（不压既有标题坐标）",
+  "除出屏十二条外，十条标题最低底边 ≤ 900（不压既有标题坐标）",
   Boolean(mapBox) && lowestNonAmino <= 900,
   JSON.stringify({
     mapTop: mapBox?.y,
@@ -190,13 +194,13 @@ check(
   })
 );
 
-// ===== 3) 右栏三十四条去向 =====
+// ===== 3) 右栏四十二条去向 =====
 const destLinks = await page.locator("[data-home-link]").evaluateAll((els) =>
   els.map((el) => el.getAttribute("href"))
 );
-check("右栏三十四条去向链接", destLinks.length === 34, String(destLinks.length));
+check("右栏四十二条去向链接", destLinks.length === 42, String(destLinks.length));
 check(
-  "三十四条去向覆盖十七挂图 + 十七结构对照",
+  "四十二条去向覆盖二十一挂图 + 二十一结构对照",
   PATHWAYS.every(
     ([id]) => destLinks.includes(posterRoute(id)) && destLinks.includes(structureRoute(id)),
   ),
@@ -295,9 +299,9 @@ check(
   ),
 );
 const edgeSourcesText = edgeInfo.map((edge) => edge.sources).join(" ");
-// 糖原 / 氨基酸 / 胆固醇 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白只登记标题块与导航，没有可连的跨通路边；
+// 糖原 / 氨基酸 / 胆固醇 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白 / 血红素 / 胆汁酸 / 糖复合物 / 氧化还原只登记标题块与导航，没有可连的跨通路边；
 // FAS 通过 fas-shuttle、尿素循环通过 urea-3 / urea-4 / recycle 接入，加入来源核对。
-const NO_EDGE_PATHWAYS = new Set(["glycogen", "amino-acids", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerophospholipid", "lipoprotein"]);
+const NO_EDGE_PATHWAYS = new Set(["glycogen", "amino-acids", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerophospholipid", "lipoprotein", "heme", "bile-acid", "glycoconjugate", "redox"]);
 for (const [id] of PATHWAYS.filter(([pid]) => !NO_EDGE_PATHWAYS.has(pid)))
   check(`连线来源含 ${id} 步骤`, edgeSourcesText.includes(`${id}:`));
 check(
@@ -509,7 +513,7 @@ check("致敬写 Nicholson 与 1960", tribute.includes("Nicholson") && tribute.i
 check("致敬写 KEGG 与 1995 / Kanehisa", tribute.includes("KEGG") && tribute.includes("1995") && tribute.includes("Kanehisa"));
 check("明确是体例致敬而非内容引用", tribute.includes("体例致敬") && tribute.includes("不取自"));
 
-// ===== 13) 三十四条去向页都有首页入口 =====
+// ===== 13) 四十二条去向页（二十一挂图 + 二十一结构对照）都有首页入口 =====
 for (const [id] of PATHWAYS) {
   for (const route of [`/pathway/${id}`, `/structures/${id}`]) {
     await page.goto(`${BASE}${route}`, { waitUntil: "domcontentloaded" });
@@ -542,12 +546,12 @@ await page.waitForTimeout(400);
 const titles1280 = await firstScreenTitles();
 const visible1280 = titles1280.filter((t) => t.y >= 0 && t.bottom <= 900 && t.x >= 0 && t.right <= 1280);
 check(
-  "1280 下除氨基酸代谢 / 胆固醇合成 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白外十条通路标题仍全部可见（八条允许出屏）",
-  titles1280.length === 18 &&
+  "1280 下除氨基酸代谢 / 胆固醇合成 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白 / 血红素 / 胆汁酸 / 糖复合物 / 氧化还原外十条通路标题仍全部可见",
+  titles1280.length === 22 &&
     visible1280.length === 10 &&
     titles1280
       .filter((t) => !visible1280.includes(t))
-      .every((t) => ["amino-acids", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerophospholipid", "lipoprotein"].includes(t.id)),
+      .every((t) => ["amino-acids", "cholesterol", "ketone", "one-carbon", "pyrimidine", "purine", "glycerophospholipid", "lipoprotein", "heme", "bile-acid", "glycoconjugate", "redox"].includes(t.id)),
   JSON.stringify(titles1280.map((t) => [t.id, t.x, t.y, t.right, t.bottom]))
 );
 
@@ -586,7 +590,7 @@ console.log("✓ 截图 preview/home-1280.png（1280×900 · 收起态）");
 
 // ===== 15) 默认档 + 三档还原 × 四视口：版面 / 字号 / 首屏条数 / 按钮态 =====
 // 默认（无参数）= 收起 + 等比铺满（1400px 上限）；?fold=center = 收起 + 1020 居中；
-// ?fold=open = 展开。四视口逐档实测，默认档首屏完整可见 8/18（尿素 / 糖原落到首屏下方）。
+// ?fold=open = 展开。四视口逐档实测，默认档首屏完整可见 8/22（尿素 / 糖原 / 氨基酸等落到首屏下方）。
 const FOLD_MODES = [
   { id: "default", url: "/", fold: "fitwidth", aside: false, btn: "展开辅助栏", aria: "false" },
   { id: "center", url: "/?fold=center", fold: "center", aside: false, btn: "展开辅助栏", aria: "false" },
@@ -680,20 +684,20 @@ for (const vp of MATRIX_VPS) {
     check(`${label} · aria-expanded=${mode.aria}`, row.aria === mode.aria, String(row.aria));
     check(`${label} · 右栏${mode.aside ? "可见" : "隐藏"}`, row.asideVisible === mode.aside, String(row.asideVisible));
 
-    // 展开档 1440 / 1280 画布 955（纵向压缩），10/18（氨基酸 / 胆固醇 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白出屏）；
-    // 1920 / 2560 画布 1020，糖原 / 氨基酸 / 胆固醇 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白一起落到首屏下方。
+    // 展开档 1440 / 1280 画布 955（纵向压缩），10/22（氨基酸 / 胆固醇 / 酮体 / 一碳单位 / 嘧啶 / 嘌呤 / 甘油磷脂 / 血浆脂蛋白 / 血红素 / 胆汁酸 / 糖复合物 / 氧化还原出屏）；
+    // 1920 / 2560 画布 1020，糖原与上述十一条一起落到首屏下方（9/22）。
     const expectedVisible =
       mode.id === "default" ? 8 : mode.id === "center" ? 9 : vp === 1920 || vp === 2560 ? 9 : 10;
     const expectedHidden =
       mode.id === "default"
-        ? "urea-cycle,glycogen,amino-acids,cholesterol,ketone,one-carbon,pyrimidine,purine,glycerophospholipid,lipoprotein"
+        ? "urea-cycle,glycogen,amino-acids,cholesterol,ketone,one-carbon,pyrimidine,purine,glycerophospholipid,lipoprotein,heme,bile-acid,glycoconjugate,redox"
         : mode.id === "center"
-          ? "glycogen,amino-acids,cholesterol,ketone,one-carbon,pyrimidine,purine,glycerophospholipid,lipoprotein"
+          ? "glycogen,amino-acids,cholesterol,ketone,one-carbon,pyrimidine,purine,glycerophospholipid,lipoprotein,heme,bile-acid,glycoconjugate,redox"
           : vp === 1920 || vp === 2560
-            ? "glycogen,amino-acids,cholesterol,ketone,one-carbon,pyrimidine,purine,glycerophospholipid,lipoprotein"
-            : "amino-acids,cholesterol,ketone,one-carbon,pyrimidine,purine,glycerophospholipid,lipoprotein";
+            ? "glycogen,amino-acids,cholesterol,ketone,one-carbon,pyrimidine,purine,glycerophospholipid,lipoprotein,heme,bile-acid,glycoconjugate,redox"
+            : "amino-acids,cholesterol,ketone,one-carbon,pyrimidine,purine,glycerophospholipid,lipoprotein,heme,bile-acid,glycoconjugate,redox";
     check(
-      `${label} · 首屏完整可见 ${row.visibleCount}/18（预期 ${expectedVisible}）`,
+      `${label} · 首屏完整可见 ${row.visibleCount}/22（预期 ${expectedVisible}）`,
       row.visibleCount === expectedVisible,
       `未完整可见：${row.notVisible.join(",") || "无"}`,
     );
@@ -719,7 +723,7 @@ console.log("| 视口 | 档 | document Δ | 容器 Δ | 画布宽 | 标题 px | 
 console.log("| --- | --- | --- | --- | --- | --- | --- | --- | --- |");
 for (const r of matrixRows) {
   console.log(
-    `| ${r.vp} | ${r.mode} | ${r.docDelta} | ${r.containerDelta} | ${r.canvasWidth} | ${r.titlePx} | ${r.notePx} | ${r.visibleCount}/18 | ${r.notVisible.join(", ") || "无"} |`,
+    `| ${r.vp} | ${r.mode} | ${r.docDelta} | ${r.containerDelta} | ${r.canvasWidth} | ${r.titlePx} | ${r.notePx} | ${r.visibleCount}/22 | ${r.notVisible.join(", ") || "无"} |`,
   );
 }
 

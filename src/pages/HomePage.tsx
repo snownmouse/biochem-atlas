@@ -68,6 +68,10 @@ const PATH_COLOR: Record<HomePathwayId, string> = {
   purine: C.teal,
   glycerophospholipid: C.violet,
   lipoprotein: C.rose,
+  heme: C.brick,
+  "bile-acid": C.amber,
+  glycoconjugate: C.violet,
+  redox: C.teal,
 };
 
 const JUNCTION_IDS = new Set(HOME_NODES.filter((node) => node.junction).map((node) => node.id));
@@ -552,7 +556,7 @@ export function HomePage() {
         <div className="mast-main">
           <h1>
             代谢总图
-            <small>METABOLIC ATLAS · TWELVE PATHWAYS · 22 DESTINATIONS</small>
+            <small>METABOLIC ATLAS · 21 PATHWAYS · 22 PLATES</small>
           </h1>
           <p className="mast-summary">
             上下两域：上为胞质（糖酵解向右主链、糖异生同链逆向、PPP 自 G6P 分叉回流），中为三层膜带（氧化磷酸化的呼吸链就画在膜内），下为线粒体基质（TCA 与 β-氧化在乙酰-CoA 会合）；<b>同名代谢物只画一次</b>。点通路名或连线进入挂图，点共用节点看它接通了哪几条路。
@@ -597,7 +601,7 @@ export function HomePage() {
         </span>
         <span className="lg" style={{ color: C.teal }}>青 · 磷酸戊糖 / 氧化磷酸化</span>
         <span className="lg" style={{ color: C.amber }}>琥珀 · 线粒体两条</span>
-        <span className="legend-hint">上下两域 · 首屏可览八条通路</span>
+        <span className="legend-hint">上下两域 · 首屏可览九条通路</span>
       </div>
 
       <div

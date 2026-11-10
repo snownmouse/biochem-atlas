@@ -7,7 +7,7 @@ import type { HomePathwayId } from "./homeMap";
  * 画布宽 1020（原生坐标宽），CSS 宽度锁在 955–1020：1440 首屏恰好完整可见，
  * 更窄视口在容器内横向拖动；高度延伸到 744，给第 10–12 条通路留出纵向落位区。
  */
-export const HOME_CANVAS = { width: 1020, height: 1030 };
+export const HOME_CANVAS = { width: 1020, height: 1222 };
 
 /**
  * Cori 循环在首页的表达：不新增第七个标题块，也不新增第七个通路节点。
@@ -202,6 +202,14 @@ export const HOME_PATHWAY_LABELS: HomePathwayLabel[] = [
   { pathwayId: "glycerophospholipid", x: 28, y: 938, anchor: "start", note: "15 步 · 内质网 / 高尔基体 · 只做 2D" },
   // PLATE 18：血浆脂蛋白代谢，落在 y=986；画布高度由 982 扩到 1030。
   { pathwayId: "lipoprotein", x: 28, y: 986, anchor: "start", note: "11 段器官间物流 · 只做 2D" },
+  // PLATE 19：血红素代谢，落在 y=1034；画布高度由 1030 扩到 1078。
+  { pathwayId: "heme", x: 28, y: 1034, anchor: "start", note: "10 步 · 线粒体 / 胞质 / 内质网 · 只做 2D" },
+  // PLATE 20：胆汁酸代谢，落在 y=1082；画布高度由 1078 扩到 1126。
+  { pathwayId: "bile-acid", x: 28, y: 1082, anchor: "start", note: "6 步 · 胆固醇转化支路 · 只做 2D" },
+  // PLATE 21：糖复合物代谢，落在 y=1130；画布高度由 1126 扩到 1174。
+  { pathwayId: "glycoconjugate", x: 28, y: 1130, anchor: "start", note: "13 步 · 糖核苷酸供体 → 糖链 · 只做 2D" },
+  // PLATE 22：氧化还原与自由基，落在 y=1178；画布高度由 1174 扩到 1222。
+  { pathwayId: "redox", x: 28, y: 1178, anchor: "start", note: "6 步 · NADPH–GSH 抗氧化网 · 防御网络 · 只做 2D" },
 ];
 
 /**
@@ -221,7 +229,7 @@ export interface HomeReservedSlot {
 export const HOME_RESERVED_HEAD = {
   x: 28,
   y: 572,
-  text: "PLATE 18 已接入 · 18 / 18 · 全部完成",
+  text: "PLATE 22 已接入 · 22 / 22 · 全部完成",
 };
 
 export const HOME_RESERVED_SLOTS: HomeReservedSlot[] = [];

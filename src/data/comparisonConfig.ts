@@ -6673,6 +6673,1378 @@ const LIPOPROTEIN_CONFIG: ComparisonConfig = {
   ],
 };
 
+const HEME_CONFIG: ComparisonConfig = {
+  pathwayId: "heme",
+  title: "血红素代谢 · 结构对照",
+  summary:
+    "合成 8 步 + 降解 2 步逐步对照：线粒体 ALA 合酶起始 → 胞质卟啉环装配 → 线粒体氧化脱羧与亚铁螯合 → 内质网 / 胞质降解为胆红素。",
+  plateNo: "PLATE SF-19 · 结构对照 · 血红素代谢 · 2026",
+  back: { to: "/pathway/heme", label: "返回血红素代谢挂图" },
+  backCaption: "血红素代谢",
+  enzymePanel: false,
+  enzymePanelOffNote:
+    "本图全部只做 2D：左栏不提供酶 3D 结构；六张新图沿用站内 UTP 已立的口径，不登记 PDB 候选。",
+  footerNote:
+    "SF-19 共 10 块，全部为 2D 结构式块。本轮未新建 2D 资产：甘氨酸与琥珀酰-CoA 复用既有资产；δ-ALA、胆色素原、羟甲基胆烷、尿卟啉原Ⅲ、粪卟啉原Ⅲ、原卟啉原Ⅸ、原卟啉Ⅸ、血红素、胆绿素、胆红素没有逐原子核验的可信模板，对应块以分子式与文字呈现，不用近似结构凑数；Fe²⁺ 是单原子离子，按符号呈现。",
+  defaultModePolicy:
+    "本轮六张新图统一默认 2D：不建 3D，因此不做 2D/3D 判据比较；逐块 defaultMode 固定为 2d，defaultModeRule 写明“本图 2D-only”。",
+  steps: [
+    {
+      stepId: "heme-1",
+      index: 1,
+      enzyme: "δ-氨基乙酰丙酸合酶",
+      isozyme: "ALAS1 / ALAS2",
+      equation: "甘氨酸 + 琥珀酰-CoA → δ-氨基乙酰丙酸 + CoA-SH + CO₂",
+      substrate: {
+        name: "甘氨酸 + 琥珀酰-CoA",
+        formula: "C2H5NO2 + C25H40N7O19P3S",
+        parts: [
+          {
+            id: "gly",
+            name: "甘氨酸",
+            formula: "C2H5NO2",
+            asset2d: D2("gly"),
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+          {
+            id: "succoa",
+            name: "琥珀酰-CoA",
+            formula: "C25H40N7O19P3S",
+            asset2d: D2("succoa"),
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+        cofactorNote: "PLP 作辅因子，不入画；CoA-SH 与 CO₂ 是离去产物，本块不单列分子。",
+      },
+      product: {
+        name: "δ-氨基乙酰丙酸",
+        formula: "C5H9NO3",
+        parts: [
+          {
+            id: "ala5",
+            name: "δ-氨基乙酰丙酸",
+            formula: "C5H9NO3",
+            asset2d: "",
+            missing2dReason:
+              "δ-氨基乙酰丙酸的 2D 资产本轮未建（无逐原子核验的可信模板，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "ALAS · 缩合 + 脱羧（PLP）",
+      change: "甘氨酸的 α-碳与琥珀酰-CoA 的琥珀酰基缩合，随即脱羧放出 CO₂，生成 δ-氨基乙酰丙酸，同时释出 CoA-SH。",
+      physiology: "限速步；血红素升高时 ALAS1 的合成与转运受抑，把通量压回需求水平。",
+      evidence: { substrate: [evOnly2d("gly"), evOtherNonhuman("succoa")], product: [evOnly2d("ala5")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "heme-2",
+      index: 2,
+      enzyme: "δ-氨基乙酰丙酸脱水酶",
+      isozyme: "ALAD",
+      equation: "2 δ-氨基乙酰丙酸 → 胆色素原 + 2 H₂O",
+      substrate: {
+        name: "δ-氨基乙酰丙酸 ×2",
+        formula: "C5H9NO3 ×2",
+        parts: [
+          {
+            id: "ala5",
+            name: "δ-氨基乙酰丙酸",
+            formula: "C5H9NO3",
+            asset2d: "",
+            missing2dReason:
+              "δ-氨基乙酰丙酸的 2D 资产本轮未建（无逐原子核验的可信模板，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      product: {
+        name: "胆色素原",
+        formula: "C10H14N2O4",
+        parts: [
+          {
+            id: "pbg",
+            name: "胆色素原",
+            formula: "C10H14N2O4",
+            asset2d: "",
+            missing2dReason:
+              "胆色素原的 2D 资产本轮未建（单吡咯环 + 两条侧链需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "ALAD · 两分子缩合脱水",
+      change: "两分子 δ-氨基乙酰丙酸的头尾缩合，各脱一分子水，生成含单吡咯环的胆色素原。",
+      physiology: "把线粒体输出的 ALA 转成卟啉环单体，是胞质装配段的入口。",
+      evidence: { substrate: [evOnly2d("ala5")], product: [evOnly2d("pbg")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "heme-3",
+      index: 3,
+      enzyme: "胆色素原脱氨酶",
+      isozyme: "PBGD（HMBS）",
+      equation: "4 胆色素原 → 羟甲基胆烷 + 4 NH₃",
+      substrate: {
+        name: "胆色素原 ×4",
+        formula: "C10H14N2O4 ×4",
+        parts: [
+          {
+            id: "pbg",
+            name: "胆色素原",
+            formula: "C10H14N2O4",
+            asset2d: "",
+            missing2dReason:
+              "胆色素原的 2D 资产本轮未建（单吡咯环 + 两条侧链需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      product: {
+        name: "羟甲基胆烷",
+        formula: "未核实（四吡咯开链，未逐原子核验）",
+        parts: [
+          {
+            id: "hmb",
+            name: "羟甲基胆烷",
+            formula: "未核实",
+            asset2d: "",
+            missing2dReason:
+              "羟甲基胆烷的 2D 资产本轮未建，且分子式未逐原子核验；为避免近似结构误导，此处只给名称与文字，不写结构式。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "PBGD · 四分子头尾聚合",
+      change: "四分子胆色素原脱氨后头尾相接，生成开链的羟甲基胆烷，同时放出 4 分子 NH₃。",
+      physiology: "把单吡咯聚成线性四吡咯，是卟啉环装配的关键聚合步。",
+      evidence: { substrate: [evOnly2d("pbg")], product: [evOnly2d("hmb")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "heme-4",
+      index: 4,
+      enzyme: "尿卟啉原Ⅲ合酶",
+      isozyme: "UROS",
+      equation: "羟甲基胆烷 → 尿卟啉原Ⅲ + H₂O",
+      substrate: {
+        name: "羟甲基胆烷",
+        formula: "未核实（四吡咯开链，未逐原子核验）",
+        parts: [
+          {
+            id: "hmb",
+            name: "羟甲基胆烷",
+            formula: "未核实",
+            asset2d: "",
+            missing2dReason:
+              "羟甲基胆烷的 2D 资产本轮未建，且分子式未逐原子核验；为避免近似结构误导，此处只给名称与文字，不写结构式。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      product: {
+        name: "尿卟啉原Ⅲ",
+        formula: "未核实（Ⅲ型四吡咯环，未逐原子核验）",
+        parts: [
+          {
+            id: "uro3",
+            name: "尿卟啉原Ⅲ",
+            formula: "未核实",
+            asset2d: "",
+            missing2dReason:
+              "尿卟啉原Ⅲ的 2D 资产本轮未建（四吡咯环 + 四条丙酸侧链的取代基排列需逐原子核验，不用近似结构凑数），此处以文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "UROS · 环化成Ⅲ型",
+      change: "羟甲基胆烷闭环，同时把四个乙酸侧链的排列锁成Ⅲ型；非酶促环化会得到Ⅰ型。",
+      physiology: "Ⅲ型是体内唯一能继续走向血红素的异构体；Ⅰ型不能加铁，只能被排出。",
+      evidence: { substrate: [evOnly2d("hmb")], product: [evOnly2d("uro3")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "heme-5",
+      index: 5,
+      enzyme: "尿卟啉原脱羧酶",
+      isozyme: "UROD",
+      equation: "尿卟啉原Ⅲ → 粪卟啉原Ⅲ + 4 CO₂",
+      substrate: {
+        name: "尿卟啉原Ⅲ",
+        formula: "未核实（Ⅲ型四吡咯环，未逐原子核验）",
+        parts: [
+          {
+            id: "uro3",
+            name: "尿卟啉原Ⅲ",
+            formula: "未核实",
+            asset2d: "",
+            missing2dReason:
+              "尿卟啉原Ⅲ的 2D 资产本轮未建（四吡咯环 + 四条丙酸侧链的取代基排列需逐原子核验，不用近似结构凑数），此处以文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      product: {
+        name: "粪卟啉原Ⅲ",
+        formula: "未核实（Ⅲ型四吡咯环，未逐原子核验）",
+        parts: [
+          {
+            id: "copro3",
+            name: "粪卟啉原Ⅲ",
+            formula: "未核实",
+            asset2d: "",
+            missing2dReason:
+              "粪卟啉原Ⅲ的 2D 资产本轮未建（四吡咯环 + 四条甲/丙酸侧链需逐原子核验，不用近似结构凑数），此处以文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "UROD · 四次脱羧",
+      change: "四条乙酸侧链连续脱羧成甲基，生成粪卟啉原Ⅲ，同时放出 4 分子 CO₂。",
+      physiology: "疏水性增强，为进入线粒体继续氧化做准备。",
+      evidence: { substrate: [evOnly2d("uro3")], product: [evOnly2d("copro3")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "heme-6",
+      index: 6,
+      enzyme: "粪卟啉原氧化酶",
+      isozyme: "CPOX",
+      equation: "粪卟啉原Ⅲ + O₂ → 原卟啉原Ⅸ + 2 CO₂ + 2 H₂O",
+      substrate: {
+        name: "粪卟啉原Ⅲ",
+        formula: "未核实（Ⅲ型四吡咯环，未逐原子核验）",
+        parts: [
+          {
+            id: "copro3",
+            name: "粪卟啉原Ⅲ",
+            formula: "未核实",
+            asset2d: "",
+            missing2dReason:
+              "粪卟啉原Ⅲ的 2D 资产本轮未建（四吡咯环 + 四条甲/丙酸侧链需逐原子核验，不用近似结构凑数），此处以文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      product: {
+        name: "原卟啉原Ⅸ",
+        formula: "未核实（四吡咯环氧化态改变，未逐原子核验）",
+        parts: [
+          {
+            id: "ppg9",
+            name: "原卟啉原Ⅸ",
+            formula: "未核实",
+            asset2d: "",
+            missing2dReason:
+              "原卟啉原Ⅸ的 2D 资产本轮未建（与粪卟啉原Ⅲ只差两条丙酸侧链的氧化脱羧，需逐原子核验，不用近似结构凑数），此处以文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "CPOX · 氧化脱羧（回线粒体）",
+      change: "两条丙酸侧链氧化脱羧成乙烯基，环的氧化态同时改变，生成原卟啉原Ⅸ。",
+      physiology: "回到线粒体后的第一次氧化脱羧；底物需先从胞质进入线粒体。",
+      evidence: { substrate: [evOnly2d("copro3")], product: [evOnly2d("ppg9")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "heme-7",
+      index: 7,
+      enzyme: "原卟啉原氧化酶",
+      isozyme: "PPOX",
+      equation: "原卟啉原Ⅸ + 3 O₂ → 原卟啉Ⅸ + 3 H₂O₂",
+      substrate: {
+        name: "原卟啉原Ⅸ",
+        formula: "未核实（四吡咯环氧化态改变，未逐原子核验）",
+        parts: [
+          {
+            id: "ppg9",
+            name: "原卟啉原Ⅸ",
+            formula: "未核实",
+            asset2d: "",
+            missing2dReason:
+              "原卟啉原Ⅸ的 2D 资产本轮未建（与粪卟啉原Ⅲ只差两条丙酸侧链的氧化脱羧，需逐原子核验，不用近似结构凑数），此处以文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      product: {
+        name: "原卟啉Ⅸ",
+        formula: "C34H34N4O4",
+        parts: [
+          {
+            id: "proto9",
+            name: "原卟啉Ⅸ",
+            formula: "C34H34N4O4",
+            asset2d: "",
+            missing2dReason:
+              "原卟啉Ⅸ的 2D 资产本轮未建（共轭大环 + 两条乙烯基需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "PPOX · 脱氢成共轭大环",
+      change: "三个亚甲基桥脱氢成次甲基桥，形成原卟啉Ⅸ的共轭大环；氧分子作电子受体。",
+      physiology: "原卟啉Ⅸ是亚铁螯合酶的底物，环中心留出加铁的位置。",
+      evidence: { substrate: [evOnly2d("ppg9")], product: [evOnly2d("proto9")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "heme-8",
+      index: 8,
+      enzyme: "亚铁螯合酶",
+      isozyme: "FECH",
+      equation: "原卟啉Ⅸ + Fe²⁺ → 血红素 + 2 H⁺",
+      substrate: {
+        name: "原卟啉Ⅸ + Fe²⁺",
+        formula: "C34H34N4O4 + Fe²⁺",
+        parts: [
+          {
+            id: "proto9",
+            name: "原卟啉Ⅸ",
+            formula: "C34H34N4O4",
+            asset2d: "",
+            missing2dReason:
+              "原卟啉Ⅸ的 2D 资产本轮未建（共轭大环 + 两条乙烯基需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+          {
+            id: "fe2",
+            name: "亚铁离子",
+            formula: "Fe²⁺",
+            asset2d: "",
+            missing2dReason: "单原子离子不画结构式，以离子符号呈现（不是缺资产）。",
+            no3dReason: "单原子离子球棍无形状信息量，本图按 2D-only 口径不建 3D。",
+          },
+        ],
+      },
+      product: {
+        name: "血红素",
+        formula: "C34H32FeN4O4",
+        parts: [
+          {
+            id: "heme",
+            name: "血红素 b",
+            formula: "C34H32FeN4O4",
+            asset2d: "",
+            missing2dReason:
+              "血红素的 2D 资产本轮未建（卟啉环 + 中心配位铁的键级需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "FECH · 装入 Fe²⁺",
+      change: "Fe²⁺ 进入卟啉环中心形成配位键，生成血红素，同时释放两个质子。",
+      physiology: "铁供给与血红素合成直接耦合；缺铁或铅暴露会影响这一步。",
+      evidence: { substrate: [evOnly2d("proto9"), evOnly2d("fe2")], product: [evOnly2d("heme")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "heme-9",
+      index: 9,
+      enzyme: "血红素加氧酶",
+      isozyme: "HO-1 / HO-2",
+      equation: "血红素 + O₂ + NADPH → 胆绿素 + CO + Fe²⁺",
+      substrate: {
+        name: "血红素",
+        formula: "C34H32FeN4O4",
+        parts: [
+          {
+            id: "heme",
+            name: "血红素 b",
+            formula: "C34H32FeN4O4",
+            asset2d: "",
+            missing2dReason:
+              "血红素的 2D 资产本轮未建（卟啉环 + 中心配位铁的键级需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+        cofactorNote: "O₂ 与 NADPH 不入画；电子由 NADPH-细胞色素 P450 还原酶供给。",
+      },
+      product: {
+        name: "胆绿素（+ CO + Fe²⁺）",
+        formula: "C33H34N4O6",
+        parts: [
+          {
+            id: "biliverdin",
+            name: "胆绿素",
+            formula: "C33H34N4O6",
+            asset2d: "",
+            missing2dReason:
+              "胆绿素的 2D 资产本轮未建（开链四吡咯 + 三条桥的氧化态需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+        cofactorNote: "CO 与 Fe²⁺ 是同步释放的产物，本块不单列分子。",
+      },
+      arrowLabel: "HO · 开环（内质网）",
+      change: "血红素的一个次甲基桥被氧化打开，环裂解生成胆绿素，同时释放 CO 与 Fe²⁺。",
+      physiology: "血红素降解的起始步，也是胆红素生成的来源；HO-1 可被血红素诱导。",
+      evidence: { substrate: [evOnly2d("heme")], product: [evOnly2d("biliverdin")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "heme-10",
+      index: 10,
+      enzyme: "胆绿素还原酶",
+      isozyme: "BVR-A",
+      equation: "胆绿素 + NADPH → 胆红素 + NADP⁺",
+      substrate: {
+        name: "胆绿素",
+        formula: "C33H34N4O6",
+        parts: [
+          {
+            id: "biliverdin",
+            name: "胆绿素",
+            formula: "C33H34N4O6",
+            asset2d: "",
+            missing2dReason:
+              "胆绿素的 2D 资产本轮未建（开链四吡咯 + 三条桥的氧化态需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      product: {
+        name: "胆红素",
+        formula: "C33H36N4O6",
+        parts: [
+          {
+            id: "bilirubin",
+            name: "胆红素",
+            formula: "C33H36N4O6",
+            asset2d: "",
+            missing2dReason:
+              "胆红素的 2D 资产本轮未建（开链四吡咯的两个丙酸侧链与氢化程度需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+        cofactorNote: "胆红素与葡萄糖醛酸结合、随胆汁排出，本块不展开，页脚作 1 段说明。",
+      },
+      arrowLabel: "BVR · 还原一个双键",
+      change: "胆绿素中央的次甲基桥被还原，共轭程度下降，生成胆红素。",
+      physiology: "把水溶性的胆绿素转成脂溶性更强的胆红素，为葡萄糖醛酸结合做准备。",
+      evidence: { substrate: [evOnly2d("biliverdin")], product: [evOnly2d("bilirubin")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+  ],
+};
+
+const BILE_ACID_CONFIG: ComparisonConfig = {
+  pathwayId: "bile-acid",
+  title: "胆汁酸代谢 · 结构对照",
+  summary:
+    "胆固醇转化支路 6 步逐步对照：CYP7A1 限速羟化 → 甾核修饰 → CYP8B1 分支 → 侧链 27-羟化与 β-氧化缩短 → 与甘氨酸 / 牛磺酸结合；肠肝循环作运输段，不计块。",
+  plateNo: "PLATE SF-20 · 结构对照 · 胆汁酸代谢 · 2026",
+  back: { to: "/pathway/bile-acid", label: "返回胆汁酸代谢挂图" },
+  backCaption: "胆汁酸代谢",
+  enzymePanel: false,
+  enzymePanelOffNote:
+    "本图全部只做 2D：左栏不提供酶 3D 结构；六张新图沿用站内 UTP 已立的口径，不登记 PDB 候选。",
+  footerNote:
+    "SF-20 共 6 块，全部为 2D 结构式块。本轮未新建 2D 资产：胆固醇与甘氨酸复用既有资产；7α-羟基胆固醇、7α-羟基-4-胆甾烯-3-酮、7α,12α-二羟基-4-胆甾烯-3-酮、三羟基 / 二羟基胆甾烷酸、胆酰-CoA、鹅脱氧胆酰-CoA、甘氨胆酸、牛磺胆酸没有逐原子核验的可信模板，对应块以分子式与文字呈现，不用近似结构凑数；牛磺酸同样未建资产。",
+  defaultModePolicy:
+    "本轮六张新图统一默认 2D：不建 3D，因此不做 2D/3D 判据比较；逐块 defaultMode 固定为 2d，defaultModeRule 写明“本图 2D-only”。",
+  steps: [
+    {
+      stepId: "bile-1",
+      index: 1,
+      enzyme: "胆固醇 7α-羟化酶",
+      isozyme: "CYP7A1",
+      equation: "胆固醇 + O₂ + NADPH → 7α-羟基胆固醇 + H₂O",
+      substrate: {
+        name: "胆固醇",
+        formula: "C27H46O",
+        parts: [
+          {
+            id: "cholesterol",
+            name: "胆固醇",
+            formula: "C27H46O",
+            asset2d: D2("cholesterol"),
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+        cofactorNote: "O₂ 与 NADPH 不入画；电子由 NADPH-细胞色素 P450 还原酶供给。",
+      },
+      product: {
+        name: "7α-羟基胆固醇",
+        formula: "C27H46O2",
+        parts: [
+          {
+            id: "c7ol",
+            name: "7α-羟基胆固醇",
+            formula: "C27H46O2",
+            asset2d: "",
+            missing2dReason:
+              "7α-羟基胆固醇的 2D 资产本轮未建（甾核 7α 位羟基的立体化学需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "CYP7A1 · 7α-羟化（限速）",
+      change: "胆固醇的 7α 位加羟基，生成 7α-羟基胆固醇；这一步是胆汁酸合成的限速步。",
+      physiology: "CYP7A1 的转录受胆汁酸负反馈，FXR 诱导 FGF19 后抑制 CYP7A1，把胆汁酸池控制在需求范围。",
+      evidence: { substrate: [evOnly2d("cholesterol")], product: [evOnly2d("c7ol")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "bile-2",
+      index: 2,
+      enzyme: "3β-羟基-Δ⁵-类固醇脱氢酶 / Δ⁵–Δ⁴ 异构酶",
+      isozyme: "HSD3B7",
+      equation: "7α-羟基胆固醇 → 7α-羟基-4-胆甾烯-3-酮",
+      substrate: {
+        name: "7α-羟基胆固醇",
+        formula: "C27H46O2",
+        parts: [
+          {
+            id: "c7ol",
+            name: "7α-羟基胆固醇",
+            formula: "C27H46O2",
+            asset2d: "",
+            missing2dReason:
+              "7α-羟基胆固醇的 2D 资产本轮未建（甾核 7α 位羟基的立体化学需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+        cofactorNote: "NAD⁺ 作氢受体，不入画。",
+      },
+      product: {
+        name: "7α-羟基-4-胆甾烯-3-酮",
+        formula: "C27H44O2",
+        parts: [
+          {
+            id: "c7one",
+            name: "7α-羟基-4-胆甾烯-3-酮",
+            formula: "C27H44O2",
+            asset2d: "",
+            missing2dReason:
+              "7α-羟基-4-胆甾烯-3-酮的 2D 资产本轮未建（A 环 3-酮与 Δ⁴ 双键需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "HSD3B7 · 脱氢 + 异构化",
+      change: "3β-羟基脱氢成 3-酮，双键从 Δ⁵ 迁到 Δ⁴，A 环完成修饰。",
+      physiology: "为后续 12α-羟化与侧链氧化提供结构前提；EC 编号未核实，本块不写子项。",
+      evidence: { substrate: [evOnly2d("c7ol")], product: [evOnly2d("c7one")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "bile-3",
+      index: 3,
+      enzyme: "甾醇 12α-羟化酶",
+      isozyme: "CYP8B1",
+      equation: "7α-羟基-4-胆甾烯-3-酮 + O₂ + NADPH → 7α,12α-二羟基-4-胆甾烯-3-酮 + H₂O",
+      substrate: {
+        name: "7α-羟基-4-胆甾烯-3-酮",
+        formula: "C27H44O2",
+        parts: [
+          {
+            id: "c7one",
+            name: "7α-羟基-4-胆甾烯-3-酮",
+            formula: "C27H44O2",
+            asset2d: "",
+            missing2dReason:
+              "7α-羟基-4-胆甾烯-3-酮的 2D 资产本轮未建（A 环 3-酮与 Δ⁴ 双键需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+        cofactorNote: "O₂ 与 NADPH 不入画。",
+      },
+      product: {
+        name: "7α,12α-二羟基-4-胆甾烯-3-酮",
+        formula: "C27H44O3",
+        parts: [
+          {
+            id: "c7diol",
+            name: "7α,12α-二羟基-4-胆甾烯-3-酮",
+            formula: "C27H44O3",
+            asset2d: "",
+            missing2dReason:
+              "7α,12α-二羟基-4-胆甾烯-3-酮的 2D 资产本轮未建（两个羟基的立体化学需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "CYP8B1 · 12α-羟化（分支）",
+      change: "在 12α 位加羟基，生成二羟基中间物；有这一步走胆酸，没有则走鹅脱氧胆酸。",
+      physiology: "分支点：CYP8B1 活性决定胆酸 / 鹅脱氧胆酸比例。",
+      evidence: { substrate: [evOnly2d("c7one")], product: [evOnly2d("c7diol")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "bile-4",
+      index: 4,
+      enzyme: "甾醇 27-羟化酶",
+      isozyme: "CYP27A1",
+      equation: "7α,12α-二羟基-4-胆甾烯-3-酮 + O₂ + NADPH → 三羟基胆甾烷酸（27-酸）+ H₂O",
+      substrate: {
+        name: "7α,12α-二羟基-4-胆甾烯-3-酮",
+        formula: "C27H44O3",
+        parts: [
+          {
+            id: "c7diol",
+            name: "7α,12α-二羟基-4-胆甾烯-3-酮",
+            formula: "C27H44O3",
+            asset2d: "",
+            missing2dReason:
+              "7α,12α-二羟基-4-胆甾烯-3-酮的 2D 资产本轮未建（两个羟基的立体化学需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+        cofactorNote: "O₂ 与 NADPH 不入画；这一步在线粒体内膜。",
+      },
+      product: {
+        name: "三羟基胆甾烷酸",
+        formula: "C24H40O5",
+        parts: [
+          {
+            id: "ca_pre",
+            name: "三羟基 / 二羟基胆甾烷酸",
+            formula: "C24H40O5 / C24H40O4",
+            asset2d: "",
+            missing2dReason:
+              "胆甾烷酸的 2D 资产本轮未建（侧链羧基与甾核羟基的立体化学需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "CYP27A1 · 27-羟化 + 氧化",
+      change: "侧链 27 位羟化后氧化成羧酸，得到胆甾烷酸；本块把羟化与氧化合并为一步。",
+      physiology: "决定胆汁酸侧链末端羧基的位置，是侧链缩短的前置步骤。",
+      evidence: { substrate: [evOnly2d("c7diol")], product: [evOnly2d("ca_pre")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "bile-5",
+      index: 5,
+      enzyme: "过氧化物酶体侧链 β-氧化酶系",
+      equation: "三羟基 / 二羟基胆甾烷酸 → 胆酰-CoA / 鹅脱氧胆酰-CoA + 丙酰-CoA",
+      substrate: {
+        name: "三羟基 / 二羟基胆甾烷酸",
+        formula: "C24H40O5 / C24H40O4",
+        parts: [
+          {
+            id: "ca_pre",
+            name: "三羟基 / 二羟基胆甾烷酸",
+            formula: "C24H40O5 / C24H40O4",
+            asset2d: "",
+            missing2dReason:
+              "胆甾烷酸的 2D 资产本轮未建（侧链羧基与甾核羟基的立体化学需逐原子核验，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+        cofactorNote: "CoA-SH 参与活化；丙酰-CoA 是切下的碳，本块不单列分子。",
+      },
+      product: {
+        name: "胆酰-CoA / 鹅脱氧胆酰-CoA",
+        formula: "未核实（甾核 + CoA 硫酯，未逐原子核验）",
+        parts: [
+          {
+            id: "ca_coa",
+            name: "胆酰-CoA",
+            formula: "未核实",
+            asset2d: "",
+            missing2dReason:
+              "胆酰-CoA 的 2D 资产本轮未建（甾核 + CoA 硫酯的逐原子坐标没有可信模板，不用近似结构凑数），此处以文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+          {
+            id: "cdca_coa",
+            name: "鹅脱氧胆酰-CoA",
+            formula: "未核实",
+            asset2d: "",
+            missing2dReason:
+              "鹅脱氧胆酰-CoA 的 2D 资产本轮未建（甾核 + CoA 硫酯的逐原子坐标没有可信模板，不用近似结构凑数），此处以文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "侧链 β-氧化缩短（过氧化物酶体）",
+      change: "侧链经多轮 β-氧化缩短到 C24，切下的碳以丙酰-CoA 释放，生成胆酰-CoA 或鹅脱氧胆酰-CoA。",
+      physiology: "把 C27 的胆固醇骨架转成 C24 的胆汁酸骨架，是胆汁酸与胆固醇结构上的分界。",
+      evidence: { substrate: [evOnly2d("ca_pre")], product: [evOnly2d("ca_coa"), evOnly2d("cdca_coa")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "bile-6",
+      index: 6,
+      enzyme: "胆汁酸-CoA:氨基酸 N-酰基转移酶",
+      isozyme: "BAAT",
+      equation: "胆酰-CoA + 甘氨酸 / 牛磺酸 → 甘氨胆酸 / 牛磺胆酸 + CoA-SH",
+      substrate: {
+        name: "胆酰-CoA + 甘氨酸 / 牛磺酸",
+        formula: "未核实 + C2H5NO2 / C2H7NO3S",
+        parts: [
+          {
+            id: "ca_coa",
+            name: "胆酰-CoA",
+            formula: "未核实",
+            asset2d: "",
+            missing2dReason:
+              "胆酰-CoA 的 2D 资产本轮未建（甾核 + CoA 硫酯的逐原子坐标没有可信模板，不用近似结构凑数），此处以文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+          {
+            id: "gly",
+            name: "甘氨酸",
+            formula: "C2H5NO2",
+            asset2d: D2("gly"),
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+          {
+            id: "tau",
+            name: "牛磺酸",
+            formula: "C2H7NO3S",
+            asset2d: "",
+            missing2dReason:
+              "牛磺酸的 2D 资产本轮未建（磺酸基与氨基的逐原子坐标没有可信模板，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      product: {
+        name: "甘氨胆酸 / 牛磺胆酸",
+        formula: "C26H43NO6 / C26H45NO7S",
+        parts: [
+          {
+            id: "gca",
+            name: "甘氨胆酸",
+            formula: "C26H43NO6",
+            asset2d: "",
+            missing2dReason:
+              "甘氨胆酸的 2D 资产本轮未建（甾核 + 甘氨酸酰胺的逐原子坐标没有可信模板，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+          {
+            id: "tca_bile",
+            name: "牛磺胆酸",
+            formula: "C26H45NO7S",
+            asset2d: "",
+            missing2dReason:
+              "牛磺胆酸的 2D 资产本轮未建（甾核 + 牛磺酸酰胺的逐原子坐标没有可信模板，不用近似结构凑数），此处以分子式与文字呈现。",
+            no3dReason: "本图按 2D-only 口径，不调 3D 资产。",
+          },
+        ],
+      },
+      arrowLabel: "BAAT · 与 Gly / Tau 结合",
+      change: "胆汁酸的羧基与甘氨酸或牛磺酸的氨基形成酰胺键，生成结合胆汁酸，同时释出 CoA-SH。",
+      physiology: "结合提高溶解度、降低游离胆汁酸的去污剂毒性，是排入胆汁与肠道回收的前提。",
+      evidence: {
+        substrate: [evOnly2d("ca_coa"), evOnly2d("gly"), evOnly2d("tau")],
+        product: [evOnly2d("gca"), evOnly2d("tca_bile")],
+      },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+  ],
+};
+
+const GLYCO_MISSING = "本轮未建 2D 资产（逐原子坐标没有可信模板，不用近似结构凑数），此处以分子式与文字呈现。";
+
+const GLYCOCONJUGATE_CONFIG: ComparisonConfig = {
+  pathwayId: "glycoconjugate",
+  title: "糖复合物代谢 · 结构对照",
+  summary:
+    "只做「糖核苷酸供体 → 糖链」这条窄切口的 13 步逐步对照：UDP-Glc、UDP-Gal、UDP-GlcA、UDP-GlcNAc、GDP-Man、GDP-Fuc、CMP-唾液酸的生成，继以 N-糖基化、O-GlcNAc、糖胺聚糖与糖脂四条去向；不画糖链装配全图。",
+  plateNo: "PLATE SF-21 · 结构对照 · 糖复合物代谢 · 2026",
+  back: { to: "/pathway/glycoconjugate", label: "返回糖复合物代谢挂图" },
+  backCaption: "糖复合物代谢",
+  enzymePanel: false,
+  enzymePanelOffNote:
+    "本图全部只做 2D：左栏不提供酶 3D 结构；沿用站内 UTP 已立的口径，不登记 PDB 候选。",
+  footerNote:
+    "SF-21 共 13 块，全部为 2D 结构式块。本轮未新建 2D 资产：G6P 复用糖酵解既有资产；UDP-Glc、UDP-Gal、UDP-GlcA、UDP-GlcNAc、GDP-Man、GDP-Fuc、Neu5Ac、CMP-Neu5Ac、核心寡糖、复杂型糖链、O-GlcNAc 修饰蛋白、透明质酸、神经酰胺与乳糖神经酰胺没有逐原子核验的可信模板，对应块以分子式与文字呈现，不用近似结构凑数。",
+  defaultModePolicy:
+    "沿用本轮新图的统一口径：默认 2D，不建 3D，因此不做 2D/3D 判据比较；逐块 defaultMode 固定为 2d，defaultModeRule 写明“本图 2D-only”。",
+  steps: [
+    {
+      stepId: "gcon-1",
+      index: 1,
+      enzyme: "UDP-葡糖焦磷酸化酶",
+      isozyme: "UGP2",
+      equation: "G6P → G1P；G1P + UTP → UDP-Glc + PPi",
+      substrate: {
+        name: "葡糖-6-磷酸",
+        formula: "C6H11O9P",
+        parts: [
+          { id: "g6p", name: "葡糖-6-磷酸", formula: "C6H11O9P", asset2d: D2("g6p"), no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "UTP 与 Mg²⁺ 不入画；G6P 来自糖酵解 gk-1。",
+      },
+      product: {
+        name: "UDP-葡萄糖",
+        formula: "C15H24N2O17P2",
+        parts: [
+          { id: "udp_glc", name: "UDP-葡萄糖", formula: "C15H24N2O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "PGM1 变位 + UGP2 焦磷酸化",
+      change: "G6P 先经磷酸葡糖变位酶转成 G1P，再由 UGP2 与 UTP 缩合成 UDP-Glc，释出 PPi。",
+      physiology: "这是糖核苷酸供体池的入口；UDP-Glc 供糖原合成、N-糖链外圈葡萄糖与糖脂共用。",
+      evidence: { substrate: [evOtherHuman("g6p")], product: [evOnly2d("udp_glc")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "gcon-2",
+      index: 2,
+      enzyme: "UDP-葡萄糖 4-差向异构酶",
+      isozyme: "GALE",
+      equation: "UDP-Glc ⇌ UDP-Gal",
+      substrate: {
+        name: "UDP-葡萄糖",
+        formula: "C15H24N2O17P2",
+        parts: [
+          { id: "udp_glc", name: "UDP-葡萄糖", formula: "C15H24N2O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      product: {
+        name: "UDP-半乳糖",
+        formula: "C15H24N2O17P2",
+        parts: [
+          { id: "udp_gal", name: "UDP-半乳糖", formula: "C15H24N2O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "GALE · C4 差向异构（可逆）",
+      change: "只在 C4 位改变构型，UDP-Glc 与 UDP-Gal 互变，不消耗 ATP。",
+      physiology: "UDP-Gal 供乳糖、糖脂与 N / O-糖链的半乳糖基；GALE 也可把 UDP-Gal 转回 UDP-Glc。",
+      evidence: { substrate: [evOnly2d("udp_glc")], product: [evOnly2d("udp_gal")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "gcon-3",
+      index: 3,
+      enzyme: "UDP-葡萄糖 6-脱氢酶",
+      isozyme: "UGDH",
+      equation: "UDP-Glc + 2 NAD⁺ + H₂O → UDP-GlcA + 2 NADH + 2 H⁺",
+      substrate: {
+        name: "UDP-葡萄糖",
+        formula: "C15H24N2O17P2",
+        parts: [
+          { id: "udp_glc", name: "UDP-葡萄糖", formula: "C15H24N2O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "NAD⁺ 作氢受体，不入画。",
+      },
+      product: {
+        name: "UDP-葡糖醛酸",
+        formula: "C15H22N2O18P2",
+        parts: [
+          { id: "udp_glca", name: "UDP-葡糖醛酸", formula: "C15H22N2O18P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "UGDH · C6 两步脱氢成羧酸",
+      change: "C6 先氧化成醛，再氧化成羧酸，UDP-Glc 变成 UDP-GlcA。",
+      physiology: "UDP-GlcA 供糖胺聚糖与糖脂；肝内同一供体池也用于胆汁酸与胆红素的葡萄糖醛酸结合。",
+      evidence: { substrate: [evOnly2d("udp_glc")], product: [evOnly2d("udp_glca")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "gcon-4",
+      index: 4,
+      enzyme: "谷氨酰胺-果糖-6-磷酸转氨酶",
+      isozyme: "GFPT1 / GFPT2",
+      equation: "F6P + 谷氨酰胺 → GlcN6P + 谷氨酸；GlcN6P → … → UDP-GlcNAc",
+      substrate: {
+        name: "果糖-6-磷酸",
+        formula: "C6H11O9P",
+        parts: [
+          { id: "f6p", name: "果糖-6-磷酸", formula: "C6H11O9P", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "谷氨酰胺供酰胺氮，乙酰-CoA 与 UTP 参与后续步骤，均不入画。",
+      },
+      product: {
+        name: "UDP-N-乙酰葡糖胺",
+        formula: "C17H27N3O17P2",
+        parts: [
+          { id: "udp_glcnac", name: "UDP-N-乙酰葡糖胺", formula: "C17H27N3O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "GFPT 限速 → PGM3 → UAP1",
+      change: "F6P 接受谷氨酰胺的酰胺氮生成 GlcN6P，再经变位、乙酰化与尿苷酸化做成 UDP-GlcNAc。",
+      physiology: "GFPT 是己糖胺通路的限速步；UDP-GlcNAc 是 N-糖链核心、O-GlcNAc、糖胺聚糖与糖脂的共用供体。",
+      evidence: { substrate: [evOwnNonhuman("f6p")], product: [evOnly2d("udp_glcnac")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "gcon-5",
+      index: 5,
+      enzyme: "GDP-甘露糖焦磷酸化酶",
+      isozyme: "GMPPB",
+      equation: "F6P ⇌ Man6P ⇌ Man1P；Man1P + GTP → GDP-Man + PPi",
+      substrate: {
+        name: "果糖-6-磷酸",
+        formula: "C6H11O9P",
+        parts: [
+          { id: "f6p", name: "果糖-6-磷酸", formula: "C6H11O9P", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "GTP 与 Mg²⁺ 不入画；上游 MPI 与 PMM2 并入本块。",
+      },
+      product: {
+        name: "GDP-甘露糖",
+        formula: "C16H25N5O16P2",
+        parts: [
+          { id: "gdp_man", name: "GDP-甘露糖", formula: "C16H25N5O16P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "MPI 异构 → PMM2 变位 → GMPPB 焦磷酸化",
+      change: "F6P 异构与变位生成 Man1P，再与 GTP 缩合成 GDP-Man，释出 PPi。",
+      physiology: "GDP-Man 供 N-糖链甘露糖与糖基磷脂酰肌醇锚，也是 GDP-Fuc 的上游。",
+      evidence: { substrate: [evOwnNonhuman("f6p")], product: [evOnly2d("gdp_man")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "gcon-6",
+      index: 6,
+      enzyme: "GDP-甘露糖 4,6-脱水酶",
+      isozyme: "GMDS",
+      equation: "GDP-Man → GDP-4-酮-6-脱氧甘露糖 → GDP-Fuc",
+      substrate: {
+        name: "GDP-甘露糖",
+        formula: "C16H25N5O16P2",
+        parts: [
+          { id: "gdp_man", name: "GDP-甘露糖", formula: "C16H25N5O16P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "NADPH 供还原步骤的氢，不入画。",
+      },
+      product: {
+        name: "GDP-岩藻糖",
+        formula: "C15H25N5O15P2",
+        parts: [
+          { id: "gdp_fuc", name: "GDP-岩藻糖", formula: "C15H25N5O15P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "GMDS 脱水 → TSTA3 差向异构-还原",
+      change: "GDP-Man 先脱水成 4-酮-6-脱氧甘露糖，再经差向异构与还原生成 GDP-Fuc。",
+      physiology: "GDP-Fuc 是岩藻糖基化（N-糖链核心岩藻糖、血型抗原）的唯一供体。",
+      evidence: { substrate: [evOnly2d("gdp_man")], product: [evOnly2d("gdp_fuc")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "gcon-7",
+      index: 7,
+      enzyme: "UDP-N-乙酰葡糖胺 2-差向异构酶 / ManNAc 激酶",
+      isozyme: "GNE",
+      equation: "UDP-GlcNAc → ManNAc → Neu5Ac",
+      substrate: {
+        name: "UDP-N-乙酰葡糖胺",
+        formula: "C17H27N3O17P2",
+        parts: [
+          { id: "udp_glcnac", name: "UDP-N-乙酰葡糖胺", formula: "C17H27N3O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "PEP 供缩合碳架，不入画；Neu5Ac 合酶 NANS 并入本块。",
+      },
+      product: {
+        name: "N-乙酰神经氨酸（唾液酸）",
+        formula: "C11H19NO9",
+        parts: [
+          { id: "neu5ac", name: "N-乙酰神经氨酸", formula: "C11H19NO9", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "GNE（EC 未核实）→ NANS",
+      change: "UDP-GlcNAc 经 GNE 的差向异构与激酶活性转成 ManNAc，再与 PEP 缩合成 Neu5Ac。",
+      physiology: "GNE 是唾液酸合成的限速步；唾液酸是糖蛋白与糖脂末端常见修饰，参与识别与清除。",
+      evidence: { substrate: [evOnly2d("udp_glcnac")], product: [evOnly2d("neu5ac")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "gcon-8",
+      index: 8,
+      enzyme: "CMP-唾液酸合酶",
+      isozyme: "CMAS",
+      equation: "Neu5Ac + CTP → CMP-Neu5Ac + PPi",
+      substrate: {
+        name: "N-乙酰神经氨酸",
+        formula: "C11H19NO9",
+        parts: [
+          { id: "neu5ac", name: "N-乙酰神经氨酸", formula: "C11H19NO9", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "CTP 与 Mg²⁺ 不入画；CTP 接嘧啶 pyr-9。",
+      },
+      product: {
+        name: "CMP-N-乙酰神经氨酸",
+        formula: "C20H31N4O16P",
+        parts: [
+          { id: "cmp_neu5ac", name: "CMP-N-乙酰神经氨酸", formula: "C20H31N4O16P", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "CMAS · CTP 活化，释 PPi",
+      change: "Neu5Ac 的羟基与 CTP 的磷酸形成磷酸酯键，生成 CMP-Neu5Ac 并释出 PPi。",
+      physiology: "CMP-Neu5Ac 是唾液酸转移酶的唯一供体；这一步把游离唾液酸变成可转移的活化形式。",
+      evidence: { substrate: [evOnly2d("neu5ac")], product: [evOnly2d("cmp_neu5ac")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "gcon-9",
+      index: 9,
+      enzyme: "寡糖基转移酶复合体",
+      isozyme: "OST",
+      equation: "Glc₃Man₉GlcNAc₂-PP-Dol + 蛋白-Asn → Glc₃Man₉GlcNAc₂-Asn + PP-Dol",
+      substrate: {
+        name: "核心寡糖-PP-Dol + 蛋白 Asn",
+        formula: "未核实（糖链聚合度不定）",
+        parts: [
+          { id: "dol_pp", name: "Glc₃Man₉GlcNAc₂-PP-Dol", formula: "未核实（糖链聚合度不定）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "三种供体在胞质一侧活化：GlcNAc 来自 UDP-GlcNAc、Man 来自 GDP-Man、外圈 Glc 来自 UDP-Glc。",
+      },
+      product: {
+        name: "N-糖链核心寡糖（-Asn）",
+        formula: "未核实（糖链聚合度不定）",
+        parts: [
+          { id: "nglycan_core", name: "Glc₃Man₉GlcNAc₂-Asn", formula: "未核实（糖链聚合度不定）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "OST · 核心寡糖整体转移到 Asn-X-Ser/Thr",
+      change: "在 ER 膜上以 Dol-PP 为载体装好的核心寡糖整体转到蛋白的 Asn 侧链，释出 PP-Dol。",
+      physiology: "这是 N-糖基化的起点；后续修剪与末端加工在高尔基体完成。",
+      evidence: { substrate: [evOnly2d("dol_pp")], product: [evOnly2d("nglycan_core")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "gcon-10",
+      index: 10,
+      enzyme: "高尔基体 N-糖链加工酶系",
+      isozyme: "MGAT1 / B4GALT1 / FUT8 / ST6GAL1 等",
+      equation: "Glc₃Man₉GlcNAc₂-Asn → 复杂型 N-糖链-Asn（逐级加 GlcNAc / Gal / Fuc / Neu5Ac）",
+      substrate: {
+        name: "N-糖链核心寡糖",
+        formula: "未核实（糖链聚合度不定）",
+        parts: [
+          { id: "nglycan_core", name: "Glc₃Man₉GlcNAc₂-Asn", formula: "未核实（糖链聚合度不定）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "udp_glcnac_2", name: "UDP-GlcNAc（末端供体）", formula: "C17H27N3O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "udp_gal_2", name: "UDP-Gal（末端供体）", formula: "C15H24N2O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "gdp_fuc_2", name: "GDP-Fuc（末端供体）", formula: "C15H25N5O15P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "cmp_neu5ac_2", name: "CMP-Neu5Ac（末端供体）", formula: "C20H31N4O16P", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "Mn²⁺ 供部分糖基转移酶，不入画；加工顺序随细胞类型变化。",
+      },
+      product: {
+        name: "复杂型 N-糖链",
+        formula: "未核实（糖链聚合度不定）",
+        parts: [
+          { id: "nglycan_complex", name: "复杂型 N-糖链-Asn", formula: "未核实（糖链聚合度不定）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "Golgi · 修剪 + 逐级加 GlcNAc / Gal / Fuc / Neu5Ac",
+      change: "核心寡糖在高尔基体被修剪，再按顺序加上 GlcNAc、Gal、Fuc 与唾液酸，形成复杂型糖链。",
+      physiology: "这一步把 ER 的核心糖链变成成熟糖链；末端糖基决定识别与半衰期。",
+      evidence: {
+        substrate: [evOnly2d("nglycan_core"), evOnly2d("udp_glcnac_2"), evOnly2d("udp_gal_2"), evOnly2d("gdp_fuc_2"), evOnly2d("cmp_neu5ac_2")],
+        product: [evOnly2d("nglycan_complex")],
+      },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "gcon-11",
+      index: 11,
+      enzyme: "O-GlcNAc 转移酶",
+      isozyme: "OGT",
+      equation: "蛋白-Ser/Thr + UDP-GlcNAc → 蛋白-Ser/Thr-O-GlcNAc + UDP",
+      substrate: {
+        name: "蛋白-Ser/Thr + UDP-GlcNAc",
+        formula: "未核实（蛋白受体）",
+        parts: [
+          { id: "protein_st", name: "蛋白-Ser/Thr", formula: "未核实（蛋白受体）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "udp_glcnac_3", name: "UDP-GlcNAc", formula: "C17H27N3O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      product: {
+        name: "O-GlcNAc 修饰蛋白",
+        formula: "未核实（修饰蛋白）",
+        parts: [
+          { id: "oglycan", name: "蛋白-Ser/Thr-O-GlcNAc", formula: "未核实（修饰蛋白）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "OGT · 胞内可逆 O-GlcNAc",
+      change: "UDP-GlcNAc 的 GlcNAc 转到蛋白 Ser / Thr 的羟基上，生成 O-GlcNAc 修饰；OGA 可水解去除。",
+      physiology: "O-GlcNAc 在胞质 / 核内可逆，与磷酸化竞争同一 Ser/Thr；黏蛋白型 O-糖基化以 UDP-GalNAc 起始，不在本图七种供体之列。",
+      evidence: { substrate: [evOnly2d("protein_st"), evOnly2d("udp_glcnac_3")], product: [evOnly2d("oglycan")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "gcon-12",
+      index: 12,
+      enzyme: "透明质酸合酶",
+      isozyme: "HAS1 / HAS2 / HAS3",
+      equation: "UDP-GlcA + UDP-GlcNAc → (GlcA-GlcNAc)ₙ + 2n UDP",
+      substrate: {
+        name: "UDP-GlcA + UDP-GlcNAc",
+        formula: "C15H22N2O18P2 + C17H27N3O17P2",
+        parts: [
+          { id: "udp_glca_2", name: "UDP-GlcA", formula: "C15H22N2O18P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "udp_glcnac_4", name: "UDP-GlcNAc", formula: "C17H27N3O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      product: {
+        name: "透明质酸（糖胺聚糖）",
+        formula: "未核实（聚合度不定）",
+        parts: [
+          { id: "gag_ha", name: "透明质酸 (GlcA-GlcNAc)ₙ", formula: "未核实（聚合度不定）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "HAS · GlcA / GlcNAc 交替聚合",
+      change: "UDP-GlcA 与 UDP-GlcNAc 交替加到链末端，形成透明质酸；不硫酸化。",
+      physiology: "糖胺聚糖支路的代表；硫酸软骨素与肝素还需硫酸化与差向异构，本图不展开。",
+      evidence: { substrate: [evOnly2d("udp_glca_2"), evOnly2d("udp_glcnac_4")], product: [evOnly2d("gag_ha")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "gcon-13",
+      index: 13,
+      enzyme: "UDP-葡萄糖:神经酰胺葡萄糖基转移酶",
+      isozyme: "UGCG",
+      equation: "神经酰胺 + UDP-Glc → GlcCer；GlcCer + UDP-Gal → LacCer",
+      substrate: {
+        name: "神经酰胺 + UDP-Glc / UDP-Gal",
+        formula: "未核实（神经酰胺）+ C15H24N2O17P2",
+        parts: [
+          { id: "ceramide", name: "神经酰胺", formula: "未核实（脂酰链长度不定）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "udp_glc_2", name: "UDP-Glc", formula: "C15H24N2O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "udp_gal_3", name: "UDP-Gal", formula: "C15H24N2O17P2", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "神经酰胺的鞘氨醇骨架来自丝氨酸与棕榈酰-CoA；棕榈酰链接 FAS fas-te，丝氨酸在氨基酸图中没有独立生成步，故不登记 step 接口。",
+      },
+      product: {
+        name: "乳糖神经酰胺（糖脂）",
+        formula: "未核实（糖脂）",
+        parts: [
+          { id: "glycolipid", name: "乳糖神经酰胺（LacCer）", formula: "未核实（糖脂）", asset2d: "", missing2dReason: GLYCO_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "UGCG → B4GALT5/6（EC 未核实）",
+      change: "神经酰胺接受 UDP-Glc 生成 GlcCer，再加 UDP-Gal 生成 LacCer；两步合并为本块。",
+      physiology: "糖脂支路的入口；产物可继续延伸为血型糖脂与神经节苷脂，本图不展开。",
+      evidence: {
+        substrate: [evOnly2d("ceramide"), evOnly2d("udp_glc_2"), evOnly2d("udp_gal_3")],
+        product: [evOnly2d("glycolipid")],
+      },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+  ],
+};
+
+const REDOX_MISSING = "本轮未建 2D 资产（活性氧与谷胱甘肽类的逐原子坐标没有可信模板，不用近似结构凑数），此处以分子式与文字呈现。";
+
+const REDOX_CONFIG: ComparisonConfig = {
+  pathwayId: "redox",
+  title: "氧化还原与自由基 · 结构对照",
+  summary:
+    "防御网络 6 步逐步对照：ROS 产生 → SOD 歧化 → CAT / GPX / Prx 清除 → GSH 再生 → GSH 合成 → NADPH 再生。本图不属于经典代谢通路，不展开信号转导。",
+  plateNo: "PLATE SF-22 · 结构对照 · 氧化还原与自由基 · 2026",
+  back: { to: "/pathway/redox", label: "返回氧化还原与自由基挂图" },
+  backCaption: "氧化还原与自由基",
+  enzymePanel: false,
+  enzymePanelOffNote:
+    "本图全部只做 2D：左栏不提供酶 3D 结构；沿用站内 UTP 已立的口径，不登记 PDB 候选。",
+  footerNote:
+    "SF-22 共 6 块，全部为 2D 结构式块。本轮未新建 2D 资产：G6P 复用糖酵解既有资产；O₂、O₂•⁻、H₂O₂、H₂O、GSH、GSSG、NADPH、NADP⁺ 与 GSH 合成前体没有逐原子核验的可信模板，对应块以分子式与文字呈现，不用近似结构凑数。",
+  defaultModePolicy:
+    "沿用本轮新图的统一口径：默认 2D，不建 3D，因此不做 2D/3D 判据比较；逐块 defaultMode 固定为 2d，defaultModeRule 写明“本图 2D-only”。",
+  steps: [
+    {
+      stepId: "rd-1",
+      index: 1,
+      enzyme: "活性氧产生部位（多来源，非单一酶）",
+      isozyme: "呼吸链复合体 I / III、NOX、黄嘌呤氧化酶",
+      equation: "O₂ + e⁻ → O₂•⁻",
+      substrate: {
+        name: "氧分子",
+        formula: "O2",
+        parts: [
+          { id: "o2", name: "氧分子", formula: "O2", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "电子来自 NADH（复合体 I）或 NADPH（NOX），不入画。",
+      },
+      product: {
+        name: "超氧阴离子",
+        formula: "O2•−",
+        parts: [
+          { id: "o2m", name: "超氧阴离子", formula: "O2•−", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "呼吸链漏电子 / NOX / 黄嘌呤氧化酶",
+      change: "O₂ 接受一个电子生成超氧阴离子；来源不止一处，本块合并为一类来源。",
+      physiology: "这是抗氧化网的上游：ROS 产生速率决定下游清除系统的负荷。",
+      evidence: { substrate: [evOnly2d("o2")], product: [evOnly2d("o2m")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "rd-2",
+      index: 2,
+      enzyme: "超氧化物歧化酶",
+      isozyme: "MnSOD / CuZnSOD / SOD3",
+      equation: "2 O₂•⁻ + 2 H⁺ → H₂O₂ + O₂",
+      substrate: {
+        name: "超氧阴离子",
+        formula: "O2•−",
+        parts: [
+          { id: "o2m", name: "超氧阴离子", formula: "O2•−", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "MnSOD 用锰、CuZnSOD 用铜锌，均不入画。",
+      },
+      product: {
+        name: "过氧化氢",
+        formula: "H2O2",
+        parts: [
+          { id: "h2o2", name: "过氧化氢", formula: "H2O2", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "SOD · 歧化",
+      change: "两分子超氧一分子被氧化成 O₂、一分子被还原成 H₂O₂，净生成过氧化氢。",
+      physiology: "把反应性强的超氧转成可被 CAT / GPX 清除的 H₂O₂；MnSOD 在线粒体基质，CuZnSOD 在胞质。",
+      evidence: { substrate: [evOnly2d("o2m")], product: [evOnly2d("h2o2")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "rd-3",
+      index: 3,
+      enzyme: "过氧化氢酶 / 谷胱甘肽过氧化物酶 / 过氧化物还原酶",
+      isozyme: "CAT / GPX1 / PRDX",
+      equation: "2 H₂O₂ → 2 H₂O + O₂（CAT）；H₂O₂ + 2 GSH → GSSG + 2 H₂O（GPX）",
+      substrate: {
+        name: "过氧化氢 + 还原型谷胱甘肽",
+        formula: "H2O2 + C10H17N3O6S",
+        parts: [
+          { id: "h2o2", name: "过氧化氢", formula: "H2O2", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "gsh", name: "还原型谷胱甘肽", formula: "C10H17N3O6S", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "CAT 用血红素、GPX 用硒代半胱氨酸；CAT 与 GPX 分属不同酶，本块合并。",
+      },
+      product: {
+        name: "水（+ 氧化型谷胱甘肽）",
+        formula: "H2O + C20H32N6O12S2",
+        parts: [
+          { id: "h2o", name: "水", formula: "H2O", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "gssg", name: "氧化型谷胱甘肽", formula: "C20H32N6O12S2", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "CAT / GPX / Prx · H₂O₂ 清除",
+      change: "CAT 直接歧化 H₂O₂；GPX 用 2 分子 GSH 作供氢体把 H₂O₂ 还原成水，自身生成 GSSG。",
+      physiology: "H₂O₂ 清除的主干；GPX 路线同时消耗 GSH，把负担交给后续的 GR 再生。",
+      evidence: { substrate: [evOnly2d("h2o2"), evOnly2d("gsh")], product: [evOnly2d("h2o"), evOnly2d("gssg")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "rd-4",
+      index: 4,
+      enzyme: "谷胱甘肽还原酶",
+      isozyme: "GSR",
+      equation: "GSSG + NADPH + H⁺ → 2 GSH + NADP⁺",
+      substrate: {
+        name: "氧化型谷胱甘肽 + NADPH",
+        formula: "C20H32N6O12S2 + C21H29N7O17P3",
+        parts: [
+          { id: "gssg", name: "氧化型谷胱甘肽", formula: "C20H32N6O12S2", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "nadph", name: "NADPH", formula: "C21H29N7O17P3", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "FAD 为辅基，不入画。",
+      },
+      product: {
+        name: "还原型谷胱甘肽 + NADP⁺",
+        formula: "2 × C10H17N3O6S + C21H28N7O17P3",
+        parts: [
+          { id: "gsh", name: "还原型谷胱甘肽", formula: "C10H17N3O6S", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "nadp", name: "NADP⁺", formula: "C21H28N7O17P3", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "GR · 用 NADPH 还原二硫键",
+      change: "GSSG 的二硫键被还原成两个巯基，生成 2 分子 GSH，同时 NADPH 被氧化成 NADP⁺。",
+      physiology: "GSH 循环的再生端；NADPH 不足时 GSSG 积累，细胞进入氧化应激。",
+      evidence: { substrate: [evOnly2d("gssg"), evOnly2d("nadph")], product: [evOnly2d("gsh"), evOnly2d("nadp")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "rd-5",
+      index: 5,
+      enzyme: "γ-谷氨酰半胱氨酸合成酶 / 谷胱甘肽合成酶",
+      isozyme: "GCLC / GSS",
+      equation: "谷氨酸 + 半胱氨酸 + ATP → γ-谷氨酰半胱氨酸；+ 甘氨酸 + ATP → GSH",
+      substrate: {
+        name: "GSH 合成前体（Glu + Cys + Gly）",
+        formula: "C5H9NO4 + C3H7NO2S + C2H5NO2",
+        parts: [
+          { id: "prec", name: "谷氨酸 + 半胱氨酸 + 甘氨酸", formula: "C5H9NO4 + C3H7NO2S + C2H5NO2", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "两步各消耗 1 分子 ATP，共 2 分子，不入画；GCLC 是限速步。",
+      },
+      product: {
+        name: "还原型谷胱甘肽",
+        formula: "C10H17N3O6S",
+        parts: [
+          { id: "gsh", name: "还原型谷胱甘肽", formula: "C10H17N3O6S", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "GCLC → GSS（+2 ATP）",
+      change: "谷氨酸与半胱氨酸先形成 γ-谷氨酰键，再加甘氨酸，两步各用 1 分子 ATP，生成 GSH。",
+      physiology: "补足 GSH 池的合成端；半胱氨酸是限速底物，GSH 对 GCLC 负反馈。",
+      evidence: { substrate: [evOnly2d("prec")], product: [evOnly2d("gsh")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+    {
+      stepId: "rd-6",
+      index: 6,
+      enzyme: "葡萄糖-6-磷酸脱氢酶 / 6-磷酸葡糖酸脱氢酶（另有苹果酸酶、异柠檬酸脱氢酶）",
+      isozyme: "G6PD / 6PGD / ME1 / IDH1",
+      equation: "G6P + NADP⁺ → 6-磷酸葡糖酸内酯 + NADPH；后续 6PGD 再产 1 分子 NADPH",
+      substrate: {
+        name: "葡糖-6-磷酸 + NADP⁺",
+        formula: "C6H11O9P + C21H28N7O17P3",
+        parts: [
+          { id: "g6p", name: "葡糖-6-磷酸", formula: "C6H11O9P", asset2d: D2("g6p"), no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+          { id: "nadp", name: "NADP⁺", formula: "C21H28N7O17P3", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+        cofactorNote: "Mg²⁺ 参与，不入画；本块只登记「G6P → NADPH」的去向，不重复 PPP 步骤。",
+      },
+      product: {
+        name: "NADPH",
+        formula: "C21H29N7O17P3",
+        parts: [
+          { id: "nadph", name: "NADPH", formula: "C21H29N7O17P3", asset2d: "", missing2dReason: REDOX_MISSING, no3dReason: "本图按 2D-only 口径，不调 3D 资产。" },
+        ],
+      },
+      arrowLabel: "G6PD / 6PGD（PPP 氧化分支）",
+      change: "G6P 脱氢生成内酯并释放 NADPH，后续 6PGD 再释放 1 分子 NADPH。",
+      physiology: "抗氧化网的还原力来源；G6PD 缺陷时 NADPH 供给不足，红细胞对氧化应激敏感。",
+      evidence: { substrate: [evOtherHuman("g6p"), evOnly2d("nadp")], product: [evOnly2d("nadph")] },
+      defaultMode: "2d",
+      defaultModeRule: "本图 2D-only：不建 3D，不做 2D/3D 判据比较。",
+    },
+  ],
+};
+
 export const COMPARISON_CONFIGS: Record<string, ComparisonConfig> = {
   glycolysis: GLYCOLYSIS_CONFIG,
   ketone: KETONE_CONFIG,
@@ -6691,6 +8063,10 @@ export const COMPARISON_CONFIGS: Record<string, ComparisonConfig> = {
   cholesterol: CHOLESTEROL_CONFIG,
   cori: CORI_CONFIG,
   lipoprotein: LIPOPROTEIN_CONFIG,
+  heme: HEME_CONFIG,
+  "bile-acid": BILE_ACID_CONFIG,
+  glycoconjugate: GLYCOCONJUGATE_CONFIG,
+  redox: REDOX_CONFIG,
 };
 
 export const comparisonConfigFor = (pathwayId?: string): ComparisonConfig | null =>

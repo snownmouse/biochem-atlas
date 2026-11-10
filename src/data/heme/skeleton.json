@@ -1,0 +1,220 @@
+{
+  "canvas": { "width": 1360, "height": 720 },
+  "compartments": [
+    { "id": "cyto", "label": "细胞质 · 卟啉环装配中段", "en": "CYTOPLASM", "x": 24, "y": 64, "width": 1312, "height": 620, "tint": 0.045 },
+    { "id": "mito-1", "label": "线粒体 · 合成起始", "en": "MITOCHONDRION · START", "x": 40, "y": 104, "width": 320, "height": 230, "tint": 0.02 },
+    { "id": "mito-2", "label": "线粒体 · 合成末端", "en": "MITOCHONDRION · END", "x": 980, "y": 104, "width": 356, "height": 300, "tint": 0.02 },
+    { "id": "er", "label": "内质网 · 血红素降解", "en": "ENDOPLASMIC RETICULUM", "x": 980, "y": 440, "width": 356, "height": 180, "tint": 0.03 }
+  ],
+  "nodes": [
+    {
+      "id": "gly",
+      "entityId": "gly",
+      "label": "甘氨酸",
+      "abbr": "Gly",
+      "x": 150,
+      "y": 176,
+      "kind": "metabolite",
+      "compartment": "mito-1",
+      "stepId": "heme-1",
+      "labelPos": { "dx": 0, "dy": -32, "anchor": "middle" }
+    },
+    {
+      "id": "succoa",
+      "entityId": "succoa",
+      "label": "琥珀酰-CoA（tca-4）",
+      "abbr": "Succinyl-CoA",
+      "x": 280,
+      "y": 176,
+      "kind": "metabolite",
+      "compartment": "mito-1",
+      "stepId": "heme-1",
+      "labelPos": { "dx": 0, "dy": -32, "anchor": "middle" }
+    },
+    {
+      "id": "ala5",
+      "entityId": "ala5",
+      "label": "δ-氨基乙酰丙酸",
+      "abbr": "δ-ALA",
+      "x": 215,
+      "y": 262,
+      "kind": "metabolite",
+      "compartment": "mito-1",
+      "stepId": "heme-1",
+      "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" }
+    },
+    {
+      "id": "pbg",
+      "entityId": "pbg",
+      "label": "胆色素原",
+      "abbr": "PBG",
+      "x": 420,
+      "y": 238,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "heme-2",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "hmb",
+      "entityId": "hmb",
+      "label": "羟甲基胆烷",
+      "abbr": "HMB",
+      "x": 560,
+      "y": 238,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "heme-3",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "uro3",
+      "entityId": "uro3",
+      "label": "尿卟啉原Ⅲ",
+      "abbr": "URO III",
+      "x": 700,
+      "y": 238,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "heme-4",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "copro3",
+      "entityId": "copro3",
+      "label": "粪卟啉原Ⅲ",
+      "abbr": "COPRO III",
+      "x": 840,
+      "y": 238,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "heme-5",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "ppg9",
+      "entityId": "ppg9",
+      "label": "原卟啉原Ⅸ",
+      "abbr": "PPG IX",
+      "x": 1100,
+      "y": 176,
+      "kind": "metabolite",
+      "compartment": "mito-2",
+      "stepId": "heme-6",
+      "labelPos": { "dx": 0, "dy": -32, "anchor": "middle" }
+    },
+    {
+      "id": "proto9",
+      "entityId": "proto9",
+      "label": "原卟啉Ⅸ",
+      "abbr": "Proto IX",
+      "x": 1100,
+      "y": 266,
+      "kind": "metabolite",
+      "compartment": "mito-2",
+      "stepId": "heme-7",
+      "labelPos": { "dx": 0, "dy": -32, "anchor": "middle" }
+    },
+    {
+      "id": "heme",
+      "entityId": "heme",
+      "label": "血红素",
+      "abbr": "Heme b",
+      "x": 1100,
+      "y": 350,
+      "kind": "metabolite",
+      "compartment": "mito-2",
+      "stepId": "heme-8",
+      "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" }
+    },
+    {
+      "id": "fe2",
+      "entityId": "fe2",
+      "label": "Fe²⁺",
+      "abbr": "Fe²⁺",
+      "x": 1270,
+      "y": 266,
+      "kind": "cofactor",
+      "compartment": "mito-2",
+      "stepId": "heme-8",
+      "labelPos": { "dx": 0, "dy": -30, "anchor": "middle" }
+    },
+    {
+      "id": "biliverdin",
+      "entityId": "biliverdin",
+      "label": "胆绿素",
+      "abbr": "Biliverdin",
+      "x": 1100,
+      "y": 520,
+      "kind": "metabolite",
+      "compartment": "er",
+      "stepId": "heme-9",
+      "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" }
+    },
+    {
+      "id": "bilirubin",
+      "entityId": "bilirubin",
+      "label": "胆红素",
+      "abbr": "Bilirubin",
+      "x": 860,
+      "y": 520,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "heme-10",
+      "labelPos": { "dx": 0, "dy": 44, "anchor": "middle" }
+    },
+    {
+      "id": "hub-bile",
+      "entityId": "bilirubin",
+      "label": "→ 葡萄糖醛酸结合 · 随胆汁排出（不计步）",
+      "abbr": "排泄",
+      "x": 620,
+      "y": 520,
+      "kind": "hub",
+      "compartment": "cyto",
+      "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" }
+    }
+  ],
+  "links": [
+    { "from": "gly", "to": "ala5", "stepId": "heme-1", "type": "main", "label": "ALA 合酶（PLP）" },
+    { "from": "succoa", "to": "ala5", "stepId": "heme-1", "type": "feed", "label": "缩合" },
+    { "from": "ala5", "to": "pbg", "stepId": "heme-2", "type": "main", "label": "ALAD · 两分子缩合" },
+    { "from": "pbg", "to": "hmb", "stepId": "heme-3", "type": "main", "label": "PBGD · 四聚" },
+    { "from": "hmb", "to": "uro3", "stepId": "heme-4", "type": "main", "label": "UROS · 环化成Ⅲ型" },
+    { "from": "uro3", "to": "copro3", "stepId": "heme-5", "type": "main", "label": "UROD · 四次脱羧" },
+    { "from": "copro3", "to": "ppg9", "stepId": "heme-6", "type": "main", "label": "CPOX · 氧化脱羧" },
+    { "from": "ppg9", "to": "proto9", "stepId": "heme-7", "type": "main", "label": "PPOX · 脱氢" },
+    { "from": "proto9", "to": "heme", "stepId": "heme-8", "type": "main", "label": "FECH · 加铁" },
+    { "from": "fe2", "to": "heme", "stepId": "heme-8", "type": "feed", "label": "Fe²⁺ 供给" },
+    { "from": "heme", "to": "biliverdin", "stepId": "heme-9", "type": "main", "label": "HO · 开环" },
+    { "from": "biliverdin", "to": "bilirubin", "stepId": "heme-10", "type": "main", "label": "BVR · 还原" },
+    { "from": "bilirubin", "to": "hub-bile", "stepId": "heme-10", "type": "feed", "label": "结合后经胆汁排出", "bend": 0.1 }
+  ],
+  "annotations": [
+    {
+      "x": 40,
+      "y": 650,
+      "text": "合成：线粒体起始（ALA 合酶，限速）→ 胞质中段（卟胆原 → 粪卟啉原Ⅲ）→ 线粒体末端（两次氧化脱羧 + 亚铁螯合）",
+      "anchor": "start",
+      "size": 9,
+      "tone": "ink"
+    },
+    {
+      "x": 40,
+      "y": 672,
+      "text": "降解：血红素加氧酶在内质网，胆绿素还原酶在胞质；胆红素与葡萄糖醛酸结合后随胆汁排出，不计步。",
+      "anchor": "start",
+      "size": 9,
+      "tone": "teal"
+    },
+    {
+      "x": 400,
+      "y": 126,
+      "text": "起始底物：甘氨酸（oc-1）+ 琥珀酰-CoA（tca-4）；限速步受血红素反馈抑制",
+      "anchor": "start",
+      "size": 8.4,
+      "tone": "brick"
+    }
+  ],
+  "transportSteps": []
+}

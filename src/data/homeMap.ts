@@ -30,7 +30,11 @@ export type HomePathwayId =
   | "pyrimidine"
   | "purine"
   | "glycerophospholipid"
-  | "lipoprotein";
+  | "lipoprotein"
+  | "heme"
+  | "bile-acid"
+  | "glycoconjugate"
+  | "redox";
 
 export interface HomePathwayMeta {
   id: HomePathwayId;
@@ -244,6 +248,54 @@ export const HOME_PATHWAYS: HomePathwayMeta[] = [
     plateNo: "PLATE 18",
     stepCount: 11,
     accent: "rose",
+  },
+  // 血红素代谢：PLATE 19，只登记标题块与导航；不并入 SOURCES，首页节点/边口径不变。
+  {
+    id: "heme",
+    sourceId: "heme",
+    name: "血红素代谢",
+    en: "HEME METABOLISM",
+    route: "/pathway/heme",
+    structureRoute: "/structures/heme",
+    plateNo: "PLATE 19",
+    stepCount: 10,
+    accent: "brick",
+  },
+  // 胆汁酸代谢：PLATE 20，只登记标题块与导航；不并入 SOURCES，首页节点/边口径不变。
+  {
+    id: "bile-acid",
+    sourceId: "bile-acid",
+    name: "胆汁酸代谢",
+    en: "BILE ACID METABOLISM",
+    route: "/pathway/bile-acid",
+    structureRoute: "/structures/bile-acid",
+    plateNo: "PLATE 20",
+    stepCount: 6,
+    accent: "amber",
+  },
+  // 糖复合物代谢：PLATE 21，只登记标题块与导航；不并入 SOURCES，首页节点/边口径不变。
+  {
+    id: "glycoconjugate",
+    sourceId: "glycoconjugate",
+    name: "糖复合物代谢",
+    en: "GLYCOCONJUGATE METABOLISM",
+    route: "/pathway/glycoconjugate",
+    structureRoute: "/structures/glycoconjugate",
+    plateNo: "PLATE 21",
+    stepCount: 13,
+    accent: "violet",
+  },
+  // 氧化还原与自由基：PLATE 22，只登记标题块与导航；不并入 SOURCES，首页节点/边口径不变。
+  {
+    id: "redox",
+    sourceId: "redox",
+    name: "氧化还原与自由基",
+    en: "REDOX HOMEOSTASIS & FREE RADICALS",
+    route: "/pathway/redox",
+    structureRoute: "/structures/redox",
+    plateNo: "PLATE 22",
+    stepCount: 6,
+    accent: "teal",
   },
 ];
 

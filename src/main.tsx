@@ -20,6 +20,10 @@ import PyrimidineOverviewPage from "./pages/PyrimidineOverviewPage";
 import PurineOverviewPage from "./pages/PurineOverviewPage";
 import GlycerophospholipidOverviewPage from "./pages/GlycerophospholipidOverviewPage";
 import LipoproteinOverviewPage from "./pages/LipoproteinOverviewPage";
+import HemeOverviewPage from "./pages/HemeOverviewPage";
+import BileAcidOverviewPage from "./pages/BileAcidOverviewPage";
+import GlycoconjugateOverviewPage from "./pages/GlycoconjugateOverviewPage";
+import RedoxOverviewPage from "./pages/RedoxOverviewPage";
 import OxphosStructurePage from "./pages/OxphosStructurePage";
 import StepViewPage from "./pages/StepViewPage";
 import StructureFramesPage from "./pages/StructureFramesPage";
@@ -66,6 +70,14 @@ function PathwayRoute() {
     <GlycerophospholipidOverviewPage />
   ) : pathwayId === "lipoprotein" ? (
     <LipoproteinOverviewPage />
+  ) : pathwayId === "heme" ? (
+    <HemeOverviewPage />
+  ) : pathwayId === "bile-acid" ? (
+    <BileAcidOverviewPage />
+  ) : pathwayId === "glycoconjugate" ? (
+    <GlycoconjugateOverviewPage />
+  ) : pathwayId === "redox" ? (
+    <RedoxOverviewPage />
   ) : (
     <PathwayOverviewPage />
   );

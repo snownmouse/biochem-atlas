@@ -1,0 +1,336 @@
+{
+  "id": "heme",
+  "name": "血红素代谢",
+  "enName": "HEME BIOSYNTHESIS & DEGRADATION",
+  "plateNo": "PLATE 19",
+  "structureNo": "SF-19",
+  "summary": "甘氨酸与琥珀酰-CoA 在线粒体缩合成 δ-氨基乙酰丙酸，经胞质中段的卟胆原—尿卟啉原—粪卟啉原链回到线粒体，氧化脱羧后由亚铁螯合酶加铁生成血红素；血红素再由血红素加氧酶与胆绿素还原酶降解为胆红素。",
+  "heroNote": "线粒体起始 + 胞质中段 + 线粒体末端 · 合成 8 步 + 降解 2 步 · 2D 口径",
+  "legend": [
+    { "text": "主链（生理方向）", "kind": "main", "tone": "ink" },
+    { "text": "可逆 / 双向", "kind": "dashed", "tone": "ink" },
+    { "text": "辅因子 / 支路入口", "kind": "dotted", "tone": "brick" },
+    { "text": "跨区室运输", "kind": "dashed", "tone": "teal" },
+    { "text": "① 步骤顺序", "kind": "badge", "tone": "ink" }
+  ],
+  "readingGuide": {
+    "label": "血红素代谢导读",
+    "summary": "ALA 合酶起始 → 胞质卟啉环装配 → 线粒体氧化与加铁 → 血红素降解为胆红素",
+    "paragraphs": [
+      "血红素合成分三段跑完：第一段在线粒体，ALA 合酶用 PLP 把甘氨酸与琥珀酰-CoA 缩合成 δ-氨基乙酰丙酸（ALA），同时脱羧放出 CO₂；这是整条通路的限速步，也是血红素反馈抑制的落点。第二段在胞质：两分子 ALA 缩合成胆色素原（PBG），四分子 PBG 经脱氨酶聚合成羟甲基胆烷，再由尿卟啉原Ⅲ合酶把环化方向锁成Ⅲ型，随后脱羧成粪卟啉原Ⅲ。第三段回到线粒体：粪卟啉原氧化酶与 原卟啉原氧化酶两次氧化脱羧生成原卟啉Ⅸ，最后由亚铁螯合酶把 Fe²⁺ 装进环中心，得到血红素。",
+      "这张图把区室写清是重点：起始在线粒体、中段在胞质、末端又回线粒体，底物来回跨膜，但本图只画区室与反应，不画具体转运蛋白。卟啉环的两次氧化脱羧容易与脱羧混为一谈——脱羧只去羧基，氧化脱羧还改变环的共轭程度；原卟啉Ⅸ的形成靠的是后者。",
+      "血红素降解是另一条短链：血红素加氧酶（HO）在内质网打开卟啉环，释放 CO 与 Fe²⁺，生成胆绿素；胆绿素还原酶（BVR）在胞质把胆绿素还原成胆红素。胆红素随后与葡萄糖醛酸结合、随胆汁排出，这一段作为说明写在页脚，不单列步骤。卟啉症按酶缺陷归类点到为止，本图不写具体病例。"
+    ]
+  },
+  "posterFoot": [
+    "区室顺序：线粒体（ALA 合酶）→ 胞质（ALA 脱水酶到尿卟啉原脱羧酶）→ 线粒体（粪卟啉原氧化酶、原卟啉原氧化酶、亚铁螯合酶）→ 内质网 / 胞质（降解）。底物跨膜，本图不画转运蛋白，也不把跨膜写成化学反应。",
+    "调控：ALA 合酶是限速步，受血红素反馈抑制；抑制发生在酶蛋白合成、转运与前体半衰期多个层面，本图只写结论，不展开分子细节。",
+    "卟啉症按酶缺陷归类（如 ALA 脱水酶缺陷、PBG 脱氨酶缺陷等），本图只点到酶名，不写具体病例、发病率与治疗。",
+    "降解段：血红素加氧酶在内质网、胆绿素还原酶在胞质；胆红素与葡萄糖醛酸结合后经胆汁排出，作为 1 段说明，不计步。",
+    "教材依据：《生物化学与分子生物学》第 9 版 · 血红素与卟啉代谢相关章节；只写章节名，不标页码、不引真题年份。"
+  ],
+  "transportSteps": [],
+  "interfaces": [
+    {
+      "stepId": "tca-4",
+      "label": "琥珀酰-CoA（TCA 第 4 步产物）",
+      "note": "琥珀酰-CoA 是 ALA 合酶的起始底物之一，由 TCA 的 α-酮戊二酸脱氢酶复合体一步生成；本图只把它画成入口，不重复 TCA 环。"
+    },
+    {
+      "stepId": "oc-1",
+      "label": "甘氨酸（一碳单位 oc-1 产物）",
+      "note": "甘氨酸由丝氨酸羟甲基转移酶（SHMT）一步生成，同时把 β-碳交给 THF；本图只把它画成入口，不重复一碳单位图。"
+    }
+  ],
+  "threeD": {
+    "status": "not-built",
+    "note": "本图沿用站内 UTP 口径：全部只做 2D 结构式，不建 3D，也不登记 PDB 候选。"
+  },
+  "entities": [
+    { "id": "gly", "name": "甘氨酸", "abbr": "Gly", "kind": "metabolite", "note": "ALA 合酶的起始底物；由丝氨酸经 SHMT 一步生成（见一碳单位 oc-1）。" },
+    { "id": "succoa", "name": "琥珀酰-CoA", "abbr": "Succinyl-CoA", "kind": "metabolite", "note": "TCA 第 4 步产物；与甘氨酸缩合后释放 CoA-SH。" },
+    { "id": "ala5", "name": "δ-氨基乙酰丙酸", "abbr": "δ-ALA", "kind": "metabolite", "note": "血红素合成的第一个专一中间物；两分子缩合成胆色素原。" },
+    { "id": "pbg", "name": "胆色素原", "abbr": "PBG", "kind": "metabolite", "note": "四分子聚合后经脱氨生成羟甲基胆烷，是卟啉环的单体。" },
+    { "id": "hmb", "name": "羟甲基胆烷", "abbr": "HMB", "kind": "metabolite", "note": "线性四吡咯；由尿卟啉原Ⅲ合酶环化成Ⅲ型。" },
+    { "id": "uro3", "name": "尿卟啉原Ⅲ", "abbr": "URO III", "kind": "metabolite", "note": "卟啉环的Ⅲ型异构体；非酶促环化会得到Ⅰ型。" },
+    { "id": "copro3", "name": "粪卟啉原Ⅲ", "abbr": "COPRO III", "kind": "metabolite", "note": "四次脱羧后的产物；需要进入线粒体继续氧化。" },
+    { "id": "ppg9", "name": "原卟啉原Ⅸ", "abbr": "PPG IX", "kind": "metabolite", "note": "两次氧化脱羧的中间物；再脱氢生成原卟啉Ⅸ。" },
+    { "id": "proto9", "name": "原卟啉Ⅸ", "abbr": "Proto IX", "kind": "metabolite", "note": "亚铁螯合酶的底物；环中心空位等待 Fe²⁺。" },
+    { "id": "heme", "name": "血红素", "abbr": "Heme b", "kind": "metabolite", "note": "终产物；作为血红蛋白、肌红蛋白与细胞色素的辅基。" },
+    { "id": "fe2", "name": "亚铁离子", "abbr": "Fe²⁺", "kind": "cofactor", "note": "由亚铁螯合酶装入卟啉环；铁供给不足会影响这一步。" },
+    { "id": "biliverdin", "name": "胆绿素", "abbr": "Biliverdin", "kind": "metabolite", "note": "血红素加氧酶的产物；绿色，进一步还原成胆红素。" },
+    { "id": "bilirubin", "name": "胆红素", "abbr": "Bilirubin", "kind": "metabolite", "note": "降解终产物；与葡萄糖醛酸结合后经胆汁排出，不计步。" }
+  ],
+  "steps": [
+    {
+      "id": "heme-1",
+      "index": 1,
+      "name": "ALA 合酶把甘氨酸与琥珀酰-CoA 缩合成 δ-氨基乙酰丙酸",
+      "shortName": "ALA 合成（限速）",
+      "compartment": "mito-1",
+      "equation": "甘氨酸 + 琥珀酰-CoA → δ-氨基乙酰丙酸 + CoA-SH + CO₂",
+      "substrates": ["gly", "succoa"],
+      "products": ["ala5"],
+      "cofactors": ["磷酸吡哆醛（PLP）"],
+      "enzyme": { "name": "δ-氨基乙酰丙酸合酶", "isozyme": "ALAS1（肝，通用）/ ALAS2（红系）", "ec": "2.3.1.37" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "强放能 · 脱羧拉动，生理不可逆；限速步",
+        "source": "教材章级（血红素合成 · ALA 合酶）"
+      },
+      "significance": "整条通路的限速步与调控落点：ALA 合酶受血红素反馈抑制，血红素浓度升高时其合成、转运与前体稳定性同时受抑。",
+      "note": "ALAS1 广泛表达、受血红素反馈抑制；ALAS2 在红系前体细胞，受铁与红细胞生成调控。本图不把两种同工酶的调控细节合并成一句结论。",
+      "misconceptions": [
+        "把 ALA 合酶写成胞质酶：它在线粒体基质，底物琥珀酰-CoA 也来自线粒体。",
+        "把这一步写成可逆：脱羧放能，生理方向只向 ALA，反向不构成通路。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "heme-2",
+      "index": 2,
+      "name": "ALA 脱水酶把两分子 ALA 缩合成胆色素原",
+      "shortName": "ALA 脱水（胞质）",
+      "compartment": "cyto",
+      "equation": "2 δ-氨基乙酰丙酸 → 胆色素原 + 2 H₂O",
+      "substrates": ["ala5"],
+      "products": ["pbg"],
+      "cofactors": [],
+      "enzyme": { "name": "δ-氨基乙酰丙酸脱水酶", "isozyme": "ALAD", "ec": "4.2.1.24" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 方向由 ALA 供给拉动",
+        "source": "教材章级（血红素合成 · 卟胆原生成）"
+      },
+      "significance": "第一个胞质步骤，把线粒体输出的 ALA 转成卟啉环的单体。",
+      "note": "ALA 从线粒体输出到胞质；具体转运蛋白未核实，本图只画区室，不画转运体。",
+      "misconceptions": [
+        "把两分子 ALA 缩合写成一步脱水：实际是两分子缩合并各脱一分子水。",
+        "把 ALAD 当成限速酶：限速在 ALA 合酶，ALAD 只决定通量能否跟上。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "heme-3",
+      "index": 3,
+      "name": "胆色素原脱氨酶把四分子 PBG 聚合成羟甲基胆烷",
+      "shortName": "PBG 脱氨聚合",
+      "compartment": "cyto",
+      "equation": "4 胆色素原 → 羟甲基胆烷 + 4 NH₃",
+      "substrates": ["pbg"],
+      "products": ["hmb"],
+      "cofactors": [],
+      "enzyme": { "name": "胆色素原脱氨酶", "isozyme": "PBGD（HMBS）", "ec": "2.5.1.61" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 四聚方向由 PBG 浓度推动",
+        "source": "教材章级（血红素合成 · 四吡咯装配）"
+      },
+      "significance": "把四个单吡咯头尾相接成线性四吡咯，是卟啉环装配的关键聚合步。",
+      "note": "酶名与基因名在教材里常写作 PBGD 或 HMBS，指同一个酶；本图两个写法并列，不另造第三个缩写。",
+      "misconceptions": [
+        "把线性四吡咯当成卟啉环：羟甲基胆烷仍是开链，要经下一步合酶才闭环。",
+        "把脱氨写成脱羧：这一步放出的是 NH₃，不是 CO₂。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "heme-4",
+      "index": 4,
+      "name": "尿卟啉原Ⅲ合酶把羟甲基胆烷环化成Ⅲ型",
+      "shortName": "环化成Ⅲ型",
+      "compartment": "cyto",
+      "equation": "羟甲基胆烷 → 尿卟啉原Ⅲ + H₂O",
+      "substrates": ["hmb"],
+      "products": ["uro3"],
+      "cofactors": [],
+      "enzyme": { "name": "尿卟啉原Ⅲ合酶", "isozyme": "UROS", "ec": "4.2.1.75" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 环化方向由酶锁定",
+        "source": "教材章级（血红素合成 · Ⅲ型异构体）"
+      },
+      "significance": "决定卟啉环的Ⅲ型构型；没有这一步，羟甲基胆烷会非酶促环化成无用的Ⅰ型。",
+      "note": "Ⅲ型是体内唯一能继续走向血红素的异构体；Ⅰ型不能加铁，只能被排出。",
+      "misconceptions": [
+        "把Ⅲ型与Ⅰ型当成同一分子的不同画法：两者是取代基排列不同的异构体。",
+        "把环化写成自发反应：非酶促环化确实存在，但产物是Ⅰ型，不是通路要的Ⅲ型。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "heme-5",
+      "index": 5,
+      "name": "尿卟啉原脱羧酶连续脱去四个羧基",
+      "shortName": "四次脱羧",
+      "compartment": "cyto",
+      "equation": "尿卟啉原Ⅲ → 粪卟啉原Ⅲ + 4 CO₂",
+      "substrates": ["uro3"],
+      "products": ["copro3"],
+      "cofactors": [],
+      "enzyme": { "name": "尿卟啉原脱羧酶", "isozyme": "UROD", "ec": "4.1.1.37" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 脱羧方向由产物外排拉动",
+        "source": "教材章级（血红素合成 · 脱羧）"
+      },
+      "significance": "把水溶性较强的尿卟啉原转成疏水性更强的粪卟啉原，为进入线粒体做准备。",
+      "note": "四次脱羧由同一个酶连续完成；教材口径不把它拆成四步。",
+      "misconceptions": [
+        "把四次脱羧拆成四个步骤：本图按教材口径合并为一步。",
+        "把脱羧当成氧化：这一步只去羧基，环的氧化态不变。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "heme-6",
+      "index": 6,
+      "name": "粪卟啉原氧化酶把粪卟啉原Ⅲ氧化成原卟啉原Ⅸ",
+      "shortName": "氧化脱羧（回线粒体）",
+      "compartment": "mito-2",
+      "equation": "粪卟啉原Ⅲ + O₂ → 原卟啉原Ⅸ + 2 CO₂ + 2 H₂O",
+      "substrates": ["copro3"],
+      "products": ["ppg9"],
+      "cofactors": [],
+      "enzyme": { "name": "粪卟啉原氧化酶", "isozyme": "CPOX", "ec": "1.3.3.3" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 氧化脱羧，生理不可逆",
+        "source": "教材章级（血红素合成 · 氧化脱羧）"
+      },
+      "significance": "回到线粒体后的第一次氧化脱羧，同时缩短两条丙酸侧链。",
+      "note": "CPOX 位于线粒体内膜外侧 / 膜间隙面；底物需先从胞质进入线粒体，转运蛋白未核实。",
+      "misconceptions": [
+        "把氧化脱羧等同于脱羧：前者还改变环的氧化态，产物共轭程度更高。",
+        "把 CPOX 写在线粒体基质：教材口径把它记在线粒体内膜外侧。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "heme-7",
+      "index": 7,
+      "name": "原卟啉原氧化酶脱氢生成原卟啉Ⅸ",
+      "shortName": "脱氢成原卟啉Ⅸ",
+      "compartment": "mito-2",
+      "equation": "原卟啉原Ⅸ + 3 O₂ → 原卟啉Ⅸ + 3 H₂O₂",
+      "substrates": ["ppg9"],
+      "products": ["proto9"],
+      "cofactors": [],
+      "enzyme": { "name": "原卟啉原氧化酶", "isozyme": "PPOX", "ec": "1.3.3.4" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 脱氢拉动，生理不可逆",
+        "source": "教材章级（血红素合成 · 原卟啉Ⅸ）"
+      },
+      "significance": "把三个亚甲基桥脱氢成次甲基桥，形成原卟啉Ⅸ的共轭大环。",
+      "note": "氧分子作为电子受体；本图不写具体电子传递链细节。",
+      "misconceptions": [
+        "把原卟啉原Ⅸ与原卟啉Ⅸ混为一谈：前者三个桥是亚甲基，后者是次甲基。",
+        "把这一步写成加铁：加铁是下一步亚铁螯合酶。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "heme-8",
+      "index": 8,
+      "name": "亚铁螯合酶把 Fe²⁺ 装入原卟啉Ⅸ",
+      "shortName": "加铁成血红素",
+      "compartment": "mito-2",
+      "equation": "原卟啉Ⅸ + Fe²⁺ → 血红素 + 2 H⁺",
+      "substrates": ["proto9", "fe2"],
+      "products": ["heme"],
+      "cofactors": [],
+      "enzyme": { "name": "亚铁螯合酶", "isozyme": "FECH", "ec": "4.99.1.1" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 螯合拉动，生理不可逆",
+        "source": "教材章级（血红素合成 · 亚铁螯合）"
+      },
+      "significance": "全通路最后一步，也是铁供给与血红素合成直接耦合的位置。",
+      "note": "铁以 Fe²⁺ 进入；缺铁或铅暴露会影响这一步，本图只点到，不写病例。",
+      "misconceptions": [
+        "把 Fe³⁺ 写成底物：螯合酶装的是亚铁，铁氧化态写错会连带影响后续携带氧的结论。",
+        "把加铁写成可逆的平衡步：生理方向只向血红素，释放血红素后酶仍偏向合成。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "heme-9",
+      "index": 9,
+      "name": "血红素加氧酶打开卟啉环生成胆绿素",
+      "shortName": "血红素降解（HO）",
+      "compartment": "er",
+      "equation": "血红素 + O₂ + NADPH → 胆绿素 + CO + Fe²⁺",
+      "substrates": ["heme"],
+      "products": ["biliverdin"],
+      "cofactors": ["NADPH"],
+      "enzyme": { "name": "血红素加氧酶", "isozyme": "HO-1（诱导型）/ HO-2（组成型）", "ec": "1.14.99.3" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 环开裂，生理不可逆",
+        "source": "教材章级（血红素降解 · 胆色素生成）"
+      },
+      "significance": "血红素降解的起始与限速步；生成的 CO 与胆绿素都是后续生理信号与代谢物。",
+      "note": "HO 在内质网；血红素需先离开线粒体，具体转运环节未核实，本图不画转运蛋白。电子供体为 NADPH-细胞色素 P450 还原酶。",
+      "misconceptions": [
+        "把 HO 写成线粒体酶：它在内质网，和合成末端不在同一区室。",
+        "把产物只写胆绿素：这一步同时释放 CO 与 Fe²⁺，漏写会丢掉两个生理后果。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "heme-10",
+      "index": 10,
+      "name": "胆绿素还原酶把胆绿素还原成胆红素",
+      "shortName": "胆红素生成（BVR）",
+      "compartment": "cyto",
+      "equation": "胆绿素 + NADPH → 胆红素 + NADP⁺",
+      "substrates": ["biliverdin"],
+      "products": ["bilirubin"],
+      "cofactors": ["NADPH"],
+      "enzyme": { "name": "胆绿素还原酶", "isozyme": "BVR-A", "ec": "1.3.1.24" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "可逆 · 生理方向由胆红素结合与排出拉动",
+        "source": "教材章级（血红素降解 · 胆红素）"
+      },
+      "significance": "把水溶性的胆绿素转成脂溶性更强的胆红素，为随后的葡萄糖醛酸结合做准备。",
+      "note": "胆红素与葡萄糖醛酸结合、随胆汁排出，本图作为页脚说明，不单列步骤。",
+      "misconceptions": [
+        "把胆红素写成直接排出：它必须先与葡萄糖醛酸结合才容易随胆汁排。",
+        "把 BVR 写成线粒体酶：它在胞质，和 HO 的内质网位置不同。"
+      ],
+      "clinical": []
+    }
+  ]
+}

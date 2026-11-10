@@ -50,6 +50,14 @@ const glycerophospholipid = read("src/data/glycerophospholipid/glycerophospholip
 const glycerophospholipidSkel = read("src/data/glycerophospholipid/skeleton.json");
 const lipoprotein = read("src/data/lipoprotein/lipoprotein.json");
 const lipoproteinSkel = read("src/data/lipoprotein/skeleton.json");
+const heme = read("src/data/heme/heme.json");
+const hemeSkel = read("src/data/heme/skeleton.json");
+const bileAcid = read("src/data/bile-acid/bile-acid.json");
+const bileAcidSkel = read("src/data/bile-acid/skeleton.json");
+const glycoconjugate = read("src/data/glycoconjugate/glycoconjugate.json");
+const glycoconjugateSkel = read("src/data/glycoconjugate/skeleton.json");
+const redox = read("src/data/redox/redox.json");
+const redoxSkel = read("src/data/redox/skeleton.json");
 
 const EXPECT = {
   glycolysis: {
@@ -174,6 +182,33 @@ const EXPECT = {
     sources: ["lipoprotein/lipoprotein.json", "lipoprotein/skeleton.json"],
     plate: lipoprotein.plateNo,
   },
+  heme: {
+    // 10 步（合成 8 + 降解 2）；无运输段（跨区室只画区室，不画转运蛋白）
+    steps: heme.steps.length,
+    nodes: hemeSkel.nodes.length,
+    sources: ["heme/heme.json", "heme/skeleton.json"],
+    plate: heme.plateNo,
+  },
+  "bile-acid": {
+    // 6 步 + 1 段肠肝循环运输；运输不计入步数
+    steps: bileAcid.steps.length,
+    transport: bileAcidSkel.transportSteps?.length ?? 0,
+    nodes: bileAcidSkel.nodes.length,
+    sources: ["bile-acid/bile-acid.json", "bile-acid/skeleton.json"],
+    plate: bileAcid.plateNo,
+  },
+  glycoconjugate: {
+    steps: glycoconjugate.steps.length,
+    nodes: glycoconjugateSkel.nodes.length,
+    sources: ["glycoconjugate/glycoconjugate.json", "glycoconjugate/skeleton.json"],
+    plate: glycoconjugate.plateNo,
+  },
+  redox: {
+    steps: redox.steps.length,
+    nodes: redoxSkel.nodes.length,
+    sources: ["redox/redox.json", "redox/skeleton.json"],
+    plate: redox.plateNo,
+  },
 };
 
 const ROUTES = [
@@ -202,6 +237,10 @@ const ROUTES = [
   { id: "purine", path: "/pathway/purine", kind: "poster", pathway: "purine" },
   { id: "glycerophospholipid", path: "/pathway/glycerophospholipid", kind: "poster", pathway: "glycerophospholipid" },
   { id: "lipoprotein", path: "/pathway/lipoprotein", kind: "poster", pathway: "lipoprotein" },
+  { id: "heme", path: "/pathway/heme", kind: "poster", pathway: "heme" },
+  { id: "bile-acid", path: "/pathway/bile-acid", kind: "poster", pathway: "bile-acid" },
+  { id: "glycoconjugate", path: "/pathway/glycoconjugate", kind: "poster", pathway: "glycoconjugate" },
+  { id: "redox", path: "/pathway/redox", kind: "poster", pathway: "redox" },
   { id: "structures-glycolysis", path: "/structures/glycolysis", kind: "structures" },
   { id: "structures-tca", path: "/structures/tca", kind: "structures" },
   { id: "structures-gluconeogenesis", path: "/structures/gluconeogenesis", kind: "structures" },
@@ -218,6 +257,10 @@ const ROUTES = [
   { id: "structures-purine", path: "/structures/purine", kind: "structures" },
   { id: "structures-glycerophospholipid", path: "/structures/glycerophospholipid", kind: "structures" },
   { id: "structures-lipoprotein", path: "/structures/lipoprotein", kind: "structures" },
+  { id: "structures-heme", path: "/structures/heme", kind: "structures" },
+  { id: "structures-bile-acid", path: "/structures/bile-acid", kind: "structures" },
+  { id: "structures-glycoconjugate", path: "/structures/glycoconjugate", kind: "structures" },
+  { id: "structures-redox", path: "/structures/redox", kind: "structures" },
   { id: "structures-cori", path: "/structures/cori", kind: "structures" },
   { id: "structures-oxphos", path: "/structures/oxphos", kind: "structures" },
   { id: "step-gk-1", path: "/step/gk-1", kind: "step" },

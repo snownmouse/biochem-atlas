@@ -1,0 +1,174 @@
+{
+  "canvas": { "width": 1360, "height": 720 },
+  "compartments": [
+    { "id": "mito", "label": "线粒体 · ROS 产生与歧化", "en": "MITOCHONDRION", "x": 24, "y": 64, "width": 640, "height": 250, "tint": 0.03 },
+    { "id": "cyto", "label": "胞质 · GSH 与 NADPH 防御网", "en": "CYTOSOL", "x": 24, "y": 334, "width": 1312, "height": 350, "tint": 0.025 }
+  ],
+  "nodes": [
+    {
+      "id": "o2",
+      "entityId": "o2",
+      "label": "O₂（呼吸链末端受体）",
+      "abbr": "O₂",
+      "x": 110,
+      "y": 160,
+      "kind": "metabolite",
+      "compartment": "mito",
+      "stepId": "rd-1",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "o2m",
+      "entityId": "o2m",
+      "label": "超氧阴离子 O₂•⁻",
+      "abbr": "O₂•⁻",
+      "x": 300,
+      "y": 160,
+      "kind": "metabolite",
+      "compartment": "mito",
+      "stepId": "rd-1",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "h2o2",
+      "entityId": "h2o2",
+      "label": "过氧化氢 H₂O₂",
+      "abbr": "H₂O₂",
+      "x": 480,
+      "y": 160,
+      "kind": "metabolite",
+      "compartment": "mito",
+      "stepId": "rd-2",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "h2o",
+      "entityId": "h2o",
+      "label": "水 H₂O",
+      "abbr": "H₂O",
+      "x": 610,
+      "y": 240,
+      "kind": "metabolite",
+      "compartment": "mito",
+      "stepId": "rd-3",
+      "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" }
+    },
+    {
+      "id": "gsh",
+      "entityId": "gsh",
+      "label": "还原型谷胱甘肽 GSH",
+      "abbr": "GSH",
+      "x": 230,
+      "y": 470,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "rd-4",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "gssg",
+      "entityId": "gssg",
+      "label": "氧化型谷胱甘肽 GSSG",
+      "abbr": "GSSG",
+      "x": 430,
+      "y": 470,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "rd-3",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "nadph",
+      "entityId": "nadph",
+      "label": "NADPH",
+      "abbr": "NADPH",
+      "x": 650,
+      "y": 470,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "rd-6",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "nadp",
+      "entityId": "nadp",
+      "label": "NADP⁺",
+      "abbr": "NADP⁺",
+      "x": 830,
+      "y": 470,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "rd-4",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "prec",
+      "entityId": "prec",
+      "label": "GSH 合成前体（Glu + Cys + Gly）",
+      "abbr": "Glu + Cys + Gly",
+      "x": 230,
+      "y": 620,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "rd-5",
+      "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" }
+    },
+    {
+      "id": "g6p",
+      "entityId": "g6p",
+      "label": "G6P（糖酵解 / PPP 入口）",
+      "abbr": "G6P",
+      "x": 650,
+      "y": 620,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "rd-6",
+      "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" }
+    }
+  ],
+  "links": [
+    { "from": "o2", "to": "o2m", "stepId": "rd-1", "type": "main", "label": "呼吸链漏电子 / NOX" },
+    { "from": "o2m", "to": "h2o2", "stepId": "rd-2", "type": "main", "label": "SOD（Mn / CuZn）" },
+    { "from": "h2o2", "to": "h2o", "stepId": "rd-3", "type": "main", "label": "CAT / GPX / Prx" },
+    { "from": "gsh", "to": "gssg", "stepId": "rd-3", "type": "branch", "label": "GPX 消耗 GSH" },
+    { "from": "gssg", "to": "gsh", "stepId": "rd-4", "type": "main", "label": "GR + NADPH", "bend": -0.12 },
+    { "from": "nadph", "to": "nadp", "stepId": "rd-4", "type": "branch", "label": "NADPH → NADP⁺" },
+    { "from": "prec", "to": "gsh", "stepId": "rd-5", "type": "main", "label": "GCLC + GSS" },
+    { "from": "g6p", "to": "nadph", "stepId": "rd-6", "type": "main", "label": "G6PD/6PGD", "bend": 0.12 }
+  ],
+  "annotations": [
+    {
+      "x": 40,
+      "y": 296,
+      "text": "本图是防御网络，不属于经典代谢通路：没有统一终产物，只有 ROS 产生—清除的稳态。",
+      "anchor": "start",
+      "size": 8.6,
+      "tone": "brick"
+    },
+    {
+      "x": 40,
+      "y": 688,
+      "text": "SOD 把超氧歧化为 H₂O₂；CAT 主要在过氧化物酶体，GPX 在胞质与线粒体。",
+      "anchor": "start",
+      "size": 8.4,
+      "tone": "ink"
+    },
+    {
+      "x": 430,
+      "y": 688,
+      "text": "GSH 循环：GPX 消耗 GSH → GSSG，GR 用 NADPH 还原回 GSH。",
+      "anchor": "start",
+      "size": 8.4,
+      "tone": "teal"
+    },
+    {
+      "x": 900,
+      "y": 688,
+      "text": "NADPH 不足时 GSSG 积累；本图不展开 Nrf2 与 ROS 信号转导。",
+      "anchor": "start",
+      "size": 8.4,
+      "tone": "ink"
+    }
+  ],
+  "transportSteps": []
+}

@@ -1,0 +1,266 @@
+{
+  "canvas": { "width": 1360, "height": 720 },
+  "compartments": [
+    { "id": "cyto", "label": "胞质 · 糖核苷酸供体生成", "en": "CYTOSOL", "x": 24, "y": 64, "width": 980, "height": 610, "tint": 0.03 },
+    { "id": "er", "label": "内质网 · N-糖基化起始", "en": "ENDOPLASMIC RETICULUM", "x": 1024, "y": 64, "width": 312, "height": 250, "tint": 0.025 },
+    { "id": "golgi", "label": "高尔基体 · 糖链加工与分支", "en": "GOLGI APPARATUS", "x": 1024, "y": 334, "width": 312, "height": 340, "tint": 0.02 }
+  ],
+  "nodes": [
+    {
+      "id": "g6p",
+      "entityId": "g6p",
+      "label": "G6P（糖酵解 gk-1）",
+      "abbr": "G6P",
+      "x": 90,
+      "y": 140,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "gcon-1",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "udp-glc",
+      "entityId": "udp-glc",
+      "label": "UDP-Glc",
+      "abbr": "UDP-Glc",
+      "x": 250,
+      "y": 140,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "gcon-1",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "udp-gal",
+      "entityId": "udp-gal",
+      "label": "UDP-Gal",
+      "abbr": "UDP-Gal",
+      "x": 250,
+      "y": 240,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "gcon-2",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "udp-glca",
+      "entityId": "udp-glca",
+      "label": "UDP-GlcA",
+      "abbr": "UDP-GlcA",
+      "x": 430,
+      "y": 140,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "gcon-3",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "f6p",
+      "entityId": "f6p",
+      "label": "F6P（糖酵解）",
+      "abbr": "F6P",
+      "x": 90,
+      "y": 340,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "gcon-4",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "udp-glcnac",
+      "entityId": "udp-glcnac",
+      "label": "UDP-GlcNAc",
+      "abbr": "UDP-GlcNAc",
+      "x": 250,
+      "y": 340,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "gcon-4",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "gdp-man",
+      "entityId": "gdp-man",
+      "label": "GDP-Man",
+      "abbr": "GDP-Man",
+      "x": 250,
+      "y": 460,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "gcon-5",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "gdp-fuc",
+      "entityId": "gdp-fuc",
+      "label": "GDP-Fuc",
+      "abbr": "GDP-Fuc",
+      "x": 430,
+      "y": 460,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "gcon-6",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "neu5ac",
+      "entityId": "neu5ac",
+      "label": "Neu5Ac（唾液酸）",
+      "abbr": "Neu5Ac",
+      "x": 430,
+      "y": 340,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "gcon-7",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "cmp-neu5ac",
+      "entityId": "cmp-neu5ac",
+      "label": "CMP-Neu5Ac",
+      "abbr": "CMP-Neu5Ac",
+      "x": 610,
+      "y": 340,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "gcon-8",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "oglycan",
+      "entityId": "oglycan",
+      "label": "O-GlcNAc 修饰蛋白",
+      "abbr": "O-GlcNAc",
+      "x": 700,
+      "y": 590,
+      "kind": "metabolite",
+      "compartment": "cyto",
+      "stepId": "gcon-11",
+      "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" }
+    },
+    {
+      "id": "nglycan_core",
+      "entityId": "nglycan_core",
+      "label": "核心寡糖 Glc₃Man₉GlcNAc₂-Asn",
+      "abbr": "Core N-glycan",
+      "x": 1140,
+      "y": 150,
+      "kind": "metabolite",
+      "compartment": "er",
+      "stepId": "gcon-9",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "ceramide",
+      "entityId": "ceramide",
+      "label": "神经酰胺（来自丝氨酸 + 棕榈酸）",
+      "abbr": "Ceramide",
+      "x": 1140,
+      "y": 250,
+      "kind": "metabolite",
+      "compartment": "er",
+      "stepId": "gcon-13",
+      "labelPos": { "dx": 0, "dy": -34, "anchor": "middle" }
+    },
+    {
+      "id": "nglycan_complex",
+      "entityId": "nglycan_complex",
+      "label": "复杂型 N-糖链",
+      "abbr": "Complex N-glycan",
+      "x": 1100,
+      "y": 400,
+      "kind": "metabolite",
+      "compartment": "golgi",
+      "stepId": "gcon-10",
+      "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" }
+    },
+    {
+      "id": "gag_ha",
+      "entityId": "gag_ha",
+      "label": "透明质酸（GAG）",
+      "abbr": "Hyaluronan",
+      "x": 1190,
+      "y": 500,
+      "kind": "metabolite",
+      "compartment": "golgi",
+      "stepId": "gcon-12",
+      "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" }
+    },
+    {
+      "id": "glycolipid",
+      "entityId": "glycolipid",
+      "label": "乳糖神经酰胺（LacCer）",
+      "abbr": "LacCer",
+      "x": 1100,
+      "y": 600,
+      "kind": "metabolite",
+      "compartment": "golgi",
+      "stepId": "gcon-13",
+      "labelPos": { "dx": 0, "dy": 40, "anchor": "middle" }
+    }
+  ],
+  "links": [
+    { "from": "g6p", "to": "udp-glc", "stepId": "gcon-1", "type": "main", "label": "PGM1 + UGP2" },
+    { "from": "udp-glc", "to": "udp-gal", "stepId": "gcon-2", "type": "main", "label": "GALE" },
+    { "from": "udp-glc", "to": "udp-glca", "stepId": "gcon-3", "type": "main", "label": "UGDH" },
+    { "from": "f6p", "to": "udp-glcnac", "stepId": "gcon-4", "type": "main", "label": "GFPT · 限速" },
+    { "from": "f6p", "to": "gdp-man", "stepId": "gcon-5", "type": "main", "label": "MPI / PMM2 / GMPPB", "bend": 0.08 },
+    { "from": "gdp-man", "to": "gdp-fuc", "stepId": "gcon-6", "type": "main", "label": "GMDS / TSTA3" },
+    { "from": "udp-glcnac", "to": "neu5ac", "stepId": "gcon-7", "type": "main", "label": "GNE · 限速" },
+    { "from": "neu5ac", "to": "cmp-neu5ac", "stepId": "gcon-8", "type": "main", "label": "CMAS + CTP" },
+
+    { "from": "udp-glcnac", "to": "nglycan_core", "stepId": "gcon-9", "type": "main", "label": "OST · 核心寡糖", "bend": -0.06 },
+    { "from": "gdp-man", "to": "nglycan_core", "stepId": "gcon-9", "type": "branch", "bend": 0.14 },
+    { "from": "udp-glc", "to": "nglycan_core", "stepId": "gcon-9", "type": "branch", "bend": 0.18 },
+    { "from": "nglycan_core", "to": "nglycan_complex", "stepId": "gcon-10", "type": "main", "label": "Golgi 加工", "bend": 0.12 },
+
+    { "from": "udp-glcnac", "to": "nglycan_complex", "stepId": "gcon-10", "type": "branch", "bend": 0.12 },
+    { "from": "udp-gal", "to": "nglycan_complex", "stepId": "gcon-10", "type": "branch", "bend": -0.12 },
+    { "from": "gdp-fuc", "to": "nglycan_complex", "stepId": "gcon-10", "type": "branch", "bend": -0.1 },
+    { "from": "cmp-neu5ac", "to": "nglycan_complex", "stepId": "gcon-10", "type": "branch" },
+
+    { "from": "udp-glcnac", "to": "oglycan", "stepId": "gcon-11", "type": "main", "label": "OGT" },
+
+    { "from": "udp-glca", "to": "gag_ha", "stepId": "gcon-12", "type": "main", "label": "HAS · GlcA / GlcNAc", "bend": 0.05 },
+    { "from": "udp-glcnac", "to": "gag_ha", "stepId": "gcon-12", "type": "branch", "bend": -0.1 },
+
+    { "from": "ceramide", "to": "glycolipid", "stepId": "gcon-13", "type": "main", "label": "UGCG", "bend": 0.06 },
+    { "from": "udp-glc", "to": "glycolipid", "stepId": "gcon-13", "type": "branch", "bend": -0.08 },
+    { "from": "udp-gal", "to": "glycolipid", "stepId": "gcon-13", "type": "branch" }
+  ],
+  "annotations": [
+    {
+      "x": 40,
+      "y": 640,
+      "text": "供体生成在胞质；糖链装配在 ER / Golgi 腔面，不在胞质完成。",
+      "anchor": "start",
+      "size": 8.6,
+      "tone": "teal"
+    },
+    {
+      "x": 40,
+      "y": 600,
+      "text": "黏蛋白型 O-糖基化以 UDP-GalNAc 起始，不在本图七种供体之列。",
+      "anchor": "start",
+      "size": 8.4,
+      "tone": "brick"
+    },
+    {
+      "x": 640,
+      "y": 668,
+      "text": "O-GlcNAc 可逆：OGT 加、OGA 去。",
+      "anchor": "start",
+      "size": 8.4,
+      "tone": "ink"
+    },
+    {
+      "x": 1036,
+      "y": 698,
+      "text": "Golgi：N-糖链末端加工 / 透明质酸 / 糖脂",
+      "anchor": "start",
+      "size": 8.4,
+      "tone": "teal"
+    }
+  ],
+  "transportSteps": []
+}

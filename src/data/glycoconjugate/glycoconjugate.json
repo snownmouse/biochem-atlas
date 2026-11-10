@@ -1,0 +1,466 @@
+{
+  "id": "glycoconjugate",
+  "name": "糖复合物代谢",
+  "enName": "GLYCOCONJUGATE METABOLISM · NUCLEOTIDE SUGAR DONORS",
+  "plateNo": "PLATE 21",
+  "structureNo": "SF-21",
+  "summary": "本图只做「糖核苷酸供体 → 糖链」这条窄切口：胞质里生成 UDP-Glc、UDP-Gal、UDP-GlcA、UDP-GlcNAc、GDP-Man、GDP-Fuc 与 CMP-唾液酸，再按「供体—转移酶—受体」把糖基交给 N-糖链、O-GlcNAc、糖胺聚糖与糖脂四条去向。不画糖链装配全图。",
+  "heroNote": "糖核苷酸供体支路 · 胞质 / 内质网 / 高尔基体 · 13 步 · 供体—转移酶—受体 · 2D 口径",
+  "legend": [
+    { "text": "主链（供体生成 / 糖基转移）", "kind": "main", "tone": "ink" },
+    { "text": "可逆 / 双向", "kind": "dashed", "tone": "ink" },
+    { "text": "分支 / 旁路", "kind": "dotted", "tone": "brick" },
+    { "text": "跨区室运输", "kind": "dashed", "tone": "teal" },
+    { "text": "① 步骤顺序", "kind": "badge", "tone": "ink" }
+  ],
+  "readingGuide": {
+    "label": "糖复合物代谢导读",
+    "summary": "G6P / F6P → 七种糖核苷酸供体 → N-糖基化 / O-GlcNAc / 糖胺聚糖 / 糖脂",
+    "paragraphs": [
+      "糖复合物不是一条从头到尾的分解链，而是「活化供体 + 转移酶 + 受体」的三元反应网络。本图把范围收窄到供体端：G6P 经 PGM1 与 UGP2 做成 UDP-Glc，再分出 UDP-Gal（GALE）与 UDP-GlcA（UGDH）；F6P 经 GFPT 限速步骤做成 UDP-GlcNAc，经 MPI / PMM2 / GMPPB 做成 GDP-Man，再脱水还原成 GDP-Fuc；UDP-GlcNAc 还经 GNE 与 NANS 做成 Neu5Ac，最后由 CMAS 用 CTP 活化成 CMP-唾液酸。",
+      "七种供体各有去向：UDP-Glc、GDP-Man 与 UDP-GlcNAc 供 N-糖基化核心寡糖在内质网整体转移到 Asn-X-Ser/Thr；高尔基体再用 UDP-GlcNAc、UDP-Gal、GDP-Fuc 与 CMP-唾液酸把核心糖链加工成复杂型；UDP-GlcNAc 还供 OGT 做可逆的 O-GlcNAc 修饰；UDP-GlcA 与 UDP-GlcNAc 交替聚合成透明质酸；UDP-Glc 与 UDP-Gal 依次加到神经酰胺上，进入糖鞘脂支路。",
+      "边界：本图不画糖链逐级装配的全图，也不展开硫酸化、血型抗原与神经节苷脂的每一代结构；黏蛋白型 O-糖基化以 UDP-GalNAc 为起始供体，UDP-GalNAc 不在本图七种供体之列，只在 O-GlcNAc 一步用一句话说明。酶的 EC 编号查不准的写「未核实」，不编子项。"
+    ]
+  },
+  "posterFoot": [
+    "范围：只做「糖核苷酸供体 → 糖链」的窄切口，落在「供体—转移酶—受体」口径；不画糖链装配全图，也不把糖酵解、PPP、FAS 的步骤搬进来。",
+    "供体池：UDP-Glc、UDP-Gal、UDP-GlcA、UDP-GlcNAc、GDP-Man、GDP-Fuc、CMP-唾液酸；UDP-GalNAc 不在本图七种供体之列，黏蛋白型 O-糖基化只一句带过。",
+    "去向：N-糖基化（ER 起始、Golgi 末端加工）、O-GlcNAc（可逆）、糖胺聚糖（透明质酸代表）、糖脂（GlcCer → LacCer 代表）四条支路。",
+    "接口：糖酵解 gk-1（G6P）、PPP ppp-n1（R5P，经 PRPP→UTP 间接供糖核苷酸）、FAS fas-te（棕榈酸供鞘脂酰链）、嘧啶 pyr-9（CTP）。丝氨酸在氨基酸图中没有独立生成步，按「两端都真实存在」的口径不登记 step 接口，只在糖脂一步注明。",
+    "EC：UGP2、GALE、UGDH、GFPT1、GMPPB、GMDS、CMAS、OST、OGT、HAS、UGCG 写编号；GNE、高尔基体加工酶系、B4GALT5/6 等查不准或为多酶体系的写「未核实」，不编子项。",
+    "教材依据：《生物化学与分子生物学》第 9 版 · 糖复合物与糖蛋白相关章节；只写章节名，不标页码、不引真题年份。"
+  ],
+  "transportSteps": [],
+  "interfaces": [
+    {
+      "stepId": "gk-1",
+      "label": "G6P（糖酵解 gk-1 产物）",
+      "note": "本图起点 G6P 接糖酵解 gk-1；G6P → G1P → UDP-Glc 是糖核苷酸供体池的入口，不重复糖酵解步骤。"
+    },
+    {
+      "stepId": "ppp-n1",
+      "label": "R5P（PPP ppp-n1 产物）",
+      "note": "R5P 经 PRPP 进入嘧啶核苷酸合成，生成 UTP / CTP 后再供 UDP-Glc、UDP-GlcNAc 与 CMP-唾液酸；这是上游核糖来源，不直接进入糖链。"
+    },
+    {
+      "stepId": "fas-te",
+      "label": "棕榈酸（FAS fas-te 释放）",
+      "note": "棕榈酸与丝氨酸缩合成鞘脂骨架，进一步生成神经酰胺，供本图糖脂支路的受体；本图不重复 FAS 步骤。"
+    },
+    {
+      "stepId": "pyr-9",
+      "label": "CTP（嘧啶 pyr-9 产物）",
+      "note": "CMAS 用 CTP 把 Neu5Ac 活化成 CMP-唾液酸；UTP 也供 UDP-Glc 与 UDP-GlcNAc 的生成。"
+    }
+  ],
+  "threeD": {
+    "status": "not-built",
+    "note": "本图沿用站内 UTP 口径：全部只做 2D 结构式，不建 3D，也不登记 PDB 候选。"
+  },
+  "entities": [
+    { "id": "g6p", "name": "葡糖-6-磷酸", "abbr": "G6P", "kind": "metabolite", "note": "起点；来自糖酵解 gk-1。" },
+    { "id": "udp-glc", "name": "UDP-葡萄糖", "abbr": "UDP-Glc", "kind": "metabolite", "note": "第一个糖核苷酸供体；糖原合成、N-糖链外圈葡萄糖与糖脂共用。" },
+    { "id": "udp-gal", "name": "UDP-半乳糖", "abbr": "UDP-Gal", "kind": "metabolite", "note": "半乳糖基供体；由 UDP-Glc 经 GALE 差向异构生成。" },
+    { "id": "udp-glca", "name": "UDP-葡糖醛酸", "abbr": "UDP-GlcA", "kind": "metabolite", "note": "葡糖醛酸基供体；糖胺聚糖与糖脂支路使用。" },
+    { "id": "f6p", "name": "果糖-6-磷酸", "abbr": "F6P", "kind": "metabolite", "note": "己糖胺通路与甘露糖通路的起点；来自糖酵解。" },
+    { "id": "udp-glcnac", "name": "UDP-N-乙酰葡糖胺", "abbr": "UDP-GlcNAc", "kind": "metabolite", "note": "N-糖链核心、O-GlcNAc、糖胺聚糖与糖脂共用供体。" },
+    { "id": "gdp-man", "name": "GDP-甘露糖", "abbr": "GDP-Man", "kind": "metabolite", "note": "甘露糖基供体；N-糖链核心与 GDP-Fuc 上游。" },
+    { "id": "gdp-fuc", "name": "GDP-岩藻糖", "abbr": "GDP-Fuc", "kind": "metabolite", "note": "岩藻糖基供体；N-糖链核心岩藻糖与血型抗原。" },
+    { "id": "neu5ac", "name": "N-乙酰神经氨酸", "abbr": "Neu5Ac", "kind": "metabolite", "note": "游离唾液酸；需活化成 CMP-Neu5Ac 才能转移。" },
+    { "id": "cmp-neu5ac", "name": "CMP-N-乙酰神经氨酸", "abbr": "CMP-Neu5Ac", "kind": "metabolite", "note": "唾液酸转移酶的唯一供体；由 CMAS 用 CTP 生成。" },
+    { "id": "nglycan_core", "name": "N-糖链核心寡糖（Glc₃Man₉GlcNAc₂-Asn）", "abbr": "Core N-glycan", "kind": "metabolite", "note": "OST 把 Dol-PP 上的核心寡糖整体转到 Asn-X-Ser/Thr。" },
+    { "id": "nglycan_complex", "name": "复杂型 N-糖链", "abbr": "Complex N-glycan", "kind": "metabolite", "note": "高尔基体逐级加工后的产物；末端可含 GlcNAc / Gal / Fuc / Neu5Ac。" },
+    { "id": "oglycan", "name": "O-GlcNAc 修饰蛋白", "abbr": "O-GlcNAc", "kind": "metabolite", "note": "胞内可逆 O-糖基化；OGT 加、OGA 去。" },
+    { "id": "gag_ha", "name": "透明质酸（糖胺聚糖）", "abbr": "Hyaluronan", "kind": "metabolite", "note": "UDP-GlcA 与 UDP-GlcNAc 交替聚合；不硫酸化。" },
+    { "id": "ceramide", "name": "神经酰胺", "abbr": "Ceramide", "kind": "metabolite", "note": "糖脂支路的受体；鞘氨醇骨架来自丝氨酸与棕榈酰-CoA。" },
+    { "id": "glycolipid", "name": "乳糖神经酰胺（糖脂）", "abbr": "LacCer", "kind": "metabolite", "note": "GlcCer 加半乳糖后的产物；可继续延伸为更复杂糖脂。" }
+  ],
+  "steps": [
+    {
+      "id": "gcon-1",
+      "index": 1,
+      "name": "PGM1 与 UGP2 把 G6P 做成 UDP-Glc",
+      "shortName": "UDP-Glc 生成",
+      "compartment": "cyto",
+      "equation": "G6P → G1P；G1P + UTP → UDP-Glc + PPi",
+      "substrates": ["g6p"],
+      "products": ["udp-glc"],
+      "cofactors": ["UTP", "Mg²⁺"],
+      "enzyme": {
+        "name": "UDP-葡糖焦磷酸化酶",
+        "isozyme": "UGP2",
+        "ec": "2.7.7.9",
+        "note": "G6P 先经磷酸葡糖变位酶 PGM1（EC 5.4.2.2）转成 G1P，本图合并为一步。"
+      },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 糖核苷酸键形成，PPi 水解拉动",
+        "source": "教材章级（糖复合物 · 糖核苷酸供体生成）"
+      },
+      "significance": "把糖酵解的 G6P 转成第一个糖核苷酸供体；UDP-Glc 是糖原合成、N-糖链外圈葡萄糖与糖脂的共用供体。",
+      "note": "G6P 来自糖酵解 gk-1 之后；本图只画供体生成，不重复糖酵解步骤。",
+      "misconceptions": [
+        "把 UDP-Glc 当成糖原合成的直接受体：它是供体，糖原合成还要糖原引物与糖原合酶。",
+        "把 UTP 写成 ATP：这一步用 UTP。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gcon-2",
+      "index": 2,
+      "name": "GALE 把 UDP-Glc 差向异构为 UDP-Gal",
+      "shortName": "UDP-Gal 生成",
+      "compartment": "cyto",
+      "equation": "UDP-Glc ⇌ UDP-Gal",
+      "substrates": ["udp-glc"],
+      "products": ["udp-gal"],
+      "cofactors": [],
+      "enzyme": { "name": "UDP-葡萄糖 4-差向异构酶", "isozyme": "GALE", "ec": "5.1.3.2" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · C4 差向异构，可逆",
+        "source": "教材章级（糖复合物 · 半乳糖供体）"
+      },
+      "significance": "UDP-Gal 是乳糖、糖脂与 N / O-糖链半乳糖基的供体；GALE 也可把 UDP-Gal 转回 UDP-Glc。",
+      "note": "反应只在 C4 位改变构型，不消耗 ATP。",
+      "misconceptions": [
+        "把 UDP-Gal 当成 UDP-Glc 的氧化产物：是差向异构，不是氧化。",
+        "以为半乳糖只能来自饮食：UDP-Glc 可经 GALE 直接供给。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gcon-3",
+      "index": 3,
+      "name": "UGDH 把 UDP-Glc 氧化成 UDP-GlcA",
+      "shortName": "UDP-GlcA 生成",
+      "compartment": "cyto",
+      "equation": "UDP-Glc + 2 NAD⁺ + H₂O → UDP-GlcA + 2 NADH + 2 H⁺",
+      "substrates": ["udp-glc"],
+      "products": ["udp-glca"],
+      "cofactors": ["NAD⁺"],
+      "enzyme": { "name": "UDP-葡萄糖 6-脱氢酶", "isozyme": "UGDH", "ec": "1.1.1.22" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 两步脱氢，方向向葡糖醛酸",
+        "source": "教材章级（糖复合物 · 糖醛酸供体）"
+      },
+      "significance": "UDP-GlcA 是糖胺聚糖与糖脂的供体；肝内同一供体池也用于胆汁酸与胆红素的葡萄糖醛酸结合。",
+      "note": "C6 先氧化成醛再成羧酸；本图合并两步脱氢。",
+      "misconceptions": [
+        "把 UDP-GlcA 当成葡萄糖醛酸本身：它是活化供体。",
+        "以为 UGDH 只在肝：多数组织都有，肝内供结合反应。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gcon-4",
+      "index": 4,
+      "name": "GFPT 限速生成 GlcN6P，再经三步做成 UDP-GlcNAc",
+      "shortName": "UDP-GlcNAc 生成",
+      "compartment": "cyto",
+      "equation": "F6P + 谷氨酰胺 → GlcN6P + 谷氨酸；GlcN6P → … → UDP-GlcNAc",
+      "substrates": ["f6p"],
+      "products": ["udp-glcnac"],
+      "cofactors": ["谷氨酰胺（酰胺氮供体）", "乙酰-CoA", "UTP"],
+      "enzyme": {
+        "name": "谷氨酰胺-果糖-6-磷酸转氨酶",
+        "isozyme": "GFPT1 / GFPT2",
+        "ec": "2.6.1.16",
+        "note": "限速步；后续 PGM3（EC 5.4.2.3）与 UAP1（EC 2.7.7.23）并入本步。"
+      },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 酰胺氮转移与糖核苷酸形成，生理方向向 UDP-GlcNAc",
+        "source": "教材章级（糖复合物 · 己糖胺通路）"
+      },
+      "significance": "UDP-GlcNAc 是 N-糖链核心 GlcNAc、O-GlcNAc、糖胺聚糖与糖脂的共用供体；GFPT 是己糖胺通路的限速步。",
+      "note": "F6P 来自糖酵解；本图不展开己糖胺通路的全部中间物，只保留供体端。",
+      "misconceptions": [
+        "以为 UDP-GlcNAc 只服务 N-糖基化：O-GlcNAc 与糖胺聚糖也用它。",
+        "把 GFPT 当成可逆转氨酶：方向受谷氨酰胺水解拉动。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gcon-5",
+      "index": 5,
+      "name": "MPI、PMM2 与 GMPPB 把 F6P 做成 GDP-Man",
+      "shortName": "GDP-Man 生成",
+      "compartment": "cyto",
+      "equation": "F6P ⇌ Man6P ⇌ Man1P；Man1P + GTP → GDP-Man + PPi",
+      "substrates": ["f6p"],
+      "products": ["gdp-man"],
+      "cofactors": ["GTP", "Mg²⁺"],
+      "enzyme": {
+        "name": "GDP-甘露糖焦磷酸化酶",
+        "isozyme": "GMPPB",
+        "ec": "2.7.7.22",
+        "note": "上游 MPI（EC 5.3.1.8）与 PMM2（EC 5.4.2.8）并入本步。"
+      },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "近平衡 · 异构与变位可逆，焦磷酸化拉动",
+        "source": "教材章级（糖复合物 · 甘露糖供体）"
+      },
+      "significance": "GDP-Man 是 N-糖链甘露糖与糖基磷脂酰肌醇锚的供体，也是 GDP-Fuc 的上游。",
+      "note": "外源甘露糖可经己糖激酶进入；本图只画从 F6P 的内源路线。",
+      "misconceptions": [
+        "把 GDP-Man 与 GDP-Fuc 当成同一供体：Fuc 还要脱水与差向异构。",
+        "以为甘露糖只来自饮食：F6P 可异构生成。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gcon-6",
+      "index": 6,
+      "name": "GMDS 与 TSTA3 把 GDP-Man 转成 GDP-Fuc",
+      "shortName": "GDP-Fuc 生成",
+      "compartment": "cyto",
+      "equation": "GDP-Man → GDP-4-酮-6-脱氧甘露糖 → GDP-Fuc",
+      "substrates": ["gdp-man"],
+      "products": ["gdp-fuc"],
+      "cofactors": ["NADPH（还原步骤）"],
+      "enzyme": {
+        "name": "GDP-甘露糖 4,6-脱水酶",
+        "isozyme": "GMDS",
+        "ec": "4.2.1.47",
+        "note": "随后的 3,5-差向异构-还原由 TSTA3 / FX 催化（EC 1.1.1.271），并入本步。"
+      },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 脱水与还原推动，生理方向向 GDP-Fuc",
+        "source": "教材章级（糖复合物 · 岩藻糖供体）"
+      },
+      "significance": "GDP-Fuc 是岩藻糖基化（N-糖链核心岩藻糖、血型抗原）的唯一供体。",
+      "note": "两步合并：先脱水成 4-酮-6-脱氧甘露糖，再由 TSTA3 差向异构并还原。",
+      "misconceptions": [
+        "把 GDP-Fuc 当成 GDP-Man 的简单差向异构体：还发生了脱水与还原。",
+        "以为岩藻糖来自游离岩藻糖：人体主要经 GDP-Man 转化。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gcon-7",
+      "index": 7,
+      "name": "GNE 限速把 UDP-GlcNAc 转成 ManNAc，再生成 Neu5Ac",
+      "shortName": "唾液酸（Neu5Ac）生成",
+      "compartment": "cyto",
+      "equation": "UDP-GlcNAc → ManNAc → Neu5Ac",
+      "substrates": ["udp-glcnac"],
+      "products": ["neu5ac"],
+      "cofactors": ["PEP（磷酸烯醇式丙酮酸）"],
+      "enzyme": {
+        "name": "UDP-N-乙酰葡糖胺 2-差向异构酶 / ManNAc 激酶",
+        "isozyme": "GNE",
+        "ec": "未核实",
+        "note": "GNE 为双功能酶；Neu5Ac 合酶 NANS 并入本步。EC 编号未逐条核实，按站内口径写「未核实」。"
+      },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 限速步，方向向 Neu5Ac",
+        "source": "教材章级（糖复合物 · 唾液酸合成）"
+      },
+      "significance": "唾液酸是糖蛋白与糖脂末端常见修饰，参与识别与清除；GNE 是唾液酸合成的限速步。",
+      "note": "PEP 与 ManNAc 缩合生成 Neu5Ac；本图不展开胞质与核内的转运。",
+      "misconceptions": [
+        "把唾液酸当成一种糖核苷酸：游离 Neu5Ac 还要活化成 CMP-Neu5Ac。",
+        "以为 GNE 只做差向异构：它还有 ManNAc 激酶活性。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gcon-8",
+      "index": 8,
+      "name": "CMAS 用 CTP 把 Neu5Ac 活化成 CMP-唾液酸",
+      "shortName": "CMP-Neu5Ac 生成",
+      "compartment": "cyto",
+      "equation": "Neu5Ac + CTP → CMP-Neu5Ac + PPi",
+      "substrates": ["neu5ac"],
+      "products": ["cmp-neu5ac"],
+      "cofactors": ["CTP", "Mg²⁺"],
+      "enzyme": { "name": "CMP-唾液酸合酶", "isozyme": "CMAS", "ec": "2.7.7.43" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 磷酸酐键形成，PPi 水解拉动",
+        "source": "教材章级（糖复合物 · 唾液酸活化）"
+      },
+      "significance": "CMP-Neu5Ac 是唾液酸转移酶的唯一供体；CTP 来自嘧啶核苷酸合成。",
+      "note": "CMP-Neu5Ac 在核内生成后进入高尔基体，由 SLC35A1 转运；本图不展开转运蛋白。",
+      "misconceptions": [
+        "把 CTP 当成 ATP：这一步用 CTP。",
+        "以为 CMP-Neu5Ac 可直接加到糖链：还要唾液酸转移酶。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gcon-9",
+      "index": 9,
+      "name": "OST 在内质网把核心寡糖整体转到 Asn-X-Ser/Thr",
+      "shortName": "N-糖基化起始",
+      "compartment": "er",
+      "equation": "Glc₃Man₉GlcNAc₂-PP-Dol + 蛋白-Asn → Glc₃Man₉GlcNAc₂-Asn + PP-Dol",
+      "substrates": ["udp-glcnac", "gdp-man", "udp-glc"],
+      "products": ["nglycan_core"],
+      "cofactors": ["dolichol phosphate（脂载体）"],
+      "enzyme": { "name": "寡糖基转移酶复合体", "isozyme": "OST", "ec": "2.4.1.119" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 糖链整体转移，生理不可逆",
+        "source": "教材章级（糖复合物 · N-糖基化）"
+      },
+      "significance": "N-糖基化的起点：核心寡糖在 ER 膜上以 Dol-PP 为载体装配，再整体转到 Asn-X-Ser/Thr 的 Asn。",
+      "note": "核心寡糖的 GlcNAc 来自 UDP-GlcNAc、甘露糖来自 GDP-Man、外圈葡萄糖来自 UDP-Glc；三种供体都在胞质一侧活化。",
+      "misconceptions": [
+        "以为 N-糖链逐个糖基从胞质加到蛋白：先在 Dol-PP 上装好再整体转移。",
+        "把 N-糖基化写成高尔基体事件：起始在内质网。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gcon-10",
+      "index": 10,
+      "name": "高尔基体加工酶系把核心 N-糖链改成复杂型",
+      "shortName": "N-糖链末端加工",
+      "compartment": "golgi",
+      "equation": "Glc₃Man₉GlcNAc₂-Asn → 复杂型 N-糖链-Asn（逐级加 GlcNAc / Gal / Fuc / Neu5Ac）",
+      "substrates": ["nglycan_core", "udp-glcnac", "udp-gal", "gdp-fuc", "cmp-neu5ac"],
+      "products": ["nglycan_complex"],
+      "cofactors": ["Mn²⁺（部分糖基转移酶）"],
+      "enzyme": {
+        "name": "高尔基体 N-糖链加工酶系",
+        "isozyme": "MGAT1 / B4GALT1 / FUT8 / ST6GAL1 等",
+        "ec": "未核实",
+        "note": "多酶顺序加工，不合并成单一 EC；本图不逐条核实每个转移酶的 EC。"
+      },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 顺序糖基转移，方向向复杂型",
+        "source": "教材章级（糖复合物 · N-糖链加工）"
+      },
+      "significance": "把 ER 的核心寡糖修剪后逐级加上 GlcNAc、Gal、Fuc 与唾液酸，形成复杂型 N-糖链；供体分别是 UDP-GlcNAc、UDP-Gal、GDP-Fuc、CMP-Neu5Ac。",
+      "note": "加工顺序与分支随细胞类型变化，本图只画主干，不展开每一代糖链。",
+      "misconceptions": [
+        "以为所有 N-糖链都走到复杂型：还有高甘露糖型与杂合型。",
+        "把末端唾液酸写成 N-糖链必需：不是每条链都加。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gcon-11",
+      "index": 11,
+      "name": "OGT 用 UDP-GlcNAc 修饰 Ser/Thr（O-GlcNAc）",
+      "shortName": "O-GlcNAc 修饰",
+      "compartment": "cyto",
+      "equation": "蛋白-Ser/Thr + UDP-GlcNAc → 蛋白-Ser/Thr-O-GlcNAc + UDP",
+      "substrates": ["udp-glcnac"],
+      "products": ["oglycan"],
+      "cofactors": [],
+      "enzyme": { "name": "O-GlcNAc 转移酶", "isozyme": "OGT", "ec": "2.4.1.255" },
+      "irreversible": false,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "动态修饰 · OGT 加、OGA 去，方向随底物与酶活",
+        "source": "教材章级（糖复合物 · O-糖基化）"
+      },
+      "significance": "O-GlcNAc 是可逆的胞内 O-糖基化，与磷酸化竞争同一 Ser/Thr；本图只把它作为 O-糖基化的一种窄切口。",
+      "note": "经典黏蛋白型 O-糖基化以 UDP-GalNAc 为起始供体；UDP-GalNAc 不在本图七种供体之列，故只一句说明，不展开。",
+      "misconceptions": [
+        "把 O-GlcNAc 当成高尔基体分泌型 O-糖链：它在胞质 / 核内，可逆。",
+        "以为 O-糖基化只有一种：黏蛋白型与 O-GlcNAc 的供体与定位不同。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gcon-12",
+      "index": 12,
+      "name": "HAS 用 UDP-GlcA 与 UDP-GlcNAc 交替聚合透明质酸",
+      "shortName": "糖胺聚糖合成",
+      "compartment": "golgi",
+      "equation": "UDP-GlcA + UDP-GlcNAc → (GlcA-GlcNAc)ₙ + 2n UDP",
+      "substrates": ["udp-glca", "udp-glcnac"],
+      "products": ["gag_ha"],
+      "cofactors": [],
+      "enzyme": { "name": "透明质酸合酶", "isozyme": "HAS1 / HAS2 / HAS3", "ec": "2.4.1.212" },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 交替糖基转移，方向向聚合物",
+        "source": "教材章级（糖复合物 · 糖胺聚糖）"
+      },
+      "significance": "透明质酸是糖胺聚糖支路的代表：UDP-GlcA 与 UDP-GlcNAc 交替加到链末端；硫酸软骨素 / 肝素还需硫酸化与差向异构，本图不展开。",
+      "note": "透明质酸不硫酸化；硫酸化 GAG 在高尔基体经 PAPS 供硫酸基，本图只一句带过。",
+      "misconceptions": [
+        "把透明质酸当成蛋白聚糖：它不与核心蛋白共价连接。",
+        "以为所有 GAG 都不硫酸化：透明质酸是例外。"
+      ],
+      "clinical": []
+    },
+    {
+      "id": "gcon-13",
+      "index": 13,
+      "name": "UGCG 与 B4GALT 把 UDP-Glc / UDP-Gal 加到神经酰胺上",
+      "shortName": "糖脂（糖鞘脂）合成",
+      "compartment": "golgi",
+      "equation": "神经酰胺 + UDP-Glc → GlcCer；GlcCer + UDP-Gal → LacCer",
+      "substrates": ["ceramide", "udp-glc", "udp-gal"],
+      "products": ["glycolipid"],
+      "cofactors": [],
+      "enzyme": {
+        "name": "UDP-葡萄糖:神经酰胺葡萄糖基转移酶",
+        "isozyme": "UGCG",
+        "ec": "2.4.1.80",
+        "note": "第二步乳糖神经酰胺由 B4GALT5/6 催化，EC 未核实。"
+      },
+      "irreversible": true,
+      "deltaG": {
+        "standard": null,
+        "physiological": null,
+        "unit": "kJ/mol",
+        "qualitative": "放能 · 糖基转移，方向向糖鞘脂",
+        "source": "教材章级（糖复合物 · 糖脂）"
+      },
+      "significance": "糖脂支路的入口：神经酰胺接受 UDP-Glc 生成 GlcCer，再加 UDP-Gal 生成 LacCer；后续可延伸血型糖脂与神经节苷脂。",
+      "note": "神经酰胺的鞘氨醇骨架来自丝氨酸与棕榈酰-CoA；棕榈酰链接 FAS fas-te，丝氨酸在氨基酸图中没有独立生成步，故不登记 step 接口。",
+      "misconceptions": [
+        "把 GlcCer 当成终产物：它还可加 Gal、Neu5Ac 等延伸。",
+        "以为糖脂的糖链在胞质组装：糖基化在高尔基体腔面。"
+      ],
+      "clinical": []
+    }
+  ]
+}
