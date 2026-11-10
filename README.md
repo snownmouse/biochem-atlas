@@ -6,11 +6,11 @@
 
 ## 当前进度
 
-全站共 18 条通路（PLATE 00–18；PLATE 00 为首页总图）。
+全站共 23 张挂图（PLATE 00–22）：PLATE 00 为首页总图，PLATE 01–22 为 22 张通路挂图（PLATE 07 为 Cori 循环）。
 
 | 编号 | 内容 | 状态 |
 | --- | --- | --- |
-| PLATE 00 | 首页总图（上下两域 · 代谢脊柱，十八条通路标题块） | 已完成 |
+| PLATE 00 | 首页总图（上下两域 · 代谢脊柱，二十二条通路标题块） | 已完成 |
 | PLATE 01 | 糖酵解（10 步，肝 / 肌 / 红细胞三张 SVG） | 已完成 |
 | PLATE 02 | 三羧酸循环（8 步闭环 + PDH 接驳步） | 已完成 |
 | PLATE 03 | 糖异生（11 步，三次跨膜） | 已完成 |
@@ -29,8 +29,12 @@
 | PLATE 16 | 嘌呤核苷酸代谢（胞质 15 步，IMP 分叉 AMP / GMP，只做 2D） | 已完成 |
 | PLATE 17 | 甘油磷脂与鞘脂代谢（内质网 14 + 高尔基体 1，只做 2D） | 已完成 |
 | PLATE 18 | 血浆脂蛋白代谢（4 器官列 + 血浆带，11 段器官间物流，只做 2D） | 已完成 |
+| PLATE 19 | 血红素代谢（合成 8 步 + 降解 2 步，线粒体起始 / 胞质中段 / 线粒体末端 / 内质网，只做 2D） | 已完成 |
+| PLATE 20 | 胆汁酸代谢（6 步 + 1 段肠肝循环，内质网 / 线粒体 / 过氧化物酶体，只做 2D） | 已完成 |
+| PLATE 21 | 糖复合物代谢（13 步，糖核苷酸供体 → 糖链，胞质 / 内质网 / 高尔基体，只做 2D） | 已完成 |
+| PLATE 22 | 氧化还原与自由基（6 步，NADPH–GSH 抗氧化网与 ROS 主干；防御网络，非经典代谢通路，只做 2D） | 已完成 |
 
-结构对照页共 **145 块**（每块 = 一步的底物 / 产物分子对照；SF-07 的 9 块复用糖酵解 / 糖异生既有块，不重复计数）：
+结构对照页共 **180 块**（每块 = 一步的底物 / 产物分子对照；SF-07 的 9 块复用糖酵解 / 糖异生既有块，不重复计数）：
 
 | 结构页编号 | 通路 | 块数 |
 | --- | --- | --- |
@@ -52,10 +56,14 @@
 | SF-16 | 嘌呤核苷酸代谢 | 15 |
 | SF-17 | 甘油磷脂与鞘脂代谢 | 15 |
 | SF-18 | 血浆脂蛋白代谢 | 11（颗粒组成对照，不是分子结构对照） |
+| SF-19 | 血红素代谢 | 10 |
+| SF-20 | 胆汁酸代谢 | 6 |
+| SF-21 | 糖复合物代谢 | 13 |
+| SF-22 | 氧化还原与自由基 | 6 |
 
 `SF` 编号与 `PLATE` 编号一一对应（SF-07 即 PLATE 07），因此编号不会因为新增通路而重排。
 
-结构页现状：**18 页全部已建**（SF-01–18）；SF-07 的 Cori 页复用糖酵解 / 糖异生既有对照块（9 块），不新建分子或 3D。SF-13–18 按同一口径只做 2D，不建 3D、不登记 PDB 候选；SF-18 以脂蛋白颗粒组成作对照，不画单一分子结构。
+结构页现状：**22 页全部已建**（SF-01–22）；SF-07 的 Cori 页复用糖酵解 / 糖异生既有对照块（9 块），不新建分子或 3D。SF-13–22 按同一口径只做 2D，不建 3D、不登记 PDB 候选；SF-18 以脂蛋白颗粒组成作对照，不画单一分子结构。
 
 ## 技术栈
 
@@ -76,7 +84,7 @@ src/
     <pathway>/           多数通路：xxx.json + skeleton.json + types.ts
     glycolysis.json      糖酵解数据（与 skeleton.json 同在 data 根）
     tca.json             TCA 数据（skeleton-tca.json 同在 data 根）
-    comparisonConfig.ts  145 块结构对照配置（分子、标注、来源说明、默认模式判据）
+    comparisonConfig.ts  180 块结构对照配置（分子、标注、来源说明、默认模式判据）
     evidenceGrade.ts     证据等级的唯一推导处
     homeMap.ts           首页节点 / 连线 / 交汇点的数据推导
     homeLayout.ts        首页版面坐标与分域、预留槽
@@ -114,7 +122,7 @@ npm run preview   # 预览构建产物（默认 http://localhost:4173）
 
 两类脚本，全部是独立可执行文件，不挂在 `npm run build` 里。
 
-### 冒烟（28 个 `tools/smoke-*.mjs`）
+### 冒烟（30 个 `tools/smoke-*.mjs`）
 
 用 `playwright-core` 驱动本机 Edge / Chrome 做真实浏览器断言。运行前先 `npm run build` 并 `npm run preview`，默认连 `http://localhost:4173`（可用环境变量 `BASE_URL` 改）。
 
@@ -147,12 +155,16 @@ node tools/smoke-cori.mjs        # Cori 循环挂图
 | `smoke-purine` | 嘌呤核苷酸挂图（IMP 分叉、2 接口）+ SF-16 结构对照页 |
 | `smoke-glycerophospholipid` | 甘油磷脂 / 鞘脂挂图（内质网 / 高尔基体、3 接口）+ SF-17 结构对照页 |
 | `smoke-lipoprotein` | 血浆脂蛋白挂图（器官物流版式、颗粒账本）+ SF-18 颗粒组成对照页 |
+| `smoke-heme` | 血红素代谢挂图（四区室、10 步、2 接口与 2D-only）+ SF-19 结构对照页 |
+| `smoke-bile` | 胆汁酸代谢挂图（四区室、6 步 + 肠肝循环运输段、2 接口）+ SF-20 结构对照页 |
+| `smoke-glycoconjugate` | 糖复合物代谢挂图（三区室、13 步、7 种糖核苷酸供体、4 接口、2D-only）+ SF-21 结构对照页 |
+| `smoke-redox` | 氧化还原与自由基挂图（两区室、6 步、防御网络声明、2 接口、2D-only）+ SF-22 结构对照页 |
 | `smoke-evidence` | 证据分级（糖酵解 / TCA / PPP / 糖异生四通路） |
 | `smoke-atom-colors` | 全站原子配色一致性 |
 | `smoke-molecule-profiles` | `/molecule/:id` 与 `/substances` 条目完整度 |
 | `smoke-layout` | 全站版式红线（消费 `tools/audit-layout.mjs` 的报告，需先跑 `node tools/audit-layout.mjs --tag after`） |
 
-### 数据校验（20 个 `tools/validate-*.mjs`）
+### 数据校验（22 个 `tools/validate-*.mjs`）
 
 纯 Node，不需要预览服务，非零退出即失败。多数脚本内置「负例自检」——故意改错一处，确认校验器真的会报错。
 
@@ -181,6 +193,10 @@ node tools/validate-urea.mjs
 | `validate-purine` | 嘌呤核苷酸数据层（PLATE 16 / SF-16），12 条负例 |
 | `validate-glycerophospholipid` | 甘油磷脂 / 鞘脂数据层（PLATE 17 / SF-17），15 条负例 |
 | `validate-lipoprotein` | 血浆脂蛋白数据层（PLATE 18 / SF-18）：器官物流、颗粒账本、2D-only，16 条负例 |
+| `validate-heme` | 血红素代谢数据层（PLATE 19 / SF-19）：10 步 / 4 区室 / 2 接口 / 2D-only，13 条负例 |
+| `validate-bile` | 胆汁酸数据层（PLATE 20 / SF-20）：6 步 + 1 段运输 / 2 接口 / 2D-only，13 条负例 |
+| `validate-glycoconjugate` | 糖复合物数据层（PLATE 21 / SF-21）：13 步 / 3 区室 / 7 种供体 / 4 接口 / 2D-only，15 条负例 |
+| `validate-redox` | 氧化还原数据层（PLATE 22 / SF-22）：6 步上限 / 防御网络声明 / 2 接口 / 2D-only，15 条负例 |
 | `validate-molecule-notes` | 分子档案 note 完整度 |
 | `validate-substances` | `/substances` 条目字段完整度与链路可达 |
 
